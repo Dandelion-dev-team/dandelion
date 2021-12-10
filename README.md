@@ -1,2 +1,4 @@
-# dandelion
-Data collection and visualisation platform for schools
+# Dandelion
+
+### Data collection and visualisation platform for schools
+
