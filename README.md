@@ -16,4 +16,4 @@ The top-level directories in the source correspond to the three main elements of
 * **Flask**: back-end Flask application that implements the REST API and manages access to data
 * **React**: front-end React application that provides the user interface for all users
 * **Node**: firmware for the IoT node installed in the GrowCubes
-* 
+
