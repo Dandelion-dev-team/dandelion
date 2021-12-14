@@ -7,7 +7,7 @@ provide some notes on how to use it.
 
 The ER diagram is produced using ]diagrams.net](https://www.diagrams.net/).
 It can be viewed and edited either with the online version or the desktop app.
-To load the diagram, h=just follow the instructions when the app starts. Changes
+To load the diagram, just follow the instructions when the app starts. Changes
 are automatically saved as you go along.
 
 For notes on ER diagram style, please see the notes [here](https://bdavison.napier.ac.uk/db/Practicals/Drawio/erd/)
