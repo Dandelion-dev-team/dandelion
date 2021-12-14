@@ -19,8 +19,8 @@ which also cover the general use of the diagrams.net tool.
 ## API spec
 
 The API spec is produced using the [Swagger editor](https://editor.swagger.io).
-The file `openapi.yaml` is in [YAML](https://www.cloudbees.com/blog/yaml-tutorial-everything-you-need-get-started).
+The file `openapi.yaml` is in [YAML](https://www.cloudbees.com/blog/yaml-tutorial-everything-you-need-get-started) format.
 To load the data, open the editor and choose *Import file* from the *File* menu
-as shown below. The name of the file
+as shown below.
 
 ![Loading API definition](images/swagger.png)
