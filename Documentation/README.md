@@ -5,7 +5,7 @@ provide some notes on how to use it.
 
 ## ER diagram
 
-The ER diagram is produced using ]diagrams.net](https://www.diagrams.net/).
+The ER diagram is produced using [diagrams.net](https://www.diagrams.net/).
 It can be viewed and edited either with the online version or the desktop app.
 To load the diagram, just follow the instructions when the app starts. Changes
 are automatically saved as you go along.
