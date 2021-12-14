@@ -1,0 +1,3389 @@
+openapi: 3.0.1
+info:
+  title: Dandelion data collection platform
+  description: 'This is the main API for the Dandelion app. It defines the communications between the back-end Flask application, the front-end React application, and the IoT node.  You can find out more about     Swagger
+    at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/). '
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: b.davison@napier.ac.uk
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+- url: https://dandelion.sruc.ac.uk/
+- url: http://dandelion.sruc.ac.uk/
+tags:
+- name: school
+  description: Schools actions
+  externalDocs:
+    description: Find out more
+    url: https://github.com/Dandelion-dev-team/dandelion
+- name: authority
+  description: Authority actions
+- name: user
+  description: User operations
+- name: project
+  description: Project operations
+- name: experiment
+  description: Experiment operations
+- name: report
+  description: Report operations
+- name: tagReference
+  description: TagReference operations
+- name: node
+  description: Node operations
+- name: sensor
+  description: Sensor operations
+- name: quantity
+  description: Quantity operations
+- name: observation
+  description: Observation operations
+- name: history
+  description: History operations
+  
+paths:
+  /authority:
+    put:
+      tags:
+      - authority
+      summary: Update an existing authority
+      operationId: updateAuthority
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Authority'
+        required: true
+      responses:
+        200:
+          description: Authority updated
+          content: {}
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Authority not found
+          content: {}
+        405:
+          description: Validation error
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+    post:
+      tags:
+      - authority
+      summary: Add a new authority to the platform
+      operationId: addAuthority
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Authority'
+        required: true
+      responses:
+        200:
+          description: Authority saved
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                confirmation-success:
+                  value: {"message": "Project saved", "data": "{'authority_id': 456}"}
+        405:
+          description: Invalid input
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+  /authority/{authorityId}:
+    get:
+      tags:
+      - authority
+      summary: Find authority by ID
+      description: Returns a single authority
+      operationId: getAuthorityById
+      parameters:
+      - name: authorityId
+        in: path
+        description: ID of authority to return
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Authority'
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Authority not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+    delete:
+      tags:
+      - authority
+      summary: Deletes a authority
+      operationId: deleteAuthority
+      parameters:
+      - name: api_key
+        in: header
+        schema:
+          type: string
+      - name: authorityId
+        in: path
+        description: Authority id to delete
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Authority not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+  /condition:
+    put:
+      tags:
+      - condition
+      summary: Update an existing condition
+      operationId: updateCondition
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Condition'
+        required: true
+      responses:
+        200:
+          description: Condition updated
+          content: {}
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Condition not found
+          content: {}
+        405:
+          description: Validation error
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+    post:
+      tags:
+      - condition
+      summary: Add a new condition to an experiment
+      operationId: addCondition
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Condition'
+        required: true
+      responses:
+        200:
+          description: Condition saved
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                confirmation-success:
+                  value: {"message": "Project saved", "data": "{'condition_id': 456}"}
+        405:
+          description: Invalid input
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+  /condition/{conditionId}:
+    get:
+      tags:
+      - condition
+      summary: Find condition by ID
+      description: Returns a single condition
+      operationId: getConditionById
+      parameters:
+      - name: conditionId
+        in: path
+        description: ID of condition to return
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Condition'
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Condition not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+    delete:
+      tags:
+      - condition
+      summary: Deletes a condition
+      operationId: deleteCondition
+      parameters:
+      - name: api_key
+        in: header
+        schema:
+          type: string
+      - name: conditionId
+        in: path
+        description: Condition id to delete
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Condition not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+  /experiment:
+    put:
+      tags:
+      - experiment
+      summary: Update an existing experiment
+      operationId: updateExperiment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Experiment'
+        required: true
+      responses:
+        200:
+          description: Experiment updated
+          content: {}
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Experiment not found
+          content: {}
+        405:
+          description: Validation error
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+    post:
+      tags:
+      - experiment
+      summary: Add a new experiment to a project
+      operationId: addExperiment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Experiment'
+        required: true
+      responses:
+        200:
+          description: Experiment saved
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                confirmation-success:
+                  value: {"message": "Project saved", "data": "{'experiment_id': 456}"}
+        405:
+          description: Invalid input
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+  /experiment/{experimentId}:
+    get:
+      tags:
+      - experiment
+      summary: Find experiment by ID
+      description: Returns a single experiment
+      operationId: getExperimentById
+      parameters:
+      - name: experimentId
+        in: path
+        description: ID of experiment to return
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Experiment'
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Experiment not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+    delete:
+      tags:
+      - experiment
+      summary: Deletes a experiment
+      operationId: deleteExperiment
+      parameters:
+      - name: api_key
+        in: header
+        schema:
+          type: string
+      - name: experimentId
+        in: path
+        description: Experiment id to delete
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Experiment not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+  /experiment/{experimentId}/uploadImage:
+    post:
+      tags:
+      - experiment
+      summary: uploads an image
+      operationId: uploadExperimentFile
+      parameters:
+      - name: experimentId
+        in: path
+        description: ID of experiment to update
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              properties:
+                additionalMetadata:
+                  type: string
+                  description: Additional data to pass to server
+                file:
+                  type: string
+                  description: file to upload
+                  format: binary
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /experiment/findByTags:
+    get:
+      tags:
+      - experiment
+      summary: Finds experiments by tags
+      description: Muliple tags can be provided with comma separated strings.
+      operationId: findExperimentsByTags
+      parameters:
+      - name: tags
+        in: query
+        description: Tags to filter by
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProjectSummary'
+        400:
+          description: Invalid tag value
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+  /hypothesis:
+    put:
+      tags:
+      - hypothesis
+      summary: Update an existing hypothesis
+      operationId: updateHypothesis
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Hypothesis'
+        required: true
+      responses:
+        200:
+          description: Hypothesis updated
+          content: {}
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Hypothesis not found
+          content: {}
+        405:
+          description: Validation error
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+    post:
+      tags:
+      - hypothesis
+      summary: Add a new hypothesis to an experiment
+      operationId: addHypothesis
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Hypothesis'
+        required: true
+      responses:
+        200:
+          description: Hypothesis saved
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                confirmation-success:
+                  value: {"message": "Project saved", "data": "{'hypothesis_id': 456}"}
+        405:
+          description: Invalid input
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+  /hypothesis/{hypothesisId}:
+    get:
+      tags:
+      - hypothesis
+      summary: Find hypothesis by ID
+      description: Returns a single hypothesis
+      operationId: getHypothesisById
+      parameters:
+      - name: hypothesisId
+        in: path
+        description: ID of hypothesis to return
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hypothesis'
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Hypothesis not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+    delete:
+      tags:
+      - hypothesis
+      summary: Deletes a hypothesis
+      operationId: deleteHypothesis
+      parameters:
+      - name: api_key
+        in: header
+        schema:
+          type: string
+      - name: hypothesisId
+        in: path
+        description: Hypothesis id to delete
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Hypothesis not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+  /history:
+    put:
+      tags:
+      - history
+      summary: Update an existing history record
+      operationId: updateHistory
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/History'
+        required: true
+      responses:
+        200:
+          description: History updated
+          content: {}
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: History not found
+          content: {}
+        405:
+          description: Validation error
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+    post:
+      tags:
+      - history
+      summary: Add a new history record
+      operationId: addHistory
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/History'
+        required: true
+      responses:
+        200:
+          description: History saved
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                confirmation-success:
+                  value: {"message": "Project saved", "data": "{'history_id': 456}"}
+        405:
+          description: Invalid input
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+  /history/{historyId}:
+    get:
+      tags:
+      - history
+      summary: Find history by ID
+      description: Returns a single history
+      operationId: getHistoryById
+      parameters:
+      - name: historyId
+        in: path
+        description: ID of history record to return
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/History'
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: History not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+    delete:
+      tags:
+      - history
+      summary: Deletes a history r3cord
+      operationId: deleteHistory
+      parameters:
+      - name: api_key
+        in: header
+        schema:
+          type: string
+      - name: historyId
+        in: path
+        description: History id to delete
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: History not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+  /node:
+    put:
+      tags:
+      - node
+      summary: Update an existing node
+      operationId: updateNode
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Node'
+        required: true
+      responses:
+        200:
+          description: Node updated
+          content: {}
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Node not found
+          content: {}
+        405:
+          description: Validation error
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+    post:
+      tags:
+      - node
+      summary: Add a new node to the platform
+      operationId: addNode
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Node'
+        required: true
+      responses:
+        200:
+          description: Node saved
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                confirmation-success:
+                  value: {"message": "Project saved", "data": "{'node_id': 456}"}
+        405:
+          description: Invalid input
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+  /node/{nodeId}:
+    get:
+      tags:
+      - node
+      summary: Find node by ID
+      description: Returns a single node
+      operationId: getNodeById
+      parameters:
+      - name: nodeId
+        in: path
+        description: ID of node to return
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Node'
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Node not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+    delete:
+      tags:
+      - node
+      summary: Deletes a node
+      operationId: deleteNode
+      parameters:
+      - name: api_key
+        in: header
+        schema:
+          type: string
+      - name: nodeId
+        in: path
+        description: Node id to delete
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Node not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+  /alert:
+    put:
+      tags:
+      - nodeAlert
+      summary: Update an existing node alert
+      operationId: updateNodeAlert
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NodeAlert'
+        required: true
+      responses:
+        200:
+          description: Node alert updated
+          content: {}
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Node alert not found
+          content: {}
+        405:
+          description: Validation error
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+    post:
+      tags:
+      - nodeAlert
+      summary: Add a new node alert
+      operationId: addNodeAlert
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NodeAlert'
+        required: true
+      responses:
+        200:
+          description: Node alert saved
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                confirmation-success:
+                  value: {"message": "Project saved", "data": "{'node_alert_id': 456}"}
+        405:
+          description: Invalid input
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+  /alert/{nodeAlertId}:
+    get:
+      tags:
+      - nodeAlert
+      summary: Find node alert by ID
+      description: Returns a single node alert
+      operationId: getNodeAlertById
+      parameters:
+      - name: nodeAlertId
+        in: path
+        description: ID of node alert to return
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NodeAlert'
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Node alert not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+    delete:
+      tags:
+      - nodeAlert
+      summary: Deletes a node alert
+      operationId: deleteNodeAlert
+      parameters:
+      - name: api_key
+        in: header
+        schema:
+          type: string
+      - name: nodeAlertId
+        in: path
+        description: Node alert id to delete
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Node alert not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+  /nodesensor:
+    put:
+      tags:
+      - nodeSensor
+      summary: Update an existing node sensor
+      operationId: updateNodeSensor
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NodeSensor'
+        required: true
+      responses:
+        200:
+          description: Node sensor updated
+          content: {}
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Node sensor not found
+          content: {}
+        405:
+          description: Validation error
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+    post:
+      tags:
+      - nodeSensor
+      summary: Add a new node sensor
+      operationId: addNodeSensor
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NodeSensor'
+        required: true
+      responses:
+        200:
+          description: Node sensor saved
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                confirmation-success:
+                  value: {"message": "Project saved", "data": "{'node_sensor_id': 456}"}
+        405:
+          description: Invalid input
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+  /nodesensor/{nodeSensorId}:
+    get:
+      tags:
+      - nodeSensor
+      summary: Find node sensor by ID
+      description: Returns a single node sensor
+      operationId: getNodeSensorById
+      parameters:
+      - name: nodeSensorId
+        in: path
+        description: ID of node sensor to return
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NodeSensor'
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Node sensor not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+    delete:
+      tags:
+      - nodeSensor
+      summary: Deletes a node sensor
+      operationId: deleteNodeSensor
+      parameters:
+      - name: api_key
+        in: header
+        schema:
+          type: string
+      - name: nodeSensorId
+        in: path
+        description: Node sensor id to delete
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Node sensor not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+  /observation:
+    put:
+      tags:
+      - observation
+      summary: Update an existing observation
+      operationId: updateObservation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Observation'
+        required: true
+      responses:
+        200:
+          description: Observation updated
+          content: {}
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Observation not found
+          content: {}
+        405:
+          description: Validation error
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+    post:
+      tags:
+      - observation
+      summary: Add a new observation to the platform
+      operationId: addObservation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Observation'
+        required: true
+      responses:
+        200:
+          description: Observation saved
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                confirmation-success:
+                  value: {"message": "Project saved", "data": "{'observation_id': 456}"}
+        405:
+          description: Invalid input
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+  /observation/{observationId}:
+    get:
+      tags:
+      - observation
+      summary: Find observation by ID
+      description: Returns a single observation
+      operationId: getObservationById
+      parameters:
+      - name: observationId
+        in: path
+        description: ID of observation to return
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Observation'
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Observation not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+    delete:
+      tags:
+      - observation
+      summary: Deletes a observation
+      operationId: deleteObservation
+      parameters:
+      - name: api_key
+        in: header
+        schema:
+          type: string
+      - name: observationId
+        in: path
+        description: Observation id to delete
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Observation not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+  /observation/{observationId}/uploadImage:
+    post:
+      tags:
+      - observation
+      summary: uploads an image
+      operationId: uploadObservationFile
+      parameters:
+      - name: observationId
+        in: path
+        description: ID of observation to update
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              properties:
+                additionalMetadata:
+                  type: string
+                  description: Additional data to pass to server
+                file:
+                  type: string
+                  description: file to upload
+                  format: binary
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /project:
+    put:
+      tags:
+      - project
+      summary: Update an existing project
+      operationId: updateProject
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Project'
+        required: true
+      responses:
+        200:
+          description: Project updated
+          content: {}
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Project not found
+          content: {}
+        405:
+          description: Validation error
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+    post:
+      tags:
+      - project
+      summary: Add a new project to the platform
+      operationId: addProject
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Project'
+        required: true
+      responses:
+        200:
+          description: Project saved
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                confirmation-success:
+                  value: {"message": "Project saved", "data": "{'project_id': 456}"}
+        405:
+          description: Invalid input
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+  /project/{projectId}:
+    get:
+      tags:
+      - project
+      summary: Find project by ID
+      description: Returns a single project
+      operationId: getProjectById
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of project to return
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Project not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+    delete:
+      tags:
+      - project
+      summary: Deletes a project
+      operationId: deleteProject
+      parameters:
+      - name: api_key
+        in: header
+        schema:
+          type: string
+      - name: projectId
+        in: path
+        description: Project id to delete
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Project not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+  /project/{projectId}/uploadImage:
+    post:
+      tags:
+      - project
+      summary: uploads an image
+      operationId: uploadProjectFile
+      parameters:
+      - name: projectId
+        in: path
+        description: ID of project to update
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              properties:
+                additionalMetadata:
+                  type: string
+                  description: Additional data to pass to server
+                file:
+                  type: string
+                  description: file to upload
+                  format: binary
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /project/findByTags:
+    get:
+      tags:
+      - project
+      summary: Finds Projects by tags
+      description: Muliple tags can be provided with comma separated strings. Use tag1,
+        tag2, tag3 for testing.
+      operationId: findProjectsByTags
+      parameters:
+      - name: tags
+        in: query
+        description: Tags to filter by
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProjectSummary'
+        400:
+          description: Invalid tag value
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+  /partner:
+    put:
+      tags:
+      - projectPartner
+      summary: Update an existing project partner
+      operationId: updateProjectPartner
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectPartner'
+        required: true
+      responses:
+        200:
+          description: Project partner updated
+          content: {}
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Project partner not found
+          content: {}
+        405:
+          description: Validation error
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+    post:
+      tags:
+      - projectPartner
+      summary: Add a new project partner to the platform
+      operationId: addProjectPartner
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectPartner'
+        required: true
+      responses:
+        200:
+          description: Project partner saved
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                confirmation-success:
+                  value: {"message": "Project partner saved", "data": "{'project_partner_id': 456}"}
+        405:
+          description: Invalid input
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+  /partner/{projectPartnerId}:
+    get:
+      tags:
+      - projectPartner
+      summary: Find project partner by ID
+      description: Returns a single project partner
+      operationId: getProjectPartnerById
+      parameters:
+      - name: projectPartnerId
+        in: path
+        description: ID of project partner to return
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectPartner'
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Project partner not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+    delete:
+      tags:
+      - projectPartner
+      summary: Deletes a project partner
+      operationId: deleteProjectPartner
+      parameters:
+      - name: api_key
+        in: header
+        schema:
+          type: string
+      - name: projectPartnerId
+        in: path
+        description: Project partner id to delete
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Project partner not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+  /participant:
+    put:
+      tags:
+      - projectParticipant
+      summary: Update an existing project participant
+      operationId: updateProjectParticipant
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectParticipant'
+        required: true
+      responses:
+        200:
+          description: Project participant updated
+          content: {}
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Project participant not found
+          content: {}
+        405:
+          description: Validation error
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+    post:
+      tags:
+      - projectParticipant
+      summary: Add a new project participant to the platform
+      operationId: addProjectParticipant
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectParticipant'
+        required: true
+      responses:
+        200:
+          description: Project participant saved
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                confirmation-success:
+                  value: {"message": "Project participant saved", "data": "{'project_partner_id': 456}"}
+        405:
+          description: Invalid input
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+  /participant/{projectParticipantId}:
+    get:
+      tags:
+      - projectParticipant
+      summary: Find project participant by ID
+      description: Returns a single project participant
+      operationId: getProjectParticipantById
+      parameters:
+      - name: projectParticipantId
+        in: path
+        description: ID of project participant to return
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectParticipant'
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Project participant not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+    delete:
+      tags:
+      - projectParticipant
+      summary: Deletes a project participant
+      operationId: deleteProjectParticipant
+      parameters:
+      - name: api_key
+        in: header
+        schema:
+          type: string
+      - name: projectParticipantId
+        in: path
+        description: Project participant id to delete
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Project participant not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+  /quantity:
+    put:
+      tags:
+      - quantity
+      summary: Update an existing quantity
+      operationId: updateQuantity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Quantity'
+        required: true
+      responses:
+        200:
+          description: Quantity updated
+          content: {}
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Quantity not found
+          content: {}
+        405:
+          description: Validation error
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+    post:
+      tags:
+      - quantity
+      summary: Add a new quantity to the platform
+      operationId: addQuantity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Quantity'
+        required: true
+      responses:
+        200:
+          description: Quantity saved
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                confirmation-success:
+                  value: {"message": "Quantity saved", "data": "{'quantity_id': 456}"}
+        405:
+          description: Invalid input
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+  /quantity/{quantityId}:
+    get:
+      tags:
+      - quantity
+      summary: Find quantity by ID
+      description: Returns a single quantity
+      operationId: getQuantityById
+      parameters:
+      - name: quantityId
+        in: path
+        description: ID of quantity to return
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Quantity'
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Quantity not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+    delete:
+      tags:
+      - quantity
+      summary: Deletes a quantity
+      operationId: deleteQuantity
+      parameters:
+      - name: api_key
+        in: header
+        schema:
+          type: string
+      - name: quantityId
+        in: path
+        description: Quantity id to delete
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Quantity not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+  /report:
+    put:
+      tags:
+      - report
+      summary: Update an existing report
+      operationId: updateReport
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Report'
+        required: true
+      responses:
+        200:
+          description: Report updated
+          content: {}
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Report not found
+          content: {}
+        405:
+          description: Validation error
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+    post:
+      tags:
+      - report
+      summary: Add a new report to the platform
+      operationId: addReport
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Report'
+        required: true
+      responses:
+        200:
+          description: Report saved
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                confirmation-success:
+                  value: {"message": "Report saved", "data": "{'report_id': 456}"}
+        405:
+          description: Invalid input
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+  /report/{reportId}:
+    get:
+      tags:
+      - report
+      summary: Find report by ID
+      description: Returns a single report
+      operationId: getReportById
+      parameters:
+      - name: reportId
+        in: path
+        description: ID of report to return
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Report'
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Report not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+    delete:
+      tags:
+      - report
+      summary: Deletes a report
+      operationId: deleteReport
+      parameters:
+      - name: api_key
+        in: header
+        schema:
+          type: string
+      - name: reportId
+        in: path
+        description: Report id to delete
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Report not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+  /report/{reportId}/uploadDocument:
+    post:
+      tags:
+      - report
+      summary: uploads an image
+      operationId: uploadReportFile
+      parameters:
+      - name: reportId
+        in: path
+        description: ID of report to update
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              properties:
+                additionalMetadata:
+                  type: string
+                  description: Additional data to pass to server
+                file:
+                  type: string
+                  description: file to upload
+                  format: binary
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /school:
+    put:
+      tags:
+      - school
+      summary: Update an existing school
+      operationId: updateSchool
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/School'
+        required: true
+      responses:
+        200:
+          description: School updated
+          content: {}
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: School not found
+          content: {}
+        405:
+          description: Validation error
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+    post:
+      tags:
+      - school
+      summary: Add a new school to the platform
+      operationId: addSchool
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/School'
+        required: true
+      responses:
+        200:
+          description: School saved
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                confirmation-success:
+                  value: {"message": "School saved", "data": "{'school_id': 456}"}
+        405:
+          description: Invalid input
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+  /school/{schoolId}:
+    get:
+      tags:
+      - school
+      summary: Find school by ID
+      description: Returns a single school
+      operationId: getSchoolById
+      parameters:
+      - name: schoolId
+        in: path
+        description: ID of school to return
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/School'
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: School not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+    delete:
+      tags:
+      - school
+      summary: Deletes a school
+      operationId: deleteSchool
+      parameters:
+      - name: api_key
+        in: header
+        schema:
+          type: string
+      - name: schoolId
+        in: path
+        description: School id to delete
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content: {}
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: School not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+  /school/{schoolId}/uploadImage:
+    post:
+      tags:
+      - school
+      summary: uploads an image
+      operationId: uploadSchoolFile
+      parameters:
+      - name: schoolId
+        in: path
+        description: ID of school to update
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              properties:
+                additionalMetadata:
+                  type: string
+                  description: Additional data to pass to server
+                file:
+                  type: string
+                  description: file to upload
+                  format: binary
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /sensor:
+    put:
+      tags:
+      - sensor
+      summary: Update an existing sensor
+      operationId: updateSensor
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Sensor'
+        required: true
+      responses:
+        200:
+          description: Sensor updated
+          content: {}
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Sensor not found
+          content: {}
+        405:
+          description: Validation error
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+    post:
+      tags:
+      - sensor
+      summary: Add a new sensor to the platform
+      operationId: addSensor
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Sensor'
+        required: true
+      responses:
+        200:
+          description: Sensor saved
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                confirmation-success:
+                  value: {"message": "Sensor saved", "data": "{'sensor_id': 456}"}
+        405:
+          description: Invalid input
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+  /sensor/{sensorId}:
+    get:
+      tags:
+      - sensor
+      summary: Find sensor by ID
+      description: Returns a single sensor
+      operationId: getSensorById
+      parameters:
+      - name: sensorId
+        in: path
+        description: ID of sensor to return
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sensor'
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Sensor not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+    delete:
+      tags:
+      - sensor
+      summary: Deletes a sensor
+      operationId: deleteSensor
+      parameters:
+      - name: api_key
+        in: header
+        schema:
+          type: string
+      - name: sensorId
+        in: path
+        description: Sensor id to delete
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Sensor not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+  /sensorQuantity:
+    put:
+      tags:
+      - sensorQuantity
+      summary: Update an existing sensor quantity
+      operationId: updateSensorQuantity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SensorQuantity'
+        required: true
+      responses:
+        200:
+          description: Sensor quantity updated
+          content: {}
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Sensor quantity not found
+          content: {}
+        405:
+          description: Validation error
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+    post:
+      tags:
+      - sensorQuantity
+      summary: Add a new sensor quantity to the platform
+      operationId: addSensorQuantity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SensorQuantity'
+        required: true
+      responses:
+        200:
+          description: Sensor quantity saved
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                confirmation-success:
+                  value: {"message": "Sensor quantity saved", "data": "{'sensor_quantity_id': 456}"}
+        405:
+          description: Invalid input
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+  /sensorQuantity/{sensorQuantityId}:
+    get:
+      tags:
+      - sensorQuantity
+      summary: Find sensor by ID
+      description: Returns a single sensor quantity
+      operationId: getSensorQuantityById
+      parameters:
+      - name: sensorQuantityId
+        in: path
+        description: ID of sensor quantity to return
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SensorQuantity'
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Sensor Quantity not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+    delete:
+      tags:
+      - sensorQuantity
+      summary: Deletes a sensor quantity
+      operationId: deleteSensorQuantity
+      parameters:
+      - name: api_key
+        in: header
+        schema:
+          type: string
+      - name: sensorQuantityId
+        in: path
+        description: Sensor quantity id to delete
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Sensor quantity not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+  /tagReference:
+    put:
+      tags:
+      - tagReference
+      summary: Update an existing tag reference
+      operationId: updateTagReference
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagReference'
+        required: true
+      responses:
+        200:
+          description: Tag reference updated
+          content: {}
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Tag reference not found
+          content: {}
+        405:
+          description: Validation error
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+    post:
+      tags:
+      - tagReference
+      summary: Add a new tag reference to the platform
+      operationId: addTagReference
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagReference'
+        required: true
+      responses:
+        200:
+          description: Tag reference saved
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                confirmation-success:
+                  value: {"message": "Tag reference saved", "data": "{'tag_reference_id': 456}"}
+        405:
+          description: Invalid input
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+  /tagReference/{tagReferenceId}:
+    get:
+      tags:
+      - tagReference
+      summary: Find tag reference by ID
+      description: Returns a single tag reference
+      operationId: getTagReferenceById
+      parameters:
+      - name: tagReferenceId
+        in: path
+        description: ID of tag reference to return
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagReference'
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Tag reference not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+    delete:
+      tags:
+      - tagReference
+      summary: Deletes a tag reference
+      operationId: deleteTagReference
+      parameters:
+      - name: api_key
+        in: header
+        schema:
+          type: string
+      - name: tagReferenceId
+        in: path
+        description: Tag reference id to delete
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Tag reference not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+  /tag:
+    put:
+      tags:
+      - tag
+      summary: Update an existing tag
+      operationId: updateTag
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tag'
+        required: true
+      responses:
+        200:
+          description: Tag updated
+          content: {}
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Tag not found
+          content: {}
+        405:
+          description: Validation error
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+    post:
+      tags:
+      - tag
+      summary: Add a new tag to the platform
+      operationId: addTag
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tag'
+        required: true
+      responses:
+        200:
+          description: Tag saved
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                confirmation-success:
+                  value: {"message": "Tag saved", "data": "{'tag_id': 456}"}
+        405:
+          description: Invalid input
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+  /tag/{tagId}:
+    get:
+      tags:
+      - tag
+      summary: Find tag by ID
+      description: Returns a single tag
+      operationId: getTagById
+      parameters:
+      - name: tagId
+        in: path
+        description: ID of tag to return
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Tag not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+    delete:
+      tags:
+      - tag
+      summary: Deletes a tag
+      operationId: deleteTag
+      parameters:
+      - name: api_key
+        in: header
+        schema:
+          type: string
+      - name: tagId
+        in: path
+        description: Tag id to delete
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Tag not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+  /user:
+    post:
+      tags:
+      - user
+      summary: Create user
+      description: This can only be done by a sysadmin or school superuser
+      operationId: createUser
+      requestBody:
+        description: Created user object
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        default:
+          description: successful operation
+          content: {}
+      x-codegen-request-body-name: body
+  /user/login:
+    get:
+      tags:
+      - user
+      summary: Logs user into the system
+      operationId: loginUser
+      parameters:
+      - name: username
+        in: query
+        description: The user name for login
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: query
+        description: The password for login in clear text
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          headers:
+            X-Rate-Limit:
+              description: calls per hour allowed by the user
+              schema:
+                type: integer
+                format: int32
+            X-Expires-After:
+              description: date in UTC when token expires
+              schema:
+                type: string
+                format: date-time
+          content:
+            application/xml:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        400:
+          description: Invalid username/password supplied
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+  /user/logout:
+    get:
+      tags:
+      - user
+      summary: Logs out current logged in user session
+      operationId: logoutUser
+      responses:
+        default:
+          description: successful operation
+          content: {}
+  /user/{username}:
+    get:
+      tags:
+      - user
+      summary: Get user by user name
+      operationId: getUserByName
+      parameters:
+      - name: username
+        in: path
+        description: 'The name that needs to be fetched. Use user1 for testing. '
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        400:
+          description: Invalid username supplied
+          content: {}
+        404:
+          description: User not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+    put:
+      tags:
+      - user
+      summary: Updated user
+      description: This can only be done by the logged in user.
+      operationId: updateUser
+      parameters:
+      - name: username
+        in: path
+        description: name that need to be updated
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Updated user object
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        400:
+          description: Invalid user supplied
+          content: {}
+        404:
+          description: User not found
+          content: {}
+      x-codegen-request-body-name: body
+    delete:
+      tags:
+      - user
+      summary: Delete user
+      description: This can only be done by the logged in user.
+      operationId: deleteUser
+      parameters:
+      - name: username
+        in: path
+        description: The name that needs to be deleted
+        required: true
+        schema:
+          type: string
+      responses:
+        400:
+          description: Invalid username supplied
+          content: {}
+        404:
+          description: User not found
+          content: {}
+  /variable:
+    put:
+      tags:
+      - variable
+      summary: Update an existing variable
+      operationId: updateVariable
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Variable'
+        required: true
+      responses:
+        200:
+          description: Variable updated
+          content: {}
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Variable not found
+          content: {}
+        405:
+          description: Validation error
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+    post:
+      tags:
+      - variable
+      summary: Add a new variable to the platform
+      operationId: addVariable
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Variable'
+        required: true
+      responses:
+        200:
+          description: Variable saved
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                confirmation-success:
+                  value: {"message": "Variable saved", "data": "{'variable_id': 456}"}
+        405:
+          description: Invalid input
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+  /variable/{variableId}:
+    get:
+      tags:
+      - variable
+      summary: Find variable by ID
+      description: Returns a single variable
+      operationId: getVariableById
+      parameters:
+      - name: variableId
+        in: path
+        description: ID of variable to return
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Variable'
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Variable not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+    delete:
+      tags:
+      - variable
+      summary: Deletes a variable
+      operationId: deleteVariable
+      parameters:
+      - name: api_key
+        in: header
+        schema:
+          type: string
+      - name: variableId
+        in: path
+        description: Variable id to delete
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Variable not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+
+components:
+  schemas:
+    AuditedModel:
+      description: Common fileds used for auditing changes
+      type: object
+      properties:
+        created_date:
+          type: string
+          format: date-time
+        created_by:
+          $ref: '#/components/schemas/UserSummary'
+        updated_date:
+          type: string
+          format: date-time
+    AuthoritySummary:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+    Authority:
+      allOf:
+        - $ref: '#/components/schemas/AuditedModel'
+        - $ref: '#/components/schemas/AuthoritySummary'
+        - type: object
+          properties:
+            telephone:
+              type: string
+            email:
+              type: string
+            schools :
+              type: array
+              items:
+                $ref: '#/components/schemas/School'
+    Condition:
+      allOf:
+        - $ref: '#/components/schemas/AuditedModel'
+        - type: object
+          properties:
+            id:
+              type: integer
+              format: int64
+            experiment_id:
+              $ref: '#/components/schemas/Experiment'
+            description:
+              type: string
+            condition_text:
+              type: string
+            status:
+              type: string
+              description: Node sensor status
+              enum:
+              - active
+              - inactive
+            variables:
+              description: Variables in this condition
+              type: array
+              items:
+                $ref: '#/components/schemas/Variable'
+    ExperimentSummary:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+        description:
+          type: string
+        experiment_image_link:
+          type: string
+        experiment_text:
+          type: string
+        start_date:
+          type: string
+          format: date-time
+        end_date:
+          type: string
+          format: date-time
+    Experiment:
+      allOf:
+        - $ref: '#/components/schemas/AuditedModel'
+        - $ref: '#/components/schemas/ExperimentSummary'
+        - type: object
+          properties:
+            project_id:
+              $ref: '#/components/schemas/ProjectSummary'
+            status:
+              type: string
+              description: Project Status
+              enum:
+              - active
+              - inactive
+              - complete
+              - stopped
+              - archived
+            hypotheses:
+              type: array
+              items:
+                $ref: '#/components/schemas/Hypothesis'
+            conditions:
+              type: array
+              items:
+                $ref: '#/components/schemas/Condition'
+            tags:
+              type: array
+              items:
+                $ref: '#/components/schemas/TagSummary'
+            reports:
+              description: Reports related to this experiment
+              type: array
+              items:
+                $ref: '#/components/schemas/Report'
+    Hypothesis:
+      allOf:
+        - $ref: '#/components/schemas/AuditedModel'
+        - type: object
+          properties:
+            id:
+              type: integer
+              format: int64
+            experiment_id:
+              $ref: '#/components/schemas/Experiment'
+            hypothesis_no:
+              type: integer
+              format: int32
+            description:
+              type: string
+            hypothesis_text:
+              type: string
+            status:
+              type: string
+              description: Node sensor status
+              enum:
+              - active
+              - inactive
+    History:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        user_id:
+          $ref: '#/components/schemas/User'
+        created_date:
+          type: string
+          format: date-time
+        table_name:
+          type: string
+        primary_key_value:
+          type: integer
+          format: int64
+        details:
+          description: Details of this history record
+          type: array
+          items:
+            $ref: '#/components/schemas/HistoryDetail'
+    HistoryDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        history_id:
+          $ref: '#/components/schemas/History'
+        column_name:
+          type: string
+        old_value: 
+          type: string
+    Node:
+      allOf:
+        - $ref: '#/components/schemas/AuditedModel'
+        - type: object
+          properties:
+            id:
+              type: integer
+              format: int64
+            school_id:
+              $ref: '#/components/schemas/School'
+            growcube_code:
+              type: string
+            mac_address:
+              type: string
+            last_communication_date:
+              type: string
+              format: date-time
+            next_communication_expected:
+              type: string
+              format: date-time
+            health_status:
+              type: string
+              description: Node health status
+              enum:
+              - green
+              - amber
+              - red
+            status:
+              type: string
+              description: Node status
+              enum:
+              - active
+              - inactive
+            sensors:
+              description: Sensors installed in this node
+              type: array
+              items:
+                $ref: '#/components/schemas/Sensor'
+            alerts:
+              description: Alerts for this node
+              type: array
+              items:
+                $ref: '#/components/schemas/NodeAlert'
+    NodeAlert:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        node_id:
+          $ref: '#/components/schemas/Node'
+        description:
+          type: string
+        created_date:
+          type: string
+          format: date-time
+        updated_date:
+          type: string
+          format: date-time
+        status:
+          type: string
+          description: Node alert status
+          enum:
+          - active
+          - inactive
+    NodeSensor:
+      allOf:
+        - $ref: '#/components/schemas/AuditedModel'
+        - type: object
+          properties:
+            id:
+              type: integer
+              format: int64
+            node_id:
+              $ref: '#/components/schemas/Node'
+            sensor_id:
+              $ref: '#/components/schemas/Sensor'
+            status:
+              type: string
+              description: Node sensor status
+              enum:
+              - active
+              - inactive
+    Observation:
+      allOf:
+        - $ref: '#/components/schemas/AuditedModel'
+        - type: object
+          properties:
+            id:
+              type: integer
+              format: int64
+            variable_id:
+              $ref: '#/components/schemas/Variable'
+            timestamp:
+              type: string
+              format: date-time
+            value:
+              type: number
+              format: double
+            observation_image_link:
+              type: string
+            status:
+              type: string
+              description: Variable status
+              enum:
+              - valid
+              - invalid
+            comment:
+              type: string
+    ProjectSummary:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+        description:
+          type: string
+        project_image_link:
+          type: string
+        project_text:
+          type: string
+        start_date:
+          type: string
+          format: date-time
+        end_date:
+          type: string
+          format: date-time
+    Project:
+      allOf:
+        - $ref: '#/components/schemas/AuditedModel'
+        - $ref: '#/components/schemas/ProjectSummary'
+        - type: object
+          properties:
+            status:
+              type: string
+              description: Project Status
+              enum:
+              - active
+              - inactive
+              - complete
+              - stopped
+              - archived
+            tags:
+              type: array
+              items:
+                $ref: '#/components/schemas/TagSummary'
+            experiments:
+              description: Experiments in this project
+              type: array
+              items:
+                $ref: '#/components/schemas/ExperimentSummary'
+            reports:
+              description: Reports related to this project
+              type: array
+              items:
+                $ref: '#/components/schemas/ReportSummary'
+            partners:
+              description: Partner schools in this project. Only name and is_project_lead are rendered to avoid circularity
+              type: array
+              items:
+                $ref: '#/components/schemas/SchoolSummary'
+    ProjectPartner:
+      allOf:
+        - $ref: '#/components/schemas/AuditedModel'
+        - type: object
+          properties:
+            id:
+              type: integer
+              format: int64
+            school_id:
+              $ref: '#/components/schemas/School'
+            project_id:
+              $ref: '#/components/schemas/Project'
+            is_lead_partner:
+              type: boolean
+              default: false
+            status:
+              type: string
+              description: Project partner status
+              enum:
+              - active
+              - inactive
+              - withdrawn
+    ProjectParticipant:
+      allOf:
+        - $ref: '#/components/schemas/AuditedModel'
+        - type: object
+          properties:
+            id:
+              type: integer
+              format: int64
+            user_id:
+              $ref: '#/components/schemas/User'
+            project_id:
+              $ref: '#/components/schemas/Project'
+            is_lead_participant:
+              type: boolean
+              default: false
+            status:
+              type: string
+              description: Project participant status
+              enum:
+              - active
+              - inactive
+              - withdrawn
+    Quantity:
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        unit:
+          type: string
+        help_url:
+          type: string
+    ReportSummary:
+      type: object
+      properties:
+        report_date:
+          type: string
+          format: date-time
+        title:
+          type: string
+        document_link:
+          type: string
+    Report:
+      allOf:
+        - $ref: '#/components/schemas/AuditedModel'
+        - $ref: '#/components/schemas/ReportSummary'
+        - type: object
+          properties:
+            id:
+              type: integer
+              format: int64
+            parent_id:
+              oneOf:
+                - $ref: '#/components/schemas/Experiment'
+                - $ref: '#/components/schemas/Project'
+              discriminator:
+                propertyName: report_type
+            report_type:
+              type: string
+              description: Report type
+              enum:
+              - project
+              - experiment
+            report_stage:
+              type: string
+              description: Report stage
+              enum:
+              - initial
+              - interim
+              - final
+            status:
+              type: string
+              description: Report status
+              enum:
+              - draft
+              - released
+              - withdrawn
+    SchoolSummary:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        authority_id:
+          $ref: '#/components/schemas/AuthoritySummary'
+        name:
+          type: string
+    School:
+      allOf:
+        - $ref: '#/components/schemas/AuditedModel'
+        - $ref: '#/components/schemas/SchoolSummary'
+        - type: object
+          properties:
+            address_line_1:
+              type: string
+            address_line_2:
+              type: string
+            town:
+              type: string
+            postcode:
+              type: string
+            telephone:
+              type: string
+            email:
+              type: string
+            school_image_link:
+              type: string
+            status:
+              type: string
+              description: School status
+              enum:
+              - active
+              - inactive
+              - archived
+            users:
+              description: Only rendered for school superuser
+              type: array
+              items:
+                $ref: '#/components/schemas/User'
+            projects:
+              description: Projects that the school is a partner in
+              type: array
+              items:
+                $ref: '#/components/schemas/Project'
+            nodes:
+              description: IoT nodes located at the school (in GrowCubes)
+              type: array
+              items:
+                $ref: '#/components/schemas/Node'
+    Sensor:
+      properties:
+        id:
+          type: integer
+          format: int64
+        code:
+          type: string
+        description:
+          type: string
+        url:
+          type: string
+        datasheet_link:
+          type: string
+        quanitities:
+          description: Quantities measured by this sensor
+          type: array
+          items:
+            $ref: '#/components/schemas/Quantity'
+    SensorQuantity:
+      type: object
+      properties:
+        node_id:
+          $ref: '#/components/schemas/Node'
+        sensor_id:
+          $ref: '#/components/schemas/Sensor'
+    TagReferenceSummary:
+      type: object
+      properties:
+        label:
+          type: string
+    TagReference:
+      allOf:
+        - $ref: '#/components/schemas/AuditedModel'
+        - $ref: '#/components/schemas/TagReferenceSummary'
+        - type: object
+          properties:
+            id:
+              type: integer
+              format: int64
+            status:
+              type: string
+              description: Tag status
+              enum:
+              - active
+              - proposed
+              - withdrawn
+    TagSummary:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        tag_reference_id:
+            $ref: '#/components/schemas/TagReferenceSummary'
+    Tag:
+      allOf:
+        - $ref: '#/components/schemas/TagSummary'
+        - type: object
+          properties:
+            parent_id:
+              oneOf:
+                - $ref: '#/components/schemas/ExperimentSummary'
+                - $ref: '#/components/schemas/ProjectSummary'
+              discriminator:
+                propertyName: tag_type
+            tag_type:
+              type: string
+              description: Tag type
+              enum:
+              - project
+              - experiment
+    UserSummary:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        username:
+          type: string
+    User:
+      allOf:
+        - $ref: '#/components/schemas/AuditedModel'
+        - $ref: '#/components/schemas/UserSummary'
+        - type: object
+          properties:
+            password_hash:
+              type: string
+            notes:
+              type: string
+            school id:
+              type: integer
+              format: int32
+            is_sysadmin:
+              type: boolean
+              default: false
+            is_superuser:
+              type: boolean
+              default: false
+            status:
+              type: string
+              description: User Status
+              enum:
+              - active
+              - inactive
+              - suspended
+              - archived
+            projects:
+              description: Projects this user is part of
+              type: array
+              items:
+                $ref: '#/components/schemas/Project'
+    Variable:
+      allOf:
+        - $ref: '#/components/schemas/AuditedModel'
+        - type: object
+          properties:
+            id:
+              type: integer
+              format: int64
+            condition_id:
+              $ref: '#/components/schemas/Condition'
+            quantity_id:
+              $ref: '#/components/schemas/Quantity'
+            node_sensor_id:
+              $ref: '#/components/schemas/NodeSensor'
+            name:
+              type: string
+            variable_role:
+              type: string
+              description: Variable role
+              enum:
+              - independent
+              - dependent
+            status:
+              type: string
+              description: Variable status
+              enum:
+              - active
+              - inactive
+    ErrorModel:
+      type: object
+      required:
+      - message
+      - code
+      properties:
+        message:
+          type: string
+          default: An unexpected error occurred
+        code:
+          type: integer
+          minimum: 100
+          maximum: 600
+    ApiResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        data: 
+          type: string
+          format: json
+  securitySchemes:
+    dandelion-auth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - dandelion-auth: []
