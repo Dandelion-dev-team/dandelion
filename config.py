@@ -4,6 +4,7 @@ class Config(object):
 
 class DevelopmentConfig(Config):
     DEBUG = True
+    SLQALCHEMY_ECHO = True
 
 
 class ProductionConfig(Config):
