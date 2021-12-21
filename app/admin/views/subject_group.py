@@ -6,14 +6,14 @@ from app.admin.forms.subject_group import *
 
 
 
-@admin.route('/subject_group', methods=['GET'])
-def list_subject_group():
-    subject_group = SubjectGroup.query.all()
-    return render_template('admin/subject_group.html',
-                           rowdata=subject_group,
-                           title='Subject Group')
+@admin.route('/subject_groups', methods=['GET'])
+def list_subject_groups():
+    subject_groups = SubjectGroup.query.all()
+    return render_template('admin/subject_groups.html',
+                           rowdata=subject_groups,
+                           title='Subject Groups')
 
-@admin.route('/subject_group/add', methods=['GET', 'POST'])
+@admin.route('/subject_groups/add', methods=['GET', 'POST'])
 def add_subject_group():
     form = SubjectGroupForm()
     if form.validate_on_submit():
@@ -24,7 +24,7 @@ def add_subject_group():
         except:
             db.session.rollback()
 
-        return redirect(url_for('admin.list_subject_group'))
+        return redirect(url_for('admin.list_subject_groups'))
 
     return render_template('subject_group.html',
                            form=form,
