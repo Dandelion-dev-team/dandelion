@@ -2,6 +2,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_json import FlaskJSON
 
 # local imports
 from config import app_config
@@ -23,5 +24,7 @@ def create_app(config_name):
 
     from .admin import admin as admin_blueprint
     app.register_blueprint(admin_blueprint)
+
+    json = FlaskJSON(app)
 
     return app

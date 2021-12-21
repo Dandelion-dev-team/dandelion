@@ -19,7 +19,10 @@
           {% for row in rowdata %}
             <tr>
               <td> {{ row.name }} </td>
-              <td> Edit Del </td>
+              <td>
+                  <a href="{{ url_for('admin.edit_subject_group', id=row.id) }}">Edit</a>
+                  <a href="{{ url_for('admin.delete_subject_group', id=row.id) }}">Del</a>
+              </td>
             </tr>
           {% endfor %}
           </tbody>
