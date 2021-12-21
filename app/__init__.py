@@ -21,4 +21,7 @@ def create_app(config_name):
     from .public import public as public_blueprint
     app.register_blueprint(public_blueprint)
 
+    from .admin import admin as admin_blueprint
+    app.register_blueprint(admin_blueprint)
+
     return app
