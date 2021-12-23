@@ -4,3 +4,5 @@ from .authority import *
 from .sensor import *
 from .node import *
 from .users import *
+from .history import *
+from .report import *
