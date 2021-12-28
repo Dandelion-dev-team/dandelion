@@ -7,7 +7,7 @@ from app.utils.functions import row2dict
 
 
 @admin.route('/experiment', methods=['GET'])
-def listReport():
+def listTag():
     experiment = Tag.query.all()
 
     return json_response(data=(row2dict(x) for x in experiment))

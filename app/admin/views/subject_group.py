@@ -1,6 +1,5 @@
 from flask import render_template, url_for, redirect
 from flask_json import json_response
-
 from app.admin import admin
 from app.models import SubjectGroup
 from app import db

@@ -13,7 +13,6 @@ def listReport():
     return json_response(data=(row2dict(x) for x in report))
 
 
-
 @admin.route('/report/add', methods=['GET', 'POST'])
 def add_report():
     form = ReportForm()
@@ -31,12 +30,7 @@ def add_report():
                            form=form,
                            title="Add report")
 
-
-
-
     return render_template('admin/report.html',
                            form=form,
                            report=report,
-                           title='Edit subject report')
-
-
+                           title='Edit report')

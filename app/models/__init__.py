@@ -9,7 +9,7 @@ from .report import *
 from .project import *
 from .experiment import *
 from .tag import *
-from .observation import *
 from .variable import *
 from .hypothesis import *
 from .condition import *
+from .observation import *

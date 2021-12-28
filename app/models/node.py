@@ -16,6 +16,5 @@ class Node(db.Model):
     updated_date = db.Column(db.DateTime)
     status = db.Column(db.VARCHAR)
 
-
     def __repr__(self):
         return '{}'.format(self.name)

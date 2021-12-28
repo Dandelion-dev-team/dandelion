@@ -4,7 +4,6 @@ from app import db
 class Hypothesis(db.Model):
     __tablename__ = 'hypothesis'
 
-
     id = db.Column(db.Integer, primary_key=True)
     experiment_id = db.Column(db.Integer, nullable=False)
     hypothesis_no = db.Column(db.Integer)

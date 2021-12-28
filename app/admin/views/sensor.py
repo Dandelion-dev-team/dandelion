@@ -13,7 +13,6 @@ def listSensor():
     return json_response(data=(row2dict(x) for x in sensor))
 
 
-
 @admin.route('/sensor/add', methods=['GET', 'POST'])
 def add_sensor():
     form = SensorForm()
@@ -31,12 +30,7 @@ def add_sensor():
                            form=form,
                            title="Add sensor")
 
-
-
-
     return render_template('admin/sensor.html',
                            form=form,
                            sensor=sensor,
                            title='Edit subject sensor')
-
-

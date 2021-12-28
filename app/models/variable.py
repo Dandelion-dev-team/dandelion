@@ -4,7 +4,6 @@ from app import db
 class Variable(db.Model):
     __tablename__ = 'variable'
 
-
     id = db.Column(db.Integer, primary_key=True)
     condition_id = db.Column(db.Integer, unique=True)
     quantity_id = db.Column(db.Integer, unique=True)

@@ -1,9 +1,8 @@
 from app import db
 
 
-class Observesion(db.Model):
+class Observation(db.Model):
     __tablename__ = 'observation'
-
 
     id = db.Column(db.Integer, primary_key=True)
     variable_id = db.Column(db.Integer, nullable=False)
@@ -13,7 +12,6 @@ class Observesion(db.Model):
     created_by = db.Column(db.Integer, nullable=False)
     status = db.Column(db.VARCHAR(1))
     comment = db.Column(db.String(30))
-
 
     def __repr__(self):
         return '{}'.format(self.name)

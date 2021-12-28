@@ -4,7 +4,6 @@ from app import db
 class Experiment(db.Model):
     __tablename__ = 'experiment'
 
-
     id = db.Column(db.Integer, primary_key=True)
     project_id = db.Column(db.Integer, nullable=False)
     partner_id = db.Column(db.Integer, nullable=False)

@@ -10,6 +10,5 @@ class History(db.Model):
     table_name = db.Column(db.String(50))
     primary_key_value = db.Column(db.Integer)
 
-
     def __repr__(self):
         return '{}'.format(self.name)
