@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-12-23T12:43:39.523Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36" etag="AssbAgZVfOVotaINpFCr" version="16.0.2" type="github">
+<mxfile host="app.diagrams.net" modified="2021-12-28T11:14:31.272Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36" etag="wU5IInZdIyShll174imU" version="16.0.3" type="github">
   <diagram id="NbJqlMsGK9g4cn4cJewh" name="Page-1">
     <mxGraphModel dx="1186" dy="739" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -182,16 +182,16 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="rq1waJ9IVGkN5ey4Am_p-51" value="System" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" parent="1" vertex="1">
-          <mxGeometry x="990" y="690" width="30" height="60" as="geometry" />
+          <mxGeometry x="990" y="740" width="30" height="60" as="geometry" />
         </mxCell>
         <mxCell id="rq1waJ9IVGkN5ey4Am_p-52" value="Node" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" parent="1" vertex="1">
-          <mxGeometry x="990" y="859" width="30" height="60" as="geometry" />
+          <mxGeometry x="990" y="928" width="30" height="60" as="geometry" />
         </mxCell>
         <mxCell id="rq1waJ9IVGkN5ey4Am_p-53" value="Monitor node health" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="710" y="710" width="140" height="70" as="geometry" />
         </mxCell>
         <mxCell id="rq1waJ9IVGkN5ey4Am_p-54" value="Upload sensor data" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="710" y="870" width="140" height="70" as="geometry" />
+          <mxGeometry x="710" y="939" width="140" height="70" as="geometry" />
         </mxCell>
         <mxCell id="rq1waJ9IVGkN5ey4Am_p-55" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="rq1waJ9IVGkN5ey4Am_p-51" target="rq1waJ9IVGkN5ey4Am_p-53" edge="1">
           <mxGeometry relative="1" as="geometry">
@@ -201,8 +201,8 @@
         </mxCell>
         <mxCell id="rq1waJ9IVGkN5ey4Am_p-56" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="rq1waJ9IVGkN5ey4Am_p-52" target="rq1waJ9IVGkN5ey4Am_p-54" edge="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="1000" y="731.6666666666667" as="sourcePoint" />
-            <mxPoint x="858.3330942128782" y="747.4074339763467" as="targetPoint" />
+            <mxPoint x="1000" y="800.6666666666667" as="sourcePoint" />
+            <mxPoint x="858.3330942128782" y="816.4074339763467" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="rq1waJ9IVGkN5ey4Am_p-57" value="Download reports" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
@@ -262,13 +262,22 @@
             <mxPoint x="340.3699906159118" y="526.5138069359532" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="KfBX19iLClI_ofNLciE3-1" value="Manage own experiment" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="KfBX19iLClI_ofNLciE3-1" value="Manage own experiment" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="290" y="420.0000000000001" width="140" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="KfBX19iLClI_ofNLciE3-2" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="rq1waJ9IVGkN5ey4Am_p-6" target="KfBX19iLClI_ofNLciE3-1">
+        <mxCell id="KfBX19iLClI_ofNLciE3-2" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="rq1waJ9IVGkN5ey4Am_p-6" target="KfBX19iLClI_ofNLciE3-1" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="200" y="645.5500554060386" as="sourcePoint" />
             <mxPoint x="333.43899979593334" y="623.7555116611272" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="pllA2SgV67VZvydBItkm-1" value="Record session time-outs" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="710" y="800" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="pllA2SgV67VZvydBItkm-2" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="rq1waJ9IVGkN5ey4Am_p-51" target="pllA2SgV67VZvydBItkm-1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1000" y="731.6666666666667" as="sourcePoint" />
+            <mxPoint x="858.3330942128782" y="747.4074339763467" as="targetPoint" />
           </mxGeometry>
         </mxCell>
       </root>
