@@ -6,9 +6,9 @@ The Dandelion project will involve around 500 schools across Scotland in activit
 
 This repo is for a web-based technical solution which supports
 
-• The publication of textual and visual content
-• The management of novel projects based on the Liberty Produce GrowCubes
-• Managed access to the various categories of data by appropriate users and systems
+* The publication of textual and visual content
+* The management of novel projects based on the Liberty Produce GrowCubes
+* Managed access to the various categories of data by appropriate users and systems
 
 ![Architecture overview](Documentation/Architecture.png)
 
