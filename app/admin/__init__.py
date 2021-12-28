@@ -8,3 +8,7 @@ from .views.authority import *
 from .views.sensor import *
 from .views.node import *
 from .views.users import *
+from .views.experiment import *
+from .views.observation import *
+from .views.project import *
+from .views.tag import *

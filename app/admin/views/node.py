@@ -37,6 +37,6 @@ def add_node():
     return render_template('admin/node.html',
                            form=form,
                            node=node,
-                           title='Edit subject node')
+                           title='Edit node')
 
 
