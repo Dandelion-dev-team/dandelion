@@ -2,7 +2,6 @@ from flask import render_template, url_for, redirect
 from flask_json import json_response
 from app.admin import admin
 from app.models import History
-
 from app import db
 from app.utils.functions import row2dict
 
