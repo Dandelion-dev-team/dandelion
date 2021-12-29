@@ -17,4 +17,11 @@ from .school import *
 from .project_partner import *
 from .node_alert import *
 from .node_sensor import *
+from .audit import *
+from .audit_detail import *
+from .sensor_quantity import *
+from .experiment_participant import *
+from .tag_reference import *
+from .project_leader import *
+from .session import *
 

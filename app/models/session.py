@@ -7,8 +7,8 @@ class Session(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, nullable=False)
-    login_timestamp = db.Column(db.String, format(datetime))
-    logout_timestamp = db.Column(db.String, format(datetime))
+    login_timestamp = db.Column(db.String)
+    logout_timestamp = db.Column(db.String)
     is_timed_out = db.Column(db.Boolean, default=False)
 
     @property
