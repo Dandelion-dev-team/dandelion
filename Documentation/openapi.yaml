@@ -3525,6 +3525,11 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/SchoolSummary'
+            leaders:
+              description: Project leaders (one per school)
+              type: array
+              items:
+                $ref: '#/components/schemas/UserSummary'
     ProjectPartner:
       allOf:
         - $ref: '#/components/schemas/AuditedModel'
