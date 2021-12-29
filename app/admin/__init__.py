@@ -17,3 +17,15 @@ from .views.hypothesis import *
 from .views.report import *
 from .views.sensor import *
 from .views.variable import *
+from .views.node_alert import *
+from .views.node_sensor import *
+from .views.project_leader import *
+from .views.school import *
+from .views.sensor_quantity import *
+from .views.session import *
+from .views.tag_reference import *
+from .views.audit import *
+from .views.audit_detail import *
+from .views.experiment_participant import *
+from .views.project_partner import *
+
