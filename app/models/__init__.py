@@ -13,3 +13,8 @@ from .variable import *
 from .hypothesis import *
 from .condition import *
 from .observation import *
+from .school import *
+from .project_partner import *
+from .node_alert import *
+from .node_sensor import *
+
