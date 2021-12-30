@@ -1465,6 +1465,138 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
+  /option:
+    get:
+      tags:
+      - option
+      summary: Returns all options
+      operationId: listOption
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Option'
+        default:
+          description: An unexpected error occurred
+          content: {}
+    put:
+      tags:
+      - option
+      summary: Update an existing option
+      operationId: updateOption
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Option'
+        required: true
+      responses:
+        200:
+          description: Option updated
+          content: {}
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Option not found
+          content: {}
+        405:
+          description: Validation error
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+    post:
+      tags:
+      - option
+      summary: Add a new option
+      operationId: addOption
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Option'
+        required: true
+      responses:
+        200:
+          description: Option saved
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                confirmation-success:
+                  value: {"message": "Option saved", "data": "{'option_id': 456}"}
+        405:
+          description: Invalid input
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+  /option/{optionId}:
+    get:
+      tags:
+      - option
+      summary: Find option by ID
+      description: Returns a single option
+      operationId: getOptionById
+      parameters:
+      - name: optionId
+        in: path
+        description: ID of option to return
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Option'
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Option not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+    delete:
+      tags:
+      - option
+      summary: Deletes an option
+      operationId: deleteOption
+      parameters:
+      - name: api_key
+        in: header
+        schema:
+          type: string
+      - name: optionId
+        in: path
+        description: Option id to delete
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Option not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
   /project:
     get:
       tags:
@@ -2026,6 +2158,176 @@ paths:
         default:
           description: An unexpected error occurred
           content: {}
+  /question:
+    get:
+      tags:
+      - question
+      summary: Returns all questions
+      operationId: listQuestion
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Question'
+        default:
+          description: An unexpected error occurred
+          content: {}
+    put:
+      tags:
+      - question
+      summary: Update an existing question
+      operationId: updateQuestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Question'
+        required: true
+      responses:
+        200:
+          description: Question updated
+          content: {}
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Question not found
+          content: {}
+        405:
+          description: Validation error
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+    post:
+      tags:
+      - question
+      summary: Add a new question
+      operationId: addQuestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Question'
+        required: true
+      responses:
+        200:
+          description: Question saved
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                confirmation-success:
+                  value: {"message": "Question saved", "data": "{'question_id': 456}"}
+        405:
+          description: Invalid input
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+  /question/{questionId}:
+    get:
+      tags:
+      - question
+      summary: Find question by ID
+      description: Returns a single question
+      operationId: getQuestionById
+      parameters:
+      - name: questionId
+        in: path
+        description: ID of question to return
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Question'
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Question not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+    delete:
+      tags:
+      - question
+      summary: Deletes a question
+      operationId: deleteQuestion
+      parameters:
+      - name: api_key
+        in: header
+        schema:
+          type: string
+      - name: questionId
+        in: path
+        description: Question id to delete
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Question not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+  /question/findByRelated:
+    get:
+      tags:
+      - question
+      summary: Finds Questions by either project or experiment
+      operationId: findQuestionsByRelated
+      parameters:
+      - name: type
+        in: query
+        description: Specifies either project (P) or experiment (E)
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          enum:
+            - P
+            - E
+      - name: id
+        in: query
+        description: Primary key of the related object (project or experiment)
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Question'
+        default:
+          description: An unexpected error occurred
+          content: {}
   /report:
     put:
       tags:
@@ -2174,6 +2476,138 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
+  /response:
+    get:
+      tags:
+      - response
+      summary: Returns all responses
+      operationId: listResponse
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Response'
+        default:
+          description: An unexpected error occurred
+          content: {}
+    put:
+      tags:
+      - response
+      summary: Update an existing response
+      operationId: updateResponse
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Response'
+        required: true
+      responses:
+        200:
+          description: Response updated
+          content: {}
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Response not found
+          content: {}
+        405:
+          description: Validation error
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+    post:
+      tags:
+      - response
+      summary: Add a new response
+      operationId: addResponse
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Response'
+        required: true
+      responses:
+        200:
+          description: Response saved
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                confirmation-success:
+                  value: {"message": "Response saved", "data": "{'response_id': 456}"}
+        405:
+          description: Invalid input
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+  /response/{responseId}:
+    get:
+      tags:
+      - response
+      summary: Find response by ID
+      description: Returns a single response
+      operationId: getResponseById
+      parameters:
+      - name: responseId
+        in: path
+        description: ID of response to return
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Response not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+    delete:
+      tags:
+      - response
+      summary: Deletes a response
+      operationId: deleteResponse
+      parameters:
+      - name: api_key
+        in: header
+        schema:
+          type: string
+      - name: responseId
+        in: path
+        description: Response id to delete
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Response not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
   /school:
     get:
       tags:
@@ -3142,7 +3576,7 @@ paths:
 components:
   schemas:
     AuditedModel:
-      description: Common fileds used for auditing changes
+      description: Common fields used for auditing changes
       type: object
       properties:
         created_date:
@@ -3277,6 +3711,17 @@ components:
         - $ref: '#/components/schemas/ExperimentSummary'
         - type: object
           properties:
+            frequency_value:
+              type: integer
+              description: Observation frequency value
+            frequency_unit:
+              type: string
+              description: Observation frequency unit
+              enum:
+              - hour
+              - day
+              - week
+              - month
             project_id:
               $ref: '#/components/schemas/ProjectSummary'
             partner_id:
@@ -3471,6 +3916,30 @@ components:
               $ref: '#/components/schemas/VariableSummary'
             comment:
               type: string
+    OptionSummary:
+      properties:
+        id:
+          type: integer
+          format: int64
+        value:
+          type: string
+        label:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+          enum:
+          - active
+          - inactive
+    Option:
+      allOf:
+        - $ref: '#/components/schemas/AuditedModel'
+        - $ref: '#/components/schemas/OptionSummary'
+        - type: object
+          properties:
+            question_id:
+              $ref: '#/components/schemas/QuestionSummary'
     ProjectSummary:
       type: object
       properties:
@@ -3582,6 +4051,53 @@ components:
           type: string
         help_url:
           type: string
+    QuestionSummary:
+      properties:
+        id:
+          type: integer
+          format: int64
+        question_text:
+          type: string
+        question_stage:
+          type: string
+          enum:
+          - ad-hoc
+          - final
+        response_type:
+          type: string
+          enum:
+          - free_text
+          - polar
+          - scale
+          - multiple_choice
+        status:
+          type: string
+          enum:
+          - draft
+          - released
+          - withdrawn
+    Question:
+      allOf:
+        - $ref: '#/components/schemas/AuditedModel'
+        - $ref: '#/components/schemas/QuestionSummary'
+        - type: object
+          properties:
+            parent_id:
+              oneOf:
+                - $ref: '#/components/schemas/ExperimentSummary'
+                - $ref: '#/components/schemas/ProjectSummary'
+              discriminator:
+                propertyName: question_type
+            question_type:
+              type: string
+              description: Question type
+              enum:
+              - project
+              - experiment
+            responses:
+              type: array
+              items:
+                $ref: '#/components/schemas/ResponseSummary'
     ReportSummary:
       type: object
       properties:
@@ -3608,6 +4124,7 @@ components:
           enum:
           - draft
           - released
+          - published
           - withdrawn
     Report:
       allOf:
@@ -3627,6 +4144,24 @@ components:
               enum:
               - project
               - experiment
+    ResponseSummary:
+      properties:
+        id:
+          type: integer
+          format: int64
+        response_text:
+          type: string
+    Response:
+      allOf:
+        - $ref: '#/components/schemas/ResponseSummary'
+        - type: object
+          properties:
+            question_id:
+              $ref: '#/components/schemas/QuestionSummary'
+            user_id:
+              $ref: '#/components/schemas/UserSummary'
+            option_id:
+              $ref: '#/components/schemas/OptionSummary'
     SchoolSummary:
       type: object
       properties:
@@ -3842,6 +4377,15 @@ components:
         - $ref: '#/components/schemas/VariableSummary'
         - type: object
           properties:
+            observation_type:
+              type: string
+              description: Data type of observations
+              enum:
+              - float
+              - category
+              - image
+              - float+image
+              - category+image
             condition_id:
               $ref: '#/components/schemas/ConditionSummary'
             node_sensor_id:
