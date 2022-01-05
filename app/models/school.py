@@ -5,7 +5,7 @@ class School(db.Model):
     __tablename__ = 'school'
 
     id = db.Column(db.Integer, primary_key=True)
-    authority_id = db.Column(db.Integer, nullable=False)
+    authority_id = db.Column(db.Integer, db.ForeignKey('authority.id'), nullable=False) #FK1
     name = db.Column(db.String(100))
     address_line_1 = db.Column(db.String(150))
     address_line_2 = db.Column(db.String(150))
@@ -15,9 +15,12 @@ class School(db.Model):
     email = db.Column(db.String(60))
     school_image_link = db.Column(db.String(400))
     status = db.Column(db.String(200))
+    authority = db.relationship("Authority", back_polulates="authority")
 
     @property
     def summary_columns(self):
         return ["id", "authority_id", "name"]
+
+
 
 
