@@ -12,5 +12,9 @@ class Variable(db.Model):
     variable_role = db.Column(db.String(30))
     status = db.Column(db.VARCHAR(1))
 
+    @property
+    def summary_columns(self):
+        return ["id", "quantity_id","name","status"]
+
     def __repr__(self):
         return '{}'.format(self.name)

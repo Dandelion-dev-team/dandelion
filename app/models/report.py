@@ -16,5 +16,9 @@ class Report(db.Model):
     updated_date = db.Column(db.DateTime)
     status = db.Column(db.VARCHAR(1))
 
+    @property
+    def summary_columns(self):
+        return ["id", "report_name","title","document_link"]
+
     def __repr__(self):
         return '{}'.format(self.name)

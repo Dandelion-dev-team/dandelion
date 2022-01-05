@@ -11,7 +11,7 @@ class Node_sensor(db.Model):
 
     @property
     def summary_columns(self):
-        return ["id", "name"]
+        return ["id", "sensor_id","status"]
 
     def __repr__(self):
         return '{}'.format(self.name)

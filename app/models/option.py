@@ -11,6 +11,5 @@ class Option(db.Model):
     description = db.Column(db.String(200))
     status = db.Column(db.VARCHAR(1))
 
-
     def __repr__(self):
         return '{}'.format(self.name)

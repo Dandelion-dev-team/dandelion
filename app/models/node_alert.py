@@ -12,9 +12,7 @@ class Node_alert(db.Model):
     updated_date = db.Column(db.String)
     status = db.Column(db.String(200))
 
-    @property
-    def summary_columns(self):
-        return ["id", "name"]
+
 
     def __repr__(self):
         return '{}'.format(self.name)

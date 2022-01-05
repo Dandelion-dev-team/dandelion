@@ -11,5 +11,9 @@ class Hypothesis(db.Model):
     hypothesis_text = db.Column(db.String(200))
     status = db.Column(db.VARCHAR(1))
 
+    @property
+    def summary_columns(self):
+        return ["id", "hypothesis_no","description","status"]
+
     def __repr__(self):
         return '{}'.format(self.name)

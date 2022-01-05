@@ -13,5 +13,9 @@ class Observation(db.Model):
     status = db.Column(db.VARCHAR(1))
     comment = db.Column(db.String(30))
 
+    @property
+    def summary_columns(self):
+        return ["id", "timestamp","value","observation_image_link","status"]
+
     def __repr__(self):
         return '{}'.format(self.name)

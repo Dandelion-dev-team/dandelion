@@ -12,9 +12,6 @@ class Audit(db.Model):
     table_name = db.Column(db.String(100))
     primary_key_value = db.Column(db.Integer)
 
-    @property
-    def summary_columns(self):
-        return ["id", "name"]
 
     def __repr__(self):
         return '{}'.format(self.name)

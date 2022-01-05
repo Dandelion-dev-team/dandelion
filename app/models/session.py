@@ -11,9 +11,7 @@ class Session(db.Model):
     logout_timestamp = db.Column(db.String)
     is_timed_out = db.Column(db.Boolean, default=False)
 
-    @property
-    def summary_columns(self):
-        return ["id", "name"]
+
 
     def __repr__(self):
         return '{}'.format(self.name)

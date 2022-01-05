@@ -37,6 +37,6 @@ def add_history():
     return render_template('admin/history.html',
                            form=form,
                            history=history,
-                           title='Edit subject history')
+                           title='Edit history')
 
 

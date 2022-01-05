@@ -16,5 +16,9 @@ class Node(db.Model):
     updated_date = db.Column(db.DateTime)
     status = db.Column(db.VARCHAR)
 
+    @property
+    def summary_columns(self):
+        return ["id", "school_id","last_communication_date", "health_status","status"]
+
     def __repr__(self):
         return '{}'.format(self.name)

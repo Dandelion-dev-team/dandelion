@@ -16,5 +16,9 @@ class Tag(db.Model):
     end_date = db.Column(db.Date)
     status = db.Column(db.VARCHAR(1))
 
+    @property
+    def summary_columns(self):
+        return ["id", "tag_reference_id"]
+
     def __repr__(self):
         return '{}'.format(self.name)

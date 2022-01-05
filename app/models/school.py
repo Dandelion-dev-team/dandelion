@@ -12,13 +12,13 @@ class School(db.Model):
     town = db.Column(db.String(50))
     postcode = db.Column(db.String(10))
     telephone = db.Column(db.String(15))
-    email = db.Column(db.String)
-    school_image_link = db.Column(db.String)
+    email = db.Column(db.String(60))
+    school_image_link = db.Column(db.String(400))
     status = db.Column(db.String(200))
 
     @property
     def summary_columns(self):
-        return ["id", "name"]
+        return ["id", "authority_id", "name"]
 
     def __repr__(self):
         return '{}'.format(self.name)

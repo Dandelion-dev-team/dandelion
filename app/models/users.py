@@ -15,5 +15,9 @@ class Users(db.Model):
     status = db.Column(db.VARCHAR)
     notes = db.Column(db.String(200))
 
+    @property
+    def summary_columns(self):
+        return ["id", "username","school_id","is_sysadmin","is_superuser","status"]
+
     def __repr__(self):
         return '{}'.format(self.name)

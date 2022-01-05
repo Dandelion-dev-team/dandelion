@@ -11,9 +11,6 @@ class Audit_detail(db.Model):
     old_value = db.Column(db.String(100))
 
 
-    @property
-    def summary_columns(self):
-        return ["id", "name"]
 
     def __repr__(self):
         return '{}'.format(self.name)

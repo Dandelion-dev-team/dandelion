@@ -10,9 +10,6 @@ class Project_leader(db.Model):
     project_id = db.Column(db.String, nullable=False)
     status = db.Column(db.String(200))
 
-    @property
-    def summary_columns(self):
-        return ["id", "name"]
 
     def __repr__(self):
         return '{}'.format(self.name)

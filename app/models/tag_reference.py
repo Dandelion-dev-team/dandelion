@@ -8,5 +8,10 @@ class Tag_reference(db.Model):
     label = db.Column(db.Integer)
     status = db.Column(db.String)
 
+    @property
+    def summary_columns(self):
+        return ["id", "label"]
+
+
     def __repr__(self):
         return '{}'.format(self.name)
