@@ -3698,7 +3698,7 @@ components:
           format: date-time
         status:
           type: string
-          description: Project Status
+          description: Experiment Status
           enum:
           - active
           - inactive
@@ -3753,7 +3753,7 @@ components:
           format: int64
         status:
           type: string
-          description: Project partner status
+          description: Experiment participant status
           enum:
           - active
           - inactive
