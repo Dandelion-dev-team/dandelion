@@ -17,5 +17,3 @@ class Observation(db.Model):
     def summary_columns(self):
         return ["id", "timestamp","value","observation_image_link","status"]
 
-    def __repr__(self):
-        return '{}'.format(self.name)

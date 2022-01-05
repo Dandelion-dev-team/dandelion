@@ -12,6 +12,3 @@ class Tag_reference(db.Model):
     def summary_columns(self):
         return ["id", "label"]
 
-
-    def __repr__(self):
-        return '{}'.format(self.name)

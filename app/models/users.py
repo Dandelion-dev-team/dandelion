@@ -19,5 +19,4 @@ class Users(db.Model):
     def summary_columns(self):
         return ["id", "username","school_id","is_sysadmin","is_superuser","status"]
 
-    def __repr__(self):
-        return '{}'.format(self.name)
+

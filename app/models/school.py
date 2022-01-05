@@ -20,5 +20,4 @@ class School(db.Model):
     def summary_columns(self):
         return ["id", "authority_id", "name"]
 
-    def __repr__(self):
-        return '{}'.format(self.name)
+

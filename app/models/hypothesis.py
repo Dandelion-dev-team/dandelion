@@ -15,5 +15,4 @@ class Hypothesis(db.Model):
     def summary_columns(self):
         return ["id", "hypothesis_no","description","status"]
 
-    def __repr__(self):
-        return '{}'.format(self.name)
+

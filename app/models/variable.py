@@ -16,5 +16,3 @@ class Variable(db.Model):
     def summary_columns(self):
         return ["id", "quantity_id","name","status"]
 
-    def __repr__(self):
-        return '{}'.format(self.name)

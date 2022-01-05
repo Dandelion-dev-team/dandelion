@@ -20,5 +20,3 @@ class Report(db.Model):
     def summary_columns(self):
         return ["id", "report_name","title","document_link"]
 
-    def __repr__(self):
-        return '{}'.format(self.name)

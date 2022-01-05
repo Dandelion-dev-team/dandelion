@@ -15,5 +15,4 @@ class Condition(db.Model):
         return ["id", "description", "status"]
 
 
-    def __repr__(self):
-        return '{}'.format(self.name)
+
