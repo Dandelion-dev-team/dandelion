@@ -9,7 +9,7 @@ class Audit_detail(db.Model):
     history_id = db.Column(db.String(60), db.ForeignKey('history.id'), unique=True, nullable=False)
     column_name = db.Column(db.String(100))
     old_value = db.Column(db.String(100))
-    history = db.relationship('History', back_populates='history')
+    history = db.relationship('History', back_populates='audit_detail')
 
 
 

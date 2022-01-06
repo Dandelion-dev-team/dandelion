@@ -9,7 +9,7 @@ class Condition(db.Model):
     description = db.Column(db.String(200))
     condition_text = db.Column(db.String(200))
     status = db.Column(db.VARCHAR(1))
-    experiment = db.relationship("Experiment", back_populates="experiment")
+    experiment = db.relationship("Experiment", back_populates="condition")
 
     @property
     def summary_columns(self):

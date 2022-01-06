@@ -11,7 +11,7 @@ class Node_alert(db.Model):
     created_date = db.Column(db.String)
     updated_date = db.Column(db.String)
     status = db.Column(db.String(200))
-    node = db.relationship("Node",back_populates="node")
+    node = db.relationship("Node",back_populates="node_alert")
 
 
 

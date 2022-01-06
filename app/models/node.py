@@ -15,7 +15,9 @@ class Node(db.Model):
     created_by = db.Column(db.String, unique=True, nullable=False)
     updated_date = db.Column(db.DateTime)
     status = db.Column(db.VARCHAR)
-    school = db.relationship("School", back_populates="school")
+    school = db.relationship("School", back_populates="node")
+    node_alert = db.relationship("Node_alert", back_populates="node", uselist=False)
+
 
     @property
     def summary_columns(self):

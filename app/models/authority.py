@@ -8,11 +8,11 @@ class Authority(db.Model):
     name = db.Column(db.String(60))
     telephone = db.Column(db.String(20))
     email = db.Column(db.String(100))
-    school = db.relationship('School',back_populates='authority',uselist=False)
+    school = db.relationship('School', back_populates='authority', uselist=False)
 
     @property
     def summary_columns(self):
-        return ["id", "name",]
+        return ["id", "name"]
 
     def __repr__(self):
         return '{}'.format(self.name)

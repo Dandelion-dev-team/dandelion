@@ -14,7 +14,9 @@ class Users(db.Model):
     updated_date = db.Column(db.DateTime)
     status = db.Column(db.VARCHAR)
     notes = db.Column(db.String(200))
-    school = db.relationship('School', back_populates='school')
+    school = db.relationship("School", back_populates="users")
+    audit = db.relationship("Audit", back_populates="users", uselist=False)
+    session = db.relationship("Session",back_populates="users", uselist=False)
 
     @property
     def summary_columns(self):

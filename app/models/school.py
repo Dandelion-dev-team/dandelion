@@ -15,8 +15,9 @@ class School(db.Model):
     email = db.Column(db.String(60))
     school_image_link = db.Column(db.String(400))
     status = db.Column(db.String(200))
-    authority = db.relationship("Authority", back_populates="authority")
+    authority = db.relationship("Authority", back_populates="school")
     users = db.relationship("Users", back_populates="school", uselist=False)
+    node = db.relationship("Node", back_populates="school", uselist=False)
 
     @property
     def summary_columns(self):
