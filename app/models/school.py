@@ -15,7 +15,7 @@ class School(db.Model):
     email = db.Column(db.String(60))
     school_image_link = db.Column(db.String(400))
     status = db.Column(db.String(200))
-    authority = db.relationship("Authority", back_polulates="authority")
+    authority = db.relationship("Authority", back_populates="authority")
     users = db.relationship("Users", back_populates="school", uselist=False)
 
     @property
