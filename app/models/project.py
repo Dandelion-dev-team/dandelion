@@ -13,5 +13,10 @@ class Project(db.Model):
     end_date = db.Column(db.Date)
     status = db.Column(db.VARCHAR(1))
 
+    @property
+    def summary_columns(self):
+        return ["id", "title","description","project_image_link","project_text", "start_date", "end_date"]
+
+
     def __repr__(self):
         return '{}'.format(self.name)

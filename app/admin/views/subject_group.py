@@ -14,6 +14,9 @@ def list_subject_groups():
                            title='Subject Groups')
 
 
+
+
+
 @admin.route('/subject_groups/add', methods=['GET', 'POST'])
 def add_subject_group():
     form = SubjectGroupForm()

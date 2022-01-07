@@ -10,7 +10,7 @@ from app.utils.functions import row2dict
 def listProject():
     project = Project.query.all()
 
-    return json_response(data=(row2dict(x) for x in project))
+    return json_response(data=(row2dict(x,summary=True) for x in project))
 
 
 
