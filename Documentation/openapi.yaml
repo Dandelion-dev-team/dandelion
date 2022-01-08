@@ -1,8 +1,12 @@
 openapi: 3.0.1
 info:
   title: Dandelion data collection platform
-  description: 'This is the main API for the Dandelion app. It defines the communications between the back-end Flask application, the front-end React application, and the IoT node.  You can find out more about     Swagger
-    at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/). '
+  description: >-
+    This is the main API for the Dandelion app. It defines the communications
+    between the back-end Flask application, the front-end React application, and
+    the IoT node.  You can find out more about     Swagger at
+    [http://swagger.io](http://swagger.io) or on [irc.freenode.net,
+    #swagger](http://swagger.io/irc/). 
   termsOfService: http://swagger.io/terms/
   contact:
     email: b.davison@napier.ac.uk
@@ -14,46 +18,45 @@ externalDocs:
   description: Find out more about Swagger
   url: http://swagger.io
 servers:
-- url: https://dandelion.sruc.ac.uk/
-- url: http://dandelion.sruc.ac.uk/
+  - url: https://dandelion.sruc.ac.uk/
+  - url: http://dandelion.sruc.ac.uk/
 tags:
-- name: school
-  description: Schools actions
-  externalDocs:
-    description: Find out more
-    url: https://github.com/Dandelion-dev-team/dandelion
-- name: authority
-  description: Authority actions
-- name: user
-  description: User operations
-- name: project
-  description: Project operations
-- name: experiment
-  description: Experiment operations
-- name: report
-  description: Report operations
-- name: tagReference
-  description: TagReference operations
-- name: node
-  description: Node operations
-- name: sensor
-  description: Sensor operations
-- name: quantity
-  description: Quantity operations
-- name: observation
-  description: Observation operations
-- name: history
-  description: History operations
-  
+  - name: school
+    description: Schools actions
+    externalDocs:
+      description: Find out more
+      url: https://github.com/Dandelion-dev-team/dandelion
+  - name: authority
+    description: Authority actions
+  - name: user
+    description: User operations
+  - name: project
+    description: Project operations
+  - name: experiment
+    description: Experiment operations
+  - name: report
+    description: Report operations
+  - name: tagReference
+    description: TagReference operations
+  - name: node
+    description: Node operations
+  - name: sensor
+    description: Sensor operations
+  - name: quantity
+    description: Quantity operations
+  - name: observation
+    description: Observation operations
+  - name: history
+    description: History operations
 paths:
   /audit:
     get:
       tags:
-      - audit
+        - audit
       summary: Returns all audit records
       operationId: listAudit
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
@@ -66,7 +69,7 @@ paths:
           content: {}
     put:
       tags:
-      - audit
+        - audit
       summary: Update an existing audit record
       operationId: updateAudit
       requestBody:
@@ -76,16 +79,16 @@ paths:
               $ref: '#/components/schemas/Audit'
         required: true
       responses:
-        200:
+        '200':
           description: Audit updated
           content: {}
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Audit not found
           content: {}
-        405:
+        '405':
           description: Validation error
           content: {}
         default:
@@ -94,7 +97,7 @@ paths:
       x-codegen-request-body-name: body
     post:
       tags:
-      - audit
+        - audit
       summary: Add a new audit record
       operationId: addHAudit
       requestBody:
@@ -104,16 +107,18 @@ paths:
               $ref: '#/components/schemas/Audit'
         required: true
       responses:
-        200:
+        '200':
           description: Audit saved
-          content: 
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
               examples:
                 confirmation-success:
-                  value: {"message": "Audit saved", "data": "{'audit_id': 456}"}
-        405:
+                  value:
+                    message: Audit saved
+                    data: '{''audit_id'': 456}'
+        '405':
           description: Invalid input
           content: {}
         default:
@@ -123,29 +128,29 @@ paths:
   /audit/{auditId}:
     get:
       tags:
-      - audit
+        - audit
       summary: Find audit record by ID
       description: Returns a single audit record
       operationId: getAuditById
       parameters:
-      - name: auditId
-        in: path
-        description: ID of audit record to return
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: auditId
+          in: path
+          description: ID of audit record to return
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Audit'
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Audit not found
           content: {}
         default:
@@ -153,26 +158,26 @@ paths:
           content: {}
     delete:
       tags:
-      - audit
+        - audit
       summary: Deletes an audit r3cord
       operationId: deleteAudit
       parameters:
-      - name: api_key
-        in: header
-        schema:
-          type: string
-      - name: auditId
-        in: path
-        description: Audit id to delete
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: api_key
+          in: header
+          schema:
+            type: string
+        - name: auditId
+          in: path
+          description: Audit id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Audit not found
           content: {}
         default:
@@ -181,11 +186,11 @@ paths:
   /authority:
     get:
       tags:
-      - authority
+        - authority
       summary: Returns all authorities
       operationId: listAuthority
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
@@ -198,7 +203,7 @@ paths:
           content: {}
     put:
       tags:
-      - authority
+        - authority
       summary: Update an existing authority
       operationId: updateAuthority
       requestBody:
@@ -208,16 +213,16 @@ paths:
               $ref: '#/components/schemas/Authority'
         required: true
       responses:
-        200:
+        '200':
           description: Authority updated
           content: {}
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Authority not found
           content: {}
-        405:
+        '405':
           description: Validation error
           content: {}
         default:
@@ -226,7 +231,7 @@ paths:
       x-codegen-request-body-name: body
     post:
       tags:
-      - authority
+        - authority
       summary: Add a new authority to the platform
       operationId: addAuthority
       requestBody:
@@ -236,16 +241,18 @@ paths:
               $ref: '#/components/schemas/Authority'
         required: true
       responses:
-        200:
+        '200':
           description: Authority saved
-          content: 
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
               examples:
                 confirmation-success:
-                  value: {"message": "Project saved", "data": "{'authority_id': 456}"}
-        405:
+                  value:
+                    message: Project saved
+                    data: '{''authority_id'': 456}'
+        '405':
           description: Invalid input
           content: {}
         default:
@@ -255,29 +262,29 @@ paths:
   /authority/{authorityId}:
     get:
       tags:
-      - authority
+        - authority
       summary: Find authority by ID
       description: Returns a single authority
       operationId: getAuthorityById
       parameters:
-      - name: authorityId
-        in: path
-        description: ID of authority to return
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: authorityId
+          in: path
+          description: ID of authority to return
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Authority'
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Authority not found
           content: {}
         default:
@@ -285,26 +292,26 @@ paths:
           content: {}
     delete:
       tags:
-      - authority
+        - authority
       summary: Deletes a authority
       operationId: deleteAuthority
       parameters:
-      - name: api_key
-        in: header
-        schema:
-          type: string
-      - name: authorityId
-        in: path
-        description: Authority id to delete
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: api_key
+          in: header
+          schema:
+            type: string
+        - name: authorityId
+          in: path
+          description: Authority id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Authority not found
           content: {}
         default:
@@ -313,11 +320,11 @@ paths:
   /condition:
     get:
       tags:
-      - condition
+        - condition
       summary: Returns all conditions
       operationId: listCondition
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
@@ -330,7 +337,7 @@ paths:
           content: {}
     put:
       tags:
-      - condition
+        - condition
       summary: Update an existing condition
       operationId: updateCondition
       requestBody:
@@ -340,16 +347,16 @@ paths:
               $ref: '#/components/schemas/Condition'
         required: true
       responses:
-        200:
+        '200':
           description: Condition updated
           content: {}
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Condition not found
           content: {}
-        405:
+        '405':
           description: Validation error
           content: {}
         default:
@@ -358,7 +365,7 @@ paths:
       x-codegen-request-body-name: body
     post:
       tags:
-      - condition
+        - condition
       summary: Add a new condition to an experiment
       operationId: addCondition
       requestBody:
@@ -368,16 +375,18 @@ paths:
               $ref: '#/components/schemas/Condition'
         required: true
       responses:
-        200:
+        '200':
           description: Condition saved
-          content: 
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
               examples:
                 confirmation-success:
-                  value: {"message": "Project saved", "data": "{'condition_id': 456}"}
-        405:
+                  value:
+                    message: Project saved
+                    data: '{''condition_id'': 456}'
+        '405':
           description: Invalid input
           content: {}
         default:
@@ -387,29 +396,29 @@ paths:
   /condition/{conditionId}:
     get:
       tags:
-      - condition
+        - condition
       summary: Find condition by ID
       description: Returns a single condition
       operationId: getConditionById
       parameters:
-      - name: conditionId
-        in: path
-        description: ID of condition to return
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: conditionId
+          in: path
+          description: ID of condition to return
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Condition'
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Condition not found
           content: {}
         default:
@@ -417,26 +426,26 @@ paths:
           content: {}
     delete:
       tags:
-      - condition
+        - condition
       summary: Deletes a condition
       operationId: deleteCondition
       parameters:
-      - name: api_key
-        in: header
-        schema:
-          type: string
-      - name: conditionId
-        in: path
-        description: Condition id to delete
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: api_key
+          in: header
+          schema:
+            type: string
+        - name: conditionId
+          in: path
+          description: Condition id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Condition not found
           content: {}
         default:
@@ -445,11 +454,11 @@ paths:
   /experiment:
     get:
       tags:
-      - experiment
+        - experiment
       summary: Returns all experiments
       operationId: listExperiment
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
@@ -462,7 +471,7 @@ paths:
           content: {}
     put:
       tags:
-      - experiment
+        - experiment
       summary: Update an existing experiment
       operationId: updateExperiment
       requestBody:
@@ -472,16 +481,16 @@ paths:
               $ref: '#/components/schemas/Experiment'
         required: true
       responses:
-        200:
+        '200':
           description: Experiment updated
           content: {}
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Experiment not found
           content: {}
-        405:
+        '405':
           description: Validation error
           content: {}
         default:
@@ -490,7 +499,7 @@ paths:
       x-codegen-request-body-name: body
     post:
       tags:
-      - experiment
+        - experiment
       summary: Add a new experiment to a project
       operationId: addExperiment
       requestBody:
@@ -500,16 +509,18 @@ paths:
               $ref: '#/components/schemas/Experiment'
         required: true
       responses:
-        200:
+        '200':
           description: Experiment saved
-          content: 
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
               examples:
                 confirmation-success:
-                  value: {"message": "Project saved", "data": "{'experiment_id': 456}"}
-        405:
+                  value:
+                    message: Project saved
+                    data: '{''experiment_id'': 456}'
+        '405':
           description: Invalid input
           content: {}
         default:
@@ -519,29 +530,29 @@ paths:
   /experiment/{experimentId}:
     get:
       tags:
-      - experiment
+        - experiment
       summary: Find experiment by ID
       description: Returns a single experiment
       operationId: getExperimentById
       parameters:
-      - name: experimentId
-        in: path
-        description: ID of experiment to return
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: experimentId
+          in: path
+          description: ID of experiment to return
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Experiment'
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Experiment not found
           content: {}
         default:
@@ -549,26 +560,26 @@ paths:
           content: {}
     delete:
       tags:
-      - experiment
+        - experiment
       summary: Deletes a experiment
       operationId: deleteExperiment
       parameters:
-      - name: api_key
-        in: header
-        schema:
-          type: string
-      - name: experimentId
-        in: path
-        description: Experiment id to delete
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: api_key
+          in: header
+          schema:
+            type: string
+        - name: experimentId
+          in: path
+          description: Experiment id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Experiment not found
           content: {}
         default:
@@ -577,17 +588,17 @@ paths:
   /experiment/{experimentId}/uploadImage:
     post:
       tags:
-      - experiment
+        - experiment
       summary: uploads an image
       operationId: uploadExperimentFile
       parameters:
-      - name: experimentId
-        in: path
-        description: ID of experiment to update
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: experimentId
+          in: path
+          description: ID of experiment to update
+          required: true
+          schema:
+            type: integer
+            format: int64
       requestBody:
         content:
           multipart/form-data:
@@ -601,7 +612,7 @@ paths:
                   description: file to upload
                   format: binary
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
@@ -610,23 +621,23 @@ paths:
   /experiment/findByTags:
     get:
       tags:
-      - experiment
+        - experiment
       summary: Finds experiments by tags
       description: Muliple tags can be provided with comma separated strings.
       operationId: findExperimentsByTags
       parameters:
-      - name: tags
-        in: query
-        description: Tags to filter by
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: array
-          items:
-            type: string
+        - name: tags
+          in: query
+          description: Tags to filter by
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: array
+            items:
+              type: string
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
@@ -634,7 +645,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ProjectSummary'
-        400:
+        '400':
           description: Invalid tag value
           content: {}
         default:
@@ -643,11 +654,11 @@ paths:
   /participant:
     get:
       tags:
-      - experimentParticipant
+        - experimentParticipant
       summary: Returns all experiment participants
       operationId: listExperimentParticipant
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
@@ -660,7 +671,7 @@ paths:
           content: {}
     put:
       tags:
-      - experimentParticipant
+        - experimentParticipant
       summary: Update an existing experiment participant
       operationId: updateExperimentParticipant
       requestBody:
@@ -670,16 +681,16 @@ paths:
               $ref: '#/components/schemas/ExperimentParticipant'
         required: true
       responses:
-        200:
+        '200':
           description: Experiment participant updated
           content: {}
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Experiment participant not found
           content: {}
-        405:
+        '405':
           description: Validation error
           content: {}
         default:
@@ -688,7 +699,7 @@ paths:
       x-codegen-request-body-name: body
     post:
       tags:
-      - experimentParticipant
+        - experimentParticipant
       summary: Add a new experiment participant
       operationId: addExperimentParticipant
       requestBody:
@@ -698,16 +709,18 @@ paths:
               $ref: '#/components/schemas/ExperimentParticipant'
         required: true
       responses:
-        200:
+        '200':
           description: Experiment participant saved
-          content: 
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
               examples:
                 confirmation-success:
-                  value: {"message": "Experiment participant saved", "data": "{'experiment_participant_id': 456}"}
-        405:
+                  value:
+                    message: Experiment participant saved
+                    data: '{''experiment_participant_id'': 456}'
+        '405':
           description: Invalid input
           content: {}
         default:
@@ -717,29 +730,29 @@ paths:
   /participant/{experimentParticipantId}:
     get:
       tags:
-      - experimentParticipant
+        - experimentParticipant
       summary: Find experiment participant by ID
       description: Returns a single experiment participant
       operationId: getExperimentParticipantById
       parameters:
-      - name: experimentParticipantId
-        in: path
-        description: ID of experiment participant to return
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: experimentParticipantId
+          in: path
+          description: ID of experiment participant to return
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ExperimentParticipant'
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Experiment participant not found
           content: {}
         default:
@@ -747,26 +760,26 @@ paths:
           content: {}
     delete:
       tags:
-      - experimentParticipant
+        - experimentParticipant
       summary: Deletes a experiment participant
       operationId: deleteExperimentParticipant
       parameters:
-      - name: api_key
-        in: header
-        schema:
-          type: string
-      - name: experimentParticipantId
-        in: path
-        description: Experiment participant id to delete
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: api_key
+          in: header
+          schema:
+            type: string
+        - name: experimentParticipantId
+          in: path
+          description: Experiment participant id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Experiment participant not found
           content: {}
         default:
@@ -775,11 +788,11 @@ paths:
   /hypothesis:
     get:
       tags:
-      - hypothesis
+        - hypothesis
       summary: Returns all hypotheses
       operationId: listHypothesis
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
@@ -792,7 +805,7 @@ paths:
           content: {}
     put:
       tags:
-      - hypothesis
+        - hypothesis
       summary: Update an existing hypothesis
       operationId: updateHypothesis
       requestBody:
@@ -802,16 +815,16 @@ paths:
               $ref: '#/components/schemas/Hypothesis'
         required: true
       responses:
-        200:
+        '200':
           description: Hypothesis updated
           content: {}
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Hypothesis not found
           content: {}
-        405:
+        '405':
           description: Validation error
           content: {}
         default:
@@ -820,7 +833,7 @@ paths:
       x-codegen-request-body-name: body
     post:
       tags:
-      - hypothesis
+        - hypothesis
       summary: Add a new hypothesis to an experiment
       operationId: addHypothesis
       requestBody:
@@ -830,16 +843,18 @@ paths:
               $ref: '#/components/schemas/Hypothesis'
         required: true
       responses:
-        200:
+        '200':
           description: Hypothesis saved
-          content: 
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
               examples:
                 confirmation-success:
-                  value: {"message": "Project saved", "data": "{'hypothesis_id': 456}"}
-        405:
+                  value:
+                    message: Project saved
+                    data: '{''hypothesis_id'': 456}'
+        '405':
           description: Invalid input
           content: {}
         default:
@@ -849,29 +864,29 @@ paths:
   /hypothesis/{hypothesisId}:
     get:
       tags:
-      - hypothesis
+        - hypothesis
       summary: Find hypothesis by ID
       description: Returns a single hypothesis
       operationId: getHypothesisById
       parameters:
-      - name: hypothesisId
-        in: path
-        description: ID of hypothesis to return
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: hypothesisId
+          in: path
+          description: ID of hypothesis to return
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Hypothesis'
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Hypothesis not found
           content: {}
         default:
@@ -879,27 +894,161 @@ paths:
           content: {}
     delete:
       tags:
-      - hypothesis
+        - hypothesis
       summary: Deletes a hypothesis
       operationId: deleteHypothesis
       parameters:
-      - name: api_key
-        in: header
-        schema:
-          type: string
-      - name: hypothesisId
-        in: path
-        description: Hypothesis id to delete
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: api_key
+          in: header
+          schema:
+            type: string
+        - name: hypothesisId
+          in: path
+          description: Hypothesis id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Hypothesis not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+  /maintenance:
+    get:
+      tags:
+        - maintenance
+      summary: Returns all maintenance records
+      operationId: listMaintenance
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MaintenanceSummary'
+        default:
+          description: An unexpected error occurred
+          content: {}
+    put:
+      tags:
+        - maintenance
+      summary: Update an existing maintenance record
+      operationId: updateMaintenance
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Maintenance'
+        required: true
+      responses:
+        '200':
+          description: Maintenance record updated
+          content: {}
+        '400':
+          description: Invalid ID supplied
+          content: {}
+        '404':
+          description: Maintenance record not found
+          content: {}
+        '405':
+          description: Validation error
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+    post:
+      tags:
+        - maintenance
+      summary: Add a new maintenance record
+      operationId: addMaintenance
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Maintenance'
+        required: true
+      responses:
+        '200':
+          description: Maintenance record saved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                confirmation-success:
+                  value:
+                    message: Maintenance record saved
+                    data: '{''maintenance_id'': 456}'
+        '405':
+          description: Invalid input
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+      x-codegen-request-body-name: body
+  /maintenance/{maintenanceId}:
+    get:
+      tags:
+        - maintenance
+      summary: Find maintenance record by ID
+      description: Returns a single maintenance record
+      operationId: getMaintenanceById
+      parameters:
+        - name: maintenanceId
+          in: path
+          description: ID of maintenance record to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Maintenance'
+        '400':
+          description: Invalid ID supplied
+          content: {}
+        '404':
+          description: Maintenance record not found
+          content: {}
+        default:
+          description: An unexpected error occurred
+          content: {}
+    delete:
+      tags:
+        - maintenance
+      summary: Deletes a maintenance record
+      operationId: deleteMaintenance
+      parameters:
+        - name: api_key
+          in: header
+          schema:
+            type: string
+        - name: maintenanceId
+          in: path
+          description: Maintenance record id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '400':
+          description: Invalid ID supplied
+          content: {}
+        '404':
+          description: Maintenance record not found
           content: {}
         default:
           description: An unexpected error occurred
@@ -907,11 +1056,11 @@ paths:
   /node:
     get:
       tags:
-      - node
+        - node
       summary: Returns all nodes
       operationId: listNode
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
@@ -924,7 +1073,7 @@ paths:
           content: {}
     put:
       tags:
-      - node
+        - node
       summary: Update an existing node
       operationId: updateNode
       requestBody:
@@ -934,16 +1083,16 @@ paths:
               $ref: '#/components/schemas/Node'
         required: true
       responses:
-        200:
+        '200':
           description: Node updated
           content: {}
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Node not found
           content: {}
-        405:
+        '405':
           description: Validation error
           content: {}
         default:
@@ -952,7 +1101,7 @@ paths:
       x-codegen-request-body-name: body
     post:
       tags:
-      - node
+        - node
       summary: Add a new node to the platform
       operationId: addNode
       requestBody:
@@ -962,16 +1111,18 @@ paths:
               $ref: '#/components/schemas/Node'
         required: true
       responses:
-        200:
+        '200':
           description: Node saved
-          content: 
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
               examples:
                 confirmation-success:
-                  value: {"message": "Project saved", "data": "{'node_id': 456}"}
-        405:
+                  value:
+                    message: Project saved
+                    data: '{''node_id'': 456}'
+        '405':
           description: Invalid input
           content: {}
         default:
@@ -981,29 +1132,29 @@ paths:
   /node/{nodeId}:
     get:
       tags:
-      - node
+        - node
       summary: Find node by ID
       description: Returns a single node
       operationId: getNodeById
       parameters:
-      - name: nodeId
-        in: path
-        description: ID of node to return
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: nodeId
+          in: path
+          description: ID of node to return
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Node'
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Node not found
           content: {}
         default:
@@ -1011,26 +1162,26 @@ paths:
           content: {}
     delete:
       tags:
-      - node
+        - node
       summary: Deletes a node
       operationId: deleteNode
       parameters:
-      - name: api_key
-        in: header
-        schema:
-          type: string
-      - name: nodeId
-        in: path
-        description: Node id to delete
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: api_key
+          in: header
+          schema:
+            type: string
+        - name: nodeId
+          in: path
+          description: Node id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Node not found
           content: {}
         default:
@@ -1039,11 +1190,11 @@ paths:
   /alert:
     get:
       tags:
-      - nodeAlert
+        - nodeAlert
       summary: Returns all alerts
       operationId: listAlert
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
@@ -1056,7 +1207,7 @@ paths:
           content: {}
     put:
       tags:
-      - nodeAlert
+        - nodeAlert
       summary: Update an existing node alert
       operationId: updateNodeAlert
       requestBody:
@@ -1066,16 +1217,16 @@ paths:
               $ref: '#/components/schemas/NodeAlert'
         required: true
       responses:
-        200:
+        '200':
           description: Node alert updated
           content: {}
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Node alert not found
           content: {}
-        405:
+        '405':
           description: Validation error
           content: {}
         default:
@@ -1084,7 +1235,7 @@ paths:
       x-codegen-request-body-name: body
     post:
       tags:
-      - nodeAlert
+        - nodeAlert
       summary: Add a new node alert
       operationId: addNodeAlert
       requestBody:
@@ -1094,16 +1245,18 @@ paths:
               $ref: '#/components/schemas/NodeAlert'
         required: true
       responses:
-        200:
+        '200':
           description: Node alert saved
-          content: 
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
               examples:
                 confirmation-success:
-                  value: {"message": "Project saved", "data": "{'node_alert_id': 456}"}
-        405:
+                  value:
+                    message: Project saved
+                    data: '{''node_alert_id'': 456}'
+        '405':
           description: Invalid input
           content: {}
         default:
@@ -1113,29 +1266,29 @@ paths:
   /alert/{nodeAlertId}:
     get:
       tags:
-      - nodeAlert
+        - nodeAlert
       summary: Find node alert by ID
       description: Returns a single node alert
       operationId: getNodeAlertById
       parameters:
-      - name: nodeAlertId
-        in: path
-        description: ID of node alert to return
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: nodeAlertId
+          in: path
+          description: ID of node alert to return
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/NodeAlert'
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Node alert not found
           content: {}
         default:
@@ -1143,26 +1296,26 @@ paths:
           content: {}
     delete:
       tags:
-      - nodeAlert
+        - nodeAlert
       summary: Deletes a node alert
       operationId: deleteNodeAlert
       parameters:
-      - name: api_key
-        in: header
-        schema:
-          type: string
-      - name: nodeAlertId
-        in: path
-        description: Node alert id to delete
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: api_key
+          in: header
+          schema:
+            type: string
+        - name: nodeAlertId
+          in: path
+          description: Node alert id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Node alert not found
           content: {}
         default:
@@ -1171,11 +1324,11 @@ paths:
   /nodesensor:
     get:
       tags:
-      - nodeSensor
+        - nodeSensor
       summary: Returns all node sensors
       operationId: listNodeSensor
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
@@ -1188,7 +1341,7 @@ paths:
           content: {}
     put:
       tags:
-      - nodeSensor
+        - nodeSensor
       summary: Update an existing node sensor
       operationId: updateNodeSensor
       requestBody:
@@ -1198,16 +1351,16 @@ paths:
               $ref: '#/components/schemas/NodeSensor'
         required: true
       responses:
-        200:
+        '200':
           description: Node sensor updated
           content: {}
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Node sensor not found
           content: {}
-        405:
+        '405':
           description: Validation error
           content: {}
         default:
@@ -1216,7 +1369,7 @@ paths:
       x-codegen-request-body-name: body
     post:
       tags:
-      - nodeSensor
+        - nodeSensor
       summary: Add a new node sensor
       operationId: addNodeSensor
       requestBody:
@@ -1226,16 +1379,18 @@ paths:
               $ref: '#/components/schemas/NodeSensor'
         required: true
       responses:
-        200:
+        '200':
           description: Node sensor saved
-          content: 
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
               examples:
                 confirmation-success:
-                  value: {"message": "Project saved", "data": "{'node_sensor_id': 456}"}
-        405:
+                  value:
+                    message: Project saved
+                    data: '{''node_sensor_id'': 456}'
+        '405':
           description: Invalid input
           content: {}
         default:
@@ -1245,29 +1400,29 @@ paths:
   /nodesensor/{nodeSensorId}:
     get:
       tags:
-      - nodeSensor
+        - nodeSensor
       summary: Find node sensor by ID
       description: Returns a single node sensor
       operationId: getNodeSensorById
       parameters:
-      - name: nodeSensorId
-        in: path
-        description: ID of node sensor to return
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: nodeSensorId
+          in: path
+          description: ID of node sensor to return
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/NodeSensor'
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Node sensor not found
           content: {}
         default:
@@ -1275,26 +1430,26 @@ paths:
           content: {}
     delete:
       tags:
-      - nodeSensor
+        - nodeSensor
       summary: Deletes a node sensor
       operationId: deleteNodeSensor
       parameters:
-      - name: api_key
-        in: header
-        schema:
-          type: string
-      - name: nodeSensorId
-        in: path
-        description: Node sensor id to delete
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: api_key
+          in: header
+          schema:
+            type: string
+        - name: nodeSensorId
+          in: path
+          description: Node sensor id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Node sensor not found
           content: {}
         default:
@@ -1303,11 +1458,11 @@ paths:
   /observation:
     get:
       tags:
-      - observation
+        - observation
       summary: Returns all observations
       operationId: listObservation
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
@@ -1320,7 +1475,7 @@ paths:
           content: {}
     put:
       tags:
-      - observation
+        - observation
       summary: Update an existing observation
       operationId: updateObservation
       requestBody:
@@ -1330,16 +1485,16 @@ paths:
               $ref: '#/components/schemas/Observation'
         required: true
       responses:
-        200:
+        '200':
           description: Observation updated
           content: {}
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Observation not found
           content: {}
-        405:
+        '405':
           description: Validation error
           content: {}
         default:
@@ -1348,7 +1503,7 @@ paths:
       x-codegen-request-body-name: body
     post:
       tags:
-      - observation
+        - observation
       summary: Add a new observation to the platform
       operationId: addObservation
       requestBody:
@@ -1358,16 +1513,18 @@ paths:
               $ref: '#/components/schemas/Observation'
         required: true
       responses:
-        200:
+        '200':
           description: Observation saved
-          content: 
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
               examples:
                 confirmation-success:
-                  value: {"message": "Project saved", "data": "{'observation_id': 456}"}
-        405:
+                  value:
+                    message: Project saved
+                    data: '{''observation_id'': 456}'
+        '405':
           description: Invalid input
           content: {}
         default:
@@ -1377,29 +1534,29 @@ paths:
   /observation/{observationId}:
     get:
       tags:
-      - observation
+        - observation
       summary: Find observation by ID
       description: Returns a single observation
       operationId: getObservationById
       parameters:
-      - name: observationId
-        in: path
-        description: ID of observation to return
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: observationId
+          in: path
+          description: ID of observation to return
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Observation'
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Observation not found
           content: {}
         default:
@@ -1407,26 +1564,26 @@ paths:
           content: {}
     delete:
       tags:
-      - observation
+        - observation
       summary: Deletes a observation
       operationId: deleteObservation
       parameters:
-      - name: api_key
-        in: header
-        schema:
-          type: string
-      - name: observationId
-        in: path
-        description: Observation id to delete
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: api_key
+          in: header
+          schema:
+            type: string
+        - name: observationId
+          in: path
+          description: Observation id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Observation not found
           content: {}
         default:
@@ -1435,17 +1592,17 @@ paths:
   /observation/{observationId}/uploadImage:
     post:
       tags:
-      - observation
+        - observation
       summary: uploads an image
       operationId: uploadObservationFile
       parameters:
-      - name: observationId
-        in: path
-        description: ID of observation to update
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: observationId
+          in: path
+          description: ID of observation to update
+          required: true
+          schema:
+            type: integer
+            format: int64
       requestBody:
         content:
           multipart/form-data:
@@ -1459,7 +1616,7 @@ paths:
                   description: file to upload
                   format: binary
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
@@ -1468,11 +1625,11 @@ paths:
   /option:
     get:
       tags:
-      - option
+        - option
       summary: Returns all options
       operationId: listOption
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
@@ -1485,7 +1642,7 @@ paths:
           content: {}
     put:
       tags:
-      - option
+        - option
       summary: Update an existing option
       operationId: updateOption
       requestBody:
@@ -1495,16 +1652,16 @@ paths:
               $ref: '#/components/schemas/Option'
         required: true
       responses:
-        200:
+        '200':
           description: Option updated
           content: {}
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Option not found
           content: {}
-        405:
+        '405':
           description: Validation error
           content: {}
         default:
@@ -1513,7 +1670,7 @@ paths:
       x-codegen-request-body-name: body
     post:
       tags:
-      - option
+        - option
       summary: Add a new option
       operationId: addOption
       requestBody:
@@ -1523,16 +1680,18 @@ paths:
               $ref: '#/components/schemas/Option'
         required: true
       responses:
-        200:
+        '200':
           description: Option saved
-          content: 
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
               examples:
                 confirmation-success:
-                  value: {"message": "Option saved", "data": "{'option_id': 456}"}
-        405:
+                  value:
+                    message: Option saved
+                    data: '{''option_id'': 456}'
+        '405':
           description: Invalid input
           content: {}
         default:
@@ -1542,29 +1701,29 @@ paths:
   /option/{optionId}:
     get:
       tags:
-      - option
+        - option
       summary: Find option by ID
       description: Returns a single option
       operationId: getOptionById
       parameters:
-      - name: optionId
-        in: path
-        description: ID of option to return
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: optionId
+          in: path
+          description: ID of option to return
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Option'
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Option not found
           content: {}
         default:
@@ -1572,26 +1731,26 @@ paths:
           content: {}
     delete:
       tags:
-      - option
+        - option
       summary: Deletes an option
       operationId: deleteOption
       parameters:
-      - name: api_key
-        in: header
-        schema:
-          type: string
-      - name: optionId
-        in: path
-        description: Option id to delete
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: api_key
+          in: header
+          schema:
+            type: string
+        - name: optionId
+          in: path
+          description: Option id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Option not found
           content: {}
         default:
@@ -1600,11 +1759,11 @@ paths:
   /project:
     get:
       tags:
-      - project
+        - project
       summary: Returns all projects
       operationId: listProject
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
@@ -1617,7 +1776,7 @@ paths:
           content: {}
     put:
       tags:
-      - project
+        - project
       summary: Update an existing project
       operationId: updateProject
       requestBody:
@@ -1627,16 +1786,16 @@ paths:
               $ref: '#/components/schemas/Project'
         required: true
       responses:
-        200:
+        '200':
           description: Project updated
           content: {}
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Project not found
           content: {}
-        405:
+        '405':
           description: Validation error
           content: {}
         default:
@@ -1645,7 +1804,7 @@ paths:
       x-codegen-request-body-name: body
     post:
       tags:
-      - project
+        - project
       summary: Add a new project to the platform
       operationId: addProject
       requestBody:
@@ -1655,16 +1814,18 @@ paths:
               $ref: '#/components/schemas/Project'
         required: true
       responses:
-        200:
+        '200':
           description: Project saved
-          content: 
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
               examples:
                 confirmation-success:
-                  value: {"message": "Project saved", "data": "{'project_id': 456}"}
-        405:
+                  value:
+                    message: Project saved
+                    data: '{''project_id'': 456}'
+        '405':
           description: Invalid input
           content: {}
         default:
@@ -1674,29 +1835,29 @@ paths:
   /project/{projectId}:
     get:
       tags:
-      - project
+        - project
       summary: Find project by ID
       description: Returns a single project
       operationId: getProjectById
       parameters:
-      - name: projectId
-        in: path
-        description: ID of project to return
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: projectId
+          in: path
+          description: ID of project to return
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Project'
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Project not found
           content: {}
         default:
@@ -1704,26 +1865,26 @@ paths:
           content: {}
     delete:
       tags:
-      - project
+        - project
       summary: Deletes a project
       operationId: deleteProject
       parameters:
-      - name: api_key
-        in: header
-        schema:
-          type: string
-      - name: projectId
-        in: path
-        description: Project id to delete
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: api_key
+          in: header
+          schema:
+            type: string
+        - name: projectId
+          in: path
+          description: Project id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Project not found
           content: {}
         default:
@@ -1732,17 +1893,17 @@ paths:
   /project/{projectId}/uploadImage:
     post:
       tags:
-      - project
+        - project
       summary: uploads an image
       operationId: uploadProjectFile
       parameters:
-      - name: projectId
-        in: path
-        description: ID of project to update
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: projectId
+          in: path
+          description: ID of project to update
+          required: true
+          schema:
+            type: integer
+            format: int64
       requestBody:
         content:
           multipart/form-data:
@@ -1756,7 +1917,7 @@ paths:
                   description: file to upload
                   format: binary
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
@@ -1765,24 +1926,25 @@ paths:
   /project/findByTags:
     get:
       tags:
-      - project
+        - project
       summary: Finds Projects by tags
-      description: Muliple tags can be provided with comma separated strings. Use tag1,
+      description: >-
+        Muliple tags can be provided with comma separated strings. Use tag1,
         tag2, tag3 for testing.
       operationId: findProjectsByTags
       parameters:
-      - name: tags
-        in: query
-        description: Tags to filter by
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: array
-          items:
-            type: string
+        - name: tags
+          in: query
+          description: Tags to filter by
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: array
+            items:
+              type: string
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
@@ -1790,7 +1952,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ProjectSummary'
-        400:
+        '400':
           description: Invalid tag value
           content: {}
         default:
@@ -1799,7 +1961,7 @@ paths:
   /partner:
     put:
       tags:
-      - projectPartner
+        - projectPartner
       summary: Update an existing project partner
       operationId: updateProjectPartner
       requestBody:
@@ -1809,16 +1971,16 @@ paths:
               $ref: '#/components/schemas/ProjectPartner'
         required: true
       responses:
-        200:
+        '200':
           description: Project partner updated
           content: {}
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Project partner not found
           content: {}
-        405:
+        '405':
           description: Validation error
           content: {}
         default:
@@ -1827,7 +1989,7 @@ paths:
       x-codegen-request-body-name: body
     post:
       tags:
-      - projectPartner
+        - projectPartner
       summary: Add a new project partner to the platform
       operationId: addProjectPartner
       requestBody:
@@ -1837,16 +1999,18 @@ paths:
               $ref: '#/components/schemas/ProjectPartner'
         required: true
       responses:
-        200:
+        '200':
           description: Project partner saved
-          content: 
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
               examples:
                 confirmation-success:
-                  value: {"message": "Project partner saved", "data": "{'project_partner_id': 456}"}
-        405:
+                  value:
+                    message: Project partner saved
+                    data: '{''project_partner_id'': 456}'
+        '405':
           description: Invalid input
           content: {}
         default:
@@ -1856,29 +2020,29 @@ paths:
   /partner/{projectPartnerId}:
     get:
       tags:
-      - projectPartner
+        - projectPartner
       summary: Find project partner by ID
       description: Returns a single project partner
       operationId: getProjectPartnerById
       parameters:
-      - name: projectPartnerId
-        in: path
-        description: ID of project partner to return
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: projectPartnerId
+          in: path
+          description: ID of project partner to return
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProjectPartner'
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Project partner not found
           content: {}
         default:
@@ -1886,26 +2050,26 @@ paths:
           content: {}
     delete:
       tags:
-      - projectPartner
+        - projectPartner
       summary: Deletes a project partner
       operationId: deleteProjectPartner
       parameters:
-      - name: api_key
-        in: header
-        schema:
-          type: string
-      - name: projectPartnerId
-        in: path
-        description: Project partner id to delete
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: api_key
+          in: header
+          schema:
+            type: string
+        - name: projectPartnerId
+          in: path
+          description: Project partner id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Project partner not found
           content: {}
         default:
@@ -1914,7 +2078,7 @@ paths:
   /leader:
     put:
       tags:
-      - projectLeader
+        - projectLeader
       summary: Update an existing project leader
       operationId: updateProjectLeader
       requestBody:
@@ -1924,16 +2088,16 @@ paths:
               $ref: '#/components/schemas/ProjectLeader'
         required: true
       responses:
-        200:
+        '200':
           description: Project leader updated
           content: {}
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Project leader not found
           content: {}
-        405:
+        '405':
           description: Validation error
           content: {}
         default:
@@ -1942,7 +2106,7 @@ paths:
       x-codegen-request-body-name: body
     post:
       tags:
-      - projectLeadser
+        - projectLeadser
       summary: Add a new project leader to the platform
       operationId: addProjectLeader
       requestBody:
@@ -1952,16 +2116,18 @@ paths:
               $ref: '#/components/schemas/ProjectLeader'
         required: true
       responses:
-        200:
+        '200':
           description: Project leader saved
-          content: 
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
               examples:
                 confirmation-success:
-                  value: {"message": "Project leader saved", "data": "{'project_partner_id': 456}"}
-        405:
+                  value:
+                    message: Project leader saved
+                    data: '{''project_partner_id'': 456}'
+        '405':
           description: Invalid input
           content: {}
         default:
@@ -1971,29 +2137,29 @@ paths:
   /leader/{projectLeaderId}:
     get:
       tags:
-      - projectLeader
+        - projectLeader
       summary: Find project leader by ID
       description: Returns a single project leader
       operationId: getProjectLeaderById
       parameters:
-      - name: projectLeaderId
-        in: path
-        description: ID of project leader to return
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: projectLeaderId
+          in: path
+          description: ID of project leader to return
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProjectLeader'
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Project leader not found
           content: {}
         default:
@@ -2001,26 +2167,26 @@ paths:
           content: {}
     delete:
       tags:
-      - projectLeader
+        - projectLeader
       summary: Deletes a project leader
       operationId: deleteProjectLeader
       parameters:
-      - name: api_key
-        in: header
-        schema:
-          type: string
-      - name: projectLeaderId
-        in: path
-        description: Project leader id to delete
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: api_key
+          in: header
+          schema:
+            type: string
+        - name: projectLeaderId
+          in: path
+          description: Project leader id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Project leader not found
           content: {}
         default:
@@ -2029,11 +2195,11 @@ paths:
   /quantity:
     get:
       tags:
-      - quantity
+        - quantity
       summary: Returns all quantities
       operationId: listQuantity
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
@@ -2046,7 +2212,7 @@ paths:
           content: {}
     put:
       tags:
-      - quantity
+        - quantity
       summary: Update an existing quantity
       operationId: updateQuantity
       requestBody:
@@ -2056,16 +2222,16 @@ paths:
               $ref: '#/components/schemas/Quantity'
         required: true
       responses:
-        200:
+        '200':
           description: Quantity updated
           content: {}
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Quantity not found
           content: {}
-        405:
+        '405':
           description: Validation error
           content: {}
         default:
@@ -2074,7 +2240,7 @@ paths:
       x-codegen-request-body-name: body
     post:
       tags:
-      - quantity
+        - quantity
       summary: Add a new quantity to the platform
       operationId: addQuantity
       requestBody:
@@ -2084,16 +2250,18 @@ paths:
               $ref: '#/components/schemas/Quantity'
         required: true
       responses:
-        200:
+        '200':
           description: Quantity saved
-          content: 
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
               examples:
                 confirmation-success:
-                  value: {"message": "Quantity saved", "data": "{'quantity_id': 456}"}
-        405:
+                  value:
+                    message: Quantity saved
+                    data: '{''quantity_id'': 456}'
+        '405':
           description: Invalid input
           content: {}
         default:
@@ -2103,29 +2271,29 @@ paths:
   /quantity/{quantityId}:
     get:
       tags:
-      - quantity
+        - quantity
       summary: Find quantity by ID
       description: Returns a single quantity
       operationId: getQuantityById
       parameters:
-      - name: quantityId
-        in: path
-        description: ID of quantity to return
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: quantityId
+          in: path
+          description: ID of quantity to return
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Quantity'
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Quantity not found
           content: {}
         default:
@@ -2133,26 +2301,26 @@ paths:
           content: {}
     delete:
       tags:
-      - quantity
+        - quantity
       summary: Deletes a quantity
       operationId: deleteQuantity
       parameters:
-      - name: api_key
-        in: header
-        schema:
-          type: string
-      - name: quantityId
-        in: path
-        description: Quantity id to delete
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: api_key
+          in: header
+          schema:
+            type: string
+        - name: quantityId
+          in: path
+          description: Quantity id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Quantity not found
           content: {}
         default:
@@ -2161,11 +2329,11 @@ paths:
   /question:
     get:
       tags:
-      - question
+        - question
       summary: Returns all questions
       operationId: listQuestion
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
@@ -2178,7 +2346,7 @@ paths:
           content: {}
     put:
       tags:
-      - question
+        - question
       summary: Update an existing question
       operationId: updateQuestion
       requestBody:
@@ -2188,16 +2356,16 @@ paths:
               $ref: '#/components/schemas/Question'
         required: true
       responses:
-        200:
+        '200':
           description: Question updated
           content: {}
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Question not found
           content: {}
-        405:
+        '405':
           description: Validation error
           content: {}
         default:
@@ -2206,7 +2374,7 @@ paths:
       x-codegen-request-body-name: body
     post:
       tags:
-      - question
+        - question
       summary: Add a new question
       operationId: addQuestion
       requestBody:
@@ -2216,16 +2384,18 @@ paths:
               $ref: '#/components/schemas/Question'
         required: true
       responses:
-        200:
+        '200':
           description: Question saved
-          content: 
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
               examples:
                 confirmation-success:
-                  value: {"message": "Question saved", "data": "{'question_id': 456}"}
-        405:
+                  value:
+                    message: Question saved
+                    data: '{''question_id'': 456}'
+        '405':
           description: Invalid input
           content: {}
         default:
@@ -2235,29 +2405,29 @@ paths:
   /question/{questionId}:
     get:
       tags:
-      - question
+        - question
       summary: Find question by ID
       description: Returns a single question
       operationId: getQuestionById
       parameters:
-      - name: questionId
-        in: path
-        description: ID of question to return
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: questionId
+          in: path
+          description: ID of question to return
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Question'
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Question not found
           content: {}
         default:
@@ -2265,26 +2435,26 @@ paths:
           content: {}
     delete:
       tags:
-      - question
+        - question
       summary: Deletes a question
       operationId: deleteQuestion
       parameters:
-      - name: api_key
-        in: header
-        schema:
-          type: string
-      - name: questionId
-        in: path
-        description: Question id to delete
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: api_key
+          in: header
+          schema:
+            type: string
+        - name: questionId
+          in: path
+          description: Question id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Question not found
           content: {}
         default:
@@ -2293,31 +2463,31 @@ paths:
   /question/findByRelated:
     get:
       tags:
-      - question
+        - question
       summary: Finds Questions by either project or experiment
       operationId: findQuestionsByRelated
       parameters:
-      - name: type
-        in: query
-        description: Specifies either project (P) or experiment (E)
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: string
-          enum:
-            - P
-            - E
-      - name: id
-        in: query
-        description: Primary key of the related object (project or experiment)
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: integer
+        - name: type
+          in: query
+          description: Specifies either project (P) or experiment (E)
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            enum:
+              - P
+              - E
+        - name: id
+          in: query
+          description: Primary key of the related object (project or experiment)
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
@@ -2331,7 +2501,7 @@ paths:
   /report:
     put:
       tags:
-      - report
+        - report
       summary: Update an existing report
       operationId: updateReport
       requestBody:
@@ -2341,16 +2511,16 @@ paths:
               $ref: '#/components/schemas/Report'
         required: true
       responses:
-        200:
+        '200':
           description: Report updated
           content: {}
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Report not found
           content: {}
-        405:
+        '405':
           description: Validation error
           content: {}
         default:
@@ -2359,7 +2529,7 @@ paths:
       x-codegen-request-body-name: body
     post:
       tags:
-      - report
+        - report
       summary: Add a new report to the platform
       operationId: addReport
       requestBody:
@@ -2369,16 +2539,18 @@ paths:
               $ref: '#/components/schemas/Report'
         required: true
       responses:
-        200:
+        '200':
           description: Report saved
-          content: 
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
               examples:
                 confirmation-success:
-                  value: {"message": "Report saved", "data": "{'report_id': 456}"}
-        405:
+                  value:
+                    message: Report saved
+                    data: '{''report_id'': 456}'
+        '405':
           description: Invalid input
           content: {}
         default:
@@ -2388,29 +2560,29 @@ paths:
   /report/{reportId}:
     get:
       tags:
-      - report
+        - report
       summary: Find report by ID
       description: Returns a single report
       operationId: getReportById
       parameters:
-      - name: reportId
-        in: path
-        description: ID of report to return
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: reportId
+          in: path
+          description: ID of report to return
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Report'
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Report not found
           content: {}
         default:
@@ -2418,26 +2590,26 @@ paths:
           content: {}
     delete:
       tags:
-      - report
+        - report
       summary: Deletes a report
       operationId: deleteReport
       parameters:
-      - name: api_key
-        in: header
-        schema:
-          type: string
-      - name: reportId
-        in: path
-        description: Report id to delete
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: api_key
+          in: header
+          schema:
+            type: string
+        - name: reportId
+          in: path
+          description: Report id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Report not found
           content: {}
         default:
@@ -2446,17 +2618,17 @@ paths:
   /report/{reportId}/uploadDocument:
     post:
       tags:
-      - report
+        - report
       summary: uploads an image
       operationId: uploadReportFile
       parameters:
-      - name: reportId
-        in: path
-        description: ID of report to update
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: reportId
+          in: path
+          description: ID of report to update
+          required: true
+          schema:
+            type: integer
+            format: int64
       requestBody:
         content:
           multipart/form-data:
@@ -2470,7 +2642,7 @@ paths:
                   description: file to upload
                   format: binary
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
@@ -2479,11 +2651,11 @@ paths:
   /response:
     get:
       tags:
-      - response
+        - response
       summary: Returns all responses
       operationId: listResponse
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
@@ -2496,7 +2668,7 @@ paths:
           content: {}
     put:
       tags:
-      - response
+        - response
       summary: Update an existing response
       operationId: updateResponse
       requestBody:
@@ -2506,16 +2678,16 @@ paths:
               $ref: '#/components/schemas/Response'
         required: true
       responses:
-        200:
+        '200':
           description: Response updated
           content: {}
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Response not found
           content: {}
-        405:
+        '405':
           description: Validation error
           content: {}
         default:
@@ -2524,7 +2696,7 @@ paths:
       x-codegen-request-body-name: body
     post:
       tags:
-      - response
+        - response
       summary: Add a new response
       operationId: addResponse
       requestBody:
@@ -2534,16 +2706,18 @@ paths:
               $ref: '#/components/schemas/Response'
         required: true
       responses:
-        200:
+        '200':
           description: Response saved
-          content: 
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
               examples:
                 confirmation-success:
-                  value: {"message": "Response saved", "data": "{'response_id': 456}"}
-        405:
+                  value:
+                    message: Response saved
+                    data: '{''response_id'': 456}'
+        '405':
           description: Invalid input
           content: {}
         default:
@@ -2553,29 +2727,29 @@ paths:
   /response/{responseId}:
     get:
       tags:
-      - response
+        - response
       summary: Find response by ID
       description: Returns a single response
       operationId: getResponseById
       parameters:
-      - name: responseId
-        in: path
-        description: ID of response to return
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: responseId
+          in: path
+          description: ID of response to return
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Response'
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Response not found
           content: {}
         default:
@@ -2583,26 +2757,26 @@ paths:
           content: {}
     delete:
       tags:
-      - response
+        - response
       summary: Deletes a response
       operationId: deleteResponse
       parameters:
-      - name: api_key
-        in: header
-        schema:
-          type: string
-      - name: responseId
-        in: path
-        description: Response id to delete
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: api_key
+          in: header
+          schema:
+            type: string
+        - name: responseId
+          in: path
+          description: Response id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Response not found
           content: {}
         default:
@@ -2611,11 +2785,11 @@ paths:
   /school:
     get:
       tags:
-      - school
+        - school
       summary: Returns all schools
       operationId: listSchool
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
@@ -2628,7 +2802,7 @@ paths:
           content: {}
     put:
       tags:
-      - school
+        - school
       summary: Update an existing school
       operationId: updateSchool
       requestBody:
@@ -2638,16 +2812,16 @@ paths:
               $ref: '#/components/schemas/School'
         required: true
       responses:
-        200:
+        '200':
           description: School updated
           content: {}
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: School not found
           content: {}
-        405:
+        '405':
           description: Validation error
           content: {}
         default:
@@ -2656,7 +2830,7 @@ paths:
       x-codegen-request-body-name: body
     post:
       tags:
-      - school
+        - school
       summary: Add a new school to the platform
       operationId: addSchool
       requestBody:
@@ -2666,16 +2840,18 @@ paths:
               $ref: '#/components/schemas/School'
         required: true
       responses:
-        200:
+        '200':
           description: School saved
-          content: 
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
               examples:
                 confirmation-success:
-                  value: {"message": "School saved", "data": "{'school_id': 456}"}
-        405:
+                  value:
+                    message: School saved
+                    data: '{''school_id'': 456}'
+        '405':
           description: Invalid input
           content: {}
         default:
@@ -2685,29 +2861,29 @@ paths:
   /school/{schoolId}:
     get:
       tags:
-      - school
+        - school
       summary: Find school by ID
       description: Returns a single school
       operationId: getSchoolById
       parameters:
-      - name: schoolId
-        in: path
-        description: ID of school to return
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: schoolId
+          in: path
+          description: ID of school to return
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/School'
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: School not found
           content: {}
         default:
@@ -2715,29 +2891,29 @@ paths:
           content: {}
     delete:
       tags:
-      - school
+        - school
       summary: Deletes a school
       operationId: deleteSchool
       parameters:
-      - name: api_key
-        in: header
-        schema:
-          type: string
-      - name: schoolId
-        in: path
-        description: School id to delete
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: api_key
+          in: header
+          schema:
+            type: string
+        - name: schoolId
+          in: path
+          description: School id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        200:
+        '200':
           description: successful operation
           content: {}
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: School not found
           content: {}
         default:
@@ -2746,17 +2922,17 @@ paths:
   /school/{schoolId}/uploadImage:
     post:
       tags:
-      - school
+        - school
       summary: uploads an image
       operationId: uploadSchoolFile
       parameters:
-      - name: schoolId
-        in: path
-        description: ID of school to update
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: schoolId
+          in: path
+          description: ID of school to update
+          required: true
+          schema:
+            type: integer
+            format: int64
       requestBody:
         content:
           multipart/form-data:
@@ -2770,7 +2946,7 @@ paths:
                   description: file to upload
                   format: binary
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
@@ -2779,11 +2955,11 @@ paths:
   /sensor:
     get:
       tags:
-      - sensor
+        - sensor
       summary: Returns all sensors
       operationId: listSensor
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
@@ -2796,7 +2972,7 @@ paths:
           content: {}
     put:
       tags:
-      - sensor
+        - sensor
       summary: Update an existing sensor
       operationId: updateSensor
       requestBody:
@@ -2806,16 +2982,16 @@ paths:
               $ref: '#/components/schemas/Sensor'
         required: true
       responses:
-        200:
+        '200':
           description: Sensor updated
           content: {}
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Sensor not found
           content: {}
-        405:
+        '405':
           description: Validation error
           content: {}
         default:
@@ -2824,7 +3000,7 @@ paths:
       x-codegen-request-body-name: body
     post:
       tags:
-      - sensor
+        - sensor
       summary: Add a new sensor to the platform
       operationId: addSensor
       requestBody:
@@ -2834,16 +3010,18 @@ paths:
               $ref: '#/components/schemas/Sensor'
         required: true
       responses:
-        200:
+        '200':
           description: Sensor saved
-          content: 
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
               examples:
                 confirmation-success:
-                  value: {"message": "Sensor saved", "data": "{'sensor_id': 456}"}
-        405:
+                  value:
+                    message: Sensor saved
+                    data: '{''sensor_id'': 456}'
+        '405':
           description: Invalid input
           content: {}
         default:
@@ -2853,29 +3031,29 @@ paths:
   /sensor/{sensorId}:
     get:
       tags:
-      - sensor
+        - sensor
       summary: Find sensor by ID
       description: Returns a single sensor
       operationId: getSensorById
       parameters:
-      - name: sensorId
-        in: path
-        description: ID of sensor to return
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: sensorId
+          in: path
+          description: ID of sensor to return
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Sensor'
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Sensor not found
           content: {}
         default:
@@ -2883,26 +3061,26 @@ paths:
           content: {}
     delete:
       tags:
-      - sensor
+        - sensor
       summary: Deletes a sensor
       operationId: deleteSensor
       parameters:
-      - name: api_key
-        in: header
-        schema:
-          type: string
-      - name: sensorId
-        in: path
-        description: Sensor id to delete
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: api_key
+          in: header
+          schema:
+            type: string
+        - name: sensorId
+          in: path
+          description: Sensor id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Sensor not found
           content: {}
         default:
@@ -2911,7 +3089,7 @@ paths:
   /sensorQuantity:
     put:
       tags:
-      - sensorQuantity
+        - sensorQuantity
       summary: Update an existing sensor quantity
       operationId: updateSensorQuantity
       requestBody:
@@ -2921,16 +3099,16 @@ paths:
               $ref: '#/components/schemas/SensorQuantity'
         required: true
       responses:
-        200:
+        '200':
           description: Sensor quantity updated
           content: {}
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Sensor quantity not found
           content: {}
-        405:
+        '405':
           description: Validation error
           content: {}
         default:
@@ -2939,7 +3117,7 @@ paths:
       x-codegen-request-body-name: body
     post:
       tags:
-      - sensorQuantity
+        - sensorQuantity
       summary: Add a new sensor quantity to the platform
       operationId: addSensorQuantity
       requestBody:
@@ -2949,16 +3127,18 @@ paths:
               $ref: '#/components/schemas/SensorQuantity'
         required: true
       responses:
-        200:
+        '200':
           description: Sensor quantity saved
-          content: 
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
               examples:
                 confirmation-success:
-                  value: {"message": "Sensor quantity saved", "data": "{'sensor_quantity_id': 456}"}
-        405:
+                  value:
+                    message: Sensor quantity saved
+                    data: '{''sensor_quantity_id'': 456}'
+        '405':
           description: Invalid input
           content: {}
         default:
@@ -2968,29 +3148,29 @@ paths:
   /sensorQuantity/{sensorQuantityId}:
     get:
       tags:
-      - sensorQuantity
+        - sensorQuantity
       summary: Find sensor by ID
       description: Returns a single sensor quantity
       operationId: getSensorQuantityById
       parameters:
-      - name: sensorQuantityId
-        in: path
-        description: ID of sensor quantity to return
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: sensorQuantityId
+          in: path
+          description: ID of sensor quantity to return
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/SensorQuantity'
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Sensor Quantity not found
           content: {}
         default:
@@ -2998,26 +3178,26 @@ paths:
           content: {}
     delete:
       tags:
-      - sensorQuantity
+        - sensorQuantity
       summary: Deletes a sensor quantity
       operationId: deleteSensorQuantity
       parameters:
-      - name: api_key
-        in: header
-        schema:
-          type: string
-      - name: sensorQuantityId
-        in: path
-        description: Sensor quantity id to delete
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: api_key
+          in: header
+          schema:
+            type: string
+        - name: sensorQuantityId
+          in: path
+          description: Sensor quantity id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Sensor quantity not found
           content: {}
         default:
@@ -3026,11 +3206,11 @@ paths:
   /session:
     get:
       tags:
-      - session
+        - session
       summary: Returns all sessions
       operationId: listSession
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
@@ -3044,11 +3224,11 @@ paths:
   /tagReference:
     get:
       tags:
-      - tagReference
+        - tagReference
       summary: Returns all tag references
       operationId: listTagReference
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
@@ -3061,7 +3241,7 @@ paths:
           content: {}
     put:
       tags:
-      - tagReference
+        - tagReference
       summary: Update an existing tag reference
       operationId: updateTagReference
       requestBody:
@@ -3071,16 +3251,16 @@ paths:
               $ref: '#/components/schemas/TagReference'
         required: true
       responses:
-        200:
+        '200':
           description: Tag reference updated
           content: {}
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Tag reference not found
           content: {}
-        405:
+        '405':
           description: Validation error
           content: {}
         default:
@@ -3089,7 +3269,7 @@ paths:
       x-codegen-request-body-name: body
     post:
       tags:
-      - tagReference
+        - tagReference
       summary: Add a new tag reference to the platform
       operationId: addTagReference
       requestBody:
@@ -3099,16 +3279,18 @@ paths:
               $ref: '#/components/schemas/TagReference'
         required: true
       responses:
-        200:
+        '200':
           description: Tag reference saved
-          content: 
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
               examples:
                 confirmation-success:
-                  value: {"message": "Tag reference saved", "data": "{'tag_reference_id': 456}"}
-        405:
+                  value:
+                    message: Tag reference saved
+                    data: '{''tag_reference_id'': 456}'
+        '405':
           description: Invalid input
           content: {}
         default:
@@ -3118,29 +3300,29 @@ paths:
   /tagReference/{tagReferenceId}:
     get:
       tags:
-      - tagReference
+        - tagReference
       summary: Find tag reference by ID
       description: Returns a single tag reference
       operationId: getTagReferenceById
       parameters:
-      - name: tagReferenceId
-        in: path
-        description: ID of tag reference to return
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: tagReferenceId
+          in: path
+          description: ID of tag reference to return
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/TagReference'
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Tag reference not found
           content: {}
         default:
@@ -3148,26 +3330,26 @@ paths:
           content: {}
     delete:
       tags:
-      - tagReference
+        - tagReference
       summary: Deletes a tag reference
       operationId: deleteTagReference
       parameters:
-      - name: api_key
-        in: header
-        schema:
-          type: string
-      - name: tagReferenceId
-        in: path
-        description: Tag reference id to delete
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: api_key
+          in: header
+          schema:
+            type: string
+        - name: tagReferenceId
+          in: path
+          description: Tag reference id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Tag reference not found
           content: {}
         default:
@@ -3176,7 +3358,7 @@ paths:
   /tag:
     put:
       tags:
-      - tag
+        - tag
       summary: Update an existing tag
       operationId: updateTag
       requestBody:
@@ -3186,16 +3368,16 @@ paths:
               $ref: '#/components/schemas/Tag'
         required: true
       responses:
-        200:
+        '200':
           description: Tag updated
           content: {}
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Tag not found
           content: {}
-        405:
+        '405':
           description: Validation error
           content: {}
         default:
@@ -3204,7 +3386,7 @@ paths:
       x-codegen-request-body-name: body
     post:
       tags:
-      - tag
+        - tag
       summary: Add a new tag to the platform
       operationId: addTag
       requestBody:
@@ -3214,16 +3396,18 @@ paths:
               $ref: '#/components/schemas/Tag'
         required: true
       responses:
-        200:
+        '200':
           description: Tag saved
-          content: 
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
               examples:
                 confirmation-success:
-                  value: {"message": "Tag saved", "data": "{'tag_id': 456}"}
-        405:
+                  value:
+                    message: Tag saved
+                    data: '{''tag_id'': 456}'
+        '405':
           description: Invalid input
           content: {}
         default:
@@ -3233,29 +3417,29 @@ paths:
   /tag/{tagId}:
     get:
       tags:
-      - tag
+        - tag
       summary: Find tag by ID
       description: Returns a single tag
       operationId: getTagById
       parameters:
-      - name: tagId
-        in: path
-        description: ID of tag to return
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: tagId
+          in: path
+          description: ID of tag to return
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Tag'
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Tag not found
           content: {}
         default:
@@ -3263,26 +3447,26 @@ paths:
           content: {}
     delete:
       tags:
-      - tag
+        - tag
       summary: Deletes a tag
       operationId: deleteTag
       parameters:
-      - name: api_key
-        in: header
-        schema:
-          type: string
-      - name: tagId
-        in: path
-        description: Tag id to delete
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: api_key
+          in: header
+          schema:
+            type: string
+        - name: tagId
+          in: path
+          description: Tag id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Tag not found
           content: {}
         default:
@@ -3291,11 +3475,11 @@ paths:
   /user:
     get:
       tags:
-      - user
+        - user
       summary: Returns all users
       operationId: listUser
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
@@ -3308,7 +3492,7 @@ paths:
           content: {}
     post:
       tags:
-      - user
+        - user
       summary: Create user
       description: This can only be done by a sysadmin or school superuser
       operationId: createUser
@@ -3327,24 +3511,24 @@ paths:
   /user/login:
     get:
       tags:
-      - user
+        - user
       summary: Logs user into the system
       operationId: loginUser
       parameters:
-      - name: username
-        in: query
-        description: The user name for login
-        required: true
-        schema:
-          type: string
-      - name: password
-        in: query
-        description: The password for login in clear text
-        required: true
-        schema:
-          type: string
+        - name: username
+          in: query
+          description: The user name for login
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: query
+          description: The password for login in clear text
+          required: true
+          schema:
+            type: string
       responses:
-        200:
+        '200':
           description: successful operation
           headers:
             X-Rate-Limit:
@@ -3364,7 +3548,7 @@ paths:
             application/json:
               schema:
                 type: string
-        400:
+        '400':
           description: Invalid username/password supplied
           content: {}
         default:
@@ -3373,7 +3557,7 @@ paths:
   /user/logout:
     get:
       tags:
-      - user
+        - user
       summary: Logs out current logged in user session
       operationId: logoutUser
       responses:
@@ -3383,27 +3567,27 @@ paths:
   /user/{username}:
     get:
       tags:
-      - user
+        - user
       summary: Get user by user name
       operationId: getUserByName
       parameters:
-      - name: username
-        in: path
-        description: 'The name that needs to be fetched. Use user1 for testing. '
-        required: true
-        schema:
-          type: string
+        - name: username
+          in: path
+          description: 'The name that needs to be fetched. Use user1 for testing. '
+          required: true
+          schema:
+            type: string
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
-        400:
+        '400':
           description: Invalid username supplied
           content: {}
-        404:
+        '404':
           description: User not found
           content: {}
         default:
@@ -3411,17 +3595,17 @@ paths:
           content: {}
     put:
       tags:
-      - user
+        - user
       summary: Updated user
       description: This can only be done by the logged in user.
       operationId: updateUser
       parameters:
-      - name: username
-        in: path
-        description: name that need to be updated
-        required: true
-        schema:
-          type: string
+        - name: username
+          in: path
+          description: name that need to be updated
+          required: true
+          schema:
+            type: string
       requestBody:
         description: Updated user object
         content:
@@ -3430,37 +3614,37 @@ paths:
               $ref: '#/components/schemas/User'
         required: true
       responses:
-        400:
+        '400':
           description: Invalid user supplied
           content: {}
-        404:
+        '404':
           description: User not found
           content: {}
       x-codegen-request-body-name: body
     delete:
       tags:
-      - user
+        - user
       summary: Delete user
       description: This can only be done by the logged in user.
       operationId: deleteUser
       parameters:
-      - name: username
-        in: path
-        description: The name that needs to be deleted
-        required: true
-        schema:
-          type: string
+        - name: username
+          in: path
+          description: The name that needs to be deleted
+          required: true
+          schema:
+            type: string
       responses:
-        400:
+        '400':
           description: Invalid username supplied
           content: {}
-        404:
+        '404':
           description: User not found
           content: {}
   /variable:
     put:
       tags:
-      - variable
+        - variable
       summary: Update an existing variable
       operationId: updateVariable
       requestBody:
@@ -3470,16 +3654,16 @@ paths:
               $ref: '#/components/schemas/Variable'
         required: true
       responses:
-        200:
+        '200':
           description: Variable updated
           content: {}
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Variable not found
           content: {}
-        405:
+        '405':
           description: Validation error
           content: {}
         default:
@@ -3488,7 +3672,7 @@ paths:
       x-codegen-request-body-name: body
     post:
       tags:
-      - variable
+        - variable
       summary: Add a new variable to the platform
       operationId: addVariable
       requestBody:
@@ -3498,16 +3682,18 @@ paths:
               $ref: '#/components/schemas/Variable'
         required: true
       responses:
-        200:
+        '200':
           description: Variable saved
-          content: 
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
               examples:
                 confirmation-success:
-                  value: {"message": "Variable saved", "data": "{'variable_id': 456}"}
-        405:
+                  value:
+                    message: Variable saved
+                    data: '{''variable_id'': 456}'
+        '405':
           description: Invalid input
           content: {}
         default:
@@ -3517,29 +3703,29 @@ paths:
   /variable/{variableId}:
     get:
       tags:
-      - variable
+        - variable
       summary: Find variable by ID
       description: Returns a single variable
       operationId: getVariableById
       parameters:
-      - name: variableId
-        in: path
-        description: ID of variable to return
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: variableId
+          in: path
+          description: ID of variable to return
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Variable'
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Variable not found
           content: {}
         default:
@@ -3547,32 +3733,31 @@ paths:
           content: {}
     delete:
       tags:
-      - variable
+        - variable
       summary: Deletes a variable
       operationId: deleteVariable
       parameters:
-      - name: api_key
-        in: header
-        schema:
-          type: string
-      - name: variableId
-        in: path
-        description: Variable id to delete
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: api_key
+          in: header
+          schema:
+            type: string
+        - name: variableId
+          in: path
+          description: Variable id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
-        400:
+        '400':
           description: Invalid ID supplied
           content: {}
-        404:
+        '404':
           description: Variable not found
           content: {}
         default:
           description: An unexpected error occurred
           content: {}
-
 components:
   schemas:
     AuditedModel:
@@ -3623,7 +3808,7 @@ components:
           $ref: '#/components/schemas/AuditSummary'
         column_name:
           type: string
-        old_value: 
+        old_value:
           type: string
     AuthoritySummary:
       type: object
@@ -3643,7 +3828,7 @@ components:
               type: string
             email:
               type: string
-            schools :
+            schools:
               type: array
               items:
                 $ref: '#/components/schemas/SchoolSummary'
@@ -3659,8 +3844,8 @@ components:
           type: string
           description: Condition status
           enum:
-          - active
-          - inactive
+            - active
+            - inactive
     Condition:
       allOf:
         - $ref: '#/components/schemas/AuditedModel'
@@ -3700,11 +3885,11 @@ components:
           type: string
           description: Experiment Status
           enum:
-          - active
-          - inactive
-          - complete
-          - stopped
-          - archived
+            - active
+            - inactive
+            - complete
+            - stopped
+            - archived
     Experiment:
       allOf:
         - $ref: '#/components/schemas/AuditedModel'
@@ -3718,10 +3903,10 @@ components:
               type: string
               description: Observation frequency unit
               enum:
-              - hour
-              - day
-              - week
-              - month
+                - hour
+                - day
+                - week
+                - month
             project_id:
               $ref: '#/components/schemas/ProjectSummary'
             partner_id:
@@ -3755,9 +3940,9 @@ components:
           type: string
           description: Experiment participant status
           enum:
-          - active
-          - inactive
-          - withdrawn
+            - active
+            - inactive
+            - withdrawn
     ExperimentParticipant:
       allOf:
         - $ref: '#/components/schemas/AuditedModel'
@@ -3783,8 +3968,8 @@ components:
           type: string
           description: Hypothesis status
           enum:
-          - active
-          - inactive
+            - active
+            - inactive
     Hypothesis:
       allOf:
         - $ref: '#/components/schemas/AuditedModel'
@@ -3795,6 +3980,29 @@ components:
               $ref: '#/components/schemas/ExperimentSummary'
             hypothesis_text:
               type: string
+    MaintenanceSummary:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        maintenance_date:
+          type: string
+          format: date-time
+        comment:
+          type: string
+        is_reset_point:
+          type: boolean
+          default: true
+    Maintenance:
+      allOf:
+        - $ref: '#/components/schemas/MaintenanceSummary'
+        - type: object
+          properties:
+            node_sensor_id:
+              $ref: '#/components/schemas/NodeSensorSummary'
+            user_id:
+              $ref: '#/components/schemas/UserSummary'
     NodeSummary:
       type: object
       properties:
@@ -3808,15 +4016,15 @@ components:
           type: string
           description: Node health status
           enum:
-          - green
-          - amber
-          - red
+            - green
+            - amber
+            - red
         status:
           type: string
           description: Node status
           enum:
-          - active
-          - inactive
+            - active
+            - inactive
     Node:
       allOf:
         - $ref: '#/components/schemas/AuditedModel'
@@ -3862,8 +4070,8 @@ components:
           type: string
           description: Node alert status
           enum:
-          - active
-          - inactive
+            - active
+            - inactive
     NodeSensorSummary:
       type: object
       properties:
@@ -3876,8 +4084,8 @@ components:
           type: string
           description: Node sensor status
           enum:
-          - active
-          - inactive
+            - active
+            - inactive
     NodeSensor:
       allOf:
         - $ref: '#/components/schemas/AuditedModel'
@@ -3886,6 +4094,11 @@ components:
           properties:
             node_id:
               $ref: '#/components/schemas/NodeSummary'
+            maintenance:
+              description: Maintenance history for this node sensor
+              type: array
+              items:
+                $ref: '#/components/schemas/MaintenanceSummary'
     ObservationSummary:
       type: object
       properties:
@@ -3904,8 +4117,8 @@ components:
           type: string
           description: Variable status
           enum:
-          - valid
-          - invalid
+            - valid
+            - invalid
     Observation:
       allOf:
         - $ref: '#/components/schemas/AuditedModel'
@@ -3930,8 +4143,8 @@ components:
         status:
           type: string
           enum:
-          - active
-          - inactive
+            - active
+            - inactive
     Option:
       allOf:
         - $ref: '#/components/schemas/AuditedModel'
@@ -3964,11 +4177,11 @@ components:
           type: string
           description: Project Status
           enum:
-          - active
-          - inactive
-          - complete
-          - stopped
-          - archived
+            - active
+            - inactive
+            - complete
+            - stopped
+            - archived
     Project:
       allOf:
         - $ref: '#/components/schemas/AuditedModel'
@@ -4018,9 +4231,9 @@ components:
               type: string
               description: Project partner status
               enum:
-              - active
-              - inactive
-              - withdrawn
+                - active
+                - inactive
+                - withdrawn
     ProjectLeader:
       allOf:
         - $ref: '#/components/schemas/AuditedModel'
@@ -4037,9 +4250,9 @@ components:
               type: string
               description: Project leader status
               enum:
-              - active
-              - inactive
-              - withdrawn
+                - active
+                - inactive
+                - withdrawn
     Quantity:
       properties:
         id:
@@ -4061,21 +4274,21 @@ components:
         question_stage:
           type: string
           enum:
-          - ad-hoc
-          - final
+            - ad-hoc
+            - final
         response_type:
           type: string
           enum:
-          - free_text
-          - polar
-          - scale
-          - multiple_choice
+            - free_text
+            - polar
+            - scale
+            - multiple_choice
         status:
           type: string
           enum:
-          - draft
-          - released
-          - withdrawn
+            - draft
+            - released
+            - withdrawn
     Question:
       allOf:
         - $ref: '#/components/schemas/AuditedModel'
@@ -4092,8 +4305,8 @@ components:
               type: string
               description: Question type
               enum:
-              - project
-              - experiment
+                - project
+                - experiment
             responses:
               type: array
               items:
@@ -4115,17 +4328,17 @@ components:
           type: string
           description: Report stage
           enum:
-          - initial
-          - interim
-          - final
+            - initial
+            - interim
+            - final
         status:
           type: string
           description: Report status
           enum:
-          - draft
-          - released
-          - published
-          - withdrawn
+            - draft
+            - released
+            - published
+            - withdrawn
     Report:
       allOf:
         - $ref: '#/components/schemas/AuditedModel'
@@ -4142,8 +4355,8 @@ components:
               type: string
               description: Report type
               enum:
-              - project
-              - experiment
+                - project
+                - experiment
     ResponseSummary:
       properties:
         id:
@@ -4176,9 +4389,9 @@ components:
           type: string
           description: School status
           enum:
-          - active
-          - inactive
-          - archived
+            - active
+            - inactive
+            - archived
     School:
       allOf:
         - $ref: '#/components/schemas/AuditedModel'
@@ -4272,9 +4485,9 @@ components:
           type: string
           description: Tag status
           enum:
-          - active
-          - proposed
-          - withdrawn
+            - active
+            - proposed
+            - withdrawn
     TagReference:
       allOf:
         - $ref: '#/components/schemas/AuditedModel'
@@ -4287,7 +4500,7 @@ components:
           type: integer
           format: int64
         tag_reference_id:
-            $ref: '#/components/schemas/TagReferenceSummary'
+          $ref: '#/components/schemas/TagReferenceSummary'
     Tag:
       allOf:
         - $ref: '#/components/schemas/TagSummary'
@@ -4303,8 +4516,8 @@ components:
               type: string
               description: Tag type
               enum:
-              - project
-              - experiment
+                - project
+                - experiment
     UserSummary:
       type: object
       properties:
@@ -4325,10 +4538,10 @@ components:
           type: string
           description: User Status
           enum:
-          - active
-          - inactive
-          - suspended
-          - archived
+            - active
+            - inactive
+            - suspended
+            - archived
     User:
       allOf:
         - $ref: '#/components/schemas/AuditedModel'
@@ -4363,14 +4576,14 @@ components:
           type: string
           description: Variable role
           enum:
-          - independent
-          - dependent
+            - independent
+            - dependent
         status:
           type: string
           description: Variable status
           enum:
-          - active
-          - inactive
+            - active
+            - inactive
     Variable:
       allOf:
         - $ref: '#/components/schemas/AuditedModel'
@@ -4381,11 +4594,11 @@ components:
               type: string
               description: Data type of observations
               enum:
-              - float
-              - category
-              - image
-              - float+image
-              - category+image
+                - float
+                - category
+                - image
+                - float+image
+                - category+image
             condition_id:
               $ref: '#/components/schemas/ConditionSummary'
             node_sensor_id:
@@ -4393,8 +4606,8 @@ components:
     ErrorModel:
       type: object
       required:
-      - message
-      - code
+        - message
+        - code
       properties:
         message:
           type: string
@@ -4408,7 +4621,7 @@ components:
       properties:
         message:
           type: string
-        data: 
+        data:
           type: string
           format: json
   securitySchemes:
