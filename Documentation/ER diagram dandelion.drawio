@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2022-01-08T09:17:19.302Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36" etag="6AYZhn4yj0Rj0jsKwTHA" version="16.2.3" type="github">
+<mxfile host="app.diagrams.net" modified="2022-01-08T09:19:02.246Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36" etag="nZvVPYUBa3XxjUYzSW2L" version="16.2.3" type="github">
   <diagram id="GT4HWWDPDFcIHrZqEgRG" name="Page-1">
     <mxGraphModel dx="1186" dy="739" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -568,6 +568,9 @@
         <mxCell id="6Ui2vip5lag4kYrlvUSC-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="6Ui2vip5lag4kYrlvUSC-1" target="mU0qmPMMRrktK2oFucwa-3">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
+        <mxCell id="6Ui2vip5lag4kYrlvUSC-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="6Ui2vip5lag4kYrlvUSC-1" target="DI7pAqTGVOurwR-3GRII-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
         <mxCell id="6Ui2vip5lag4kYrlvUSC-1" value="&lt;div style=&quot;box-sizing: border-box ; width: 100% ; background: #e4e4e4 ; padding: 2px&quot;&gt;maintenance&lt;/div&gt;&lt;table style=&quot;width: 100% ; font-size: 1em&quot; cellpadding=&quot;2&quot; cellspacing=&quot;0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;PK&lt;/td&gt;&lt;td&gt;id&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;FK1&lt;/td&gt;&lt;td&gt;node_sensor_id&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;FK2&lt;/td&gt;&lt;td&gt;user_id&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;maintenance_date&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;br&gt;&lt;/td&gt;&lt;td&gt;comment&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;br&gt;&lt;/td&gt;&lt;td&gt;is_reset_point&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;" vertex="1" parent="1">
           <mxGeometry x="1138" y="324" width="180" height="130" as="geometry" />
         </mxCell>
@@ -579,6 +582,15 @@
         </mxCell>
         <mxCell id="6Ui2vip5lag4kYrlvUSC-7" value="performed_on&lt;font face=&quot;webdings&quot;&gt;5&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
           <mxGeometry x="1132" y="250" width="100" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="6Ui2vip5lag4kYrlvUSC-9" value="performs&lt;font face=&quot;webdings&quot;&gt;4&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1075" y="490" width="70" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="6Ui2vip5lag4kYrlvUSC-10" value="0..*" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1230" y="454" width="30" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="6Ui2vip5lag4kYrlvUSC-11" value="1..1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="693" y="513" width="40" height="20" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
