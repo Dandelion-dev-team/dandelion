@@ -12,7 +12,7 @@ class Users(db.Model):
     is_superuser = db.Column(db.Boolean, nullable=False)
     created_date = db.Column(db.DateTime)
     updated_date = db.Column(db.DateTime)
-    status = db.Column(db.VARCHAR)
+    status = db.Column(db.String(20))
     notes = db.Column(db.String(200))
     school = db.relationship("School", back_populates="users")
     audit = db.relationship("Audit", back_populates="users", uselist=False)

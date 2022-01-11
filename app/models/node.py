@@ -10,11 +10,8 @@ class Node(db.Model):
     mac_address = db.Column(db.String(200))
     last_communication_date = db.Column(db.DateTime)
     next_communication_date = db.Column(db.DateTime)
-    health_status = db.Column(db.VARCHAR)
-    created_date = db.Column(db.DateTime)
-    created_by = db.Column(db.String, unique=True, nullable=False)
-    updated_date = db.Column(db.DateTime)
-    status = db.Column(db.VARCHAR)
+    health_status = db.Column(db.String(20))
+    status = db.Column(db.String(20))
     school = db.relationship("School", back_populates="node")
     node_alert = db.relationship("Node_alert", back_populates="node", uselist=False)
 
