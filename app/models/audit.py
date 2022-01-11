@@ -1,6 +1,4 @@
 from app import db
-from datetime import datetime
-
 
 
 class Audit(db.Model):
@@ -11,8 +9,8 @@ class Audit(db.Model):
     audit_date = db.Column(db.DateTime)
     table_name = db.Column(db.String(100))
     primary_key_value = db.Column(db.Integer)
-    users = db.relationship('Users', back_populates='audit')
-
+    users = db.relationship('Users', back_populates='audit', uselist=False)
+    audit_detail = db.relationship('Audit_detail', back_populates='audit', uselist=False )
 
     def __repr__(self):
         return '{}'.format(self.name)

@@ -10,7 +10,7 @@ class Option(db.Model):
     label = db.Column(db.Integer)
     description = db.Column(db.String(200))
     status = db.Column(db.String(20))
-    question = db.relationship('Question', back_populates='question')
+    question = db.relationship('Question', back_populates='option')
 
     def __repr__(self):
         return '{}'.format(self.name)

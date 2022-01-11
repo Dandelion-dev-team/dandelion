@@ -1,7 +1,6 @@
 from app import db
 
 
-
 class Audit_detail(db.Model):
     __tablename__ = 'audit_detail'
 
@@ -10,8 +9,6 @@ class Audit_detail(db.Model):
     column_name = db.Column(db.String(100))
     old_value = db.Column(db.String(100))
     audit = db.relationship('Audit', back_populates='audit_detail')
-
-
 
     def __repr__(self):
         return '{}'.format(self.name)
