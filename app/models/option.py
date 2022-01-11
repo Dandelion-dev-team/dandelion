@@ -9,7 +9,7 @@ class Option(db.Model):
     value = db.Column(db.Integer)
     label = db.Column(db.Integer)
     description = db.Column(db.String(200))
-    status = db.Column(db.VARCHAR(1))
+    status = db.Column(db.String(20))
     question = db.relationship('Question', back_populates='question')
 
     def __repr__(self):

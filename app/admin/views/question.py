@@ -1,5 +1,5 @@
 from flask import render_template, url_for, redirect
-from flask_json import json_question
+from flask_json import json_response
 from app.admin import admin
 from app.models import Question
 from app import db
@@ -10,7 +10,7 @@ from app.utils.functions import row2dict
 def listQuestion():
     question = Question.query.all()
 
-    return json_question(data=(row2dict(x) for x in question))
+    return json_response(data=(row2dict(x) for x in question))
 
 
 
