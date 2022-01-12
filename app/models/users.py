@@ -1,6 +1,6 @@
+from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
-from app import db
-from flask_login import UserMixin, login_manager
+from app import db, login_manager
 
 
 class Users(UserMixin, db.Model):
@@ -39,6 +39,6 @@ class Users(UserMixin, db.Model):
         return '{Users: {} {}>'.format(self.first_name, self.last_name)
 
 
-# @login_manager.user_loader
-# def load_user(id):
-#     return Users.query.get(int(id))
+@login_manager.user_loader
+def load_user(id):
+    return Users.query.get(int(id))
