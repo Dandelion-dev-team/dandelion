@@ -1,48 +1,61 @@
-from flask import render_template, url_for, redirect, request, flash
+from flask import render_template, url_for, redirect, request, flash, current_app
 from flask_json import json_response
 from sqlalchemy.exc import SQLAlchemyError
 
 from app.admin import admin
 from app.admin.forms.users import UsersForm
-from app.models import Users
+from app.models import User
 from app import db
 from app.utils.functions import row2dict
-
-
+import requests
 # from app.admin.forms.users import *
 
 
-@admin.route('/users', methods=['GET'])
+@admin.route('/user', methods=['GET'])
 def listUsers():
-    users = Users.query.all()
+    users = User.query.all()
 
     return json_response(data=(row2dict(x) for x in users))
 
 
-@admin.route('/users/add', methods=['GET', 'POST'])
+@admin.route('/user', methods=['POST'])
+def createUser():
+    request_data = request.get_json()
 
-def add_users():
+    print(request_data)
+
+    user = User(
+        school_id=request_data['school_id'],
+        username=request_data['username'],
+        password=request_data['password'],
+    )
+
+    try:
+        db.session.add(user)
+        db.session.commit()
+    except SQLAlchemyError as e:
+        db.session.rollback()
+        error = str(e.__dict__['orig'])
+    except:
+        db.session.rollback()
+        error = 'An error occurred - no record created'
+
+    return json_response(data=row2dict(user))
+
+
+
+
+@admin.route('/user/add', methods=['GET','POST'])
+def testCreateUser():
     form = UsersForm()
     if form.validate_on_submit():
-        users = Users(
+        r = requests.post('http://127.0.0.1:5000/user', json=dict(
             school_id=form.school.data.id,
             username=form.username.data,
-            password_hash=form.password_hash.data,
+            password=form.password.data,
+        ))
 
-        )
-        try:
-            db.session.add(users)
-            db.session.commit()
-            flash('New user created', 'success')
-        except SQLAlchemyError as e:
-            db.session.rollback()
-            error = str(e.__dict__['orig'])
-            flash('{}'.format(error), 'error')
-        except:
-            db.session.rollback()
-            flash('An error occurred - no record created', 'error')
-
-        return redirect(url_for('admin.list_users'))
+        return r
 
     return render_template('form_page.html',
                            form=form,
@@ -58,7 +71,7 @@ def add_users():
 #     newSchool_id = request.form['school_id']
 #     newUsername = request.form['username']
 #     newPassword = request.form['password']
-#     users = Users(school_id = newSchool_id, username=newUsername, password=newPassword)
+#     users = User(school_id = newSchool_id, username=newUsername, password=newPassword)
 #     db.session.add(users)
 #     db.session.commit()
 #     return "<p> New User Created</p>"

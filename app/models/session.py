@@ -10,7 +10,6 @@ class Session(db.Model):
     login_timestamp = db.Column(db.DateTime)
     logout_timestamp = db.Column(db.DateTime)
     is_timed_out = db.Column(db.Boolean, default=False)
-    users = db.relationship('Users', back_populates="session")
 
 
 

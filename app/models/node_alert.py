@@ -10,7 +10,6 @@ class Node_alert(db.Model):
     created_date = db.Column(db.DateTime)
     updated_date = db.Column(db.DateTime)
     status = db.Column(db.String(200))
-    node = db.relationship("Node",back_populates="node_alert")
 
 
 

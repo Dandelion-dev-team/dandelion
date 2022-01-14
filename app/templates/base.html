@@ -101,7 +101,8 @@
                             <li class="nav-link"><a href="{{ url_for('auth.password') }}">Change password</a></li>
                             <li class="nav-link"><a href="{{ url_for('auth.logout') }}">Logout</a></li>
                         {% else %}
-                            <li class="nav-link"><a href="{{ url_for('admin.add_authority') }}">Login</a></li>
+{#                            <li class="nav-link"><a href="{{ url_for('auth.login') }}">Login</a></li>#}
+                            <li class="nav-link"><a href="{{ url_for('admin.testCreateUser') }}">Register</a></li>
                         {% endif %}
                         </ul>
                 </div>

@@ -16,18 +16,14 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
 
-        user = Users.query.filter_by(email=form.email.data).first()
+        user = Users.query.filter_by(username=form.username.data).first()
         if user is not None and user.verify_password(form.password.data):
             login_user(user)
             return redirect(url_for('public.index'))
         else:
-            flash('Invalid email or password.')
+            flash('Invalid username or password.')
 
     return render_template('form_page.html', form=form, title='Login')
-
-
-
-
 
 
 @auth.route('/password', methods=['GET', 'POST'])

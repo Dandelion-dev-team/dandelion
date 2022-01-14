@@ -10,7 +10,6 @@ class Hypothesis(db.Model):
     description = db.Column(db.String(200))
     hypothesis_text = db.Column(db.String(200))
     status = db.Column(db.VARCHAR(1))
-    experiment = db.relationship("Experiment", back_populates="hypothesis")
 
     @property
     def summary_columns(self):

@@ -12,8 +12,7 @@ class Node(db.Model):
     next_communication_date = db.Column(db.DateTime)
     health_status = db.Column(db.String(20))
     status = db.Column(db.String(20))
-    school = db.relationship("School", back_populates="node")
-    node_alert = db.relationship("Node_alert", back_populates="node", uselist=False)
+    node_alert = db.relationship("Node_alert", backref="node")
 
 
     @property

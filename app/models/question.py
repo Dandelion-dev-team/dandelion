@@ -10,7 +10,7 @@ class Question(db.Model):
     response_type = db.Column(db.VARCHAR(1))
     question_stage = db.Column(db.VARCHAR(1))
     status = db.Column(db.String(200))
-    option = db.relationship('Option', back_populates='question', uselist=False)
+    option = db.relationship('Option', backref='question')
 
 
     def __repr__(self):

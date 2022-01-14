@@ -8,7 +8,7 @@ class Authority(db.Model):
     name = db.Column(db.String(60))
     telephone = db.Column(db.String(20))
     email = db.Column(db.String(100))
-    school = db.relationship('School', back_populates='authority', uselist=False)
+    school = db.relationship('School', backref='authority')
 
     @property
     def summary_columns(self):

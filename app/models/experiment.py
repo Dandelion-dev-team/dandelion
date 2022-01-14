@@ -15,8 +15,8 @@ class Experiment(db.Model):
     start_date = db.Column(db.Date)
     end_date = db.Column(db.Date)
     status = db.Column(db.VARCHAR(1))
-    hypothesis = db.relationship("Hypothesis", back_populates="experiment", uselist=False)
-    condition = db.relationship("Condition", back_populates="experiment", uselist=False)
+    hypothesis = db.relationship("Hypothesis", backref="experiment")
+    condition = db.relationship("Condition", backref="experiment")
 
 
     @property
