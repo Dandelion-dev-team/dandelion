@@ -1,0 +1,60 @@
+
+.about 
+{
+    padding: 48px 0;
+    background: #2E5641;
+    position: relative;
+    color: $white;
+
+    .hero-section 
+    {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .content 
+      {
+        width: 33%;
+
+        @media (max-width: 1440px) {
+          width: 40%;
+        }
+
+      }
+      .heading 
+      {
+        width: 50%;
+        height: 1000px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        z-index: 7;
+        @media (max-width: 1440px) {
+          height: 800px;
+        }
+
+        h3 {
+          padding-right: 120px;
+        }
+        .feat-img
+        {
+          position: absolute;
+          width: 640px;
+          z-index: 4;
+        //   @media (max-width: 1440px) {
+        //     width: 360px;
+        //   }
+        }
+        .bottom-left 
+        {
+          position: absolute;
+          width: 410px;
+          left: 0;
+          bottom: 0;
+          @media (max-width: 1440px) {
+            width: 310px;
+          }
+        }
+      }
+    }
+   
+  }
