@@ -1,7 +1,8 @@
+from flask_login import UserMixin
 from app import db
 
 
-class Audit(db.Model):
+class Audit(db.Model, UserMixin):
     __tablename__ = 'audit'
 
     id = db.Column(db.Integer, primary_key=True)

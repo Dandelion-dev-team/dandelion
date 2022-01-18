@@ -4,7 +4,7 @@ from datetime import datetime
 import flask
 from flask import render_template, url_for, redirect, request, flash, current_app, jsonify
 from flask_json import json_response
-from flask_login import login_required
+from flask_login import login_required, current_user
 from sqlalchemy.exc import SQLAlchemyError
 from app.admin import admin
 from app.admin.forms.users import UserForm
@@ -28,15 +28,12 @@ def createUser():
     db.session.add(user)
     db.session.commit()
 
-    audit_create("users", user.id,["username","password", "school_id"])
-
-
-
+    # audit_create("users", user.id, ["username", "password", "school_id"])
     serialiser = ModelSerializer(User)
     return jsonify(serialiser.dump(user))
 
 @admin.route('/test_user', methods=['GET', 'POST'])
-@login_required
+#@login_required
 def testCreateUser():
 
     form = UserForm()
