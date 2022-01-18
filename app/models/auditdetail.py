@@ -1,7 +1,7 @@
 from app import db
 
 
-class Audit_detail(db.Model):
+class AuditDetail(db.Model):
     __tablename__ = 'audit_detail'
 
     id = db.Column(db.Integer, primary_key=True)

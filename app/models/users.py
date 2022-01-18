@@ -12,8 +12,6 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(128))
     is_sysadmin = db.Column(db.Boolean, default=False)
     is_superuser = db.Column(db.Boolean, default=False)
-    created_date = db.Column(db.DateTime)
-    updated_date = db.Column(db.DateTime)
     status = db.Column(db.String(20))
     notes = db.Column(db.String(200))
     audit = db.relationship("Audit", backref="users")

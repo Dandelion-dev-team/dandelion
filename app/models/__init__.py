@@ -1,5 +1,5 @@
 from .audit import *
-from .audit_detail import *
+from .auditdetail import *
 from .authority import *
 from .condition import *
 from .experiment import *

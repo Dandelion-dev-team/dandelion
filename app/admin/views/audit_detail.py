@@ -1,14 +1,14 @@
 from flask import render_template, url_for, redirect
 from flask_json import json_response
 from app.admin import admin
-from app.models import Audit_detail
+from app.models import AuditDetail
 from app import db
 from app.utils.functions import row2dict
 
 
 @admin.route('/audit_detail', methods=['GET'])
 def listAudit_detail():
-    audit_detail = Audit_detail.query.all()
+    audit_detail = AuditDetail.query.all()
 
     return json_response(data=(row2dict(x, summary=True) for x in audit_detail))
 
@@ -17,7 +17,7 @@ def listAudit_detail():
 def add_audit_detail():
     form = Audit_detailForm()
     if form.validate_on_submit():
-        audit_detail = Audit_detail(name=form.name.data)
+        audit_detail = AuditDetail(name=form.name.data)
         try:
             db.session.add(audit_detail)
             db.session.commit()
