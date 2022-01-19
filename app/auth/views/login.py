@@ -2,11 +2,10 @@ from flask import flash, redirect, render_template, url_for
 from flask_login import login_required, login_user, logout_user, current_user
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.testing import db
-
-from app.admin.forms.signup import SignUpForm
+from app.admin.forms.users import UserForm
 from app.auth import auth
 from app.auth.forms.login import *
-from app.models import Users
+from app.models import User
 from app import db
 from app.auth.forms.password import PasswordForm
 
@@ -16,7 +15,7 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
 
-        user = Users.query.filter_by(username=form.username.data).first()
+        user = User.query.filter_by(username=form.username.data).first()
         if user is not None and user.verify_password(form.password.data):
             login_user(user)
             return redirect(url_for('public.index'))

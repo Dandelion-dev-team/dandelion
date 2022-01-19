@@ -1,6 +1,5 @@
 import json
 from datetime import datetime
-
 import flask
 from flask import render_template, url_for, redirect, request, flash, current_app, jsonify
 from flask_json import json_response
@@ -19,7 +18,8 @@ from app.utils.auditing import audit_create
 
 @admin.route('/user', methods=['POST'])
 def createUser():
-    data = json.loads(request.get_json())
+    # data = json.loads(request.get_json())
+    data = request.get_json()
     user = User(
         username = data['username'],
         password = data['password'],
@@ -32,7 +32,7 @@ def createUser():
     serialiser = ModelSerializer(User)
     return jsonify(serialiser.dump(user))
 
-@admin.route('/test_user', methods=['GET', 'POST'])
+@admin.route('/create_user', methods=['GET', 'POST'])
 #@login_required
 def testCreateUser():
 
