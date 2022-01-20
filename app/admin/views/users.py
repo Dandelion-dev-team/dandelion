@@ -47,6 +47,20 @@ def getAllUsers():
 
     return jsonify({'users': output})
 
+@admin.route('/user/<username>', methods=['GET'])
+def getOneUser(username):
+
+    user = User.query.filter_by(username=username).first()
+
+    if not user:
+        return  jsonify({"message": "No user found"})
+
+    user_data = {}
+    user_data['username'] = user.username
+    user_data['password'] = user.password_hash
+    user_data['school_id'] = user.school_id
+
+    return jsonify({'user' : user_data})
 
 @admin.route('/create_user', methods=['GET', 'POST'])
 # @login_required
