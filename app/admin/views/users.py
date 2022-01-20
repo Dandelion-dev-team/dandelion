@@ -62,6 +62,23 @@ def getOneUser(username):
 
     return jsonify({'user' : user_data})
 
+@admin.route('/user/<username>', methods=['DELETE'])
+def deleteUser(username):
+
+    user = User.query.filter_by(username=username).first()
+
+    if not user:
+        return jsonify({"message" : "No user found!"})
+
+    db.session.delete(user)
+    db.session.commit()
+
+    return jsonify({"message": "The user has been deleted"})
+
+
+
+
+
 @admin.route('/create_user', methods=['GET', 'POST'])
 # @login_required
 def testCreateUser():
