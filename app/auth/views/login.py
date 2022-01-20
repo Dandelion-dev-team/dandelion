@@ -1,7 +1,12 @@
-from flask import flash, redirect, render_template, url_for
+from flask import flash, redirect, render_template, url_for, request, make_response, jsonify, app, current_app
 from flask_login import login_required, login_user, logout_user, current_user
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.testing import db
+from werkzeug.security import check_password_hash
+import jwt
+import datetime
+
+
 from app.admin.forms.users import UserForm
 from app.auth import auth
 from app.auth.forms.login import *
@@ -10,20 +15,45 @@ from app import db
 from app.auth.forms.password import PasswordForm
 
 
-@auth.route('/login', methods=['GET', 'POST'])
+
+
+@auth.route('/login')
 def login():
-    form = LoginForm()
-    if form.validate_on_submit():
+    auth = request.authorization
 
-        user = User.query.filter_by(username=form.username.data).first()
-        if user is not None and user.verify_password(form.password.data):
-            login_user(user)
-            return redirect(url_for('public.index'))
-        else:
-            flash('Invalid username or password.')
+    if not auth or not auth.username or not auth.password:
+        return make_response('Could not verify - First Stage', 401, {'WWW-Authenticate': 'Basic realm="Login required!"'})
 
-    return render_template('form_page.html', form=form, title='Login')
+    user = User.query.filter_by(username=auth.username).first()
 
+    if not user:
+        return make_response('Could not verify - Second stage', 401, {'WWW-Authenticate': 'Basic realm="Login required!"'})
+
+    if user.verify_password(auth.password):
+        token = jwt.encode({'username' : user.username, 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, current_app.config.get('SECRET_KEY'))
+
+        return jsonify({'token' : token.decode('UTF-8')})
+
+    return make_response('Could not verify Third Stage', 401, {'WWW-Authenticate': 'Basic realm="Login required!"'})
+
+
+
+
+
+
+# @auth.route('/login', methods=['GET', 'POST'])
+# def login():
+#     form = LoginForm()
+#     if form.validate_on_submit():
+#
+#         user = User.query.filter_by(username=form.username.data).first()
+#         if user is not None and user.verify_password(form.password.data):
+#             login_user(user)
+#             return redirect(url_for('public.index'))
+#         else:
+#             flash('Invalid username or password.')
+#
+#     return render_template('form_page.html', form=form, title='Login')
 
 
 # Example code from https://www.bacancytechnology.com/blog/flask-jwt-authentication
@@ -43,8 +73,6 @@ def login():
 #         return jsonify({'token': token})
 #
 #     return make_response('could not verify', 401, {'Authentication': '"login required"'})
-
-
 
 
 @auth.route('/password', methods=['GET', 'POST'])

@@ -28,7 +28,7 @@ def createUser():
     db.session.add(user)
     db.session.commit()
 
-    # audit_create("users", user.id, ["username", "password", "school_id"])
+    audit_create("users", user.id, ["username", "password", "school_id"])
     serialiser = ModelSerializer(User)
     return jsonify(serialiser.dump(user), {"message": "New user has been created"})
 
