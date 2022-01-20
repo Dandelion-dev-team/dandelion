@@ -21,21 +21,36 @@ def createUser():
     # data = json.loads(request.get_json())
     data = request.get_json()
     user = User(
-        username = data['username'],
-        password = data['password'],
-        school_id = data['school_id']
+        username=data['username'],
+        password=data['password'],
+        school_id=data['school_id']
     )
     db.session.add(user)
     db.session.commit()
 
     # audit_create("users", user.id, ["username", "password", "school_id"])
     serialiser = ModelSerializer(User)
-    return jsonify(serialiser.dump(user))
+    return jsonify(serialiser.dump(user), {"message": "New user has been created"})
+
+
+@admin.route('/user', methods=['GET'])
+def getAllUsers():
+    users = User.query.all()
+    output = []
+
+    for user in users:
+        user_data = {}
+        user_data['username'] = user.username
+        user_data['password'] = user.password_hash
+        user_data['school_id'] = user.school_id
+        output.append(user_data)
+
+    return jsonify({'users': output})
+
 
 @admin.route('/create_user', methods=['GET', 'POST'])
-#@login_required
+# @login_required
 def testCreateUser():
-
     form = UserForm()
     if form.validate_on_submit():
         data = json.dumps(dict(
@@ -50,9 +65,6 @@ def testCreateUser():
         return r.content
 
     return render_template('form_page.html', form=form)
-
-
-
 
 # @admin.route('/user', methods=['GET'])
 # def listUsers():
@@ -103,15 +115,6 @@ def testCreateUser():
 #     return render_template('form_page.html',
 #                            form=form,
 #                            title="Add User")
-
-
-
-
-
-
-
-
-
 
 
 # -- Working Json Code to ADD a new user --
