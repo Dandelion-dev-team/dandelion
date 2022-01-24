@@ -1,0 +1,76 @@
+{
+  "users": [
+    {
+      "created_date": "2022-01-19T12:59:11.340Z",
+      "created_by": {
+        "id": 123949,
+        "username": "GLA_TEST_USERNAME",
+        "school id": {
+          "id": 1,
+          "authority_id": {
+            "id": 0,
+            "name": "East Dunbartonshire"
+          },
+          "name": "string",
+          "status": "active"
+        },
+        "is_sysadmin": false,
+        "is_superuser": false,
+        "status": "active"
+      },
+      "updated_date": "2022-01-19T12:59:11.340Z",
+      "id": 12345,
+      "username": "string",
+      "school id": {
+        "id": 0,
+        "authority_id": {
+          "id": 0,
+          "name": "string"
+        },
+        "name": "string",
+        "status": "active"
+      },
+      "is_sysadmin": false,
+      "is_superuser": true,
+      "status": "active",
+      "password_hash": "string",
+      "notes": "string",
+      "projects": [
+        {
+          "id": 12345,
+          "title": "Potato Project",
+          "description": "Lorem Ipsum",
+          "project_image_link": "string",
+          "project_text": "string",
+          "start_date": "2022-01-19T12:59:11.340Z",
+          "end_date": "2022-01-19T12:59:11.340Z",
+          "status": "active"
+        }
+      ],
+      "sessions": [
+        {
+          "id": 0,
+          "login_timestamp": "2022-01-19T12:59:11.340Z",
+          "logout_timestamp": "2022-01-19T12:59:11.340Z",
+          "is_timed_out": false
+        }
+      ]
+    }
+  ],
+  "logins": [
+    {
+      "id": 0,
+      "username": "username",
+      "password": "password",
+      "is_sysadmin": false,
+      "is_superuser": false
+    },
+    {
+      "id": 1,
+      "username": "name",
+      "password": "pass",
+      "is_sysadmin": false,
+      "is_superuser": true
+    }
+  ]
+}
