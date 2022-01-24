@@ -1,62 +1,71 @@
 import React, { useEffect, useState } from "react"
 import Header from "../components/header"
 import "../styles/App.scss"
-import { login, useAuth, logout } from "../auth"
-import { navigate } from "gatsby"
+import {navigate} from 'gatsby'
+
+const parse = require('../auth');
+
+async function loginUser(credentials) {
+  return fetch('http://127.0.0.1:5000/api/login', {
+    method: 'POST',
+    body: JSON.stringify(credentials)
+  })
+    .then(data => data.json())
+}
 
 export default function Login(props) {
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
-  const [role, setRole] = useState("")
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [role, setRole] = useState('')
   const [loggedIn, setLoggedIn] = useState(false)
-  
-  const [logged] = useAuth()
-  const onSubmitClick = e => {
+
+  const [logged] = parse.useAuth();
+
+  const onSubmitClick = (e) => {
     e.preventDefault()
     console.log("You pressed login")
     let opts = {
-      username: username,
-      password: password,
-      //roles: role,
+      'username': username,
+      'password': password,
+      'roles': role,
     }
     console.log(opts)
-    fetch("http://localhost:3000/logins", {
-      method: "post",
-      body: JSON.stringify(opts),
-    })
-      .then(r => r.json())
+    fetch("http://127.0.0.1:5000/api/login", {
+      method: 'post',
+      body: JSON.stringify(opts)
+    }).then(r => r.json())
       .then(token => {
         if (token.access_token) {
-          login(token)
-          console.log(token)
-          navigate("/")
-        } else {
+          parse.login(token)
+          console.log(token.access_token)
+        }
+        else {
           console.log("Please type in correct username/password")
         }
       })
-  }
+  };
 
-  const handleUsernameChange = e => {
+  const handleUsernameChange = (e) => {
     setUsername(e.target.value)
   }
 
-  const handlePasswordChange = e => {
+  const handlePasswordChange = (e) => {
     setPassword(e.target.value)
   }
 
-  console.log("logged in", logged)
+  console.log('logged in', logged);
 
   return (
     <div>
       <Header />
-      <div className="about">
+      <div className="signin">
         <div className="container">
           <div className="hero-section">
             <div className="heading">
               <h3>Sign In Page</h3>
             </div>
             <div className="content">
-              <form>
+              {!logged ? <form>
                 <label>Username: </label>
                 <input
                   type="text"
@@ -64,7 +73,6 @@ export default function Login(props) {
                   placeholder="Your username"
                   name="username"
                   onChange={handleUsernameChange}
-                  value={username} 
                 />
                 <label>Password: </label>
                 <input
@@ -73,7 +81,6 @@ export default function Login(props) {
                   placeholder="Your password"
                   name="pass"
                   onChange={handlePasswordChange}
-                  value={password}
                 />
                 <input
                   type="submit"
@@ -81,7 +88,10 @@ export default function Login(props) {
                   value="Log In"
                   onClick={onSubmitClick}
                 ></input>
+
               </form>
+                : navigate("/dashboard")}
+
             </div>
           </div>
         </div>

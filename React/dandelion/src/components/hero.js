@@ -34,7 +34,7 @@ const Hero = () => {
               <button
                 className="button"
                 onClick={() => {
-                  navigate("/log-in")
+                  navigate("/signin")
                 }}
               >
                 Log In
