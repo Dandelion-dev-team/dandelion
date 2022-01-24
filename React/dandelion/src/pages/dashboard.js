@@ -15,10 +15,6 @@ export default function Dashboard() {
     const [savedData, setData] = useState(0);
     const [logged] = parse.useAuth();
 
-    if(!logged){
-        navigate("/signin");
-    }
-
     useEffect(() => {
         // Update the document title using the browser API
         fetch("http://localhost:3000/users", {
