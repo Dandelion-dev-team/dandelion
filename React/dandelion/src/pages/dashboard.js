@@ -10,7 +10,6 @@ import add_data from '../images/add data.png';
 import { navigate } from "gatsby";
 const parse = require('../auth');
 
-
 export default function Dashboard() {
     const [savedData, setData] = useState(0);
     const [logged] = parse.useAuth();

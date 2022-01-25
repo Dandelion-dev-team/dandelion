@@ -22,8 +22,15 @@ html,
 body {
   font-family: "Archivo Narrow";
   font-weight: 700;
-  font-size: 16px;
+  font-size: 1rem;
   background: #fe693c;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  max-width: 100%;
+  overflow-x: none;
+  overscroll-behavior: none;
+  margin: 0;
+  user-select: none;
 }
 
 .container {
@@ -32,18 +39,17 @@ body {
   margin: 0 auto;
   background: #2e5641;
 
-  @media (max-width: 1440px) {
+  @include media("<=1560px") {
     width: 1280px;
     min-width: 1280px;
   }
-
-  @media (max-width: 1280px) {
-    width: 976px;
-    min-width: 976px;
+  @include media("<=desktop") {
+    width: 1080px;
+    min-width: 1080px;
   }
 
-  @media (max-width: 976px) {
-    width: 768px;
-    min-width: 768px;
+  @include media("<=phone") {
+    width: 100%;
+    min-width: 100%;
   }
 }
