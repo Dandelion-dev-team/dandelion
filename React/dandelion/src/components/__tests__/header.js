@@ -1,13 +1,9 @@
 import React from "react"
 import renderer from "react-test-renderer"
 
-import Header from "../header"
 
-describe("Header", () => {
-  it("renders correctly", () => {
-    const tree = renderer
-      .create(<Header/>)
-      .toJSON()
-    expect(tree).toMatchSnapshot()
-  })
-})
+describe('sum of 2 numbers', () => {
+  it(' 2 + 2 equal 4', () => {
+      expect(2 + 2).toEqual(4)
+  });
+});
