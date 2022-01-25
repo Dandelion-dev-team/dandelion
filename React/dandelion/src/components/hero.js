@@ -2,6 +2,7 @@ import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import Img from "gatsby-image"
 import { Link, navigate } from "gatsby"
+import { Trans, useTranslation } from "gatsby-plugin-react-i18next"
 
 const Hero = () => {
   const data = useStaticQuery(graphql`
@@ -15,6 +16,9 @@ const Hero = () => {
       }
     }
   `)
+
+  const { t } = useTranslation();
+
   return (
     <div className="hero-blurb">
       <div className="container">
@@ -25,10 +29,14 @@ const Hero = () => {
             </div>
           </div>
           <div className="content">
-            <h3>The Dandelion School Growing Initiative</h3>
+            <h3>
+              <Trans>The Dandelion School Growing Initiative</Trans>
+            </h3>
             <p>
-              500 schools. 200 growing cubes. The largest community-led growing
-              experiment ever undertaken in Scotland.
+              <Trans>
+                500 schools. 200 growing cubes. The largest community-led
+                growing experiment ever undertaken in Scotland.
+              </Trans>
             </p>
             <div className="btn-row">
               <button
@@ -37,7 +45,7 @@ const Hero = () => {
                   navigate("/signin")
                 }}
               >
-                Log In
+                {t('message')}
               </button>
             </div>
           </div>
@@ -48,3 +56,5 @@ const Hero = () => {
 }
 
 export default Hero
+
+
