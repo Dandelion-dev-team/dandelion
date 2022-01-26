@@ -5,15 +5,15 @@ from sqlalchemy.testing import db
 from werkzeug.security import check_password_hash
 import jwt
 import datetime
-
-
 from app.admin.forms.users import UserForm
 from app.auth import auth
 from app.auth.forms.login import *
 from app.models import User
 from app import db
 from app.auth.forms.password import PasswordForm
-
+from flask import Flask
+from flask import jsonify
+from flask import request
 
 
 
@@ -32,7 +32,7 @@ def login():
     if user.verify_password(auth.password):
         token = jwt.encode({'username' : user.username, 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, current_app.config.get('SECRET_KEY'))
 
-        return jsonify({'token' : token.decode('UTF-8')})
+        return jsonify({'token' : token})
 
     return make_response('Could not verify Third Stage', 401, {'WWW-Authenticate': 'Basic realm="Login required!"'})
 

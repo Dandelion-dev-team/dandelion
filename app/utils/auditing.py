@@ -17,7 +17,6 @@ def audit_create(table_name, primary_key_value, column_list):
 
 
 
-
 # def audit_create(table_name, primary_key_value, column_list):
 #     audit = Audit(
 #         user_id=current_user.id,

@@ -1,9 +1,10 @@
 from flask import Flask, render_template
+from flask_jwt_extended import JWTManager
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_json import FlaskJSON
-from flask_bootstrap import Bootstrap
+from flask_bootstrap import Bootstrap, Bootstrap4
 import logging
 
 # local imports
@@ -70,8 +71,9 @@ def create_app(config_name):
             message="The server encountered an internal error. That's all we know."
         ), 500
 
+    jwt = JWTManager(app)
     json = FlaskJSON(app)
-    Bootstrap(app)
+    Bootstrap4(app)
 
     return app
 
