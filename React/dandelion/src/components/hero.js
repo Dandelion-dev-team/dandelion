@@ -30,7 +30,7 @@ const Hero = () => {
           </div>
           <div className="content">
             <h3>
-              <Trans>The Dandelion School Growing Initiative</Trans>
+              <Trans>The Dandelion Schools' Growing Initiative</Trans>
             </h3>
             <p>
               <Trans>
@@ -45,7 +45,7 @@ const Hero = () => {
                   navigate("/signin")
                 }}
               >
-                {t('message')}
+                {t('Log In')}
               </button>
             </div>
           </div>
