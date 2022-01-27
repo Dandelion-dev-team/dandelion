@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header renders correctly 1`] = `
+<header>
+  <div
+    className="container"
+  >
+    <div
+      className="inner-header"
+    >
+      <div
+        className="logo"
+      >
+        <a
+          exact={true}
+          href="/"
+        >
+          <img
+            src="test-file-stub"
+          />
+        </a>
+      </div>
+      <div
+        className="navigation"
+      >
+        <nav>
+          <a
+            href="/data"
+          >
+            Data
+          </a>
+          <a
+            href="/map"
+          >
+            Map
+          </a>
+          <a
+            href="/about"
+          >
+            About
+          </a>
+          <a
+            href="/signin"
+          >
+            Sign In
+          </a>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+`;

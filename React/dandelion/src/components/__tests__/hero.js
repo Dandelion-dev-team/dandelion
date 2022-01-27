@@ -1,13 +1,11 @@
 import React from "react"
 import renderer from "react-test-renderer"
-import Header from "../header"
+import Hero from "../hero"
 
-jest.mock("../../auth");
-
-describe("Header", () => {
+describe("Hero", () => {
   it("renders correctly", () => {
     const tree = renderer
-      .create(<Header />)
+      .create(<Hero />)
       .toJSON()
     expect(tree).toMatchSnapshot()
   })
