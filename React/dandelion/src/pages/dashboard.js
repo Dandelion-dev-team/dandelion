@@ -28,10 +28,6 @@ export default function Dashboard() {
                 data => setData(data[0]))
     }, []);
 
-    if (savedData) {
-        console.log(savedData);
-    }
-
     return (
         <div>
             <Header />

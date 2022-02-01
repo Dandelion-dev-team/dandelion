@@ -72,5 +72,69 @@
       "is_sysadmin": false,
       "is_superuser": true
     }
+  ],
+  "projects": [
+    [
+      {
+        "id": 0,
+        "title": "Lemon Balm",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "project_image_link": "https://cdn.britannica.com/77/124177-004-FEB6DB88/Balm-lemon-balm.jpg",
+        "project_text": "string",
+        "start_date": "2022-01-31T14:31:24.262Z",
+        "end_date": "2022-01-31T14:31:24.262Z",
+        "status": "active"
+      },
+      {
+        "id": 1,
+        "title": "Lettuce Project",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "project_image_link": "https://static.onecms.io/wp-content/uploads/sites/37/2020/04/17/tango-oakleaf-lettuce-c6f6417e.jpg",
+        "project_text": "string",
+        "start_date": "2022-01-31T14:31:24.262Z",
+        "end_date": "2022-01-31T14:31:24.262Z",
+        "status": "active"
+      },
+      {
+        "id": 2,
+        "title": "Chives!",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "project_image_link": "https://foodsguy.com/wp-content/uploads/2020/03/Chives-vs-Green-Onions.jpg",
+        "project_text": "string",
+        "start_date": "2022-01-31T14:31:24.262Z",
+        "end_date": "2022-01-31T14:31:24.262Z",
+        "status": "active"
+      },
+      {
+        "id": 3,
+        "title": "Kohl rabi",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "project_image_link": "https://www.gardeningknowhow.com/wp-content/uploads/2021/07/kohlrabi-cabbage-growing-in-garden.jpg",
+        "project_text": "string",
+        "start_date": "2022-01-31T14:31:24.262Z",
+        "end_date": "2022-01-31T14:31:24.262Z",
+        "status": "active"
+      },
+      {
+        "id": 4,
+        "title": "Sunflower",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "project_image_link": "https://i.pinimg.com/originals/1d/74/e1/1d74e1788fccdc42c6af2c58b851d94c.jpg",
+        "project_text": "string",
+        "start_date": "2022-01-31T14:31:24.262Z",
+        "end_date": "2022-01-31T14:31:24.262Z",
+        "status": "active"
+      },
+      {
+        "id": 5,
+        "title": "Beetroot",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "project_image_link": "https://images.squarespace-cdn.com/content/v1/53726d44e4b07d0c6bf0b106/1535677982492-J7R729ZEBU5DZXV2VYLH/growing+red+beets+in+your+summer+garden.jpg",
+        "project_text": "string",
+        "start_date": "2022-01-31T14:31:24.262Z",
+        "end_date": "2022-01-31T14:31:24.262Z",
+        "status": "active"
+      }
+    ]
   ]
 }
