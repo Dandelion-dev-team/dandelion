@@ -14,10 +14,18 @@ const Hero = () => {
           }
         }
       }
+
+      mobileHeroImage: file(relativePath: { eq: "Group.png" }) {
+        childImageSharp {
+          fluid {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
     }
   `)
 
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   return (
     <div className="hero-blurb">
@@ -25,7 +33,13 @@ const Hero = () => {
         <div className="inner-hero">
           <div className="images">
             <div className="feat-img">
-              <Img fluid={data.heroImage.childImageSharp.fluid} />
+              <div className="desktopImage">
+                <Img fluid={data.heroImage.childImageSharp.fluid} />
+              </div>
+              <div className="mobileImage">
+                <Img
+                  fluid={data.mobileHeroImage.childImageSharp.fluid} />
+              </div>
             </div>
           </div>
           <div className="content">
@@ -45,7 +59,7 @@ const Hero = () => {
                   navigate("/signin")
                 }}
               >
-                {t('Log In')}
+                {t("Log In")}
               </button>
             </div>
           </div>
@@ -56,5 +70,3 @@ const Hero = () => {
 }
 
 export default Hero
-
-

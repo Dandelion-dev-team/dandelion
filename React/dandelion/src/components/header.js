@@ -1,12 +1,10 @@
 import * as React from "react"
 import { Link } from "gatsby"
-import logo from '../images/logo.png';
+import logo from '../images/logo.svg';
 const parse = require('../auth');
 
 export default function Header() {
   const [logged] = parse.useAuth();
-
-  
 
   return (
     <header>

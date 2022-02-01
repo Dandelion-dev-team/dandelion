@@ -6,6 +6,8 @@
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
     "@lingui/react": "^3.13.2",
+    "camelcase": "^6.3.0",
+    "formik": "^2.2.9",
     "gatsby": "^4.5.2",
     "gatsby-image": "^3.11.0",
     "gatsby-plugin-gatsby-cloud": "^4.5.1",
