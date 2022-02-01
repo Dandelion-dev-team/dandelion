@@ -5,7 +5,6 @@ const parse = require('../auth');
 
 export default function Header() {
   const [logged] = parse.useAuth();
-
   return (
     <header>
       <div className="container">
@@ -20,7 +19,7 @@ export default function Header() {
               <Link to="/data">Data</Link>
               <Link to="/map">Map</Link>
               <Link to="/about">About</Link>
-              {logged ? <Link to="/signin" onClick={() => parse.logout()}>Logout</Link> : <Link to="/signin">Sign In</Link>}
+              {logged ? <Link to="/signin" onClick={() => parse.logout()}>Logout</Link> : <Link to="/signin">Sign In</Link> }
             </nav>
           </div>
         </div>

@@ -23,4 +23,5 @@ module.exports = {
   ),
   StaticQuery: jest.fn(),
   useStaticQuery: jest.fn(),
+  localStorage: jest.fn(),
 }
