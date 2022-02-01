@@ -33,7 +33,7 @@ def login_with_cookies():
     return response
 
 
-@app.route("/logout_with_cookies", methods=["POST"])
+@auth.route("/logout_with_cookies", methods=["POST"])
 def logout_with_cookies():
     response = jsonify({"msg": "logout successful"})
     unset_jwt_cookies(response)
@@ -53,7 +53,7 @@ def protected():
     return jsonify({'message': 'This is only available for people with valid tokens'})
 
 
-@app.route("/only_headers")
+@auth.route("/only_headers")
 @jwt_required(locations=["headers"])
 def only_headers():
     return jsonify(foo="baz")
