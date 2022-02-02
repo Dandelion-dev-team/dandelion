@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+    <h1>{{ title }}</h1>
+    {% if rowdata %}
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th> Name </th>
+                <th> Actions </th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for row in rowdata %}
+            <tr>
+              <td> {{ row.name }} </td>
+              <td>
+                  <a href="{{ url_for('admin.edit_subject_group', id=row.id) }}">Edit</a>
+                  <a href="{{ url_for('admin.delete_subject_group', id=row.id) }}">Del</a>
+              </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <div>
+        <h3> No data found. </h3>
+      </div>
+    {% endif %}
+    <div>
+      <a href="{{ url_for('admin.add_subject_group') }}">New</a>
+    </div>
+</body>
+</html>
