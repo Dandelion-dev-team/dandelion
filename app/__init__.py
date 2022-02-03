@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
@@ -19,6 +20,7 @@ login_manager = LoginManager()
 def create_app(config_name):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_object(app_config[config_name])
+    app.config['CORS_HEADERS'] = 'Content-Type'
     app.config.from_pyfile('config.py')
     db.init_app(app)
 
@@ -74,6 +76,7 @@ def create_app(config_name):
 
     jwt = JWTManager(app)
     json = FlaskJSON(app)
+    cors = CORS(app)
     Bootstrap4(app)
 
     return app
