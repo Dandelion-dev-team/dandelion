@@ -6,18 +6,11 @@ import { useFormik } from "formik"
 
 const parse = require("../auth")
 
-async function loginUser(credentials) {
-  return fetch("http://127.0.0.1:5000/api/login", {
-    method: "POST",
-    body: JSON.stringify(credentials),
-  }).then(data => data.json())
-}
 
 export default function Login(props) {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [role, setRole] = useState("")
-  const [loggedIn, setLoggedIn] = useState(false)
 
   const [logged] = parse.useAuth()
 
@@ -52,8 +45,6 @@ export default function Login(props) {
   const handlePasswordChange = e => {
     setPassword(e.target.value)
   }
-
-  console.log("logged in", logged)
 
   const formik = useFormik({
     initialValues: {

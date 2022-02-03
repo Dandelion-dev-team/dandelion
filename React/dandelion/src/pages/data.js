@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Header from '../components/header'
 import '../styles/App.scss'
 import Card from '../components/projectCard';
+import TuneIcon from '@mui/icons-material/Tune';
 
 export default function Data() {
   const [projectList, setData] = useState(0);
@@ -23,20 +24,19 @@ export default function Data() {
   return (
     <div>
       <Header />
-      <div className="about">
+      <div className="data">
         <div className="container">
-          <div className="hero-section">
-            <div className="heading">
-              <h3>Data Page</h3>
-            </div>
-            <div className="content">
-              {projectList ?
-                projectList.map(function (d, idx) {
-                  return (
-                    <Card key={idx} title={d.title} description={d.description} image={d.project_image_link}></Card>)
-                })
-                : null}
-            </div>
+          <div className="heading">
+            <TuneIcon color="#FFFF" />
+            <h3>Data Page</h3>
+          </div>
+          <div className="projects">
+            {projectList ?
+              projectList.map(function (d, idx) {
+                return (
+                  <Card key={idx} title={d.title} description={d.description} image={d.project_image_link}></Card>)
+              })
+              : null}
           </div>
         </div>
       </div>
