@@ -76,7 +76,7 @@ def login():
     if user.verify_password(auth.password):
         access_token = create_access_token(identity=auth.username)
 
-        return jsonify({'access token': access_token})
+        return jsonify({'access_token': access_token})
 
     return make_response('Could not verify Third Stage', 401, {'WWW-Authenticate': 'Basic realm="Login required!"'})
 

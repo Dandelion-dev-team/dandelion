@@ -1,6 +1,16 @@
-.card.singleCardWhite {
-    background-color: white;
-    color: #2e5641;
-    width: 18rem;
-    border-radius: 20px;
+.card {
+  width: 600px;
+  height: 200px;
+  background-color: white;
+  margin-top: 20px;
+  border-radius: 20px;
+    .cardImage{
+      img{
+        object-fit: cover;
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+        width:200px;
+        height:200px;
+      }
+    }
   }

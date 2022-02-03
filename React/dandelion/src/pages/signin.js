@@ -23,19 +23,24 @@ export default function Login(props) {
       roles: role,
     }
     console.log(opts)
-    fetch("http://127.0.0.1:5000/api/login", {
-      method: "post",
-      body: JSON.stringify(opts),
+    fetch("http://127.0.0.1:5000/login", {
+      method: "GET",
+      headers: new Headers({
+        "Authorization": "Basic YnJpYW46MTI=",
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Cache-Control': 'no-cache',
+      }),
     })
       .then(r => r.json())
-      .then(token => {
+      .then(token => {{
         if (token.access_token) {
           parse.login(token)
           console.log(token.access_token)
         } else {
           console.log("Please type in correct username/password")
         }
-      })
+      }})
   }
 
   const handleUsernameChange = e => {

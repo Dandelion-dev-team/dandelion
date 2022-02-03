@@ -1,19 +1,13 @@
 import React from 'react'
-import {Card} from 'react-bootstrap'
+import { Card } from 'react-bootstrap'
 
 export default function projectCard(props) {
     return (
-        <Card className='singleCardWhite'>
-            <Card.Img variant="top" src={props.image} />
-            <Card.Body>
-                <Card.Title>{props.title}</Card.Title>
-                <Card.Text>
-                    {props.description}
-                </Card.Text>
-            </Card.Body>
-            <Card.Footer>
-                <small className="text-muted">Douglas Academy</small>
-            </Card.Footer>
-        </Card>
+        <div className='card'>
+            <div className='cardImage'>
+                <img src={props.image}></img>
+                <h2>Text</h2>
+            </div>
+        </div>
     )
 }
