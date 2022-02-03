@@ -28,7 +28,7 @@ def createUser():
     db.session.add(user)
     db.session.commit()
 
-    audit_create("users", user.id, ["username", "password", "school_id"])
+    # audit_create("users", user.id, ["username", "password", "school_id"])
     serialiser = ModelSerializer(User)
     return jsonify(serialiser.dump(user), {"message": "New user has been created"})
 
@@ -74,9 +74,6 @@ def deleteUser(username):
     db.session.commit()
 
     return jsonify({"message": "The user has been deleted"})
-
-
-
 
 
 @admin.route('/create_user', methods=['GET', 'POST'])

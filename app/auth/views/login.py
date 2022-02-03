@@ -50,7 +50,7 @@ def unprotected():
 @jwt_required()
 def protected():
     current_user = get_jwt_identity()
-    return jsonify({'message': 'This is only available for people with valid tokens'})
+    return jsonify({'message': 'You see this page because you are LOGGED IN. This is only available for people with valid tokens'})
 
 
 @auth.route("/only_headers")
@@ -59,7 +59,7 @@ def only_headers():
     return jsonify(foo="baz")
 
 
-@auth.route('/login')
+@auth.route('/user/login')
 def login():
     auth = request.authorization
 
@@ -76,7 +76,7 @@ def login():
     if user.verify_password(auth.password):
         access_token = create_access_token(identity=auth.username)
 
-        return jsonify({'access token': access_token})
+        return jsonify({'access token': access_token, "message" : "You are logged in"})
 
     return make_response('Could not verify Third Stage', 401, {'WWW-Authenticate': 'Basic realm="Login required!"'})
 
