@@ -11,6 +11,8 @@ class School(db.Model):
     address_line_2 = db.Column(db.String(150))
     town = db.Column(db.String(50))
     postcode = db.Column(db.String(10))
+    latitude = db.Column(db.DECIMAL(8,6))
+    longitude = db.Column(db.DECIMAL(9,6))
     telephone = db.Column(db.String(15))
     email = db.Column(db.String(60))
     school_image_link = db.Column(db.String(400))
