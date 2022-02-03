@@ -7,6 +7,7 @@ from flask_json import FlaskJSON
 from flask_bootstrap import Bootstrap, Bootstrap4
 import logging
 
+
 # local imports
 from config import app_config
 
