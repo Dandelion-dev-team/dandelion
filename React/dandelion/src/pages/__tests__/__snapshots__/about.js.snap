@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`About renders correctly 1`] = `
+<div>
+  <header>
+    <div
+      className="container"
+    >
+      <div
+        className="inner-header"
+      >
+        <div
+          className="logo"
+        >
+          <a
+            exact={true}
+            href="/"
+          >
+            <img
+              src="test-file-stub"
+            />
+          </a>
+        </div>
+        <div
+          className="navigation"
+        >
+          <nav>
+            <a
+              href="/data"
+            >
+              Data
+            </a>
+            <a
+              href="/map"
+            >
+              Map
+            </a>
+            <a
+              href="/about"
+            >
+              About
+            </a>
+            <a
+              href="/signin"
+            >
+              Sign In
+            </a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div
+    className="about"
+  >
+    <div
+      className="container"
+    >
+      <div
+        className="hero-section"
+      >
+        <div
+          className="heading"
+        >
+          <h3>
+            The Dandelion School Growing Initiative
+          </h3>
+          <p>
+            500 schools. 200 growing cubes. The largest community-led growing experiment ever undertaken in Scotland.
+          </p>
+        </div>
+        <div
+          className="content"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;

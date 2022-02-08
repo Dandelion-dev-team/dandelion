@@ -1,0 +1,60 @@
+$font: "Helvetica Neue", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+  Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@400;500;700&display=swap");
+
+//static imports
+@import "./variables.scss";
+@import "./breakpoints.scss";
+
+//component imports
+@import "./components/header.scss";
+@import "./components/hero.scss";
+@import "./components/tile.scss";
+@import "./components/projectCard.scss";
+
+//@import "./components/footer.scss";
+@import "./components/signin-form.scss";
+
+//pages imports
+@import "./pages/about.scss";
+@import "./pages/dashboard.scss";
+@import "./pages/signin.scss";
+@import "./pages/data.scss";
+
+html,
+body {
+  font-family: "Archivo Narrow";
+  font-weight: 700;
+  font-size: 1rem;
+  background: #fe693c;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-width: 100%;
+  height: 100%;
+  overflow-x: none;
+  overscroll-behavior: none;
+  margin: 0;
+  user-select: none;
+  color: $white;
+}
+
+.container {
+  width: 1640px;
+  min-width: 1640px;
+  margin: 0 auto;
+  background: #2e5641;
+
+  @include media("<=1560px") {
+    width: 1280px;
+    min-width: 1280px;
+  }
+  @include media("<=desktop") {
+    width: 1080px;
+    min-width: 1080px;
+  }
+
+  @include media("<=phone") {
+    width: 100%;
+    min-width: 100%;
+  }
+}
