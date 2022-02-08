@@ -48,7 +48,7 @@ const Hero = () => {
             </h3>
             <p>
               <Trans>
-                500 schools. 200 growing cubes. The largest community-led
+                500 schools. 100 growing cubes. The largest community-led
                 growing experiment ever undertaken in Scotland.
               </Trans>
             </p>

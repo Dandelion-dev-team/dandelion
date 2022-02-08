@@ -35,10 +35,9 @@ export default function Dashboard() {
                 <div className="container">
                     <div className="inner-dashboard">
                         <div className="content">
-                            <h3>The Dandelion School Growing Initiative</h3>
+                            <h3>Dashboard</h3>
                             <p>
-                                500 schools. 200 growing cubes. The largest community-led growing
-                                experiment ever undertaken in Scotland.
+                            Share the results of your projects and see how others’ projects went! 
                             </p>
                         </div>
                         <div className="tiles">
