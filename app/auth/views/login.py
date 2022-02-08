@@ -19,45 +19,6 @@ from flask_jwt_extended import create_access_token, jwt_required, set_access_coo
 from flask_jwt_extended import get_jwt_identity
 
 
-@auth.route('/login_without_cookies', methods=["POST"])
-def login_without_cookies():
-    access_token = create_access_token(identity=auth.username)
-    return jsonify(access_token=access_token)
-
-
-@auth.route('/login_with_cookies', methods=['POST'])
-def login_with_cookies():
-    response = jsonify({"msg": "login successful"})
-    access_token = create_access_token(identity=auth.username)
-    set_access_cookies(response, access_token)
-    return response
-
-
-@auth.route("/logout_with_cookies", methods=["POST"])
-def logout_with_cookies():
-    response = jsonify({"msg": "logout successful"})
-    unset_jwt_cookies(response)
-    return response
-
-
-
-@auth.route('/unprotected')
-def unprotected():
-    return jsonify({'message': 'Anyone can view this'})
-
-
-@auth.route('/protected')
-@jwt_required()
-def protected():
-    current_user = get_jwt_identity()
-    return jsonify({'message': 'You see this page because you are LOGGED IN. This is only available for people with valid tokens'})
-
-
-@auth.route("/only_headers")
-@jwt_required(locations=["headers"])
-def only_headers():
-    return jsonify(foo="baz")
-
 
 @auth.route('/user/login')
 def login():
@@ -79,6 +40,20 @@ def login():
         return jsonify({'access_token': access_token, "message" : "You are logged in"})
 
     return make_response('Could not verify Third Stage', 401, {'WWW-Authenticate': 'Basic realm="Login required!"'})
+
+
+
+@auth.route('/unprotected')
+def unprotected():
+    return jsonify({'message': 'Anyone can view this'})
+
+
+@auth.route('/protected')
+@jwt_required()
+def protected():
+    current_user = get_jwt_identity()
+    return jsonify({'message': 'You see this page because you are LOGGED IN. This is only available for people with valid tokens'})
+
 
 
 @auth.route('/password', methods=['GET', 'POST'])
@@ -113,6 +88,32 @@ def logout():
     flash('You have successfully been logged out.')
 
     return redirect(url_for('auth.login'))
+
+
+@auth.route('/login_without_cookies', methods=["POST"])
+def login_without_cookies():
+    access_token = create_access_token(identity=auth.username)
+    return jsonify(access_token=access_token)
+
+
+@auth.route('/login_with_cookies', methods=['POST'])
+def login_with_cookies():
+    response = jsonify({"msg": "login successful"})
+    access_token = create_access_token(identity=auth.username)
+    set_access_cookies(response, access_token)
+    return response
+
+
+@auth.route("/logout_with_cookies", methods=["POST"])
+def logout_with_cookies():
+    response = jsonify({"msg": "logout successful"})
+    unset_jwt_cookies(response)
+    return response
+
+@auth.route("/only_headers")
+@jwt_required(locations=["headers"])
+def only_headers():
+    return jsonify(foo="baz")
 
 # def jwt_required(f):
 #     @wraps(f)

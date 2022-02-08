@@ -3,21 +3,28 @@ from datetime import datetime
 import flask
 from flask import render_template, url_for, redirect, request, flash, current_app, jsonify
 from flask_json import json_response
+from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask_login import login_required, current_user
 from sqlalchemy.exc import SQLAlchemyError
 from app.admin import admin
 from app.admin.forms.users import UserForm
 from app.models import User, AuditDetail, Audit
 from app import db
-from app.utils.functions import row2dict
+from app.utils.functions import jwt_user
 import requests
 # from app.admin.forms.users import *
 from serialchemy import ModelSerializer
 from app.utils.auditing import audit_create
+from sqlalchemy.exc import SQLAlchemyError, IntegrityError
+
+
+
 
 
 @admin.route('/user', methods=['POST'])
+@jwt_required()
 def createUser():
+    current_user = jwt_user(get_jwt_identity())
     # data = json.loads(request.get_json())
     data = request.get_json()
     user = User(
@@ -26,11 +33,33 @@ def createUser():
         school_id=data['school_id']
     )
     db.session.add(user)
-    db.session.commit()
+    return_status = 200
+    message = "New user has been created"
 
-    # audit_create("users", user.id, ["username", "password", "school_id"])
-    serialiser = ModelSerializer(User)
-    return jsonify(serialiser.dump(user), {"message": "New user has been created"})
+    try:
+        db.session.commit()
+        audit_create("users", user.id, current_user.id)
+        serialiser = ModelSerializer(User)
+        return jsonify(serialiser.dump(user), {"message": message})
+
+    except IntegrityError as e:
+        db.session.rollback()
+        return_status = 409
+        message = 'Record already exists'
+    except SQLAlchemyError as e:
+        db.session.rollback()
+        return_status = 409
+        error = str(e.__dict__['orig'])
+        message = 'Update failed. {}'.format(error)
+    except:
+        db.session.rollback()
+        return_status = 400
+        message = 'Cant create cohort staff'
+
+    return jsonify({"message": message}), return_status
+
+
+
 
 
 @admin.route('/user', methods=['GET'])
