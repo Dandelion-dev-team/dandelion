@@ -2,8 +2,6 @@ from flask import Blueprint
 
 admin = Blueprint('admin', __name__)
 
-from .views.audit import *
-from .views.audit_detail import *
 from .views.authority import *
 from .views.condition import *
 from .views.experiment import *
