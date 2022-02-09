@@ -1,0 +1,51 @@
+header {
+  width: 100%;
+  position: absolute;
+  z-index: 10;
+
+  .inner-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    @include media("<=tablet"){
+      padding-left: 20px;
+    }
+
+    .logo {
+      img {
+        margin-top: 30px;
+        height: 3.2rem;
+
+        &:hover {
+          filter: brightness(0) saturate(100%) invert(86%) sepia(13%)
+            saturate(708%) hue-rotate(288deg) brightness(84%) contrast(88%);
+        }
+      }
+    }
+
+    .navigation {
+      nav {
+        a {
+          margin: 0 30px;
+          text-decoration: none;
+          //which spacing is better??
+          //letter-spacing: 0.2em;
+          letter-spacing: 1.75px;
+          text-transform: uppercase;
+          font-size: .95rem;
+          color: $white;
+          //add a margin to the last child
+          &:hover {
+            color: $contrast;
+          }
+
+          @include media("<=tablet") {
+            display: none;
+          }
+          
+        }
+      }
+    }
+  }
+}

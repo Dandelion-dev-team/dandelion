@@ -1,0 +1,66 @@
+/* Toast functionality. */
+
+.toast {
+    visibility: hidden;  /* Hidden by default. Visible on click */
+    min-width: 250px;    /* Set a default minimum width */
+    margin-left: -125px; /* Divide value of min-width by 2 */
+    text-align: center;  /* Centered text */
+    border-radius: 8px;  /* Rounded borders */
+    padding: 16px;       /* Padding */
+    position: fixed;     /* Sit on top of the screen */
+    z-index: 1;          /* Add a z-index if needed */
+    right: 20px;         /* Horizontal position */
+    top: 100px;          /* vertical position */
+}
+
+/* Show the toast when clicking on a button (class added with JavaScript) */
+.toast.show {
+    visibility: visible; /* Show the toast */
+    /* Add animation: Take 0.5 seconds to fade in and out the toast.
+   However, delay the fade out process for 2.5 seconds */
+   -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+   animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* Animations to fade the toast in and out */
+@-webkit-keyframes fadein {
+    from {top: 50px; opacity: 0;}
+    to {top: 100px; opacity: 1;}
+}
+
+@keyframes fadein {
+    from {top: 50px; opacity: 0;}
+    to {top: 100px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+    from {top: 100px; opacity: 1;}
+    to {top: 150px; opacity: 0;}
+}
+
+@keyframes fadeout {
+    from {top: 100px; opacity: 1;}
+    to {top: 150px; opacity: 0;}
+}
+
+.toast-info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}
+
+.toast-success {
+    background-color: #d4edda;
+    color: #155724;
+    font-weight: bold;
+}
+
+.toast-warning {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.toast-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    font-weight: bold;
+}
