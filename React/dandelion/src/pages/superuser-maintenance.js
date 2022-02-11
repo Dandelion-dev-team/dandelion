@@ -15,16 +15,9 @@ export default function SuperuserMaintenance(props) {
     const [status, setStatus] = useState("");
     const [sys_admin_checkbox, setAdminCheckbox] = useState("");
     const [superuser_checkbox, setSuperuserCheckbox] = useState("");
-
-
-    const activeSelection = [
-        {
-            "value": "active"
-        },
-        {
-            "value": "inactive"
-        },
-    ]
+    const [school_name, setSchoolName] = useState("");
+    const [is_active, setActive] = useState("");
+    const [editing_user, setEditingUser] = useState("");
 
 
     useEffect(() => {
@@ -51,19 +44,20 @@ export default function SuperuserMaintenance(props) {
         setNotes(e.target.value)
     }
 
-    const handleDropdown = e => {
-        setDropdown(e.target.value);
-    }
-
     const handleCallback = (childData) => {
-        console.log(childData.id);
-        setDropdown(childData.school_id);
+        setEditingUser(childData);
+        setSchoolName(childData.school_id)
         setAdminCheckbox(childData.is_sysadmin);
         setSuperuserCheckbox(childData.is_superuser);
         setStatus(childData.status);
         setName(childData.username);
         setNotes(childData.notes);
         setPassword("")
+        if(childData.status == "active"){
+            setActive(true);
+        }else{
+            setActive(false);
+        }
         setEditing(true);
     }
 
@@ -79,11 +73,42 @@ export default function SuperuserMaintenance(props) {
         }
     }
 
+    const onChangeIsActive = e => {
+        setActive(!is_active);
+    }
+
+    const onChangeIsSysAdmin = e => {
+        setAdminCheckbox(!sys_admin_checkbox);
+    }
+
+    const onChangeIsSuperuser = e => {
+        setSuperuserCheckbox(!superuser_checkbox);
+    }
+
     const onUpdateUser = e => {
         console.log('update');
         setName("");
         setPassword("");
         setEditing(false);
+
+        let password_edited = editing_user.password_hash;
+        if(password !== ""){
+            password_edited = password;
+        }
+        console.log("edited password: " + password_edited);
+
+        let is_active_val = "";
+        if(is_active == true){
+            is_active_val = "active";
+        }else{
+            is_active_val = "deactivated";
+        }
+
+        fetch("http://localhost:3000/users/" + editing_user.id, {
+            method: "PATCH",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: editing_user.id, school_id: school_selected.school_id, username: entered_username, password_hash: password_edited, is_sysadmin: sys_admin_checkbox, is_superuser: superuser_checkbox, status: is_active_val, notes: notes })
+        }).then(console.log("EDITED user:" + editing_user.username)).then(window.location.reload(false))
     }
 
     return (
@@ -99,22 +124,19 @@ export default function SuperuserMaintenance(props) {
                     </div>
                     <div className="content">
                         <div className="authorityPicker">
+                        <h3>School Name: </h3>
+                            {editing ?   <h3>{school_name}</h3>                          
+                             : <Select
+                             name="authority_id_picker"
+                             ref={selectInputRef}
+                             options={schoolList}
+                             value={school_selected}
+                             defaultValue={school_selected}
+                             onChange={setDropdown}
+                             getOptionLabel={(schoolList) => schoolList.name}
+                             getOptionValue={(schoolList) => schoolList.id} // It should be unique value in the options. E.g. ID
+                         /> }
 
-                            <h3>School Name: </h3>
-                            <Select
-                                name="authority_id_picker"
-                                ref={selectInputRef}
-                                options={schoolList}
-                                value={school_selected}
-                                defaultValue={school_selected}
-                                onChange={setDropdown}
-                                getOptionLabel={(schoolList) => schoolList.name}
-                                getOptionValue={(schoolList) => schoolList.id} // It should be unique value in the options. E.g. ID
-                            />
-                            {/* {schoolList ? <select value={school_selected} onChange={handleDropdown}>
-                                {schoolList.map((x, y) =>
-                                    <option key={x.id}>{x.name}</option>)}
-                            </select> : null} */}
                         </div>
                         <div className="nameBox">
                             <h3>Username:</h3>
@@ -142,26 +164,21 @@ export default function SuperuserMaintenance(props) {
                                 <div className="checkboxDiv">
                                     <h3>Is Sysadmin:</h3>
                                     <div className="checkboxPadding">
-                                        <input type="checkbox" id="experiment_id" name="topping" checked={sys_admin_checkbox} />
+                                        <input type="checkbox" id="experiment_id" name="topping" checked={sys_admin_checkbox} onChange={onChangeIsSysAdmin}/>
                                     </div>
                                 </div>
 
                                 <div className="checkboxDiv">
                                     <h3>Is SuperUser:</h3>
                                     <div className="checkboxPadding">
-                                        <input type="checkbox" id="experiment_id" name="topping" checked={superuser_checkbox} />
+                                        <input type="checkbox" id="experiment_id" name="topping" checked={superuser_checkbox} onChange={onChangeIsSuperuser} />
                                     </div>
                                 </div>
-                                <h3>Status:</h3>
-                                <div className="authorityPicker">
-                                    {/* <Select
-                                        name="status"
-                                        options={activeSelection}
-                                        value={status}
-                                        onChange={setStatus}
-                                        getOptionLabel={(activeSelection) => activeSelection.value}
-                                        getOptionValue={(activeSelection) => activeSelection.value} // It should be unique value in the options. E.g. ID
-                                    /> */}
+                                <div className="checkboxDiv">
+                                    <h3>Is active:</h3>
+                                    <div className="checkboxPadding">
+                                        <input type="checkbox" id="experiment_id" name="topping" checked={is_active} onChange={onChangeIsActive} />
+                                    </div>
                                 </div>
                                 <h3>Notes:</h3>
                                 <input
