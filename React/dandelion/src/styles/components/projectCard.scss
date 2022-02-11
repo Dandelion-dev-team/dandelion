@@ -1,16 +1,66 @@
 .card {
-  width: 600px;
+  width: 1500px;
   height: 200px;
   background-color: white;
   margin-top: 20px;
   border-radius: 20px;
-    .cardImage{
-      img{
-        object-fit: cover;
-        border-top-left-radius: 20px;
-        border-bottom-left-radius: 20px;
-        width:200px;
-        height:200px;
-      }
+  color: black;
+  display: flex;
+  .cardImage {
+    img {
+      object-fit: cover;
+      border-top-left-radius: 20px;
+      border-bottom-left-radius: 20px;
+      width: 200px;
+      height: 200px;
     }
   }
+  h2 {
+    color: black;
+    margin-top: 10px;
+    margin-left: 10px;
+  }
+  h4 {
+    margin-left: 10px;
+    width: 400px;
+  }
+  .vl {
+    border-left: 3px solid #d3d3d3;
+    height: 100px;
+    margin-top: 50px;
+    margin-left: 20px;
+    margin-right: 20px;
+    border-radius: 3px;
+  }
+  .experimentCheck {
+    background-color: #f7f369;
+    width: 200px;
+    height: 50px;
+    display: inline-block;
+    border-radius: 10px;
+    text-align: center;
+    line-height: 50px;
+    margin: 5px;
+  }
+  .experimentList{
+    padding-top: 10px;
+    padding-left: 10px;
+    display: grid;
+    grid-template-columns: 210px 210px;
+  }
+  .tag{
+    background-color: #8c77ce;
+    width: 100px;
+    height: 50px;
+    display: inline-block;
+    border-radius: 10px;
+    margin: 5px;
+    color: #FFFF;
+  }
+  .tagList{
+    padding-top: 10px;
+    padding-left: 10px;
+    display: grid;
+    grid-template-columns: 110px 110px 110px;
+  }
+}
