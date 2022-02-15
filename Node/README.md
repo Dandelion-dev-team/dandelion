@@ -8,7 +8,7 @@ This code is based on previous work on the [Smart Garden](https://compsust.napie
 * Download and install Visual Studio Code - [go](https://code.visualstudio.com/)
 * Download and PlatformIO - [go](https://platformio.org/install)
 * Download and install device driver - [go](https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers)
-* PlatformIO board to select: Espressif Dev Module, framework: Arduino
+* PlatformIO board to select: Espressif ESP32 Dev Module, framework to select: Arduino Framework
 * [This](https://www.re-innovation.co.uk/docs/ttgo-e-paper-display/) site provides additional info on the process as well as links to further useful resources.
 
 
