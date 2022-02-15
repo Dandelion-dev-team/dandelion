@@ -5,7 +5,6 @@ import Select from "react-select"
 import UserComponent from "../components/userComponent"
 
 export default function SuperuserMaintenance(props) {
-    const selectInputRef = useRef();
     const [schoolList, setSchools] = useState(0);
     const [school_selected, setDropdown] = useState(0);
     const [entered_username, setName] = useState("")
@@ -128,7 +127,6 @@ export default function SuperuserMaintenance(props) {
                             {editing ?   <h3>{school_name}</h3>                          
                              : <Select
                              name="authority_id_picker"
-                             ref={selectInputRef}
                              options={schoolList}
                              value={school_selected}
                              defaultValue={school_selected}
