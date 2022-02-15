@@ -1,4 +1,4 @@
-from flask import render_template, url_for, redirect
+from flask import render_template, url_for, redirect, abort
 from flask_json import json_response
 from app.admin import admin
 from app.models import School
@@ -21,8 +21,10 @@ def add_school():
         try:
             db.session.add(school)
             db.session.commit()
-        except:
+        except Exception as e:
             db.session.rollback()
+            abort(409, e.orig.msg)
+
 
         return redirect(url_for('admin.list_school'))
 

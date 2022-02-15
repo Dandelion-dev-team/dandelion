@@ -1,7 +1,7 @@
 import json
 from datetime import datetime
 import flask
-from flask import render_template, url_for, redirect, request, flash, current_app, jsonify
+from flask import render_template, url_for, redirect, request, flash, current_app, jsonify, abort
 from flask_json import json_response
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask_login import login_required, current_user
@@ -16,9 +16,6 @@ import requests
 from serialchemy import ModelSerializer
 from app.utils.auditing import audit_create
 from sqlalchemy.exc import SQLAlchemyError, IntegrityError
-
-
-
 
 
 @admin.route('/user', methods=['POST'])
@@ -42,24 +39,9 @@ def createUser():
         serialiser = ModelSerializer(User)
         return jsonify(serialiser.dump(user), {"message": message})
 
-    except IntegrityError as e:
+    except Exception as e:
         db.session.rollback()
-        return_status = 409
-        message = 'Record already exists'
-    except SQLAlchemyError as e:
-        db.session.rollback()
-        return_status = 409
-        error = str(e.__dict__['orig'])
-        message = 'Update failed. {}'.format(error)
-    except:
-        db.session.rollback()
-        return_status = 400
-        message = 'Cant create cohort staff'
-
-    return jsonify({"message": message}), return_status
-
-
-
+        abort(409, e.orig.msg)
 
 
 @admin.route('/user', methods=['GET'])
@@ -76,28 +58,28 @@ def getAllUsers():
 
     return jsonify({'users': output})
 
+
 @admin.route('/user/<username>', methods=['GET'])
 def getOneUser(username):
-
     user = User.query.filter_by(username=username).first()
 
     if not user:
-        return  jsonify({"message": "No user found"})
+        return jsonify({"message": "No user found"})
 
     user_data = {}
     user_data['username'] = user.username
     user_data['password'] = user.password_hash
     user_data['school_id'] = user.school_id
 
-    return jsonify({'user' : user_data})
+    return jsonify({'user': user_data})
+
 
 @admin.route('/user/<username>', methods=['DELETE'])
 def deleteUser(username):
-
     user = User.query.filter_by(username=username).first()
 
     if not user:
-        return jsonify({"message" : "No user found!"})
+        return jsonify({"message": "No user found!"})
 
     db.session.delete(user)
     db.session.commit()
