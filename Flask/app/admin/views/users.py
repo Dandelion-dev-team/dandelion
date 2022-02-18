@@ -74,17 +74,29 @@ def getOneUser(username):
     return jsonify({'user': user_data})
 
 
-@admin.route('/user/<username>', methods=['DELETE'])
-def deleteUser(username):
-    user = User.query.filter_by(username=username).first()
+@admin.route('/user/<int:id>', methods=['DELETE'])
+def deleteUser(id):
+    user = User.query.filter_by(id=id).first()
 
     if not user:
         return jsonify({"message": "No user found!"})
 
     db.session.delete(user)
-    db.session.commit()
+    return_status = 200
+    message = "The user has been deleted"
 
-    return jsonify({"message": "The user has been deleted"})
+    try:
+        db.session.commit()
+        audit_create("users", user.id, current_user.id)
+        return jsonify({"message": message, "id": user.id})
+
+    except Exception as e:
+        db.session.rollback()
+        abort(409, e.orig.msg)
+
+    # db.session.commit()
+
+    # return jsonify({"message": "The user has been deleted"})
 
 
 @admin.route('/user/<int:id>', methods=['GET', 'PUT'])
@@ -121,23 +133,22 @@ def updateUser(id):
     #     return jsonify({"message": "User not found!"})
 
 
-@admin.route('/create_user', methods=['GET', 'POST'])
-# @login_required
-def testCreateUser():
-    form = UserForm()
-    if form.validate_on_submit():
-        data = json.dumps(dict(
-            username=form.username.data,
-            password=form.password.data,
-            school_id=form.school.data.id
-        ))
-
-        url = 'http://localhost:5000' + url_for('admin.createUser')
-
-        r = requests.post(url, json=data)
-        return r.content
-
-    return render_template('form_page.html', form=form)
+# @admin.route('/create_user', methods=['GET', 'POST'])
+# def testCreateUser():
+#     form = UserForm()
+#     if form.validate_on_submit():
+#         data = json.dumps(dict(
+#             username=form.username.data,
+#             password=form.password.data,
+#             school_id=form.school.data.id
+#         ))
+#
+#         url = 'http://localhost:5000' + url_for('admin.createUser')
+#
+#         r = requests.post(url, json=data)
+#         return r.content
+#
+#     return render_template('form_page.html', form=form)
 
 # @admin.route('/user', methods=['GET'])
 # def listUsers():
