@@ -11,16 +11,6 @@
       "notes": "Took away admin powers "
     },
     {
-      "id": 2,
-      "school_id": "FLK11",
-      "username": "eve",
-      "password_hash": "asd",
-      "is_sysadmin": false,
-      "is_superuser": true,
-      "status": "inactive",
-      "notes": " "
-    },
-    {
       "id": 3,
       "school_id": "GLA11",
       "username": "brian",
@@ -31,15 +21,54 @@
       "notes": " "
     }
   ],
+  "school-users": [
+    {
+      "id": 1,
+      "school_id": "GLA11",
+      "school_class": "Class 1C",
+      "lastSeen": "Online",
+      "status": "Active",
+      "project": "Kohl Rabi",
+      "experiment": "Size",
+      "description": "An investigation into the relationship between physical interactions with the environment and plant growth. When they are growing outside, the wind blows plants about. They may also be pushed or squashed by people or animals. We hypothesise that increased physical interactions encourage plants to develop stronger stems and to increase the concentration of characteristic chemicals leading to greater weight at harvest, brighter colours and stronger flavour.",
+      "hypotheses": "Null hypothesis - Physical interactions have no effect on plant growth. Higher strength - Increased physical interaction is positively correlated with stem strength. Increased weight - Increased physical interaction is positively correlated with plant weight at harvest.",
+      "variables": "Length (mm) - Vertical height of the plant measured from the substrate surface to the highest point without touching the plant. Plant weight (g) - Harvested weight of an individual plant excluding those parts below the surface of the substrate."
+    },
+    {
+      "id": 2,
+      "school_id": "GLA23",
+      "lastSeen": "Online",
+      "status": "Active",
+      "project": "Lettuce",
+      "experiment": "Size",
+      "description": "For this experiment we are measuring the effect of air humidity on the size of a potato. The experiment will take place over 4 months.",
+      "hypotheses": "I think the air quality will have no affect on the potato as they will grow in the ground.",
+      "variables": "Air humidity is the only changing variable, however there are multiple constant variables such as soil pH and air temperature."
+    },
+    {
+      "id": 3,
+      "school_id": "GLA143",
+      "lastSeen": "Feb 16",
+      "status": "Not Started",
+      "project": "Kohl Rabi"
+    },
+    {
+      "id": 3,
+      "school_id": "GLA143",
+      "lastSeen": "Feb 16",
+      "status": "Not Started",
+      "project": "Kohl Rabi"
+    }
+  ],
   "authorities": [
     {
-      "id": "AH120020",
+      "id": "FLK",
       "name": "Stirlingshire",
       "telephone": "07464787634",
       "email": "stirling@authority.com"
     },
     {
-      "id": "GLA12049",
+      "id": "GLA",
       "name": "Glasgow",
       "telephone": "07424387634",
       "email": "glasgow@authority.com"
@@ -59,13 +88,19 @@
       "telephone": "+44 302382478",
       "email": "testemail@emailserver.com",
       "school_image_link": "https://2.bp.blogspot.com/-VWruKBvqgb8/Vw-evXkKmLI/AAAAAAAAAAw/r-cPriFMcREBJaMPnZSI6WAQRrl3sqRuwCLcB/s1600/The%2BHigh%2BSchool%2Bof%2BGlasgow.jpg",
-      "status": "active"
+      "status": "active",
+      "nodes": {
+        "id": 1,
+        "last_communication_date": "2022-02-18T13:07:39.231Z",
+        "health_status": "green",
+        "status": "active"
+      }
     },
     {
       "id": "FLK11",
       "authority_id": "FKA128049",
       "name": "Larbert High School",
-      "address_line_1": "27 Ledcameroch Road",
+      "address_line_1": "31 Lochrin Place",
       "address_line_2": "Larbert",
       "town": "Falkirk",
       "postcode": "FK1 123",
@@ -74,71 +109,236 @@
       "telephone": "+44 302382478",
       "email": "testemail@emailserver.com",
       "school_image_link": "https://2.bp.blogspot.com/-VWruKBvqgb8/Vw-evXkKmLI/AAAAAAAAAAw/r-cPriFMcREBJaMPnZSI6WAQRrl3sqRuwCLcB/s1600/The%2BHigh%2BSchool%2Bof%2BGlasgow.jpg",
-      "status": "active"
+      "status": "active",
+      "nodes": {
+        "id": 2,
+        "last_communication_date": "2022-02-18T13:07:39.231Z",
+        "health_status": "green",
+        "status": "active"
+      }
     }
   ],
   "projects": [
-    [
-      {
+    {
+      "id": 0,
+      "title": "Lemon Balm",
+      "owner": "GLA42012",
+      "type": "Internal",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "project_image_link": "https://cdn.britannica.com/77/124177-004-FEB6DB88/Balm-lemon-balm.jpg",
+      "project_text": "string",
+      "start_date": "2022-01-31T14:31:24.262Z",
+      "end_date": "2022-01-31T14:31:24.262Z",
+      "status": "active"
+    },
+    {
+      "id": 1,
+      "title": "Lettuce Project",
+      "owner": "DNO1202 at Dundee Secondary School",
+      "type": "Collaborative",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "project_image_link": "https://static.onecms.io/wp-content/uploads/sites/37/2020/04/17/tango-oakleaf-lettuce-c6f6417e.jpg",
+      "project_text": "string",
+      "start_date": "2022-01-31T14:31:24.262Z",
+      "end_date": "2022-01-31T14:31:24.262Z",
+      "status": "active",
+      "partner": "Collaboration with Dundee Secondary School"
+    },
+    {
+      "id": 2,
+      "title": "Chives",
+      "owner": "GLA42012",
+      "type": "Internal",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "project_image_link": "https://foodsguy.com/wp-content/uploads/2020/03/Chives-vs-Green-Onions.jpg",
+      "project_text": "string",
+      "start_date": "2022-01-31T14:31:24.262Z",
+      "end_date": "2022-01-31T14:31:24.262Z",
+      "status": "active"
+    },
+    {
+      "id": 3,
+      "title": "Kohl Rabi",
+      "owner": "GLA42012",
+      "type": "Internal",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "project_image_link": "https://www.gardeningknowhow.com/wp-content/uploads/2021/07/kohlrabi-cabbage-growing-in-garden.jpg",
+      "project_text": "string",
+      "start_date": "2022-01-31T14:31:24.262Z",
+      "end_date": "2022-01-31T14:31:24.262Z",
+      "status": "active"
+    },
+    {
+      "id": 5,
+      "title": "Beetroot",
+      "owner": "GLA42012",
+      "type": "Internal",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "project_image_link": "https://images.squarespace-cdn.com/content/v1/53726d44e4b07d0c6bf0b106/1535677982492-J7R729ZEBU5DZXV2VYLH/growing+red+beets+in+your+summer+garden.jpg",
+      "project_text": "string",
+      "start_date": "2022-01-31T14:31:24.262Z",
+      "end_date": "2022-01-31T14:31:24.262Z",
+      "status": "active"
+    }
+  ],
+  "nodes": [
+    {
+      "id": 1,
+      "school_id": "GLA11",
+      "growcube_code": "123.123.123",
+      "mac_address": "00:00:5e:00:53:af",
+      "last_communication_date": "2022-01-31T14:31:24.262Z",
+      "next_communication_expected": "2022-01-31T14:31:24.262Z",
+      "health_status": "online",
+      "status": "active",
+      "sensors": [
+        {
+          "id": 0,
+          "code": "LIQUID10212",
+          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "url": "https://gaslab.com/blogs/articles/what-is-a-liquid-level-sensor#:~:text=Liquid%20level%20sensors%2C%20also%20called,particular%20level%20in%20a%20container.",
+          "datasheet_link": "https://eu.mouser.com/c/ds/sensors/liquid-level-sensors/"
+        },
+        {
+          "id": 1,
+          "code": "TEMP1234",
+          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "url": "https://gaslab.com/blogs/articles/what-is-a-liquid-level-sensor#:~:text=Liquid%20level%20sensors%2C%20also%20called,particular%20level%20in%20a%20container.",
+          "datasheet_link": "https://eu.mouser.com/c/ds/sensors/liquid-level-sensors/"
+        }
+      ],
+      "alerts": {
         "id": 0,
-        "title": "Lemon Balm",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-        "project_image_link": "https://cdn.britannica.com/77/124177-004-FEB6DB88/Balm-lemon-balm.jpg",
-        "project_text": "string",
-        "start_date": "2022-01-31T14:31:24.262Z",
-        "end_date": "2022-01-31T14:31:24.262Z",
-        "status": "active"
-      },
-      {
-        "id": 1,
-        "title": "Lettuce Project",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-        "project_image_link": "https://static.onecms.io/wp-content/uploads/sites/37/2020/04/17/tango-oakleaf-lettuce-c6f6417e.jpg",
-        "project_text": "string",
-        "start_date": "2022-01-31T14:31:24.262Z",
-        "end_date": "2022-01-31T14:31:24.262Z",
-        "status": "active"
-      },
-      {
-        "id": 2,
-        "title": "Chives!",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-        "project_image_link": "https://foodsguy.com/wp-content/uploads/2020/03/Chives-vs-Green-Onions.jpg",
-        "project_text": "string",
-        "start_date": "2022-01-31T14:31:24.262Z",
-        "end_date": "2022-01-31T14:31:24.262Z",
-        "status": "active"
-      },
-      {
-        "id": 3,
-        "title": "Kohl rabi",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-        "project_image_link": "https://www.gardeningknowhow.com/wp-content/uploads/2021/07/kohlrabi-cabbage-growing-in-garden.jpg",
-        "project_text": "string",
-        "start_date": "2022-01-31T14:31:24.262Z",
-        "end_date": "2022-01-31T14:31:24.262Z",
-        "status": "active"
-      },
-      {
-        "id": 4,
-        "title": "Sunflower",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-        "project_image_link": "https://i.pinimg.com/originals/1d/74/e1/1d74e1788fccdc42c6af2c58b851d94c.jpg",
-        "project_text": "string",
-        "start_date": "2022-01-31T14:31:24.262Z",
-        "end_date": "2022-01-31T14:31:24.262Z",
-        "status": "active"
-      },
-      {
-        "id": 5,
-        "title": "Beetroot",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-        "project_image_link": "https://images.squarespace-cdn.com/content/v1/53726d44e4b07d0c6bf0b106/1535677982492-J7R729ZEBU5DZXV2VYLH/growing+red+beets+in+your+summer+garden.jpg",
-        "project_text": "string",
-        "start_date": "2022-01-31T14:31:24.262Z",
-        "end_date": "2022-01-31T14:31:24.262Z",
+        "node_id": {
+          "id": 0,
+          "last_communication_date": "2022-02-19T17:05:22.178Z",
+          "health_status": "green",
+          "status": "active"
+        },
+        "description": "string",
+        "created_date": "2022-02-19T17:05:22.178Z",
+        "updated_date": "2022-02-19T17:05:22.178Z",
         "status": "active"
       }
-    ]
+    },
+    {
+      "id": 2,
+      "school_id": "FLK11",
+      "growcube_code": "321.321.321",
+      "mac_address": "11:02:5e:04:12:f1",
+      "last_communication_date": "2022-01-31T14:31:24.262Z",
+      "next_communication_expected": "2022-01-31T14:31:24.262Z",
+      "health_status": "disconnected",
+      "status": "active",
+      "sensors": [
+        {
+          "id": 0,
+          "code": "LIQUID10212",
+          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "url": "https://gaslab.com/blogs/articles/what-is-a-liquid-level-sensor#:~:text=Liquid%20level%20sensors%2C%20also%20called,particular%20level%20in%20a%20container.",
+          "datasheet_link": "https://eu.mouser.com/c/ds/sensors/liquid-level-sensors/"
+        },
+        {
+          "id": 1,
+          "code": "TEMP1020134",
+          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "url": "https://gaslab.com/blogs/articles/what-is-a-liquid-level-sensor#:~:text=Liquid%20level%20sensors%2C%20also%20called,particular%20level%20in%20a%20container.",
+          "datasheet_link": "https://eu.mouser.com/c/ds/sensors/liquid-level-sensors/"
+        }
+      ],
+      "alerts": {
+        "id": 0,
+        "node_id": {
+          "id": 0,
+          "last_communication_date": "2022-02-19T17:05:22.178Z",
+          "health_status": "green",
+          "status": "active"
+        },
+        "description": "string",
+        "created_date": "2022-02-19T17:05:22.178Z",
+        "updated_date": "2022-02-19T17:05:22.178Z",
+        "status": "active"
+      }
+    }
+  ],
+  "tags": [
+    {
+      "id": 1,
+      "label": "Caulifowler",
+      "status": "Active"
+    },
+    {
+      "id": 2,
+      "label": "Kohl Rabi",
+      "status": "Not Started"
+    }
+  ],
+  "quantities": [
+    {
+      "id": 0,
+      "name": "Temperature",
+      "unit": "ºC",
+      "help_url": "https://en.wikipedia.org/wiki/Celsius"
+    },
+    {
+      "id": 1,
+      "name": "Humidity",
+      "unit": "%",
+      "help_url": "https://en.wikipedia.org/wiki/Humidity"
+    }
+  ],
+  "sensors": [
+    {
+      "id": 0,
+      "code": "LIQUID10212",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "url": "https://gaslab.com/blogs/articles/what-is-a-liquid-level-sensor#:~:text=Liquid%20level%20sensors%2C%20also%20called,particular%20level%20in%20a%20container.",
+      "datasheet_link": "https://eu.mouser.com/c/ds/sensors/liquid-level-sensors/",
+      "quantities": [
+        {
+          "id": 0,
+          "name": "Temperature",
+          "unit": "ºC",
+          "help_url": "https://en.wikipedia.org/wiki/Celsius"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "code": "TEMP12919",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "url": "https://en.wikipedia.org/wiki/Thermometer",
+      "datasheet_link": "https://eu.mouser.com/c/ds/sensors/temperature-sensors/",
+      "quantities": [
+        {
+          "id": 0,
+          "name": "Temperature",
+          "unit": "ºC",
+          "help_url": "https://en.wikipedia.org/wiki/Celsius"
+        },
+        {
+          "id": 1,
+          "name": "Humidity",
+          "unit": "%",
+          "help_url": "https://en.wikipedia.org/wiki/Humidity"
+        }
+      ]
+    }
+  ],
+  "alerts": [
+    {
+      "id": 0,
+      "description": "Temperature Sensor Down",
+      "created_date": "2022-02-22T00:08:17.028Z",
+      "updated_date": "2022-03-01T00:08:17.028Z",
+      "status": "red"
+    },
+    {
+      "id": 1,
+      "description": "Lost connection to Internet",
+      "created_date": "2022-02-22T00:08:17.028Z",
+      "updated_date": "2022-02-30T00:08:17.028Z",
+      "status": "amber"
+    }
   ]
 }
