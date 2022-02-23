@@ -1,4 +1,4 @@
-.superuser-maintenance-container {
+.sensor-maintenance-container {
   background: #2e5641;
   color: $white;
   position: relative;
@@ -7,7 +7,7 @@
   align-items: center;
   height: 100vh;
   overflow-y: auto;
-  .superuser-content {
+  .sensor-content {
     justify-content: space-between;
     align-items: center;
     width: 97%;
@@ -23,16 +23,10 @@
         display: flex;
         z-index: 7;
       }
-      .edit-superuser {
+      .edit-pane {
         width: 40%;
         margin-left: 15rem;
         align-self: flex-end;
-
-        .authorityPicker {
-          .authority_id_picker {
-            color: $primary;
-          }
-        }
 
         .textbox {
           padding-top: .75rem;
@@ -44,7 +38,13 @@
           }
         }
 
-        .submitButton {
+        .quantityPicker {
+          margin-top: 1.25rem;
+          width: 170px;
+          color: black;
+        }
+
+        .createButton {
           background-color: $accent;
           color: $primary;
           font-size: 1.4rem;

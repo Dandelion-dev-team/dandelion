@@ -1,4 +1,4 @@
-.superuser-maintenance-container {
+.node-maintenance-container {
   background: #2e5641;
   color: $white;
   position: relative;
@@ -7,7 +7,8 @@
   align-items: center;
   height: 100vh;
   overflow-y: auto;
-  .superuser-content {
+
+  .node-content {
     justify-content: space-between;
     align-items: center;
     width: 97%;
@@ -23,25 +24,28 @@
         display: flex;
         z-index: 7;
       }
-      .edit-superuser {
+      .edit-content {
         width: 40%;
         margin-left: 15rem;
         align-self: flex-end;
+        margin-top: rem;
 
-        .authorityPicker {
-          .authority_id_picker {
-            color: $primary;
+        .quantityPicker {
+          color: $primary;
+          width: 12vw;
+
+          h3 {
+              color: $white;
           }
         }
 
         .textbox {
-          padding-top: .75rem;
-          padding-bottom: .75rem;
+            padding-top: 1.5rem;
 
-          input {
-            height: 2rem;
-            color: $primary;
-          }
+            input {
+                height: 2rem;
+                color: $primary;
+            }
         }
 
         .submitButton {

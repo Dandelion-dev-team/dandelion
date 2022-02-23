@@ -1,8 +1,18 @@
-.authTable{
-    margin-left: 100px;
+.userTable{
 
-    tr td {
-        display:block;
-        width:100%;
+    .tableList {
+        margin-top: 1.5rem;
+        margin-left: 2rem;
+      tbody {
+          
+         &:hover {
+             background-color: #f7f8ff;
+             cursor: pointer;
+         }
+      }
+        
     }
+
+   
+    
 }

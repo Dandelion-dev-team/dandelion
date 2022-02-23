@@ -1,0 +1,54 @@
+.settings-container {
+  background: #2e5641;
+  color: $white;
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-left: 240px;
+  height: 100vh;
+  overflow-y: auto;
+  flex-direction: column;
+  justify-content: space-around;
+
+  .settings-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 97%;
+    height: 90vh;
+    border-radius: 20px;
+
+    .settings-pane {
+      //background-color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 31%;
+      height: 90vh;
+      //border-radius: 20px;
+
+      .school-image {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        //background-color: white;
+        height: 44vh;
+        border-radius: 20px;
+        width: 100%;
+      }
+
+      .node-settings {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: white;
+        // height: 44vh;
+        border-radius: 20px;
+        width: 30rem;
+      }
+    }
+  }
+}
