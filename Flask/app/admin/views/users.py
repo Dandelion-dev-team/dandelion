@@ -5,6 +5,7 @@ from flask import render_template, url_for, redirect, request, flash, current_ap
 from flask_json import json_response
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask_login import login_required, current_user
+from sqlalchemy import inspect
 from sqlalchemy.exc import SQLAlchemyError
 from app.admin import admin
 from app.admin.forms.users import UserForm
@@ -14,15 +15,14 @@ from app.utils.functions import jwt_user
 import requests
 # from app.admin.forms.users import *
 from serialchemy import ModelSerializer
-from app.utils.auditing import audit_create
+from app.utils.auditing import audit_create, prepare_audit_details, audit_update
 from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 
 
-@admin.route('/user', methods=['POST'])
+@admin.route('/user/create_new_user', methods=['POST'])
 @jwt_required()
 def createUser():
     current_user = jwt_user(get_jwt_identity())
-    # data = json.loads(request.get_json())
     data = request.get_json()
     user = User(
         username=data['username'],
@@ -36,8 +36,8 @@ def createUser():
     try:
         db.session.commit()
         audit_create("users", user.id, current_user.id)
-        serialiser = ModelSerializer(User)
-        return jsonify(serialiser.dump(user), {"message": message})
+        # serialiser = ModelSerializer(User)
+        return jsonify({"message": message, "id" : user.id})
 
     except Exception as e:
         db.session.rollback()
@@ -74,36 +74,81 @@ def getOneUser(username):
     return jsonify({'user': user_data})
 
 
-@admin.route('/user/<username>', methods=['DELETE'])
-def deleteUser(username):
-    user = User.query.filter_by(username=username).first()
+@admin.route('/user/<int:id>', methods=['DELETE'])
+def deleteUser(id):
+    user = User.query.filter_by(id=id).first()
 
     if not user:
         return jsonify({"message": "No user found!"})
 
     db.session.delete(user)
-    db.session.commit()
+    return_status = 200
+    message = "The user has been deleted"
 
-    return jsonify({"message": "The user has been deleted"})
+    try:
+        db.session.commit()
+        audit_create("users", user.id, current_user.id)
+        return jsonify({"message": message, "id": user.id})
+
+    except Exception as e:
+        db.session.rollback()
+        abort(409, e.orig.msg)
+
+    # db.session.commit()
+
+    # return jsonify({"message": "The user has been deleted"})
 
 
-@admin.route('/create_user', methods=['GET', 'POST'])
-# @login_required
-def testCreateUser():
-    form = UserForm()
-    if form.validate_on_submit():
-        data = json.dumps(dict(
-            username=form.username.data,
-            password=form.password.data,
-            school_id=form.school.data.id
-        ))
+@admin.route('/user/<int:id>', methods=['GET', 'PUT'])
+@jwt_required()
+def updateUser(id):
+    current_user = jwt_user(get_jwt_identity())
+    user_to_update = User.query.get_or_404(id)
+    new_data = request.get_json()
 
-        url = 'http://localhost:5000' + url_for('admin.createUser')
+    user_to_update.username = new_data['username']
+    user_to_update.password = new_data['password']
+    user_to_update.school_id = new_data['school_id']
+    user_to_update.is_sysadmin = new_data['is_sysadmin']
+    user_to_update.is_superuser = new_data['is_superuser']
+    user_to_update.status = new_data['status']
+    user_to_update.notes = new_data['notes']
 
-        r = requests.post(url, json=data)
-        return r.content
+    audit_details = prepare_audit_details(inspect(User), user_to_update)
 
-    return render_template('form_page.html', form=form)
+    message = "User has been updated"
+
+    if len(audit_details) > 0:
+        try:
+            db.session.commit()
+            audit_update("users", user_to_update.id, audit_details, current_user.id)
+            # serialiser = ModelSerializer(User)
+            return jsonify({"message": message})
+
+        except Exception as e:
+            db.session.rollback()
+            abort(409)
+
+    # if not username:
+    #     return jsonify({"message": "User not found!"})
+
+
+# @admin.route('/create_user', methods=['GET', 'POST'])
+# def testCreateUser():
+#     form = UserForm()
+#     if form.validate_on_submit():
+#         data = json.dumps(dict(
+#             username=form.username.data,
+#             password=form.password.data,
+#             school_id=form.school.data.id
+#         ))
+#
+#         url = 'http://localhost:5000' + url_for('admin.createUser')
+#
+#         r = requests.post(url, json=data)
+#         return r.content
+#
+#     return render_template('form_page.html', form=form)
 
 # @admin.route('/user', methods=['GET'])
 # def listUsers():

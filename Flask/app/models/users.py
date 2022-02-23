@@ -32,7 +32,7 @@ class User(db.Model):
         return check_password_hash(self.password_hash, password)
 
     def __repr__(self):
-        return '{Users: {} {}>'.format(self.first_name, self.last_name)
+        return self.username
 
 
 @login_manager.user_loader
