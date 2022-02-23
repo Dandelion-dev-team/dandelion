@@ -5,9 +5,9 @@ class Variable(db.Model):
     __tablename__ = 'variable'
 
     id = db.Column(db.Integer, primary_key=True)
-    condition_id = db.Column(db.Integer, unique=True)
-    quantity_id = db.Column(db.Integer, unique=True)
-    node_sensor_id = db.Column(db.Integer, unique=True)
+    condition_id = db.Column(db.Integer, db.ForeignKey('condition.id'), unique=True)
+    quantity_id = db.Column(db.Integer, db.ForeignKey('quantity.id'), unique=True)
+    node_sensor_id = db.Column(db.Integer, db.ForeignKey('node_sensor.id'), unique=True)
     name = db.Column(db.String(30))
     variable_role = db.Column(db.String(30))
     status = db.Column(db.VARCHAR(1))

@@ -13,7 +13,6 @@ def listCondition():
     return json_response(data=(row2dict(x) for x in condition))
 
 
-
 @admin.route('/condition/add', methods=['GET', 'POST'])
 def add_condition():
     form = ConditionForm()
