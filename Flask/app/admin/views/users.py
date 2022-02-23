@@ -7,8 +7,7 @@ from app.admin import admin
 from app.models import User, AuditDetail, Audit
 from app import db
 from app.utils.functions import jwt_user
-from app.utils.auditing import audit_create, prepare_audit_details, audit_update, audit_delete, \
-    prepare_audit_details_to_delete
+from app.utils.auditing import audit_create, prepare_audit_details, audit_update, audit_delete
 
 
 @admin.route('/user', methods=['GET'])
@@ -80,7 +79,7 @@ def updateUser(id):
     user_to_update.status = new_data['status']
     user_to_update.notes = new_data['notes']
 
-    audit_details = prepare_audit_details(inspect(User), user_to_update)
+    audit_details = prepare_audit_details(inspect(User), user_to_update, delete=False)
 
     message = "User has been updated"
 
@@ -103,14 +102,14 @@ def deleteUser(id):
     if not user_to_delete:
         return jsonify({"message": "No user found!"})
 
+    audit_details = prepare_audit_details(inspect(User), user_to_delete, delete=True)
     db.session.delete(user_to_delete)
     return_status = 200
     message = "The user has been deleted"
-    # audit_details = prepare_audit_details_to_delete(inspect(User), user_to_delete)
 
     try:
         db.session.commit()
-        audit_delete("users", user_to_delete.id, current_user.id)
+        audit_delete("users", user_to_delete.id, audit_details, current_user.id)
         return jsonify({"message": message})
 
     except Exception as e:

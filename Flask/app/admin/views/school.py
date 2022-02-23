@@ -2,7 +2,6 @@ from flask import render_template, url_for, redirect, abort, request, jsonify
 from flask_json import json_response
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import inspect
-
 from app.admin import admin
 from app.models import School
 from app import db
@@ -87,7 +86,7 @@ def updateSchool(id):
     school_to_update.latitude = new_data["latitude"]
     school_to_update.longitude = new_data["longitude"]
 
-    audit_details = prepare_audit_details(inspect(School), school_to_update)
+    audit_details = prepare_audit_details(inspect(School), school_to_update, delete=False)
 
     message = "School has been updated"
 
@@ -106,19 +105,19 @@ def updateSchool(id):
 @jwt_required()
 def delete_school(id):
     current_user = jwt_user(get_jwt_identity())
-    school = School.query.filter_by(id=id).first()
-
-    if not school:
+    school_to_delete = School.query.filter_by(id=id).first()
+    if not school_to_delete:
         return jsonify({"message" : "No school found"})
 
-    db.session.delete(school)
+    audit_details = prepare_audit_details(inspect(School), school_to_delete, delete=True)
+    db.session.delete(school_to_delete)
     return_status = 200
     message = "The school has been deleted"
 
     try:
         db.session.commit()
-        audit_delete("school", school.id, current_user.id)
-        return jsonify({"message": message, "id": school.id})
+        audit_delete("school", school_to_delete.id, audit_details, current_user.id)
+        return jsonify({"message": message, "id": school_to_delete.id})
 
     except Exception as e:
         db.session.rollback()
