@@ -18,7 +18,7 @@ def audit_create(table_name, primary_key_value, user_id):
     db.session.commit()
 
 
-# THis is the combined code
+# This is the combined code
 def prepare_audit_details(mapper, db_object, delete=False):
     audit_details = []
 
