@@ -18,7 +18,7 @@ export default function Data() {
       })
     }).then(response => response.json())
       .then(
-        data => setData(data[0])).then(console.log(projectList))
+        data => setData(data)).then(console.log(projectList))
   }, []);
 
   return (

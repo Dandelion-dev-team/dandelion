@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tags renders correctly 1`] = `
+<div
+  className="authTable"
+>
+  <table
+    className="tableList"
+  >
+    <thead>
+      <tr>
+        <th>
+          ID
+        </th>
+        <th>
+          Label
+        </th>
+        <th>
+          Status
+        </th>
+      </tr>
+    </thead>
+  </table>
+</div>
+`;

@@ -7,6 +7,7 @@ export default function CrudComponent(props) {
 
   useEffect(() => {
     // Update the document title using the browser API
+    //TESTED
     fetch("http://localhost:3000/users", {
       method: "GET",
       headers: new Headers({
@@ -18,8 +19,6 @@ export default function CrudComponent(props) {
       .then(
         data => setUsers(data))
   }, []);
-
-
 
   const deleteUser = index => {
     fetch("http://localhost:3000/users/" + index, {

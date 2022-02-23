@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Project renders correctly 1`] = `
+<div>
+  <div>
+    <div
+      className="title"
+    >
+      <h2>
+        Student 
+        1
+         - 
+        Test class
+      </h2>
+      <h2>
+        1
+         Project 
+      </h2>
+      <h3>
+        Experiment
+         Experiment
+      </h3>
+    </div>
+    <div
+      className="project-column"
+    >
+      <p>
+        Description
+      </p>
+      <div
+        className="description-box"
+      >
+        <p>
+          test desc
+        </p>
+      </div>
+      <p>
+        Hypotheses
+      </p>
+      <div
+        className="description-box"
+      >
+        <p>
+          Test hypotheses
+        </p>
+      </div>
+      <p>
+        Variables
+      </p>
+      <div
+        className="description-box"
+      >
+        <p>
+          test variables
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -1,11 +1,11 @@
 import React from "react"
 import renderer from "react-test-renderer"
-import Hero from "../hero"
+import ProjectCard from "../projectCard"
 
-describe("Hero", () => {
+describe("Project Card", () => {
   it("renders correctly", () => {
     const tree = renderer
-      .create(<Hero />)
+      .create(<ProjectCard id={1} image={'testlink'} title={'Test Title'} description={"Test description"}/>)
       .toJSON()
     expect(tree).toMatchSnapshot()
   })

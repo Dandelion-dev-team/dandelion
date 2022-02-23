@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Project renders correctly 1`] = `
+<div
+  className="schoolTable"
+>
+  <table
+    className="schoolList"
+  >
+    <thead>
+      <tr>
+        <th>
+          Student ID
+        </th>
+        <th>
+          Last Seen
+        </th>
+        <th>
+          Status
+        </th>
+        <th>
+          Project
+        </th>
+      </tr>
+    </thead>
+  </table>
+</div>
+`;

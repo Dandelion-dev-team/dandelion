@@ -1,0 +1,161 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Project Card renders correctly 1`] = `
+<div
+  className="card"
+>
+  <div
+    className="cardImage"
+  >
+    <img
+      src="testlink"
+    />
+  </div>
+  <div
+    className="text"
+  >
+    <div>
+      <h2>
+        Test Title
+         
+      </h2>
+    </div>
+    <h4>
+      Test description
+    </h4>
+  </div>
+  <div
+    className="center"
+  >
+    <div
+      class="vl"
+    />
+  </div>
+  <div
+    className="experimentList"
+  >
+    <div
+      className="experimentCheck"
+    >
+      <input
+        id="experiment_id"
+        name="topping"
+        type="checkbox"
+        value="experiment_ID"
+      />
+       Experiment Title
+    </div>
+    <div
+      className="experimentCheck"
+    >
+      <input
+        id="experiment_id"
+        name="topping"
+        type="checkbox"
+        value="experiment_ID"
+      />
+       Experiment Title
+    </div>
+    <div
+      className="experimentCheck"
+    >
+      <input
+        id="experiment_id"
+        name="topping"
+        type="checkbox"
+        value="experiment_ID"
+      />
+       Experiment Title
+    </div>
+    <div
+      className="experimentCheck"
+    >
+      <input
+        id="experiment_id"
+        name="topping"
+        type="checkbox"
+        value="experiment_ID"
+      />
+       Experiment Title
+    </div>
+    <div
+      className="experimentCheck"
+    >
+      <input
+        id="experiment_id"
+        name="topping"
+        type="checkbox"
+        value="experiment_ID"
+      />
+       Experiment Title
+    </div>
+  </div>
+  <div
+    className="center"
+  >
+    <div
+      class="vl"
+    />
+  </div>
+  <div
+    className="tagList"
+  >
+    <div
+      className="tag"
+    >
+      <h4>
+        Tag
+      </h4>
+    </div>
+    <div
+      className="tag"
+    >
+      <h4>
+        Tag
+      </h4>
+    </div>
+    <div
+      className="tag"
+    >
+      <h4>
+        Tag
+      </h4>
+    </div>
+    <div
+      className="tag"
+    >
+      <h4>
+        Tag
+      </h4>
+    </div>
+    <div
+      className="tag"
+    >
+      <h4>
+        Tag
+      </h4>
+    </div>
+    <div
+      className="tag"
+    >
+      <h4>
+        Tag
+      </h4>
+    </div>
+    <div
+      className="tag"
+    >
+      <h4>
+        Tag
+      </h4>
+    </div>
+    <div
+      className="tag"
+    >
+      <h4>
+        Tag
+      </h4>
+    </div>
+  </div>
+</div>
+`;

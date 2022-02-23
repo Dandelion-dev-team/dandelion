@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Project Card renders correctly 1`] = `
+<div
+  className="wrapper"
+>
+  <div
+    className="sidenav"
+  >
+    <nav>
+      <div
+        className="logo"
+      >
+        <a
+          exact={true}
+          href="/maintenance/sysadmin/sysadmin-dashboard"
+        >
+          <img
+            src="test-file-stub"
+          />
+        </a>
+      </div>
+      <a
+        href="/maintenance/sysadmin/auth-maintenance"
+      >
+        Authority
+      </a>
+      <a
+        href="/maintenance/sysadmin/node-maintenance"
+      >
+        Node
+      </a>
+      <a
+        href="/maintenance/sysadmin/quantity-maintenance"
+      >
+        Quantity
+      </a>
+      <a
+        href="/maintenance/sysadmin/school-maintenance"
+      >
+        School
+      </a>
+      <a
+        href="/maintenance/sysadmin/sensor-maintenance"
+      >
+        Sensor
+      </a>
+      <a
+        href="/maintenance/sysadmin/superuser-maintenance"
+      >
+        Superuser
+      </a>
+      <a
+        href="/maintenance/sysadmin/tag-maintenance"
+      >
+        Tag
+      </a>
+      <div
+        className="btn-row"
+      >
+        <button
+          className="button"
+          onClick={[Function]}
+        >
+          Log Out
+        </button>
+      </div>
+    </nav>
+  </div>
+</div>
+`;

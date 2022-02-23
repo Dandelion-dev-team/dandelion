@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tile renders correctly 1`] = `
+<tile>
+  <div
+    className="tile_div"
+    onClick={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    style={
+      Object {
+        "backgroundColor": "#e3c3ca",
+      }
+    }
+  >
+    <img
+      src="img"
+    />
+  </div>
+</tile>
+`;
