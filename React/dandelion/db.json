@@ -60,18 +60,18 @@
       "project": "Kohl Rabi"
     }
   ],
-  "authorities": [
+  "authority": [
     {
       "id": "FLK",
-      "name": "Stirlingshire",
-      "telephone": "07464787634",
-      "email": "stirling@authority.com"
+      "name": "Lothian",
+      "telephone": "0746478763242",
+      "email": "Lothian@authority.com"
     },
     {
       "id": "GLA",
       "name": "Glasgow",
-      "telephone": "07424387634",
-      "email": "glasgow@authority.com"
+      "telephone": "07424387111",
+      "email": "glasgow@authorities.com"
     }
   ],
   "schools": [
@@ -309,6 +309,27 @@
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       "url": "https://en.wikipedia.org/wiki/Thermometer",
       "datasheet_link": "https://eu.mouser.com/c/ds/sensors/temperature-sensors/",
+      "quantities": [
+        {
+          "id": 0,
+          "name": "Temperature",
+          "unit": "ºC",
+          "help_url": "https://en.wikipedia.org/wiki/Celsius"
+        },
+        {
+          "id": 1,
+          "name": "Humidity",
+          "unit": "%",
+          "help_url": "https://en.wikipedia.org/wiki/Humidity"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "code": "dsiojdosjdiosjidsjsd",
+      "description": "sdusndjsndjsnjkdnsjkdnskjndjksndnjsnds",
+      "url": "sdnsjdnjsdjnsds",
+      "datasheet_link": "Big",
       "quantities": [
         {
           "id": 0,

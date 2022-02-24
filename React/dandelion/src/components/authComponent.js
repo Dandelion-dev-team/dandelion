@@ -6,7 +6,7 @@ export default function AuthComponent(props) {
   //TESTED
   useEffect(() => {
     // Update the document title using the browser API
-    fetch("http://localhost:3000/authorities", {
+    fetch("http://localhost:3000/authority", {
       method: "GET",
       headers: new Headers({
         "Cache-Control": "no-cache, no-store, must-revalidate",
@@ -19,7 +19,7 @@ export default function AuthComponent(props) {
   }, [])
 
   const deleteAuth = index => {
-    fetch("http://localhost:3000/authorities/" + index, {
+    fetch("http://localhost:3000/authority/" + index, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     })
