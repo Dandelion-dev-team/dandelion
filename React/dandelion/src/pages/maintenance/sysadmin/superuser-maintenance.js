@@ -21,7 +21,7 @@ export default function SuperuserMaintenance(props) {
 
   useEffect(() => {
     // Update the document title using the browser API
-    fetch("http://localhost:3000/schools", {
+    fetch("http://localhost:3000/school", {
       method: "GET",
       headers: new Headers({
         "Cache-Control": "no-cache, no-store, must-revalidate",
@@ -62,14 +62,14 @@ export default function SuperuserMaintenance(props) {
 
   const onCreateUser = e => {
     if (school_selected && entered_username && password) {
-      fetch("http://localhost:3000/users", {
+      fetch("http://localhost:3000/user", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           id: 1234,
           school_id: school_selected.id,
           username: entered_username,
-          password_hash: password,
+          password: password,
           is_sysadmin: false,
           is_superuser: true,
           status: "active",
@@ -101,7 +101,7 @@ export default function SuperuserMaintenance(props) {
     setPassword("")
     setEditing(false)
 
-    let password_edited = editing_user.password_hash
+    let password_edited = editing_user.password
     if (password !== "") {
       password_edited = password
     }
@@ -114,14 +114,14 @@ export default function SuperuserMaintenance(props) {
       is_active_val = "deactivated"
     }
 
-    fetch("http://localhost:3000/users/" + editing_user.id, {
-      method: "PATCH",
+    fetch("http://localhost:3000/user/" + editing_user.id, {
+      method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         id: editing_user.id,
         school_id: school_selected.school_id,
         username: entered_username,
-        password_hash: password_edited,
+        password: password_edited,
         is_sysadmin: sys_admin_checkbox,
         is_superuser: superuser_checkbox,
         status: is_active_val,

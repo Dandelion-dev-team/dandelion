@@ -7,7 +7,7 @@ export default function CrudComponent(props) {
 
   useEffect(() => {
     // Update the document title using the browser API
-    fetch("http://localhost:3000/users", {
+    fetch("http://localhost:3000/user", {
       method: "GET",
       headers: new Headers({
         'Cache-Control': 'no-cache, no-store, must-revalidate',
@@ -22,7 +22,7 @@ export default function CrudComponent(props) {
 
 
   const deleteUser = index => {
-    fetch("http://localhost:3000/users/" + index, {
+    fetch("http://localhost:3000/user/" + index, {
       method: "DELETE",
       headers: { 'Content-Type': 'application/json' },
     }).then(console.log("delete " + index)).then(window.location.reload(false))
