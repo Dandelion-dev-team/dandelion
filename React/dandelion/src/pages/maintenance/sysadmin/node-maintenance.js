@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useRef } from "react"
 import SysSideNav from "../../../components/sysSideNav"
 import "../../../styles/App.scss"
-import NodeComponent from "../../../components/nodeTable"
+import NodeComponent from "../../../components/nodeComponent"
 import Select from "react-select"
 
-export default function SuperuserMaintenance(props) {
+export default function NodeMaintenance(props) {
   const [schoolList, setSchoolList] = useState("")
 
   const [school_selected, setDropdown] = useState("")
@@ -17,7 +17,7 @@ export default function SuperuserMaintenance(props) {
 
   useEffect(() => {
     // Update the document title using the browser API
-    fetch("http://localhost:3000/schools", {
+    fetch("http://localhost:3000/school/", {
       method: "GET",
       headers: new Headers({
         "Cache-Control": "no-cache, no-store, must-revalidate",
@@ -52,7 +52,7 @@ export default function SuperuserMaintenance(props) {
       entered_code &&
       entered_status
     ) {
-      fetch("http://localhost:3000/nodes/", {
+      fetch("http://localhost:3000/node/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -80,8 +80,8 @@ export default function SuperuserMaintenance(props) {
       entered_code &&
       entered_status
     ) {
-      fetch("http://localhost:3000/nodes/" + editing_node.id, {
-        method: "PATCH",
+      fetch("http://localhost:3000/node/" + editing_node.id, {
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           id: editing_node.id,
@@ -111,7 +111,6 @@ export default function SuperuserMaintenance(props) {
               <div className="quantityPicker">
                   <h3>School:</h3>
                 <Select
-                  name="authority_id_picker"
                   options={schoolList}
                   value={school_selected}
                   defaultValue={school_selected}
@@ -121,7 +120,7 @@ export default function SuperuserMaintenance(props) {
                 />
               </div>
               <div className="textbox">
-                <h3>Crowcube Code:</h3>
+                <h3>Growcube Code:</h3>
                 <input
                   type="text"
                   placeholder="Growcube Code"

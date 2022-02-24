@@ -7,7 +7,7 @@ export default function SensorComponent(props) {
 
   useEffect(() => {
     // Update the document title using the browser API
-    fetch("http://localhost:3000/nodes", {
+    fetch("http://localhost:3000/node", {
       method: "GET",
       headers: new Headers({
         'Cache-Control': 'no-cache, no-store, must-revalidate',
@@ -20,7 +20,7 @@ export default function SensorComponent(props) {
   }, []);
 
   const deleteNodes = index => {
-    fetch("http://localhost:3000/nodes/" + index, {
+    fetch("http://localhost:3000/node/" + index, {
       method: "DELETE",
       headers: { 'Content-Type': 'application/json' },
     }).then(console.log("delete " + index)).then(window.location.reload(false))
@@ -31,7 +31,7 @@ export default function SensorComponent(props) {
   }
 
   return (
-    <div className="authTable">
+    <div className="recordTable">
       <table className="tableList">
         {nodeList ?
           <div>
