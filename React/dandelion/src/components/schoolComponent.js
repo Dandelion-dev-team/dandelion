@@ -22,14 +22,14 @@ export default function CrudComponent(props) {
 
 
 
-  const deleteUser = index => {
+  const deleteSchool = index => {
     fetch("http://localhost:3000/school/" + index, {
       method: "DELETE",
       headers: { 'Content-Type': 'application/json' },
     }).then(console.log("delete " + index)).then(window.location.reload(false))
   }
 
-  const editUser = (user) => {
+  const editSchool = (user) => {
     props.parentCallback(user);
   }
 
@@ -72,7 +72,7 @@ export default function CrudComponent(props) {
                   type="submit"
                   className="submitButton"
                   value="Edit"
-                  onClick={() => { editUser(school) }}
+                  onClick={() => { editSchool(school) }}
                 ></input>
               </div>
             </td>
@@ -81,7 +81,7 @@ export default function CrudComponent(props) {
                 type="submit"
                 className="submitButton"
                 value="Delete"
-                onClick={() => { deleteUser(school.id) }}
+                onClick={() => { deleteSchool(school.id) }}
               ></input>
             </td>
           </tbody>
