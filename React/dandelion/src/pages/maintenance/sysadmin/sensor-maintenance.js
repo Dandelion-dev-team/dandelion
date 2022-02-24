@@ -80,7 +80,7 @@ export default function SuperuserMaintenance(props) {
       selected_quantities
     ) {
       fetch("http://localhost:3000/sensor/" + editing_ID, {
-        method: "PATCH",
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           id: 3,
