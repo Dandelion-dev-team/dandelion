@@ -273,7 +273,7 @@
       "status": "Not Started"
     }
   ],
-  "quantities": [
+  "quantity": [
     {
       "id": 0,
       "name": "Temperature",

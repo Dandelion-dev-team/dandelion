@@ -41,7 +41,7 @@ export default function SuperuserMaintenance(props) {
         appended_url = `https://${appended_url}`
         console.log("appended URL:" + appended_url)
       }
-      fetch("http://localhost:3000/quantities", {
+      fetch("http://localhost:3000/quantity", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -60,8 +60,8 @@ export default function SuperuserMaintenance(props) {
 
   const onUpdateQuantity = e => {
     if (entered_name && entered_link && entered_unit) {
-      fetch("http://localhost:3000/quantities/" + editing_id, {
-        method: "PATCH",
+      fetch("http://localhost:3000/quantity/" + editing_id, {
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           id: editing_id,
@@ -70,7 +70,7 @@ export default function SuperuserMaintenance(props) {
           help_url: entered_link,
         }),
       })
-        .then(console.log("PUT new school"))
+        .then(console.log("PUT new quantity"))
         .then(window.location.reload(false))
     }
   }
@@ -90,7 +90,6 @@ export default function SuperuserMaintenance(props) {
                 <input
                   type="text"
                   placeholder="Quantity name"
-                  name="usernameBox"
                   value={entered_name}
                   onChange={handleNameChange}
                 />
@@ -110,7 +109,6 @@ export default function SuperuserMaintenance(props) {
                 <input
                   type="text"
                   placeholder="Help URL"
-                  name="usernameBox"
                   value={entered_link}
                   onChange={handleLinkChange}
                 />
