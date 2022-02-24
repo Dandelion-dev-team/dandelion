@@ -72,7 +72,7 @@ export default function SuperuserMaintenance(props) {
       entered_email &&
       entered_image_link
     ) {
-      fetch("http://localhost:3000/schools", {
+      fetch("http://localhost:3000/school", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -111,8 +111,8 @@ export default function SuperuserMaintenance(props) {
       entered_email &&
       entered_image_link
     ) {
-      fetch("http://localhost:3000/schools/" + editing_school_id, {
-        method: "PATCH",
+      fetch("http://localhost:3000/school/" + editing_school_id, {
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           id: editing_school_id,
@@ -137,7 +137,7 @@ export default function SuperuserMaintenance(props) {
 
   useEffect(() => {
     // Update the document title using the browser API
-    fetch("http://localhost:3000/authorities", {
+    fetch("http://localhost:3000/authority", {
       method: "GET",
       headers: new Headers({
         "Cache-Control": "no-cache, no-store, must-revalidate",
@@ -179,7 +179,7 @@ export default function SuperuserMaintenance(props) {
                 //SHOW IF ADDING SCHOOL
                 <div>
                   <div className="authorityPicker">
-                    <h3>School Authority:</h3>
+                    <h3>Local Authority:</h3>
                     {editing ? (
                       //IF EDITING SHOW SCHOOL AUTH ID
                       <h3>{auth_id}</h3>

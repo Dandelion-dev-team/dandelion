@@ -1,5 +1,5 @@
 {
-  "users": [
+  "user": [
     {
       "id": 1,
       "school_id": "GLA11",
@@ -31,7 +31,7 @@
       "notes": " "
     }
   ],
-  "authorities": [
+  "authority": [
     {
       "id": "AH120020",
       "name": "Stirlingshire",
@@ -45,7 +45,7 @@
       "email": "glasgow@authority.com"
     }
   ],
-  "schools": [
+  "school": [
     {
       "id": "GLA11",
       "authority_id": "GLA12049",
