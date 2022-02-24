@@ -61,6 +61,7 @@ typings/
 
 # gatsby files
 .cache/
+public
 
 # Mac files
 .DS_Store
@@ -73,3 +74,4 @@ yarn-error.log
 .yarn-integrity
 requirements.txt
 requirements.txt
+

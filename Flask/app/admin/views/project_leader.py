@@ -1,4 +1,4 @@
-from flask import render_template, url_for, redirect
+from flask import render_template, url_for, redirect, abort
 from flask_json import json_response
 from app.admin import admin
 from app.models import Project_leader
@@ -21,8 +21,9 @@ def add_project_leader():
         try:
             db.session.add(project_leader)
             db.session.commit()
-        except:
+        except Exception as e:
             db.session.rollback()
+            abort(409, e.orig.msg)
 
         return redirect(url_for('admin.list_project_leader'))
 

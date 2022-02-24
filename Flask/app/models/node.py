@@ -13,6 +13,7 @@ class Node(db.Model):
     health_status = db.Column(db.String(20))
     status = db.Column(db.String(20))
     node_alert = db.relationship("Node_alert", backref="node")
+    node_sensor = db.relationship("Node_sensor", backref="node")
 
 
     @property

@@ -1,4 +1,4 @@
-from flask import render_template, url_for, redirect
+from flask import render_template, url_for, redirect, abort
 from flask_json import json_response
 from app.admin import admin
 from app.models import Condition
@@ -13,7 +13,6 @@ def listCondition():
     return json_response(data=(row2dict(x) for x in condition))
 
 
-
 @admin.route('/condition/add', methods=['GET', 'POST'])
 def add_condition():
     form = ConditionForm()
@@ -22,8 +21,9 @@ def add_condition():
         try:
             db.session.add(condition)
             db.session.commit()
-        except:
+        except Exception as e:
             db.session.rollback()
+            abort(409, e.orig.msg)
 
         return redirect(url_for('admin.list_condition'))
 

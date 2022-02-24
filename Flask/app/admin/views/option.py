@@ -1,4 +1,4 @@
-from flask import render_template, url_for, redirect
+from flask import render_template, url_for, redirect, abort
 from flask_json import json_response
 from app.admin import admin
 from app.models import Option
@@ -22,8 +22,9 @@ def add_option():
         try:
             db.session.add(option)
             db.session.commit()
-        except:
+        except Exception as e:
             db.session.rollback()
+            abort(409, e.orig.msg)
 
         return redirect(url_for('admin.list_option'))
 
