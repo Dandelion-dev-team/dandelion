@@ -1,0 +1,77 @@
+
+.school-maintenance-container {
+  background: #2e5641;
+  color: $white;
+  position: relative;
+  margin-left: 240px;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  .school-content {
+    justify-content: space-between;
+    align-items: center;
+    width: 97%;
+    height: 93%;
+    margin-left: 1.25rem;
+    margin-top: 1.25rem;
+    border-radius: 20px;
+    .content-wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      .edit-school {
+        margin-left: 1.75rem;
+        margin-top: 1.75rem;
+        flex-direction: column;
+
+        .authorityPicker {
+          width: 16vw;
+          color: $primary;
+
+          margin-bottom: 0.75rem;
+          margin-top: 0.75rem;
+
+          h3 {
+            color: $white;
+          }
+        }
+
+        .schoolEnterList {
+          display: grid;
+          grid-template-columns:  300px 300px 300px 300px;
+
+          .nameBox {
+            input {
+              margin-bottom: 0.5rem;
+              margin-top: 0.55rem;
+            }
+          }
+        }
+        .createButton {
+            background-color: $accent;
+            color: $primary;
+            font-size: 1.4rem;
+            margin: 2rem 0px;
+            padding: 15px;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+          }
+          .createButton:hover {
+            background-color: #d4d926;
+          }
+      }
+    }
+    .table {
+      width: 60%;
+      z-index: 7;
+
+      h3 {
+        margin-left: 1.725rem;
+      }
+    }
+  }
+}

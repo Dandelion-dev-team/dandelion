@@ -1,0 +1,45 @@
+.schoolTable {
+    width: 93%;
+  
+    @include media(">desktop") {
+     width: 96.2%;
+    }
+  
+    .schoolList {
+      margin-top: 1.5rem;
+      margin-left: 32px;
+      tbody {
+  
+        .active {
+          background-color: #f7f8ff;
+        }
+  
+  
+        &:hover {
+          background-color: #f7f8ff;
+          cursor: pointer;
+        }
+      }
+    }
+  
+    // .add-btn {
+    //   width: 50%;
+    //   margin-left: 14.2rem;
+  
+    //   .submitButton {
+    //       background-color: $accent;
+    //       color: $primary;
+    //       font-size: 1.6rem;
+    //       margin: 1.25rem 0px;
+    //       padding: 0.625rem;
+    //       width: 13rem;
+    //       border: none;
+    //       cursor: pointer;
+    //       border-radius: 10px;
+    //     }
+    //     .submitButton:hover {
+    //       background-color: #d4d926;
+    //     }
+    // }
+  }
+  

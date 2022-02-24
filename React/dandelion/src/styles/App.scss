@@ -11,6 +11,23 @@ $font: "Helvetica Neue", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
 @import "./components/hero.scss";
 @import "./components/tile.scss";
 @import "./components/projectCard.scss";
+@import "./components/experimentCard.scss";
+@import "./components/schoolTable.scss";
+
+
+@import "./components/userComponent.scss";
+@import "./components/projectComponent.scss";
+@import "./components/schoolUserComponent.scss";
+
+@import "./components/sideNav.scss";
+@import "./components/schoolUserPane.scss";
+@import "./components/globalTable.scss";
+@import "./components/projectPane.scss";
+
+@import "./components/nodeInfoComponent.scss";
+
+@import "./components/alertComponent.scss";
+
 
 //@import "./components/footer.scss";
 @import "./components/signin-form.scss";
@@ -20,6 +37,24 @@ $font: "Helvetica Neue", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
 @import "./pages/dashboard.scss";
 @import "./pages/signin.scss";
 @import "./pages/data.scss";
+@import "./pages/superuserMaintenance";
+@import "./pages/superuserDashboard";
+@import "./pages/schoolMaintenance.scss";
+@import "./pages/sensor-maintenance.scss";
+@import "./pages/school-user-maintenance.scss";
+@import "./pages/project-maintenance.scss";
+@import "./pages/auth-maintenance.scss";
+@import "./pages/node-maintenance.scss";
+@import "./pages/quantity-maintenance.scss";
+@import "./pages/tag-maintenance.scss";
+@import "./pages/superuser-alerts.scss";
+@import "./pages/superuser-help.scss";
+@import "./pages/superuser-templates.scss";
+@import "./pages/superuser-settings.scss";
+@import "./pages/sysadmin-dashboard.scss";
+
+
+
 
 html,
 body {
@@ -34,9 +69,17 @@ body {
   overflow-x: none;
   overscroll-behavior: none;
   margin: 0;
+  padding: none;
   user-select: none;
   color: $white;
 }
+a{
+  color: #e3c3ca;
+}
+a:visited { 
+  text-decoration: none; 
+  color: #e3c3ca; 
+ }
 
 .container {
   width: 1640px;

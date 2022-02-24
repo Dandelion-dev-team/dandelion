@@ -1,0 +1,35 @@
+.experiment-card {
+  width: 440px;
+  height: 150px;
+  background-color: white;
+  margin-top: 20px;
+  border-radius: 20px;
+  color: black;
+  display: flex;
+
+  .card-img {
+    img {
+      object-fit: cover;
+      border-top-left-radius: 20px;
+      border-bottom-left-radius: 20px;
+      width: 200px;
+      height: 150px;
+    }
+  }
+  h2 {
+    color: black;
+    margin-top: 10px;
+    margin-left: 10px;
+  }
+
+  .vl {
+    border-left: 3px solid #d3d3d3;
+    height: 50px;
+    margin-top: 50px;
+    margin-left: 20px;
+    margin-right: 20px;
+    border-radius: 3px;
+  }
+
+  
+}

@@ -27,8 +27,7 @@ export default function Data() {
       <div className="data">
         <div className="container">
           <div className="heading">
-            <TuneIcon color="#FFFF" />
-            <h3>Data Page</h3>
+            <h1>Data Page</h1>
           </div>
           <div className="projects">
             {projectList ?

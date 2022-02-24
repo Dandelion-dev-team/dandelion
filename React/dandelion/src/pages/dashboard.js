@@ -37,7 +37,7 @@ export default function Dashboard() {
                         <div className="content">
                             <h3>Dashboard</h3>
                             <p>
-                            Share the results of your projects and see how others’ projects went! 
+                            Share the results of your projects and see how others' projects went! 
                             </p>
                         </div>
                         <div className="tiles">
