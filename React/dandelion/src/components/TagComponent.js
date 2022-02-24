@@ -7,7 +7,7 @@ export default function TagComponent(props) {
   useEffect(() => {
     //TESTED
     // Update the document title using the browser API
-    fetch("http://localhost:3000/tags", {
+    fetch("http://localhost:3000/tag", {
       method: "GET",
       headers: new Headers({
         "Cache-Control": "no-cache, no-store, must-revalidate",
@@ -19,8 +19,8 @@ export default function TagComponent(props) {
       .then(data => setTag(data))
   }, [])
 
-  const deleteAuth = index => {
-    fetch("http://localhost:3000/tags/" + index, {
+  const deleteTag = index => {
+    fetch("http://localhost:3000/tag/" + index, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     })
@@ -28,12 +28,12 @@ export default function TagComponent(props) {
       .then(window.location.reload(false))
   }
 
-  const editAuth = auth => {
-    props.parentCallback(auth)
+  const editTag = auth => {
+    props.parentCallback(auth) 
   }
 
   return (
-    <div className="authTable">
+    <div className="recordTable">
       <table className="tableList">
         <thead>
           <tr>
@@ -56,7 +56,7 @@ export default function TagComponent(props) {
                       className="submitButton"
                       value="Edit"
                       onClick={() => {
-                        editAuth(tag)
+                        editTag(tag)
                       }}
                     ></input>
                   </div>
@@ -67,7 +67,7 @@ export default function TagComponent(props) {
                     className="submitButton"
                     value="Delete"
                     onClick={() => {
-                      deleteAuth(tag.id)
+                      deleteTag(tag.id)
                     }}
                   ></input>
                 </td>

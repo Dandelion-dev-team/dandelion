@@ -261,15 +261,15 @@
       }
     }
   ],
-  "tags": [
+  "tag": [
     {
       "id": 1,
-      "label": "Caulifowler",
+      "label": "Cauliflower",
       "status": "Active"
     },
     {
       "id": 2,
-      "label": "Kohl Rabi",
+      "label": "Lettuce",
       "status": "Not Started"
     }
   ],

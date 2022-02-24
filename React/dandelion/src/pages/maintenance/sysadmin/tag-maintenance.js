@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react"
 import SysSideNav from "../../../components/sysSideNav"
 import "../../../styles/App.scss"
-import TagComponent from "../../../components/TagComponent"
+import TagComponent from "../../../components/tagComponent"
 
 export default function TagMaintenance(props) {
   const selectInputRef = useRef()
@@ -12,10 +12,9 @@ export default function TagMaintenance(props) {
   const [editing, setEditing] = useState("")
   const [editing_tag, setEditingTag] = useState("")
 
-
   useEffect(() => {
     // Update the document title using the browser API
-    fetch("http://localhost:3000/tags", {
+    fetch("http://localhost:3000/tag", {
       method: "GET",
       headers: new Headers({
         "Cache-Control": "no-cache, no-store, must-revalidate",
@@ -37,8 +36,8 @@ export default function TagMaintenance(props) {
 
   const handleCallback = childData => {
     setEditingTag(childData)
-    setTagLabel(childData.tagLabel)
-    setTagStatus(childData.tagStatus)
+    setTagLabel(childData.label)
+    setTagStatus(childData.status)
     if (childData.status == "active") {
       setActive(true)
     } else {
@@ -47,9 +46,9 @@ export default function TagMaintenance(props) {
     setEditing(true)
   }
 
-  const onCreateAuth = e => {
+  const onCreateTag = e => {
     if (tagLabel && tagStatus) {
-      fetch("http://localhost:3000/tags", {
+      fetch("http://localhost:3000/tag", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -65,29 +64,20 @@ export default function TagMaintenance(props) {
     }
   }
 
-  const onUpdateAuth = e => {
+  const onUpdateTag = e => {
     setTagLabel("")
     setTagStatus("")
     setEditing(false)
 
-    // fetch("http://localhost:3000/authorities/" + editing_auth.id, {
-    //     method: "PATCH",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify({
-    //       id: editing_user.id,
-    //       name: nauth
-    //       school_id: school_selected.school_id,
-    //       username: entered_username,
-    //       password_hash: password_edited,
-    //       is_sysadmin: sys_admin_checkbox,
-    //       is_superuser: superuser_checkbox,
-    //       status: is_active_val,
-    //       notes: notes,
-    //     }),
-    //   })
-    //     .then(console.log("EDITED user:" + editing_user.username))
-    //     .then(window.location.reload(false))
-    // }
+    fetch("http://localhost:3000/tag/" + editing_tag.id, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id: editing_tag.id,
+        label: tagLabel,
+        status: tagStatus,
+      }),
+    }).then(window.location.reload(false))
   }
 
   return (
@@ -99,28 +89,24 @@ export default function TagMaintenance(props) {
             <div className="table">
               <TagComponent parentCallback={handleCallback} />
             </div>
-            <div className="edit-quantity">
-              <div className="authorityPicker">
+            <div className="edit-tag">
+              <div>
                 <h3>Tag Label: </h3>
-                {editing ? (
-                  <h3>{tagLabel}</h3>
-                ) : (
-                  <input
-                    type="text"
-                    placeholder="Label"
-                    name="authNameBox"
-                    value={tagLabel}
-                    onChange={handleTagChange}
-                  />
-                )}
+                <input
+                  type="text"
+                  placeholder="Label"
+                  name="labelBox"
+                  value={tagLabel}
+                  onChange={handleTagChange}
+                />
               </div>
 
-              <div className="nameBox">
+              <div className="textbox">
                 <h3>Status:</h3>
                 <input
                   type="text"
                   placeholder="Status"
-                  name="telephoneBox"
+                  name="statusBox"
                   value={tagStatus}
                   onChange={handleTagStatus}
                 />
@@ -129,39 +115,12 @@ export default function TagMaintenance(props) {
               {editing ? (
                 //IF EDITING
                 <div className="nameBox">
-                  <h3>Label:</h3>
-                  <input
-                    type="text"
-                    placeholder="Notes"
-                    name="usernameBox"
-                    value={tagLabel}
-                    onChange={handleTagChange}
-                    style={{
-                      width: "300px",
-                      height: "50px",
-                      lineHeight: "10px",
-                    }}
-                  />
-                  <h3>Status:</h3>
-                  <input
-                    type="text"
-                    placeholder="Notes"
-                    name="usernameBox"
-                    value={tagStatus}
-                    onChange={handleTagStatus}
-                    style={{
-                      width: "300px",
-                      height: "50px",
-                      lineHeight: "10px",
-                    }}
-                  />
-
                   <div className="submit-btn">
                     <input
                       type="submit"
                       className="submitButton"
                       value="Update"
-                      onClick={onUpdateAuth}
+                      onClick={onUpdateTag}
                     ></input>
                   </div>
                 </div>
@@ -172,7 +131,7 @@ export default function TagMaintenance(props) {
                     type="submit"
                     className="submitButton"
                     value="Create"
-                    onClick={onCreateAuth}
+                    onClick={onCreateTag}
                   ></input>
                 </div>
               )}
