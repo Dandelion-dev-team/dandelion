@@ -8,7 +8,7 @@ export default function SensorComponent(props) {
   useEffect(() => {
     //TESTED
     // Update the document title using the browser API
-    fetch("http://localhost:3000/sensors", {
+    fetch("http://localhost:3000/sensor", {
       method: "GET",
       headers: new Headers({
         'Cache-Control': 'no-cache, no-store, must-revalidate',
@@ -22,19 +22,19 @@ export default function SensorComponent(props) {
 
 
 
-  const deleteUser = index => {
-    fetch("http://localhost:3000/sensors/" + index, {
+  const deleteSensor = index => {
+    fetch("http://localhost:3000/sensor/" + index, {
       method: "DELETE",
       headers: { 'Content-Type': 'application/json' },
     }).then(console.log("delete " + index)).then(window.location.reload(false))
   }
 
-  const editUser = (user) => {
+  const editSensor = (user) => {
     props.parentCallback(user);
   }
 
   return (
-    <div className="authTable">
+    <div className="recordTable">
       <table className="tableList">
         {sensorList ?
           <div>
@@ -71,7 +71,7 @@ export default function SensorComponent(props) {
                       type="submit"
                       className="submitButton"
                       value="Edit"
-                      onClick={() => { editUser(sensor) }}
+                      onClick={() => { editSensor(sensor) }}
                     ></input>
                   </div>
                 </td>
@@ -80,7 +80,7 @@ export default function SensorComponent(props) {
                     type="submit"
                     className="submitButton"
                     value="Delete"
-                    onClick={() => { deleteUser(sensor.id) }}
+                    onClick={() => { deleteSensor(sensor.id) }}
                   ></input>
                 </td>
               </tbody>

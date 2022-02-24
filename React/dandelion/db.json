@@ -273,7 +273,7 @@
       "status": "Not Started"
     }
   ],
-  "quantities": [
+  "quantity": [
     {
       "id": 0,
       "name": "Temperature",
@@ -287,7 +287,7 @@
       "help_url": "https://en.wikipedia.org/wiki/Humidity"
     }
   ],
-  "sensors": [
+  "sensor": [
     {
       "id": 0,
       "code": "LIQUID10212",
