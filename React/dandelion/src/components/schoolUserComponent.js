@@ -8,7 +8,8 @@ export default function SchoolUserComponent(props) {
   useEffect(() => {
     //TESTED
     // Update the document title using the browser API
-    fetch("http://localhost:3000/school-users", {
+    let url = process.env.API_URL + '/school-users'
+    fetch(url, {
       method: "GET",
       headers: new Headers({
         "Cache-Control": "no-cache, no-store, must-revalidate",
