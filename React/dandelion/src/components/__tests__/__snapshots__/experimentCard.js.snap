@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Experiment Card renders correctly 1`] = `
+<div
+  className="experiment-card"
+>
+  <div
+    className="card-img"
+  >
+    <img
+      src="testlink"
+    />
+  </div>
+  <div
+    className="title"
+  >
+    <h2>
+      Test Title
+    </h2>
+  </div>
+  <div
+    className="center"
+  >
+    <div
+      class="vl"
+    />
+  </div>
+  <div
+    className="description"
+  >
+    <h2>
+      Test description
+    </h2>
+  </div>
+</div>
+`;

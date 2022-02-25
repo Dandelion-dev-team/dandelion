@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Project renders correctly 1`] = `
+<div
+  className="project-table"
+>
+  <table
+    className="projectList"
+  >
+    <thead>
+      <tr>
+        <th>
+          Title
+        </th>
+        <th>
+          Owner
+        </th>
+        <th>
+          Type
+        </th>
+      </tr>
+    </thead>
+  </table>
+  <div
+    className="add-btn"
+  >
+    <button
+      className="submitButton"
+    >
+      Add Project
+    </button>
+  </div>
+</div>
+`;

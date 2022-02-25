@@ -5,6 +5,7 @@ const parse = require('../auth');
 
 export default function Header() {
   const [logged] = parse.useAuth();
+  //Tested
   return (
     <header>
       <div className="container">

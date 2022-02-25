@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Project Card renders correctly 1`] = `
+<div>
+  <div
+    className="panel-content"
+  >
+    <div
+      className="project-title"
+    >
+      <h3>
+        Test Title
+         Project
+      </h3>
+      <h3>
+        Tue Feb 22 2022
+         -
+         
+        Tue Feb 22 2022
+         
+      </h3>
+      <h3>
+        Test school
+      </h3>
+      <h3>
+        Owner - 
+      </h3>
+      <div
+        className="feat-img"
+      >
+        <img
+          src="test link"
+        />
+      </div>
+      <div
+        className="experiment-row"
+      >
+        <div
+          className="experiment-card"
+        >
+          <div
+            className="card-img"
+          >
+            <img />
+          </div>
+          <div
+            className="title"
+          >
+            <h2 />
+          </div>
+          <div
+            className="center"
+          >
+            <div
+              class="vl"
+            />
+          </div>
+          <div
+            className="description"
+          >
+            <h2 />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="btn-row"
+    >
+      <button
+        className="submitButton"
+        id="inv"
+      >
+        Invite School
+      </button>
+      <button
+        className="submitButton"
+      >
+        Edit Project
+      </button>
+      <button
+        className="submitButton"
+        id="comp"
+      >
+        Project Complete
+      </button>
+    </div>
+  </div>
+</div>
+`;

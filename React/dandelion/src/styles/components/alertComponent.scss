@@ -1,59 +1,58 @@
 .alertContainer {
-    width: 100%;
-    background-color: white;
-    height: 5rem;
-    margin-top: 2rem;
-    .top-divider {
-        hr {
-            height: 2px;
-            background-color: darkgray;
-            margin-left: 1.25rem;
-            margin-right: 1.25rem;
-        }
+  width: 100%;
+  background-color: white;
+  height: 5rem;
+  margin-top: 2rem;
+  .top-divider {
+    hr {
+      height: 2px;
+      background-color: darkgray;
+      margin-left: 1.25rem;
+      margin-right: 1.25rem;
     }
+  }
 
-    .bottom-divider {
-        hr {
-            height: 2px;
-            background-color: darkgray;
-            margin-left: 1.25rem;
-            margin-right: 1.25rem;
-        }
+  .bottom-divider {
+    hr {
+      height: 2px;
+      background-color: darkgray;
+      margin-left: 1.25rem;
+      margin-right: 1.25rem;
     }
-    .row {
-        display: flex;
-        flex-direction: row;
+  }
+  .row {
+    display: flex;
+    flex-direction: row;
 
-        .text-content {
-            .date-recorded {
-                h3 {
-                    align-items: flex-start;
-                    font-weight: 500;
-                    color: darkgray;
-                    margin-left: 20px;
-                }
-            }
-            h3 {
-                align-items: flex-start;
-                color: black;
-                margin-left: 20px;
-            }
+    .text-content {
+      .date-recorded {
+        h3 {
+          align-items: flex-start;
+          font-weight: 500;
+          color: darkgray;
+          margin-left: 20px;
         }
-        img {
-            width: 50px;
-            height: 50px;
-            margin-left: 20%;
-            margin-top: 0.5rem;
-        }
-        .clear-alert{  
-            color: black;
-            margin-top: 1.9rem;
-            margin-left: 2rem;
-            transform: scale(1.5);
-            
-        }
-        .clear-alert:hover{  
-            cursor: pointer;
-        }
+      }
+      h3 {
+        align-items: flex-start;
+        color: black;
+        margin-left: 20px;
+      }
     }
+    img {
+      width: 50px;
+      height: 50px;
+      margin-left: 20%;
+      margin-top: 0.5rem;
+    }
+    .clear-alert {
+      color: black;
+      margin-top: 1.9rem;
+      margin-left: 2rem;
+      transform: scale(1.5);
+    }
+    .clear-alert:hover {
+      cursor: pointer;
+    }
+  }
 }

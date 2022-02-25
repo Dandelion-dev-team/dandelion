@@ -8,11 +8,9 @@ import about from '../images/about_icon.png';
 import chart from '../images/chart.png';
 import add_data from '../images/add data.png';
 import { navigate } from "gatsby";
-const parse = require('../auth');
 
 export default function Dashboard() {
     const [savedData, setData] = useState(0);
-    const [logged] = parse.useAuth();
 
     useEffect(() => {
         // Update the document title using the browser API
@@ -25,7 +23,7 @@ export default function Dashboard() {
             })
         }).then(response => response.json())
             .then(
-                data => setData(data[0]))
+                data => setData(data))
     }, []);
 
     return (

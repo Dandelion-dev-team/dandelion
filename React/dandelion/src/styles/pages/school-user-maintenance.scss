@@ -42,10 +42,16 @@
       height: 93vh;
       border-top-right-radius: 20px;
       border-bottom-right-radius: 20px;
+      overflow-y: scroll;
+
 
       h3, h2, p {
         color: black;
       }
     }
+
+    .school-pane::-webkit-scrollbar {
+      display: none; /* for Chrome, Safari, and Opera */
+  }
   }
 }
