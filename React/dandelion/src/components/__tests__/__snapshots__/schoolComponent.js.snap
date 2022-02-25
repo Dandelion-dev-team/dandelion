@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`School renders correctly 1`] = `
+<div
+  className="authTable"
+>
+  <table
+    className="tableList"
+  >
+    <thead>
+      <tr>
+        <th>
+          ID
+        </th>
+        <th>
+          Auth ID
+        </th>
+        <th>
+          Name
+        </th>
+        <th>
+          Address Line 1
+        </th>
+        <th>
+          Town
+        </th>
+        <th>
+          Postcode
+        </th>
+        <th>
+          Telephone
+        </th>
+        <th>
+          Email
+        </th>
+        <th>
+          Status
+        </th>
+        <th>
+          Edit
+        </th>
+        <th>
+          Delete
+        </th>
+      </tr>
+    </thead>
+  </table>
+</div>
+`;

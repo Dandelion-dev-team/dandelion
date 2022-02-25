@@ -3,7 +3,7 @@ import { Link, navigate, Text } from "gatsby"
 
 export default function Tile(props) {
     const [show, setShown] = useState('')
-
+    //TESTED
     return (
         <tile>
             <div className="tile_div" style={{ backgroundColor: props.tile_color }}

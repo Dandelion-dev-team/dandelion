@@ -19,8 +19,6 @@ export default function CrudComponent(props) {
         data => setUsers(data))
   }, []);
 
-
-
   const deleteUser = index => {
     fetch("http://localhost:3000/user/" + index, {
       method: "DELETE",

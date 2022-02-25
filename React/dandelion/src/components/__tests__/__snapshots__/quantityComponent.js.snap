@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Quantity renders correctly 1`] = `
+<div
+  className="authTable"
+>
+  <table
+    className="tableList"
+  />
+</div>
+`;

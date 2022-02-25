@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Auth renders correctly 1`] = `
+<div
+  className="authTable"
+>
+  <table
+    className="tableList"
+  />
+</div>
+`;
+
+exports[`Node Table renders correctly 1`] = `
+<div
+  className="authTable"
+>
+  <table
+    className="tableList"
+  />
+</div>
+`;

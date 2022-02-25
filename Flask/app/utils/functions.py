@@ -1,3 +1,5 @@
+from app.models.users import User
+
 def row2dict(row, summary=False):
     d = {}
 
@@ -9,3 +11,7 @@ def row2dict(row, summary=False):
 
 
     return d
+
+def jwt_user (username):
+
+    return User.query.filter(User.username == username).first()
