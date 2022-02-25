@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react"
 import SysSideNav from "../../../components/sysSideNav"
 import "../../../styles/App.scss"
 import QuantityComponent from "../../../components/quantityComponent"
+import { createRecord, updateRecord } from "../../../utils/CRUD"
 
 export default function SuperuserMaintenance(props) {
   const [entered_name, setName] = useState("")
@@ -41,18 +42,9 @@ export default function SuperuserMaintenance(props) {
         appended_url = `https://${appended_url}`
         console.log("appended URL:" + appended_url)
       }
-      fetch("http://localhost:3000/quantity", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          id: 3,
-          name: entered_name,
-          unit: entered_unit,
-          help_url: appended_url,
-        }),
-      })
-        .then(console.log("PUT new quantity"))
-        .then(window.location.reload(false))
+      let body = JSON.stringify({id: 3, name: entered_name, unit: entered_unit,help_url: appended_url,
+    });
+      createRecord("http://localhost:3000/quantity", body);
     } else {
       console.log("did not have all information")
     }
@@ -60,18 +52,9 @@ export default function SuperuserMaintenance(props) {
 
   const onUpdateQuantity = e => {
     if (entered_name && entered_link && entered_unit) {
-      fetch("http://localhost:3000/quantity/" + editing_id, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          id: editing_id,
-          name: entered_name,
-          unit: entered_unit,
-          help_url: entered_link,
-        }),
-      })
-        .then(console.log("PUT new quantity"))
-        .then(window.location.reload(false))
+      let body = JSON.stringify({id: editing_id, name: entered_name, unit: entered_unit, help_url: entered_link,
+      });
+      updateRecord("http://localhost:3000/quantity/" + editing_id, body);
     }
   }
 

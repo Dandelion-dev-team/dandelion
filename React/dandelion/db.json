@@ -181,7 +181,7 @@
       "status": "active"
     }
   ],
-  "nodes": [
+  "node": [
     {
       "id": 1,
       "school_id": "GLA11",
@@ -273,7 +273,7 @@
       "status": "Not Started"
     }
   ],
-  "quantities": [
+  "quantity": [
     {
       "id": 0,
       "name": "Temperature",

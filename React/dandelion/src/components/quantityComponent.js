@@ -1,39 +1,21 @@
 import { Link } from "gatsby"
 import React, { useEffect, useState } from "react"
 import "../styles/App.scss"
-
+import { deleteRecord, readRecord } from "../utils/CRUD"
 export default function QuantityComponent(props) {
   const [quantityList, setQuantities] = useState(0);
   //TESTED
   useEffect(() => {
-    // Update the document title using the browser API
-    fetch("http://localhost:3000/quantity", {
-      method: "GET",
-      headers: new Headers({
-        'Cache-Control': 'no-cache, no-store, must-revalidate',
-        'Pragma': 'no-cache',
-        'Expires': 0,
-      })
-    }).then(response => response.json())
-      .then(
-        data => setQuantities(data))
+    readRecord('http://localhost:3000/quantity', setQuantities);
   }, []);
 
-
-
-  const deleteUser = index => {
-    fetch("http://localhost:3000/quantity/" + index, {
-      method: "DELETE",
-      headers: { 'Content-Type': 'application/json' },
-    }).then(console.log("delete " + index)).then(window.location.reload(false))
-  }
 
   const editUser = (user) => {
     props.parentCallback(user);
   }
 
   return (
-    <div className="authTable">
+    <div className="recordTable">
       <table className="tableList">
       {quantityList ? 
       <div>
@@ -72,7 +54,7 @@ export default function QuantityComponent(props) {
                 type="submit"
                 className=""
                 value="Delete"
-                onClick={() => { deleteUser(quantity.id) }}
+                onClick={() => { deleteRecord("http://localhost:3000/quantity/" + quantity.id) }}
               ></input>
             </td>
           </tbody>
