@@ -1,24 +1,13 @@
 import { Link } from "gatsby"
 import React, { useEffect, useState } from "react"
+import { deleteRecord, readRecord } from "../utils/CRUD"
 import "../styles/App.scss"
 
 export default function SchoolUserComponent(props) {
   const [users, setUsers] = useState(0)
 
   useEffect(() => {
-    //TESTED
-    // Update the document title using the browser API
-    let url = process.env.API_URL + '/school-users'
-    fetch(url, {
-      method: "GET",
-      headers: new Headers({
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-        Pragma: "no-cache",
-        Expires: 0,
-      }),
-    })
-      .then(response => response.json())
-      .then(data => setUsers(data))
+    readRecord('/school-users', setUsers);
   }, [])
 
   const editUser = user => {

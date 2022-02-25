@@ -1,33 +1,14 @@
 import { Link } from "gatsby"
 import React, { useEffect, useState } from "react"
+import { deleteRecord, readRecord } from "../utils/CRUD"
 import "../styles/App.scss"
 
 export default function SensorComponent(props) {
   const [sensorList, setSensors] = useState(0);
 
   useEffect(() => {
-    //TESTED
-    // Update the document title using the browser API
-    fetch("http://localhost:3000/sensor", {
-      method: "GET",
-      headers: new Headers({
-        'Cache-Control': 'no-cache, no-store, must-revalidate',
-        'Pragma': 'no-cache',
-        'Expires': 0,
-      })
-    }).then(response => response.json())
-      .then(
-        data => setSensors(data))
+      readRecord("/sensor/", setSensors)
   }, []);
-
-
-
-  const deleteSensor = index => {
-    fetch("http://localhost:3000/sensor/" + index, {
-      method: "DELETE",
-      headers: { 'Content-Type': 'application/json' },
-    }).then(console.log("delete " + index)).then(window.location.reload(false))
-  }
 
   const editSensor = (user) => {
     props.parentCallback(user);
@@ -80,7 +61,7 @@ export default function SensorComponent(props) {
                     type="submit"
                     className="submitButton"
                     value="Delete"
-                    onClick={() => { deleteSensor(sensor.id) }}
+                    onClick={() => { deleteRecord("/sensor/" + sensor.id) }}
                   ></input>
                 </td>
               </tbody>

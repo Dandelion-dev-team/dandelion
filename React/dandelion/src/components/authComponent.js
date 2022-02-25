@@ -1,31 +1,13 @@
 import React, { useEffect, useState } from "react"
 import "../styles/App.scss"
+import { deleteRecord, readRecord } from "../utils/CRUD";
 
 export default function AuthComponent(props) {
   const [auths, setAuth] = useState(0)
   //TESTED
   useEffect(() => {
-    // Update the document title using the browser API
-    fetch("http://localhost:3000/authority", {
-      method: "GET",
-      headers: new Headers({
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-        Pragma: "no-cache",
-        Expires: 0,
-      }),
-    })
-      .then(response => response.json())
-      .then(data => setAuth(data))
+    readRecord('/authority', setAuth);
   }, [])
-
-  const deleteAuth = index => {
-    fetch("http://localhost:3000/authority/" + index, {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-    })
-      .then(console.log("delete " + index))
-      .then(window.location.reload(false))
-  }
 
   const editAuth = auth => {
     props.parentCallback(auth)
@@ -47,35 +29,35 @@ export default function AuthComponent(props) {
 
         {auths
           ? auths.map(auth => (
-              <tbody key={auths.id}>
-                <td>{auth.id}</td>
-                <td>{auth.name}</td>
-                <td>{auth.email}</td>
-                <td>{auth.telephone}</td>
-                <td>
-                  <div className="submit-btn">
-                    <input
-                      type="submit"
-                      className="submitButton"
-                      value="Edit"
-                      onClick={() => {
-                        editAuth(auth)
-                      }}
-                    ></input>
-                  </div>
-                </td>
-                <td>
+            <tbody key={auths.id}>
+              <td>{auth.id}</td>
+              <td>{auth.name}</td>
+              <td>{auth.email}</td>
+              <td>{auth.telephone}</td>
+              <td>
+                <div className="submit-btn">
                   <input
                     type="submit"
                     className="submitButton"
-                    value="Delete"
+                    value="Edit"
                     onClick={() => {
-                      deleteAuth(auth.id)
+                      editAuth(auth)
                     }}
                   ></input>
-                </td>
-              </tbody>
-            ))
+                </div>
+              </td>
+              <td>
+                <input
+                  type="submit"
+                  className="submitButton"
+                  value="Delete"
+                  onClick={() => {
+                    deleteRecord("/authority/" + auth.id)
+                  }}
+                ></input>
+              </td>
+            </tbody>
+          ))
           : null}
       </table>
     </div>

@@ -3,6 +3,7 @@ import SysSideNav from "../../../components/sysSideNav"
 import "../../../styles/App.scss"
 import SensorComponent from "../../../components/sensorComponent"
 import Select from "react-select"
+import { createRecord, readRecord, updateRecord } from "../../../utils/CRUD"
 
 export default function SuperuserMaintenance(props) {
   const [entered_code, setCode] = useState("")
@@ -52,20 +53,15 @@ export default function SuperuserMaintenance(props) {
       entered_datasheet &&
       selected_quantities
     ) {
-      fetch("http://localhost:3000/sensor", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          id: 3,
-          code: entered_code,
-          description: entered_desc,
-          url: entered_url,
-          datasheet_link: entered_datasheet,
-          quantities: selected_quantities,
-        }),
+      let body = JSON.stringify({
+        id: 3,
+        code: entered_code,
+        description: entered_desc,
+        url: entered_url,
+        datasheet_link: entered_datasheet,
+        quantities: selected_quantities,
       })
-        .then(console.log("PUT new quantity"))
-        .then(window.location.reload(false))
+      createRecord("/sensor", body)
     } else {
       console.log("did not have all information")
     }
@@ -79,35 +75,21 @@ export default function SuperuserMaintenance(props) {
       entered_datasheet &&
       selected_quantities
     ) {
-      fetch("http://localhost:3000/sensor/" + editing_ID, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          id: 3,
-          code: entered_code,
-          description: entered_desc,
-          url: entered_url,
-          datasheet_link: entered_datasheet,
-          quantities: selected_quantities,
-        }),
+      let body = JSON.stringify({
+        id: editing_ID,
+        code: entered_code,
+        description: entered_desc,
+        url: entered_url,
+        datasheet_link: entered_datasheet,
+        quantities: selected_quantities,
       })
-        .then(console.log("PUT new sensor"))
-        .then(window.location.reload(false))
+
+      updateRecord("/sensor/" + editing_ID, body);
     }
   }
 
   useEffect(() => {
-    // Update the document title using the browser API
-    fetch("http://localhost:3000/quantity", {
-      method: "GET",
-      headers: new Headers({
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-        Pragma: "no-cache",
-        Expires: 0,
-      }),
-    })
-      .then(response => response.json())
-      .then(data => setQuantityList(Array.from(data)))
+    readRecord("/quantity", setQuantityList);
   }, [])
 
   return (

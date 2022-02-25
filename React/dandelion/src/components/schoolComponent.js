@@ -1,33 +1,14 @@
 import { Link } from "gatsby"
 import React, { useEffect, useState } from "react"
 import "../styles/App.scss"
+import { deleteRecord, readRecord } from "../utils/CRUD";
 
 export default function CrudComponent(props) {
   const [schools, setSchools] = useState(0);
 
   useEffect(() => {
-    //Tested
-    // Update the document title using the browser API
-    fetch("http://localhost:3000/school", {
-      method: "GET",
-      headers: new Headers({
-        'Cache-Control': 'no-cache, no-store, must-revalidate',
-        'Pragma': 'no-cache',
-        'Expires': 0,
-      })
-    }).then(response => response.json())
-      .then(
-        data => setSchools(data))
+      readRecord("/school/", setSchools)
   }, []);
-
-
-
-  const deleteSchool = index => {
-    fetch("http://localhost:3000/school/" + index, {
-      method: "DELETE",
-      headers: { 'Content-Type': 'application/json' },
-    }).then(console.log("delete " + index)).then(window.location.reload(false))
-  }
 
   const editSchool = (user) => {
     props.parentCallback(user);
@@ -81,7 +62,7 @@ export default function CrudComponent(props) {
                 type="submit"
                 className="submitButton"
                 value="Delete"
-                onClick={() => { deleteSchool(school.id) }}
+                onClick={() => { deleteRecord("/school/" + school.id) }}
               ></input>
             </td>
           </tbody>

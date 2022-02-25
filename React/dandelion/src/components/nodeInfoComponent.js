@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react"
 import "../styles/App.scss"
 import Select from "react-select"
+import { readRecord } from "../utils/CRUD";
 
 export default function NodeInfoComponent(props) {
     //TESTED
@@ -11,17 +12,7 @@ export default function NodeInfoComponent(props) {
     const [comment, setComment] = useState("");
 
     useEffect(() => {
-        //Update the document title using the browser API
-        fetch("http://localhost:3000/nodes/" + 1, {
-            method: "GET",
-            headers: new Headers({
-                "Cache-Control": "no-cache, no-store, must-revalidate",
-                Pragma: "no-cache",
-                Expires: 0,
-            }),
-        })
-            .then(response => response.json())
-            .then(data => setNodeData(data))
+        readRecord("/node/" + 1, setNodeData)
     }, [])
 
     const handleCommentChange = e => {

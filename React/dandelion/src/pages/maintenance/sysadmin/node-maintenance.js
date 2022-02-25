@@ -3,6 +3,7 @@ import SysSideNav from "../../../components/sysSideNav"
 import "../../../styles/App.scss"
 import NodeComponent from "../../../components/nodeComponent"
 import Select from "react-select"
+import { createRecord, readRecord, updateRecord } from "../../../utils/CRUD"
 
 export default function NodeMaintenance(props) {
   const [schoolList, setSchoolList] = useState("")
@@ -17,16 +18,7 @@ export default function NodeMaintenance(props) {
 
   useEffect(() => {
     // Update the document title using the browser API
-    fetch("http://localhost:3000/school/", {
-      method: "GET",
-      headers: new Headers({
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-        Pragma: "no-cache",
-        Expires: 0,
-      }),
-    })
-      .then(response => response.json())
-      .then(data => setSchoolList(Array.from(data)))
+    readRecord("/school", setSchoolList);
   }, [])
 
   const handleCallback = childData => {
@@ -52,22 +44,17 @@ export default function NodeMaintenance(props) {
       entered_code &&
       entered_status
     ) {
-      fetch("http://localhost:3000/node/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          id: 3,
-          school_id: school_selected.id,
-          growcube_code: entered_code,
-          mac_address: entered_MAC_address,
-          last_communication_date: "",
-          next_communication_expected: "",
-          health_status: "",
-          status: entered_status,
-        }),
+      let body = JSON.stringify({
+        id: 3,
+        school_id: school_selected.id,
+        growcube_code: entered_code,
+        mac_address: entered_MAC_address,
+        last_communication_date: "",
+        next_communication_expected: "",
+        health_status: "",
+        status: entered_status,
       })
-        .then(console.log("PUT new node"))
-        .then(window.location.reload(false))
+      createRecord("/node", body);
     } else {
       console.log("did not have all information")
     }
@@ -80,22 +67,19 @@ export default function NodeMaintenance(props) {
       entered_code &&
       entered_status
     ) {
-      fetch("http://localhost:3000/node/" + editing_node.id, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          id: editing_node.id,
-          school_id: school_selected.id,
-          growcube_code: entered_code,
-          mac_address: entered_MAC_address,
-          last_communication_date: editing_node.last_communication_date,
-          next_communication_expected: editing_node.next_communication_expected,
-          health_status: editing_node.health_status,
-          status: entered_status,
-        }),
-      })
-        .then(console.log("PUT new node"))
-        .then(window.location.reload(false))
+      let body = JSON.stringify({
+        id: editing_node.id,
+        school_id: school_selected.id,
+        growcube_code: entered_code,
+        mac_address: entered_MAC_address,
+        last_communication_date: editing_node.last_communication_date,
+        next_communication_expected: editing_node.next_communication_expected,
+        health_status: editing_node.health_status,
+        status: entered_status,
+      });
+      updateRecord("/node/" + editing_node.id, body)
+    } else {
+      console.log("did not have all information")
     }
   }
   return (
@@ -109,7 +93,7 @@ export default function NodeMaintenance(props) {
             </div>
             <div className="edit-content">
               <div className="quantityPicker">
-                  <h3>School:</h3>
+                <h3>School:</h3>
                 <Select
                   options={schoolList}
                   value={school_selected}

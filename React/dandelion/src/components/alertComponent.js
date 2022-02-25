@@ -4,17 +4,9 @@ import "../styles/App.scss";
 import amberAlert from "../images/amber-alert.png";
 import redAlert from "../images/red-alert.png";
 import ClearIcon from '@mui/icons-material/Clear';
+import { deleteRecord } from "../utils/CRUD";
 
 export default function Alert(props) {
-    //Tested
-    const deleteAlert = index => {
-        fetch("http://localhost:3000/alerts/" + index, {
-          method: "DELETE",
-          headers: { "Content-Type": "application/json" },
-        })
-          .then(console.log("delete " + index))
-          .then(window.location.reload(false))
-      }
     return (
         <div className="alertContainer">
             <div className="top-divider">
@@ -31,7 +23,7 @@ export default function Alert(props) {
                 <div className="clear-alert">
                     <ClearIcon
                         onClick={() => {
-                            deleteAlert(props.alert.id);
+                            deleteRecord("/alerts/" + props.alert.id);
                         }} />
                 </div>
             </div>

@@ -3,6 +3,7 @@ import SysSideNav from "../../../components/sysSideNav"
 import "../../../styles/App.scss"
 import Select from "react-select"
 import SchoolComponent from "../../../components/schoolComponent"
+import { createRecord, readRecord, updateRecord } from "../../../utils/CRUD"
 
 export default function SuperuserMaintenance(props) {
   const [authList, setAuthorities] = useState(0)
@@ -58,7 +59,6 @@ export default function SuperuserMaintenance(props) {
   const onCreateClick = e => {
     var lat_num = Number(entered_latitude)
     var lng_num = Number(entered_longitude)
-
     if (
       entered_school_name &&
       authority_selected &&
@@ -72,27 +72,22 @@ export default function SuperuserMaintenance(props) {
       entered_email &&
       entered_image_link
     ) {
-      fetch("http://localhost:3000/school", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          id: 1234,
-          authority_id: authority_selected.id,
-          name: entered_school_name,
-          address_line_1: addressLineOne,
-          address_line_2: addressLineTwo,
-          town: entered_town,
-          postcode: entered_postcode,
-          latitude: lat_num,
-          longitude: lng_num,
-          telephone: entered_telephone,
-          email: entered_email,
-          school_image_link: entered_image_link,
-          status: "active",
-        }),
+      let body = JSON.stringify({
+        id: 1234,
+        authority_id: authority_selected.id,
+        name: entered_school_name,
+        address_line_1: addressLineOne,
+        address_line_2: addressLineTwo,
+        town: entered_town,
+        postcode: entered_postcode,
+        latitude: lat_num,
+        longitude: lng_num,
+        telephone: entered_telephone,
+        email: entered_email,
+        school_image_link: entered_image_link,
+        status: "active",
       })
-        .then(console.log("PUT new school"))
-        .then(window.location.reload(false))
+      createRecord("/school", body);
     } else {
       console.log("did not have all information")
     }
@@ -111,42 +106,28 @@ export default function SuperuserMaintenance(props) {
       entered_email &&
       entered_image_link
     ) {
-      fetch("http://localhost:3000/school/" + editing_school_id, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          id: editing_school_id,
-          authority_id: authority_selected.id,
-          name: entered_school_name,
-          address_line_1: addressLineOne,
-          address_line_2: addressLineTwo,
-          town: entered_town,
-          postcode: entered_postcode,
-          latitude: entered_latitude,
-          longitude: entered_longitude,
-          telephone: entered_telephone,
-          email: entered_email,
-          school_image_link: entered_image_link,
-          status: "active",
-        }),
-      })
-        .then(console.log("PUT new school"))
-        .then(window.location.reload(false))
+
+      let body = JSON.stringify({
+        id: editing_school_id,
+        authority_id: authority_selected.id,
+        name: entered_school_name,
+        address_line_1: addressLineOne,
+        address_line_2: addressLineTwo,
+        town: entered_town,
+        postcode: entered_postcode,
+        latitude: entered_latitude,
+        longitude: entered_longitude,
+        telephone: entered_telephone,
+        email: entered_email,
+        school_image_link: entered_image_link,
+        status: "active",
+      });
+      updateRecord("/school/" + editing_school_id, body)
     }
   }
 
   useEffect(() => {
-    // Update the document title using the browser API
-    fetch("http://localhost:3000/authority", {
-      method: "GET",
-      headers: new Headers({
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-        Pragma: "no-cache",
-        Expires: 0,
-      }),
-    })
-      .then(response => response.json())
-      .then(data => setAuthorities(Array.from(data)))
+    readRecord("/authority", setAuthorities)
   }, [])
 
   const handleCallback = childData => {

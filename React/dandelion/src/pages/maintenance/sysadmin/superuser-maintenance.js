@@ -3,6 +3,7 @@ import SysSideNav from "../../../components/sysSideNav"
 import "../../../styles/App.scss"
 import Select from "react-select"
 import UserComponent from "../../../components/userComponent"
+import { createRecord, readRecord, updateRecord } from "../../../utils/CRUD"
 
 export default function SuperuserMaintenance(props) {
   const selectInputRef = useRef()
@@ -20,17 +21,7 @@ export default function SuperuserMaintenance(props) {
   const [editing_user, setEditingUser] = useState("")
 
   useEffect(() => {
-    // Update the document title using the browser API
-    fetch("http://localhost:3000/school", {
-      method: "GET",
-      headers: new Headers({
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-        Pragma: "no-cache",
-        Expires: 0,
-      }),
-    })
-      .then(response => response.json())
-      .then(data => setSchools(Array.from(data)))
+    readRecord("/school", setSchools);
   }, [])
 
   const handleNameChange = e => {
@@ -62,22 +53,17 @@ export default function SuperuserMaintenance(props) {
 
   const onCreateUser = e => {
     if (school_selected && entered_username && password) {
-      fetch("http://localhost:3000/user", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          id: 1234,
-          school_id: school_selected.id,
-          username: entered_username,
-          password: password,
-          is_sysadmin: false,
-          is_superuser: true,
-          status: "active",
-          notes: " ",
-        }),
+      let body = JSON.stringify({
+        id: 1234,
+        school_id: school_selected.id,
+        username: entered_username,
+        password: password,
+        is_sysadmin: false,
+        is_superuser: true,
+        status: "active",
+        notes: " ",
       })
-        .then(console.log("PUT new user"))
-        .then(window.location.reload(false))
+      createRecord("/user", body);
     } else {
       console.log("did not have all information")
     }
@@ -114,22 +100,18 @@ export default function SuperuserMaintenance(props) {
       is_active_val = "deactivated"
     }
 
-    fetch("http://localhost:3000/user/" + editing_user.id, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        id: editing_user.id,
-        school_id: school_selected.school_id,
-        username: entered_username,
-        password: password_edited,
-        is_sysadmin: sys_admin_checkbox,
-        is_superuser: superuser_checkbox,
-        status: is_active_val,
-        notes: notes,
-      }),
-    })
-      .then(console.log("EDITED user:" + editing_user.username))
-      .then(window.location.reload(false))
+    let body = JSON.stringify({
+      id: editing_user.id,
+      school_id: editing_user.school_id,
+      username: entered_username,
+      password: password_edited,
+      is_sysadmin: sys_admin_checkbox,
+      is_superuser: superuser_checkbox,
+      status: is_active_val,
+      notes: notes,
+    });
+
+    updateRecord("/user/" + editing_user.id, body);
   }
 
   return (

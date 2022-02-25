@@ -1,17 +1,17 @@
 import React from 'react'
 
-export function createRecord(url, body) {
-    fetch(url, {
+export function createRecord(endpoint, body) {
+    fetch(process.env.API_URL + endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: body,
     })
-        .then(console.log("PUT: " + url))
+        .then(console.log("PUT: " + endpoint))
         .then(window.location.reload(false))
 }
 
-export function readRecord(url, setter) {
-    fetch(url, {
+export function readRecord(endpoint, setter) {
+    fetch(process.env.API_URL + endpoint, {
         method: "GET",
         headers: new Headers({
             'Cache-Control': 'no-cache, no-store, must-revalidate',
@@ -22,20 +22,20 @@ export function readRecord(url, setter) {
         .then(data => setter(data))
 }
 
-export function updateRecord(url, body) {
-    fetch(url, {
+export function updateRecord(endpoint, body) {
+    fetch(process.env.API_URL + endpoint, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: body
       })
-        .then(console.log("PUT: "+ url))
+        .then(console.log("PUT: "+ endpoint))
         .then(window.location.reload(false))
 }
 
-export function deleteRecord(url) {
-    fetch(url, {
+export function deleteRecord(endpoint) {
+    fetch(process.env.API_URL + endpoint, {
         method: "DELETE",
         headers: { 'Content-Type': 'application/json' },
-    }).then(console.log("deleted: " + url)).then(window.location.reload(false))
+    }).then(console.log("deleted: " + endpoint)).then(window.location.reload(false))
 }
 

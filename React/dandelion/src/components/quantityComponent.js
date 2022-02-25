@@ -6,7 +6,7 @@ export default function QuantityComponent(props) {
   const [quantityList, setQuantities] = useState(0);
   //TESTED
   useEffect(() => {
-    readRecord('http://localhost:3000/quantity', setQuantities);
+    readRecord('/quantity', setQuantities);
   }, []);
 
 
