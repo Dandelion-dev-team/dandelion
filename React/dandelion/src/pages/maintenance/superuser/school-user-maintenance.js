@@ -6,7 +6,7 @@ import SchoolUserPane from "../../../components/schoolUserPane"
 
 export default function SchoolUserMaintenance(props) {
   const [userList, setUsers] = useState("")
-  const [editing_project, setEditingProject] = useState("")
+  const [editing_user, setEditingUser] = useState("")
 
   useEffect(() => {
     // Update the document title using the browser API
@@ -23,7 +23,7 @@ export default function SchoolUserMaintenance(props) {
   }, [])
 
   const handleCallback = childData => {
-    setEditingProject(childData)
+    setEditingUser(childData)
   }
 
   return (
@@ -36,9 +36,9 @@ export default function SchoolUserMaintenance(props) {
               <SchoolUserComponent parentCallback={handleCallback} />
             </div>
             <div className="school-pane">
-              {console.log(editing_project)}
+              {console.log(editing_user)}
 
-              <SchoolUserPane dataProp={editing_project} />
+              <SchoolUserPane dataProp={editing_user} />
             </div>
           </div>
         </div>
