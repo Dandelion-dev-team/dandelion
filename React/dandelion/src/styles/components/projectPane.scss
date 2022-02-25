@@ -1,0 +1,69 @@
+.panel-content {
+    display: flex;
+    flex-direction: row;
+    width: 60%;
+  .project-title {
+    padding-top: 1.25rem;
+    padding-left: 1.25rem;
+
+    h3 {
+      font-size: 1.2rem;
+    }
+
+    .feat-img {
+      position: absolute;
+      width: 27.5rem;
+      z-index: 4;
+
+      img {
+        border-radius: 10px;
+      }
+    }
+
+    .experiment-row {
+      margin-top: 23.75rem;
+    }
+  }
+
+  .btn-row {
+    display: flex;
+    flex-direction: column;
+    margin-top: 33.125rem;
+    margin-left: 2.5rem;
+
+    
+
+    .submitButton {
+      background-color: $accent;
+      color: $primary;
+      font-size: 1.2rem;
+      margin: 0.625rem 0px;
+      padding: 0.625rem;
+      width: 10rem;
+      border: none;
+      cursor: pointer;
+      border-radius: 10px;
+      
+    }
+    .submitButton:hover {
+      background-color: #d4d926;
+    }
+
+    #inv {
+        background-color: $orange-accent;
+        color: white;
+        
+    }
+    #inv:hover {
+        background-color: #fa5b2b;
+    }
+    #comp {
+        background-color: #59D71E;
+        color: white;
+    }
+    #comp:hover {
+        background-color: #50c719;
+    }
+
+  }
+}

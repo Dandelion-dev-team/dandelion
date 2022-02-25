@@ -40,6 +40,7 @@
     "react-helmet": "^6.1.0",
     "react-i18next": "^11.15.3",
     "react-native-base64": "^0.2.1",
+    "react-select": "^5.2.2",
     "react-token-auth": "^2.3.8",
     "sass-loader": "^12.4.0",
     "ts-jest": "^27.1.3"

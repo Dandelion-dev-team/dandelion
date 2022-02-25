@@ -5,16 +5,9 @@ class Tag(db.Model):
     __tablename__ = 'tag'
 
     id = db.Column(db.Integer, primary_key=True)
-    project_id = db.Column(db.Integer, nullable=False)
-    partner_id = db.Column(db.Integer, nullable=False)
-    is_synchronised = db.Column(db.Boolean)
-    title = db.Column(db.String(50))
-    description = db.Column(db.String(200))
-    experiment_image_link = db.Column(db.String(300))
-    experiment_text = db.Column(db.String(200))
-    start_date = db.Column(db.Date)
-    end_date = db.Column(db.Date)
-    status = db.Column(db.VARCHAR(1))
+    project_id = db.Column(db.Integer, db.ForeignKey('project.id'), nullable=False)
+    experiment_id = db.Column(db.String(300), db.ForeignKey('experiment.id'), nullable=False)
+    tag_reference_id = db.Column(db.String,  db.ForeignKey('tag_reference.id'), nullable=False)
 
     @property
     def summary_columns(self):

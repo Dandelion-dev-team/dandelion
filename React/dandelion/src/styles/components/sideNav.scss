@@ -1,0 +1,90 @@
+.wrapper {
+  display: flex;
+  position: relative;
+
+  .sidenav {
+    width: 240px;
+    height: 100%;
+    background: #f5f5f5;
+    padding: 30px 0px;
+    position: fixed;
+
+    .logo {
+      img {
+        height: 3.2rem;
+        margin-bottom: 2rem;
+
+        &:hover {
+          filter: brightness(0) saturate(100%) invert(86%) sepia(13%)
+            saturate(708%) hue-rotate(288deg) brightness(84%) contrast(88%);
+        }
+      }
+    }
+
+    nav {
+      padding: 15px;
+
+      a {
+        display: block;
+        text-decoration: none;
+        letter-spacing: 1.75px;
+        text-transform: uppercase;
+        font-size: 0.95rem;
+        color: $primary;
+        padding: 10px;
+        border-bottom: 1px solid $contrast;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+
+        &:hover {
+          //color: $orange-accent;
+          color: $contrast;
+        }
+      }
+
+      .news-pane {
+        justify-content: center;
+        display: flex;
+        width: 200px;
+        height: 240px;
+        background-color: #E3C3CA;
+        margin-top: 5px;
+        bottom: 10px;
+        margin-left: 5px;
+        border-radius: 10px;
+        color: $primary;
+
+        h3 {
+          margin-top: 10px;
+        }
+      }
+
+      .btn-row {
+        justify-content: center;
+        margin-left: 30px;
+        position: absolute;
+        bottom: 40px;
+
+        .button {
+          background-color: $accent;
+          color: $primary;
+          border-radius: 8px;
+          border-style: none;
+          cursor: pointer;
+          font-size: 18px;
+          font-weight: 500;
+          height: 50px;
+          line-height: 20px;
+          padding: 10px 48px;
+          touch-action: manipulation;
+          margin-top: auto;
+          
+        }
+        .button:hover,
+        .button:focus {
+          background-color: #d4d926;
+        }
+      }
+    }
+  }
+}
