@@ -4,7 +4,7 @@
       "id": 1,
       "school_id": "GLA11",
       "username": "newnewname",
-      "password_hash": "newpassword",
+      "password": "newpassword",
       "is_sysadmin": true,
       "is_superuser": true,
       "status": "active",
@@ -14,13 +14,26 @@
       "id": 3,
       "school_id": "GLA11",
       "username": "brian",
-      "password_hash": "asd",
+      "password": "asd",
       "is_sysadmin": false,
       "is_superuser": true,
       "status": "active",
       "notes": " "
     }
   ],
+  "school-users": [
+    {
+      "id": 1,
+      "school_id": "GLA11",
+      "school_class": "Class 1C",
+      "lastSeen": "Online",
+      "status": "Active",
+      "project": "Kohl Rabi",
+      "experiment": "Size",
+      "description": "An investigation into the relationship between physical interactions with the environment and plant growth. When they are growing outside, the wind blows plants about. They may also be pushed or squashed by people or animals. We hypothesise that increased physical interactions encourage plants to develop stronger stems and to increase the concentration of characteristic chemicals leading to greater weight at harvest, brighter colours and stronger flavour.",
+      "hypotheses": "Null hypothesis - Physical interactions have no effect on plant growth. Higher strength - Increased physical interaction is positively correlated with stem strength. Increased weight - Increased physical interaction is positively correlated with plant weight at harvest.",
+      "variables": "Length (mm) - Vertical height of the plant measured from the substrate surface to the highest point without touching the plant. Plant weight (g) - Harvested weight of an individual plant excluding those parts below the surface of the substrate."
+    },
     {
       "id": 2,
       "school_id": "GLA23",
@@ -47,18 +60,18 @@
       "project": "Kohl Rabi"
     }
   ],
-  "authority": [
+  "authorities": [
     {
       "id": "FLK",
-      "name": "Lothian",
-      "telephone": "0746478763242",
-      "email": "Lothian@authority.com"
+      "name": "Stirlingshire",
+      "telephone": "07464787634",
+      "email": "stirling@authority.com"
     },
     {
       "id": "GLA",
       "name": "Glasgow",
-      "telephone": "07424387111",
-      "email": "glasgow@authorities.com"
+      "telephone": "07424387634",
+      "email": "glasgow@authority.com"
     }
   ],
   "school": [
@@ -248,19 +261,19 @@
       }
     }
   ],
-  "tag": [
+  "tags": [
     {
       "id": 1,
-      "label": "Cauliflower",
+      "label": "Caulifowler",
       "status": "Active"
     },
     {
       "id": 2,
-      "label": "Lettuce",
+      "label": "Kohl Rabi",
       "status": "Not Started"
     }
   ],
-  "quantity": [
+  "quantities": [
     {
       "id": 0,
       "name": "Temperature",
@@ -274,7 +287,7 @@
       "help_url": "https://en.wikipedia.org/wiki/Humidity"
     }
   ],
-  "sensor": [
+  "sensors": [
     {
       "id": 0,
       "code": "LIQUID10212",
@@ -296,27 +309,6 @@
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       "url": "https://en.wikipedia.org/wiki/Thermometer",
       "datasheet_link": "https://eu.mouser.com/c/ds/sensors/temperature-sensors/",
-      "quantities": [
-        {
-          "id": 0,
-          "name": "Temperature",
-          "unit": "ºC",
-          "help_url": "https://en.wikipedia.org/wiki/Celsius"
-        },
-        {
-          "id": 1,
-          "name": "Humidity",
-          "unit": "%",
-          "help_url": "https://en.wikipedia.org/wiki/Humidity"
-        }
-      ]
-    },
-    {
-      "id": 3,
-      "code": "dsiojdosjdiosjidsjsd",
-      "description": "sdusndjsndjsnjkdnsjkdnskjndjksndnjsnds",
-      "url": "sdnsjdnjsdjnsds",
-      "datasheet_link": "Big",
       "quantities": [
         {
           "id": 0,
