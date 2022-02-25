@@ -12,5 +12,6 @@ class Sensor(db.Model):
     sensor_quantity = db.relationship("Sensor_quantity", backref="sensor")
 
 
+
     def __repr__(self):
         return '{}'.format(self.name)

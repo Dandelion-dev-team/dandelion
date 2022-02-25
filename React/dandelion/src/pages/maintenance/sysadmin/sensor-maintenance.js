@@ -52,7 +52,7 @@ export default function SuperuserMaintenance(props) {
       entered_datasheet &&
       selected_quantities
     ) {
-      fetch("http://localhost:3000/sensors", {
+      fetch("http://localhost:3000/sensor", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -79,8 +79,8 @@ export default function SuperuserMaintenance(props) {
       entered_datasheet &&
       selected_quantities
     ) {
-      fetch("http://localhost:3000/sensors/" + editing_ID, {
-        method: "PATCH",
+      fetch("http://localhost:3000/sensor/" + editing_ID, {
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           id: 3,
@@ -98,7 +98,7 @@ export default function SuperuserMaintenance(props) {
 
   useEffect(() => {
     // Update the document title using the browser API
-    fetch("http://localhost:3000/quantities", {
+    fetch("http://localhost:3000/quantity", {
       method: "GET",
       headers: new Headers({
         "Cache-Control": "no-cache, no-store, must-revalidate",

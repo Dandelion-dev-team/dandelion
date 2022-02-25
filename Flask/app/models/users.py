@@ -1,14 +1,13 @@
-from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from app import db, login_manager
 
 
-class User(UserMixin, db.Model):
+class User(db.Model):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
     school_id = db.Column(db.Integer, db.ForeignKey('school.id'))
-    username = db.Column(db.String(20))
+    username = db.Column(db.String(20), unique=True)
     password_hash = db.Column(db.String(128))
     is_sysadmin = db.Column(db.Boolean, default=False)
     is_superuser = db.Column(db.Boolean, default=False)
@@ -33,7 +32,7 @@ class User(UserMixin, db.Model):
         return check_password_hash(self.password_hash, password)
 
     def __repr__(self):
-        return '{Users: {} {}>'.format(self.first_name, self.last_name)
+        return self.username
 
 
 @login_manager.user_loader

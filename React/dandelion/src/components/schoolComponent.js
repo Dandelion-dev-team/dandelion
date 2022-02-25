@@ -8,7 +8,7 @@ export default function CrudComponent(props) {
   useEffect(() => {
     //Tested
     // Update the document title using the browser API
-    fetch("http://localhost:3000/schools", {
+    fetch("http://localhost:3000/school", {
       method: "GET",
       headers: new Headers({
         'Cache-Control': 'no-cache, no-store, must-revalidate',
@@ -22,19 +22,19 @@ export default function CrudComponent(props) {
 
 
 
-  const deleteUser = index => {
-    fetch("http://localhost:3000/schools/" + index, {
+  const deleteSchool = index => {
+    fetch("http://localhost:3000/school/" + index, {
       method: "DELETE",
       headers: { 'Content-Type': 'application/json' },
     }).then(console.log("delete " + index)).then(window.location.reload(false))
   }
 
-  const editUser = (user) => {
+  const editSchool = (user) => {
     props.parentCallback(user);
   }
 
   return (
-    <div className="authTable">
+    <div className="recordTable">
       <table className="tableList">
         <thead>
           <tr>
@@ -72,7 +72,7 @@ export default function CrudComponent(props) {
                   type="submit"
                   className="submitButton"
                   value="Edit"
-                  onClick={() => { editUser(school) }}
+                  onClick={() => { editSchool(school) }}
                 ></input>
               </div>
             </td>
@@ -81,7 +81,7 @@ export default function CrudComponent(props) {
                 type="submit"
                 className="submitButton"
                 value="Delete"
-                onClick={() => { deleteUser(school.id) }}
+                onClick={() => { deleteSchool(school.id) }}
               ></input>
             </td>
           </tbody>

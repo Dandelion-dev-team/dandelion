@@ -16,7 +16,7 @@ export default function AuthMaintenance(props) {
 
   useEffect(() => {
     // Update the document title using the browser API
-    fetch("http://localhost:3000/authorities", {
+    fetch("http://localhost:3000/authority", {
       method: "GET",
       headers: new Headers({
         "Cache-Control": "no-cache, no-store, must-revalidate",
@@ -57,7 +57,7 @@ export default function AuthMaintenance(props) {
 
   const onCreateAuth = e => {
     if (auth_name && telephone && email) {
-      fetch("http://localhost:3000/authorities", {
+      fetch("http://localhost:3000/authority", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -80,8 +80,8 @@ export default function AuthMaintenance(props) {
     setEmail("")
     setEditing(false)
 
-    fetch("http://localhost:3000/authorities/" + editing_auth.id, {
-      method: "PATCH",
+    fetch("http://localhost:3000/authority/" + editing_auth.id, {
+      method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         id: editing_auth.id,
@@ -112,10 +112,10 @@ export default function AuthMaintenance(props) {
             </div>
             <div className="create-panel">
               <div className="authorityPicker">
-                <h3>Authority Name: </h3>
+                <h3>Local Authority: </h3>
                 <input
                   type="text"
-                  placeholder="Username"
+                  placeholder="Local Authority"
                   name="authNameBox"
                   value={auth_name}
                   onChange={handleAuthChange}
@@ -181,78 +181,3 @@ export default function AuthMaintenance(props) {
   )
 }
 
-{
-  /* <div className="maintenance">
-        <div className="hero-section">
-          <div className="superuserList">
-            <h1>Authority List</h1>
-            <AuthComponent parentCallback={handleCallback} />
-          </div>
-          <div className="heading"></div>
-          <div className="content">
-            <div className="authorityPicker">
-              <h3>Authority Name: </h3>
-              <input
-                type="text"
-                placeholder="Username"
-                name="authNameBox"
-                value={auth_name}
-                onChange={handleAuthChange}
-              />
-            </div>
-
-            <div className="nameBox">
-              <h3>Telephone:</h3>
-              <input
-                type="text"
-                placeholder="Tel. No"
-                name="telephoneBox"
-                value={telephone}
-                onChange={handleTelephoneChange}
-              />
-            </div>
-            <div className="nameBox">
-              <h3>Email:</h3>
-              <input
-                type="text"
-                placeholder="Email Address"
-                name="password"
-                value={email}
-                onChange={handleEmailChange}
-              />
-            </div>
-            {editing ? (
-              <div className="btn-row">
-                  <div className="submit-btn">
-                    <input
-                      type="submit"
-                      className="submitButton"
-                      value="Update"
-                      onClick={onUpdateAuth}
-                    ></input>
-                  </div>
-                  <div className="submit-btn">
-                    <input
-                      type="submit"
-                      className="submitButton"
-                      value="Cancel"
-                      onClick={onCancelAuth}
-                    ></input>
-                  </div>
-              </div>
-            ) : (
-              //IF NOT EDITING
-              <div className="submit-btn">
-                <input
-                  type="submit"
-                  className="submitButton"
-                  value="Create"
-                  onClick={onCreateAuth}
-                ></input>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    </div> */
-}
