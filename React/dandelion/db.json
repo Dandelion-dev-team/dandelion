@@ -274,7 +274,7 @@
       "help_url": "https://en.wikipedia.org/wiki/Humidity"
     }
   ],
-  "sensors": [
+  "sensor": [
     {
       "id": 0,
       "code": "LIQUID10212",
