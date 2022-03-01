@@ -54,7 +54,7 @@ export default function QuantityComponent(props) {
                 type="submit"
                 className=""
                 value="Delete"
-                onClick={() => { deleteRecord("http://localhost:3000/quantity/" + quantity.id) }}
+                onClick={() => { deleteRecord("/quantity/" + quantity.id) }}
               ></input>
             </td>
           </tbody>

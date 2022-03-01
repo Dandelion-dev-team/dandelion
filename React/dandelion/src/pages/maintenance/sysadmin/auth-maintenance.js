@@ -64,7 +64,8 @@ export default function AuthMaintenance(props) {
 
       let body = JSON.stringify({id: editing_auth.id,name: auth_name, telephone: telephone,email: email})
       updateRecord("/authority/" + editing_auth.id, body);
-    }else {
+    }else 
+    {
       console.log("did not have all the information")
     }
   }
