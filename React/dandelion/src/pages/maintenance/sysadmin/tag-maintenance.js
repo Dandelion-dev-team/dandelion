@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react"
 import SysSideNav from "../../../components/sysSideNav"
 import "../../../styles/App.scss"
 import TagComponent from "../../../components/tagComponent"
+import { createRecord, readRecord, updateRecord } from "../../../utils/CRUD"
 
 export default function TagMaintenance(props) {
   const selectInputRef = useRef()
@@ -14,16 +15,7 @@ export default function TagMaintenance(props) {
 
   useEffect(() => {
     // Update the document title using the browser API
-    fetch("http://localhost:3000/tag", {
-      method: "GET",
-      headers: new Headers({
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-        Pragma: "no-cache",
-        Expires: 0,
-      }),
-    })
-      .then(response => response.json())
-      .then(data => setTags(Array.from(data)))
+    readRecord("/tag", setTags);
   }, [])
 
   const handleTagChange = e => {
@@ -48,17 +40,13 @@ export default function TagMaintenance(props) {
 
   const onCreateTag = e => {
     if (tagLabel && tagStatus) {
-      fetch("http://localhost:3000/tag", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          id: 1234,
-          label: tagLabel,
-          status: tagStatus,
-        }),
-      })
-        .then(console.log("PUT new user"))
-        .then(window.location.reload(false))
+      let body = JSON.stringify({
+        id: 1234,
+        label: tagLabel,
+        status: tagStatus,
+      });
+
+      createRecord("/tag", body)
     } else {
       console.log("did not have all information")
     }
@@ -69,15 +57,14 @@ export default function TagMaintenance(props) {
     setTagStatus("")
     setEditing(false)
 
-    fetch("http://localhost:3000/tag/" + editing_tag.id, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
+    if (tagLabel && tagStatus) {
+      let body = JSON.stringify({
         id: editing_tag.id,
         label: tagLabel,
         status: tagStatus,
-      }),
-    }).then(window.location.reload(false))
+      });
+      updateRecord("/tag/" + editing_tag.id, body)
+    }
   }
 
   return (

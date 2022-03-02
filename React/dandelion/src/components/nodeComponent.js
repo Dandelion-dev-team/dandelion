@@ -1,37 +1,22 @@
 import { Link } from "gatsby"
 import React, { useEffect, useState } from "react"
 import "../styles/App.scss"
+import { deleteRecord, readRecord } from "../utils/CRUD";
 
 export default function SensorComponent(props) {
   const [nodeList, setNodes] = useState(0);
 
   useEffect(() => {
     // Update the document title using the browser API
-    fetch("http://localhost:3000/nodes", {
-      method: "GET",
-      headers: new Headers({
-        'Cache-Control': 'no-cache, no-store, must-revalidate',
-        'Pragma': 'no-cache',
-        'Expires': 0,
-      })
-    }).then(response => response.json())
-      .then(
-        data => setNodes(data))
+    readRecord("/node", setNodes)
   }, []);
-
-  const deleteNodes = index => {
-    fetch("http://localhost:3000/nodes/" + index, {
-      method: "DELETE",
-      headers: { 'Content-Type': 'application/json' },
-    }).then(console.log("delete " + index)).then(window.location.reload(false))
-  }
 
   const editUser = (user) => {
     props.parentCallback(user);
   }
 
   return (
-    <div className="authTable">
+    <div className="recordTable">
       <table className="tableList">
         {nodeList ?
           <div>
@@ -77,7 +62,7 @@ export default function SensorComponent(props) {
                     type="submit"
                     className="submitButton"
                     value="Delete"
-                    onClick={() => { deleteNodes(node.id) }}
+                    onClick={() => { deleteRecord("/node/" + node.id) }}
                   ></input>
                 </td>
               </tbody>

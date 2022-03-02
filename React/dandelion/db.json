@@ -1,20 +1,20 @@
 {
   "user": [
     {
-      "id": 1,
-      "school_id": "GLA11",
-      "username": "newnewname",
-      "password": "newpassword",
-      "is_sysadmin": true,
-      "is_superuser": true,
-      "status": "active",
-      "notes": "Took away admin powers "
-    },
-    {
       "id": 3,
       "school_id": "GLA11",
       "username": "brian",
       "password": "asd",
+      "is_sysadmin": false,
+      "is_superuser": true,
+      "status": "active",
+      "notes": " "
+    },
+    {
+      "id": 1234,
+      "school_id": "FLK11",
+      "username": "babby",
+      "password": "123",
       "is_sysadmin": false,
       "is_superuser": true,
       "status": "active",
@@ -60,41 +60,34 @@
       "project": "Kohl Rabi"
     }
   ],
-  "authorities": [
+  "authority": [
     {
       "id": "FLK",
       "name": "Stirlingshire",
-      "telephone": "07464787634",
+      "telephone": "0748482935",
       "email": "stirling@authority.com"
     },
     {
       "id": "GLA",
       "name": "Glasgow",
-      "telephone": "07424387634",
+      "telephone": "07424387633",
       "email": "glasgow@authority.com"
     }
   ],
   "school": [
     {
       "id": "GLA11",
-      "authority_id": "GLA12049",
       "name": "Glasgow High School",
       "address_line_1": "27 Ledcameroch Road",
       "address_line_2": "Bearsden",
-      "town": "Glasgow",
+      "town": "Bearsden",
       "postcode": "G61 4AE",
       "latitude": 55.917572,
       "longitude": -4.341889,
       "telephone": "+44 302382478",
       "email": "testemail@emailserver.com",
       "school_image_link": "https://2.bp.blogspot.com/-VWruKBvqgb8/Vw-evXkKmLI/AAAAAAAAAAw/r-cPriFMcREBJaMPnZSI6WAQRrl3sqRuwCLcB/s1600/The%2BHigh%2BSchool%2Bof%2BGlasgow.jpg",
-      "status": "active",
-      "nodes": {
-        "id": 1,
-        "last_communication_date": "2022-02-18T13:07:39.231Z",
-        "health_status": "green",
-        "status": "active"
-      }
+      "status": "active"
     },
     {
       "id": "FLK11",
@@ -181,7 +174,7 @@
       "status": "active"
     }
   ],
-  "nodes": [
+  "node": [
     {
       "id": 1,
       "school_id": "GLA11",
@@ -223,45 +216,16 @@
     },
     {
       "id": 2,
-      "school_id": "FLK11",
+      "school_id": "GLA11",
       "growcube_code": "321.321.321",
       "mac_address": "11:02:5e:04:12:f1",
       "last_communication_date": "2022-01-31T14:31:24.262Z",
       "next_communication_expected": "2022-01-31T14:31:24.262Z",
       "health_status": "disconnected",
-      "status": "active",
-      "sensors": [
-        {
-          "id": 0,
-          "code": "LIQUID10212",
-          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-          "url": "https://gaslab.com/blogs/articles/what-is-a-liquid-level-sensor#:~:text=Liquid%20level%20sensors%2C%20also%20called,particular%20level%20in%20a%20container.",
-          "datasheet_link": "https://eu.mouser.com/c/ds/sensors/liquid-level-sensors/"
-        },
-        {
-          "id": 1,
-          "code": "TEMP1020134",
-          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-          "url": "https://gaslab.com/blogs/articles/what-is-a-liquid-level-sensor#:~:text=Liquid%20level%20sensors%2C%20also%20called,particular%20level%20in%20a%20container.",
-          "datasheet_link": "https://eu.mouser.com/c/ds/sensors/liquid-level-sensors/"
-        }
-      ],
-      "alerts": {
-        "id": 0,
-        "node_id": {
-          "id": 0,
-          "last_communication_date": "2022-02-19T17:05:22.178Z",
-          "health_status": "green",
-          "status": "active"
-        },
-        "description": "string",
-        "created_date": "2022-02-19T17:05:22.178Z",
-        "updated_date": "2022-02-19T17:05:22.178Z",
-        "status": "active"
-      }
+      "status": "inactive"
     }
   ],
-  "tags": [
+  "tag": [
     {
       "id": 1,
       "label": "Caulifowler",
@@ -273,7 +237,7 @@
       "status": "Not Started"
     }
   ],
-  "quantities": [
+  "quantity": [
     {
       "id": 0,
       "name": "Temperature",
@@ -287,10 +251,10 @@
       "help_url": "https://en.wikipedia.org/wiki/Humidity"
     }
   ],
-  "sensors": [
+  "sensor": [
     {
       "id": 0,
-      "code": "LIQUID10212",
+      "code": "LIQUID102",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       "url": "https://gaslab.com/blogs/articles/what-is-a-liquid-level-sensor#:~:text=Liquid%20level%20sensors%2C%20also%20called,particular%20level%20in%20a%20container.",
       "datasheet_link": "https://eu.mouser.com/c/ds/sensors/liquid-level-sensors/",
@@ -334,10 +298,10 @@
       "status": "red"
     },
     {
-      "id": 1,
-      "description": "Lost connection to Internet",
+      "id": 0,
+      "description": "Lost Connection to Internet",
       "created_date": "2022-02-22T00:08:17.028Z",
-      "updated_date": "2022-02-30T00:08:17.028Z",
+      "updated_date": "2022-03-01T00:08:17.028Z",
       "status": "amber"
     }
   ]

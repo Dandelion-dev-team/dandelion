@@ -2,22 +2,14 @@ import React, { useEffect, useState, useRef } from "react"
 import "../../../styles/App.scss"
 import SideNav from "../../../components/sideNav"
 import NodeInfoComponent from "../../../components/nodeInfoComponent"
+import { readRecord } from "../../../utils/CRUD"
 
 export default function SuperuserSettings(props) {
   const [fetchedSchool, setSchool] = useState("")
 
   useEffect(() => {
     // TODO CHANGE + 1 TO LOGGED IN USER
-    fetch("http://localhost:3000/schools/" + "GLA11", {
-      method: "GET",
-      headers: new Headers({
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-        Pragma: "no-cache",
-        Expires: 0,
-      }),
-    })
-      .then(response => response.json())
-      .then(data => setSchool(data))
+      readRecord("/schools/" + "GLA11", setSchool);
   }, [])
 
   return (

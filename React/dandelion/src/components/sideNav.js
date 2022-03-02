@@ -1,6 +1,7 @@
 import * as React from "react"
 import { Link, navigate } from "gatsby"
 import logo from "../images/logo3.svg"
+import { user_logout } from "../utils/logout"
 
 export default function SideNav() {
   return (
@@ -26,7 +27,7 @@ export default function SideNav() {
               <button
                 className="button"
                 onClick={() => {
-                  navigate("/signin")
+                  user_logout();
                 }}
               >
                Log Out

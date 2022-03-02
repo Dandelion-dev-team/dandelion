@@ -7,7 +7,7 @@ export default function SchoolUserPane(props) {
   return (
     <div>
       {props.dataProp ? (
-        <div>
+        <div className="pane-container">
           <div className="title">
             <h2>
               Student {props.dataProp.school_id} - {props.dataProp.school_class}

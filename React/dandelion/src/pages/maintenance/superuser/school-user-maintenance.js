@@ -3,27 +3,18 @@ import "../../../styles/App.scss"
 import SideNav from "../../../components/sideNav"
 import SchoolUserComponent from "../../../components/schoolUserComponent"
 import SchoolUserPane from "../../../components/schoolUserPane"
+import { readRecord } from "../../../utils/CRUD"
 
 export default function SchoolUserMaintenance(props) {
   const [userList, setUsers] = useState("")
-  const [editing_project, setEditingProject] = useState("")
+  const [editing_user, setEditingUser] = useState("")
 
   useEffect(() => {
-    // Update the document title using the browser API
-    fetch("http://localhost:3000/school-users", {
-      method: "GET",
-      headers: new Headers({
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-        Pragma: "no-cache",
-        Expires: 0,
-      }),
-    })
-      .then(response => response.json())
-      .then(data => setUsers(Array.from(data)))
+      readRecord("/school-users", setUsers)
   }, [])
 
   const handleCallback = childData => {
-    setEditingProject(childData)
+    setEditingUser(childData)
   }
 
   return (
@@ -36,9 +27,9 @@ export default function SchoolUserMaintenance(props) {
               <SchoolUserComponent parentCallback={handleCallback} />
             </div>
             <div className="school-pane">
-              {console.log(editing_project)}
+              {console.log(editing_user)}
 
-              <SchoolUserPane dataProp={editing_project} />
+              <SchoolUserPane dataProp={editing_user} />
             </div>
           </div>
         </div>

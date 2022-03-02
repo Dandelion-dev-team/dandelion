@@ -3,6 +3,7 @@ import Header from "../components/header"
 import "../styles/App.scss"
 import { navigate } from "gatsby"
 import { useFormik } from "formik"
+const base64 = require('base-64');
 
 const parse = require("../auth")
 
@@ -16,37 +17,29 @@ export default function Login(props) {
 
   const onSubmitClick = e => {
     e.preventDefault()
-    console.log("You pressed login")
-    let opts = {
-      username: username,
-      password: password,
-      roles: role,
+    if(username && password){
+      let credentials = base64.encode(username + ":" + password);
+      fetch("http://127.0.0.1:5000/user/login", {
+        method: "GET",
+        headers: new Headers({
+          "Authorization": "Basic " + credentials,
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Cache-Control': 'no-cache',
+        }),
+      })
+        .then(r => r.json())
+        .then(token => {{
+          if (token.access_token) {
+            parse.login(token);
+            localStorage.setItem("accessToken", JSON.stringify(token.access_token));
+            console.log(token.access_token);
+          } else {
+            console.log("Please type in correct username/password")
+          }
+        }})
     }
-    console.log(opts)
-    // if(username == "superuser" && password){
-    //   navigate("/maintenance/superuser/superuser-dashboard")
-    // }
-    // if(username == "sysadmin" && password){
-    //   navigate("/maintenance/sysadmin/sysadmin-dashboard")
-    // }
-    // fetch("http://127.0.0.1:5000/login", {
-    //   method: "GET",
-    //   headers: new Headers({
-    //     "Authorization": "Basic YnJpYW46MTI=",
-    //     'Content-Type': 'application/json',
-    //     'Accept': 'application/json',
-    //     'Cache-Control': 'no-cache',
-    //   }),
-    // })
-    //   .then(r => r.json())
-    //   .then(token => {{
-    //     if (token.access_token) {
-    //       parse.login(token)
-    //       console.log(token.access_token)
-    //     } else {
-    //       console.log("Please type in correct username/password")
-    //     }
-    //   }})
+
   }
 
   const handleUsernameChange = e => {
@@ -107,7 +100,7 @@ export default function Login(props) {
                   </div>
                 </form>
               ) : (
-                navigate("/dashboard")
+                navigate("/maintenance/sysadmin/auth-maintenance")
               )}
             </div>
           </div>

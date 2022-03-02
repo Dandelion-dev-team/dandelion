@@ -1,21 +1,12 @@
 import React, { useEffect, useState } from "react"
 import "../styles/App.scss"
+import { readRecord } from "../utils/CRUD"
 
 export default function ProjectComponent(props) {
   const [projects, setProject] = useState(0)
   //TESTED
   useEffect(() => {
-    // Update the document title using the browser API
-    fetch("http://localhost:3000/projects", {
-      method: "GET",
-      headers: new Headers({
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-        Pragma: "no-cache",
-        Expires: 0,
-      }),
-    })
-      .then(response => response.json())
-      .then(data => setProject(data))
+      readRecord("/projects", setProject)
   }, [])
 
   const editAuth = project => {

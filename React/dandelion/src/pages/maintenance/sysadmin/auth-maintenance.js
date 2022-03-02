@@ -3,10 +3,13 @@ import Header from "../../../components/header"
 import SysSideNav from "../../../components/sysSideNav"
 import "../../../styles/App.scss"
 import AuthComponent from "../../../components/authComponent"
+import { createRecord, readRecord, updateRecord } from "../../../utils/CRUD"
+import { navigate } from "gatsby"
+const parse = require('../../../auth');
 
 export default function AuthMaintenance(props) {
   const selectInputRef = useRef()
-  const [authList, setauths] = useState(0)
+  const [authList, setAuths] = useState(0)
   const [auth_name, setAuthName] = useState("")
   const [telephone, setTelephone] = useState("")
   const [email, setEmail] = useState("")
@@ -15,17 +18,7 @@ export default function AuthMaintenance(props) {
   const [editing_auth, setEditingAuth] = useState("")
 
   useEffect(() => {
-    // Update the document title using the browser API
-    fetch("http://localhost:3000/authority", {
-      method: "GET",
-      headers: new Headers({
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-        Pragma: "no-cache",
-        Expires: 0,
-      }),
-    })
-      .then(response => response.json())
-      .then(data => setauths(Array.from(data)))
+    readRecord("/authority", setAuths)
   }, [])
 
   const handleAuthChange = e => {
@@ -57,41 +50,26 @@ export default function AuthMaintenance(props) {
 
   const onCreateAuth = e => {
     if (auth_name && telephone && email) {
-      fetch("http://localhost:3000/authority", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          id: 1234,
-          name: auth_name,
-          telephone: telephone,
-          email: email,
-        }),
-      })
-        .then(console.log("PUT new user"))
-        .then(window.location.reload(false))
+      let body = JSON.stringify({ id: 1234, name: auth_name, telephone: telephone, email: email })
+      createRecord("/authority", body);
     } else {
       console.log("did not have all information")
     }
   }
 
   const onUpdateAuth = e => {
-    setAuthName("")
-    setTelephone("")
-    setEmail("")
-    setEditing(false)
+    if (auth_name && telephone && email) {
+      setAuthName("")
+      setTelephone("")
+      setEmail("")
+      setEditing(false)
 
-    fetch("http://localhost:3000/authority/" + editing_auth.id, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        id: editing_auth.id,
-        name: auth_name,
-        telephone: telephone,
-        email: email,
-      }),
-    })
-      .then(console.log("EDITED user:" + editing_auth.username))
-      .then(window.location.reload(false))
+      let body = JSON.stringify({id: editing_auth.id,name: auth_name, telephone: telephone,email: email})
+      updateRecord("/authority/" + editing_auth.id, body);
+    }else 
+    {
+      console.log("did not have all the information")
+    }
   }
 
   const onCancelAuth = e => {
@@ -103,6 +81,7 @@ export default function AuthMaintenance(props) {
 
   return (
     <div>
+      <div>
       <SysSideNav />
       <div className="auth-maintenance-container">
         <div className="auth-content">
@@ -123,28 +102,28 @@ export default function AuthMaintenance(props) {
               </div>
 
               <div className="nameBox">
-              <h3>Telephone:</h3>
-              <input
-                type="text"
-                placeholder="Tel. No"
-                name="telephoneBox"
-                value={telephone}
-                onChange={handleTelephoneChange}
-              />
-            </div>
+                <h3>Telephone:</h3>
+                <input
+                  type="text"
+                  placeholder="Tel. No"
+                  name="telephoneBox"
+                  value={telephone}
+                  onChange={handleTelephoneChange}
+                />
+              </div>
 
-            <div className="nameBox">
-              <h3>Email:</h3>
-              <input
-                type="text"
-                placeholder="Email Address"
-                name="password"
-                value={email}
-                onChange={handleEmailChange}
-              />
-            </div>
-            {editing ? (
-              <div className="btn-row">
+              <div className="nameBox">
+                <h3>Email:</h3>
+                <input
+                  type="text"
+                  placeholder="Email Address"
+                  name="password"
+                  value={email}
+                  onChange={handleEmailChange}
+                />
+              </div>
+              {editing ? (
+                <div className="btn-row">
                   <div className="submit-btn">
                     <input
                       type="submit"
@@ -161,23 +140,24 @@ export default function AuthMaintenance(props) {
                       onClick={onCancelAuth}
                     ></input>
                   </div>
-              </div>
-            ) : (
-              //IF NOT EDITING
-              <div className="submit-btn">
-                <input
-                  type="submit"
-                  className="submitButton"
-                  value="Create"
-                  onClick={onCreateAuth}
-                ></input>
-              </div>
-            )}
+                </div>
+              ) : (
+                //IF NOT EDITING
+                <div className="submit-btn">
+                  <input
+                    type="submit"
+                    className="submitButton"
+                    value="Create"
+                    onClick={onCreateAuth}
+                  ></input>
+                </div>
+              )}
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
   )
 }
 
