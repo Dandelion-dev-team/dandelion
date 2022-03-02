@@ -4,6 +4,8 @@ import SysSideNav from "../../../components/sysSideNav"
 import "../../../styles/App.scss"
 import AuthComponent from "../../../components/authComponent"
 import { createRecord, readRecord, updateRecord } from "../../../utils/CRUD"
+import { navigate } from "gatsby"
+const parse = require('../../../auth');
 
 export default function AuthMaintenance(props) {
   const selectInputRef = useRef()
@@ -79,6 +81,7 @@ export default function AuthMaintenance(props) {
 
   return (
     <div>
+      <div>
       <SysSideNav />
       <div className="auth-maintenance-container">
         <div className="auth-content">
@@ -154,6 +157,7 @@ export default function AuthMaintenance(props) {
         </div>
       </div>
     </div>
+  </div>
   )
 }
 

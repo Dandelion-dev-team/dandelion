@@ -44,7 +44,7 @@ export default function SuperuserMaintenance(props) {
       }
       let body = JSON.stringify({id: 3, name: entered_name, unit: entered_unit,help_url: appended_url,
     });
-      createRecord("http://localhost:3000/quantity", body);
+      createRecord("/quantity", body);
     } else {
       console.log("did not have all information")
     }
@@ -54,7 +54,7 @@ export default function SuperuserMaintenance(props) {
     if (entered_name && entered_link && entered_unit) {
       let body = JSON.stringify({id: editing_id, name: entered_name, unit: entered_unit, help_url: entered_link,
       });
-      updateRecord("http://localhost:3000/quantity/" + editing_id, body);
+      updateRecord("/quantity/" + editing_id, body);
     }
   }
 

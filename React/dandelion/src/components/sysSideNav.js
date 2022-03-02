@@ -1,6 +1,8 @@
 import * as React from "react"
 import { Link, navigate } from "gatsby"
 import logo from "../images/logo3.svg"
+import { user_logout } from "../utils/logout";
+const parse = require('../auth');
 
 export default function SysSideNav() {
   return (
@@ -23,9 +25,8 @@ export default function SysSideNav() {
               <button
                 className="button"
                 onClick={() => {
-                  navigate("/signin")
-                }}
-              >
+                  user_logout();
+                }}>
                Log Out
               </button>
             </div>

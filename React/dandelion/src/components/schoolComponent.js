@@ -1,4 +1,3 @@
-import { Link } from "gatsby"
 import React, { useEffect, useState } from "react"
 import "../styles/App.scss"
 import { deleteRecord, readRecord } from "../utils/CRUD";
@@ -7,7 +6,7 @@ export default function CrudComponent(props) {
   const [schools, setSchools] = useState(0);
 
   useEffect(() => {
-      readRecord("/school/", setSchools)
+      readRecord("/school", setSchools)
   }, []);
 
   const editSchool = (user) => {
