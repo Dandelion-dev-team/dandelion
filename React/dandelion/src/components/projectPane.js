@@ -12,7 +12,7 @@ export default function ProjectPane(props) {
       {props.dataProp ? (
         <div className="panel-content">
           <div className="project-title">
-            <h3>{props.dataProp.title} Project</h3>
+            <h3>{props.dataProp.title} </h3>
             <h3>
               {new Date(props.dataProp.start_date).toDateString()} -{" "}
               {new Date(props.dataProp.end_date).toDateString()}{" "}

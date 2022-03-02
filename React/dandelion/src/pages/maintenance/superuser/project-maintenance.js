@@ -6,12 +6,7 @@ import ProjectComponent from "../../../components/projectComponent"
 import { readRecord } from "../../../utils/CRUD"
 
 export default function ProjectMaintenance(props) {
-  const [projectList, setProjects] = useState(0)
   const [editing_project, setEditingProject] = useState("")
-
-  useEffect(() => {
-      readRecord("/projects", setProjects)
-  }, [])
 
   const handleCallback = childData => {
     setEditingProject(childData)

@@ -19,7 +19,6 @@ export default function QuantityComponent(props) {
       <table className="tableList">
       {quantityList ? 
       <div>
-        {console.log(quantityList)}
          <thead>
           <tr>
             <th>ID</th>
