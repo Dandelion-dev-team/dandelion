@@ -53,7 +53,7 @@ export default function CrudComponent(props) {
                 type="submit"
                 className="submitButton"
                 value="Delete"
-                onClick={() => { deleteRecord("/user/" + user.id) }}
+                onClick={() => { deleteRecord("/users/" + user.id) }}
               ></input>
             </td>
           </tbody>

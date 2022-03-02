@@ -6,7 +6,7 @@ export default function TagComponent(props) {
   const [tags, setTag] = useState(0)
 
   useEffect(() => {
-      readRecord("/tag/", setTag)
+      readRecord("/tagreference", setTag)
   }, [])
 
   const editTag = auth => {
@@ -48,7 +48,7 @@ export default function TagComponent(props) {
                     className="submitButton"
                     value="Delete"
                     onClick={() => {
-                      deleteRecord("/tag/" + tag.id)
+                      deleteRecord("/tagreference/" + tag.id)
                     }}
                   ></input>
                 </td>
