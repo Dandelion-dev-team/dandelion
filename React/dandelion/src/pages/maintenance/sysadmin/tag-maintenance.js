@@ -15,7 +15,7 @@ export default function TagMaintenance(props) {
 
   useEffect(() => {
     // Update the document title using the browser API
-    readRecord("/tag", setTags);
+    readRecord("/tagreference", setTags);
   }, [])
 
   const handleTagChange = e => {
@@ -41,12 +41,11 @@ export default function TagMaintenance(props) {
   const onCreateTag = e => {
     if (tagLabel && tagStatus) {
       let body = JSON.stringify({
-        id: 1234,
         label: tagLabel,
         status: tagStatus,
       });
 
-      createRecord("/tag", body)
+      createRecord("/tagreference", body)
     } else {
       console.log("did not have all information")
     }
@@ -63,7 +62,7 @@ export default function TagMaintenance(props) {
         label: tagLabel,
         status: tagStatus,
       });
-      updateRecord("/tag/" + editing_tag.id, body)
+      updateRecord("/tagreference/" + editing_tag.id, body)
     }
   }
 
