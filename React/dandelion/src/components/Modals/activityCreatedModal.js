@@ -5,6 +5,7 @@ export default function activityCreatedModal(props) {
     return (
         <div className="modal-container">
             <div className="inner-panel">
+                <div className="panel-content">
                 <h2>Activity Created Successfully</h2>
                 <h3>Would you like to add an experiment?</h3>
                 <p>
@@ -30,6 +31,7 @@ export default function activityCreatedModal(props) {
                            props.callback("prop")
                         }}
                     ></input>
+                </div>
                 </div>
             </div>
         </div>
