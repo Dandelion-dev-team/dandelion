@@ -4,14 +4,15 @@
     width: 100vw;
     background-color: rgba(0, 0, 0, 0.5);;
     z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     .inner-panel{
-        margin-left: 16.5vw;
-        margin-top: 15vh;
         opacity: 100;
         background-color: white;
         border-radius: 20px;
-        width: 66vw;
-        height: 66vh;
+        width: 60vw;
+        height: 70vh;
         padding: 2.5rem;
         display: flex;
 
