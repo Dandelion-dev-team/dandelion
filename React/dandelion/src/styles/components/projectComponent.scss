@@ -23,8 +23,10 @@
   }
 
   .add-btn {
-    width: 50%;
-    margin-left: 14.2rem;
+    width: 100%;
+   // background-color: red;
+    //align-content: center;
+    margin-left: 8rem;
 
     .submitButton {
         background-color: $accent;

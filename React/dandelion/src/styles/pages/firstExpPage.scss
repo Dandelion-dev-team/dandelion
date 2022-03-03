@@ -1,0 +1,42 @@
+.exp-container {
+  background: #2e5641;
+  color: $white;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow-y: auto;
+
+  .content {
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    height: 87vh;
+    border-radius: 20px;
+
+    .content-wrapper {
+      display: flex;
+      justify-content: center;
+
+      .exp-list {
+        width: 50%;
+        display: flex;
+        align-items: flex-start;
+        z-index: 7;
+        color: black;
+      }
+      .exp-details {
+
+        width: 50%;
+        background-color: #f7f8ff;
+        align-items: stretch;
+        height: 87vh;
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+  
+      }
+    }
+  }
+}

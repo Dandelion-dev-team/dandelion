@@ -10,7 +10,7 @@ export default function SchoolUserMaintenance(props) {
   const [editing_user, setEditingUser] = useState("")
 
   useEffect(() => {
-      readRecord("/school-users", setUsers)
+      //readRecord("/school-users", setUsers)
   }, [])
 
   const handleCallback = childData => {
