@@ -22,15 +22,11 @@ def listProjectLeader():
 def add_project_leader():
     current_user = jwt_user(get_jwt_identity())
     data = request.get_json()
-
-    # I NEED FOREIGN KEY RELATIONSHIPS
-    # project_leader = Project_leader(
-    #     school_id = data
-    #     project_id =
-    #     is_leader_partner = data['is_leader_partner']
-    #     status = data['status']
-    # )
-
+    project_leader = Project_leader(
+        project_id = data['project_id'],
+        status = data['status'],
+        user_id = data['user_id']
+    )
 
     db.session.add(project_leader)
     return_status = 200
@@ -86,9 +82,9 @@ def update_project_leader(id):
             abort(409)
 
 
-@admin.route('/project/<int:id>', methods=['DELETE'])
+@admin.route('/project_leader/<int:id>', methods=['DELETE'])
 @jwt_required()
-def delete_project_partner(id):
+def delete_project_leader(id):
     current_user = jwt_user(get_jwt_identity())
     project_leader_to_delete = Project_leader.query.filter_by(id=id).first()
     if not project_leader_to_delete:

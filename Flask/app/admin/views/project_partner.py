@@ -4,7 +4,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import inspect
 
 from app.admin import admin
-from app.models import Project_partner
+from app.models import Project_partner, project_partner
 from app import db
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update, audit_delete
 from app.utils.functions import row2dict, jwt_user
@@ -19,18 +19,15 @@ def listProjectPartner():
 
 @admin.route('/project_partner', methods=['POST'])
 @jwt_required()
-def add_project_parnter():
+def add_project_partner():
     current_user = jwt_user(get_jwt_identity())
     data = request.get_json()
-
-    # I NEED FOREIGN KEY RELATIONSHIPS
-    # project_partner = Project_partner(
-    #     school_id = School.query
-    #     project_id =
-    #     is_leader_partner = data['is_leader_partner'],
-    #     status = data['status']
-    # )
-
+    project_partner = Project_partner(
+        school_id = data['school_id'],
+        project_id = data['project_id'],
+        is_lead_partner = data['is_lead_partner'],
+        status = data['status']
+    )
 
     db.session.add(project_partner)
     return_status = 200
@@ -71,7 +68,7 @@ def update_project_partner(id):
 
     project_partner_to_update.school_id = new_data['school_id']
     project_partner_to_update.project_id = new_data['project_id']
-    project_partner_to_update.is_leader_partner = new_data['is_leader_partner']
+    project_partner_to_update.is_lead_partner = new_data['is_lead_partner']
     project_partner_to_update.status = new_data['status']
 
     audit_details = prepare_audit_details(inspect(Project_partner), project_partner_to_update, delete=False)
@@ -89,7 +86,7 @@ def update_project_partner(id):
             abort(409)
 
 
-@admin.route('/project/<int:id>', methods=['DELETE'])
+@admin.route('/project_partner/<int:id>', methods=['DELETE'])
 @jwt_required()
 def delete_project_partner(id):
     current_user = jwt_user(get_jwt_identity())
