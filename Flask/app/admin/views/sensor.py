@@ -1,37 +1,109 @@
-from flask import render_template, url_for, redirect, abort
+from flask import render_template, url_for, redirect, abort, request, jsonify
 from flask_json import json_response
+from flask_jwt_extended import jwt_required, get_jwt_identity
+from sqlalchemy import inspect
+
 from app.admin import admin
-from app.models import Sensor
+from app.models import Sensor, authority
 from app import db
-from app.utils.functions import row2dict
+from app.utils.auditing import audit_create, prepare_audit_details, audit_update, audit_delete
+from app.utils.functions import row2dict, jwt_user
 
 
 @admin.route('/sensor', methods=['GET'])
+@jwt_required()
 def listSensor():
     sensor = Sensor.query.all()
+    return json_response(data=(row2dict(x, summary=False) for x in sensor))
 
-    return json_response(data=(row2dict(x) for x in sensor))
 
-
-@admin.route('/sensor/add', methods=['GET', 'POST'])
+@admin.route('/sensor', methods=['POST'])
+@jwt_required()
 def add_sensor():
-    form = SensorForm()
-    if form.validate_on_submit():
-        sensor = Sensor(name=form.name.data)
+    current_user = jwt_user(get_jwt_identity())
+    data = request.get_json()
+    sensor = Sensor(
+        code = data['code'],
+        description = data['description'],
+        URL = data['URL'],
+        datasheet_link = data['datasheet_link']
+
+    )
+
+    db.session.add(sensor)
+    return_status = 200
+    message = "New sensor has been registered"
+
+    try:
+        db.session.commit()
+        audit_create("sensor", sensor.id, current_user.id)
+        return jsonify({"message": message, "id": sensor.id})
+
+    except Exception as e:
+        db.session.rollback()
+        abort(409, e.orig.msg)
+
+
+@admin.route('/sensor/<int:id>', methods=['GET'])
+@jwt_required()
+def get_one_sensor(id):
+    sensor = Sensor.query.get_or_404(id)
+
+    sensor_data = {}
+    sensor_data['sensor_id'] = sensor.id
+    sensor_data['code'] = sensor.code
+    sensor_data['description'] = sensor.description
+    sensor_data['URL'] = sensor.URL
+    sensor_data['datasheet_link'] = sensor.datasheet_link
+
+    return jsonify({'Sensor': sensor_data})
+
+
+@admin.route('/sensor/<int:id>', methods=['PUT'])
+@jwt_required()
+def updateSensor(id):
+    current_user = jwt_user(get_jwt_identity())
+    sensor_to_update = Sensor.query.get_or_404(id)
+    new_data = request.get_json()
+
+    sensor_to_update.code = new_data["code"]
+    sensor_to_update.description = new_data["description"]
+    sensor_to_update.URL = new_data["URL"]
+    sensor_to_update.datasheet_link = new_data["datasheet_link"]
+
+    audit_details = prepare_audit_details(inspect(Sensor), sensor_to_update, delete=False)
+
+    message = "Sensor has been updated"
+
+    if len(audit_details) > 0:
         try:
-            db.session.add(sensor)
             db.session.commit()
+            audit_update("sensor", sensor_to_update.id, audit_details, current_user.id)
+            return jsonify({"message": message})
+
         except Exception as e:
             db.session.rollback()
-            abort(409, e.orig.msg)
+            abort(409)
 
-        return redirect(url_for('admin.list_sensor'))
 
-    return render_template('admin/sensor.html',
-                           form=form,
-                           title="Add sensor")
+@admin.route('/sensor/<int:id>', methods=['DELETE'])
+@jwt_required()
+def delete_sensor(id):
+    current_user = jwt_user(get_jwt_identity())
+    sensor_to_delete = Sensor.query.filter_by(id=id).first()
+    if not sensor_to_delete:
+        return jsonify({"message" : "No Sensor found"})
 
-    return render_template('admin/sensor.html',
-                           form=form,
-                           sensor=sensor,
-                           title='Edit subject sensor')
+    audit_details = prepare_audit_details(inspect(Sensor), sensor_to_delete, delete = True)
+    db.session.delete(sensor_to_delete)
+    return_status = 200
+    message = "The Sensor has been deleted"
+
+    try:
+        db.session.commit()
+        audit_delete("sensor", sensor_to_delete.id, audit_details, current_user.id)
+        return jsonify({"message" : message, "id": sensor_to_delete.id})
+
+    except Exception as e:
+        db.session.rollback()
+        abort(409,e.orig.msg)
