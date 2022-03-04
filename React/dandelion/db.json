@@ -347,5 +347,94 @@
       "updated_date": "2022-03-01T00:08:17.028Z",
       "status": "amber"
     }
+  ],
+  "treatmentVariablesShortlist": [
+    {
+      "id": 0,
+      "name": "Humidity",
+      "unit": "%",
+      "upper_limit": 100,
+      "lower_limit": 0
+    },
+    {
+      "id": 1,
+      "name": "Temperature",
+      "unit": "°C",
+      "upper_limit": 100,
+      "lower_limit": 0
+    },
+    {
+      "id": 2,
+      "name": "Light Level",
+      "unit": "lux",
+      "upper_limit": 100,
+      "lower_limit": 0
+    },
+    {
+      "id": 3,
+      "name": "Conductivity",
+      "unit": "uS/cm",
+      "upper_limit": 100,
+      "lower_limit": 0
+    },
+    {
+      "id": 4,
+      "name": "pH",
+      "unit": "pH",
+      "upper_limit": 14,
+      "lower_limit": 0
+    }
+  ],
+  "treatmentVariableFull": [
+    {
+      "id": 0,
+      "type": "Continuous",
+      "name": "Humidity",
+      "unit": "%",
+      "upper_limit": 100,
+      "lower_limit": 0,
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "procedure": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    },
+    {
+      "id": 1,
+      "type": "Continuous",
+      "name": "Temperature",
+      "unit": "°C",
+      "upper_limit": 100,
+      "lower_limit": 0,
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "procedure": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    },
+    {
+      "id": 2,
+      "type": "Continuous",
+      "name": "Light Level",
+      "unit": "lux",
+      "upper_limit": 100,
+      "lower_limit": 0,
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "procedure": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    },
+    {
+      "id": 3,
+      "type": "Continuous",
+      "name": "Conductivity",
+      "unit": "uS/cm",
+      "upper_limit": 100,
+      "lower_limit": 0,
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "procedure": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    },
+    {
+      "id": 4,
+      "type": "Continuous",
+      "name": "pH",
+      "unit": "pH",
+      "upper_limit": 14,
+      "lower_limit": 0,
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "procedure": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    }
   ]
 }
