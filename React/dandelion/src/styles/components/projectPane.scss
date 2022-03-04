@@ -1,7 +1,7 @@
 .panel-content {
-    display: flex;
-    flex-direction: row;
-    width: 60%;
+  display: flex;
+  flex-direction: row;
+  width: 60%;
   .project-title {
     padding-top: 1.25rem;
     padding-left: 1.25rem;
@@ -31,8 +31,6 @@
     margin-top: 33.125rem;
     margin-left: 2.5rem;
 
-    
-
     .submitButton {
       background-color: $accent;
       color: $primary;
@@ -43,27 +41,24 @@
       border: none;
       cursor: pointer;
       border-radius: 10px;
-      
     }
     .submitButton:hover {
       background-color: #d4d926;
     }
 
     #inv {
-        background-color: $orange-accent;
-        color: white;
-        
+      background-color: $orange-accent;
+      color: white;
     }
     #inv:hover {
-        background-color: #fa5b2b;
+      background-color: #fa5b2b;
     }
     #comp {
-        background-color: #59D71E;
-        color: white;
+      background-color: #59d71e;
+      color: white;
     }
     #comp:hover {
-        background-color: #50c719;
+      background-color: #50c719;
     }
-
   }
 }

@@ -1,0 +1,41 @@
+.your-exp-container {
+  background: #2e5641;
+  color: $white;
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  overflow-y: auto;
+  .title {
+      display: flex;
+      align-items: center;
+      h3 {
+          font-size: 3rem;
+      }
+  }
+  .content {
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: 65vh;
+    border-radius: 20px;
+    .content-wrapper {
+      display: flex;
+      .exp-pane {
+          width: 50%;
+      }
+      .user-pane {
+        width: 50%;
+        background-color: #f7f8ff;
+        // align-items: stretch;
+        height: 65vh;
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+        overflow-y: scroll;
+      }
+    }
+  }
+}

@@ -1,0 +1,54 @@
+.panel-content {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  justify-content: center;
+  color: black;
+  padding-top: 1.25rem;
+  padding-left: 1.25rem;
+
+  .panel-content {
+    display: flex;
+    justify-content: center;
+
+    .experiment-title {
+      h3 {
+        font-size: 1.2rem;
+      }
+    }
+
+    .feat-img {
+      position: absolute;
+      width: 27.5rem;
+      z-index: 4;
+
+      img {
+        border-radius: 10px;
+      }
+    }
+
+    .experiment-desc {
+      h3 {
+        font-size: 1rem;
+      }
+    }
+
+    .btn-row {
+      align-items: flex-start;
+      .submitButton {
+        background-color: $accent;
+        color: $primary;
+        font-size: 1.6rem;
+        margin: 1.25rem 0px;
+        padding: 0.625rem;
+        width: 13rem;
+        border: none;
+        cursor: pointer;
+        border-radius: 10px;
+      }
+      .submitButton:hover {
+        background-color: #d4d926;
+      }
+    }
+  }
+}

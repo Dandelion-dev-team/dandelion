@@ -1,0 +1,22 @@
+.experiment-list {
+  width: 93%;
+
+  @include media(">desktop") {
+    width: 95%;
+  }
+
+  .cardList {
+    margin-top: 1.5rem;
+    margin-left: 32px;
+    tbody {
+      .active {
+        background-color: #f7f8ff;
+      }
+
+      &:hover {
+        background-color: #f7f8ff;
+        cursor: pointer;
+      }
+    }
+  }
+}

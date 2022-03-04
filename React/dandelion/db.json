@@ -174,6 +174,49 @@
       "status": "active"
     }
   ],
+  "experiment" : [
+  {
+    "id": 0,
+    "title": "Thigmomorphogenesis",
+    "description": "When they are growing outside, the wind blows plants about. They may also be pushed or squashed by people or animals. But how do these interactions affect their growth? That is what we aim to find out!",
+    "desc2": "When they are growing outside, the wind blows plants about. They may also be pushed or squashed by people or animals. But how do these interactions affect their growth? That is what we aim to find out!",
+    "experiment_image_link": "https://images.squarespace-cdn.com/content/v1/53726d44e4b07d0c6bf0b106/1535677982492-J7R729ZEBU5DZXV2VYLH/growing+red+beets+in+your+summer+garden.jpg",
+    "experiment_text": "Note that the plants must be at least 2cm tall before starting this experiment.",
+    "start_date": "2022-03-03T15:55:05.933Z",
+    "end_date": "2022-03-03T15:55:05.933Z",
+    "status": "active"
+  },
+  {
+    "id": 1,
+    "title": "Thigmomorphogenesis",
+    "description": "When they are growing outside, the wind blows plants about. They may also be pushed or squashed by people or animals. But how do these interactions affect their growth? That is what we aim to find out!",
+    "experiment_image_link": "https://images.squarespace-cdn.com/content/v1/53726d44e4b07d0c6bf0b106/1535677982492-J7R729ZEBU5DZXV2VYLH/growing+red+beets+in+your+summer+garden.jpg",
+    "experiment_text": "Note that the plants must be at least 2cm tall before starting this experiment.",
+    "start_date": "2022-03-03T15:55:05.933Z",
+    "end_date": "2022-03-03T15:55:05.933Z",
+    "status": "active"
+  },
+  {
+    "id": 2,
+    "title": "Thigmomorphogenesis",
+    "description": "When they are growing outside, the wind blows plants about. They may also be pushed or squashed by people or animals. But how do these interactions affect their growth? That is what we aim to find out!",
+    "experiment_image_link": "https://images.squarespace-cdn.com/content/v1/53726d44e4b07d0c6bf0b106/1535677982492-J7R729ZEBU5DZXV2VYLH/growing+red+beets+in+your+summer+garden.jpg",
+    "experiment_text": "Note that the plants must be at least 2cm tall before starting this experiment.",
+    "start_date": "2022-03-03T15:55:05.933Z",
+    "end_date": "2022-03-03T15:55:05.933Z",
+    "status": "active"
+  },
+  {
+    "id": 3,
+    "title": "Thigmomorphogenesis",
+    "description": "When they are growing outside, the wind blows plants about. They may also be pushed or squashed by people or animals. But how do these interactions affect their growth? That is what we aim to find out!",
+    "experiment_image_link": "https://images.squarespace-cdn.com/content/v1/53726d44e4b07d0c6bf0b106/1535677982492-J7R729ZEBU5DZXV2VYLH/growing+red+beets+in+your+summer+garden.jpg",
+    "experiment_text": "Note that the plants must be at least 2cm tall before starting this experiment.",
+    "start_date": "2022-03-03T15:55:05.933Z",
+    "end_date": "2022-03-03T15:55:05.933Z",
+    "status": "active"
+  }
+  ],
   "node": [
     {
       "id": 1,
