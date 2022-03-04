@@ -308,6 +308,7 @@
   "treatmentVariablesShortlist": [
     {
       "id": 0,
+      "type": "Continuous",
       "name": "Humidity",
       "unit": "%",
       "upper_limit": 100,
@@ -315,6 +316,7 @@
     },
     {
       "id": 1,
+      "type": "Test",
       "name": "Temperature",
       "unit": "°C",
       "upper_limit": 100,
@@ -322,6 +324,7 @@
     },
     {
       "id": 2,
+      "type": "Continuous",
       "name": "Light Level",
       "unit": "lux",
       "upper_limit": 100,
@@ -329,6 +332,7 @@
     },
     {
       "id": 3,
+      "type": "Continuous",
       "name": "Conductivity",
       "unit": "uS/cm",
       "upper_limit": 100,
@@ -336,6 +340,7 @@
     },
     {
       "id": 4,
+      "type": "Continuous",
       "name": "pH",
       "unit": "pH",
       "upper_limit": 14,

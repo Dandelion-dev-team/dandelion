@@ -4,6 +4,7 @@ import "../../../styles/App.scss"
 import TuneIcon from '@mui/icons-material/Tune';
 import VariableListComponent from "../../../components/variableListComponent";
 import ViewDetailedVariable from "../../../components/Modals/viewDetailedVariable";
+import VariableSelectedComponent from "../../../components/variableSelectedComponent";
 
 export default function ThirdExpPage(props) {
     const [search_value, changeSearch] = useState("");
@@ -11,7 +12,8 @@ export default function ThirdExpPage(props) {
     const [show_details, setShowDetails] = useState("");
     const [full_detail_variable, setDetailVariable] = useState("")
 
-    const selected_variables = [];
+    const [selected_list, updateSelectedList] = useState([]);
+
 
     const handleSearchValueChange = e => {
         changeSearch(e.target.value)
@@ -19,6 +21,15 @@ export default function ThirdExpPage(props) {
 
     const modalCallback = e => {
         setShowDetails(false);
+    }
+
+    const checkboxCallback = e => {
+        let val = e.data;
+        if(e.value == true){
+            updateSelectedList( arr => [...arr, val]);
+        }else {
+            updateSelectedList(selected_list.filter(item => item !== val));
+        }
     }
 
     const handleCallback = index => {
@@ -50,7 +61,7 @@ export default function ThirdExpPage(props) {
 
     return (
         <div>
-            {show_details ? <ViewDetailedVariable callback={modalCallback} variable={full_detail_variable}/> : null}
+            {show_details ? <ViewDetailedVariable callback={modalCallback} variable={full_detail_variable} /> : null}
             <div className="treatment-container">
                 <div className="content">
                     <div className="content-wrapper">
@@ -76,7 +87,7 @@ export default function ThirdExpPage(props) {
                                 <div className="treatment-list">
                                     {variable_list
                                         ? variable_list.map(variable => (
-                                            <VariableListComponent mappedValue={variable} parentCallback={handleCallback} />
+                                            <VariableListComponent mappedValue={variable} detailCallback={handleCallback} checkCallback={checkboxCallback} />
                                         )) : <h3>No Experiments found</h3>}
                                 </div>
                             </div>
@@ -85,7 +96,9 @@ export default function ThirdExpPage(props) {
                             <div className="treatment-selected-content">
                                 <div className="title">
                                     <h3>Your Treatment Variables</h3>
-                                    {selected_variables ? null : null}
+                                </div>
+                                <div className="selected-list">
+                                    {selected_list ? selected_list.map(variable => (<VariableSelectedComponent data={variable}/>)) : null}
                                 </div>
                             </div>
                         </div>
