@@ -52,6 +52,19 @@
                         display: inline;
                         font-size: 1vw;
                     }
+
+                    .text-box{
+                        max-width: 100%;
+                        min-width: 100%;
+                        min-height: 5rem;
+                        display: flex;
+                        font-size: 1vw;
+                        width: 100%;
+                    }
+                    .textl-line{
+                        width: 100%;
+                        font-size: 1vw;
+                    }
                 }
             }
             .edit-icon{
