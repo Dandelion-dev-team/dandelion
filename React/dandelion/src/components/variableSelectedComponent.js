@@ -15,7 +15,7 @@ export default function VariableSelectedComponent(props) {
             </div>
             <div className="button-content">
             <input
-                value="Details"
+                value="Edit"
                 type="submit"
                 className="submitButton"
                 onClick={() => { console.log("guy") }}>
