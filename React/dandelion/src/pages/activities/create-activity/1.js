@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useRef } from "react"
+import { navigate } from "gatsby"
 import Header from "../../../components/header"
 import "../../../styles/App.scss"
 
-export default function firstExpPage(props) {
+export default function firstActPage(props) {
   return (
     <div>
-
       <div className="activity-container">
         <div className="content">
           <div className="text-content">
@@ -15,44 +15,76 @@ export default function firstExpPage(props) {
           <div className="activity-form">
             <div className="activity-pane">
               <div className="inputItem">
-                <h3>Name:</h3>
-                <input
-                  type="text"
-                  placeholder="Activity Name"
-                  name="nameBox"
-                  //value={entered_school_name}
-                  //onChange={handleNameChange}
-                />
+                <div className="item-title">
+                  <h3>Name:</h3>
+                </div>
+                <div className="item-input">
+                  <input
+                    type="text"
+                    placeholder="Activity Name"
+                    name="nameBox"
+                  />
+                </div>
               </div>
               <div className="inputItem">
-                <h3>Code:</h3>
-                <input
-                  type="text"
-                  placeholder="Activity Code"
-                  name="codeBox"
-                  //value={entered_school_name}
-                  //onChange={handleNameChange}
-                />
+                <div className="item-title">
+                  <h3>Code:</h3>
+                </div>
+                <div className="item-input">
+                  <input
+                    type="text"
+                    placeholder="Activity Code"
+                    name="codeBox"
+                  />
+                </div>
               </div>
-              <div className="descItem">
-                <h3>Description:</h3>
-                <input
-                  type="text"
-                  placeholder="Description"
-                  name="activityBox"
-                  //value={entered_school_name}
-                  //onChange={handleNameChange}
-                />
+              <div className="inputItem">
+                <div className="desc-title">
+                  <h3>Description:</h3>
+                </div>
+                <div className="desc-input">
+                  <input
+                    type="text"
+                    placeholder="Description"
+                    name="descBox"
+                  />
+                </div>
               </div>
-              <div className="descItem">
-                <h3>Deeeeeeeeescription:</h3>
-                <input
-                  type="text"
-                  placeholder="Description"
-                  name="activityBox"
-                  //value={entered_school_name}
-                  //onChange={handleNameChange}
-                />
+              <div className="inputItem">
+                <div className="desc-title">
+                  <h3>Tutorial Text:</h3>
+                </div>
+                <div className="desc-input">
+                  <input
+                    type="text"
+                    placeholder="Tutorial Text"
+                    name="tutBox"
+                  />
+                </div>
+              </div>
+              <div className="inputItem">
+                <div className="item-title">
+                  <h3>Start Date:</h3>
+                </div>
+                <div className="item-input">
+                  <input
+                    type="date"
+                   // placeholder="Activity Code"
+                    name="codeBox"
+                  />
+                </div>
+              </div>
+              <div className="inputItem">
+                <div className="item-title">
+                  <h3>End Date:</h3>
+                </div>
+                <div className="item-input">
+                  <input
+                    type="date"
+                    //placeholder="Activity Code"
+                    name="codeBox"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -62,9 +94,13 @@ export default function firstExpPage(props) {
             <input
               type="submit"
               className="submitButton"
-              value="Create"
+              value="Finished"
+              onClick={() => {
+                navigate("/maintenance/superuser/project-maintenance")
+            }}
             ></input>
           </div>
+          <div className="spacer"></div>
         </div>
       </div>
     </div>

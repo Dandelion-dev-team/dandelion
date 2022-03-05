@@ -9,11 +9,11 @@
   height: 100vh;
   overflow-y: auto;
   .title {
-      display: flex;
-      align-items: center;
-      h3 {
-          font-size: 3rem;
-      }
+    display: flex;
+    align-items: center;
+    h3 {
+      font-size: 3rem;
+    }
   }
   .content {
     background-color: white;
@@ -22,19 +22,151 @@
     width: 80%;
     height: 65vh;
     border-radius: 20px;
+
     .content-wrapper {
       display: flex;
+      color: black;
       .exp-pane {
-          width: 50%;
+        width: 50%;
+
+        .exp-pane-wrapper {
+          margin-left: 2rem;
+          margin-top: 2rem;
+          .title {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            text-align: left;
+            justify-items: left;
+            align-items: flex-start;
+
+            h3 {
+              display: inline;
+              font-size: 1.5vw;
+            }
+            h2 {
+              display: inline;
+              font-size: 2vw;
+            }
+          }
+
+          .exp-item {
+            text-align: left;
+            display: flex;
+            flex-direction: row;
+            justify-items: left;
+            width: 100%;
+            height: auto;
+            margin-top: 3vh;
+
+            .item-title {
+              width: 55%;
+              height: 100%;
+              h3 {
+                display: inline;
+                font-size: 1.5vw;
+              }
+            }
+
+            .item-content {
+              width: 40%;
+              height: 100%;
+              h3 {
+                display: inline;
+                font-size: 1vw;
+              }
+            }
+
+            .condition-list {
+              display: flex;
+              flex-direction: column;
+              justify-content: space-around;
+              h3 {
+                display: inline;
+                font-size: 1vw;
+              }
+            }
+          }
+        }
       }
+
       .user-pane {
         width: 50%;
         background-color: #f7f8ff;
-        // align-items: stretch;
         height: 65vh;
         border-top-right-radius: 20px;
         border-bottom-right-radius: 20px;
-        overflow-y: scroll;
+        display: flex;
+        flex-direction: column;
+
+        .user-pane-wrapper {
+          margin-left: 2rem;
+          margin-top: 2rem;
+          .title {
+            h3 {
+              display: inline;
+              font-size: 2vw;
+            }
+          }
+
+          .info-items-wrapper {
+            margin-top: 4rem;
+            .info-item {
+              text-align: left;
+              display: flex;
+              flex-direction: row;
+              justify-items: left;
+              width: 100%;
+              height: auto;
+              margin-top: 4vh;
+
+              .item-title {
+                width: 30%;
+                height: 100%;
+                h3 {
+                  display: inline;
+                  font-size: 1.5vw;
+                }
+              }
+              .item-input {
+                width: 50%;
+                height: 100%;
+                h3 {
+                  display: inline;
+                  font-size: 1vw;
+                }
+              }
+            }
+          }
+        }
+        .btn-container {
+          display: flex;
+          flex-direction: row;
+          align-items: flex-start;
+          width: 100%;
+          margin-left: auto;
+          margin-top: auto;
+          .continue-btn {
+            margin-left: auto;
+            align-items: flex-start;
+            .submitButton {
+              background-color: $accent;
+              color: $primary;
+              font-size: 1.6rem;
+              margin: 1.25rem 0px;
+              padding: 15px;
+              border: none;
+              cursor: pointer;
+              border-radius: 10px;
+            }
+            .submitButton:hover {
+              background-color: #d4d926;
+            }
+          }
+          .spacer {
+            width: 2%;
+          }
+        }
       }
     }
   }

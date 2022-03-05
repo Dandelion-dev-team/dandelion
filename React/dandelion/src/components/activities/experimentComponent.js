@@ -25,49 +25,30 @@ export default function ExperimentComponent(props) {
   var className = isActive ? "active" : ""
 
   return (
-    <div className="experiment-list">
-      {/* {experiments
+    <div>
+      {experiments
         ? experiments.map(experiment => (
-            <div className="preset-card">
-              <div className="card-img">
-                <img src={experiment.experiment_image_link} />
-              </div>
-              <div className="title">
-                <h2>{experiment_experiment_text}</h2>
-              </div>
-              <div className="center">
-                <div class="vl" />
-              </div>
-              <div className="description">
-                <h2>{experiment.description}</h2>
-              </div>
-            </div>
-          ))
-        : null} */}
-        <table className="cardList">
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-
-        {experiments
-          ? experiments.map(experiment => (
-            <tbody
-              key={experiments.id}
-              className={className}
+            <div
+              className="preset-card"
               onClick={() => {
                 editAuth(experiment)
                 isActive = true
               }}
             >
-              <td>{experiment.title}</td>
-              <td>{experiment.description}</td>
-            </tbody>
+              <div className="card-img">
+                <img src={experiment.experiment_image_link} />
+              </div>
+              <div className="item-details">
+                <div className="owner">
+                  <h2>{experiment.owner}</h2>
+                </div>
+                <div className="title">
+                  <h2>{experiment.title}</h2>
+                </div>
+              </div>
+            </div>
           ))
-          : null}
-      </table>
+        : null}
     </div>
   )
 }

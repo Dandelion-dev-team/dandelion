@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react"
 import ExperimentComponent from "../../../components/activities/experimentComponent"
 import ExperimentPane from "../../../components/activities/experimentPane"
 import "../../../styles/App.scss"
+import TuneIcon from "@mui/icons-material/Tune"
 
 export default function FirstExpPage(props) {
   const [editing_project, setEditingProject] = useState("")
@@ -35,12 +36,14 @@ export default function FirstExpPage(props) {
                 </div>
                 <div className="search-bar">
                   <input type="text" placeholder="Search.." />
-
                 </div>
               </div>
               <div className="list-content">
-                <ExperimentComponent parentCallback={handleCallback} />
+                <div className="experiment-list">
+                  <ExperimentComponent parentCallback={handleCallback} />
+                </div>
                 <div className="use-own-btn">
+                  <div className="spacer"/>
                   <button className="submitButton">
                     Create Own Experiment
                   </button>

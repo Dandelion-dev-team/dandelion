@@ -184,7 +184,8 @@
     "experiment_text": "Note that the plants must be at least 2cm tall before starting this experiment.",
     "start_date": "2022-03-03T15:55:05.933Z",
     "end_date": "2022-03-03T15:55:05.933Z",
-    "status": "active"
+    "status": "active",
+    "owner": "Dandelion"
   },
   {
     "id": 1,

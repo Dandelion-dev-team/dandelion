@@ -1,115 +1,108 @@
-.activity-container {
+.exp-container {
   background: #2e5641;
   color: $white;
   position: relative;
   display: flex;
+  justify-content: center;
   align-items: center;
   height: 100vh;
   overflow-y: auto;
-  flex-direction: column;
-  justify-content: space-around;
 
   .content {
-    display: flex;
-    flex-direction: row;
+    background-color: white;
+    justify-content: center;
     align-items: center;
-    justify-content: space-between;
-    width: 85%;
-    height: 90vh;
+    width: 90%;
+    height: 87vh;
+    border-radius: 20px;
 
-    .text-content {
+    .content-wrapper {
       display: flex;
-      flex-direction: column;
-      justify-content: center;
-      width: 35%;
-      height: 90vh;
 
-      h3 {
-        font-size: 4rem;
-      }
-
-      p {
-        font-size: 1.6rem;
-        line-height: 2rem;
-      }
-    }
-
-    .activity-form {
-      width: 60%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-
-      .activity-pane {
-        width: 100%;
-        height: 80%;
-        background-color: white;
-        border-radius: 20px;
+      .exp-list {
+        width: 87vh;
         display: flex;
         flex-direction: column;
+        z-index: 7;
+        color: black;
+        height: 87vh;
         justify-content: space-around;
 
-        .inputItem {
+        .list-header {
+          height: 10%;
           display: flex;
-          width: 100%;
-          max-height: 90%;
-          flex-direction: row;
-          justify-content: space-around;
+          flex-direction: column;
 
-          h3 {
-            font-size: 1.6rem;
-            color: $primary;
-            margin-bottom: 0px;
-            padding-bottom: 0px;
-          }
-        }
+          .header-text {
+            align-self: center;
 
-        .descItem {
-          display: flex;
-          width: 100%;
-          max-height: 90%;
-          flex-direction: row;
-          justify-content: space-around;
-
-          label {
-            font-size: 1.6rem;
-            color: $primary;
-            margin-bottom: 0px;
-            padding-bottom: 0px;
-          }
-
-          input {
-            height: 3em;
-          }
-        }
-      }
-
-      .btn-container {
-        display: flex;
-        justify-content: flex-end;
-        .continue-btn {
-            input {
-                .submitButton {
-                    background-color: $accent;
-                    color: $primary;
-                    font-size: 1.6rem;
-                    margin: 1.25rem 0px;
-                    padding: 15px;
-                    border: none;
-                    cursor: pointer;
-                    border-radius: 10px;
-                    margin-left: 1.25rem;
-                  }
-                  .submitButton:hover {
-                    background-color: #d4d926;
-                  }
+            h3 {
+              color: $primary;
+              font-size: 2.6rem;
             }
-            
           }
 
+          .search-bar {
+            display: flex;
+            flex-direction: row;
+            width: 80%;
+            justify-content: space-around;
 
+            input {
+            }
+          }
+        }
+
+        .list-content {
+          height: 80%;
+          margin-left: 3rem;
+
+          .experiment-list {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 80%;
+          }
+
+          .use-own-btn {
+            width: 100%;
+            display: flex;
+            margin-left: auto;
+            
+            .spacer {
+              width: 65%;
+            }
+
+            .submitButton {
+              background-color: $accent;
+              color: $primary;
+              font-size: 1.6rem;
+              margin: 1.25rem 0px;
+              padding: 0.625rem;
+              width: 13rem;
+              border: none;
+              cursor: pointer;
+              border-radius: 10px;
+            }
+            .submitButton:hover {
+              background-color: #d4d926;
+            }
+          }
+        }
       }
-      
+      .details-pane {
+        width: 50%;
+        background-color: #f7f8ff;
+        // align-items: stretch;
+        height: 87vh;
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+        overflow-y: scroll;
+      }
+
+      .details-pane::-webkit-scrollbar {
+        display: none; /* for Chrome, Safari, and Opera */
+      }
     }
   }
 }
