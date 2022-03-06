@@ -1,5 +1,4 @@
-from flask import render_template, url_for, redirect, abort, request, jsonify
-from flask_json import json_response
+from flask import abort, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import inspect
 
@@ -7,7 +6,7 @@ from app.admin import admin
 from app.models import Sensor_quantity
 from app import db
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update, audit_delete
-from app.utils.functions import row2dict, jwt_user
+from app.utils.functions import jwt_user
 
 
 @admin.route('/sensorQuantity', methods=['POST'])
@@ -44,7 +43,6 @@ def get_one_sensor_quantity(id):
     sensor_quantity_data['sensor_id'] = sensor_quantity.sensor_id
     sensor_quantity_data['quantity_id'] = sensor_quantity.quantity_id
 
-
     return jsonify({'SensorQuantity': sensor_quantity_data})
 
 
@@ -57,7 +55,6 @@ def Update_sensory_quantity(id):
 
     sensor_quantity_to_update.sensor_id = new_data["sensor_id"]
     sensor_quantity_to_update.quantity_id = new_data["quantity_id"]
-
 
     audit_details = prepare_audit_details(inspect(Sensor_quantity), sensor_quantity_to_update, delete=False)
 

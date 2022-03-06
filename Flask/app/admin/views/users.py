@@ -1,10 +1,8 @@
-from flask import render_template, url_for, redirect, request, flash, current_app, jsonify, abort
-from flask_json import json_response
+from flask import request, jsonify, abort
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import inspect
-from sqlalchemy.exc import SQLAlchemyError
 from app.admin import admin
-from app.models import User, AuditDetail, Audit
+from app.models import User
 from app import db
 from app.utils.functions import jwt_user
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update, audit_delete
