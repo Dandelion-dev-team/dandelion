@@ -1,4 +1,4 @@
-from flask import render_template, url_for, redirect, abort, request, jsonify
+from flask import abort, request, jsonify
 from flask_json import json_response
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import inspect
@@ -13,7 +13,7 @@ from app.utils.functions import row2dict, jwt_user
 @admin.route('/project_leader', methods=['GET'])
 @jwt_required()
 def listProjectLeader():
-    project_partner = Project_leader.query.all()
+    project_leader = Project_leader.query.all()
     return json_response(data=(row2dict(x, summary=False) for x in project_leader))
 
 

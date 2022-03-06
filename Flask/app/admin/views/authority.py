@@ -1,10 +1,9 @@
-from flask import render_template, url_for, redirect, request, jsonify, abort
+from flask import request, jsonify, abort
 from flask_json import json_response
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import inspect
 
 from app.admin import admin
-from app.admin.forms.authority import AuthorityForm
 from app.models import Authority
 from app import db
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update, audit_delete
@@ -106,17 +105,6 @@ def delete_authority(id):
         abort(409,e.orig.msg)
 
 
-
-# @admin.route('/authority/add', methods=['POST'])
-# @jwt_required()
-# def add_authority():
-#     newName = request.form['name']
-#     newTelephone = request.form['telephone']
-#     newEmail = request.form['email']
-#     authority = Authority(name=newName, telephone=newTelephone, email=newEmail)
-#     db.session.add(authority)
-#     db.session.commit()
-#     return "<p>Data is Updated</p>"
 
 
 

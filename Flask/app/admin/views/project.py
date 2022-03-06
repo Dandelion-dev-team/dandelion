@@ -1,4 +1,4 @@
-from flask import render_template, url_for, redirect, abort, jsonify, request
+from flask import abort, jsonify, request
 from flask_json import json_response
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import inspect
