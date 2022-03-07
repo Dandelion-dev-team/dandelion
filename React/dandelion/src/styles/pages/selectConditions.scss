@@ -1,0 +1,44 @@
+.conditions-container {
+    background: #2e5641;
+    color: $white;
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    overflow-y: hidden;
+    flex-direction: column;
+    justify-content: space-around;
+  
+    .content {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      width: 85%;
+      height: 90vh;
+  
+      .text-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 35%;
+        height: 90vh;
+  
+        h3 {
+          font-size: 4rem;
+        }
+  
+        p {
+          font-size: 1.6rem;
+          line-height: 2rem;
+        }
+      }
+      .condition-list {
+        width: 40%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        background-color: white;
+      }
+    }
+}

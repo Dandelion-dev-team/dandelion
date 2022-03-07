@@ -16,7 +16,7 @@ export default function ThirdExpPage(props) {
     const [modal_editing, setModalEditing] = useState();
 
     const [selected_list, updateSelectedList] = useState([]);
-
+    const [treatment_variables_list, setTreatmentVariables] = useState([]);
 
     const handleSearchValueChange = e => {
         changeSearch(e.target.value)
@@ -36,7 +36,7 @@ export default function ThirdExpPage(props) {
     }
 
     const handleDetailCallback = index => {
-        fetch("http://localhost:3000/treatmentVariableFull/" + index, {
+        fetch("http://localhost:3000/responseVariableFull/" + index, {
             method: "GET",
             headers: new Headers({
                 "Cache-Control": "no-cache, no-store, must-revalidate",
@@ -48,7 +48,7 @@ export default function ThirdExpPage(props) {
             .then(data => setDetailVariable(data)).then(setModalEditing(false)).then(setShowDetails(true));
     }
     const handleEditCallback = index => {
-        fetch("http://localhost:3000/treatmentVariableFull/" + index, {
+        fetch("http://localhost:3000/responseVariableFull/" + index, {
             method: "GET",
             headers: new Headers({
                 "Cache-Control": "no-cache, no-store, must-revalidate",
@@ -61,8 +61,9 @@ export default function ThirdExpPage(props) {
     }
 
     useEffect(() => {
+        setTreatmentVariables(props.location.state.treatmentVariables);
         // Update the document title using the browser API
-        fetch("http://localhost:3000/treatmentVariablesShortlist", {
+        fetch("http://localhost:3000/responseVariableShortlist", {
             method: "GET",
             headers: new Headers({
                 'Cache-Control': 'no-cache, no-store, must-revalidate',
@@ -83,7 +84,7 @@ export default function ThirdExpPage(props) {
                         <div className="treatment-pane">
                             <div className="treatment-content">
                                 <div className="title">
-                                    <h3>Add Treatment Variables</h3>
+                                    <h3>Add Response Variables</h3>
                                 </div>
                                 <div className="search-tune-row">
                                     <input
@@ -105,13 +106,13 @@ export default function ThirdExpPage(props) {
                                             <VariableListComponent mappedValue={variable} detailCallback={handleDetailCallback} checkCallback={checkboxCallback} />
                                         )) : <h3>No Experiments found</h3>}
                                 </div>
-                                <PaginationComponent pageIndex={2} numPages={4} />
+                                <PaginationComponent pageIndex={3} numPages={4} />
                             </div>
                         </div>
                         <div className="treatment-selected-pane">
                             <div className="treatment-selected-content">
                                 <div className="title">
-                                    <h3>Your Treatment Variables</h3>
+                                    <h3>Your Response Variables</h3>
                                 </div>
                                 <div className="selected-list">
                                     {selected_list ? selected_list.map(variable => (<VariableSelectedComponent editCallback={handleEditCallback} data={variable} />)) : null}
@@ -130,9 +131,9 @@ export default function ThirdExpPage(props) {
                                         className="continue-btn"
                                         value="Continue"
                                         onClick={() => {
-                                            navigate("/activities/create-experiment/4",         
+                                            navigate("/activities/create-experiment/5",
                                             {
-                                                state: {treatmentVariables: selected_list},
+                                                state: {treatmentVariables: treatment_variables_list, responseVariables: selected_list},
                                             });
                                         }}
                                     ></input> : null

@@ -5,6 +5,19 @@ import ExperimentPane from "../../../components/activities/experimentPane"
 import "../../../styles/App.scss"
 
 export default function SecondExpPage(props) {
+  const [treatment_selected, setTreatmentVariables] = useState([]);
+  const [response_selected, setResponseVariables] = useState([]);
+
+  useEffect(() => {
+    if (props) {
+      setTreatmentVariables(props.location.state.treatmentVariables);
+      setResponseVariables(props.location.state.responseVariables);
+
+      console.log(props.location.state.treatmentVariables);
+      console.log(props.location.state.responseVariables);
+    }
+  }, []);
+
   return (
     <div>
       <div className="your-exp-container">
