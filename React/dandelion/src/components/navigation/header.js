@@ -2,10 +2,10 @@ import * as React from "react"
 import { Link } from "gatsby"
 import logo from '../../images/logo.svg';
 import { user_logout } from "../../utils/logout";
-const parse = require('../../auth');
+//const parse = require('../../auth');
 
 export default function Header() {
-  const [logged] = parse.useAuth();
+  //const [logged] = parse.useAuth();
   //Tested
   return (
     <header>
@@ -21,7 +21,7 @@ export default function Header() {
               <Link to="/data">Data</Link>
               <Link to="/map">Map</Link>
               <Link to="/about">About</Link>
-              {logged ? <Link to="/signin" onClick={() => user_logout()}>Logout</Link> : <Link to="/signin">Sign In</Link> }
+              {true ? <Link to="/signin" onClick={() => user_logout()}>Logout</Link> : <Link to="/signin">Sign In</Link> }
             </nav>
           </div>
         </div>

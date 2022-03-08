@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { Link, navigate, Text } from "gatsby"
+import React from "react";
 import "../../styles/App.scss";
 import amberAlert from "../../images/amber-alert.png";
 import redAlert from "../../images/red-alert.png";

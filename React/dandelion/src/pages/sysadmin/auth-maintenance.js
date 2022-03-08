@@ -3,7 +3,6 @@ import SysSideNav from "../../components/navigation/sysadminSideNav"
 import "../../styles/App.scss"
 import AuthComponent from "../../components/tables/authComponent"
 import { createRecord, readRecord, updateRecord } from "../../utils/CRUD"
-const parse = require('../../auth');
 
 export default function AuthMaintenance(props) {
   const selectInputRef = useRef()

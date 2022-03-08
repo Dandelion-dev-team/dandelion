@@ -156,10 +156,12 @@ export default function TreatmentVariables(props) {
                       className="continue-btn"
                       value="Continue"
                       onClick={() => {
+                        if (typeof window !== `undefined`) {
                         navigate("/activities/create-experiment/response-variables", {
                           state: { treatmentVariables: selected_list },
                         })
                       }}
+                    }
                     ></input>
                   ) : null}
                 </div>

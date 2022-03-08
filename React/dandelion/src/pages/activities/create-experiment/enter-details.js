@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from "react"
 import { navigate } from "gatsby"
 import "../../../styles/App.scss"
-
 export default function enterDetails(props) {
   return (
     <div>
@@ -68,7 +67,9 @@ export default function enterDetails(props) {
               className="submitButton"
               value="Finished"
               onClick={() => {
+                if (typeof window !== `undefined`) {
                 navigate("/activities/create-experiment/treatment-variables")
+                }
               }}
             ></input>
           </div>

@@ -2,7 +2,6 @@ import React from 'react'
 import Header from "../components/navigation/header"
 import '../styles/App.scss'
 
-
 const Map = () => (
     <div>
     <Header />

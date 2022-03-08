@@ -115,7 +115,9 @@ export default function Summary(props) {
                     className="submitButton"
                     value="Continue"
                     onClick={() => {
+                      if (typeof window !== `undefined`) {
                       navigate("/") //TODO CHANGE
+                      }
                     }}
                   ></input>
                 </div>
