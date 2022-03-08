@@ -33,7 +33,6 @@ export default function ExperimentComponent(props) {
               onClick={() => {
                 editAuth(experiment)
                 isActive = true
-                
               }}
             >
               <div className="card-img">

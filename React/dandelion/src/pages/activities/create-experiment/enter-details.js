@@ -9,7 +9,7 @@ export default function enterDetails(props) {
         <div className="content">
           <div className="title-content">
             <h3>Experiment Creation</h3>
-            <p>Tell us about your experiment</p>
+            <p>Tell us about  your experiment</p>
           </div>
           <div className="experiment-form">
             <div className="experiment-pane">
