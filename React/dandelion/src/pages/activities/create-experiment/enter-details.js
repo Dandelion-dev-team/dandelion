@@ -75,6 +75,7 @@ export default function EnterDetails(props) {
                   <input
                     type="text"
                     placeholder="Experiment Name"
+                    value={name}
                     name="nameBox"
                     onChange={handleNameChange}
                   />

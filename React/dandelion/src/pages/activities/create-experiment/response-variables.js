@@ -63,7 +63,7 @@ export default function ResponseVariables(props) {
     useEffect(() => {
         if (props.location.state) {
             console.log(props.location.state)
-            setExperimentDetails(props.location.state);
+            setExperimentDetails(props.location.state.experimentDetails);
             setTreatmentVariables(props.location.state.treatmentVariables);
           } else {
             if (typeof window !== `undefined`) {

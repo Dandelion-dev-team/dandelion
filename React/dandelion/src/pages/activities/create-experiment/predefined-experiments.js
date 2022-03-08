@@ -8,19 +8,25 @@ import TuneIcon from "@mui/icons-material/Tune"
 export default function PredefinedExperiments(props) {
   const [search_value, changeSearch] = useState("")
 
-  const [editing_project, setEditingProject] = useState("")
+  const [selected_experiment, setSelectedExperiment] = useState("")
   const [modal_shown, setModalShown] = useState("")
-
-  useEffect(() => {
-    setModalShown(true)
-  }, [])
 
   const handleSearchValueChange = e => {
     changeSearch(e.target.value)
   }
 
   const handleCallback = childData => {
-    setEditingProject(childData)
+    console.log("id: " + childData.id);
+    fetch("http://localhost:3000/experiment_full/" + childData.id, {
+      method: "GET",
+      headers: new Headers({
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        Pragma: "no-cache",
+        Expires: 0,
+      }),
+    })
+      .then(response => response.json())
+      .then(data => setSelectedExperiment(data))
   }
 
   var isActive = true
@@ -74,7 +80,8 @@ export default function PredefinedExperiments(props) {
               </div>
             </div>
             <div className="details-pane">
-              <ExperimentPane dataProp={editing_project} />
+            {selected_experiment ? 
+              <ExperimentPane dataProp={selected_experiment} /> : null}
             </div>
           </div>
         </div>

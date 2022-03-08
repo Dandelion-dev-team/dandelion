@@ -174,49 +174,153 @@
       "status": "active"
     }
   ],
-  "experiment" : [
-  {
-    "id": 0,
-    "title": "Thigmomorphogenesis",
-    "description": "When they are growing outside, the wind blows plants about. They may also be pushed or squashed by people or animals. But how do these interactions affect their growth? That is what we aim to find out!",
-    "desc2": "When they are growing outside, the wind blows plants about. They may also be pushed or squashed by people or animals. But how do these interactions affect their growth? That is what we aim to find out!",
-    "experiment_image_link": "https://d32vpew203r5a2.cloudfront.net/uploads/2021/10/1525_Dandelion_Hero_Image_Landscape_AW-web.jpg",
-    "experiment_text": "Note that the plants must be at least 2cm tall before starting this experiment.",
-    "start_date": "2022-03-03T15:55:05.933Z",
-    "end_date": "2022-03-03T15:55:05.933Z",
-    "status": "active",
-    "owner": "Dandelion"
-  },
-  {
-    "id": 1,
-    "title": "Thigmomorphogenesis",
-    "description": "When they are growing outside, the wind blows plants about. They may also be pushed or squashed by people or animals. But how do these interactions affect their growth? That is what we aim to find out!",
-    "experiment_image_link": "https://images.squarespace-cdn.com/content/v1/53726d44e4b07d0c6bf0b106/1535677982492-J7R729ZEBU5DZXV2VYLH/growing+red+beets+in+your+summer+garden.jpg",
-    "experiment_text": "Note that the plants must be at least 2cm tall before starting this experiment.",
-    "start_date": "2022-03-03T15:55:05.933Z",
-    "end_date": "2022-03-03T15:55:05.933Z",
-    "status": "active"
-  },
-  {
-    "id": 2,
-    "title": "Thigmomorphogenesis",
-    "description": "When they are growing outside, the wind blows plants about. They may also be pushed or squashed by people or animals. But how do these interactions affect their growth? That is what we aim to find out!",
-    "experiment_image_link": "https://images.squarespace-cdn.com/content/v1/53726d44e4b07d0c6bf0b106/1535677982492-J7R729ZEBU5DZXV2VYLH/growing+red+beets+in+your+summer+garden.jpg",
-    "experiment_text": "Note that the plants must be at least 2cm tall before starting this experiment.",
-    "start_date": "2022-03-03T15:55:05.933Z",
-    "end_date": "2022-03-03T15:55:05.933Z",
-    "status": "active"
-  },
-  {
-    "id": 3,
-    "title": "Thigmomorphogenesis",
-    "description": "When they are growing outside, the wind blows plants about. They may also be pushed or squashed by people or animals. But how do these interactions affect their growth? That is what we aim to find out!",
-    "experiment_image_link": "https://images.squarespace-cdn.com/content/v1/53726d44e4b07d0c6bf0b106/1535677982492-J7R729ZEBU5DZXV2VYLH/growing+red+beets+in+your+summer+garden.jpg",
-    "experiment_text": "Note that the plants must be at least 2cm tall before starting this experiment.",
-    "start_date": "2022-03-03T15:55:05.933Z",
-    "end_date": "2022-03-03T15:55:05.933Z",
-    "status": "active"
-  }
+  "experiment_summary": [
+    {
+      "id": 0,
+      "title": "Thigmomorphogenesis",
+      "thumbnail": "https://d32vpew203r5a2.cloudfront.net/uploads/2021/10/1525_Dandelion_Hero_Image_Landscape_AW-web.jpg",
+      "owner": "Dandelion"
+    },
+    {
+      "id": 1,
+      "title": "Leaf Experiment",
+      "thumbnail": "https://images.squarespace-cdn.com/content/v1/53726d44e4b07d0c6bf0b106/1535677982492-J7R729ZEBU5DZXV2VYLH/growing+red+beets+in+your+summer+garden.jpg",
+      "owner": "Dandelion"
+    },
+    {
+      "id": 2,
+      "title": "Nutrition Experiment",
+      "thumbnail": "https://www.parkinson.org/sites/default/files/PD-diet.png",
+      "owner": "Dandelion"
+    },
+    {
+      "id": 3,
+      "title": "Drought Experiment",
+      "thumbnail": "https://www.preventionweb.net/sites/default/files/styles/landscape_16_9/public/2021-09/shutterstock_1205889976.jpg?h=22ced3b9&itok=VfRgI_7A",
+      "owner": "Dandelion"
+    }
+  ],
+  "experiment": [
+    {
+      "id": 0,
+      "title": "Thigmomorphogenesis",
+      "description": "When they are growing outside, the wind blows plants about. They may also be pushed or squashed by people or animals. But how do these interactions affect their growth? That is what we aim to find out!",
+      "desc2": "When they are growing outside, the wind blows plants about. They may also be pushed or squashed by people or animals. But how do these interactions affect their growth? That is what we aim to find out!",
+      "experiment_image_link": "https://d32vpew203r5a2.cloudfront.net/uploads/2021/10/1525_Dandelion_Hero_Image_Landscape_AW-web.jpg",
+      "experiment_text": "Note that the plants must be at least 2cm tall before starting this experiment.",
+      "start_date": "2022-03-03T15:55:05.933Z",
+      "end_date": "2022-03-03T15:55:05.933Z",
+      "status": "active",
+      "owner": "Dandelion"
+    },
+    {
+      "id": 1,
+      "title": "Leaf Experiment",
+      "description": "When they are growing outside, the wind blows plants about. They may also be pushed or squashed by people or animals. But how do these interactions affect their growth? That is what we aim to find out!",
+      "experiment_image_link": "https://images.squarespace-cdn.com/content/v1/53726d44e4b07d0c6bf0b106/1535677982492-J7R729ZEBU5DZXV2VYLH/growing+red+beets+in+your+summer+garden.jpg",
+      "experiment_text": "Note that the plants must be at least 2cm tall before starting this experiment.",
+      "start_date": "2022-03-03T15:55:05.933Z",
+      "end_date": "2022-03-03T15:55:05.933Z",
+      "status": "active"
+    },
+    {
+      "id": 2,
+      "title": "Nutrition Experiment",
+      "description": "When they are growing outside, the wind blows plants about. They may also be pushed or squashed by people or animals. But how do these interactions affect their growth? That is what we aim to find out!",
+      "experiment_image_link": "https://www.parkinson.org/sites/default/files/PD-diet.png",
+      "experiment_text": "Note that the plants must be at least 2cm tall before starting this experiment.",
+      "start_date": "2022-03-03T15:55:05.933Z",
+      "end_date": "2022-03-03T15:55:05.933Z",
+      "status": "active"
+    },
+    {
+      "id": 3,
+      "title": "Drought Experiment",
+      "description": "When they are growing outside, the wind blows plants about. They may also be pushed or squashed by people or animals. But how do these interactions affect their growth? That is what we aim to find out!",
+      "experiment_image_link": "https://www.preventionweb.net/sites/default/files/styles/landscape_16_9/public/2021-09/shutterstock_1205889976.jpg?h=22ced3b9&itok=VfRgI_7A",
+      "experiment_text": "Note that the plants must be at least 2cm tall before starting this experiment.",
+      "start_date": "2022-03-03T15:55:05.933Z",
+      "end_date": "2022-03-03T15:55:05.933Z",
+      "status": "active"
+    }
+  ],
+  "experiment_full": [
+    {
+      "id": 0,
+      "treatmentVariables": [
+        {
+          "id": 0,
+          "type": "Discreet",
+          "name": "Touches",
+          "levels": [
+            {
+              "treatment_name": "Touches",
+              "sequence": 1,
+              "name": "Control"
+            },
+            {
+              "treatment_name": "Touches",
+              "sequence": 2,
+              "name": "Light"
+            },
+            {
+              "treatment_name": "Touches",
+              "sequence": 3,
+              "name": "Heavy"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "type": "Discreet",
+          "name": "Nutrition",
+          "levels": [
+            {
+              "treatment_name": "Nutrition",
+              "sequence": 1,
+              "name": "Control"
+            },
+            {
+              "treatment_name": "Nutrition",
+              "sequence": 3,
+              "name": "High"
+            }
+          ]
+        }
+      ],
+      "responseVariables": [
+        {
+          "id": 0,
+          "type": "Continuous",
+          "name": "Length",
+          "unit": "mm",
+          "upper_limit": 100,
+          "lower_limit": 0
+        },
+        {
+          "id": 2,
+          "type": "Continuous",
+          "name": "Stalk Width",
+          "unit": "mm",
+          "upper_limit": 100,
+          "lower_limit": 0
+        }
+      ],
+      "experimentDetails": {
+        "name": "Thigmomorphogenesis",
+        "code": "Code",
+        "description": "Description",
+        "tutorial": "Tutorial",
+        "experiment_image_link": "https://d32vpew203r5a2.cloudfront.net/uploads/2021/10/1525_Dandelion_Hero_Image_Landscape_AW-web.jpg",
+        "start_date": "2022-03-03T15:55:05.933Z",
+        "end_date": "2022-03-03T15:55:05.933Z",
+        "key": "1646776710789"
+      },
+      "combinations": [
+        "{\"treatment_name\":\"Touches\",\"sequence\":2,\"name\":\"Light\"}-{\"treatment_name\":\"Nutrition\",\"sequence\":1,\"name\":\"Control\"}",
+        "{\"treatment_name\":\"Touches\",\"sequence\":1,\"name\":\"Control\"}-{\"treatment_name\":\"Nutrition\",\"sequence\":1,\"name\":\"Control\"}"
+      ]
+    }
   ],
   "node": [
     {

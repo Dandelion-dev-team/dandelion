@@ -5,7 +5,7 @@ export default function ExperimentComponent(props) {
   const [experiments, setExperiment] = useState(0)
   //TESTED
   useEffect(() => {
-    fetch("http://localhost:3000/experiment", {
+    fetch("http://localhost:3000/experiment_summary", {
       method: "GET",
       headers: new Headers({
         "Cache-Control": "no-cache, no-store, must-revalidate",
@@ -17,7 +17,7 @@ export default function ExperimentComponent(props) {
       .then(data => setExperiment(data))
   }, [])
 
-  const editAuth = experiment => {
+  const cardClickCallback = experiment => {
     props.parentCallback(experiment)
   }
 
@@ -31,12 +31,12 @@ export default function ExperimentComponent(props) {
             <div
               className="preset-card"
               onClick={() => {
-                editAuth(experiment)
+                cardClickCallback(experiment)
                 isActive = true
               }}
             >
               <div className="card-img">
-                <img src={experiment.experiment_image_link} />
+                <img src={experiment.thumbnail} />
               </div>
               <div className="item-details">
                 <div className="owner">

@@ -7,9 +7,7 @@ export default function CombinationListComponent(props) {
 
     useEffect(() => {
         if(treatments_JSON.length == 0){
-            var treatments = props.condition.split('-');
-            console.log(treatments);
-            
+            var treatments = props.condition.split('-');            
             treatments.forEach(element => setTreatments(arr => [...arr, JSON.parse(element)]));
         }
         props.checkCallback({ data: props.condition, value: checkbox_value });
