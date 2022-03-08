@@ -36,7 +36,9 @@ export default function ExperimentPane(props) {
               <button 
               className="submitButton"
               onClick={() => {
+                if (typeof window !== `undefined`) {
                 navigate("/activities/create-experiment/summary")
+                }
               }}>Use This Experiment</button>
             </div>
           </div>

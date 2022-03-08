@@ -3,7 +3,6 @@ import Header from "../components/navigation/header"
 import '../styles/App.scss'
 import Card from '../components/cards/projectCard';
 import TuneIcon from '@mui/icons-material/Tune';
-
 export default function Data() {
   const [projectList, setData] = useState(0);
 

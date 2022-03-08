@@ -22,6 +22,7 @@ export default function ProjectMaintenance(props) {
     setModalShown(false);
   } 
 
+  if (typeof window !== `undefined`) {
   return (
     <>
       {modal_shown ? <ActivityCreatedModal callback={modalCallback} />
@@ -41,4 +42,5 @@ export default function ProjectMaintenance(props) {
       </div>
     </>
   )
+  } else {return null}
 }

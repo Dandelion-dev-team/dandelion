@@ -4,7 +4,6 @@ import SideNav from "../../components/navigation/superUserSideNav"
 import SchoolUserComponent from "../../components/tables/schoolUserComponent"
 import SchoolUserPane from "../../components/panes/schoolUserPane"
 import { readRecord } from "../../utils/CRUD"
-
 export default function SchoolUserMaintenance(props) {
   const [userList, setUsers] = useState("")
   const [editing_user, setEditingUser] = useState("")
@@ -17,6 +16,7 @@ export default function SchoolUserMaintenance(props) {
     setEditingUser(childData)
   }
 
+  if (typeof window !== `undefined`) {
   return (
     <div>
       <SideNav />
@@ -36,4 +36,5 @@ export default function SchoolUserMaintenance(props) {
       </div>
     </div>
   )
+  } else {return null}
 }

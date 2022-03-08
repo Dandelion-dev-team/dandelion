@@ -44,20 +44,20 @@ module.exports = {
     `gatsby-plugin-sass`,
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
+    `gatsby-plugin-offline`,
     {
       resolve: `gatsby-plugin-react-i18next`,
       options: {
         localeJsonSourceName: `locale`,
-        languages: [`en`, `gd`, `ar`],
+        languages: [`en`, `gd`],
         defaultLanguage: `en`,
-        fallbacks:{'fr': 'en', 'de': 'en'},
-        siteUrl: `http://localhost:8000/`,
+        defaultLocale: `en`,
+        retryInDefaultLocale: true,
+        fallbacks: `en`,
         i18nextOptions: {
           interpolation: {
             escapeValue: false 
           },
-          keySeparator: false,
           nsSeparator: false
         },
         pages: [

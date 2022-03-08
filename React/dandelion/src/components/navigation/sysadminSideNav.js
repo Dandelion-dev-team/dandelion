@@ -2,7 +2,6 @@ import * as React from "react"
 import { Link, navigate } from "gatsby"
 import logo from "../../images/logo3.svg"
 import { user_logout } from "../../utils/logout";
-const parse = require('../../auth');
 
 export default function SysSideNav() {
   return (

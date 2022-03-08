@@ -58,11 +58,13 @@ export default function ProjectComponent(props) {
           : null}
       </table>
       <div className="add-btn">
-        <button 
-        className="submitButton"
-        onClick={() => {
-          navigate("/activities/create-activity/enter-details")
-        }}>Add Activity</button>
+        <button
+          className="submitButton"
+          onClick={() => {
+            if (typeof window !== `undefined`) {
+              navigate("/activities/create-activity/enter-details")
+            }
+          }}>Add Activity</button>
       </div>
     </div>
   )

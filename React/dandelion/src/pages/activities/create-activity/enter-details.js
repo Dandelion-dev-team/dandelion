@@ -66,7 +66,7 @@ export default function EnterActivityDetails(props) {
                   <h3>Image Link</h3>
                 </div>
                 <div className="image-link">
-                  
+
                 </div>
               </div>
               <div className="inputItem">
@@ -76,7 +76,7 @@ export default function EnterActivityDetails(props) {
                 <div className="item-input">
                   <input
                     type="date"
-                   // placeholder="Activity Code"
+                    // placeholder="Activity Code"
                     name="codeBox"
                   />
                 </div>
@@ -103,8 +103,10 @@ export default function EnterActivityDetails(props) {
               className="submitButton"
               value="Finished"
               onClick={() => {
-                navigate("/superuser/project-maintenance")
-            }}
+                if (typeof window !== `undefined`) {
+                  navigate("/superuser/project-maintenance")
+                }
+              }}
             ></input>
           </div>
           <div className="spacer"></div>

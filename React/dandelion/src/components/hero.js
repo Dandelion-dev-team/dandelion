@@ -3,10 +3,11 @@ import { useStaticQuery, graphql } from "gatsby"
 import Img from "gatsby-image"
 import { Link, navigate } from "gatsby"
 import { Trans, useTranslation } from "gatsby-plugin-react-i18next"
+export const isBrowser = () => typeof window !== "undefined"
 
 const Hero = () => {
   const data = useStaticQuery(graphql`
-    query {
+    query{
       heroImage: file(relativePath: { eq: "banner3.jpeg" }) {
         childImageSharp {
           fluid {
@@ -24,25 +25,26 @@ const Hero = () => {
       }
     }
   `)
-
   const { t } = useTranslation()
-
-  return (
-    <div className="hero-blurb">
-      <div className="container">
-        <div className="inner-hero">
-          <div className="images">
-            <div className="feat-img">
-              <div className="desktopImage">
-                <Img fluid={data.heroImage.childImageSharp.fluid} />
-              </div>
-              <div className="mobileImage">
-                <Img
-                  fluid={data.mobileHeroImage.childImageSharp.fluid} />
+  if (!isBrowser) {
+    return;
+  } else {
+    return (
+      <div className="hero-blurb">
+        <div className="container">
+          <div className="inner-hero">
+            <div className="images">
+              <div className="feat-img">
+                <div className="desktopImage">
+                  <Img fluid={data.heroImage.childImageSharp.fluid} />
+                </div>
+                <div className="mobileImage">
+                  <Img
+                    fluid={data.mobileHeroImage.childImageSharp.fluid} />
+                </div>
               </div>
             </div>
-          </div>
-          <div className="content">
+            <div className="content">
             <h3>
               <Trans>The Dandelion Schools' Growing Initiative</Trans>
             </h3>
@@ -61,12 +63,13 @@ const Hero = () => {
               >
                 {t("Log In")}
               </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
 export default Hero

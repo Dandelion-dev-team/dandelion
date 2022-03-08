@@ -1,5 +1,4 @@
 import React from 'react'
-const parse = require("../auth")
 
 export function createRecord(endpoint, body) {
     let  token = JSON.parse(localStorage.getItem('accessToken'));

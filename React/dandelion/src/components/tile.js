@@ -10,7 +10,9 @@ export default function Tile(props) {
                 onMouseEnter={() => setShown(true)}
                 onMouseLeave={() => setShown(false)}
                 onClick={() => {
+                    if (typeof window !== `undefined`) {
                     navigate(props.link)
+                    }
                 }}>
                 <img src={props.tile_image}></img>
                 {show ?  <h3 className="centeredText">{props.name}</h3> : null}

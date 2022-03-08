@@ -68,7 +68,9 @@ export default function PredefinedExperiments(props) {
                   <button
                     className="submitButton"
                     onClick={() => {
+                      if (typeof window !== `undefined`) {
                       navigate("/activities/create-experiment/enter-details")
+                      }
                     }}
                   >
                     Create Own Experiment
