@@ -3,17 +3,17 @@ import { navigate } from "gatsby"
 import Header from "../../../components/header"
 import "../../../styles/App.scss"
 
-export default function FirstActPage(props) {
+export default function fourthExpPage(props) {
   return (
     <div>
-      <div className="activity-container">
+      <div className="create-exp-container">
         <div className="content">
-          <div className="text-content">
-            <h3>Activity Creation</h3>
-            <p>Tell us about your activity.</p>
+          <div className="title-content">
+            <h3>Experiment Creation</h3>
+            <p>Tell us about your experiment</p>
           </div>
-          <div className="activity-form">
-            <div className="activity-pane">
+          <div className="experiment-form">
+            <div className="experiment-pane">
               <div className="inputItem">
                 <div className="item-title">
                   <h3>Name:</h3>
@@ -27,49 +27,14 @@ export default function FirstActPage(props) {
                 </div>
               </div>
               <div className="inputItem">
-                <div className="item-title">
-                  <h3>Code:</h3>
-                </div>
-                <div className="item-input">
-                  <input
-                    type="text"
-                    placeholder="Activity Code"
-                    name="codeBox"
-                  />
-                </div>
-              </div>
-              <div className="inputItem">
                 <div className="desc-title">
                   <h3>Description:</h3>
                 </div>
                 <div className="desc-input">
-                  <input
-                    type="text"
-                    placeholder="Description"
-                    name="descBox"
-                  />
+                  <input type="text" placeholder="Description" name="descBox" />
                 </div>
-              </div>
-              <div className="inputItem">
-                <div className="desc-title">
-                  <h3>Tutorial Text:</h3>
-                </div>
-                <div className="desc-input">
-                  <input
-                    type="text"
-                    placeholder="Tutorial Text"
-                    name="tutBox"
-                  />
-                </div>
-              </div>
-              <div className="inputItem">
-                <div className="desc-title">
-                  <h3>Image Link</h3>
-                </div>
-                <div className="image-link">
-                  
-                </div>
-              </div>
+              </div>           
+             
               <div className="inputItem">
                 <div className="item-title">
                   <h3>Start Date:</h3>
@@ -77,7 +42,7 @@ export default function FirstActPage(props) {
                 <div className="item-input">
                   <input
                     type="date"
-                   // placeholder="Activity Code"
+                    // placeholder="Activity Code"
                     name="codeBox"
                   />
                 </div>
@@ -105,7 +70,7 @@ export default function FirstActPage(props) {
               value="Finished"
               onClick={() => {
                 navigate("/maintenance/superuser/project-maintenance")
-            }}
+              }}
             ></input>
           </div>
           <div className="spacer"></div>

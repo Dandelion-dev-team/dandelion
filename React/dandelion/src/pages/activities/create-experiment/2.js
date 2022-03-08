@@ -104,7 +104,7 @@ export default function SecondExpPage(props) {
                     className="submitButton"
                     value="Continue"
                     onClick={() => {
-                      navigate("/maintenance/superuser/project-maintenance")
+                      navigate("/activities/create-experiment/3")
                     }}
                   ></input>
                 </div>
