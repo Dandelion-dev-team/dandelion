@@ -9,16 +9,29 @@ export default function SelectCombinations(props) {
 
   const [combination_list, setCombinationList] = useState("");
   const [combination_selected, setCombinationSelected] = useState([]);
+  const [experiment_details, setExperimentDetails] = useState("")
 
   useEffect(() => {
     var variables = [];
-    let treatments = props.location.state.treatmentVariables;
-    console.log(treatments)
-    if (props) {
-      treatments.forEach(treatment => variables.push(treatment.levels));
+    if (props.location.state) {
+      console.log(props.location.state)
+
+      setExperimentDetails(props.location.state.experimentDetails);
+      setTreatment(props.location.state.treatmentVariables);
+      setResponse(props.location.state.responseVariables);
+
+      let treatments = props.location.state.treatmentVariables;
+      if (props) {
+        treatments.forEach(treatment => variables.push(treatment.levels));
+      }
+      let combinations = allPossibleCases(variables);
+      setCombinationList(combinations);
+    } else {
+      if (typeof window !== `undefined`) {
+        navigate(
+          "/activities/create-experiment/enter-details")
+      }
     }
-    let combinations = allPossibleCases(variables);
-    setCombinationList(combinations)
   }, []);
 
   function allPossibleCases(arr) {
@@ -64,7 +77,10 @@ export default function SelectCombinations(props) {
               value="Continue"
               onClick={() => {
                 if (typeof window !== `undefined`) {
-                  navigate("/activities/create-experiment/summary")
+                  navigate("/activities/create-experiment/summary",
+                  {
+                      state: {treatmentVariables: treatment_variables, responseVariables: response_variables, experimentDetails: experiment_details, combinations: combination_selected},
+                  })
                   }
               }}
             ></input>

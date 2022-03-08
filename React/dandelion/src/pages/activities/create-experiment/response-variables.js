@@ -16,6 +16,7 @@ export default function ResponseVariables(props) {
 
     const [selected_list, updateSelectedList] = useState([]);
     const [treatment_variables_list, setTreatmentVariables] = useState([]);
+    const [experiment_details, setExperimentDetails] = useState("")
 
     const handleSearchValueChange = e => {
         changeSearch(e.target.value)
@@ -60,7 +61,16 @@ export default function ResponseVariables(props) {
     }
 
     useEffect(() => {
-        setTreatmentVariables(props.location.state.treatmentVariables);
+        if (props.location.state) {
+            console.log(props.location.state)
+            setExperimentDetails(props.location.state);
+            setTreatmentVariables(props.location.state.treatmentVariables);
+          } else {
+            if (typeof window !== `undefined`) {
+              navigate(
+                "/activities/create-experiment/enter-details")
+            }
+          }
         // Update the document title using the browser API
         fetch("http://localhost:3000/responseVariableShortlist", {
             method: "GET",
@@ -133,7 +143,7 @@ export default function ResponseVariables(props) {
                                             if (typeof window !== `undefined`) {
                                             navigate("/activities/create-experiment/select-conditions",
                                             {
-                                                state: {treatmentVariables: treatment_variables_list, responseVariables: selected_list},
+                                                state: {treatmentVariables: treatment_variables_list, responseVariables: selected_list, experimentDetails: experiment_details},
                                             });
                                         }
                                         }}

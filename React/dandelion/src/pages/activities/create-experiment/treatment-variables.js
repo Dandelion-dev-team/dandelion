@@ -16,6 +16,8 @@ export default function TreatmentVariables(props) {
   const [full_detail_variable, setDetailVariable] = useState("")
   const [modal_editing, setModalEditing] = useState()
   const [modal_shown, setModalShown] = useState("")
+  const [experiment_details, setExperimentDetails] = useState("")
+
   const [cont_modal_shown, setContModalShown] = useState("")
 
 
@@ -67,9 +69,18 @@ export default function TreatmentVariables(props) {
       .then(setShowDetails(true))
   }
 
-  
+
 
   useEffect(() => {
+    if (props.location.state) {
+      console.log(props.location.state)
+      setExperimentDetails(props.location.state);
+    } else {
+      if (typeof window !== `undefined`) {
+        navigate(
+          "/activities/create-experiment/enter-details")
+      }
+    }
     setContModalShown(true)
     // Update the document title using the browser API
     fetch("http://localhost:3000/treatmentVariablesShortlist", {
@@ -86,9 +97,9 @@ export default function TreatmentVariables(props) {
 
   return (
     <div>
-       {modal_shown ? <VariableTypeModal callback={modalCallback} />
+      {modal_shown ? <VariableTypeModal callback={modalCallback} />
         : null}
-        {/* {cont_modal_shown ? <ContinuousVariableModal callback={modalCallback} />
+      {/* {cont_modal_shown ? <ContinuousVariableModal callback={modalCallback} />
         : null} */}
       {show_details ? (
         <ViewDetailedVariable
@@ -146,11 +157,11 @@ export default function TreatmentVariables(props) {
                 <div className="selected-list">
                   {selected_list
                     ? selected_list.map(variable => (
-                        <VariableSelectedComponent
-                          editCallback={handleEditCallback}
-                          data={variable}
-                        />
-                      ))
+                      <VariableSelectedComponent
+                        editCallback={handleEditCallback}
+                        data={variable}
+                      />
+                    ))
                     : null}
                 </div>
                 <div className="btn-row">
@@ -172,7 +183,7 @@ export default function TreatmentVariables(props) {
                           navigate(
                             "/activities/create-experiment/response-variables",
                             {
-                              state: { treatmentVariables: selected_list },
+                              state: { experimentDetails: experiment_details, treatmentVariables: selected_list },
                             }
                           )
                         }
