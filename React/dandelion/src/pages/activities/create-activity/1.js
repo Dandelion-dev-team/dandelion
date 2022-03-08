@@ -3,7 +3,7 @@ import { navigate } from "gatsby"
 import Header from "../../../components/header"
 import "../../../styles/App.scss"
 
-export default function firstActPage(props) {
+export default function FirstActPage(props) {
   return (
     <div>
       <div className="activity-container">
@@ -60,6 +60,14 @@ export default function firstActPage(props) {
                     placeholder="Tutorial Text"
                     name="tutBox"
                   />
+                </div>
+              </div>
+              <div className="inputItem">
+                <div className="desc-title">
+                  <h3>Image Link</h3>
+                </div>
+                <div className="image-link">
+                  
                 </div>
               </div>
               <div className="inputItem">

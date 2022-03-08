@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import { navigate } from "gatsby"
 import "../styles/App.scss"
 //import { readRecord } from "../utils/CRUD"
 
@@ -57,7 +58,11 @@ export default function ProjectComponent(props) {
           : null}
       </table>
       <div className="add-btn">
-        <button className="submitButton">Add Activity</button>
+        <button 
+        className="submitButton"
+        onClick={() => {
+          navigate("/activities/create-experiment/1")
+        }}>Add Activity</button>
       </div>
     </div>
   )
