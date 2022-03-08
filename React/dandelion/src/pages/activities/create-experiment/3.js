@@ -5,14 +5,15 @@ import TuneIcon from "@mui/icons-material/Tune"
 import VariableListComponent from "../../../components/variableListComponent"
 import ViewDetailedVariable from "../../../components/Modals/viewDetailedVariable"
 import VariableSelectedComponent from "../../../components/variableSelectedComponent"
+import PaginationComponent from "../../../components/pagination"
+import { navigate } from "gatsby"
 
 export default function ThirdExpPage(props) {
   const [search_value, changeSearch] = useState("")
   const [variable_list, setVariables] = useState("")
   const [show_details, setShowDetails] = useState("")
   const [full_detail_variable, setDetailVariable] = useState("")
-  const [help_response, setHelpResponse] = useState("")
-
+  const [modal_editing, setModalEditing] = useState()
 
   const [selected_list, updateSelectedList] = useState([])
 
@@ -33,7 +34,7 @@ export default function ThirdExpPage(props) {
     }
   }
 
-  const handleCallback = index => {
+  const handleDetailCallback = index => {
     fetch("http://localhost:3000/treatmentVariableFull/" + index, {
       method: "GET",
       headers: new Headers({
@@ -44,6 +45,21 @@ export default function ThirdExpPage(props) {
     })
       .then(response => response.json())
       .then(data => setDetailVariable(data))
+      .then(setModalEditing(false))
+      .then(setShowDetails(true))
+  }
+  const handleEditCallback = index => {
+    fetch("http://localhost:3000/treatmentVariableFull/" + index, {
+      method: "GET",
+      headers: new Headers({
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        Pragma: "no-cache",
+        Expires: 0,
+      }),
+    })
+      .then(response => response.json())
+      .then(data => setDetailVariable(data))
+      .then(setModalEditing(true))
       .then(setShowDetails(true))
   }
 
@@ -67,9 +83,9 @@ export default function ThirdExpPage(props) {
         <ViewDetailedVariable
           callback={modalCallback}
           variable={full_detail_variable}
+          startEditing={modal_editing}
         />
       ) : null}
-     
       <div className="treatment-container">
         <div className="content">
           <div className="content-wrapper">
@@ -100,7 +116,7 @@ export default function ThirdExpPage(props) {
                     variable_list.map(variable => (
                       <VariableListComponent
                         mappedValue={variable}
-                        detailCallback={handleCallback}
+                        detailCallback={handleDetailCallback}
                         checkCallback={checkboxCallback}
                       />
                     ))
@@ -108,6 +124,7 @@ export default function ThirdExpPage(props) {
                     <h3>No Experiments found</h3>
                   )}
                 </div>
+                <PaginationComponent pageIndex={2} numPages={4} />
               </div>
             </div>
             <div className="treatment-selected-pane">
@@ -118,19 +135,34 @@ export default function ThirdExpPage(props) {
                 <div className="selected-list">
                   {selected_list
                     ? selected_list.map(variable => (
-                        <VariableSelectedComponent data={variable} />
+                        <VariableSelectedComponent
+                          editCallback={handleEditCallback}
+                          data={variable}
+                        />
                       ))
                     : null}
                 </div>
-                <div className="add-new-btn">
-                  <div className="spacer" />
-                  <div className="add-btn">
+                <div className="btn-row">
+                  <input
+                    type="submit"
+                    className="add-new-btn"
+                    value="Add new variable"
+                    onClick={() => {
+                      console.log("")
+                    }}
+                  ></input>
+                  {selected_list.length > 0 ? (
                     <input
                       type="submit"
-                      className="submitButton"
-                      value="Add New"
-                    />
-                  </div>
+                      className="continue-btn"
+                      value="Continue"
+                      onClick={() => {
+                        navigate("/activities/create-experiment/4", {
+                          state: { treatmentVariables: selected_list },
+                        })
+                      }}
+                    ></input>
+                  ) : null}
                 </div>
               </div>
             </div>

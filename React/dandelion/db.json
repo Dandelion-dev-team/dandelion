@@ -352,95 +352,235 @@
   "treatmentVariablesShortlist": [
     {
       "id": 0,
+      "type": "Discreet",
+      "name": "Touches",
+      "levels": [
+        {
+          "sequence": 1,
+          "name": "Control"
+        },
+        {
+          "sequence": 2,
+          "name": "Light"
+        },
+        {
+          "sequence": 3,
+          "name": "Heavy"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "type": "Discreet",
+      "name": "Nutrition",
+      "levels": [
+        {
+          "sequence": 1,
+          "name": "Control"
+        },
+        {
+          "sequence": 2,
+          "name": "Low"
+        },
+        {
+          "sequence": 3,
+          "name": "High"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "type": "Discreet",
+      "name": "Light",
+      "levels": [
+        {
+          "sequence": 1,
+          "name": "Control"
+        },
+        {
+          "sequence": 2,
+          "name": "Low"
+        },
+        {
+          "sequence": 3,
+          "name": "High"
+        }
+      ]
+    }
+  ],
+  "responseVariableShortlist": [
+    {
+      "id": 0,
       "type": "Continuous",
-      "name": "Humidity",
-      "unit": "%",
+      "name": "Length",
+      "unit": "mm",
       "upper_limit": 100,
       "lower_limit": 0
     },
     {
       "id": 1,
-      "type": "Test",
-      "name": "Temperature",
-      "unit": "°C",
-      "upper_limit": 100,
-      "lower_limit": 0
+      "type": "Discreet",
+      "name": "Stalk Strength",
+      "levels": [
+        {
+          "sequence": 1,
+          "name": "Brittle"
+        },
+        {
+          "sequence": 2,
+          "name": "Spongey"
+        },
+        {
+          "sequence": 3,
+          "name": "Durable"
+        }
+      ]
     },
     {
       "id": 2,
       "type": "Continuous",
-      "name": "Light Level",
-      "unit": "lux",
+      "name": "Stalk Width",
+      "unit": "mm",
       "upper_limit": 100,
       "lower_limit": 0
     },
     {
       "id": 3,
       "type": "Continuous",
-      "name": "Conductivity",
-      "unit": "uS/cm",
-      "upper_limit": 100,
+      "name": "Largest Leaf",
+      "unit": "mm",
+      "upper_limit": 50,
       "lower_limit": 0
     },
     {
       "id": 4,
       "type": "Continuous",
-      "name": "pH",
-      "unit": "pH",
-      "upper_limit": 14,
+      "name": "Breaking Angle",
+      "unit": "mm",
+      "upper_limit": 100,
       "lower_limit": 0
     }
   ],
   "treatmentVariableFull": [
     {
       "id": 0,
-      "type": "Continuous",
-      "name": "Humidity",
-      "unit": "%",
-      "upper_limit": 100,
-      "lower_limit": 0,
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      "procedure": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      "type": "Discreet",
+      "name": "Touches",
+      "levels": [
+        {
+          "sequence": 1,
+          "name": "Control"
+        },
+        {
+          "sequence": 2,
+          "name": "Light"
+        },
+        {
+          "sequence": 3,
+          "name": "Heavy"
+        }
+      ]
     },
     {
       "id": 1,
+      "type": "Discreet",
+      "name": "Nutrition",
+      "levels": [
+        {
+          "sequence": 1,
+          "name": "Control"
+        },
+        {
+          "sequence": 2,
+          "name": "Light"
+        },
+        {
+          "sequence": 3,
+          "name": "Heavy"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "type": "Discreet",
+      "name": "Light",
+      "levels": [
+        {
+          "sequence": 1,
+          "name": "Control"
+        },
+        {
+          "sequence": 2,
+          "name": "Low"
+        },
+        {
+          "sequence": 3,
+          "name": "High"
+        }
+      ]
+    }
+  ],
+  "responseVariableFull": [
+    {
+      "id": 0,
       "type": "Continuous",
-      "name": "Temperature",
-      "unit": "°C",
+      "name": "Length",
+      "unit": "mm",
+      "description": "Length description ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "procedure": "Length Procedure ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       "upper_limit": 100,
-      "lower_limit": 0,
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      "procedure": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      "lower_limit": 0
+    },
+    {
+      "id": 1,
+      "type": "Discreet",
+      "name": "Stalk Strength",
+      "description": "Stalk strength description ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "procedure": "Stalk strength Procedure ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "levels": [
+        {
+          "sequence": 1,
+          "name": "Brittle"
+        },
+        {
+          "sequence": 2,
+          "name": "Spongey"
+        },
+        {
+          "sequence": 3,
+          "name": "Durable"
+        }
+      ]
     },
     {
       "id": 2,
       "type": "Continuous",
-      "name": "Light Level",
-      "unit": "lux",
+      "name": "Stalk Width",
+      "description": "Stalk Width description ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "procedure": "Stalk width Procedure ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "unit": "mm",
       "upper_limit": 100,
-      "lower_limit": 0,
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      "procedure": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      "lower_limit": 0
     },
     {
       "id": 3,
       "type": "Continuous",
-      "name": "Conductivity",
-      "unit": "uS/cm",
-      "upper_limit": 100,
-      "lower_limit": 0,
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      "procedure": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      "name": "Largest Leaf",
+      "description": "Largest Leaf description ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "procedure": "Largest leaf Procedure ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "unit": "mm",
+      "upper_limit": 50,
+      "lower_limit": 0
     },
     {
       "id": 4,
       "type": "Continuous",
-      "name": "pH",
-      "unit": "pH",
-      "upper_limit": 14,
-      "lower_limit": 0,
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      "procedure": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      "name": "Breaking Angle",
+      "description": "Breaking angle description ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "procedure": "breaking angle Procedure ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "unit": "°",
+      "upper_limit": 180,
+      "lower_limit": 0
     }
   ]
 }

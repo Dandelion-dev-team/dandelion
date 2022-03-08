@@ -15,23 +15,23 @@
       flex-direction: column;
       width: 60%;
       display: inline;
+      margin-left: 3rem;
       h3 {
          margin-top: 1.5rem;
-         margin-left: 3rem;
          line-height: 0.5rem;
       }
 
       .title-text {
          h3 {
             font-size: 1.5vw;
-            margin-left: 3rem;
             line-height: 0.5rem;
          }
       }
       .sub-text {
+         display: flex;
+         flex-direction: row;
          h3 {
             font-size: 1.2vw;
-            margin-left: 3rem;
             line-height: 0.5rem;
             margin-top: 1rem;
             color: #a9a9a9;

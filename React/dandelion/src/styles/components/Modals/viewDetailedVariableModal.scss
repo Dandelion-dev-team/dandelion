@@ -12,12 +12,13 @@
         background-color: white;
         border-radius: 20px;
         width: 40vw;
-        height: 80vh;
+        height: auto;
+        max-height: 90%;
         padding: 2.5rem;
         display: flex;
 
         .panel-content{
-            display: flex;
+            display: block;
             flex-direction: column;
             text-align: center;
             width: 100%;
@@ -85,6 +86,7 @@
                     color: $primary;
                     font-size: 1.6rem;
                     margin: 1rem 0px;
+                    margin-top: 3rem;
                     padding: 15px;
                     border: none;
                     cursor: pointer;

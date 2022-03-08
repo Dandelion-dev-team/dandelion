@@ -1,5 +1,5 @@
 import { navigate } from "gatsby"
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import EditIcon from '@mui/icons-material/Edit';
 
 export default function ViewDetailedVariable(props) {
@@ -10,6 +10,17 @@ export default function ViewDetailedVariable(props) {
     const [unit, setUnit] = useState("");
     const [upperLimit, setUpperLimit] = useState("");
     const [lowerLimit, setLowerLimit] = useState("");
+
+    useEffect(() => {
+        if(props.startEditing == true){
+            setEditing(true);
+            setDescription(props.variable.description);
+            setTutorial(props.variable.procedure);
+            setUnit(props.variable.unit);
+            setUpperLimit(props.variable.upper_limit);
+            setLowerLimit(props.variable.lower_limit);
+        }
+    }, [])
 
     const handleDescChange = e => {
         setDescription(e.target.value);
@@ -148,6 +159,15 @@ export default function ViewDetailedVariable(props) {
                                 props.callback()
                             }}
                         ></input>
+
+                        {editing ?                         <input
+                            type="submit"
+                            className="closeButton"
+                            value="Save"
+                            onClick={() => {
+                                props.callback()
+                            }}
+                        ></input> : null}
                     </div>
                 </div>
             </div>

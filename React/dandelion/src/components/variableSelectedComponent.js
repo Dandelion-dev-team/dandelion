@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "../styles/App.scss"
 
 export default function VariableSelectedComponent(props) {
-    console.log(props.data);
     return (
         <div className="selected-item">
             <div className="text-content">
@@ -10,7 +9,11 @@ export default function VariableSelectedComponent(props) {
                     <h3>{props.data.name}</h3>
                 </div>
                 <div className="sub-text">
-                    <h3>Unit: {props.data.unit}, {props.data.type}, {props.data.lower_limit} - {props.data.upper_limit}</h3>
+                {props.data.type == "Continuous" ?
+                    <h3>Unit: {props.data.unit}, {props.data.lower_limit} - {props.data.upper_limit}</h3>
+                    :
+                    props.data.levels.map(variable => (<h3>{variable.name}, &nbsp;</h3>))}  
+                   
                 </div>
             </div>
             <div className="button-content">
@@ -18,7 +21,7 @@ export default function VariableSelectedComponent(props) {
                 value="Edit"
                 type="submit"
                 className="submitButton"
-                onClick={() => { console.log("guy") }}>
+                onClick={() => {props.editCallback(props.data.id)}}>
             </input> 
             </div>
         </div>

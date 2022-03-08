@@ -30,6 +30,8 @@ $font: "Helvetica Neue", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
 @import "./components/experimentPane.scss";
 @import "./components/variableListComponent.scss";
 
+@import "./components/pagination.scss";
+
 
 //@import "./components/footer.scss";
 @import "./components/signin-form.scss";
@@ -55,6 +57,7 @@ $font: "Helvetica Neue", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
 @import "./pages/superuser-settings.scss";
 @import "./pages/sysadmin-dashboard.scss";
 @import "./pages/firstActPage.scss";
+@import "./pages/selectConditions.scss";
 
 @import "./pages/firstExpPage.scss";
 @import "./pages/secondExpPage.scss";
