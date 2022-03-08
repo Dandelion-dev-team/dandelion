@@ -1,0 +1,29 @@
+.combination-container{
+    display: flex;
+    width: 90%;
+    height: 10vh;
+    background-color: white;
+    border-radius: 20px;
+    margin-top: 1rem;
+
+    .combination-content{
+        display: flex;
+        flex-direction: row;
+        margin-left: 1vw;
+        align-items: center;
+        .checkbox {
+            margin-left: 2rem;
+            width: 2vw;
+            height: 2vw;
+        }
+    
+        h3{
+            margin-left: 1vw;
+            color: $primary;
+            font-size: 1.5vw;
+            margin-bottom: 0;
+        }
+    }
+
+
+}

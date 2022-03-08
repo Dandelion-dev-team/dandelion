@@ -3,8 +3,8 @@
     color: $white;
     position: relative;
     display: flex;
-    align-items: center;
     height: 100vh;
+    align-items: center;
     overflow-y: hidden;
     flex-direction: column;
     justify-content: space-around;
@@ -14,8 +14,8 @@
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
-      width: 85%;
       height: 90vh;
+      width: 85%;
   
       .text-content {
         display: flex;
@@ -35,10 +35,11 @@
       }
       .condition-list {
         width: 40%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        background-color: white;
+        height: 90%;
+        overflow-y: auto;
+      }
+      .condition-list::-webkit-scrollbar {
+        display: none; /* for Chrome, Safari, and Opera */
       }
     }
 }

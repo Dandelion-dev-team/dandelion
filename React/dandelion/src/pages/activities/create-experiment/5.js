@@ -1,20 +1,23 @@
 import React, { useEffect, useState, useRef } from "react"
+import CombinationListComponent from "../../../components/combinationListComponent";
 import "../../../styles/App.scss"
 
 export default function FifthCreateExperiment(props) {
     const [treatment_variables, setTreatment] = useState("");
     const [response_variables, setResponse] = useState("");
-      
+    
+    const [combination_list, setCombinationList] = useState("");
+
     useEffect(() => {
         var variables = [];
         let treatments = props.location.state.treatmentVariables;
         console.log(treatments)
         if (props) {            
-            treatments.forEach(treatment => variables.push(treatment));
+            treatments.forEach(treatment => variables.push(treatment.levels));
         }
         console.log(variables);
-        //let combinations = allPossibleCases(variables);
-        //console.log(combinations)
+        let combinations = allPossibleCases(variables);
+        setCombinationList(combinations)
     }, []);
 
     function allPossibleCases(arr) {
@@ -25,7 +28,7 @@ export default function FifthCreateExperiment(props) {
           var allCasesOfRest = allPossibleCases(arr.slice(1));
           for (var i = 0; i < allCasesOfRest.length; i++) {
             for (var j = 0; j < arr[0].length; j++) {
-              result.push(arr[0][j] + allCasesOfRest[i]);
+              result.push(JSON.stringify(arr[0][j]) + "-" +JSON.stringify(allCasesOfRest[i]));
             }
           }
           return result;
@@ -36,12 +39,12 @@ export default function FifthCreateExperiment(props) {
         <div className="conditions-container">
             <div className="content">
                 <div className="text-content">
-                    <h3>Select your Reponse Variables</h3>
-                    <p>Select your Reponse Variables</p>
+                    <h3>Select your Conditions</h3>
+                    <p>Here you select the conditions for your experiment - for example, you may not require each combination of treatment variable to be represented in the experiment.</p>
                 </div>
                 <div className="condition-list">
-                    {treatment_variables ? <h3>{treatment_variables[0].levels[0].name}</h3>
-                        : null}
+                    <h3>{combination_list.length} conditions generated</h3>
+                    {combination_list ? combination_list.map(variable => (<CombinationListComponent condition={variable} />)) : null}
                 </div>
             </div>
         </div>

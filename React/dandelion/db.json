@@ -356,14 +356,17 @@
       "name": "Touches",
       "levels": [
         {
+          "treatment_name": "Touches",
           "sequence": 1,
           "name": "Control"
         },
         {
+          "treatment_name": "Touches",
           "sequence": 2,
           "name": "Light"
         },
         {
+          "treatment_name": "Touches",
           "sequence": 3,
           "name": "Heavy"
         }
@@ -375,14 +378,12 @@
       "name": "Nutrition",
       "levels": [
         {
+          "treatment_name": "Nutrition",
           "sequence": 1,
           "name": "Control"
         },
         {
-          "sequence": 2,
-          "name": "Low"
-        },
-        {
+          "treatment_name": "Nutrition",
           "sequence": 3,
           "name": "High"
         }
@@ -394,14 +395,12 @@
       "name": "Light",
       "levels": [
         {
+          "treatment_name": "Light",
           "sequence": 1,
           "name": "Control"
         },
         {
-          "sequence": 2,
-          "name": "Low"
-        },
-        {
+          "treatment_name": "Light",
           "sequence": 3,
           "name": "High"
         }
