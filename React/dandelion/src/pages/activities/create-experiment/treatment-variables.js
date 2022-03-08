@@ -6,6 +6,8 @@ import ViewDetailedVariable from "../../../components/Modals/viewDetailedVariabl
 import VariableSelectedComponent from "../../../components/cards/variableSelectedComponent"
 import PaginationComponent from "../../../components/navigation/pagination"
 import { navigate } from "gatsby"
+import VariableTypeModal from "../../../components/Modals/variableTypeModal"
+import ContinuousVariableModal from "../../../components/Modals/continuousVariableModal"
 
 export default function TreatmentVariables(props) {
   const [search_value, changeSearch] = useState("")
@@ -13,6 +15,9 @@ export default function TreatmentVariables(props) {
   const [show_details, setShowDetails] = useState("")
   const [full_detail_variable, setDetailVariable] = useState("")
   const [modal_editing, setModalEditing] = useState()
+  const [modal_shown, setModalShown] = useState("")
+  const [cont_modal_shown, setContModalShown] = useState("")
+
 
   const [selected_list, updateSelectedList] = useState([])
 
@@ -62,7 +67,10 @@ export default function TreatmentVariables(props) {
       .then(setShowDetails(true))
   }
 
+  
+
   useEffect(() => {
+    setContModalShown(true)
     // Update the document title using the browser API
     fetch("http://localhost:3000/treatmentVariablesShortlist", {
       method: "GET",
@@ -78,6 +86,10 @@ export default function TreatmentVariables(props) {
 
   return (
     <div>
+       {modal_shown ? <VariableTypeModal callback={modalCallback} />
+        : null}
+        {/* {cont_modal_shown ? <ContinuousVariableModal callback={modalCallback} />
+        : null} */}
       {show_details ? (
         <ViewDetailedVariable
           callback={modalCallback}
@@ -145,9 +157,9 @@ export default function TreatmentVariables(props) {
                   <input
                     type="submit"
                     className="add-new-btn"
-                    value="Add new variable"
+                    value="Add New Variable"
                     onClick={() => {
-                      console.log("")
+                      setModalShown(true)
                     }}
                   ></input>
                   {selected_list.length > 0 ? (
@@ -157,11 +169,14 @@ export default function TreatmentVariables(props) {
                       value="Continue"
                       onClick={() => {
                         if (typeof window !== `undefined`) {
-                        navigate("/activities/create-experiment/response-variables", {
-                          state: { treatmentVariables: selected_list },
-                        })
+                          navigate(
+                            "/activities/create-experiment/response-variables",
+                            {
+                              state: { treatmentVariables: selected_list },
+                            }
+                          )
+                        }
                       }}
-                    }
                     ></input>
                   ) : null}
                 </div>

@@ -23,11 +23,6 @@ export default function PredefinedExperiments(props) {
     setEditingProject(childData)
   }
 
-  const modalCallback = prop => {
-    console.log("called + " + prop)
-    setModalShown(false)
-  }
-
   var isActive = true
   var className = isActive ? "active" : ""
 
@@ -69,7 +64,7 @@ export default function PredefinedExperiments(props) {
                     className="submitButton"
                     onClick={() => {
                       if (typeof window !== `undefined`) {
-                      navigate("/activities/create-experiment/enter-details")
+                        navigate("/activities/create-experiment/enter-details")
                       }
                     }}
                   >
