@@ -1,5 +1,5 @@
 import React from "react"
-import Header from "../components/header"
+import Header from "../components/navigation/header"
 import "../styles/App.scss"
 import { Trans, useTranslation } from "gatsby-plugin-react-i18next"
 import { graphql } from "gatsby"

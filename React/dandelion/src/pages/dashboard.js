@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import '../styles/App.scss'
-import Header from "../components/header"
+import Header from "../components/navigation/header"
 import Tile from "../components/tile"
 import school from '../images/school_tile.png';
 import map from '../images/map.png';

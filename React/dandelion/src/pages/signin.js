@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import Header from "../components/header"
+import Header from "../components/navigation/header"
 import "../styles/App.scss"
 import { navigate } from "gatsby"
 import { useFormik } from "formik"
