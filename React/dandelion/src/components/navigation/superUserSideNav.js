@@ -13,13 +13,13 @@ export default function SideNav() {
               <img src={logo} />
             </Link>
           </div>
-          <Link to="/maintenance/superuser/superuser-dashboard">Dashboard</Link>
-          <Link to="/maintenance/superuser/project-maintenance">Activities</Link>
-          <Link to="/maintenance/superuser/superuser-help">Help</Link>
-          <Link to="/maintenance/superuser/superuser-alerts">Alerts</Link>
-          <Link to="/maintenance/superuser/school-user-maintenance">Students</Link>
-          <Link to="/maintenance/superuser/superuser-templates">Templates</Link>
-          <Link to="/maintenance/superuser/superuser-settings">Settings</Link>
+          <Link to="/superuser/dashboard">Dashboard</Link>
+          <Link to="/superuser/project-maintenance">Activities</Link>
+          <Link to="/superuser/help">Help</Link>
+          <Link to="/superuser/alerts">Alerts</Link>
+          <Link to="/superuser/school-user-maintenance">Students</Link>
+          <Link to="/superuser/templates">Templates</Link>
+          <Link to="/superuser/settings">Settings</Link>
           <div className="news-pane">
             <h3>News</h3>
           </div>

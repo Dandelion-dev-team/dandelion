@@ -68,7 +68,7 @@ export default function enterDetails(props) {
               className="submitButton"
               value="Finished"
               onClick={() => {
-                navigate("/maintenance/superuser/project-maintenance")
+                navigate("/activities/create-experiment/treatment-variables")
               }}
             ></input>
           </div>

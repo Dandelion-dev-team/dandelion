@@ -7,7 +7,6 @@ import map from '../images/map.png';
 import about from '../images/about_icon.png';
 import chart from '../images/chart.png';
 import add_data from '../images/add data.png';
-import { navigate } from "gatsby";
 
 export default function Dashboard() {
     const [savedData, setData] = useState(0);

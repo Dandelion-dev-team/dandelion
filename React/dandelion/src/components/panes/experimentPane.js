@@ -36,7 +36,7 @@ export default function ExperimentPane(props) {
               <button 
               className="submitButton"
               onClick={() => {
-                navigate("/activities/create-experiment/2")
+                navigate("/activities/create-experiment/summary")
               }}>Use This Experiment</button>
             </div>
           </div>

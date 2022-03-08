@@ -156,7 +156,7 @@ export default function TreatmentVariables(props) {
                       className="continue-btn"
                       value="Continue"
                       onClick={() => {
-                        navigate("/activities/create-experiment/4", {
+                        navigate("/activities/create-experiment/response-variables", {
                           state: { treatmentVariables: selected_list },
                         })
                       }}

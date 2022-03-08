@@ -18,7 +18,7 @@ export default function activityCreatedModal(props) {
                         className="submitButton"
                         value="Yes"
                         onClick={() => {
-                            navigate("/activities/create-experiment/1")
+                            navigate("/activities/create-experiment/predefined-experiments")
                         }}
                     ></input>
                 </div>

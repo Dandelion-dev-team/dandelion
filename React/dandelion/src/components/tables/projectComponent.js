@@ -61,7 +61,7 @@ export default function ProjectComponent(props) {
         <button 
         className="submitButton"
         onClick={() => {
-          navigate("/activities/create-experiment/1")
+          navigate("/activities/create-activity/enter-details")
         }}>Add Activity</button>
       </div>
     </div>

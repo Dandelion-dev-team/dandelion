@@ -100,7 +100,7 @@ export default function Login(props) {
                   </div>
                 </form>
               ) : (
-                navigate("/maintenance/sysadmin/auth-maintenance")
+                navigate("/superuser/dashboard")
               )}
             </div>
           </div>

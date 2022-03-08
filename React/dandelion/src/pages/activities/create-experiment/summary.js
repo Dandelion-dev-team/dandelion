@@ -115,7 +115,7 @@ export default function Summary(props) {
                     className="submitButton"
                     value="Continue"
                     onClick={() => {
-                      navigate("/activities/create-experiment/3")
+                      navigate("/") //TODO CHANGE
                     }}
                   ></input>
                 </div>

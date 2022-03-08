@@ -14,13 +14,13 @@ export default function SysSideNav() {
               <img src={logo} />
             </Link>
           </div>
-          <Link to="/maintenance/sysadmin/auth-maintenance">Authority</Link>
-          <Link to="/maintenance/sysadmin/node-maintenance">Node</Link>
-          <Link to="/maintenance/sysadmin/quantity-maintenance">Quantity</Link>
-          <Link to="/maintenance/sysadmin/school-maintenance">School</Link>
-          <Link to="/maintenance/sysadmin/sensor-maintenance">Sensor</Link>
-          <Link to="/maintenance/sysadmin/superuser-maintenance">Superuser</Link>
-          <Link to="/maintenance/sysadmin/tag-maintenance">Tag</Link>
+          <Link to="/sysadmin/auth-maintenance">Authority</Link>
+          <Link to="/sysadmin/node-maintenance">Node</Link>
+          <Link to="/sysadmin/quantity-maintenance">Quantity</Link>
+          <Link to="/sysadmin/school-maintenance">School</Link>
+          <Link to="/sysadmin/sensor-maintenance">Sensor</Link>
+          <Link to="/sysadmin/superuser-maintenance">Superuser</Link>
+          <Link to="/sysadmin/tag-maintenance">Tag</Link>
           <div className="btn-row">
               <button
                 className="button"

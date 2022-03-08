@@ -130,7 +130,7 @@ export default function ResponseVariables(props) {
                                         className="continue-btn"
                                         value="Continue"
                                         onClick={() => {
-                                            navigate("/activities/create-experiment/5",
+                                            navigate("/activities/create-experiment/select-conditions",
                                             {
                                                 state: {treatmentVariables: treatment_variables_list, responseVariables: selected_list},
                                             });
