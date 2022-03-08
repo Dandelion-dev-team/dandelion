@@ -12,12 +12,13 @@ export default function CombinationListComponent(props) {
             
             treatments.forEach(element => setTreatments(arr => [...arr, JSON.parse(element)]));
         }
-    }, []);
-
+        props.checkCallback({ data: props.condition, value: checkbox_value });
+    }, [checkbox_value]);
 
     const onChangeCheckbox = e => {
         setCheckboxValue(!checkbox_value);
     }
+
     return (
         <div className="combination-container">
             <div className="combination-content">
