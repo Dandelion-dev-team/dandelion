@@ -3,6 +3,7 @@ import "../../styles/App.scss"
 import SysSideNav from "../../components/navigation/sysadminSideNav"
 
 export default function superuserDashboard(props) {
+  if (typeof window !== `undefined`) {
   return (
     <div>
       <SysSideNav />
@@ -13,4 +14,5 @@ export default function superuserDashboard(props) {
       </div>
     </div>
   )
+} else return null;
 }
