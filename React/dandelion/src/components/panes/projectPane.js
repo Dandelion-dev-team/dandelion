@@ -10,7 +10,7 @@ export default function ProjectPane(props) {
   return (
     <div>
       {props.dataProp ? (
-        <div className="panel-content">
+        <div className="project-panel-content">
           <div className="project-title">
             <h3>{props.dataProp.title} </h3>
             <h3>

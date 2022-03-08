@@ -9,7 +9,7 @@ export default function ExperimentPane(props) {
   return (
     <div>
       {props.dataProp ? (
-        <div className="panel-content">
+        <div className="experiment-panel-content">
           <div className="experiment-title">
             <h2>{props.dataProp.title} </h2>
             <h3>
