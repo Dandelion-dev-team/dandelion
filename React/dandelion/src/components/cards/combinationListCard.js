@@ -6,10 +6,7 @@ export default function CombinationListComponent(props) {
     const [treatments_JSON, setTreatments] = useState([]);
 
     useEffect(() => {
-        if(treatments_JSON.length == 0){
-            var treatments = props.condition.split('-');            
-            treatments.forEach(element => setTreatments(arr => [...arr, JSON.parse(element)]));
-        }
+        console.log(props.condition);
         props.checkCallback({ data: props.condition, value: checkbox_value });
     }, [checkbox_value]);
 
@@ -22,7 +19,7 @@ export default function CombinationListComponent(props) {
             <div className="combination-content">
                 <input type="checkbox" id="experiment_id" className="checkbox" value="experiment_ID" checked={checkbox_value} onChange={onChangeCheckbox} />
 
-                {treatments_JSON ? treatments_JSON.map(variable => <h3>{variable.name} ({variable.treatment_name})</h3>) : null}
+                {props.condition ? props.condition.map(variable => <h3>{variable[0].name} ({variable[0].treatment_name})</h3>) : null}
             </div>
         </div>
     )

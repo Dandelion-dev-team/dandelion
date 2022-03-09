@@ -76,10 +76,10 @@ export default function TreatmentVariables(props) {
       console.log(props.location.state)
       setExperimentDetails(props.location.state);
     } else {
-      if (typeof window !== `undefined`) {
-        navigate(
-          "/activities/create-experiment/enter-details")
-      }
+      // if (typeof window !== `undefined`) {
+      //   navigate(
+      //     "/activities/create-experiment/enter-details")
+      // }
     }
     setContModalShown(true)
     // Update the document title using the browser API
