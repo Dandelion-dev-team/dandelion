@@ -207,21 +207,48 @@ We will upload the image as part of a separate call with the school id, project 
 		]
 	},
 ],
-"combinations": [ //ARRAY OF ARRAY OF COMBINATION VARIABLES. POST WILL BE IN THE FORMAT 
-//[[{TREATMENT}][{TREATMENT}]], [[{TREATMENT}][{TREATMENT}]], [[{TREATMENT}][{TREATMENT}]]]
-[
-	[
-		{
-			"treatment_name": "Touches",
-			"sequence": 3,
-			"name": "Heavy"
-		}
-	],
-	[
-		{
-			"treatment_name": "Nutrition",
-			"sequence": 1,
-			"name": "Control"
-		}
-	]
+"combination": [ 
+{
+	"placement": "TA1", //TOP A1
+	"colour": "#FFFFF",
+	"combinations_variables":
+		[
+			[	
+				{
+					"treatment_name": "Touches",
+					"sequence": 3,
+					"name": "Heavy"
+				}
+			],
+			[
+				{
+					"treatment_name": "Nutrition",
+					"sequence": 1,
+					"name": "Control"
+				}
+			]
+		]
+	},
+	{
+	"placement": "TA1", //TOP A1
+	"colour": "#FFFFF",
+	"combinations_variables":
+		[
+			[
+				{
+					"treatment_name": "Touches",
+					"sequence": 3,
+					"name": "Heavy"
+				}
+			],
+			[
+				{
+					"treatment_name": "Nutrition",
+					"sequence": 1,
+					"name": "Control"
+				}
+			]
+		]
+	}
+]
 ```
