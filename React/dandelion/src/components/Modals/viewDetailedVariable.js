@@ -96,63 +96,76 @@ export default function ViewDetailedVariable(props) {
               )}
             </div>
           </div>
-          <div className="item-row">
-            <div className="item-title">
-              <h3>Unit: </h3>
+
+          {props.variable.type == "Continuous" ?
+            <div>
+              <div className="item-row">
+                <div className="item-title">
+                  <h3>Unit: </h3>
+                </div>
+                <div className="item-text">
+                  {editing ? (
+                    <input
+                      type="text"
+                      className="text-line"
+                      name="usernameBox"
+                      maxLength={"5"}
+                      value={unit}
+                      onChange={handleUnitChange}
+                    />
+                  ) : (
+                    <h3>{props.variable.unit}</h3>
+                  )}
+                </div>
+              </div>
+              <div className="item-row">
+                <div className="item-title">
+                  <h3>Upper Limit: </h3>
+                </div>
+                <div className="item-text">
+                  {editing ? (
+                    <input
+                      type="text"
+                      className="text-line"
+                      name="usernameBox"
+                      maxLength={"5"}
+                      value={upperLimit}
+                      onChange={setUpperLimit}
+                    />
+                  ) : (
+                    <h3>{props.variable.upper_limit}</h3>
+                  )}
+                </div>
+              </div>
+              <div className="item-row">
+                <div className="item-title">
+                  <h3>Lower Limit: </h3>
+                </div>
+                <div className="item-text">
+                  {editing ? (
+                    <input
+                      type="text"
+                      className="text-line"
+                      name="usernameBox"
+                      maxLength={"5"}
+                      value={lowerLimit}
+                      onChange={setLowerLimit}
+                    />
+                  ) : (
+                    <h3>{props.variable.lower_limit}</h3>
+                  )}
+                </div>
+              </div>
             </div>
-            <div className="item-text">
-              {editing ? (
-                <input
-                  type="text"
-                  className="text-line"
-                  name="usernameBox"
-                  maxLength={"5"}
-                  value={unit}
-                  onChange={handleUnitChange}
-                />
-              ) : (
-                <h3>{props.variable.unit}</h3>
-              )}
-            </div>
-          </div>
-          <div className="item-row">
-            <div className="item-title">
-              <h3>Upper Limit: </h3>
-            </div>
-            <div className="item-text">
-              {editing ? (
-                <input
-                  type="text"
-                  className="text-line"
-                  name="usernameBox"
-                  maxLength={"5"}
-                  value={upperLimit}
-                  onChange={setUpperLimit}
-                />
-              ) : (
-                <h3>{props.variable.upper_limit}</h3>
-              )}
-            </div>
-          </div>
-          <div className="item-row">
-            <div className="item-title">
-              <h3>Lower Limit: </h3>
-            </div>
-            <div className="item-text">
-              {editing ? (
-                <input
-                  type="text"
-                  className="text-line"
-                  name="usernameBox"
-                  maxLength={"5"}
-                  value={lowerLimit}
-                  onChange={setLowerLimit}
-                />
-              ) : (
-                <h3>{props.variable.lower_limit}</h3>
-              )}
-            </div>
-          </div>
+            :
+            <div className="item-row">
+              <div className="item-title">
+                <h3>Levels</h3>
+              </div>
+              <div className="item-text">
+                  {props.variable.levels ? props.variable.levels.map(variable => (<h3>{variable.name}, </h3>)) : null}
+              </div>
+            </div>}
           <div className="close-btn">
             <input
               type="submit"
@@ -172,7 +185,9 @@ export default function ViewDetailedVariable(props) {
                   props.callback()
                 }}
               ></input>
-            ) : null}
+            ) :
+              null
+            }
           </div>
         </div>
       </div>
