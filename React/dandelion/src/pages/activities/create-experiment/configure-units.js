@@ -35,11 +35,11 @@ export default function ConfigureUnits(props) {
 
   const closeModal = prop => {
     setModalShown(false);
-  } 
+  }
 
   return (
     <div>
-      {modal_shown ? <UnitHelpModal callback={closeModal}/> : null}
+      {modal_shown ? <UnitHelpModal callback={closeModal} /> : null}
 
       <div className="configure-container">
         <div className="content">
@@ -49,9 +49,9 @@ export default function ConfigureUnits(props) {
                 <UnitCard key={idx} combination={d} />)
             })
               : null}
-          <UnitCard/>
-          <UnitCard/>
-          <UnitCard/>
+            <UnitCard />
+            <UnitCard />
+            <UnitCard />
 
           </div>
           <div className="grid-container">
@@ -68,6 +68,42 @@ export default function ConfigureUnits(props) {
             </div>
             <div className="grid-row">
               <div className="grid">
+                <div className="label-wrapper">
+                  <div className="numerical-column">
+                    <div className="number">
+                      <h3>1</h3>
+                    </div>
+                    <div className="number">
+                      <h3>2</h3>
+                    </div>
+                    <div className="number">
+                      <h3>3</h3>
+                    </div>
+                    <div className="number">
+                      <h3>4</h3>
+                    </div>
+                    <div className="number">
+                      <h3>5</h3>
+                    </div>
+                  </div>
+                  <div className="alphabetical-row">
+                    <div className="letter">
+                      <h3>A</h3>
+                    </div>
+                    <div className="letter">
+                      <h3>B</h3>
+                    </div>
+                    <div className="letter">
+                      <h3>C</h3>
+                    </div>
+                    <div className="letter">
+                      <h3>D</h3>
+                    </div>
+                    <div className="letter">
+                      <h3>E</h3>
+                    </div>
+                  </div>
+                </div>
                 <div className="grid-wrapper">
                 </div>
               </div>
