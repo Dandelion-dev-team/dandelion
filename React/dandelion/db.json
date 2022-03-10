@@ -250,8 +250,9 @@
       "treatmentVariables": [
         {
           "id": 0,
-          "type": "Discreet",
+          "type": "Discrete",
           "name": "Touches",
+
           "levels": [
             {
               "treatment_name": "Touches",
@@ -272,7 +273,7 @@
         },
         {
           "id": 1,
-          "type": "Discreet",
+          "type": "Discrete",
           "name": "Nutrition",
           "levels": [
             {
@@ -314,11 +315,41 @@
         "experiment_image_link": "https://d32vpew203r5a2.cloudfront.net/uploads/2021/10/1525_Dandelion_Hero_Image_Landscape_AW-web.jpg",
         "start_date": "2022-03-03T15:55:05.933Z",
         "end_date": "2022-03-03T15:55:05.933Z",
-        "key": "1646776710789"
+        "id": 0
       },
       "combinations": [
-        "{\"treatment_name\":\"Touches\",\"sequence\":2,\"name\":\"Light\"}-{\"treatment_name\":\"Nutrition\",\"sequence\":1,\"name\":\"Control\"}",
-        "{\"treatment_name\":\"Touches\",\"sequence\":1,\"name\":\"Control\"}-{\"treatment_name\":\"Nutrition\",\"sequence\":1,\"name\":\"Control\"}"
+        [
+          [
+            {
+              "treatment_name": "Touches",
+              "sequence": 3,
+              "name": "Heavy"
+            }
+          ],
+          [
+            {
+              "treatment_name": "Nutrition",
+              "sequence": 1,
+              "name": "Control"
+            }
+          ]
+        ],
+        [
+          [
+            {
+              "treatment_name": "Touches",
+              "sequence": 2,
+              "name": "Light"
+            }
+          ],
+          [
+            {
+              "treatment_name": "Nutrition",
+              "sequence": 3,
+              "name": "High"
+            }
+          ]
+        ]
       ]
     }
   ],
@@ -456,7 +487,7 @@
   "treatmentVariablesShortlist": [
     {
       "id": 0,
-      "type": "Discreet",
+      "type": "Discrete",
       "name": "Touches",
       "levels": [
         {
@@ -478,7 +509,7 @@
     },
     {
       "id": 1,
-      "type": "Discreet",
+      "type": "Discrete",
       "name": "Nutrition",
       "levels": [
         {
@@ -495,7 +526,7 @@
     },
     {
       "id": 2,
-      "type": "Discreet",
+      "type": "Discrete",
       "name": "Light",
       "levels": [
         {
@@ -522,7 +553,7 @@
     },
     {
       "id": 1,
-      "type": "Discreet",
+      "type": "Discrete",
       "name": "Stalk Strength",
       "levels": [
         {
@@ -567,8 +598,10 @@
   "treatmentVariableFull": [
     {
       "id": 0,
-      "type": "Discreet",
+      "type": "Discrete",
       "name": "Touches",
+      "description": "Touches description ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "procedure": "Touches Procedure ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       "levels": [
         {
           "sequence": 1,
@@ -586,8 +619,10 @@
     },
     {
       "id": 1,
-      "type": "Discreet",
+      "type": "Discrete",
       "name": "Nutrition",
+      "description": "Nutrition description ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "procedure": "Nutrition Procedure ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       "levels": [
         {
           "sequence": 1,
@@ -605,8 +640,10 @@
     },
     {
       "id": 2,
-      "type": "Discreet",
+      "type": "Discrete",
       "name": "Light",
+      "description": "Light description ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "procedure": "Light Procedure ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       "levels": [
         {
           "sequence": 1,
@@ -636,7 +673,7 @@
     },
     {
       "id": 1,
-      "type": "Discreet",
+      "type": "Discrete",
       "name": "Stalk Strength",
       "description": "Stalk strength description ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       "procedure": "Stalk strength Procedure ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",

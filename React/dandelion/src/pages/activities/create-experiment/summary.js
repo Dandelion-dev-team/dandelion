@@ -7,8 +7,8 @@ export default function Summary(props) {
   const [response_selected, setResponseVariables] = useState([]);
   const [experiment_details, setExperimentDetails] = useState([]);
   const [combinations_selected, setCombinations] = useState([]);
-  const [treatments_JSON, setTreatments] = useState([]);
 
+  const [combinations_renderable, setRenderable] = useState([]);
   const [name, setName] = useState("")
   const [code, setCode] = useState("")
   const [startDate, setStartDate] = useState("")
@@ -34,6 +34,8 @@ export default function Summary(props) {
 
   useEffect(() => {
     if (props.location.state) {
+      var result = [];
+      console.log(JSON.stringify(props.location.state));
       setTreatmentVariables(props.location.state.treatmentVariables);
       setResponseVariables(props.location.state.responseVariables);
       setExperimentDetails(props.location.state.experimentDetails);
@@ -42,7 +44,10 @@ export default function Summary(props) {
       setCode(props.location.state.experimentDetails.code);
       setStartDate(props.location.state.experimentDetails.startDate);
       setEndDate(props.location.state.experimentDetails.endDate);
+      console.log(props.location.state.combinations);
+      props.location.state.combinations.forEach(array => {result.push(array);});
 
+      result.forEach(array => {setRenderable(arr => [...arr, array]);});
     } else {
       if (typeof window !== `undefined`) {
         navigate(
@@ -70,8 +75,8 @@ export default function Summary(props) {
                     <h3>Conditions:</h3>
                   </div>
                   <div className="condition-list">
-                    {combinations_selected
-                      ? combinations_selected.map(combination => (<h3>{combination}</h3>)) : null}
+                  <h3>1 - Touch × Length </h3>
+                    <h3>2 - Touch × Stalk Strength </h3>
                   </div>
                 </div>
                 <div className="exp-item">

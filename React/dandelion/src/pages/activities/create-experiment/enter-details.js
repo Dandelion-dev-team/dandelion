@@ -120,14 +120,6 @@ export default function EnterDetails(props) {
                   <h3>Image Upload:</h3>
                 </div>
                 <div className="img-btn">
-                  {/* <div
-                    className="imageButton"
-                    onClick={() => {
-                      handleImage()
-                    }}
-                  >
-                    <BackupIcon className="imageIcon" />
-                  </div> */}
                   <input type="file" id="imageButton" accept=".jpg,.png" onChange={handleImageChange}/>
                 </div>
               </div>
@@ -149,6 +141,7 @@ export default function EnterDetails(props) {
                 </div>
                 <div className="item-input">
                   <input
+                    min={startDate}
                     type="date"
                     name="codeBox"
                     onChange={handleEndChange}

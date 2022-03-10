@@ -3,6 +3,46 @@ import { navigate } from "gatsby"
 import "../../../styles/App.scss"
 
 export default function EnterActivityDetails(props) {
+  const [name, setName] = useState("")
+  const [code, setCode] = useState("")
+  const [description, setDescription] = useState("")
+  const [tutorial, setTutorial] = useState("")
+  const [image, setImage] = useState("")
+  const [startDate, setStartDate] = useState("")
+  const [endDate, setEndDate] = useState("")
+
+  const handleNameChange = e => {
+    setName(e.target.value)
+  }
+
+  const handleCodeChange = e => {
+    setCode(e.target.value)
+  }
+
+  const handleDescChange = e => {
+    setDescription(e.target.value)
+  }
+
+  const handleTutChange = e => {
+    setTutorial(e.target.value)
+  }
+
+  const handleImageChange = async e => {
+    setImage(e.target.files[0])
+    console.log(image)
+
+  }
+
+  const handleStartChange = e => {
+    setStartDate(e.target.value)
+    console.log(startDate)
+  }
+
+  const handleEndChange = e => {
+    setEndDate(e.target.value)
+    console.log(endDate)
+  }
+
   return (
     <div>
       <div className="activity-container">
@@ -55,7 +95,9 @@ export default function EnterActivityDetails(props) {
                   <h3>Image Link</h3>
                 </div>
                 <div className="image-link">
-
+                <div className="img-btn">
+                  <input type="file" id="imageButton" accept=".jpg,.png" onChange={console.log("")}/>
+                </div>
                 </div>
               </div>
               <div className="inputItem">
@@ -67,6 +109,7 @@ export default function EnterActivityDetails(props) {
                     type="date"
                     // placeholder="Activity Code"
                     name="codeBox"
+                    onChange={handleStartChange}
                   />
                 </div>
               </div>
@@ -77,8 +120,10 @@ export default function EnterActivityDetails(props) {
                 <div className="item-input">
                   <input
                     type="date"
+                    min={startDate}
                     //placeholder="Activity Code"
                     name="codeBox"
+                    onChange={handleEndChange}
                   />
                 </div>
               </div>

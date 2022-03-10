@@ -77,7 +77,8 @@ export default function TreatmentVariables(props) {
       setExperimentDetails(props.location.state)
     } else {
       // if (typeof window !== `undefined`) {
-      //   navigate("/activities/create-experiment/enter-details")
+      //   navigate(
+      //     "/activities/create-experiment/enter-details")
       // }
     }
     setContModalShown(true)
