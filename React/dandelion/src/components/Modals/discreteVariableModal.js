@@ -3,7 +3,6 @@ import { createRecord } from "../../utils/CRUD"
 import DiscreteModalCard from "../cards/discreteModalCard"
 
 export default function DiscreteVariableModal(props) {
-
   const [name, setName] = useState("")
   const [description, setDescription] = useState("")
   const [procedure, setProcedure] = useState("")
@@ -26,8 +25,9 @@ export default function DiscreteVariableModal(props) {
         name: name,
         description: description,
         procedure: procedure,
+        levels: "levels",
       })
-      createRecord("/discreteVariableFull", body)
+      createRecord("/treatmentVariableFull", body)
     } else {
       console.log("did not have all information")
     }
@@ -48,6 +48,8 @@ export default function DiscreteVariableModal(props) {
                     type="text"
                     placeholder="Variable Name"
                     name="nameBox"
+                    value={name}
+                    onChange={handleNameChange}
                   />
                 </div>
               </div>
@@ -56,7 +58,13 @@ export default function DiscreteVariableModal(props) {
                   <h3>Description:</h3>
                 </div>
                 <div className="desc-input">
-                  <input type="text" placeholder="Description" name="descBox" />
+                  <input
+                    type="text"
+                    placeholder="Description"
+                    name="descBox"
+                    value={description}
+                    onChange={handleDescChange}
+                  />
                 </div>
               </div>
               <div className="inputItem">
@@ -68,6 +76,8 @@ export default function DiscreteVariableModal(props) {
                     type="text"
                     placeholder="Measurement Procedure"
                     name="descBox"
+                    value={procedure}
+                    onChange={handleProcedureChange}
                   />
                 </div>
               </div>
@@ -76,11 +86,14 @@ export default function DiscreteVariableModal(props) {
                   type="submit"
                   className="submitButton"
                   value="Add Level"
+                  onClick={onCreateVariable}
                 ></input>
               </div>
             </div>
             <div className="level-row">
-             <DiscreteModalCard/>
+              <DiscreteModalCard />
+              <DiscreteModalCard />
+
               <div className="finish-btn-row">
                 <div className="spacer" />
                 <div className="finish-btn">
