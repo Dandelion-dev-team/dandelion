@@ -23,7 +23,7 @@ export default function UnitHelpModal(props) {
                     className="submitButton"
                     value="Got It"
                     onClick={() => {
-                      props.callback("prop")
+                      props.callback()
                     }}
                   ></input>
                 </div>

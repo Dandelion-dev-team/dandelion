@@ -28,10 +28,6 @@ export default function ConfigureUnits(props) {
     }
   }, []);
 
-  const modalClose = e => {
-    setModalShown(false);
-  }
-
 
   const closeModal = prop => {
     setModalShown(false);
@@ -69,6 +65,7 @@ export default function ConfigureUnits(props) {
             <div className="grid-row">
               <div className="grid">
                 <div className="grid-wrapper">
+                  {/* grid component */}
                 </div>
               </div>
               <div className="btn-container">
