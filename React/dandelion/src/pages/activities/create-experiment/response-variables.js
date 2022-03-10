@@ -6,6 +6,9 @@ import ViewDetailedVariable from "../../../components/modals/viewDetailedVariabl
 import VariableSelectedComponent from "../../../components/cards/variableSelectedComponent";
 import PaginationComponent from "../../../components/navigation/pagination";
 import { navigate } from "gatsby";
+import VariableTypeModal from "../../../components/modals/variableTypeModal";
+import DiscreteVariableModal from "../../../components/modals/discreteVariableModal";
+import ContinuousVariableModal from "../../../components/modals/continuousVariableModal";
 
 export default function ResponseVariables(props) {
     const [search_value, changeSearch] = useState("");
@@ -16,14 +19,32 @@ export default function ResponseVariables(props) {
 
     const [selected_list, updateSelectedList] = useState([]);
     const [treatment_variables_list, setTreatmentVariables] = useState([]);
-    const [experiment_details, setExperimentDetails] = useState("")
+    const [experiment_details, setExperimentDetails] = useState("");
+
+    const [show_cont, setShowContinuous] = useState("")
+    const [show_choice, setShowChoice] = useState("")
+    const [show_discrete, setShowDiscrete] = useState("")
+
 
     const handleSearchValueChange = e => {
         changeSearch(e.target.value)
     }
 
-    const modalCallback = e => {
+    const closeModal = e => {
         setShowDetails(false);
+        setShowChoice(false);
+        setShowContinuous(false);
+        setShowDiscrete(false);
+    }
+
+    const discreteCallback = e => {
+        setShowDiscrete(true);
+        setShowChoice(false);
+    }
+
+    const contCallback = e => {
+        setShowContinuous(true);
+        setShowChoice(false);
     }
 
     const checkboxCallback = e => {
@@ -65,12 +86,12 @@ export default function ResponseVariables(props) {
             console.log(props.location.state)
             setExperimentDetails(props.location.state.experimentDetails);
             setTreatmentVariables(props.location.state.treatmentVariables);
-          } else {
+        } else {
             if (typeof window !== `undefined`) {
-              navigate(
-                "/activities/create-experiment/enter-details")
+                navigate(
+                    "/activities/create-experiment/enter-details")
             }
-          }
+        }
         // Update the document title using the browser API
         fetch("http://localhost:3000/responseVariableShortlist", {
             method: "GET",
@@ -86,7 +107,10 @@ export default function ResponseVariables(props) {
 
     return (
         <div>
-            {show_details ? <ViewDetailedVariable callback={modalCallback} variable={full_detail_variable} startEditing={modal_editing} /> : null}
+            {show_choice ? <VariableTypeModal discreteCallback={discreteCallback} contCallback={contCallback} variable={full_detail_variable} startEditing={modal_editing} /> : null}
+            {show_discrete ? <DiscreteVariableModal callback={closeModal} variable={full_detail_variable} startEditing={modal_editing} /> : null}
+            {show_cont ? <ContinuousVariableModal closeCallback={closeModal} variable={full_detail_variable} startEditing={modal_editing} /> : null}
+
             <div className="treatment-container">
                 <div className="content">
                     <div className="content-wrapper">
@@ -132,7 +156,7 @@ export default function ResponseVariables(props) {
                                         className="add-new-btn"
                                         value="Add new variable"
                                         onClick={() => {
-                                            console.log("");
+                                            setShowChoice(true);
                                         }}
                                     ></input>
                                     {selected_list.length > 0 ? <input
@@ -141,11 +165,11 @@ export default function ResponseVariables(props) {
                                         value="Continue"
                                         onClick={() => {
                                             if (typeof window !== `undefined`) {
-                                            navigate("/activities/create-experiment/select-conditions",
-                                            {
-                                                state: {treatmentVariables: treatment_variables_list, responseVariables: selected_list, experimentDetails: experiment_details},
-                                            });
-                                        }
+                                                navigate("/activities/create-experiment/select-conditions",
+                                                    {
+                                                        state: { treatmentVariables: treatment_variables_list, responseVariables: selected_list, experimentDetails: experiment_details },
+                                                    });
+                                            }
                                         }}
                                     ></input> : null
                                     }

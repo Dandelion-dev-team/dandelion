@@ -7,7 +7,6 @@ import VariableSelectedComponent from "../../../components/cards/variableSelecte
 import PaginationComponent from "../../../components/navigation/pagination"
 import { navigate } from "gatsby"
 import VariableTypeModal from "../../../components/Modals/variableTypeModal"
-import ContinuousVariableModal from "../../../components/Modals/continuousVariableModal"
 import DiscreteVariableModal from "../../../components/Modals/discreteVariableModal"
 
 export default function TreatmentVariables(props) {
@@ -16,12 +15,8 @@ export default function TreatmentVariables(props) {
   const [show_details, setShowDetails] = useState("")
   const [full_detail_variable, setDetailVariable] = useState("")
   const [modal_editing, setModalEditing] = useState()
-  const [modal_shown, setModalShown] = useState("")
   const [experiment_details, setExperimentDetails] = useState("")
-
-  const [cont_modal_shown, setContModalShown] = useState("")
   const [discrete_modal_shown, setDiscreteModalShown] = useState("")
-
   const [selected_list, updateSelectedList] = useState([])
 
   const handleSearchValueChange = e => {
@@ -29,7 +24,8 @@ export default function TreatmentVariables(props) {
   }
 
   const modalCallback = e => {
-    setShowDetails(false)
+    setShowDetails(false);
+    setDiscreteModalShown(false);
   }
 
   const checkboxCallback = e => {
@@ -71,7 +67,6 @@ export default function TreatmentVariables(props) {
   }
 
   useEffect(() => {
-    setDiscreteModalShown(true)
     if (props.location.state) {
       console.log(props.location.state)
       setExperimentDetails(props.location.state)
@@ -81,7 +76,6 @@ export default function TreatmentVariables(props) {
       //     "/activities/create-experiment/enter-details")
       // }
     }
-    setContModalShown(true)
     // Update the document title using the browser API
     fetch("http://localhost:3000/treatmentVariablesShortlist", {
       method: "GET",
@@ -97,9 +91,6 @@ export default function TreatmentVariables(props) {
 
   return (
     <div>
-      {modal_shown ? <VariableTypeModal callback={modalCallback} /> : null}
-      {/* {cont_modal_shown ? <ContinuousVariableModal callback={modalCallback} />
-        : null} */}
       {discrete_modal_shown ? <DiscreteVariableModal callback={modalCallback} /> : null}
 
       {show_details ? (
@@ -171,7 +162,7 @@ export default function TreatmentVariables(props) {
                     className="add-new-btn"
                     value="Add New Variable"
                     onClick={() => {
-                      setModalShown(true)
+                      setDiscreteModalShown(true)
                     }}
                   ></input>
                   {selected_list.length > 0 ? (
