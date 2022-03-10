@@ -18,8 +18,10 @@ export default function CombinationListComponent(props) {
         <div className="combination-container">
             <div className="combination-content">
                 <input type="checkbox" id="experiment_id" className="checkbox" value="experiment_ID" checked={checkbox_value} onChange={onChangeCheckbox} />
-
-                {props.condition ? props.condition.map(variable => <h3>{variable[0].name} ({variable[0].treatment_name})</h3>) : null}
+                    {Array.isArray(props.condition) ? props.condition.map(variable => <h3>{variable[0].name} ({variable[0].treatment_name})</h3>) 
+                        :
+                        <h3>{props.condition.name} ({props.condition.treatment_name})</h3>
+                    } 
             </div>
         </div>
     )
