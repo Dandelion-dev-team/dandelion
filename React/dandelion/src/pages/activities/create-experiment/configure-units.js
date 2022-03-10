@@ -32,6 +32,15 @@ export default function ConfigureUnits(props) {
     setModalShown(false)
   }
 
+  const generateGrid = e => {
+    let content = [];
+
+    for (let index = 0; index < 25; index++) {
+      content.push(<UnitItem/>);
+    }
+    return content;
+  };
+
   return (
     <div>
       {modal_shown ? <UnitHelpModal callback={closeModal} /> : null}
@@ -100,7 +109,7 @@ export default function ConfigureUnits(props) {
                     </div>
                     <div className="grid-wrapper">
                       <div className="square-grid">
-              
+                        {generateGrid()}
                       </div>
                     </div>
                   </div>
