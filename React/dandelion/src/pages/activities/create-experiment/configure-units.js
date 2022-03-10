@@ -8,18 +8,23 @@ import UnitHelpModal from "../../../components/Modals/unitHelpModal"
 export default function ConfigureUnits(props) {
   const [modal_shown, setModalShown] = useState("")
 
+  const closeModal = prop => {
+    setModalShown(false);
+  } 
+
   return (
     <div>
-      {modal_shown ? <UnitHelpModal  /> : null}
+      {modal_shown ? <UnitHelpModal callback={closeModal}/> : null}
 
       <div className="configure-container">
         <div className="content">
           <div className="condition-list">
             <UnitCard />
+            <UnitCard />
           </div>
           <div className="grid-container">
             <div className="level-row">
-              <div className="top-level">
+              <div className="top-level" id="active">
                 <h3>Top Level</h3>
               </div>
               <div className="middle-level">
@@ -32,8 +37,7 @@ export default function ConfigureUnits(props) {
             <div className="grid-row">
               <div className="grid">
                 <div className="grid-wrapper">
-                  <div class="square">
-                      hello :)</div>
+                  <div class="square">hello :)</div>
                   <div class="square" />
                   <div class="square" />
                   <div class="square" />

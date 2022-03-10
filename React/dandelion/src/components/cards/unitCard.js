@@ -11,7 +11,7 @@ export default function UnitCard(props) {
           className="checkbox"
           disabled="disabled"
         />
-        <h3>Temperature × Length (K1LT) </h3>
+        <h3></h3>
         
       </div>
     </div>

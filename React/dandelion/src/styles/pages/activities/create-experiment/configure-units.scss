@@ -19,8 +19,6 @@
     border-radius: 20px;
 
     .condition-list {
-      // background-color: white;
-      // opacity: 10%;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -28,8 +26,6 @@
       width: 33%;
       height: 90vh;
       border-radius: 20px;
-
-
     }
 
     .grid-container {
@@ -40,8 +36,35 @@
       border-radius: 20px;
 
       .level-row {
-        width: 20%;
-        .top-level {
+        .top-level,
+        .middle-level,
+        .bottom-level {
+          border-top-left-radius: 5px;
+          border-bottom-left-radius: 5px;
+          background-color: white;
+          height: 2.5rem;
+          width: 8.5rem;
+          margin-bottom: 1rem;
+          display: flex;
+          align-items: center;
+
+          h3 {
+            color: $primary;
+            margin-bottom: 0;
+            font-size: 1.2rem;
+          }
+        }
+
+        .top-level:hover, .middle-level:hover, .bottom-level:hover {
+          background-color: $contrast;
+        }
+
+        #active {
+          background-color: $accent;
+        }
+        #active:hover {
+          mix-blend-mode: difference;
+         
         }
       }
 
@@ -56,7 +79,9 @@
           background-color: white;
           display: flex;
           height: 80vh;
-          border-radius: 20px;
+          border-bottom-left-radius: 20px;
+          border-bottom-right-radius: 20px;
+          border-top-right-radius: 20px;
         }
 
         .grid-wrapper {
