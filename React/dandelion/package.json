@@ -38,6 +38,7 @@
     "react-bootstrap": "^2.1.1",
     "react-color": "^2.19.3",
     "react-dom": "^17.0.1",
+    "react-draggable": "^4.4.4",
     "react-helmet": "^6.1.0",
     "react-i18next": "^11.15.6",
     "react-native-base64": "^0.2.1",
