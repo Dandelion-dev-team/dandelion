@@ -25,7 +25,7 @@ export default function VariableTypeModal(props) {
                     className="submitButton"
                     value="Continuous"
                     onClick={() => {
-                     
+                     props.contCallback()
                     }}
                   ></input>
                 </div>
@@ -35,7 +35,7 @@ export default function VariableTypeModal(props) {
                     className="submitButton"
                     value="Discrete"
                     onClick={() => {
-                      props.callback("prop")
+                      props.discreteCallback()
                     }}
                   ></input>
                 </div>
