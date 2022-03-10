@@ -82,9 +82,56 @@
           border-bottom-left-radius: 20px;
           border-bottom-right-radius: 20px;
           border-top-right-radius: 20px;
+
+          .label-wrapper{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: row;
+            .alphabetical-row{
+              display: flex;
+              width: 95%;
+              height: 5%;
+              display: grid;
+              grid-template-columns: repeat(5, 1fr);
+              grid-gap: 5px;
+              
+              .letter{
+                border-radius: 5px;              
+                justify-content: center;
+                align-items: center;
+                display: flex;
+                h3{
+                  color: black;
+                  margin-bottom: 0;
+                }
+              }
+            }
+            .numerical-column{
+              width: 5%;
+              height: 95%;
+              align-self: flex-end;
+              display: grid;
+              grid-template-columns: repeat(1, 1fr);
+              grid-gap: 5px;
+
+              .number{
+                border-radius: 5px;
+                display: flex;
+
+                justify-content: center;
+                align-items: center;
+                h3{
+                  color: black;
+                  margin-bottom: 0;
+                }
+              }
+            }
+          }
+
         }
 
-        .grid-wrapper {
+        .square-grid {
           background-color: white;
           width: 90%;
           display: grid;
