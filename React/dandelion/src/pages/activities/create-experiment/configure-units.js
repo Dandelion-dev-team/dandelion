@@ -33,13 +33,13 @@ export default function ConfigureUnits(props) {
   }
 
   const generateGrid = e => {
-    let content = [];
+    let content = []
 
     for (let index = 0; index < 25; index++) {
-      content.push(<UnitItem/>);
+      content.push(<UnitItem />)
     }
-    return content;
-  };
+    return content
+  }
 
   return (
     <div>
@@ -72,23 +72,28 @@ export default function ConfigureUnits(props) {
             <div className="grid-row">
               <div className="grid">
                 <div className="label-wrapper">
-                  <div className="numerical-column">
-                    <div className="number">
-                      <h3>1</h3>
+                  <div className="column-wrapper">
+                    <div className="spacer" />
+                    <div className="numerical-column">
+                      <div className="number">
+                        <h3>1</h3>
+                      </div>
+                      <div className="number">
+                        <h3>2</h3>
+                      </div>
+                      <div className="number">
+                        <h3>3</h3>
+                      </div>
+                      <div className="number">
+                        <h3>4</h3>
+                      </div>
+                      <div className="number">
+                        <h3>5</h3>
+                      </div>
                     </div>
-                    <div className="number">
-                      <h3>2</h3>
-                    </div>
-                    <div className="number">
-                      <h3>3</h3>
-                    </div>
-                    <div className="number">
-                      <h3>4</h3>
-                    </div>
-                    <div className="number">
-                      <h3>5</h3>
-                    </div>
+                    <div className="spacer"/>
                   </div>
+
                   <div className="right-pane">
                     <div className="alphabetical-row">
                       <div className="letter">
@@ -108,9 +113,7 @@ export default function ConfigureUnits(props) {
                       </div>
                     </div>
                     <div className="grid-wrapper">
-                      <div className="square-grid">
-                        {generateGrid()}
-                      </div>
+                      <div className="square-grid">{generateGrid()}</div>
                     </div>
                   </div>
                 </div>
