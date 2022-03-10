@@ -6,52 +6,27 @@ $font: "Helvetica Neue", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
 @import "./variables.scss";
 @import "./breakpoints.scss";
 
-//component imports
-@import "./components/header.scss";
-@import "./components/hero.scss";
-@import "./components/tile.scss";
-@import "./components/projectCard.scss";
-@import "./components/experimentCard.scss";
-@import "./components/schoolTable.scss";
+//Page import files to clean up file structure
+@import "./pages/activities/imports.scss";
+@import "./pages/superuser/imports.scss";
+@import "./pages/sysadmin/imports.scss";
 
-@import "./components/userComponent.scss";
-@import "./components/projectComponent.scss";
-@import "./components/schoolUserComponent.scss";
-
-@import "./components/sideNav.scss";
-@import "./components/schoolUserPane.scss";
-@import "./components/recordTable.scss";
-@import "./components/projectPane.scss";
-
-@import "./components/nodeInfoComponent.scss";
-
-@import "./components/alertComponent.scss";
-
-
-//@import "./components/footer.scss";
-@import "./components/signin-form.scss";
-
-//pages imports
+//Individual Page Imports
 @import "./pages/about.scss";
 @import "./pages/dashboard.scss";
-@import "./pages/signin.scss";
 @import "./pages/data.scss";
-@import "./pages/superuserMaintenance";
-@import "./pages/superuserDashboard";
-@import "./pages/schoolMaintenance.scss";
-@import "./pages/sensor-maintenance.scss";
-@import "./pages/school-user-maintenance.scss";
-@import "./pages/project-maintenance.scss";
-@import "./pages/auth-maintenance.scss";
-@import "./pages/node-maintenance.scss";
-@import "./pages/quantity-maintenance.scss";
-@import "./pages/tag-maintenance.scss";
-@import "./pages/superuser-alerts.scss";
-@import "./pages/superuser-help.scss";
-@import "./pages/superuser-templates.scss";
-@import "./pages/superuser-settings.scss";
-@import "./pages/sysadmin-dashboard.scss";
+@import "./pages/signin.scss";
 
+//Component import files to clean up file structure
+@import "./components/cards/import.scss";
+@import "./components/modals/imports.scss";
+@import "./components/navigation/imports.scss";
+@import "./components/panes/imports.scss";
+@import "./components/tables/imports.scss";
+
+@import "./components/hero.scss";
+@import "./components/signin-form.scss";
+@import "./components/tile.scss";
 
 
 

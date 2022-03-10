@@ -1,0 +1,72 @@
+.experiment-panel-content {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  justify-content: center;
+  color: black;
+  padding-top: 2rem;
+  padding-left: 1.25rem;
+
+    .experiment-title {
+      h2 {
+        font-size: 1.2rem;
+        font-weight: 800;
+        letter-spacing: .5px;
+      }
+      h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      line-height: .4rem;
+      }
+    }
+
+    .feat-img {
+      position: absolute;
+      width: 27.5rem;
+      z-index: 4;
+
+      img {
+        border-radius: 10px;
+      }
+    }
+
+    .experiment-desc {
+      h2 {
+        font-size: 1.2rem;
+        font-weight: 800;
+        letter-spacing: .5px;
+      }
+      h3 {
+        font-size: 1rem;
+        font-weight: 600;
+      }
+    }
+
+    .exp-btn-row {
+      display: flex;
+      flex-direction: column;
+
+      .spacer {
+        width: 65%;
+      }
+      .continue-btn {
+        margin-left: auto;
+        .submitButton {
+          background-color: $accent;
+          color: $primary;
+          font-size: 1.6rem;
+          margin: 1.25rem 0px;
+          padding: 0.625rem;
+          width: 13rem;
+          border: none;
+          cursor: pointer;
+          border-radius: 10px;
+        }
+        .submitButton:hover {
+          background-color: #d4d926;
+        }
+      }
+    
+    }
+  }
+

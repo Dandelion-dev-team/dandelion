@@ -174,6 +174,185 @@
       "status": "active"
     }
   ],
+  "experiment_summary": [
+    {
+      "id": 0,
+      "title": "Thigmomorphogenesis",
+      "thumbnail": "https://d32vpew203r5a2.cloudfront.net/uploads/2021/10/1525_Dandelion_Hero_Image_Landscape_AW-web.jpg",
+      "owner": "Dandelion"
+    },
+    {
+      "id": 1,
+      "title": "Leaf Experiment",
+      "thumbnail": "https://images.squarespace-cdn.com/content/v1/53726d44e4b07d0c6bf0b106/1535677982492-J7R729ZEBU5DZXV2VYLH/growing+red+beets+in+your+summer+garden.jpg",
+      "owner": "Dandelion"
+    },
+    {
+      "id": 2,
+      "title": "Nutrition Experiment",
+      "thumbnail": "https://www.parkinson.org/sites/default/files/PD-diet.png",
+      "owner": "Dandelion"
+    },
+    {
+      "id": 3,
+      "title": "Drought Experiment",
+      "thumbnail": "https://www.preventionweb.net/sites/default/files/styles/landscape_16_9/public/2021-09/shutterstock_1205889976.jpg?h=22ced3b9&itok=VfRgI_7A",
+      "owner": "Dandelion"
+    }
+  ],
+  "experiment": [
+    {
+      "id": 0,
+      "title": "Thigmomorphogenesis",
+      "description": "When they are growing outside, the wind blows plants about. They may also be pushed or squashed by people or animals. But how do these interactions affect their growth? That is what we aim to find out!",
+      "desc2": "When they are growing outside, the wind blows plants about. They may also be pushed or squashed by people or animals. But how do these interactions affect their growth? That is what we aim to find out!",
+      "experiment_image_link": "https://d32vpew203r5a2.cloudfront.net/uploads/2021/10/1525_Dandelion_Hero_Image_Landscape_AW-web.jpg",
+      "experiment_text": "Note that the plants must be at least 2cm tall before starting this experiment.",
+      "start_date": "2022-03-03T15:55:05.933Z",
+      "end_date": "2022-03-03T15:55:05.933Z",
+      "status": "active",
+      "owner": "Dandelion"
+    },
+    {
+      "id": 1,
+      "title": "Leaf Experiment",
+      "description": "When they are growing outside, the wind blows plants about. They may also be pushed or squashed by people or animals. But how do these interactions affect their growth? That is what we aim to find out!",
+      "experiment_image_link": "https://images.squarespace-cdn.com/content/v1/53726d44e4b07d0c6bf0b106/1535677982492-J7R729ZEBU5DZXV2VYLH/growing+red+beets+in+your+summer+garden.jpg",
+      "experiment_text": "Note that the plants must be at least 2cm tall before starting this experiment.",
+      "start_date": "2022-03-03T15:55:05.933Z",
+      "end_date": "2022-03-03T15:55:05.933Z",
+      "status": "active"
+    },
+    {
+      "id": 2,
+      "title": "Nutrition Experiment",
+      "description": "When they are growing outside, the wind blows plants about. They may also be pushed or squashed by people or animals. But how do these interactions affect their growth? That is what we aim to find out!",
+      "experiment_image_link": "https://www.parkinson.org/sites/default/files/PD-diet.png",
+      "experiment_text": "Note that the plants must be at least 2cm tall before starting this experiment.",
+      "start_date": "2022-03-03T15:55:05.933Z",
+      "end_date": "2022-03-03T15:55:05.933Z",
+      "status": "active"
+    },
+    {
+      "id": 3,
+      "title": "Drought Experiment",
+      "description": "When they are growing outside, the wind blows plants about. They may also be pushed or squashed by people or animals. But how do these interactions affect their growth? That is what we aim to find out!",
+      "experiment_image_link": "https://www.preventionweb.net/sites/default/files/styles/landscape_16_9/public/2021-09/shutterstock_1205889976.jpg?h=22ced3b9&itok=VfRgI_7A",
+      "experiment_text": "Note that the plants must be at least 2cm tall before starting this experiment.",
+      "start_date": "2022-03-03T15:55:05.933Z",
+      "end_date": "2022-03-03T15:55:05.933Z",
+      "status": "active"
+    }
+  ],
+  "experiment_full": [
+    {
+      "id": 0,
+      "treatmentVariables": [
+        {
+          "id": 0,
+          "type": "Discrete",
+          "name": "Touches",
+
+          "levels": [
+            {
+              "treatment_name": "Touches",
+              "sequence": 1,
+              "name": "Control"
+            },
+            {
+              "treatment_name": "Touches",
+              "sequence": 2,
+              "name": "Light"
+            },
+            {
+              "treatment_name": "Touches",
+              "sequence": 3,
+              "name": "Heavy"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "type": "Discrete",
+          "name": "Nutrition",
+          "levels": [
+            {
+              "treatment_name": "Nutrition",
+              "sequence": 1,
+              "name": "Control"
+            },
+            {
+              "treatment_name": "Nutrition",
+              "sequence": 3,
+              "name": "High"
+            }
+          ]
+        }
+      ],
+      "responseVariables": [
+        {
+          "id": 0,
+          "type": "Continuous",
+          "name": "Length",
+          "unit": "mm",
+          "upper_limit": 100,
+          "lower_limit": 0
+        },
+        {
+          "id": 2,
+          "type": "Continuous",
+          "name": "Stalk Width",
+          "unit": "mm",
+          "upper_limit": 100,
+          "lower_limit": 0
+        }
+      ],
+      "experimentDetails": {
+        "name": "Thigmomorphogenesis",
+        "code": "Code",
+        "description": "Description",
+        "tutorial": "Tutorial",
+        "experiment_image_link": "https://d32vpew203r5a2.cloudfront.net/uploads/2021/10/1525_Dandelion_Hero_Image_Landscape_AW-web.jpg",
+        "start_date": "2022-03-03T15:55:05.933Z",
+        "end_date": "2022-03-03T15:55:05.933Z",
+        "id": 0
+      },
+      "combinations": [
+        [
+          [
+            {
+              "treatment_name": "Touches",
+              "sequence": 3,
+              "name": "Heavy"
+            }
+          ],
+          [
+            {
+              "treatment_name": "Nutrition",
+              "sequence": 1,
+              "name": "Control"
+            }
+          ]
+        ],
+        [
+          [
+            {
+              "treatment_name": "Touches",
+              "sequence": 2,
+              "name": "Light"
+            }
+          ],
+          [
+            {
+              "treatment_name": "Nutrition",
+              "sequence": 3,
+              "name": "High"
+            }
+          ]
+        ]
+      ]
+    }
+  ],
   "node": [
     {
       "id": 1,
@@ -303,6 +482,245 @@
       "created_date": "2022-02-22T00:08:17.028Z",
       "updated_date": "2022-03-01T00:08:17.028Z",
       "status": "amber"
+    }
+  ],
+  "treatmentVariablesShortlist": [
+    {
+      "id": 0,
+      "type": "Discrete",
+      "name": "Touches",
+      "levels": [
+        {
+          "treatment_name": "Touches",
+          "sequence": 1,
+          "name": "Control"
+        },
+        {
+          "treatment_name": "Touches",
+          "sequence": 2,
+          "name": "Light"
+        },
+        {
+          "treatment_name": "Touches",
+          "sequence": 3,
+          "name": "Heavy"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "type": "Discrete",
+      "name": "Nutrition",
+      "levels": [
+        {
+          "treatment_name": "Nutrition",
+          "sequence": 1,
+          "name": "Control"
+        },
+        {
+          "treatment_name": "Nutrition",
+          "sequence": 3,
+          "name": "High"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "type": "Discrete",
+      "name": "Light",
+      "levels": [
+        {
+          "treatment_name": "Light",
+          "sequence": 1,
+          "name": "Control"
+        },
+        {
+          "treatment_name": "Light",
+          "sequence": 3,
+          "name": "High"
+        }
+      ]
+    }
+  ],
+  "responseVariableShortlist": [
+    {
+      "id": 0,
+      "type": "Continuous",
+      "name": "Length",
+      "unit": "mm",
+      "upper_limit": 100,
+      "lower_limit": 0
+    },
+    {
+      "id": 1,
+      "type": "Discrete",
+      "name": "Stalk Strength",
+      "levels": [
+        {
+          "sequence": 1,
+          "name": "Brittle"
+        },
+        {
+          "sequence": 2,
+          "name": "Spongey"
+        },
+        {
+          "sequence": 3,
+          "name": "Durable"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "type": "Continuous",
+      "name": "Stalk Width",
+      "unit": "mm",
+      "upper_limit": 100,
+      "lower_limit": 0
+    },
+    {
+      "id": 3,
+      "type": "Continuous",
+      "name": "Largest Leaf",
+      "unit": "mm",
+      "upper_limit": 50,
+      "lower_limit": 0
+    },
+    {
+      "id": 4,
+      "type": "Continuous",
+      "name": "Breaking Angle",
+      "unit": "mm",
+      "upper_limit": 100,
+      "lower_limit": 0
+    }
+  ],
+  "treatmentVariableFull": [
+    {
+      "id": 0,
+      "type": "Discrete",
+      "name": "Touches",
+      "description": "Touches description ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "procedure": "Touches Procedure ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "levels": [
+        {
+          "sequence": 1,
+          "name": "Control"
+        },
+        {
+          "sequence": 2,
+          "name": "Light"
+        },
+        {
+          "sequence": 3,
+          "name": "Heavy"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "type": "Discrete",
+      "name": "Nutrition",
+      "description": "Nutrition description ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "procedure": "Nutrition Procedure ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "levels": [
+        {
+          "sequence": 1,
+          "name": "Control"
+        },
+        {
+          "sequence": 2,
+          "name": "Light"
+        },
+        {
+          "sequence": 3,
+          "name": "Heavy"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "type": "Discrete",
+      "name": "Light",
+      "description": "Light description ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "procedure": "Light Procedure ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "levels": [
+        {
+          "sequence": 1,
+          "name": "Control"
+        },
+        {
+          "sequence": 2,
+          "name": "Low"
+        },
+        {
+          "sequence": 3,
+          "name": "High"
+        }
+      ]
+    }
+  ],
+  "responseVariableFull": [
+    {
+      "id": 0,
+      "type": "Continuous",
+      "name": "Length",
+      "unit": "mm",
+      "description": "Length description ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "procedure": "Length Procedure ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "upper_limit": 100,
+      "lower_limit": 0
+    },
+    {
+      "id": 1,
+      "type": "Discrete",
+      "name": "Stalk Strength",
+      "description": "Stalk strength description ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "procedure": "Stalk strength Procedure ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "levels": [
+        {
+          "sequence": 1,
+          "name": "Brittle"
+        },
+        {
+          "sequence": 2,
+          "name": "Spongey"
+        },
+        {
+          "sequence": 3,
+          "name": "Durable"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "type": "Continuous",
+      "name": "Stalk Width",
+      "description": "Stalk Width description ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "procedure": "Stalk width Procedure ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "unit": "mm",
+      "upper_limit": 100,
+      "lower_limit": 0
+    },
+    {
+      "id": 3,
+      "type": "Continuous",
+      "name": "Largest Leaf",
+      "description": "Largest Leaf description ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "procedure": "Largest leaf Procedure ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "unit": "mm",
+      "upper_limit": 50,
+      "lower_limit": 0
+    },
+    {
+      "id": 4,
+      "type": "Continuous",
+      "name": "Breaking Angle",
+      "description": "Breaking angle description ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "procedure": "breaking angle Procedure ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "unit": "°",
+      "upper_limit": 180,
+      "lower_limit": 0
     }
   ]
 }

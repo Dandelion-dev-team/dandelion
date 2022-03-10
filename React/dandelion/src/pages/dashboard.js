@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react"
 import '../styles/App.scss'
-import Header from "../components/header"
+import Header from "../components/navigation/header"
 import Tile from "../components/tile"
 import school from '../images/school_tile.png';
 import map from '../images/map.png';
 import about from '../images/about_icon.png';
 import chart from '../images/chart.png';
 import add_data from '../images/add data.png';
-import { navigate } from "gatsby";
-
 export default function Dashboard() {
     const [savedData, setData] = useState(0);
 

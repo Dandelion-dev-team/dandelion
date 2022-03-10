@@ -1,12 +1,12 @@
 import React from 'react'
-const parse = require("../auth")
 
 export function createRecord(endpoint, body) {
     let  token = JSON.parse(localStorage.getItem('accessToken'));
+    console.log(body);
     fetch(process.env.API_URL + endpoint, {
         method: "POST",
         headers: new Headers({
-            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Type': 'application/json',
             'Cache-Control': 'no-cache, no-store, must-revalidate',
             'Authorization': 'Bearer ' + token,
             'Pragma': 'no-cache',
@@ -15,7 +15,7 @@ export function createRecord(endpoint, body) {
         body: body,
     })
         .then(console.log("PUT: " + endpoint))
-        //.then(window.location.reload(false))
+        .then(window.location.reload(false))
 }
 
 export function readRecord(endpoint, setter) {
@@ -36,7 +36,13 @@ export function updateRecord(endpoint, body) {
     let  token = JSON.parse(localStorage.getItem('accessToken'));
     fetch(process.env.API_URL + endpoint, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: new Headers({
+            'Content-Type': 'application/json',
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Authorization': 'Bearer ' + token,
+            'Pragma': 'no-cache',
+            'Expires': 0,
+        }),
         body: body
       })
         .then(console.log("PUT: "+ endpoint))
@@ -51,6 +57,6 @@ export function deleteRecord(endpoint) {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + token,
      }),
-    }).then(console.log("deleted: " + endpoint))//.then(window.location.reload(false))
+    }).then(console.log("deleted: " + endpoint)).then(window.location.reload(false))
 }
 

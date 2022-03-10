@@ -1,0 +1,102 @@
+.variable-modal-container{
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.5);;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .inner-panel{
+        opacity: 100;
+        background-color: white;
+        border-radius: 20px;
+        width: 40vw;
+        height: auto;
+        max-height: 90%;
+        padding: 2.5rem;
+        display: flex;
+
+        .panel-content{
+            display: block;
+            flex-direction: column;
+            text-align: center;
+            width: 100%;
+            overflow-y: auto;
+            color: black;
+            h3{
+                display: inline;
+                font-size: 2.5vw;   
+            }
+            .item-row{
+                text-align: left;
+                display: flex;
+                flex-direction: row;
+                justify-items: left;
+                width: 100%;
+                height: auto;
+                margin-top: 3vh;
+                .item-title{
+                    width:30%;
+                    height: 100%;
+                    h3{
+                        display: inline;
+                        font-size: 1.5vw;
+                    }
+                }
+
+                .item-text{
+                    width: 50%;
+                    height: 100%;
+                    //border: 1px solid black;
+                    h3{
+                        display: inline;
+                        font-size: 1vw;
+                    }
+
+                    .text-box{
+                        max-width: 100%;
+                        min-width: 100%;
+                        min-height: 5rem;
+                        display: flex;
+                        font-size: 1vw;
+                        width: 100%;
+                    }
+                    .textl-line{
+                        width: 100%;
+                        font-size: 1vw;
+                    }
+                }
+            }
+            .edit-icon{
+                width: 2vw;
+                height: 2vw;
+                margin-left: 2vw;
+            }
+            .edit-icon:hover{
+                cursor: pointer;
+            }
+            .close-btn{
+                .closeButton {
+                    width: 10vw;
+                    display: inline-block;
+                    align-self: flex-end;
+                    height: 8vh;
+                    background-color: $accent;
+                    color: $primary;
+                    font-size: 1.6rem;
+                    margin: 1rem 0px;
+                    margin-top: 3rem;
+                    padding: 15px;
+                    border: none;
+                    cursor: pointer;
+                    border-radius: 10px;
+                    margin-left: 1.25rem;
+                  }
+                  .closeButton:hover {
+                    background-color: #d4d926;
+                  }
+            }
+        }
+    }
+}

@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from "react"
-import Header from "../components/header"
+import Header from "../components/navigation/header"
 import "../styles/App.scss"
 import { navigate } from "gatsby"
 import { useFormik } from "formik"
+
 const base64 = require('base-64');
-
-const parse = require("../auth")
-
+export const isBrowser = () => typeof window !== "undefined"
 
 export default function Login(props) {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [role, setRole] = useState("")
-
-  const [logged] = parse.useAuth()
 
   const onSubmitClick = e => {
     e.preventDefault()
@@ -31,8 +28,8 @@ export default function Login(props) {
         .then(r => r.json())
         .then(token => {{
           if (token.access_token) {
-            parse.login(token);
             localStorage.setItem("accessToken", JSON.stringify(token.access_token));
+            localStorage.setItem("logged_in", true);
             console.log(token.access_token);
           } else {
             console.log("Please type in correct username/password")
@@ -57,55 +54,59 @@ export default function Login(props) {
     }
   });
 
-  return (
-    <div>
-      <Header />
-      <div className="signin">
-        <div className="container">
-          <div className="hero-section">
-            <div className="heading">
-              <div className="headline">
-                <h3>Sign In</h3>
-                <p>Sign in using the details your school has provided.</p>
+  if (!isBrowser) {
+    return;
+  }else{
+    return (
+      <div>
+        <Header />
+        <div className="signin">
+          <div className="container">
+            <div className="hero-section">
+              <div className="heading">
+                <div className="headline">
+                  <h3>Sign In</h3>
+                  <p>Sign in using the details your school has provided.</p>
+                </div>
               </div>
-            </div>
-            <div className="signin-form">
-              {!logged ? (
-                <form>
-                  <label>Username: </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Your username"
-                    name="username"
-                    onChange={handleUsernameChange}
-                    //value={formik.values.username}
-                  />
-                  <label>Password: </label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    placeholder="Your password"
-                    name="pass"
-                    onChange={handlePasswordChange}
-                    //value={formik.values.password}
-                  />
-                  <div className="submit-btn">
+              <div className="signin-form">
+                {true ? (
+                  <form>
+                    <label>Username: </label>
                     <input
-                      type="submit"
-                      className="submitButton"
-                      value="Log In"
-                      onClick={onSubmitClick}
-                    ></input>
-                  </div>
-                </form>
-              ) : (
-                navigate("/maintenance/sysadmin/auth-maintenance")
-              )}
+                      type="text"
+                      className="form-control"
+                      placeholder="Your username"
+                      name="username"
+                      onChange={handleUsernameChange}
+                      //value={formik.values.username}
+                    />
+                    <label>Password: </label>
+                    <input
+                      type="password"
+                      className="form-control"
+                      placeholder="Your password"
+                      name="pass"
+                      onChange={handlePasswordChange}
+                      //value={formik.values.password}
+                    />
+                    <div className="submit-btn">
+                      <input
+                        type="submit"
+                        className="submitButton"
+                        value="Log In"
+                        onClick={onSubmitClick}
+                      ></input>
+                    </div>
+                  </form>
+                ) : (
+                  navigate("/superuser/dashboard")
+                )}
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
