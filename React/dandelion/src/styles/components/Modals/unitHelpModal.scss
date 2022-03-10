@@ -1,0 +1,48 @@
+.help-modal-container {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .modal-wrapper {
+      opacity: 100;
+      background-color: white;
+      border-radius: 20px;
+      width: 65vw;
+      height: 75vh;
+      padding: 2.5rem;
+      display: flex;
+  .modal-content {
+
+
+
+    .btn {
+      .spacer {
+
+      }
+      .btn-row {
+        .finish-btn {
+          .submitButton {
+            background-color: $accent;
+            color: $primary;
+            font-size: 1.6rem;
+            margin: 1.25rem 0px;
+            padding: 15px;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+          }
+          .submitButton:hover {
+            background-color: #d4d926;
+          }
+        }
+        
+      }
+    }
+  }
+    }
+  }
+  

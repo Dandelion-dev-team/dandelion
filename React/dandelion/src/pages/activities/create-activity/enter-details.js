@@ -49,18 +49,7 @@ export default function EnterActivityDetails(props) {
                   />
                 </div>
               </div>
-              <div className="inputItem">
-                <div className="desc-title">
-                  <h3>Tutorial Text:</h3>
-                </div>
-                <div className="desc-input">
-                  <input
-                    type="text"
-                    placeholder="Tutorial Text"
-                    name="tutBox"
-                  />
-                </div>
-              </div>
+             
               <div className="inputItem">
                 <div className="desc-title">
                   <h3>Image Link</h3>

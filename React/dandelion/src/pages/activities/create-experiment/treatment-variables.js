@@ -8,6 +8,7 @@ import PaginationComponent from "../../../components/navigation/pagination"
 import { navigate } from "gatsby"
 import VariableTypeModal from "../../../components/Modals/variableTypeModal"
 import ContinuousVariableModal from "../../../components/Modals/continuousVariableModal"
+import DiscreteVariableModal from "../../../components/Modals/discreteVariableModal"
 
 export default function TreatmentVariables(props) {
   const [search_value, changeSearch] = useState("")
@@ -19,7 +20,7 @@ export default function TreatmentVariables(props) {
   const [experiment_details, setExperimentDetails] = useState("")
 
   const [cont_modal_shown, setContModalShown] = useState("")
-
+  const [discrete_modal_shown, setDiscreteModalShown] = useState("")
 
   const [selected_list, updateSelectedList] = useState([])
 
@@ -69,17 +70,15 @@ export default function TreatmentVariables(props) {
       .then(setShowDetails(true))
   }
 
-
-
   useEffect(() => {
+    setDiscreteModalShown(true)
     if (props.location.state) {
       console.log(props.location.state)
-      setExperimentDetails(props.location.state);
+      setExperimentDetails(props.location.state)
     } else {
-      if (typeof window !== `undefined`) {
-        navigate(
-          "/activities/create-experiment/enter-details")
-      }
+      // if (typeof window !== `undefined`) {
+      //   navigate("/activities/create-experiment/enter-details")
+      // }
     }
     setContModalShown(true)
     // Update the document title using the browser API
@@ -97,10 +96,11 @@ export default function TreatmentVariables(props) {
 
   return (
     <div>
-      {modal_shown ? <VariableTypeModal callback={modalCallback} />
-        : null}
+      {modal_shown ? <VariableTypeModal callback={modalCallback} /> : null}
       {/* {cont_modal_shown ? <ContinuousVariableModal callback={modalCallback} />
         : null} */}
+      {discrete_modal_shown ? <DiscreteVariableModal callback={modalCallback} /> : null}
+
       {show_details ? (
         <ViewDetailedVariable
           callback={modalCallback}
@@ -157,11 +157,11 @@ export default function TreatmentVariables(props) {
                 <div className="selected-list">
                   {selected_list
                     ? selected_list.map(variable => (
-                      <VariableSelectedComponent
-                        editCallback={handleEditCallback}
-                        data={variable}
-                      />
-                    ))
+                        <VariableSelectedComponent
+                          editCallback={handleEditCallback}
+                          data={variable}
+                        />
+                      ))
                     : null}
                 </div>
                 <div className="btn-row">
@@ -183,7 +183,10 @@ export default function TreatmentVariables(props) {
                           navigate(
                             "/activities/create-experiment/response-variables",
                             {
-                              state: { experimentDetails: experiment_details, treatmentVariables: selected_list },
+                              state: {
+                                experimentDetails: experiment_details,
+                                treatmentVariables: selected_list,
+                              },
                             }
                           )
                         }

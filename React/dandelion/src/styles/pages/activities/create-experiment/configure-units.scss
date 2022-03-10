@@ -1,0 +1,146 @@
+.configure-container {
+  background: #2e5641;
+  color: $white;
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  overflow-y: auto;
+  flex-direction: column;
+  justify-content: space-around;
+
+  .content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 97%;
+    height: 90vh;
+    border-radius: 20px;
+
+    .condition-list {
+      // background-color: white;
+      // opacity: 10%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      width: 33%;
+      height: 90vh;
+      border-radius: 20px;
+
+
+    }
+
+    .grid-container {
+      display: flex;
+      flex-direction: row;
+      width: 57%;
+      height: 90vh;
+      border-radius: 20px;
+
+      .level-row {
+        width: 20%;
+        .top-level {
+        }
+      }
+
+      .grid-row {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 90vh;
+        width: 80%;
+
+        .grid {
+          background-color: white;
+          display: flex;
+          height: 80vh;
+          border-radius: 20px;
+        }
+
+        .grid-wrapper {
+          background-color: white;
+          width: 90%;
+          display: grid;
+          grid-template-columns: repeat(5, 1fr);
+          grid-gap: 5px;
+          margin-left: 2rem;
+
+          .square {
+            background-color: #c4c4c4;
+            border-radius: 5px;
+            aspect-ratio: 1;
+            align-self: center;
+
+            .square-text {
+              position: absolute;
+              top: 0;
+              left: 0;
+              height: 100%;
+              width: 100%;
+            }
+          }
+
+          .empty-square {
+            background-color: white;
+            border-radius: 5px;
+            aspect-ratio: 1;
+          }
+        }
+      }
+
+      .btn-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 5vh;
+        border-radius: 20px;
+
+        .spacer {
+          width: 90%;
+        }
+        .continue-btn {
+          // width: 10%;
+          margin-left: auto;
+          align-items: flex-start;
+          .submitButton {
+            background-color: $accent;
+            color: $primary;
+            font-size: 1.6rem;
+            margin: 1.25rem 0px;
+            padding: 15px;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+          }
+          .submitButton:hover {
+            background-color: #d4d926;
+          }
+        }
+        .spacer {
+          width: 2%;
+        }
+      }
+    }
+  }
+
+  .info-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 5%;
+    height: 90vh;
+    border-radius: 20px;
+    .help-icon {
+      width: 3rem;
+      height: 3rem;
+    }
+    .help-icon:hover {
+      cursor: pointer;
+      color: $contrast;
+    }
+  }
+}

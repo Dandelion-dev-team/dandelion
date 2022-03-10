@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react"
 import { createRecord } from "../../utils/CRUD"
 
 export default function ContinuousVariableModal(props) {
-  const [editing, setEditing] = useState("")
   const [name, setName] = useState("")
   const [description, setDescription] = useState("")
   const [procedure, setProcedure] = useState("")
@@ -31,8 +30,6 @@ export default function ContinuousVariableModal(props) {
   const handleLowerLimitChange = e => {
     setLowerLimit(e.target.value)
   }
-
-
 
   const onCreateVariable = e => {
     if (name && description && procedure && unit && upperLimit && lowerLimit) {
@@ -147,7 +144,6 @@ export default function ContinuousVariableModal(props) {
                 className="submitButton"
                 value="Finished"
                 onClick={onCreateVariable}
-                
               ></input>
             </div>
           </div>
