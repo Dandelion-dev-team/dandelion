@@ -1,0 +1,14 @@
+.square {
+    background-color: #c4c4c4;
+    border-radius: 5px;
+    aspect-ratio: 1;
+    align-self: center;
+
+    .square-text {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+    }
+  }

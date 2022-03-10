@@ -4,33 +4,32 @@ import "../../../styles/App.scss"
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline"
 import UnitCard from "../../../components/cards/unitCard"
 import UnitHelpModal from "../../../components/Modals/unitHelpModal"
+import UnitItem from "../../../components/unitItem"
 
 export default function ConfigureUnits(props) {
   const [modal_shown, setModalShown] = useState("")
-  const [treatment_variables, setTreatment] = useState("");
-  const [response_variables, setResponse] = useState("");
-  const [combination_list, setCombinationList] = useState("");
-  const [experiment_details, setExperimentDetails] = useState("");
+  const [treatment_variables, setTreatment] = useState("")
+  const [response_variables, setResponse] = useState("")
+  const [combination_list, setCombinationList] = useState("")
+  const [experiment_details, setExperimentDetails] = useState("")
 
   useEffect(() => {
     if (props.location.state) {
-      console.log(props.location.state);
-      setTreatment(props.location.state.treatmentVariables);
-      setResponse(props.location.state.responseVariables);
-      setExperimentDetails(props.location.state.experimentDetails);
-      setCombinationList(props.location.state.combinations);
-
+      console.log(props.location.state)
+      setTreatment(props.location.state.treatmentVariables)
+      setResponse(props.location.state.responseVariables)
+      setExperimentDetails(props.location.state.experimentDetails)
+      setCombinationList(props.location.state.combinations)
     } else {
       if (typeof window !== `undefined`) {
         // navigate(
         //   "/activities/create-experiment/enter-details")
       }
     }
-  }, []);
-
+  }, [])
 
   const closeModal = prop => {
-    setModalShown(false);
+    setModalShown(false)
   }
 
   return (
@@ -40,15 +39,14 @@ export default function ConfigureUnits(props) {
       <div className="configure-container">
         <div className="content">
           <div className="condition-list">
-            {combination_list ? combination_list.map(function (d, idx) {
-              return (
-                <UnitCard key={idx} combination={d} />)
-            })
+            {combination_list
+              ? combination_list.map(function (d, idx) {
+                  return <UnitCard key={idx} combination={d} />
+                })
               : null}
             <UnitCard />
             <UnitCard />
             <UnitCard />
-
           </div>
           <div className="grid-container">
             <div className="level-row">
@@ -82,26 +80,30 @@ export default function ConfigureUnits(props) {
                       <h3>5</h3>
                     </div>
                   </div>
-                  <div className="alphabetical-row">
-                    <div className="letter">
-                      <h3>A</h3>
+                  <div className="right-pane">
+                    <div className="alphabetical-row">
+                      <div className="letter">
+                        <h3>A</h3>
+                      </div>
+                      <div className="letter">
+                        <h3>B</h3>
+                      </div>
+                      <div className="letter">
+                        <h3>C</h3>
+                      </div>
+                      <div className="letter">
+                        <h3>D</h3>
+                      </div>
+                      <div className="letter">
+                        <h3>E</h3>
+                      </div>
                     </div>
-                    <div className="letter">
-                      <h3>B</h3>
-                    </div>
-                    <div className="letter">
-                      <h3>C</h3>
-                    </div>
-                    <div className="letter">
-                      <h3>D</h3>
-                    </div>
-                    <div className="letter">
-                      <h3>E</h3>
+                    <div className="grid-wrapper">
+                      <div className="square-grid">
+              
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="grid-wrapper">
-                  {/* grid component */}
                 </div>
               </div>
               <div className="btn-container">
