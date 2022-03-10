@@ -28,10 +28,14 @@ export default function ConfigureUnits(props) {
     }
   }, []);
 
+  const modalClose = e => {
+    setModalShown(false);
+  }
+
 
   return (
     <div>
-      {modal_shown ? <UnitHelpModal /> : null}
+      {modal_shown ? <UnitHelpModal callback={modalClose}/> : null}
 
       <div className="configure-container">
         <div className="content">
@@ -41,6 +45,10 @@ export default function ConfigureUnits(props) {
                 <UnitCard key={idx} combination={d} />)
             })
               : null}
+          <UnitCard/>
+          <UnitCard/>
+          <UnitCard/>
+
           </div>
           <div className="grid-container">
             <div className="level-row">

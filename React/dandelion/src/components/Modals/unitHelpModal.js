@@ -24,6 +24,9 @@ export default function UnitHelpModal(props) {
                     type="submit"
                     className="submitButton"
                     value="Finished"
+                    onClick={() => {
+                      props.callback()
+                    }}
                   ></input>
                 </div>
               </div>
