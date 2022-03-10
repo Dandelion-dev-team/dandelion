@@ -7,6 +7,31 @@ import UnitHelpModal from "../../../components/Modals/unitHelpModal"
 
 export default function ConfigureUnits(props) {
   const [modal_shown, setModalShown] = useState("")
+  const [treatment_variables, setTreatment] = useState("");
+  const [response_variables, setResponse] = useState("");
+  const [combination_list, setCombinationList] = useState("");
+  const [experiment_details, setExperimentDetails] = useState("");
+
+  useEffect(() => {
+    if (props.location.state) {
+      console.log(props.location.state);
+      setTreatment(props.location.state.treatmentVariables);
+      setResponse(props.location.state.responseVariables);
+      setExperimentDetails(props.location.state.experimentDetails);
+      setCombinationList(props.location.state.combinations);
+
+    } else {
+      if (typeof window !== `undefined`) {
+        // navigate(
+        //   "/activities/create-experiment/enter-details")
+      }
+    }
+  }, []);
+
+  const modalClose = e => {
+    setModalShown(false);
+  }
+
 
   const closeModal = prop => {
     setModalShown(false);
@@ -19,8 +44,15 @@ export default function ConfigureUnits(props) {
       <div className="configure-container">
         <div className="content">
           <div className="condition-list">
-            <UnitCard />
-            <UnitCard />
+            {combination_list ? combination_list.map(function (d, idx) {
+              return (
+                <UnitCard key={idx} combination={d} />)
+            })
+              : null}
+          <UnitCard/>
+          <UnitCard/>
+          <UnitCard/>
+
           </div>
           <div className="grid-container">
             <div className="level-row">
@@ -37,31 +69,6 @@ export default function ConfigureUnits(props) {
             <div className="grid-row">
               <div className="grid">
                 <div className="grid-wrapper">
-                  <div class="square">hello :)</div>
-                  <div class="square" />
-                  <div class="square" />
-                  <div class="square" />
-                  <div class="square" />
-                  <div class="square" />
-                  <div class="square" />
-                  <div class="square" />
-                  <div class="square" />
-                  <div class="square" />
-                  <div class="square" />
-                  <div class="square" />
-                  <div class="square" />
-                  <div class="square" />
-                  <div class="square" />
-                  <div class="square" />
-                  <div class="square" />
-                  <div class="square" />
-                  <div class="square" />
-                  <div class="square" />
-                  <div class="square" />
-                  <div class="square" />
-                  <div class="square" />
-                  <div class="square" />
-                  <div class="square" />
                 </div>
               </div>
               <div className="btn-container">

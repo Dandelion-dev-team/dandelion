@@ -161,7 +161,10 @@ export default function Summary(props) {
                     value="Continue"
                     onClick={() => {
                       if (typeof window !== `undefined`) {
-                        navigate("/") //TODO CHANGE
+                        navigate("/activities/create-experiment/configure-units",
+                        {
+                          state: {treatmentVariables: treatment_selected, responseVariables: response_selected, experimentDetails: experiment_details, combinations: combinations_selected},
+                        }) //TODO CHANGE
                       }
                     }}
                   ></input>
