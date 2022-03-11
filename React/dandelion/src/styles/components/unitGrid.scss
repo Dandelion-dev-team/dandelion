@@ -1,14 +1,22 @@
 .square {
-    background-color: #c4c4c4;
     border-radius: 5px;
+    display: flex;
     aspect-ratio: 1;
-    align-self: center;
+    pointer-events:initial;
 
-    .square-text {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
+    .square-container {
+      display: flex;
       width: 100%;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+      h3{
+        margin-bottom: 0;
+        color: black;
+        font-size: 1.5vw;
+      }
     }
+  }
+  .square:hover{
+    border: 3px solid $orange-accent;
   }

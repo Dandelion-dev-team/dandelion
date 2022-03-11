@@ -5,5 +5,10 @@ exports.createPages = async ({ actions }) => {
     component: require.resolve("./src/templates/using-dsg.js"),
     context: {},
     defer: true,
-  })
+  }),
+  exports.onCreateWebpackConfig = ({ actions }) => {
+    actions.setWebpackConfig({
+        devtool: "eval-source-map"
+    });
+};
 }
