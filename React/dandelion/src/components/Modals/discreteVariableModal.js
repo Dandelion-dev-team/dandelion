@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { createRecord } from "../../utils/CRUD"
 import DiscreteModalCard from "../cards/discreteModalCard"
+import DiscreteCardList from "../cards/discreteCardList"
 
 export default function DiscreteVariableModal(props) {
   const [name, setName] = useState("")
@@ -17,7 +18,7 @@ export default function DiscreteVariableModal(props) {
     setProcedure(e.target.value)
   }
 
-  const onCreateVariable = e => {
+  const onAddLevel = e => {
     if (name && description && procedure) {
       let body = JSON.stringify({
         id: 1,
@@ -81,19 +82,31 @@ export default function DiscreteVariableModal(props) {
                   />
                 </div>
               </div>
-              <div className="add-btn">
+            </div>
+            <div className="level-row">
+              <div className="card-list">
+                <DiscreteCardList />
+                <div className="level-bar">
+                  <div className="title">
+                    <h3>Level:</h3>
+                  </div>
+                  <div className="input">
+                    <input
+                      type="text"
+                      placeholder="Level"
+                      name="descBox"
+                    />
+                  </div>
+                </div>
+                <div className="add-btn">
                 <input
                   type="submit"
                   className="submitButton"
                   value="Add Level"
-                  onClick={onCreateVariable}
+                  onClick={onAddLevel}
                 ></input>
               </div>
-            </div>
-            <div className="level-row">
-              <DiscreteModalCard />
-              <DiscreteModalCard />
-
+              </div>
               <div className="finish-btn-row">
                 <div className="spacer" />
                 <div className="finish-btn">
@@ -101,7 +114,9 @@ export default function DiscreteVariableModal(props) {
                     type="submit"
                     className="submitButton"
                     value="Finish"
-                    onClick={() => {props.callback()}}
+                    onClick={() => {
+                      props.callback()
+                    }}
                   ></input>
                 </div>
               </div>
