@@ -10,7 +10,7 @@ export default function ProjectComponent(props) {
     //readRecord("/projects", setProject)
     //TESTED
     // Update the document title using the browser API
-    fetch("http://localhost:3000/projects", {
+    fetch(process.env.ROOT_URL + "/projects", {
       method: "GET",
       headers: new Headers({
         "Cache-Control": "no-cache, no-store, must-revalidate",

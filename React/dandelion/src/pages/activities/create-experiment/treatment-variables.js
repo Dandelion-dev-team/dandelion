@@ -2,12 +2,12 @@ import React, { useEffect, useState, useRef } from "react"
 import "../../../styles/App.scss"
 import TuneIcon from "@mui/icons-material/Tune"
 import VariableListComponent from "../../../components/cards/variableListComponent"
-import ViewDetailedVariable from "../../../components/Modals/viewDetailedVariable"
+import ViewDetailedVariable from "../../../components/modals/viewDetailedVariable"
 import VariableSelectedComponent from "../../../components/cards/variableSelectedComponent"
 import PaginationComponent from "../../../components/navigation/pagination"
 import { navigate } from "gatsby"
-import VariableTypeModal from "../../../components/Modals/variableTypeModal"
-import DiscreteVariableModal from "../../../components/Modals/discreteVariableModal"
+import VariableTypeModal from "../../../components/modals/variableTypeModal"
+import DiscreteVariableModal from "../../../components/modals/discreteVariableModal"
 
 export default function TreatmentVariables(props) {
   const [search_value, changeSearch] = useState("")
@@ -38,7 +38,7 @@ export default function TreatmentVariables(props) {
   }
 
   const handleDetailCallback = index => {
-    fetch("http://localhost:3000/treatmentVariableFull/" + index, {
+    fetch(process.env.ROOT_URL + "/treatmentVariableFull/" + index, {
       method: "GET",
       headers: new Headers({
         "Cache-Control": "no-cache, no-store, must-revalidate",
@@ -52,7 +52,7 @@ export default function TreatmentVariables(props) {
       .then(setShowDetails(true))
   }
   const handleEditCallback = index => {
-    fetch("http://localhost:3000/treatmentVariableFull/" + index, {
+    fetch(process.env.ROOT_URL + "/treatmentVariableFull/" + index, {
       method: "GET",
       headers: new Headers({
         "Cache-Control": "no-cache, no-store, must-revalidate",
@@ -77,7 +77,7 @@ export default function TreatmentVariables(props) {
       // }
     }
     // Update the document title using the browser API
-    fetch("http://localhost:3000/treatmentVariablesShortlist", {
+    fetch(process.env.ROOT_URL + "/treatmentVariablesShortlist", {
       method: "GET",
       headers: new Headers({
         "Cache-Control": "no-cache, no-store, must-revalidate",

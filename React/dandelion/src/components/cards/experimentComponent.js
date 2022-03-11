@@ -5,7 +5,7 @@ export default function ExperimentComponent(props) {
   const [experiments, setExperiment] = useState(0)
   //TESTED
   useEffect(() => {
-    fetch("http://localhost:3000/experiment_summary", {
+    fetch(process.env.ROOT_URL + "/experiment_summary", {
       method: "GET",
       headers: new Headers({
         "Cache-Control": "no-cache, no-store, must-revalidate",

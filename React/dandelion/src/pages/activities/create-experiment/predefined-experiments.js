@@ -17,7 +17,7 @@ export default function PredefinedExperiments(props) {
 
   const handleCallback = childData => {
     console.log("id: " + childData.id);
-    fetch("http://localhost:3000/experiment_full/" + childData.id, {
+    fetch(process.env.ROOT_URL + "/experiment_full/" + childData.id, {
       method: "GET",
       headers: new Headers({
         "Cache-Control": "no-cache, no-store, must-revalidate",

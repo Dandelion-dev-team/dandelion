@@ -57,7 +57,7 @@ export default function ResponseVariables(props) {
     }
 
     const handleDetailCallback = index => {
-        fetch("http://localhost:3000/responseVariableFull/" + index, {
+        fetch(process.env.ROOT_URL + "/responseVariableFull/" + index, {
             method: "GET",
             headers: new Headers({
                 "Cache-Control": "no-cache, no-store, must-revalidate",
@@ -69,7 +69,7 @@ export default function ResponseVariables(props) {
             .then(data => setDetailVariable(data)).then(setModalEditing(false)).then(setShowDetails(true));
     }
     const handleEditCallback = index => {
-        fetch("http://localhost:3000/responseVariableFull/" + index, {
+        fetch(process.env.ROOT_URL + "/responseVariableFull/" + index, {
             method: "GET",
             headers: new Headers({
                 "Cache-Control": "no-cache, no-store, must-revalidate",
@@ -93,7 +93,7 @@ export default function ResponseVariables(props) {
             }
         }
         // Update the document title using the browser API
-        fetch("http://localhost:3000/responseVariableShortlist", {
+        fetch(process.env.ROOT_URL + "/responseVariableShortlist", {
             method: "GET",
             headers: new Headers({
                 'Cache-Control': 'no-cache, no-store, must-revalidate',

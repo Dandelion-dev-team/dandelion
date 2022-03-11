@@ -12,7 +12,7 @@ export default function Dashboard() {
 
     useEffect(() => {
         // Update the document title using the browser API
-        fetch("http://localhost:3000/users", {
+        fetch(process.env.API_URL + "/users", {
             method: "GET",
             headers: new Headers({
                 'Cache-Control': 'no-cache, no-store, must-revalidate',

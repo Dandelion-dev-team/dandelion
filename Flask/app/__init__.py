@@ -28,13 +28,13 @@ def create_app(config_name):
     #                     format='%(asctime)s %(levelname)s %(name)s %(threadName)s: %(message)s')
 
     from .public import public as public_blueprint
-    app.register_blueprint(public_blueprint)
+    app.register_blueprint(public_blueprint, url_prefix='/api')
 
     from .admin import admin as admin_blueprint
-    app.register_blueprint(admin_blueprint)
+    app.register_blueprint(admin_blueprint, url_prefix='/api')
 
     from .auth import auth as auth_blueprint
-    app.register_blueprint(auth_blueprint)
+    app.register_blueprint(auth_blueprint, url_prefix='/api')
 
     @app.errorhandler(400)
     def bad_request(error):

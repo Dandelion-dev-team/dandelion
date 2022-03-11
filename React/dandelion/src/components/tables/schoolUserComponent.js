@@ -8,7 +8,7 @@ export default function SchoolUserComponent(props) {
 
   useEffect(() => {
     // readRecord('/users', setUsers);
-    fetch("http://localhost:3000/school-users", {
+    fetch(process.env.ROOT_URL + "/school-users", {
       method: "GET",
       headers: new Headers({
         "Cache-Control": "no-cache, no-store, must-revalidate",

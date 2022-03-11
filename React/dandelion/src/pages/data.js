@@ -8,7 +8,7 @@ export default function Data() {
 
   useEffect(() => {
     // Update the document title using the browser API
-    fetch("http://localhost:3000/projects", {
+    fetch(process.env.API_URL + "/projects", {
       method: "GET",
       headers: new Headers({
         'Cache-Control': 'no-cache, no-store, must-revalidate',
