@@ -16,7 +16,7 @@ export default function Login(props) {
     e.preventDefault()
     if(username && password){
       let credentials = base64.encode(username + ":" + password);
-      fetch("http://127.0.0.1:5000/user/login", {
+      fetch(process.env.API_URL + "/user/login", {
         method: "GET",
         headers: new Headers({
           "Authorization": "Basic " + credentials,

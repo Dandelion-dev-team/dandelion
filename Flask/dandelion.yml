@@ -18,4 +18,5 @@ dependencies:
   - mysql-client
   - pillow
   - pandas
+  - gunicorn
 prefix: /Users/briandavison/opt/anaconda3/envs/dandelion
