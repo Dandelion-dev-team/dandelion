@@ -3,7 +3,7 @@ import { navigate } from "gatsby"
 import "../../../styles/App.scss"
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline"
 import UnitCard from "../../../components/cards/unitCard"
-import UnitHelpModal from "../../../components/Modals/unitHelpModal"
+import UnitHelpModal from "../../../components/modals/unitHelpModal"
 import UnitItem from "../../../components/unitItem"
 
 export default function ConfigureUnits(props) {

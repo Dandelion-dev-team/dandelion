@@ -3,14 +3,16 @@ import SideNav from "../../components/navigation/superUserSideNav"
 import "../../styles/App.scss"
 import ProjectPane from "../../components/panes/projectPane"
 import ProjectComponent from "../../components/tables/projectComponent"
-import ActivityCreatedModal from "../../components/Modals/activityCreatedModal"
+import ActivityCreatedModal from "../../components/modals/activityCreatedModal"
 
 export default function ProjectMaintenance(props) {
   const [editing_project, setEditingProject] = useState("")
   const [modal_shown, setModalShown] = useState("")
 
   useEffect(() => {
-    setModalShown(true);
+    if(props.location.state){
+      setModalShown(true);
+    }
   }, [])
 
   const handleCallback = childData => {

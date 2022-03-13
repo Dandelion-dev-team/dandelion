@@ -141,7 +141,11 @@ export default function EnterActivityDetails(props) {
               value="Finished"
               onClick={() => {
                 if (typeof window !== `undefined`) {
-                  navigate("/superuser/project-maintenance")
+                  navigate("/superuser/project-maintenance",                             {
+                    state: {
+                      show_modal: true
+                    },
+                  })
                 }
               }}
             ></input>

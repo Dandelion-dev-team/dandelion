@@ -2,12 +2,12 @@ import React, { useEffect, useState, useRef } from "react"
 import "../../../styles/App.scss"
 import TuneIcon from "@mui/icons-material/Tune"
 import VariableListComponent from "../../../components/cards/variableListComponent"
-import ViewDetailedVariable from "../../../components/Modals/viewDetailedVariable"
+import ViewDetailedVariable from "../../../components/modals/viewDetailedVariable"
 import VariableSelectedComponent from "../../../components/cards/variableSelectedComponent"
 import PaginationComponent from "../../../components/navigation/pagination"
 import { navigate } from "gatsby"
-import VariableTypeModal from "../../../components/Modals/variableTypeModal"
-import DiscreteVariableModal from "../../../components/Modals/discreteVariableModal"
+import VariableTypeModal from "../../../components/modals/variableTypeModal"
+import DiscreteVariableModal from "../../../components/modals/discreteVariableModal"
 
 export default function TreatmentVariables(props) {
   const [search_value, changeSearch] = useState("")
