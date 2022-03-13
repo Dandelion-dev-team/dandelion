@@ -26,6 +26,11 @@
       width: 33%;
       height: 90vh;
       border-radius: 20px;
+  
+      .active{
+        border: 5px solid $accent;
+
+      }
     }
 
     .grid-container {
@@ -221,4 +226,8 @@
       color: $contrast;
     }
   }
+}
+
+#active{
+  border: 5px solid $accent;
 }

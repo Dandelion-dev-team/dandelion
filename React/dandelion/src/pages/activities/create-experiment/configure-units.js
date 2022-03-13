@@ -19,6 +19,9 @@ export default function ConfigureUnits(props) {
   const [matrix, setMatrix] = useState(Array.from({ length: 3 }, () => Array.from({ length: 25 }, () => grid_values)));
   const [dragged_item, setCurrentDraggedItem] = useState();
 
+  let a = new Array(props.location.state.combinations.length);
+  const [active_class, setActiveClass] = useState([a])
+
 
   useEffect(() => {
     setItem("top");
@@ -80,6 +83,10 @@ export default function ConfigureUnits(props) {
   }
 
   const setDraggedItem = childData => {
+    let copy = new Array(props.location.state.combinations.length);
+    console.log(childData.index);
+    copy[childData.index] = true;
+    setActiveClass(copy);
     setCurrentDraggedItem(childData);
   }
 
@@ -92,7 +99,7 @@ export default function ConfigureUnits(props) {
           <div className="condition-list">
             {combination_list
               ? combination_list.map(function (d, idx) {
-                return <UnitCard key={idx} combination={d} onDragItem={setDraggedItem}/>
+                return <UnitCard index={idx} key={idx} combination={d} onDragItem={setDraggedItem} is_active={active_class[idx]}/>
               })
               : null}
           </div>
