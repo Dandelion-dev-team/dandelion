@@ -167,6 +167,9 @@ export default function ConfigureUnits(props) {
                     type="submit"
                     className="submitButton"
                     value="Finished"
+                    onClick={() => {
+                      navigate("/superuser/project-maintenance")
+                    }}
                   ></input>
                 </div>
                 <div className="spacer"></div>

@@ -29,8 +29,7 @@ export default function UnitCard(props) {
         <div className="text-content">
           {Array.isArray(props.combination) ? props.combination.map(variable => <h3>{variable[0].name} ({variable[0].treatment_name})</h3>)
             :
-            <h3>Control (Touches)</h3>
-            //<h3>{props.combination.name} ({props.combination.treatment_name})</h3>
+            <h3>{props.combination.name} ({props.combination.treatment_name})</h3>
           }
         </div>
         <div  onClick={() => {setShowPicker(!show_picker)}} className="colour-picker">

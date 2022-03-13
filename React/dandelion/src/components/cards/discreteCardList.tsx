@@ -3,13 +3,16 @@ import React, { useState, useEffect } from "react"
 import { Reorder } from "framer-motion";
 import { Item } from "./discreteModalCard";
 
-const initialItems = ["Touches", "Humidity", "Temperature"];
+export default function App(props) {
+  const [items, setItems] = useState(props.levelList);
 
-export default function App() {
-  const [items, setItems] = useState(initialItems);
+  useEffect(() => {
+    // Update the document title using the browser API
+    setItems(props.levelList);
+  });
 
   return (
-    <Reorder.Group axis="y" onReorder={setItems} values={items} as="div">
+    <Reorder.Group axis="y" onReorder={setItems} values={items} as="div" >
       {items.map((item) => (
         <Item key={item} item={item} />
       ))}

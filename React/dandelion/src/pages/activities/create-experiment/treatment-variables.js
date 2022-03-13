@@ -26,6 +26,14 @@ export default function TreatmentVariables(props) {
   const modalCallback = e => {
     setShowDetails(false);
     setDiscreteModalShown(false);
+
+    if(e){
+      updateSelectedList(arr => [...arr, JSON.parse(e)])
+    }
+  }
+
+  const updateModalList = e => {
+    updateSelectedList(arr => [...arr, e])
   }
 
   const checkboxCallback = e => {

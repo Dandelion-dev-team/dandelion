@@ -7,6 +7,9 @@ export default function DiscreteVariableModal(props) {
   const [name, setName] = useState("")
   const [description, setDescription] = useState("")
   const [procedure, setProcedure] = useState("")
+  const [level_text_box, setLevelTextbox] = useState("");
+
+  const [level_list, setLevelList] = useState([]);
 
   const handleNameChange = e => {
     setName(e.target.value)
@@ -18,7 +21,11 @@ export default function DiscreteVariableModal(props) {
     setProcedure(e.target.value)
   }
 
-  const onAddLevel = e => {
+  const handleLevelTextboxChange = e => {
+    setLevelTextbox(e.target.value)
+  }
+
+  const onFinish = e => {
     if (name && description && procedure) {
       let body = JSON.stringify({
         id: 1,
@@ -26,12 +33,18 @@ export default function DiscreteVariableModal(props) {
         name: name,
         description: description,
         procedure: procedure,
-        levels: "levels",
+        levels: [{name: "Touch"}, {name: "Control"}],
       })
-      createRecord("/treatmentVariableFull", body)
+      props.callback(body);
     } else {
       console.log("did not have all information")
     }
+  }
+
+  const AddLevel = e => {
+    let copy = [...level_list];
+    copy.push(level_text_box)
+    setLevelList(copy);
   }
 
   return (
@@ -85,7 +98,7 @@ export default function DiscreteVariableModal(props) {
             </div>
             <div className="level-row">
               <div className="card-list">
-                <DiscreteCardList />
+                <DiscreteCardList levelList={level_list} addLevel={AddLevel}/>
                 <div className="level-bar">
                   <div className="title">
                     <h3>Level:</h3>
@@ -95,6 +108,8 @@ export default function DiscreteVariableModal(props) {
                       type="text"
                       placeholder="Level"
                       name="descBox"
+                      onChange={handleLevelTextboxChange}
+                      value={level_text_box}
                     />
                   </div>
                 </div>
@@ -103,7 +118,10 @@ export default function DiscreteVariableModal(props) {
                   type="submit"
                   className="submitButton"
                   value="Add Level"
-                  onClick={onAddLevel}
+                  onClick={() => {
+                    {AddLevel()}
+                  }}
+
                 ></input>
               </div>
               </div>
@@ -115,7 +133,7 @@ export default function DiscreteVariableModal(props) {
                     className="submitButton"
                     value="Finish"
                     onClick={() => {
-                      props.callback()
+                      {onFinish()}
                     }}
                   ></input>
                 </div>
