@@ -61,6 +61,34 @@
           height: auto;
           margin-top: 3vh;
 
+          .img-btn {
+            width: 50%;
+            height: 100%;
+
+            .image-upload-btn{
+              width: 35%;
+              height: 100%;
+              display: flex;
+              background-color: $accent;
+              cursor: pointer;
+              border-radius: 5px;
+              align-items: center;
+              justify-content: center;
+              .imageIcon {
+                width: 4vh;
+                height: 4vh;
+                color: black;
+              }
+            }
+            .image-upload-btn:hover {
+              background-color: #d4d926;
+              .imageIcon {
+                color: $primary;
+              }
+            }
+          }
+        
+
           .item-title {
             width: 30%;
             height: 100%;

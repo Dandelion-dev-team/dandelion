@@ -108,21 +108,22 @@
             width: 50%;
             height: 100%;
 
-            .imageButton {
-              width: 45%;
+            .image-upload-btn{
+              width: 35%;
+              height: 100%;
               display: flex;
               background-color: $accent;
               cursor: pointer;
-              border-radius: 10px;
+              border-radius: 5px;
               align-items: center;
               justify-content: center;
               .imageIcon {
-                width: 5vh;
-                height: 5vh;
+                width: 4vh;
+                height: 4vh;
                 color: black;
               }
             }
-            .imageButton:hover {
+            .image-upload-btn:hover {
               background-color: #d4d926;
               .imageIcon {
                 color: $primary;
