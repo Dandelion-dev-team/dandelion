@@ -19,7 +19,8 @@ export default function ConfigureUnits(props) {
   const [matrix, setMatrix] = useState(Array.from({ length: 3 }, () => Array.from({ length: 25 }, () => grid_values)));
   const [dragged_item, setCurrentDraggedItem] = useState();
 
-  let a = new Array(props.location.state.combinations.length);
+  let a = new Array(32);
+  
   const [active_class, setActiveClass] = useState([a])
 
 
@@ -90,6 +91,7 @@ export default function ConfigureUnits(props) {
     setCurrentDraggedItem(childData);
   }
 
+  if (typeof window !== `undefined`) {
   return (
     <div>
       {modal_shown ? <UnitHelpModal callback={closeModal} /> : null}
@@ -195,4 +197,5 @@ export default function ConfigureUnits(props) {
       </div>
     </div>
   )
+} else {return null}
 }
