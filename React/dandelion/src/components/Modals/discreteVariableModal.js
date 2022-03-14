@@ -34,14 +34,20 @@ export default function DiscreteVariableModal(props) {
   }
 
   const onFinish = e => {
-    if (name && description && procedure) {
+    if (name && description && procedure && level_list) {
+      let arr = new Array();
+      for (let index = 0; index < level_list.length; index++) {
+        const element = level_list[index];
+        arr.push({treatment_name: name, sequence: index, name: element})
+      }
+      console.log(arr);
       let body = JSON.stringify({
         id: 1,
         type: "Discrete",
         name: name,
         description: description,
         procedure: procedure,
-        levels: [{ name: "Touch" }, { name: "Control" }],
+        levels: arr,
       })
       props.callback(body);
     } else {
