@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
-import { createRecord } from "../../utils/CRUD"
+import { createRecord, readRecord } from "../../utils/CRUD"
+import Select from "react-select"
 
 export default function ContinuousVariableModal(props) {
   const [name, setName] = useState("")
@@ -8,6 +9,9 @@ export default function ContinuousVariableModal(props) {
   const [unit, setUnit] = useState("")
   const [upperLimit, setUpperLimit] = useState("")
   const [lowerLimit, setLowerLimit] = useState("")
+
+  const [quantitiy_list, setQuantityList] = useState()
+  const [quantity_selected, setSelectedQuantity] = useState()
 
   const handleNameChange = e => {
     setName(e.target.value)
@@ -48,6 +52,10 @@ export default function ContinuousVariableModal(props) {
       console.log("did not have all information")
     }
   }
+
+  useEffect(() => {
+    readRecord("/quantity", setQuantityList)
+  }, [])
 
   return (
     <div>
@@ -136,6 +144,22 @@ export default function ContinuousVariableModal(props) {
                   value={lowerLimit}
                   onChange={handleLowerLimitChange}
                 />
+              </div>
+              <div className="inputItem">
+                <div className="item-title">
+                  <h3>Quantity relation:</h3>
+                </div>
+                <div className="item-input">
+                  <Select
+                    name="authority_id_picker"
+                    options={quantitiy_list}
+                    value={quantity_selected}
+                    defaultValue={"No Quantity Relation"}
+                    onChange={setQuantityList}
+                    getOptionLabel={quantitiy_list => quantitiy_list.name}
+                    getOptionValue={quantitiy_list => quantitiy_list.id} // It should be unique value in the options. E.g. ID
+                  />
+                </div>
               </div>
             </div>
             <div className="finish-btn">

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react"
-import { createRecord } from "../../utils/CRUD"
+import { createRecord, readRecord } from "../../utils/CRUD"
 import DiscreteModalCard from "../cards/discreteModalCard"
 import DiscreteCardList from "../cards/discreteCardList"
+import Select from "react-select"
 
 export default function DiscreteVariableModal(props) {
   const [name, setName] = useState("")
@@ -10,6 +11,9 @@ export default function DiscreteVariableModal(props) {
   const [level_text_box, setLevelTextbox] = useState("");
 
   const [level_list, setLevelList] = useState([]);
+
+  const [quantitiy_list, setQuantityList] = useState()
+  const [quantity_selected, setSelectedQuantity] = useState()
 
   const handleNameChange = e => {
     setName(e.target.value)
@@ -37,13 +41,17 @@ export default function DiscreteVariableModal(props) {
         name: name,
         description: description,
         procedure: procedure,
-        levels: [{name: "Touch"}, {name: "Control"}],
+        levels: [{ name: "Touch" }, { name: "Control" }],
       })
       props.callback(body);
     } else {
       console.log("did not have all information")
     }
   }
+
+  useEffect(() => {
+    readRecord("/quantity", setQuantityList)
+  }, [])
 
   const AddLevel = e => {
     let copy = [...level_list];
@@ -99,10 +107,26 @@ export default function DiscreteVariableModal(props) {
                   />
                 </div>
               </div>
+              <div className="inputItem">
+              <div className="item-title">
+                <h3>Quantity relation:</h3>
+              </div>
+              <div className="item-input">
+              <Select
+                        name="authority_id_picker"
+                        options={quantitiy_list}
+                        value={quantity_selected}
+                        defaultValue={"No Quantity Relation"}
+                        onChange={setQuantityList}
+                        getOptionLabel={quantitiy_list => quantitiy_list.name}
+                        getOptionValue={quantitiy_list => quantitiy_list.id} // It should be unique value in the options. E.g. ID
+                      />
+              </div>
+            </div>
             </div>
             <div className="level-row">
               <div className="card-list">
-                <DiscreteCardList levelList={level_list} addLevel={AddLevel} reorderLevels={handleLevelListChange}/>
+                <DiscreteCardList levelList={level_list} addLevel={AddLevel} reorderLevels={handleLevelListChange} />
                 <div className="level-bar">
                   <div className="title">
                     <h3>Level:</h3>
@@ -118,16 +142,16 @@ export default function DiscreteVariableModal(props) {
                   </div>
                 </div>
                 <div className="add-btn">
-                <input
-                  type="submit"
-                  className="submitButton"
-                  value="Add Level"
-                  onClick={() => {
-                    {AddLevel()}
-                  }}
+                  <input
+                    type="submit"
+                    className="submitButton"
+                    value="Add Level"
+                    onClick={() => {
+                      { AddLevel() }
+                    }}
 
-                ></input>
-              </div>
+                  ></input>
+                </div>
               </div>
               <div className="finish-btn-row">
                 <div className="spacer" />
@@ -137,7 +161,7 @@ export default function DiscreteVariableModal(props) {
                     className="submitButton"
                     value="Finish"
                     onClick={() => {
-                      {onFinish()}
+                      { onFinish() }
                     }}
                   ></input>
                 </div>
