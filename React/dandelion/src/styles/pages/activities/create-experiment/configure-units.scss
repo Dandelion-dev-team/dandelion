@@ -19,8 +19,6 @@
     border-radius: 20px;
 
     .condition-list {
-      // background-color: white;
-      // opacity: 10%;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -28,8 +26,11 @@
       width: 33%;
       height: 90vh;
       border-radius: 20px;
+  
+      .active{
+        border: 5px solid $accent;
 
-
+      }
     }
 
     .grid-container {
@@ -40,8 +41,37 @@
       border-radius: 20px;
 
       .level-row {
-        width: 20%;
-        .top-level {
+        .top-level,
+        .middle-level,
+        .bottom-level {
+          border-top-left-radius: 5px;
+          border-bottom-left-radius: 5px;
+          background-color: white;
+          height: 3.5rem;
+          width: 8.5rem;
+          margin-bottom: 1rem;
+          display: flex;
+          align-items: center;
+
+          h3 {
+            color: $primary;
+            margin-bottom: 0;
+            font-size: 1.2rem;
+            margin-left: 0.5rem;
+          }
+        }
+
+        .top-level:hover,
+        .middle-level:hover,
+        .bottom-level:hover {
+          background-color: $contrast;
+        }
+
+        #active {
+          background-color: $accent;
+        }
+        #active:hover {
+          mix-blend-mode: difference;
         }
       }
 
@@ -56,36 +86,89 @@
           background-color: white;
           display: flex;
           height: 80vh;
-          border-radius: 20px;
-        }
+          width: 80vh;
+          border-bottom-left-radius: 20px;
+          border-bottom-right-radius: 20px;
+          border-top-right-radius: 20px;
 
-        .grid-wrapper {
-          background-color: white;
-          width: 90%;
-          display: grid;
-          grid-template-columns: repeat(5, 1fr);
-          grid-gap: 5px;
-          margin-left: 2rem;
+          .label-wrapper {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: row;
 
-          .square {
-            background-color: #c4c4c4;
-            border-radius: 5px;
-            aspect-ratio: 1;
-            align-self: center;
-
-            .square-text {
-              position: absolute;
-              top: 0;
-              left: 0;
-              height: 100%;
-              width: 100%;
+            .column-wrapper {
+              display: flex;
+              flex-direction: column;
+              width: 5%;
+              .spacer {
+                height: 5%;
+                width: 100%;
+              }
+              .numerical-column {
+                width: 100%;
+                height: 95%;
+                align-self: flex-start;
+                display: grid;
+                grid-template-columns: repeat(1, 1fr);
+                grid-gap: 5px;
+  
+                .number {
+                  border-radius: 5px;
+                  display: flex;
+  
+                  justify-content: center;
+                  align-items: center;
+                  h3 {
+                    color: black;
+                    margin-bottom: 0;
+                  }
+                }
+              }
+              .spacer {
+                width: 100%;
+                height: 5%;
+              }
             }
-          }
 
-          .empty-square {
-            background-color: white;
-            border-radius: 5px;
-            aspect-ratio: 1;
+            
+
+            .right-pane {
+              width: 95%;
+              display: flex;
+              flex-direction: column;
+              .alphabetical-row {
+                display: flex;
+                width: 95%;
+                height: 5%;
+                display: grid;
+                grid-template-columns: repeat(5, 1fr);
+                grid-gap: 5px;
+
+                .letter {
+                  border-radius: 5px;
+                  justify-content: center;
+                  align-items: center;
+                  display: flex;
+                  h3 {
+                    color: black;
+                    margin-bottom: 0;
+                  }
+                }
+              }
+              .grid-wrapper {
+                height: 95%;
+                width: 95%;
+
+                .square-grid {
+                  background-color: white;
+                  width: 100%;
+                  display: grid;
+                  grid-template-columns: repeat(5, 1fr);
+                  grid-gap: 5px;
+                }
+              }
+            }
           }
         }
       }
@@ -143,4 +226,8 @@
       color: $contrast;
     }
   }
+}
+
+#active{
+  border: 5px solid $accent;
 }

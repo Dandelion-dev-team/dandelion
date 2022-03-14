@@ -134,9 +134,14 @@ export default function ResponseVariables(props) {
                                     </div>
                                 </div>
                                 <div className="treatment-list">
-                                    {variable_list
-                                        ? variable_list.map(variable => (
-                                            <VariableListComponent mappedValue={variable} detailCallback={handleDetailCallback} checkCallback={checkboxCallback} />
+                                    {variable_list ? (
+                                        variable_list.filter(variable => variable.name.toUpperCase().includes(search_value.toUpperCase())).map(filtered_variable => (
+                                            <VariableListComponent
+                                                mappedValue={filtered_variable}
+                                                detailCallback={handleDetailCallback}
+                                                checkCallback={checkboxCallback}
+                                            />
+                                        )
                                         )) : <h3>No Experiments found</h3>}
                                 </div>
                                 <PaginationComponent pageIndex={3} numPages={4} />

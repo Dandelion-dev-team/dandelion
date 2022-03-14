@@ -24,9 +24,12 @@ $font: "Helvetica Neue", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
 @import "./components/panes/imports.scss";
 @import "./components/tables/imports.scss";
 
+//Individual Component Imports
 @import "./components/hero.scss";
 @import "./components/signin-form.scss";
 @import "./components/tile.scss";
+@import "./components/unitGrid.scss";
+
 
 
 

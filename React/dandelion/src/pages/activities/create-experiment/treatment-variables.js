@@ -26,6 +26,14 @@ export default function TreatmentVariables(props) {
   const modalCallback = e => {
     setShowDetails(false);
     setDiscreteModalShown(false);
+
+    if (e) {
+      updateSelectedList(arr => [...arr, JSON.parse(e)])
+    }
+  }
+
+  const updateModalList = e => {
+    updateSelectedList(arr => [...arr, e])
   }
 
   const checkboxCallback = e => {
@@ -127,9 +135,9 @@ export default function TreatmentVariables(props) {
                 </div>
                 <div className="treatment-list">
                   {variable_list ? (
-                    variable_list.map(variable => (
+                    variable_list.filter(variable => variable.name.toUpperCase().includes(search_value.toUpperCase())).map(filtered_variable => (
                       <VariableListComponent
-                        mappedValue={variable}
+                        mappedValue={filtered_variable}
                         detailCallback={handleDetailCallback}
                         checkCallback={checkboxCallback}
                       />
@@ -149,11 +157,11 @@ export default function TreatmentVariables(props) {
                 <div className="selected-list">
                   {selected_list
                     ? selected_list.map(variable => (
-                        <VariableSelectedComponent
-                          editCallback={handleEditCallback}
-                          data={variable}
-                        />
-                      ))
+                      <VariableSelectedComponent
+                        editCallback={handleEditCallback}
+                        data={variable}
+                      />
+                    ))
                     : null}
                 </div>
                 <div className="btn-row">

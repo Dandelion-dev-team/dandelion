@@ -82,24 +82,6 @@
             padding-bottom: 0px;
           }
         }
-        .add-btn {
-          display: flex;
-          align-self: center;
-          margin-top: 2rem;
-          .submitButton {
-            background-color: $accent;
-            color: $primary;
-            font-size: 1.6rem;
-            margin: 1.25rem 0px;
-            padding: 15px;
-            border: none;
-            cursor: pointer;
-            border-radius: 10px;
-          }
-          .submitButton:hover {
-            background-color: #d4d926;
-          }
-        }
       }
       .level-row {
         width: 30%;
@@ -108,19 +90,69 @@
           color: black;
         }
 
-        .finish-btn-row {
+        .card-list {
+          height: 85%;
+          width: 100%;
           display: flex;
           flex-direction: column;
+
+          .level-bar {
+            text-align: left;
+            display: flex;
+            flex-direction: row;
+            justify-items: left;
+            width: 100%;
+            height: auto;
+            margin-top: 3vh;
+            .title {
+              width: 30%;
+              height: 100%;
+              h3 {
+                display: inline;
+                font-size: 1.5vw;
+              }
+            }
+            .input {
+              width: 50%;
+              height: 100%;
+              h3 {
+                display: inline;
+                font-size: 1vw;
+              }
+            }
+          }
+
+          .add-btn {
+            .submitButton {
+              background-color: $accent;
+              color: $primary;
+              font-size: 1.6rem;
+              margin: 1.25rem 0px;
+              padding: 0.625rem;
+              width: 13rem;
+              border: none;
+              cursor: pointer;
+              border-radius: 10px;
+            }
+            .submitButton:hover {
+              background-color: #d4d926;
+            }
+          }
+        }
+
+        .finish-btn-row {
+          display: flex;
+          flex-direction: row;
           align-items: center;
           .spacer {
-            height: 90%;
+            width: 90%;
           }
           .finish-btn {
-            margin-top: auto;
+            margin-left: auto;
             display: flex;
             height: 10%;
             align-self: center;
-            margin-top: 4rem;
+            width: 10%;
             .submitButton {
               background-color: $accent;
               color: $primary;

@@ -8,22 +8,23 @@ export default function UnitHelpModal(props) {
       <div className="help-modal-container">
         <div className="modal-wrapper">
           <div className="modal-content">
-            <h3>Is your variable discrete or continuous?</h3>
+            <h3>Assigning Experiment Levels?</h3>
             <p>
-              A continuous variable is one which takes its value from
-              measurement. A discrete variable is one which obtains its value
-              from counting. An example of a discrete variable could be
-              temperature, while an example of a continuous variable could be
-              stalk length.
+              The right hand panel is a graphical view of the cube. To change
+              levels, click on either “Top Level”, “Middle Level”, or “Bottom
+              Level”. Once a level has been chosen, you can assign replicates of
+              experiments to individual plots by dragging and dropping the tile.
             </p>
             <div className="btn">
-              <div className="spacer" />
               <div className="btn-row">
                 <div className="finish-btn">
                   <input
                     type="submit"
                     className="submitButton"
-                    value="Finished"
+                    value="Got It"
+                    onClick={() => {
+                      props.callback()
+                    }}
                   ></input>
                 </div>
               </div>

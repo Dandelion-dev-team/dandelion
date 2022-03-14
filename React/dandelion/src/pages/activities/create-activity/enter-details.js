@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef } from "react"
 import { navigate } from "gatsby"
 import "../../../styles/App.scss"
+import BackupIcon from "@mui/icons-material/Backup"
+import CheckIcon from '@mui/icons-material/Check';
 
 export default function EnterActivityDetails(props) {
   const [name, setName] = useState("")
@@ -89,15 +91,16 @@ export default function EnterActivityDetails(props) {
                   />
                 </div>
               </div>
-             
+
               <div className="inputItem">
-                <div className="desc-title">
-                  <h3>Image Link</h3>
+                <div className="item-title">
+                  <h3>Image Upload</h3>
                 </div>
-                <div className="image-link">
                 <div className="img-btn">
-                  <input type="file" id="imageButton" accept=".jpg,.png" onChange={console.log("")}/>
-                </div>
+                  <label className="image-upload-btn">
+                    <input type="file" accept=".jpg,.png" onChange={handleImageChange} hidden />
+                    {image ? <CheckIcon className="imageIcon" /> : <BackupIcon className="imageIcon" />}
+                  </label>
                 </div>
               </div>
               <div className="inputItem">
@@ -138,7 +141,11 @@ export default function EnterActivityDetails(props) {
               value="Finished"
               onClick={() => {
                 if (typeof window !== `undefined`) {
-                  navigate("/superuser/project-maintenance")
+                  navigate("/superuser/project-maintenance",                             {
+                    state: {
+                      show_modal: true
+                    },
+                  })
                 }
               }}
             ></input>

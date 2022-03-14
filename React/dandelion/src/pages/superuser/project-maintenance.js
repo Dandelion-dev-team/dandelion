@@ -10,7 +10,9 @@ export default function ProjectMaintenance(props) {
   const [modal_shown, setModalShown] = useState("")
 
   useEffect(() => {
-    setModalShown(true);
+    if(props.location.state){
+      setModalShown(true);
+    }
   }, [])
 
   const handleCallback = childData => {
