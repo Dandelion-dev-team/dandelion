@@ -25,6 +25,10 @@ export default function DiscreteVariableModal(props) {
     setLevelTextbox(e.target.value)
   }
 
+  const handleLevelListChange = e => {
+    setLevelList(e);
+  }
+
   const onFinish = e => {
     if (name && description && procedure) {
       let body = JSON.stringify({
@@ -98,7 +102,7 @@ export default function DiscreteVariableModal(props) {
             </div>
             <div className="level-row">
               <div className="card-list">
-                <DiscreteCardList levelList={level_list} addLevel={AddLevel}/>
+                <DiscreteCardList levelList={level_list} addLevel={AddLevel} reorderLevels={handleLevelListChange}/>
                 <div className="level-bar">
                   <div className="title">
                     <h3>Level:</h3>

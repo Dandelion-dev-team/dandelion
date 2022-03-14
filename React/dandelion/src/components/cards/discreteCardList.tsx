@@ -12,10 +12,10 @@ export default function App(props) {
   });
 
   return (
-    <Reorder.Group axis="y" onReorder={setItems} values={items} as="div" >
-      {items.map((item) => (
-        <Item key={item} item={item} />
-      ))}
+    <Reorder.Group axis="y" onReorder={props.reorderLevels} values={items} as="div" >
+      {items ? items.map((item) => (
+        <Item key={item} item={item}/>
+      )) : null}
     </Reorder.Group>
   );
 }
