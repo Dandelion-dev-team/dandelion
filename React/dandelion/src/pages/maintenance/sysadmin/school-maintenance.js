@@ -269,10 +269,10 @@ export default function SuperuserMaintenance(props) {
                       />
                     </div>
                     <div className="nameBox">
-                      <h3>School Image:</h3>
+                      <h3>School Img:</h3>
                       <input
                         type="text"
-                        placeholder="Image Link"
+                        placeholder="Img Link"
                         name="usernameBox"
                         value={entered_image_link}
                         onChange={handleImageChange}

@@ -25,5 +25,6 @@ from .tag import *
 from .tag_reference import *
 from .users import *
 from .variable import *
+from .img import *
 
 
