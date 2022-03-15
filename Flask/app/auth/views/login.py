@@ -1,9 +1,10 @@
-from flask import abort
+from flask import abort, make_response, redirect
 from app.auth import auth
 from app.models import User
 from flask import jsonify
 from flask import request
-from flask_jwt_extended import create_access_token, jwt_required, set_access_cookies, unset_jwt_cookies
+from flask_jwt_extended import create_access_token, jwt_required, set_access_cookies, unset_jwt_cookies, \
+    create_refresh_token, set_refresh_cookies
 
 
 @auth.route('/user/login')
@@ -25,9 +26,16 @@ def login():
         abort(401, "Username not found")
 
     if user.verify_password(auth.password):
-        access_token = create_access_token(identity=auth.username) #todo access_token documentation expiry time
+        access_token = create_access_token(identity=auth.username)
+        refresh_token = create_refresh_token(identity=auth.username)
+        resp = make_response(redirect("http://127.0.0.1:5000/api/", 302))
+        set_access_cookies(resp, access_token)
+        set_refresh_cookies(resp, refresh_token)
+        return resp
 
-        return jsonify({'access_token': access_token, "message" : "You are logged in"})
+
+        # access_token = create_access_token(identity=auth.username)
+        # return jsonify({'access_token': access_token, "message" : "You are logged in"})
 
     abort(401, "Invalid password")
 
@@ -86,8 +94,8 @@ def logout_with_cookies():
     unset_jwt_cookies(response)
     return response
 
+
 @auth.route("/only_headers")
 @jwt_required(locations=["headers"])
 def only_headers():
     return jsonify(foo="baz")
-
