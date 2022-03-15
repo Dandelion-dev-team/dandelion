@@ -27,3 +27,4 @@ from .views.tag import *
 from .views.tag_reference import *
 from .views.users import *
 from .views.variable import *
+from .views.images import *

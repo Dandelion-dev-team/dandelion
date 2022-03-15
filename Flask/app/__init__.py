@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask, render_template, jsonify, make_response
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
@@ -20,6 +22,7 @@ def create_app(config_name):
     db.init_app(app)
 
     migrate = Migrate(app, db)
+
 
     from app import models
 
