@@ -7,7 +7,7 @@ from flask_jwt_extended import create_access_token, jwt_required, set_access_coo
     create_refresh_token, set_refresh_cookies
 
 
-@auth.route('/user/login')
+@auth.route('/user/login', methods=['POST'])
 def login():
     auth = request.authorization
 
