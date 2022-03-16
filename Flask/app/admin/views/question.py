@@ -1,4 +1,5 @@
 from flask import abort
+from flask_cors import cross_origin
 from flask_json import json_response
 from app.admin import admin
 from app.models import Question
@@ -7,25 +8,8 @@ from app.utils.functions import row2dict
 
 
 @admin.route('/question', methods=['GET'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def listQuestion():
     question = Question.query.all()
     return json_response(data=(row2dict(x) for x in question))
 
-
-# @admin.route('/question/add', methods=['GET', 'POST'])
-# def add_question():
-#     form = QuestionForm()
-#     if form.validate_on_submit():
-#         question = Question(name=form.name.data)
-#         try:
-#             db.session.add(question)
-#             db.session.commit()
-#         except Exception as e:
-#             db.session.rollback()
-#             abort(409, e.orig.msg)
-#
-#         return redirect(url_for('admin.list_question'))
-#
-#     return render_template('admin/question.html',
-#                            form=form,
-#                            title="Add question")

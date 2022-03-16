@@ -19,6 +19,7 @@ def listSchool():
 
 
 @admin.route('/school', methods=['POST'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def add_school():
     current_user = jwt_user(get_jwt_identity())
@@ -54,6 +55,7 @@ def add_school():
 
 
 @admin.route('/school/<int:id>', methods=['GET'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def getOneSchool(id):
     school = School.query.get_or_404(id)
@@ -69,6 +71,7 @@ def getOneSchool(id):
 
 
 @admin.route('/school/<int:id>', methods=['PUT'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def updateSchool(id):
     current_user = jwt_user(get_jwt_identity())
@@ -104,6 +107,7 @@ def updateSchool(id):
 
 
 @admin.route('/school/<int:id>', methods=['DELETE'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def delete_school(id):
     current_user = jwt_user(get_jwt_identity())

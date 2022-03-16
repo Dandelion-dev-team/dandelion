@@ -1,4 +1,5 @@
 from flask import abort, request, jsonify
+from flask_cors import cross_origin
 from flask_json import json_response
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import inspect
@@ -11,6 +12,7 @@ from app.utils.functions import row2dict, jwt_user
 
 
 @admin.route('/project_partner', methods=['GET'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def listProjectPartner():
     project_partner = Project_partner.query.all()
@@ -18,6 +20,7 @@ def listProjectPartner():
 
 
 @admin.route('/project_partner', methods=['POST'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def add_project_partner():
     current_user = jwt_user(get_jwt_identity())
@@ -44,6 +47,7 @@ def add_project_partner():
 
 
 @admin.route('/project_partner/<int:id>', methods=['GET'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def get_one_project_partner(id):
     project_partner = Project_partner.query.get_or_404(id)
@@ -60,6 +64,7 @@ def get_one_project_partner(id):
 
 
 @admin.route('/project_partner/<int:id>', methods=['PUT'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def update_project_partner(id):
     current_user = jwt_user(get_jwt_identity())
@@ -87,6 +92,7 @@ def update_project_partner(id):
 
 
 @admin.route('/project_partner/<int:id>', methods=['DELETE'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def delete_project_partner(id):
     current_user = jwt_user(get_jwt_identity())

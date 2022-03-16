@@ -1,4 +1,5 @@
 from flask import abort, request, jsonify
+from flask_cors import cross_origin
 from flask_json import json_response
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import inspect
@@ -11,6 +12,7 @@ from app.utils.functions import row2dict, jwt_user
 
 
 @admin.route('/sensor', methods=['GET'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def listSensor():
     sensor = Sensor.query.all()
@@ -18,6 +20,7 @@ def listSensor():
 
 
 @admin.route('/sensor', methods=['POST'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def add_sensor():
     current_user = jwt_user(get_jwt_identity())
@@ -45,6 +48,7 @@ def add_sensor():
 
 
 @admin.route('/sensor/<int:id>', methods=['GET'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def get_one_sensor(id):
     sensor = Sensor.query.get_or_404(id)
