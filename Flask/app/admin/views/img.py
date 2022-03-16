@@ -29,7 +29,7 @@ def upload():
     filename = secure_filename(pic.filename)
     mimetype = pic.mimetype
 
-    img = Img(img=pic.read(), mimetype=mimetype, name=filename)
+    img = Img(mimetype=mimetype, name=filename)
 
     db.session.add(img)
     db.session.commit()
