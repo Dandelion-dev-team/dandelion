@@ -21,6 +21,7 @@ export default function Login(props) {
       let credentials = base64.encode(username + ":" + password);
       fetch(process.env.API_URL + "/user/login", {
         method: "POST",
+        credentials: "include",
         mode: 'cors',
         headers: new Headers({
           "Authorization": "Basic Tm90aXM6MTI=",
@@ -28,8 +29,7 @@ export default function Login(props) {
           'Accept': 'application/json',
           'Cache-Control': 'no-cache',
         }),
-      })
-        .then(response => cookies.set('access_token_cookie', response.headers.get['set-cookie'], {sameSite:'strict', path:"/", expires: new Date(new Date().getTime() + 120 * 1000)} ))  
+      }) 
       }
   }
 

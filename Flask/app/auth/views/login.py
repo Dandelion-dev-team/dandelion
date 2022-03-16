@@ -1,13 +1,17 @@
 from flask import abort, make_response, redirect
 from app.auth import auth
 from app.models import User
+from flask_cors import cross_origin
+
 from flask import jsonify
 from flask import request
 from flask_jwt_extended import create_access_token, jwt_required, set_access_cookies, unset_jwt_cookies, \
     create_refresh_token, set_refresh_cookies
+import datetime
 
 
 @auth.route('/user/login', methods=['POST'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def login():
     auth = request.authorization
 
@@ -26,12 +30,12 @@ def login():
         abort(401, "Username not found")
 
     if user.verify_password(auth.password):
-        access_token = create_access_token(identity=auth.username)
+        access_token = create_access_token(identity=auth.username, expires_delta=None)
         refresh_token = create_refresh_token(identity=auth.username)
         resp = make_response(redirect("http://127.0.0.1:5000/api/", 200))
-        resp.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
         resp.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
-        resp.headers.add('Access-Control-Allow-Credentials', 'true')
+        resp.headers.add('Access-Control-Allow-Headers', 'Authorization, Content-Type')
+
         set_access_cookies(resp, access_token)
         set_refresh_cookies(resp, refresh_token)
         return resp

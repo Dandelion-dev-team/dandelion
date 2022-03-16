@@ -7,7 +7,7 @@ export default function CrudComponent(props) {
   const [users, setUsers] = useState(0);
 
   useEffect(() => {
-    readRecord("/user/", setUsers)
+    readRecord("/user", setUsers)
   }, []);
 
 

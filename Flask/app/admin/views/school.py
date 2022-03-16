@@ -2,6 +2,7 @@ from flask import abort, request, jsonify
 from flask_json import json_response
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import inspect
+from flask_cors import cross_origin
 from app.admin import admin
 from app.models import School
 from app import db
@@ -10,6 +11,7 @@ from app.utils.functions import row2dict, jwt_user
 
 
 @admin.route('/school', methods=['GET'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def listSchool():
     school = School.query.all()

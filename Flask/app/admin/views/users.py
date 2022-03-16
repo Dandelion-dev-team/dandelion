@@ -3,6 +3,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import inspect
 from app.admin import admin
 from app.models import User
+from flask_cors import cross_origin
 from app import db
 from app.utils.functions import jwt_user
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update, audit_delete
@@ -10,6 +11,7 @@ from app.utils.auditing import audit_create, prepare_audit_details, audit_update
 
 @admin.route('/user', methods=['GET'])
 @jwt_required()
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def getAllUsers():
     users = User.query.all()
     output = []
