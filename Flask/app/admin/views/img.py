@@ -51,7 +51,7 @@ def upload():
     if pic and allowed_file(pic.filename):
         filename = secure_filename(pic.filename)
         pic.save(os.path.join(current_app.config['IMAGE_UPLOADS'], filename))
-        resp = jsonify({'message': 'File successfully uploaded'})
+        resp = jsonify({'message': 'Image successfully uploaded'})
         resp.status_code = 201
         return resp
     else:
