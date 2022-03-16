@@ -23,7 +23,6 @@ def create_app(config_name):
 
     migrate = Migrate(app, db)
 
-
     from app import models
 
     # logging.basicConfig(filename='<FlaskApp.log>',
@@ -57,12 +56,13 @@ def create_app(config_name):
 
     @app.errorhandler(405)
     def method_not_allowed(error):
-        return make_response(jsonify({'error': 'The server supports the method received, but the target resource does not.'}), 405)
+        return make_response(
+            jsonify({'error': 'The server supports the method received, but the target resource does not.'}), 405)
 
     @app.errorhandler(409)
     def conflict(e):
         return make_response(jsonify(
-            type = e.name,
+            type=e.name,
             title="Database Error",
             status=e.code,
             message=e.description,
