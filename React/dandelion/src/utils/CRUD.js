@@ -19,12 +19,13 @@ export function createRecord(endpoint, body) {
 }
 
 export function readRecord(endpoint, setter) {
+    console.log(process.env.API_URL + endpoint);
     let  token = JSON.parse(localStorage.getItem('accessToken'));
     fetch(process.env.API_URL + endpoint, {
         method: "GET",
-        headers: new Headers({
+        credentials: 'include',
+        headers: new Headers({  
             'Cache-Control': 'no-cache, no-store, must-revalidate',
-            'Authorization': 'Bearer ' + token,
             'Pragma': 'no-cache',
             'Expires': 0,
         })

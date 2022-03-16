@@ -28,7 +28,10 @@ def login():
     if user.verify_password(auth.password):
         access_token = create_access_token(identity=auth.username)
         refresh_token = create_refresh_token(identity=auth.username)
-        resp = make_response(redirect("http://127.0.0.1:5000/api/", 302))
+        resp = make_response(redirect("http://127.0.0.1:5000/api/", 200))
+        resp.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+        resp.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+        resp.headers.add('Access-Control-Allow-Credentials', 'true')
         set_access_cookies(resp, access_token)
         set_refresh_cookies(resp, refresh_token)
         return resp

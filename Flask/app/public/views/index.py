@@ -4,7 +4,7 @@ from app.public import public
 
 
 @public.route('/')
-@cross_origin()
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def index():
     return jsonify({
         "message": "Welcome to Dandelion!"

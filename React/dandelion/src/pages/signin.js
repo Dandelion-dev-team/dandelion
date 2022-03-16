@@ -3,7 +3,10 @@ import Header from "../components/navigation/header"
 import "../styles/App.scss"
 import { navigate } from "gatsby"
 import { useFormik } from "formik"
+import Cookies from 'universal-cookie';
+import axios from "axios"
 
+const cookies = new Cookies();
 const base64 = require('base-64');
 export const isBrowser = () => typeof window !== "undefined"
 
@@ -17,26 +20,17 @@ export default function Login(props) {
     if(username && password){
       let credentials = base64.encode(username + ":" + password);
       fetch(process.env.API_URL + "/user/login", {
-        method: "GET",
+        method: "POST",
+        mode: 'cors',
         headers: new Headers({
-          "Authorization": "Basic " + credentials,
+          "Authorization": "Basic Tm90aXM6MTI=",
           'Content-Type': 'application/json',
           'Accept': 'application/json',
           'Cache-Control': 'no-cache',
         }),
       })
-        .then(r => r.json())
-        .then(token => {{
-          if (token.access_token) {
-            localStorage.setItem("accessToken", JSON.stringify(token.access_token));
-            localStorage.setItem("logged_in", true);
-            console.log(token.access_token);
-          } else {
-            console.log("Please type in correct username/password")
-          }
-        }})
-    }
-
+        .then(response => cookies.set('access_token_cookie', response.headers.get['set-cookie'], {sameSite:'strict', path:"/", expires: new Date(new Date().getTime() + 120 * 1000)} ))  
+      }
   }
 
   const handleUsernameChange = e => {
@@ -56,7 +50,7 @@ export default function Login(props) {
 
   if (!isBrowser) {
     return;
-  }else{
+  } else {
     return (
       <div>
         <Header />
@@ -79,7 +73,7 @@ export default function Login(props) {
                       placeholder="Your username"
                       name="username"
                       onChange={handleUsernameChange}
-                      //value={formik.values.username}
+                    //value={formik.values.username}
                     />
                     <label>Password: </label>
                     <input
@@ -88,7 +82,7 @@ export default function Login(props) {
                       placeholder="Your password"
                       name="pass"
                       onChange={handlePasswordChange}
-                      //value={formik.values.password}
+                    //value={formik.values.password}
                     />
                     <div className="submit-btn">
                       <input
