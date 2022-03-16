@@ -1,12 +1,22 @@
-import * as React from "react"
-import { Link } from "gatsby"
+import React, { useState, useEffect } from "react"
+import { Link, navigate } from "gatsby"
 import logo from '../../images/logo.svg';
-import { user_logout } from "../../utils/logout";
+import { user_logout } from "../../utils/logins";
 //const parse = require('../../auth');
 
 export default function Header() {
-  //const [logged] = parse.useAuth();
-  //Tested
+  const [logged, setLogged] = useState();
+  useEffect(() => {
+    let logged = localStorage.getItem("logged");
+    if (logged == "true") 
+    {
+      setLogged(true);
+    } 
+    else if (logged == "false") 
+    {
+      setLogged(false);
+    }
+  }, []);
   return (
     <header>
       <div className="container">
@@ -21,7 +31,7 @@ export default function Header() {
               <Link to="/data">Data</Link>
               <Link to="/map">Map</Link>
               <Link to="/about">About</Link>
-              {true ? <Link to="/signin" onClick={() => user_logout()}>Logout</Link> : <Link to="/signin">Sign In</Link> }
+              {logged ? <Link to="/signin" onClick={() => user_logout()}>Logout</Link> : <Link to="/signin">Sign In</Link>}
             </nav>
           </div>
         </div>

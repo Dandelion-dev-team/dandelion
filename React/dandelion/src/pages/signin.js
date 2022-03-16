@@ -2,12 +2,8 @@ import React, { useEffect, useState } from "react"
 import Header from "../components/navigation/header"
 import "../styles/App.scss"
 import { navigate } from "gatsby"
-import { useFormik } from "formik"
-import Cookies from 'universal-cookie';
-import axios from "axios"
+import { user_login } from "../utils/logins"
 
-const cookies = new Cookies();
-const base64 = require('base-64');
 export const isBrowser = () => typeof window !== "undefined"
 
 export default function Login(props) {
@@ -18,19 +14,8 @@ export default function Login(props) {
   const onSubmitClick = e => {
     e.preventDefault()
     if(username && password){
-      let credentials = base64.encode(username + ":" + password);
-      fetch(process.env.API_URL + "/user/login", {
-        method: "POST",
-        credentials: "include",
-        mode: 'cors',
-        headers: new Headers({
-          "Authorization": "Basic Tm90aXM6MTI=",
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Cache-Control': 'no-cache',
-        }),
-      }) 
-      }
+      user_login(username, password);
+    }
   }
 
   const handleUsernameChange = e => {
@@ -41,12 +26,15 @@ export default function Login(props) {
     setPassword(e.target.value)
   }
 
-  const formik = useFormik({
-    initialValues: {
-      username: "",
-      password: ""
+  useEffect(() => {
+    let logged = localStorage.getItem("logged");
+    console.log(logged);
+    if (logged == "true"){
+      navigate("/dashboard")
+    }if(logged == "false"){
+      console.log("Not logged");
     }
-  });
+  }, []);
 
   if (!isBrowser) {
     return;
