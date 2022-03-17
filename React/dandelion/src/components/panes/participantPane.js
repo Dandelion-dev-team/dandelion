@@ -22,7 +22,7 @@ export default function ParticipantPane(props) {
         <div className="participant-pane-content">
           <div className="title">
             <div className="title-btn-row">
-              <h2>{participant_details.title}</h2>
+              <h2>{props.dataProp.participantDetails.title}</h2>
               <div className="exercise-btn">
                 <button
                   className="exerciseBtn"

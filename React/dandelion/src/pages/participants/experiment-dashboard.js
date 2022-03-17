@@ -25,8 +25,6 @@ export default function ExperimentDashboard(props) {
 
   return (
     <div>
-     
-
       <Header />
       <div className="dash-container">
         <div className="dash-content">

@@ -13,6 +13,9 @@ export default function EnterSingleData(props) {
     const handleRecordDateChange = e => {
         setRecordingDate(e.target.value)
       }
+      useEffect(() => {
+        console.log(props.location.state);
+      }, [])
 
   return (
     <div>
