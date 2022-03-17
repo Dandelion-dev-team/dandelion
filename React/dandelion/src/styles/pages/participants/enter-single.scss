@@ -1,110 +1,136 @@
 .enter-single-container {
-    background: #2e5641;
-    color: $white;
-    position: relative;
+  background: #2e5641;
+  color: $white;
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  overflow-y: hidden;
+  flex-direction: column;
+  justify-content: space-around;
+  .content {
     display: flex;
+    flex-direction: row;
     align-items: center;
-    height: 100vh;
-    overflow-y: hidden;
-    flex-direction: column;
-    justify-content: space-around;
-    .content {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        width: 85%;
-        height: 90vh;
-        .title-content {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            width: 35%;
-            height: 90vh;
-      
-            h3 {
-              font-size: 4rem;
-            }
-      
-            p {
-              font-size: 1.6rem;
-              line-height: 2rem;
-            }
-        }
-        
-        .data-form {
-            width: 60%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            .data-pane {
-                width: 100%;
-                height: 80%;
-                background-color: white;
-                border-radius: 20px;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                text-align: center;
-                padding: 2.5rem;
-                .inputItem {
-                    text-align: left;
-                    display: flex;
-                    flex-direction: row;
-                    justify-items: left;
-                    width: 100%;
-                    height: auto;
-                    margin-top: 3vh;
-          
-                    .item-title {
-                      width: 30%;
-                      height: 100%;
-                      h3 {
-                        display: inline;
-                        font-size: 1.5vw;
-                      }
-                    }
-          
-                    .item-input {
-                      width: 50%;
-                      height: 100%;
-                      h3 {
-                        display: inline;
-                        font-size: 1vw;
-                      }
-                    }
-          
-                    .desc-title {
-                      width: 30%;
-                      height: 100%;
-                      margin-top: 4vh;
-                      h3 {
-                        display: inline;
-                        font-size: 1.5vw;
-                      }
-                    }
-          
-                    .desc-input {
-                      width: 50%;
-                      height: 100%;
-                      margin-top: 1.5vh;
-                      margin-bottom: 1.5vh;
-                      input {
-                        height: 100%;
-                        width: 100%;
-                      }
-                    }
-          
-                    h3 {
-                      font-size: 1.6rem;
-                      color: $primary;
-                      margin-bottom: 0px;
-                      padding-bottom: 0px;
-                    }
-                }
-            }
+    justify-content: space-between;
+    width: 85%;
+    height: 90vh;
+    .title-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 35%;
+      height: 90vh;
 
-        }
+      h3 {
+        font-size: 4rem;
+      }
+
+      p {
+        font-size: 1.6rem;
+        line-height: 2rem;
+      }
     }
+
+    .data-form {
+      width: 60%;
+      height: 50%;
+      display: flex;
+      align-items: center;
+      .data-pane {
+        width: 100%;
+        height: 80%;
+        background-color: white;
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 2.5rem;
+        .inputItem {
+          text-align: left;
+          display: flex;
+          flex-direction: row;
+          justify-items: left;
+          width: 100%;
+          height: auto;
+          margin-top: 3vh;
+
+          .item-title {
+            width: 30%;
+            height: 100%;
+            h3 {
+              display: inline;
+              font-size: 1.5vw;
+            }
+          }
+
+          .item-input {
+            width: 50%;
+            height: 100%;
+            h3 {
+              display: inline;
+              font-size: 1vw;
+            }
+          }
+
+          .desc-title {
+            width: 30%;
+            height: 100%;
+            margin-top: 4vh;
+            h3 {
+              display: inline;
+              font-size: 1.5vw;
+            }
+          }
+
+          .desc-input {
+            width: 50%;
+            height: 100%;
+            margin-top: 1.5vh;
+            margin-bottom: 1.5vh;
+            input {
+              height: 100%;
+              width: 100%;
+            }
+          }
+
+          h3 {
+            font-size: 1.6rem;
+            color: $primary;
+            margin-bottom: 0px;
+            padding-bottom: 0px;
+          }
+        }
+      }
+    }
+  }
+  .btn-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    width: 100%;
+    margin-left: auto;
+    .finish-btn {
+      margin-left: auto;
+      align-items: flex-start;
+      .submitButton {
+        background-color: $accent;
+        color: $primary;
+        font-size: 1.6rem;
+        margin: 1.25rem 0px;
+        padding: 15px;
+        border: none;
+        cursor: pointer;
+        border-radius: 10px;
+      }
+      .submitButton:hover {
+        background-color: #d4d926;
+      }
+    }
+    .spacer {
+      width: 2%;
+    }
+  }
 }

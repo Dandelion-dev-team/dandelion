@@ -53,6 +53,17 @@ export default function EnterSingleData(props) {
             </div>
           </div>
         </div>
+        <div className="btn-container">
+          <div className="finish-btn">
+            <input
+              type="submit"
+              className="submitButton"
+              value="Finished"
+              
+            ></input>
+          </div>
+          <div className="spacer"></div>
+        </div>
       </div>
     </div>
   )
