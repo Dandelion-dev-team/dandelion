@@ -1,0 +1,21 @@
+.templates-container {
+    background: #2e5641;
+    color: $white;
+    position: relative;
+    margin-left: 240px;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow-y: auto;
+  
+    .templates-content {
+      background-color: white;
+      justify-content: center;
+      align-items: center;
+      width: 97%;
+      height: 93vh;
+      margin-left: 20px;
+      margin-top: 20px;
+      border-radius: 20px;
+    }
+}  

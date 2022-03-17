@@ -5,8 +5,8 @@ class Experiment(db.Model):
     __tablename__ = 'experiment'
 
     id = db.Column(db.Integer, primary_key=True)
-    project_id = db.Column(db.Integer, nullable=False)
-    partner_id = db.Column(db.Integer, nullable=False)
+    project_id = db.Column(db.Integer, db.ForeignKey('project.id'), nullable=False)
+    project_partner_id = db.Column(db.Integer, db.ForeignKey('project_partner.id'), nullable=False)
     is_synchronised = db.Column(db.Boolean)
     title = db.Column(db.String(50))
     description = db.Column(db.String(200))

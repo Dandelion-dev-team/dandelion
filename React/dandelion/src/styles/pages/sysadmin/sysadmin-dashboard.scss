@@ -1,0 +1,27 @@
+.sys-dashboard-container {
+    background: #2e5641;
+    color: $white;
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-left: 240px;
+    height: 100vh;
+    overflow-y: auto;
+    flex-direction: column;
+    justify-content: space-around;
+  
+    .content {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      width: 97%;
+      height: 90vh;
+      border-radius: 20px;
+
+      h3 {
+        color: $white;
+        font-size: 1.6rem;
+      }
+    }
+}  

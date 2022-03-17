@@ -1,0 +1,27 @@
+.data {
+    padding: 48px 0;
+    background: #2e5641;
+    position: relative;
+    color: $white;
+
+    .container {
+        width: 80vw;
+        .heading {
+            position: relative;
+            display: flex;
+            align-items: center;
+            z-index: 7;
+            @media (max-width: 1440px) {
+                height: 800px;
+            }
+
+            h3 {
+                padding-right: 120px;
+            }
+
+            .projects{
+                width: 100%;
+            }
+        }
+    }
+}

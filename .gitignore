@@ -9,7 +9,6 @@ logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-dandelion/
 python==3.10/
 __pycache__
 
@@ -62,7 +61,6 @@ typings/
 *.tgz
 
 # dotenv environment variable files
-.env*
 
 # gatsby files
 .cache/

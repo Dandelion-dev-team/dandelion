@@ -1,0 +1,57 @@
+.nodePanelContainer {
+    width: 30rem;
+    height: 23rem;
+    background: white;
+    border-radius: 20px;
+    color: $primary;
+    padding: 20px;
+
+    .sensorSelector{
+        width: 50%;
+        color: $primary;
+    }
+
+    .commentBox{
+        height: 10rem;
+        width: 15rem;
+        padding-bottom: 7.5rem;
+        padding-left: 10px;
+        margin-top: 20px;
+    }
+
+    .nodeMaintenance{
+        display: flex;
+        flex-direction: row;
+    }
+    .circleContainer {
+        display: flex;
+        flex-direction: row;
+        .circleItem {
+            margin-right: 10px;
+            background-color: #e3c3ca;
+            width: 6rem;
+            height: 6rem;
+            border-radius: 50%;
+            text-align: center;
+
+            h3 {
+                justify-items: center;
+                line-height: 6rem;
+            }
+        }
+    }
+    
+    .recordButton{
+        background-color: $accent;
+        border: none;
+        outline: 0;
+        border-radius: 10px;
+        height: 2rem;
+        margin-top: 20px;
+        margin-right: 10px;
+    }
+    .recordButton:hover{
+        background-color: $contrast;
+        cursor: pointer;
+    }
+}

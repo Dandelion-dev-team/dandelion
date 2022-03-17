@@ -1,4 +1,5 @@
-from flask import render_template, url_for, redirect
+from flask import abort
+from flask_cors import cross_origin
 from flask_json import json_response
 from app.admin import admin
 from app.models import Variable
@@ -7,36 +8,9 @@ from app.utils.functions import row2dict
 
 
 @admin.route('/variable', methods=['GET'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def listVariable():
     variable = Variable.query.all()
-
     return json_response(data=(row2dict(x) for x in variable))
-
-
-
-@admin.route('/variable/add', methods=['GET', 'POST'])
-def add_variable():
-    form = VariableForm()
-    if form.validate_on_submit():
-        variable = Variable(name=form.name.data)
-        try:
-            db.session.add(variable)
-            db.session.commit()
-        except:
-            db.session.rollback()
-
-        return redirect(url_for('admin.list_variable'))
-
-    return render_template('admin/variable.html',
-                           form=form,
-                           title="Add variable")
-
-
-
-
-    return render_template('admin/variable.html',
-                           form=form,
-                           variable=variable,
-                           title='Edit variable')
 
 

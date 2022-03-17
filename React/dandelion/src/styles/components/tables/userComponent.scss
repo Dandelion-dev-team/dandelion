@@ -1,0 +1,18 @@
+.userTable{
+
+    .tableList {
+        margin-top: 1.5rem;
+        margin-left: 2rem;
+      tbody {
+          
+         &:hover {
+             background-color: #f7f8ff;
+             cursor: pointer;
+         }
+      }
+        
+    }
+
+   
+    
+}

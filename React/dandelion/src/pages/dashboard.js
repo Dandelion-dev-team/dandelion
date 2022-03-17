@@ -1,33 +1,28 @@
 import React, { useState, useEffect } from "react"
+import { Link, navigate } from "gatsby"
 import '../styles/App.scss'
-import Header from "../components/header"
+import Header from "../components/navigation/header"
 import Tile from "../components/tile"
 import school from '../images/school_tile.png';
 import map from '../images/map.png';
 import about from '../images/about_icon.png';
 import chart from '../images/chart.png';
 import add_data from '../images/add data.png';
-import { navigate } from "gatsby";
-const parse = require('../auth');
-
 export default function Dashboard() {
     const [savedData, setData] = useState(0);
-    const [logged] = parse.useAuth();
+    const [logged, setLogged] = useState();
 
     useEffect(() => {
-        // Update the document title using the browser API
-        fetch("http://localhost:3000/users", {
-            method: "GET",
-            headers: new Headers({
-                'Cache-Control': 'no-cache, no-store, must-revalidate',
-                'Pragma': 'no-cache',
-                'Expires': 0,
-            })
-        }).then(response => response.json())
-            .then(
-                data => setData(data[0]))
+        let logged = localStorage.getItem("logged");
+        console.log(logged);
+        if (logged == "true") {
+            setLogged(true);
+        } if (logged == "false") {
+            navigate("/signin")
+        }
     }, []);
 
+    if(logged == true){
     return (
         <div>
             <Header />
@@ -37,7 +32,7 @@ export default function Dashboard() {
                         <div className="content">
                             <h3>Dashboard</h3>
                             <p>
-                            Share the results of your projects and see how others’ projects went! 
+                                Share the results of your projects and see how others' projects went!
                             </p>
                         </div>
                         <div className="tiles">
@@ -52,4 +47,5 @@ export default function Dashboard() {
             </div>
         </div>
     );
+    }else return null;
 }

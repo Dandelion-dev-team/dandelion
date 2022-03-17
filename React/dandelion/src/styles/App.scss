@@ -6,20 +6,33 @@ $font: "Helvetica Neue", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
 @import "./variables.scss";
 @import "./breakpoints.scss";
 
-//component imports
-@import "./components/header.scss";
-@import "./components/hero.scss";
-@import "./components/tile.scss";
-@import "./components/projectCard.scss";
+//Page import files to clean up file structure
+@import "./pages/activities/imports.scss";
+@import "./pages/superuser/imports.scss";
+@import "./pages/sysadmin/imports.scss";
 
-//@import "./components/footer.scss";
-@import "./components/signin-form.scss";
-
-//pages imports
+//Individual Page Imports
 @import "./pages/about.scss";
 @import "./pages/dashboard.scss";
-@import "./pages/signin.scss";
 @import "./pages/data.scss";
+@import "./pages/signin.scss";
+@import "./pages//404.scss";
+
+//Component import files to clean up file structure
+@import "./components/cards/import.scss";
+@import "./components/modals/imports.scss";
+@import "./components/navigation/imports.scss";
+@import "./components/panes/imports.scss";
+@import "./components/tables/imports.scss";
+
+//Individual Component Imports
+@import "./components/hero.scss";
+@import "./components/signin-form.scss";
+@import "./components/tile.scss";
+@import "./components/unitGrid.scss";
+
+
+
 
 html,
 body {
@@ -34,9 +47,17 @@ body {
   overflow-x: none;
   overscroll-behavior: none;
   margin: 0;
+  padding: none;
   user-select: none;
   color: $white;
 }
+a{
+  color: #e3c3ca;
+}
+a:visited { 
+  text-decoration: none; 
+  color: #e3c3ca; 
+ }
 
 .container {
   width: 1640px;

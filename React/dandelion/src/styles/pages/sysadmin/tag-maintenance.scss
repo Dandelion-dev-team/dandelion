@@ -1,0 +1,55 @@
+.tag-maintenance-container{
+    background: #2e5641;
+    color: $white;
+    position: relative;
+    margin-left: 240px;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow-y: auto;
+    .tag-content{
+        justify-content: space-between;
+        align-items: center;
+        width: 97%;
+        height: 93%;
+        margin-left: 1.25rem;
+        margin-top: 1.25rem;
+        border-radius: 20px;
+        .content-wrapper{
+            display: flex;
+            justify-content: center;
+            .table{
+                width: 60%;
+                display: flex;
+                z-index: 7;
+            }
+            .edit-tag{
+                width: 40%;
+                align-self: flex-end;
+                margin-top: 2rem;
+                .textbox{
+                    padding-top: 1.5rem;
+
+                    input {
+                        height: 2rem;
+                        color: $primary;
+                    }
+                }
+
+                .submitButton{
+                    background-color: $accent;
+                    color: $primary;
+                    font-size: 1.4rem;
+                    margin: 2rem 2.3rem;
+                    padding: 15px;
+                    border: none;
+                    cursor: pointer;
+                    border-radius: 10px;
+                  }
+                  .submitButton:hover {
+                    background-color: #d4d926;
+                  }
+            }
+        }
+    }
+}

@@ -1,4 +1,5 @@
-from flask import render_template, url_for, redirect
+from flask import abort
+from flask_cors import cross_origin
 from flask_json import json_response
 from app.admin import admin
 from app.models import Response
@@ -7,36 +8,8 @@ from app.utils.functions import row2dict
 
 
 @admin.route('/response', methods=['GET'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def listResponse():
     response = Response.query.all()
-
     return json_response(data=(row2dict(x) for x in response))
-
-
-
-@admin.route('/response/add', methods=['GET', 'POST'])
-def add_response():
-    form = ResponseForm()
-    if form.validate_on_submit():
-        response = Response(name=form.name.data)
-        try:
-            db.session.add(response)
-            db.session.commit()
-        except:
-            db.session.rollback()
-
-        return redirect(url_for('admin.list_response'))
-
-    return render_template('admin/response.html',
-                           form=form,
-                           title="Add response")
-
-
-
-
-    return render_template('admin/response.html',
-                           form=form,
-                           response=response,
-                           title='Edit response')
-
 
