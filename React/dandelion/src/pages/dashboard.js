@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import { Link, navigate } from "gatsby"
 import '../styles/App.scss'
 import Header from "../components/navigation/header"
 import Tile from "../components/tile"
@@ -9,21 +10,19 @@ import chart from '../images/chart.png';
 import add_data from '../images/add data.png';
 export default function Dashboard() {
     const [savedData, setData] = useState(0);
+    const [logged, setLogged] = useState();
 
     useEffect(() => {
-        // Update the document title using the browser API
-        fetch(process.env.API_URL + "/users", {
-            method: "GET",
-            headers: new Headers({
-                'Cache-Control': 'no-cache, no-store, must-revalidate',
-                'Pragma': 'no-cache',
-                'Expires': 0,
-            })
-        }).then(response => response.json())
-            .then(
-                data => setData(data))
+        let logged = localStorage.getItem("logged");
+        console.log(logged);
+        if (logged == "true") {
+            setLogged(true);
+        } if (logged == "false") {
+            navigate("/signin")
+        }
     }, []);
 
+    if(logged == true){
     return (
         <div>
             <Header />
@@ -33,7 +32,7 @@ export default function Dashboard() {
                         <div className="content">
                             <h3>Dashboard</h3>
                             <p>
-                            Share the results of your projects and see how others' projects went! 
+                                Share the results of your projects and see how others' projects went!
                             </p>
                         </div>
                         <div className="tiles">
@@ -48,4 +47,5 @@ export default function Dashboard() {
             </div>
         </div>
     );
+    }else return null;
 }

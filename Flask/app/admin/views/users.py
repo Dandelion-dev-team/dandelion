@@ -1,15 +1,19 @@
+from xml.dom import UserDataHandler
 from flask import request, jsonify, abort
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import inspect
 from app.admin import admin
 from app.models import User
+from flask_cors import cross_origin
 from app import db
 from app.utils.functions import jwt_user
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update, audit_delete
 
 
 @admin.route('/user', methods=['GET'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def getAllUsers():
     users = User.query.all()
     output = []
@@ -25,6 +29,7 @@ def getAllUsers():
 
 
 @admin.route('/user', methods=['POST'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def createUser():
     current_user = jwt_user(get_jwt_identity())
@@ -49,6 +54,7 @@ def createUser():
 
 
 @admin.route('/user/<int:id>', methods=['GET'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def getOneUser(id):
     user = User.query.get_or_404(id)
@@ -61,8 +67,25 @@ def getOneUser(id):
 
     return jsonify({'user': user_data})
 
+@admin.route('/user/<string:username>', methods=['GET'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
+@jwt_required()
+def getUserByUsername(username):
+    #user = User.query.get_or_404(username)
+    print(username)
+    user = User.query.filter(User.username == username).first()
+    
+    user_data = {}
+    user_data['username'] = user.username
+    user_data['user_id'] = user.id
+    # user_data['password'] = user.password_hash
+    user_data['school_id'] = user.school_id
+
+    return jsonify({'user': user_data})
+
 
 @admin.route('/user/<int:id>', methods=['GET', 'PUT'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def updateUser(id):
     current_user = jwt_user(get_jwt_identity())
@@ -93,6 +116,7 @@ def updateUser(id):
 
 
 @admin.route('/user/<int:id>', methods=['DELETE'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def deleteUser(id):
     current_user = jwt_user(get_jwt_identity())

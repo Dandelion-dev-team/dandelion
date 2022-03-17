@@ -1,16 +1,20 @@
 import React from 'react'
+import Cookies from 'universal-cookie';
+import { user_logout } from './logins';
 
 export function createRecord(endpoint, body) {
-    let  token = JSON.parse(localStorage.getItem('accessToken'));
     console.log(body);
+    const cookies = new Cookies();
     fetch(process.env.API_URL + endpoint, {
         method: "POST",
+        credentials: "include",
+        mode: 'cors',
         headers: new Headers({
             'Content-Type': 'application/json',
             'Cache-Control': 'no-cache, no-store, must-revalidate',
-            'Authorization': 'Bearer ' + token,
             'Pragma': 'no-cache',
             'Expires': 0,
+            'X-CSRF-TOKEN': cookies.get('csrf_access_token')
         }),
         body: body,
     })
@@ -19,27 +23,30 @@ export function createRecord(endpoint, body) {
 }
 
 export function readRecord(endpoint, setter) {
-    let  token = JSON.parse(localStorage.getItem('accessToken'));
+    console.log(process.env.API_URL + endpoint);
     fetch(process.env.API_URL + endpoint, {
         method: "GET",
-        headers: new Headers({
+        credentials: "include",
+        mode: 'cors',
+        headers: new Headers({  
             'Cache-Control': 'no-cache, no-store, must-revalidate',
-            'Authorization': 'Bearer ' + token,
             'Pragma': 'no-cache',
             'Expires': 0,
         })
-    }).then(response => response.json())
+    }).then(response => {if(response.status == 401){
+        user_logout();
+    } else return response.json()})
         .then(data => setter(data.data))
 }
 
 export function updateRecord(endpoint, body) {
-    let  token = JSON.parse(localStorage.getItem('accessToken'));
     fetch(process.env.API_URL + endpoint, {
         method: "PUT",
+        credentials: "include",
+        mode: 'cors',
         headers: new Headers({
             'Content-Type': 'application/json',
             'Cache-Control': 'no-cache, no-store, must-revalidate',
-            'Authorization': 'Bearer ' + token,
             'Pragma': 'no-cache',
             'Expires': 0,
         }),
@@ -50,13 +57,16 @@ export function updateRecord(endpoint, body) {
 }
 
 export function deleteRecord(endpoint) {
-    let  token = JSON.parse(localStorage.getItem('accessToken'));
+    const cookies = new Cookies();
     fetch(process.env.API_URL + endpoint, {
         method: "DELETE",
+        credentials: "include",
+        mode: 'cors',
         headers: new Headers({ 
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token,
-     }),
-    }).then(console.log("deleted: " + endpoint)).then(window.location.reload(false))
+            'X-CSRF-TOKEN': cookies.get('csrf_access_token')
+        }),
+    }).then(console.log("deleted: " + endpoint))
+        .then(window.location.reload(false))
 }
 

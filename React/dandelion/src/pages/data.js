@@ -3,21 +3,13 @@ import Header from "../components/navigation/header"
 import '../styles/App.scss'
 import Card from '../components/cards/projectCard';
 import TuneIcon from '@mui/icons-material/Tune';
+import { readRecord } from '../utils/CRUD';
 export default function Data() {
   const [projectList, setData] = useState(0);
 
   useEffect(() => {
     // Update the document title using the browser API
-    fetch(process.env.API_URL + "/projects", {
-      method: "GET",
-      headers: new Headers({
-        'Cache-Control': 'no-cache, no-store, must-revalidate',
-        'Pragma': 'no-cache',
-        'Expires': 0,
-      })
-    }).then(response => response.json())
-      .then(
-        data => setData(data)).then(console.log(projectList))
+    readRecord("/project", setData);
   }, []);
 
   return (
