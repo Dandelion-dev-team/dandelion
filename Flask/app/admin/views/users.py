@@ -71,13 +71,15 @@ def getOneUser(id):
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def getUserByUsername(username):
-    user = User.query.get_or_404(username)
+    #user = User.query.get_or_404(username)
+    print(username)
+    user = User.query.filter(User.username == username).first()
     
     user_data = {}
     user_data['username'] = user.username
+    user_data['user_id'] = user.id
     # user_data['password'] = user.password_hash
     user_data['school_id'] = user.school_id
-    user_data['user_id'] = user.id
 
     return jsonify({'user': user_data})
 

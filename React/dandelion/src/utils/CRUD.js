@@ -1,5 +1,6 @@
 import React from 'react'
 import Cookies from 'universal-cookie';
+import { user_logout } from './logins';
 
 export function createRecord(endpoint, body) {
     console.log(body);
@@ -32,7 +33,9 @@ export function readRecord(endpoint, setter) {
             'Pragma': 'no-cache',
             'Expires': 0,
         })
-    }).then(response => response.json())
+    }).then(response => {if(response.status == 401){
+        user_logout();
+    } else return response.json()})
         .then(data => setter(data.data))
 }
 
