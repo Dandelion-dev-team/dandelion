@@ -17,3 +17,10 @@
 5. Clone the ./dandelion/React/dandelion repo folder and cd into it.
 6. Run "npm install" to install the required packages.
 7. Build the minified application with `gatsby build`
+
+## Migrating changes to the server
+
+1. Deploy the new code
+2. cd to React root directory
+3. run `npm install` in case there are any new packages
+4. run `gatsby build`
