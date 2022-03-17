@@ -6,7 +6,10 @@ export default function SelectType(props) {
 
 
   const handleSingle = e => {
-    
+    navigate("/participants/enter-single", 
+    {state: {
+      response: props.location.state.responseVariables
+    }})
   }
 
   return (
@@ -18,6 +21,7 @@ export default function SelectType(props) {
         <div className="content">
           <div className="dummy-content">
             <h3>Single or multiple?</h3>
+            <h3>{props.location.state.participantDetails.title}</h3>
             <p>
               Placeholder text while implementing modal.
             </p>
