@@ -40,7 +40,6 @@ export default function DiscreteVariableModal(props) {
         const element = level_list[index];
         arr.push({treatment_name: name, sequence: index, name: element})
       }
-      console.log(arr);
       let body = JSON.stringify({
         id: 1,
         type: "Discrete",

@@ -13,7 +13,6 @@ from app.utils.auditing import audit_create, prepare_audit_details, audit_update
 @admin.route('/user', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def getAllUsers():
     users = User.query.all()
     output = []
@@ -76,12 +75,14 @@ def getUserByUsername(username):
     user = User.query.filter(User.username == username).first()
     
     user_data = {}
-    user_data['username'] = user.username
     user_data['user_id'] = user.id
     # user_data['password'] = user.password_hash
     user_data['school_id'] = user.school_id
+    user_data['is_superuser'] = user.is_superuser
+    user_data['is_sysadmin'] = user.is_sysadmin
 
-    return jsonify({'user': user_data})
+
+    return user_data
 
 
 @admin.route('/user/<int:id>', methods=['GET', 'PUT'])

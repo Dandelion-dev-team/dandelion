@@ -10,7 +10,7 @@ export default function SideNav() {
         <div className="sidenav">
           <nav>
             <div className="logo">
-              <Link to="/maintenance/superuser/superuser-dashboard" exact>
+              <Link to="/superuser/dashboard" exact>
                 <img src={logo} />
               </Link>
             </div>

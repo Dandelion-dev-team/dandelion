@@ -3,6 +3,7 @@ import { navigate } from "gatsby"
 import "../../../styles/App.scss"
 import BackupIcon from "@mui/icons-material/Backup"
 import CheckIcon from '@mui/icons-material/Check';
+import { verify_superuser_storage } from "../../../utils/logins";
 
 export default function EnterActivityDetails(props) {
   const [name, setName] = useState("")
@@ -12,6 +13,7 @@ export default function EnterActivityDetails(props) {
   const [image, setImage] = useState("")
   const [startDate, setStartDate] = useState("")
   const [endDate, setEndDate] = useState("")
+  const [logged, setLogged] = useState("");
 
   const handleNameChange = e => {
     setName(e.target.value)
@@ -31,20 +33,26 @@ export default function EnterActivityDetails(props) {
 
   const handleImageChange = async e => {
     setImage(e.target.files[0])
-    console.log(image)
 
   }
 
   const handleStartChange = e => {
     setStartDate(e.target.value)
-    console.log(startDate)
   }
 
   const handleEndChange = e => {
     setEndDate(e.target.value)
-    console.log(endDate)
   }
 
+  useEffect(() => {
+    if (verify_superuser_storage() == true) {
+      setLogged(true);
+    } else {
+      navigate("/signin");
+    }
+  }, [])
+
+  if (logged) {
   return (
     <div>
       <div className="activity-container">
@@ -155,4 +163,5 @@ export default function EnterActivityDetails(props) {
       </div>
     </div>
   )
+} else return null;
 }
