@@ -43,3 +43,68 @@ __version__: 1.6.2
 __purpose__: Interface with T5's programmable button. Allows for regular, double, triple, and long press to be interpreted.  
 __issues__: None.  
 __fixes__: n/a
+
+#### mySD
+__sourced from__: https://github.com/nhatuan84/esp32-micro-sdcard. After downloading the library, unzip to Documents/PlatformIO/Projects/*projectName*/lib.  
+__by__: nhatuan84  
+__version__: Last updated 26 March 2020  
+__purpose__: Interact with the T5's MicroSD card.  
+__issues__: None. But when uploading firmware to the T5, it's best to ensure the SD card is __not__ inserted into the module.  
+__fixes__: n/a
+
+#### ArduinoJSON
+__by__: Benoit Blanchon  
+__version__:  6.19.0  
+__purpose__: Used as a means of serialising sensor readings to Json.  
+__issues__: None.
+__fixes__: n/a
+
+#### Adafruit_BME_280_Library
+__by__: Adafruit  
+__version__: 2.2.2  
+__purpose__: Interface with BME280 sensor.  
+__issues__: None.  
+__fixes__: n/a
+
+#### Adafruit_TSL2591_Library
+__by__: Adafruit  
+__version__: 1.4.2  
+__purpose__: Interface with TSL2591 sensor.  
+__issues__: None.  
+__fixes__: n/a
+
+#### Adafruit Unified Sensor
+__by__: Adafruit  
+__version__: 1.1.4  
+__purpose__: Required for all Adafruit libraries.  
+__issues__: None.  
+__fixes__: n/a
+
+#### Adafruit BusIO
+__by__: Adafruit  
+__version__: 1.11.1  
+__purpose__: UART, I2C and SPI interfacing.  
+__issues__: None.  
+__fixes__:  n/a
+
+#### OneWire
+__by__: Paul Stoffregen  
+__version__:2.3.6  
+__purpose__: Interface with DS18B20 sensor  
+__issues__: None.  
+__fixes__: n/a
+
+#### DallasTemperature
+__by__: Miles Burton  
+__version__: 3.9.1  
+__purpose__: Interface with DS18B20 sensor  
+__issues__: None.
+__fixes__: n/a
+
+#### DFRobot_PH
+__sourced from__: https://github.com/DFRobot/DFRobot_PH. After downloading the library, unzip to Documents/PlatformIO/Projects/*projectName*/lib.    
+__by__: DFRobot  
+__version__: Last updated 22 February 2022  
+__purpose__: Interface with pH sensor.
+__issues__: Yes, must make alteration to the begin() method in the DFRobot_PH.cpp file.  
+__fixes__: Details of the fix can be seen in the version of the file currently in the repo, where the original version is commented out and updated version is below.
