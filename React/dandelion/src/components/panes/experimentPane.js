@@ -3,19 +3,17 @@ import { navigate } from "gatsby"
 import "../../styles/App.scss"
 
 export default function ExperimentPane(props) {
-  const [treatment_variables, setTreatmentVariables] = useState([]);
-  const [response_variables, setResponseVariables] = useState([]);
-  const [experiment_details, setExperimentDetails] = useState([]);
-  const [combinations, setCombinations] = useState([]);
+  const [treatment_variables, setTreatmentVariables] = useState([])
+  const [response_variables, setResponseVariables] = useState([])
+  const [experiment_details, setExperimentDetails] = useState([])
+  const [combinations, setCombinations] = useState([])
 
-  
   useEffect(() => {
-    setTreatmentVariables(props.dataProp.treatmentVariables);
-    setResponseVariables(props.dataProp.responseVariables);
-    setExperimentDetails(props.dataProp.experimentDetails);
-    setCombinations(props.dataProp.combinations);
+    setTreatmentVariables(props.dataProp.treatmentVariables)
+    setResponseVariables(props.dataProp.responseVariables)
+    setExperimentDetails(props.dataProp.experimentDetails)
+    setCombinations(props.dataProp.combinations)
   }, [])
-
 
   return (
     <div>
@@ -44,15 +42,23 @@ export default function ExperimentPane(props) {
           <div className="exp-btn-row">
             <div className="spacer" />
             <div className="continue-btn">
-              <button 
-              className="submitButton"
-              onClick={() => {
-                if (typeof window !== `undefined`) {
-                navigate("/activities/create-experiment/summary", {
-                  state: {treatmentVariables: treatment_variables, responseVariables: response_variables, experimentDetails: experiment_details, combinations: combinations},
-                })
-                }
-              }}>Use This Experiment</button>
+              <button
+                className="submitButton"
+                onClick={() => {
+                  if (typeof window !== `undefined`) {
+                    navigate("/activities/create-experiment/summary", {
+                      state: {
+                        treatmentVariables: treatment_variables,
+                        responseVariables: response_variables,
+                        experimentDetails: experiment_details,
+                        combinations: combinations,
+                      },
+                    })
+                  }
+                }}
+              >
+                Use This Experiment
+              </button>
             </div>
           </div>
         </div>

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react"
 import { navigate } from "gatsby"
 import "../../../styles/App.scss"
 import BackupIcon from "@mui/icons-material/Backup"
-import CheckIcon from '@mui/icons-material/Check';
+import CheckIcon from "@mui/icons-material/Check"
 
 export default function EnterDetails(props) {
   const [name, setName] = useState("")
@@ -32,7 +32,6 @@ export default function EnterDetails(props) {
   const handleImageChange = async e => {
     setImage(e.target.files[0])
     console.log(image)
-
   }
 
   const handleStartChange = e => {
@@ -46,14 +45,27 @@ export default function EnterDetails(props) {
   }
 
   const handleNav = e => {
-
-    if (name && code && description && tutorial && image && startDate && endDate) {
-
+    if (
+      name &&
+      code &&
+      description &&
+      tutorial &&
+      image &&
+      startDate &&
+      endDate
+    ) {
       if (typeof window !== `undefined`) {
-        navigate("/activities/create-experiment/treatment-variables",
-          {
-            state: { name: name, code: code, description: description, tutorial: tutorial, image: image, startDate: startDate, endDate: endDate },
-          });
+        navigate("/activities/create-experiment/treatment-variables", {
+          state: {
+            name: name,
+            code: code,
+            description: description,
+            tutorial: tutorial,
+            image: image,
+            startDate: startDate,
+            endDate: endDate,
+          },
+        })
       }
     }
   }
@@ -64,7 +76,7 @@ export default function EnterDetails(props) {
         <div className="content">
           <div className="title-content">
             <h3>Experiment Creation</h3>
-            <p>Tell us about your experiment</p>
+            <p>Tell us about your experiment.</p>
           </div>
           <div className="experiment-form">
             <div className="experiment-pane">
@@ -100,7 +112,12 @@ export default function EnterDetails(props) {
                   <h3>Description:</h3>
                 </div>
                 <div className="desc-input">
-                  <input type="text" placeholder="Description" name="descBox" onChange={handleDescChange} />
+                  <input
+                    type="text"
+                    placeholder="Description"
+                    name="descBox"
+                    onChange={handleDescChange}
+                  />
                 </div>
               </div>
               <div className="inputItem">
@@ -122,8 +139,17 @@ export default function EnterDetails(props) {
                 </div>
                 <div className="img-btn">
                   <label className="image-upload-btn">
-                    <input type="file" accept=".jpg,.png" onChange={handleImageChange} hidden/>
-                    {image ? <CheckIcon className="imageIcon"/>: <BackupIcon className="imageIcon"/>}
+                    <input
+                      type="file"
+                      accept=".jpg,.png"
+                      onChange={handleImageChange}
+                      hidden
+                    />
+                    {image ? (
+                      <CheckIcon className="imageIcon" />
+                    ) : (
+                      <BackupIcon className="imageIcon" />
+                    )}
                   </label>
                 </div>
               </div>
@@ -163,7 +189,6 @@ export default function EnterDetails(props) {
               value="Finished"
               onClick={() => {
                 handleNav()
-
               }}
             ></input>
           </div>
