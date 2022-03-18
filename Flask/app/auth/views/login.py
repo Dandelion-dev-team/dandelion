@@ -25,7 +25,7 @@ def login():
         abort(401, "Username not found")
 
     if user.verify_password(auth.password):
-        access_token = create_access_token(identity=auth.username) #todo access_token documentation expiry time
+        access_token = create_access_token(identity=auth.username)
 
         return jsonify({'access_token': access_token, "message" : "You are logged in"})
 

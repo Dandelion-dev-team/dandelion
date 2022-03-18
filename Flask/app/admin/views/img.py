@@ -12,12 +12,8 @@ from app import db
 from Flask import instance
 from app.utils.functions import row2dict, jwt_user
 from PIL import Image
-# from app.utils.images import allowed_file
 from flask import render_template, request, flash, redirect
-
 import os
-import secrets
-
 from app.utils.images import allowed_file
 
 
@@ -51,6 +47,8 @@ def upload():
     if pic and allowed_file(pic.filename):
         filename = secure_filename(pic.filename)
         pic.save(os.path.join(current_app.config['IMAGE_UPLOADS'], filename))
+        pic = Image.open(pic)
+        pic.save(os.path.join(current_app.config['IMAGE_UPLOADS'], 'new_image_changed_to_png.png'))
         resp = jsonify({'message': 'Image successfully uploaded'})
         resp.status_code = 201
         return resp
