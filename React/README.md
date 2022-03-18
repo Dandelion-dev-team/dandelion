@@ -24,3 +24,4 @@
 2. cd to React root directory
 3. run `npm install` in case there are any new packages
 4. run `gatsby build`
+5. Restart Dandelion Flask service with `sudo service dandelion restart`
