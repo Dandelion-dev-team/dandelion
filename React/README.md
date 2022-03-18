@@ -21,7 +21,10 @@
 ## Migrating changes to the server
 
 1. Deploy the new code
-2. cd to React root directory
-3. run `npm install` in case there are any new packages
-4. run `gatsby build`
-5. Restart Dandelion Flask service with `sudo service dandelion restart`
+2. cd to Flask root directory
+3. set environment variable `export FLASK_APP="app:create_app('development')"`
+4. run database migrations: `flask db upgrade` See [here](https://www.arundhaj.com/blog/multiple-head-revisions-present-error-flask-migrate.html) to resolve multiple head revisions error
+5. cd to React root directory
+6. run `npm install` in case there are any new packages
+7. run `gatsby build`
+8. Restart Dandelion Flask service with `sudo service dandelion restart`
