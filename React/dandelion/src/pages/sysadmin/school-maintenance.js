@@ -4,8 +4,11 @@ import "../../styles/App.scss"
 import Select from "react-select"
 import SchoolComponent from "../../components/tables/schoolComponent"
 import { createRecord, readRecord, updateRecord } from "../../utils/CRUD"
+import { verify_sysadmin_storage } from "../../utils/logins"
+import { navigate } from "gatsby"
 
 export default function SuperuserMaintenance(props) {
+  const [logged, setLogged] = useState("");
   const [authList, setAuthorities] = useState(0)
   const [editing, setEditing] = useState("")
   const [adding, setAdding] = useState("")
@@ -127,7 +130,12 @@ export default function SuperuserMaintenance(props) {
   }
 
   useEffect(() => {
-    readRecord("/authority", setAuthorities)
+      if (verify_sysadmin_storage() == true) {
+        setLogged(true);
+        readRecord("/authority", setAuthorities)
+      } else {
+        navigate("/signin");
+      }
   }, [])
 
   const handleCallback = childData => {
@@ -149,181 +157,184 @@ export default function SuperuserMaintenance(props) {
     setEditing(true)
     setAdding(true)
   }
-  return (
-    <div>
-      <SysSideNav />
-      <div className="school-maintenance-container">
-        <div className="school-content">
-          <div className="content-wrapper">
-            <div className="edit-school">
-              {adding ? (
-                //SHOW IF ADDING SCHOOL
-                <div>
-                  <div className="authorityPicker">
-                    <h3>Local Authority:</h3>
+  if (logged) {
+    return (
+      <div>
+        <SysSideNav />
+        <div className="school-maintenance-container">
+          <div className="school-content">
+            <div className="content-wrapper">
+              <div className="edit-school">
+                {adding ? (
+                  //SHOW IF ADDING SCHOOL
+                  <div>
+                    <div className="authorityPicker">
+                      <h3>Local Authority:</h3>
+                      {editing ? (
+                        //IF EDITING SHOW SCHOOL AUTH ID
+                        <h3>{auth_id}</h3>
+                      ) : (
+                        //IF NOT EDITING SHOW PICKER
+                        <Select
+                          name="authority_id_picker"
+                          options={authList}
+                          value={authority_selected}
+                          defaultValue={authority_selected}
+                          onChange={setAuthority}
+                          getOptionLabel={authList => authList.name}
+                          getOptionValue={authList => authList.id} // It should be unique value in the options. E.g. ID
+                        />
+                      )}
+                    </div>
+                    <div className="schoolEnterList">
+                      <div className="nameBox">
+                        <h3>School Name:</h3>
+                        <input
+                          type="text"
+                          placeholder="School Name"
+                          name="usernameBox"
+                          value={entered_school_name}
+                          onChange={handleNameChange}
+                        />
+                      </div>
+                      <div className="nameBox">
+                        <h3>Address Line 1:</h3>
+                        <input
+                          type="text"
+                          placeholder="Address line 1"
+                          name="usernameBox"
+                          value={addressLineOne}
+                          onChange={handleAddress1Change}
+                        />
+                      </div>
+                      <div className="nameBox">
+                        <h3>Address Line 2:</h3>
+                        <input
+                          type="text"
+                          placeholder="Address line 2"
+                          name="usernameBox"
+                          value={addressLineTwo}
+                          onChange={handleAddress2Change}
+                        />
+                      </div>
+                      <div className="nameBox">
+                        <h3>Town:</h3>
+                        <input
+                          type="text"
+                          placeholder="Town"
+                          name="usernameBox"
+                          value={entered_town}
+                          onChange={handleTownChange}
+                        />
+                      </div>
+                      <div className="nameBox">
+                        <h3>Postcode:</h3>
+                        <input
+                          type="text"
+                          placeholder="Postcode"
+                          name="usernameBox"
+                          value={entered_postcode}
+                          onChange={handlePostcodeChange}
+                        />
+                      </div>
+                      <div className="nameBox">
+                        <h3>Latitude:</h3>
+                        <input
+                          type="text"
+                          placeholder="Latitude"
+                          name="usernameBox"
+                          value={entered_latitude}
+                          onChange={handleLatChange}
+                        />
+                      </div>
+                      <div className="nameBox">
+                        <h3>Longitude:</h3>
+                        <input
+                          type="text"
+                          placeholder="Longitude"
+                          name="usernameBox"
+                          value={entered_longitude}
+                          onChange={handleLongChange}
+                        />
+                      </div>
+                      <div className="nameBox">
+                        <h3>Telephone:</h3>
+                        <input
+                          type="text"
+                          placeholder="Telephone"
+                          name="usernameBox"
+                          value={entered_telephone}
+                          onChange={handleTelephoneChange}
+                        />
+                      </div>
+                      <div className="nameBox">
+                        <h3>Email:</h3>
+                        <input
+                          type="text"
+                          placeholder="Email"
+                          name="usernameBox"
+                          value={entered_email}
+                          onChange={handleEmailChange}
+                        />
+                      </div>
+                      <div className="nameBox">
+                        <h3>School Image:</h3>
+                        <input
+                          type="text"
+                          placeholder="Image Link"
+                          name="usernameBox"
+                          value={entered_image_link}
+                          onChange={handleImageChange}
+                        />
+                      </div>
+                    </div>
                     {editing ? (
-                      //IF EDITING SHOW SCHOOL AUTH ID
-                      <h3>{auth_id}</h3>
+                      //IF EDITING SHOW UPDATE BUTTON
+                      <div>
+                        <div>
+                          <input
+                            type="submit"
+                            className="createButton"
+                            value="Update"
+                            onClick={onUpdateClick}
+                          ></input>
+                        </div>
+                      </div>
                     ) : (
-                      //IF NOT EDITING SHOW PICKER
-                      <Select
-                        name="authority_id_picker"
-                        options={authList}
-                        value={authority_selected}
-                        defaultValue={authority_selected}
-                        onChange={setAuthority}
-                        getOptionLabel={authList => authList.name}
-                        getOptionValue={authList => authList.id} // It should be unique value in the options. E.g. ID
-                      />
-                    )}
-                  </div>
-                  <div className="schoolEnterList">
-                    <div className="nameBox">
-                      <h3>School Name:</h3>
-                      <input
-                        type="text"
-                        placeholder="School Name"
-                        name="usernameBox"
-                        value={entered_school_name}
-                        onChange={handleNameChange}
-                      />
-                    </div>
-                    <div className="nameBox">
-                      <h3>Address Line 1:</h3>
-                      <input
-                        type="text"
-                        placeholder="Address line 1"
-                        name="usernameBox"
-                        value={addressLineOne}
-                        onChange={handleAddress1Change}
-                      />
-                    </div>
-                    <div className="nameBox">
-                      <h3>Address Line 2:</h3>
-                      <input
-                        type="text"
-                        placeholder="Address line 2"
-                        name="usernameBox"
-                        value={addressLineTwo}
-                        onChange={handleAddress2Change}
-                      />
-                    </div>
-                    <div className="nameBox">
-                      <h3>Town:</h3>
-                      <input
-                        type="text"
-                        placeholder="Town"
-                        name="usernameBox"
-                        value={entered_town}
-                        onChange={handleTownChange}
-                      />
-                    </div>
-                    <div className="nameBox">
-                      <h3>Postcode:</h3>
-                      <input
-                        type="text"
-                        placeholder="Postcode"
-                        name="usernameBox"
-                        value={entered_postcode}
-                        onChange={handlePostcodeChange}
-                      />
-                    </div>
-                    <div className="nameBox">
-                      <h3>Latitude:</h3>
-                      <input
-                        type="text"
-                        placeholder="Latitude"
-                        name="usernameBox"
-                        value={entered_latitude}
-                        onChange={handleLatChange}
-                      />
-                    </div>
-                    <div className="nameBox">
-                      <h3>Longitude:</h3>
-                      <input
-                        type="text"
-                        placeholder="Longitude"
-                        name="usernameBox"
-                        value={entered_longitude}
-                        onChange={handleLongChange}
-                      />
-                    </div>
-                    <div className="nameBox">
-                      <h3>Telephone:</h3>
-                      <input
-                        type="text"
-                        placeholder="Telephone"
-                        name="usernameBox"
-                        value={entered_telephone}
-                        onChange={handleTelephoneChange}
-                      />
-                    </div>
-                    <div className="nameBox">
-                      <h3>Email:</h3>
-                      <input
-                        type="text"
-                        placeholder="Email"
-                        name="usernameBox"
-                        value={entered_email}
-                        onChange={handleEmailChange}
-                      />
-                    </div>
-                    <div className="nameBox">
-                      <h3>School Image:</h3>
-                      <input
-                        type="text"
-                        placeholder="Image Link"
-                        name="usernameBox"
-                        value={entered_image_link}
-                        onChange={handleImageChange}
-                      />
-                    </div>
-                  </div>
-                  {editing ? (
-                    //IF EDITING SHOW UPDATE BUTTON
-                    <div>
+                      //IF NOT EDITING SHOW CREATE BUTTON
                       <div>
                         <input
                           type="submit"
                           className="createButton"
-                          value="Update"
-                          onClick={onUpdateClick}
+                          value="Create"
+                          onClick={onCreateClick}
                         ></input>
                       </div>
-                    </div>
-                  ) : (
-                    //IF NOT EDITING SHOW CREATE BUTTON
-                    <div>
-                      <input
-                        type="submit"
-                        className="createButton"
-                        value="Create"
-                        onClick={onCreateClick}
-                      ></input>
-                    </div>
-                  )}
-                </div>
-              ) : (
-                //SHOW IF NOT ADDING SCHOOL
-                <div>
-                  <input
-                    type="submit"
-                    className="createButton"
-                    value="Add School"
-                    onClick={() => {
-                      setAdding(true)
-                    }}
-                  ></input>
-                </div>
-              )}
-            </div>
-            <div className="table">
-              <h3>School Maintenance</h3>
-              <SchoolComponent parentCallback={handleCallback} />
+                    )}
+                  </div>
+                ) : (
+                  //SHOW IF NOT ADDING SCHOOL
+                  <div>
+                    <input
+                      type="submit"
+                      className="createButton"
+                      value="Add School"
+                      onClick={() => {
+                        setAdding(true)
+                      }}
+                    ></input>
+                  </div>
+                )}
+              </div>
+              <div className="table">
+                <h3>School Maintenance</h3>
+                <SchoolComponent parentCallback={handleCallback} />
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  )
+    )
+  } else return null;
+
 }

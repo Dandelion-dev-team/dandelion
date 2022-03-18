@@ -8,6 +8,7 @@ import PaginationComponent from "../../../components/navigation/pagination"
 import { navigate } from "gatsby"
 import VariableTypeModal from "../../../components/modals/variableTypeModal"
 import DiscreteVariableModal from "../../../components/modals/discreteVariableModal"
+import { verify_superuser_storage } from "../../../utils/logins"
 
 export default function TreatmentVariables(props) {
   const [search_value, changeSearch] = useState("")
@@ -18,6 +19,7 @@ export default function TreatmentVariables(props) {
   const [experiment_details, setExperimentDetails] = useState("")
   const [discrete_modal_shown, setDiscreteModalShown] = useState("")
   const [selected_list, updateSelectedList] = useState([])
+  const [logged, setLogged] = useState("");
 
   const handleSearchValueChange = e => {
     changeSearch(e.target.value)
@@ -75,26 +77,28 @@ export default function TreatmentVariables(props) {
   }
 
   useEffect(() => {
-    if (props.location.state) {
-      console.log(props.location.state)
-      setExperimentDetails(props.location.state)
+    if (verify_superuser_storage() == true) {
+      if (props.location.state) {
+        setExperimentDetails(props.location.state)
+      } else {
+        if (typeof window !== `undefined`) {
+          navigate(
+            "/activities/create-experiment/enter-details")
+        }
+      }
+      fetch(process.env.ROOT_URL + "/treatmentVariablesShortlist", {
+        method: "GET",
+        headers: new Headers({
+          "Cache-Control": "no-cache, no-store, must-revalidate",
+          Pragma: "no-cache",
+          Expires: 0,
+        }),
+      })
+        .then(response => response.json())
+        .then(data => setVariables(data)).then(setLogged(true))
     } else {
-      // if (typeof window !== `undefined`) {
-      //   navigate(
-      //     "/activities/create-experiment/enter-details")
-      // }
+      navigate("/signin");
     }
-    // Update the document title using the browser API
-    fetch(process.env.ROOT_URL + "/treatmentVariablesShortlist", {
-      method: "GET",
-      headers: new Headers({
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-        Pragma: "no-cache",
-        Expires: 0,
-      }),
-    })
-      .then(response => response.json())
-      .then(data => setVariables(data))
   }, [])
 
   return (

@@ -13,14 +13,14 @@ export default function ParticipantPane(props) {
     setParticipantDetails(props.dataProp.participantDetails)
     setExperimentDetails(props.dataProp.experimentDetails)
     setResponseVariables(props.dataProp.responseVariables)
-    fetch(process.env.ROOT_URL + "/observation/" + 0, {
+    fetch(process.env.ROOT_URL + "/observation/" + 1, {
       method: "GET",
       headers: new Headers({
         'Cache-Control': 'no-cache, no-store, must-revalidate',
         'Pragma': 'no-cache',
         'Expires': 0,
       })
-    }).then(response => response.json())
+    }).then(response => {if(response.status == 200) {return response.json()}})
       .then(
         data => setObservations(data));
   }, [])
@@ -34,7 +34,7 @@ export default function ParticipantPane(props) {
             <div className="title-btn-row">
               <h2>{props.dataProp.participantDetails.title}</h2>
               <div className="exercise-btn">
-                <button
+                {observations ? null : <button
                   className="exerciseBtn"
                   onClick={() => {
                     if (typeof window !== `undefined`) {
@@ -49,7 +49,7 @@ export default function ParticipantPane(props) {
                   }}
                 >
                   Complete Exercise
-                </button>
+                </button>}
               </div>
             </div>
             <h3>
@@ -70,7 +70,9 @@ export default function ParticipantPane(props) {
             </div>
             <p>Observations</p>
             <div className="info-box">
-              {observations ? <p>{observations.value}</p> : null}
+              {observations ?
+                <div>
+                  <p id='observation'>{observations.value}</p> <p id='date'>{new Date(observations.timestamp).toDateString()}</p> </div> : null}
             </div>
           </div>
         </div>

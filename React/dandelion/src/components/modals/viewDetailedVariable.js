@@ -10,7 +10,6 @@ export default function ViewDetailedVariable(props) {
   const [lowerLimit, setLowerLimit] = useState("")
 
   useEffect(() => {
-    console.log(props);
     if (props.startEditing == true) {
       setEditing(true)
       setDescription(props.variable.description)

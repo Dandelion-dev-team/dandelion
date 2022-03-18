@@ -13,22 +13,18 @@
 1. Install NGINX on server using SSH.
 2. Run "sudo apt-get install nodejs"
 3. Test nodeJS is installed correctly by running "nodejs -v" and "npm -v"
-4. Install npm: ```sudo apt install npm```
+4. Install npm: `sudo apt install npm`
 5. Clone the ./dandelion/React/dandelion repo folder and cd into it.
 6. Run "npm install" to install the required packages.
-7. In the root directory of the project create a folder called "etc" and within that folder create a folder called "nginx". 
-8. In this folder create a "nginx.conf" file.
-9. In this file add the following: 
+7. Build the minified application with `gatsby build`
 
-user nobody;
+## Migrating changes to the server
 
-http { 
-  server {
-    listen PORT_NUMBER;
-    
-    location / {
-      root dandelion/React/dandelion;
-      index ./src/pages/index.js;
-    }
-  }
-}
+1. Deploy the new code
+2. cd to Flask root directory
+3. set environment variable `export FLASK_APP="app:create_app('development')"`
+4. run database migrations: `flask db upgrade` See [here](https://www.arundhaj.com/blog/multiple-head-revisions-present-error-flask-migrate.html) to resolve multiple head revisions error
+5. cd to React root directory
+6. run `npm install` in case there are any new packages
+7. run `gatsby build`
+8. Restart Dandelion Flask service with `sudo service dandelion restart`

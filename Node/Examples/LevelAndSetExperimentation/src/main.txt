@@ -1,0 +1,107 @@
+//Main that works taking two sensors' readings:
+
+#include <Arduino.h>
+#include <Wire.h>
+#include <SPI.h>
+#include <Adafruit_Sensor.h>
+
+#include <Adafruit_TSL2591.h>
+#include <Adafruit_BME280.h>
+
+#define LEVEL_1_SELECT 0
+#define LEVEL_2_SELECT 12
+#define LEVEL_3_SELECT 27
+#define SET_1_SELECT 26
+#define SET_2_SELECT 25
+#define SET_3_SELECT 33
+#define SCL 22
+#define SDA 21
+#define DATA1 36
+#define DATA2 19
+#define ANALOGUE 32
+#define BUTTONPIN 39
+
+char message_buffer[100];
+
+void initialise_pins();
+void select(int level_select, int set_select);
+
+Adafruit_TSL2591 tsl = Adafruit_TSL2591(2591);
+Adafruit_BME280 bme;
+
+void setup()
+{
+  Serial.begin(115200);
+
+  pinMode(BUTTONPIN, INPUT_PULLDOWN);
+  pinMode(LEVEL_1_SELECT, OUTPUT);
+  pinMode(LEVEL_2_SELECT, OUTPUT);
+  pinMode(LEVEL_3_SELECT, OUTPUT);
+  pinMode(SET_1_SELECT, OUTPUT);
+  pinMode(SET_2_SELECT, OUTPUT);
+  pinMode(SET_3_SELECT, OUTPUT);
+
+  pinMode(SCL, INPUT);
+  pinMode(SDA, INPUT);
+  pinMode(DATA1, INPUT);
+  pinMode(DATA2, INPUT);
+  pinMode(ANALOGUE, INPUT);
+
+  select(LEVEL_1_SELECT, SET_1_SELECT);
+  tsl.begin();
+  tsl.setGain(TSL2591_GAIN_MED);
+  tsl.setTiming(TSL2591_INTEGRATIONTIME_300MS);
+  bme.begin(0x76);  
+
+  //read luminosity
+  // read pressure
+  // read water level
+  // read EC
+  delay(2000);
+  // select(LEVEL_1_SELECT, SET_2_SELECT);
+  // // read temperature
+  // // read humidity
+  // // read moisture
+  // // read substrate temperature
+  // delay(2000);
+  // select(LEVEL_1_SELECT, SET_3_SELECT);
+  // read pH
+  delay(2000);
+  // select(LEVEL_2_SELECT, SET_1_SELECT);
+  // delay(2000);
+  // select(LEVEL_2_SELECT, SET_2_SELECT);
+  // delay(2000);
+  // select(LEVEL_2_SELECT, SET_3_SELECT);
+  // delay(2000);
+  // select(LEVEL_3_SELECT, SET_1_SELECT);
+  // delay(2000);
+  // select(LEVEL_3_SELECT, SET_2_SELECT);
+  // delay(2000);
+  // select(LEVEL_3_SELECT, SET_3_SELECT);
+  // delay(2000);
+
+}
+
+void loop()
+{
+  //TSL
+  uint16_t x = tsl.getLuminosity(TSL2591_VISIBLE);
+  Serial.print(F("[ ")); Serial.print(millis()); Serial.print(F(" ms ] "));
+  Serial.print(F("Luminosity: "));
+  Serial.println(x, DEC);
+
+  //BME
+  Serial.print("Temperature = ");
+  Serial.print(bme.readTemperature());
+  Serial.println(" *C");
+
+  delay(2000);
+}
+
+
+void select(int level_select, int set_select) {
+  digitalWrite(level_select, HIGH);
+  digitalWrite(set_select, HIGH);
+  sprintf(message_buffer, "Level %d, Set %d", level_select, set_select);
+  Serial.println(message_buffer);
+}

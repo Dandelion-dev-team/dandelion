@@ -1,7 +1,7 @@
 import * as React from "react"
 import { Link, navigate } from "gatsby"
 import logo from "../../images/logo3.svg"
-import { user_logout } from "../../utils/logout";
+import { user_logout } from "../../utils/logins";
 
 export default function SysSideNav() {
   return (
@@ -9,7 +9,7 @@ export default function SysSideNav() {
       <div className="sidenav">
         <nav>
           <div className="logo">
-            <Link to="/maintenance/sysadmin/sysadmin-dashboard" exact>
+            <Link to="/dashboard" exact>
               <img src={logo} />
             </Link>
           </div>

@@ -7,7 +7,7 @@ export default function SensorComponent(props) {
   const [sensorList, setSensors] = useState(0);
 
   useEffect(() => {
-      readRecord("/sensor/", setSensors)
+      readRecord("/sensor", setSensors)
   }, []);
 
   const editSensor = (user) => {
@@ -32,7 +32,7 @@ export default function SensorComponent(props) {
               </tr>
             </thead>
 
-            {sensorList.map(sensor => (
+            {sensorList.data.map(sensor => (
               <tbody key={sensor.id}>
                 <td>{sensor.id}</td>
                 <td>{sensor.code}</td>

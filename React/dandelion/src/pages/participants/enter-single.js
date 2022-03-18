@@ -15,21 +15,22 @@ export default function EnterSingleData(props) {
   }
 
   const onUpdate = e => {
-    let update_body = JSON.stringify({
-      id: 0,
-      timestamp: "2022-03-17T23:40:30.642Z",
-      value: 140,
-      status: "valid",
-      unit: "mm"
-    })
-    fetch(process.env.ROOT_URL + "/observation/" + 0, {
-      method: "PATCH",
+    console.log("Updated body")
+    fetch("http://localhost:3000/observation", {
+      method: "POST",
+      body: JSON.stringify({
+        id: 0,
+        timestamp: "2022-03-17T23:40:30.642Z",
+        value: length,
+        status: "valid",
+        unit: "mm"
+      }),
       headers: new Headers({
+        'Content-Type': 'application/json',
         'Cache-Control': 'no-cache, no-store, must-revalidate',
         'Pragma': 'no-cache',
         'Expires': 0,
       }),
-      body: update_body,
     }).then(navigate("/participants/experiment-dashboard"))
   }
 
@@ -46,13 +47,13 @@ export default function EnterSingleData(props) {
             <div className="data-pane">
               <div className="inputItem">
                 <div className="item-title">
-                  <h3>Length:</h3>
+                  <h3>Observation:</h3>
                 </div>
                 <div className="item-input">
                   <input
                     type="text"
                     value={length}
-                    placeholder="Length (mm)"
+                    placeholder=""
                     name="nameBox"
                     onChange={handleLengthChange}
                   />
