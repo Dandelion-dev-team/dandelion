@@ -3,9 +3,12 @@ import SysSideNav from "../../components/navigation/sysadminSideNav"
 import "../../styles/App.scss"
 import AuthComponent from "../../components/tables/authComponent"
 import { createRecord, readRecord, updateRecord } from "../../utils/CRUD"
+import { user_logout, verify_sysadmin_storage } from "../../utils/logins"
+import { navigate } from "gatsby"
 
 export default function AuthMaintenance(props) {
   const selectInputRef = useRef()
+  const [logged, setLogged] = useState("");
   const [authList, setAuths] = useState(0)
   const [auth_name, setAuthName] = useState("")
   const [telephone, setTelephone] = useState("")
@@ -15,7 +18,12 @@ export default function AuthMaintenance(props) {
   const [editing_auth, setEditingAuth] = useState("")
 
   useEffect(() => {
-    readRecord("/authority", setAuths)
+    if(verify_sysadmin_storage() == true){
+      setLogged(true);
+      readRecord("/authority", setAuths)
+    }else{
+      navigate("/signin");
+    }
   }, [])
 
   const handleAuthChange = e => {
@@ -76,85 +84,87 @@ export default function AuthMaintenance(props) {
     setEditing(false)
   }
 
-  return (
-    <div>
+  if(logged){
+    return (
       <div>
-      <SysSideNav />
-      <div className="auth-maintenance-container">
-        <div className="auth-content">
-          <div className="content-wrapper">
-            <div className="table">
-              <AuthComponent parentCallback={handleCallback} />
-            </div>
-            <div className="create-panel">
-              <div className="authorityPicker">
-                <h3>Local Authority: </h3>
-                <input
-                  type="text"
-                  placeholder="Local Authority"
-                  name="authNameBox"
-                  value={auth_name}
-                  onChange={handleAuthChange}
-                />
+        <div>
+        <SysSideNav />
+        <div className="auth-maintenance-container">
+          <div className="auth-content">
+            <div className="content-wrapper">
+              <div className="table">
+                <AuthComponent parentCallback={handleCallback} />
               </div>
-
-              <div className="nameBox">
-                <h3>Telephone:</h3>
-                <input
-                  type="text"
-                  placeholder="Tel. No"
-                  name="telephoneBox"
-                  value={telephone}
-                  onChange={handleTelephoneChange}
-                />
-              </div>
-
-              <div className="nameBox">
-                <h3>Email:</h3>
-                <input
-                  type="text"
-                  placeholder="Email Address"
-                  name="password"
-                  value={email}
-                  onChange={handleEmailChange}
-                />
-              </div>
-              {editing ? (
-                <div className="btn-row">
-                  <div className="submit-btn">
-                    <input
-                      type="submit"
-                      className="submitButton"
-                      value="Update"
-                      onClick={onUpdateAuth}
-                    ></input>
-                  </div>
-                  <div className="submit-btn">
-                    <input
-                      type="submit"
-                      className="submitButton"
-                      value="Cancel"
-                      onClick={onCancelAuth}
-                    ></input>
-                  </div>
-                </div>
-              ) : (
-                //IF NOT EDITING
-                <div className="submit-btn">
+              <div className="create-panel">
+                <div className="authorityPicker">
+                  <h3>Local Authority: </h3>
                   <input
-                    type="submit"
-                    className="submitButton"
-                    value="Create"
-                    onClick={onCreateAuth}
-                  ></input>
+                    type="text"
+                    placeholder="Local Authority"
+                    name="authNameBox"
+                    value={auth_name}
+                    onChange={handleAuthChange}
+                  />
                 </div>
-              )}
+  
+                <div className="nameBox">
+                  <h3>Telephone:</h3>
+                  <input
+                    type="text"
+                    placeholder="Tel. No"
+                    name="telephoneBox"
+                    value={telephone}
+                    onChange={handleTelephoneChange}
+                  />
+                </div>
+  
+                <div className="nameBox">
+                  <h3>Email:</h3>
+                  <input
+                    type="text"
+                    placeholder="Email Address"
+                    name="password"
+                    value={email}
+                    onChange={handleEmailChange}
+                  />
+                </div>
+                {editing ? (
+                  <div className="btn-row">
+                    <div className="submit-btn">
+                      <input
+                        type="submit"
+                        className="submitButton"
+                        value="Update"
+                        onClick={onUpdateAuth}
+                      ></input>
+                    </div>
+                    <div className="submit-btn">
+                      <input
+                        type="submit"
+                        className="submitButton"
+                        value="Cancel"
+                        onClick={onCancelAuth}
+                      ></input>
+                    </div>
+                  </div>
+                ) : (
+                  //IF NOT EDITING
+                  <div className="submit-btn">
+                    <input
+                      type="submit"
+                      className="submitButton"
+                      value="Create"
+                      onClick={onCreateAuth}
+                    ></input>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  )
+    )
+  } else return null;
 }
 

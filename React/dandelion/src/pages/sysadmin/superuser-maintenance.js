@@ -4,6 +4,8 @@ import "../../styles/App.scss"
 import Select from "react-select"
 import UserComponent from "../../components/tables/userComponent"
 import { createRecord, readRecord, updateRecord } from "../../utils/CRUD"
+import { navigate } from "gatsby"
+import { verify_superuser_storage } from "../../utils/logins"
 
 export default function SuperuserMaintenance(props) {
   const selectInputRef = useRef()
@@ -19,9 +21,15 @@ export default function SuperuserMaintenance(props) {
   const [school_name, setSchoolName] = useState("")
   const [is_active, setActive] = useState("")
   const [editing_user, setEditingUser] = useState("")
+  const [logged, setLogged] = useState("");
 
   useEffect(() => {
-    readRecord("/school", setSchools);
+    if (verify_superuser_storage() == true) {
+      setLogged(true);
+      readRecord("/school", setSchools);
+    } else {
+      navigate("/signin");
+    }
   }, [])
 
   const handleNameChange = e => {
@@ -82,7 +90,6 @@ export default function SuperuserMaintenance(props) {
   }
 
   const onUpdateUser = e => {
-    console.log("update")
     setName("")
     setPassword("")
     setEditing(false)
@@ -91,8 +98,6 @@ export default function SuperuserMaintenance(props) {
     if (password !== "") {
       password_edited = password
     }
-    console.log("edited password: " + password_edited)
-
     let is_active_val = ""
     if (is_active == true) {
       is_active_val = "active"

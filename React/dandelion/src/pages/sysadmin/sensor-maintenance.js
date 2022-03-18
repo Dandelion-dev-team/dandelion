@@ -4,8 +4,11 @@ import "../../styles/App.scss"
 import SensorComponent from "../../components/tables/sensorComponent"
 import Select from "react-select"
 import { createRecord, readRecord, updateRecord } from "../../utils/CRUD"
+import { verify_sysadmin_storage } from "../../utils/logins"
+import { navigate } from "gatsby"
 
 export default function SuperuserMaintenance(props) {
+  const [logged, setLogged] = useState("");
   const [entered_code, setCode] = useState("")
   const [entered_desc, setDesc] = useState("")
   const [entered_url, setURL] = useState("")
@@ -89,95 +92,101 @@ export default function SuperuserMaintenance(props) {
   }
 
   useEffect(() => {
-    readRecord("/quantity", setQuantityList);
+    if (verify_sysadmin_storage() == true) {
+      setLogged(true);
+      //readRecord("/sensorQuantity", setQuantityList);
+    } else {
+      navigate("/signin");
+    }
   }, [])
-
-  return (
-    <div>
-      <SysSideNav />
-      <div className="sensor-maintenance-container">
-        <div className="sensor-content">
-          <div className="content-wrapper">
-            <div className="table">
-              <SensorComponent parentCallback={handleCallback} />
-            </div>
-            <div className="edit-pane">
-              <div className="textbox">
-                <h3>Code:</h3>
-                <input
-                  type="text"
-                  placeholder="Code"
-                  name="usernameBox"
-                  value={entered_code}
-                  onChange={handleCodeChange}
-                />
+  if (logged) {
+    return (
+      <div>
+        <SysSideNav />
+        <div className="sensor-maintenance-container">
+          <div className="sensor-content">
+            <div className="content-wrapper">
+              <div className="table">
+                <SensorComponent parentCallback={handleCallback} />
               </div>
-              <div className="textbox">
-                <h3>Description:</h3>
-                <textarea
-                  type="text"
-                  placeholder="Code"
-                  name="usernameBox"
-                  value={entered_desc}
-                  onChange={handleDescChange}
-                />
-              </div>
-              <div className="textbox">
-                <h3>URL:</h3>
-                <input
-                  type="text"
-                  placeholder="Code"
-                  name="usernameBox"
-                  value={entered_url}
-                  onChange={handleURLChange}
-                />
-              </div>
-              <div className="nameBox">
-                <h3>Datasheet link:</h3>
-                <input
-                  type="text"
-                  placeholder="Code"
-                  name="usernameBox"
-                  value={entered_datasheet}
-                  onChange={handleDatasheetChange}
-                />
-              </div>
-              <div className="quantityPicker">
-                <Select
-                  value={selected_quantities}
-                  closeMenuOnSelect={false}
-                  options={quantityList}
-                  onChange={handleSelection}
-                  getOptionLabel={quantity => quantity.name}
-                  getOptionValue={quantity => quantity.id} // It should be unique value in the options. E.g. ID
-                  isMulti={true}
-                />
-              </div>
-              {editing ? (
-                //IF EDITING SHOW UPDATE BUTTON
-                <div>
+              <div className="edit-pane">
+                <div className="textbox">
+                  <h3>Code:</h3>
                   <input
-                    type="submit"
-                    className="createButton"
-                    value="Update"
-                    onClick={onUpdateClick}
-                  ></input>
+                    type="text"
+                    placeholder="Code"
+                    name="usernameBox"
+                    value={entered_code}
+                    onChange={handleCodeChange}
+                  />
                 </div>
-              ) : (
-                //IF NOT EDITING SHOW CREATE BUTTON
-                <div>
+                <div className="textbox">
+                  <h3>Description:</h3>
+                  <textarea
+                    type="text"
+                    placeholder="Code"
+                    name="usernameBox"
+                    value={entered_desc}
+                    onChange={handleDescChange}
+                  />
+                </div>
+                <div className="textbox">
+                  <h3>URL:</h3>
                   <input
-                    type="submit"
-                    className="createButton"
-                    value="Create"
-                    onClick={onCreateClick}
-                  ></input>
+                    type="text"
+                    placeholder="Code"
+                    name="usernameBox"
+                    value={entered_url}
+                    onChange={handleURLChange}
+                  />
                 </div>
-              )}
+                <div className="nameBox">
+                  <h3>Datasheet link:</h3>
+                  <input
+                    type="text"
+                    placeholder="Code"
+                    name="usernameBox"
+                    value={entered_datasheet}
+                    onChange={handleDatasheetChange}
+                  />
+                </div>
+                <div className="quantityPicker">
+                  <Select
+                    value={selected_quantities}
+                    closeMenuOnSelect={false}
+                    options={quantityList}
+                    onChange={handleSelection}
+                    getOptionLabel={quantity => quantity.name}
+                    getOptionValue={quantity => quantity.id} // It should be unique value in the options. E.g. ID
+                    isMulti={true}
+                  />
+                </div>
+                {editing ? (
+                  //IF EDITING SHOW UPDATE BUTTON
+                  <div>
+                    <input
+                      type="submit"
+                      className="createButton"
+                      value="Update"
+                      onClick={onUpdateClick}
+                    ></input>
+                  </div>
+                ) : (
+                  //IF NOT EDITING SHOW CREATE BUTTON
+                  <div>
+                    <input
+                      type="submit"
+                      className="createButton"
+                      value="Create"
+                      onClick={onCreateClick}
+                    ></input>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  )
+    )
+  } else return null;
 }

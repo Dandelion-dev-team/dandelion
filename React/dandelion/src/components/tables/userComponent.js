@@ -7,7 +7,7 @@ export default function CrudComponent(props) {
   const [users, setUsers] = useState(0);
 
   useEffect(() => {
-    readRecord("/user/", setUsers)
+    readRecord("/user", setUsers)
   }, []);
 
 
@@ -30,13 +30,12 @@ export default function CrudComponent(props) {
           </tr>
         </thead>
 
-        {users ? users.map(user => (
-
+        {users ? users.users.map(user => (
           <tbody key={users.id}>
             <td>{user.id}</td>
             <td>{user.school_id}</td>
             <td>{user.username}</td>
-            <td>{user.is_superuser.toString()}</td>
+            <td>{user.is_superuser}</td>
             <td>{user.status}</td>
             <td>
               <div className="submit-btn">

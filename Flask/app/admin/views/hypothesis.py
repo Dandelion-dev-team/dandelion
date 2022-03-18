@@ -1,4 +1,5 @@
 from flask import abort
+from flask_cors import cross_origin
 from flask_json import json_response
 from app.admin import admin
 from app.models import Hypothesis
@@ -7,25 +8,8 @@ from app.utils.functions import row2dict
 
 
 @admin.route('/hypothesis', methods=['GET'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def listHypothesis():
     hypothesis = Hypothesis.query.all()
     return json_response(data=(row2dict(x) for x in hypothesis))
 
-
-# @admin.route('/hypothesis/add', methods=['GET', 'POST'])
-# def add_hypothesis():
-#     form = HypothesisForm()
-#     if form.validate_on_submit():
-#         hypothesis = Hypothesis(name=form.name.data)
-#         try:
-#             db.session.add(hypothesis)
-#             db.session.commit()
-#         except Exception as e:
-#             db.session.rollback()
-#             abort(409, e.orig.msg)
-#
-#         return redirect(url_for('admin.list_hypothesis'))
-#
-#     return render_template('admin/hypothesis.html',
-#                            form=form,
-#                            title="Add hypothesis")
