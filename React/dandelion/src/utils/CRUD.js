@@ -32,7 +32,7 @@ export function readRecord(endpoint, setter) {
     }).then(response => {
         if(response.status == 401){
             user_logout();
-    } else return response.json()}).then(data => console.log(data))
+    } else return response.json()}).then(data => setter(data))
 }
 
 export function updateRecord(endpoint, body) {
