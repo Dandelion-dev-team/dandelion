@@ -30,7 +30,7 @@ export default function Login(props) {
     let logged = localStorage.getItem("logged");
     if (logged == "true") {
       navigate("/dashboard")
-    } if (logged == "false") 
+    } if (logged == "false" || logged == null) 
     {
      setRender(true); 
     }
