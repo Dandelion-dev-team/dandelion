@@ -47,7 +47,7 @@ export default function EnterSingleData(props) {
             <div className="data-pane">
               <div className="inputItem">
                 <div className="item-title">
-                  <h3>Observation:</h3>
+                  <h3>Appearance:</h3>
                 </div>
                 <div className="item-input">
                   <input
