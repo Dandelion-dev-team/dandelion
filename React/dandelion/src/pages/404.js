@@ -1,9 +1,7 @@
 import * as React from "react"
 import Header from "../components/navigation/header"
 import { useStaticQuery, graphql, navigate } from "gatsby"
-import Img from "gatsby-image"
 import Layout from "../components/layout"
-import Seo from "../components/seo"
 import image from '../images/banner3.jpeg';
 import gif from '../images/404.gif';
 
@@ -11,25 +9,6 @@ import "../styles/App.scss"
 export const isBrowser = () => typeof window !== "undefined"
 
 const NotFoundPage = () => {
-  const data = useStaticQuery(graphql`
-    query{
-      heroImage: file(relativePath: { eq: "banner2.jpeg" }) {
-        childImageSharp {
-          fluid {
-            ...GatsbyImageSharpFluid
-          }
-        }
-      }
-
-      mobileHeroImage: file(relativePath: { eq: "Group.png" }) {
-        childImageSharp {
-          fluid {
-            ...GatsbyImageSharpFluid
-          }
-        }
-      }
-    }
-  `)
   if (!isBrowser) {
     return;
   } else {

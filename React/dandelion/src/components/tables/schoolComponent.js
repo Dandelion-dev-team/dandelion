@@ -32,7 +32,7 @@ export default function CrudComponent(props) {
           </tr>
         </thead>
 
-        {schools ? schools.map(school => (
+        {schools ? schools.data.map(school => (
 
           <tbody key={schools.id}>
             <td>{school.id}</td>

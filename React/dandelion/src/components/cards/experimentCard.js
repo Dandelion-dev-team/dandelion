@@ -1,7 +1,6 @@
 import React from 'react'
 
 export default function ExperimentCard(props) {
-    console.log(props.dataProp)
     //Tested
     return (
         <div className="experiment-card">

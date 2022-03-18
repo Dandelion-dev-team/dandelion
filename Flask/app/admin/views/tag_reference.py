@@ -12,6 +12,7 @@ from app.utils.functions import row2dict, jwt_user
 
 
 @admin.route('/tagreference', methods=['GET'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def listTagReference():
     tag_reference = Tag_reference.query.all()

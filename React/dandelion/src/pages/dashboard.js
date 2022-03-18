@@ -14,7 +14,6 @@ export default function Dashboard() {
 
     useEffect(() => {
         let logged = localStorage.getItem("logged");
-        console.log(logged);
         if (logged == "true") {
             setLogged(true);
         } if (logged == "false") {

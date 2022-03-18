@@ -12,7 +12,7 @@ export default function NodeInfoComponent(props) {
     const [comment, setComment] = useState("");
 
     useEffect(() => {
-        readRecord("/node/" + 1, setNodeData)
+        //readRecord("/node/" + 1, setNodeData)
     }, [])
 
     const handleCommentChange = e => {

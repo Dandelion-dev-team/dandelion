@@ -3,7 +3,7 @@ import "../../styles/App.scss"
 import SideNav from "../../components/navigation/superUserSideNav"
 import { navigate } from "gatsby";
 import { verify_superuser_storage } from "../../utils/logins";
-export default function SuperuserHelp(props) {
+export default function SuperUserTemplates(props) {
   const [logged, setLogged] = useState("");
 
   useEffect(() => {

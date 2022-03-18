@@ -34,7 +34,7 @@ export default function SensorComponent(props) {
               </tr>
             </thead>
 
-            {nodeList.map(node => (
+            {nodeList.data.map(node => (
               <tbody key={node.id}>
                 <td>{node.id}</td>
                 <td>{node.school_id}</td>

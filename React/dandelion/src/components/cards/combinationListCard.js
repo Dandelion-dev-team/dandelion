@@ -6,7 +6,6 @@ export default function CombinationListComponent(props) {
     const [treatments_JSON, setTreatments] = useState([]);
 
     useEffect(() => {
-        console.log(props.condition);
         setCheckboxValue(true);
         props.checkCallback({ data: props.condition, value: checkbox_value });
     }, [checkbox_value]);

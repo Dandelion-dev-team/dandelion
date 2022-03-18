@@ -28,7 +28,7 @@ export default function AuthComponent(props) {
         </thead>
 
         {auths
-          ? auths.map(auth => (
+          ? auths.data.map(auth => (
             <tbody key={auths.id}>
               <td>{auth.id}</td>
               <td>{auth.name}</td>

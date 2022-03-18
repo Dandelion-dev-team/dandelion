@@ -3,9 +3,12 @@ import SysSideNav from "../../components/navigation/sysadminSideNav"
 import "../../styles/App.scss"
 import TagComponent from "../../components/tables/tagComponent"
 import { createRecord, readRecord, updateRecord } from "../../utils/CRUD"
+import { verify_sysadmin_storage } from "../../utils/logins"
+import { navigate } from "gatsby"
 
 export default function TagMaintenance(props) {
   const selectInputRef = useRef()
+  const [logged, setLogged] = useState("");
   const [tagList, setTags] = useState(0)
   const [tagLabel, setTagLabel] = useState("")
   const [tagStatus, setTagStatus] = useState("")
@@ -14,8 +17,12 @@ export default function TagMaintenance(props) {
   const [editing_tag, setEditingTag] = useState("")
 
   useEffect(() => {
-    // Update the document title using the browser API
-    readRecord("/tagreference", setTags);
+    if (verify_sysadmin_storage() == true) {
+      setLogged(true);
+      readRecord("/tagreference", setTags);
+    } else {
+      navigate("/signin");
+    }
   }, [])
 
   const handleTagChange = e => {
@@ -65,66 +72,67 @@ export default function TagMaintenance(props) {
       updateRecord("/tagreference/" + editing_tag.id, body)
     }
   }
-
-  return (
-    <div>
-      <SysSideNav />
-      <div className="tag-maintenance-container">
-        <div className="tag-content">
-          <div className="content-wrapper">
-            <div className="table">
-              <TagComponent parentCallback={handleCallback} />
-            </div>
-            <div className="edit-tag">
-              <div>
-                <h3>Tag Label: </h3>
-                <input
-                  type="text"
-                  placeholder="Label"
-                  name="labelBox"
-                  value={tagLabel}
-                  onChange={handleTagChange}
-                />
+  if (logged) {
+    return (
+      <div>
+        <SysSideNav />
+        <div className="tag-maintenance-container">
+          <div className="tag-content">
+            <div className="content-wrapper">
+              <div className="table">
+                <TagComponent parentCallback={handleCallback} />
               </div>
+              <div className="edit-tag">
+                <div>
+                  <h3>Tag Label: </h3>
+                  <input
+                    type="text"
+                    placeholder="Label"
+                    name="labelBox"
+                    value={tagLabel}
+                    onChange={handleTagChange}
+                  />
+                </div>
 
-              <div className="textbox">
-                <h3>Status:</h3>
-                <input
-                  type="text"
-                  placeholder="Status"
-                  name="statusBox"
-                  value={tagStatus}
-                  onChange={handleTagStatus}
-                />
-              </div>
+                <div className="textbox">
+                  <h3>Status:</h3>
+                  <input
+                    type="text"
+                    placeholder="Status"
+                    name="statusBox"
+                    value={tagStatus}
+                    onChange={handleTagStatus}
+                  />
+                </div>
 
-              {editing ? (
-                //IF EDITING
-                <div className="nameBox">
+                {editing ? (
+                  //IF EDITING
+                  <div className="nameBox">
+                    <div className="submit-btn">
+                      <input
+                        type="submit"
+                        className="submitButton"
+                        value="Update"
+                        onClick={onUpdateTag}
+                      ></input>
+                    </div>
+                  </div>
+                ) : (
+                  //IF NOT EDITING
                   <div className="submit-btn">
                     <input
                       type="submit"
                       className="submitButton"
-                      value="Update"
-                      onClick={onUpdateTag}
+                      value="Create"
+                      onClick={onCreateTag}
                     ></input>
                   </div>
-                </div>
-              ) : (
-                //IF NOT EDITING
-                <div className="submit-btn">
-                  <input
-                    type="submit"
-                    className="submitButton"
-                    value="Create"
-                    onClick={onCreateTag}
-                  ></input>
-                </div>
-              )}
+                )}
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  )
+    )
+  } else return null;
 }

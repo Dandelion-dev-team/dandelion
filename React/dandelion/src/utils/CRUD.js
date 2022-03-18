@@ -3,7 +3,6 @@ import Cookies from 'universal-cookie';
 import { user_logout } from './logins';
 
 export function createRecord(endpoint, body) {
-    console.log(body);
     const cookies = new Cookies();
     fetch(process.env.API_URL + endpoint, {
         method: "POST",
@@ -17,13 +16,10 @@ export function createRecord(endpoint, body) {
             'X-CSRF-TOKEN': cookies.get('csrf_access_token')
         }),
         body: body,
-    })
-        .then(console.log("PUT: " + endpoint))
-        .then(window.location.reload(false))
+    }).then(window.location.reload(false))
 }
 
 export function readRecord(endpoint, setter) {
-    console.log(process.env.API_URL + endpoint);
     fetch(process.env.API_URL + endpoint, {
         method: "GET",
         credentials: "include",
@@ -33,10 +29,10 @@ export function readRecord(endpoint, setter) {
             'Pragma': 'no-cache',
             'Expires': 0,
         })
-    }).then(response => {if(response.status == 401){
-        user_logout();
-    } else return response.json()})
-        .then(data => setter(data.data))
+    }).then(response => {
+        if(response.status == 401){
+            user_logout();
+    } else return response.json()}).then(data => setter(data))
 }
 
 export function updateRecord(endpoint, body) {
@@ -51,9 +47,7 @@ export function updateRecord(endpoint, body) {
             'Expires': 0,
         }),
         body: body
-      })
-        .then(console.log("PUT: "+ endpoint))
-        .then(window.location.reload(false))
+      }).then(window.location.reload(false))
 }
 
 export function deleteRecord(endpoint) {
@@ -66,7 +60,6 @@ export function deleteRecord(endpoint) {
             'Content-Type': 'application/json',
             'X-CSRF-TOKEN': cookies.get('csrf_access_token')
         }),
-    }).then(console.log("deleted: " + endpoint))
-        .then(window.location.reload(false))
+    }).then(window.location.reload(false))
 }
 

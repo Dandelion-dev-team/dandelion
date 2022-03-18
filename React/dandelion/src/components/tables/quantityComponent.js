@@ -30,7 +30,7 @@ export default function QuantityComponent(props) {
           </tr>
         </thead>
 
-        {quantityList.map(quantity => (
+        {quantityList.data.map(quantity => (
 
           <tbody key={quantity.id}>
             <td>{quantity.id}</td>

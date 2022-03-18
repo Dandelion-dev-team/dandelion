@@ -25,7 +25,7 @@ export default function TagComponent(props) {
         </thead>
 
         {tags
-          ? tags.map(tag => (
+          ? tags.data.map(tag => (
               <tbody key={tags.id}>
                 <td>{tag.id}</td>
                 <td>{tag.label}</td>
