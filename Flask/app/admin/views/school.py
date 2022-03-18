@@ -162,13 +162,23 @@ def upload_school_image(id):
         return resp
 
     if pic and allowed_file(pic.filename):
+
         filename = secure_filename(pic.filename)
+
         newdir = (os.path.join(current_app.config['IMAGE_UPLOADS_SCHOOL'], id))
         if not os.path.exists(newdir):
             os.makedirs(newdir)
         pic.save(os.path.join(newdir, id + filename))
+
         pic = Image.open(pic)
         pic.save(os.path.join(newdir, id + '.png'))
+
+        full_size = pic.resize((590, 330 ))
+        full_size.save(os.path.join(newdir, id + '_full.png'))
+
+        thumb_size = pic.resize((115, 90))
+        thumb_size.save(os.path.join(newdir, id + '_thumb.png'))
+
         resp = jsonify({'message': 'Image successfully uploaded'})
         resp.status_code = 201
         return resp
