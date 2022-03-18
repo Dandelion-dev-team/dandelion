@@ -50,7 +50,7 @@ export function user_login(username, password) {
                 localStorage.setItem("school_id", data.school_id);
                 localStorage.setItem("user_id", data.user_id);
                 if (data.is_sysadmin == true) {
-                    navigate("/sysadmin/auth-maintenance/")
+                    navigate("/sysadmin/dashboard/")
                 }
                 else if (data.is_superuser == true) {
                     navigate("/superuser/dashboard/")

@@ -151,6 +151,7 @@ export default function SuperuserMaintenance(props) {
                   />
                 </div>
                 <div className="quantityPicker">
+                <h3>Quantity:</h3>
                   <Select
                     value={selected_quantities}
                     closeMenuOnSelect={false}
