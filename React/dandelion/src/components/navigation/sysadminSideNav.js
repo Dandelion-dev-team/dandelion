@@ -9,7 +9,7 @@ export default function SysSideNav() {
       <div className="sidenav">
         <nav>
           <div className="logo">
-            <Link to="/sysadmin/auth-maintenance" exact>
+            <Link to="/dashboard" exact>
               <img src={logo} />
             </Link>
           </div>
