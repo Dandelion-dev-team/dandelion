@@ -27,7 +27,7 @@ export default function ParticipantPane(props) {
 
   return (
     <div>
-      {show_type ? <SelectAddTypeModal /> : null}
+      {show_type ? <SelectAddTypeModal props={props.dataProp} /> : null}
       {props.dataProp ? (
         <div className="participant-pane-content">
           <div className="title">

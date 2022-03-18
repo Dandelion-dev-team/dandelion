@@ -8,20 +8,11 @@ export default function SelectAddTypeModal(props) {
   const [response_variables, setResponseVariables] = useState([])
 
   useEffect(() => {
-    if (props.location.state) {
-      console.log(props.location.state);
-      console.log(JSON.stringify(props.location.state));
-      setResponseVariables(props.location.state.responseVariables);
-      setExperimentDetails(props.location.state.experimentDetails);
-      setParticipantDetails(props.location.state.participantDetails)
-      console.log("details:" + props.location.state.participantDetails)
-    } else {
-      if (typeof window !== `undefined`) {
-        navigate(
-          "/participants/experiments-dashboard")
-      }
-    }
-  }, []);
+    console.log(props.dataProp)
+    // setResponseVariables(props.dataProp.responseVariables)
+    // setExperimentDetails(props.dataProp.experimentDetails)
+    // setParticipantDetails(props.dataProp.participantDetails)
+  }, [])
 
   return (
     <div>
@@ -43,9 +34,9 @@ export default function SelectAddTypeModal(props) {
                   type="submit"
                   className="submitButton"
                   value="Single"
-                    onClick={() => {
-                      console.log("details:")
-                    }}
+                  onClick={() => {
+                    console.log("details:")
+                  }}
                 ></input>
               </div>
               <div className="submit-btn">
