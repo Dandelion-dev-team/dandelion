@@ -43,7 +43,7 @@ export default function ExperimentDashboard(props) {
           </div>
           <div className="friends-pane">
             <div className="title">
-              <h3>Your friends on this project:</h3>
+              <h3>Your friends on this activity:</h3>
             </div>
             <div className="friends-list">
               <FriendsComponent />

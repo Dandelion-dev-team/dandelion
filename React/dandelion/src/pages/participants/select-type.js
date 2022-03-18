@@ -1,57 +1,64 @@
 import React, { useEffect, useState } from "react"
 import { navigate } from "gatsby"
 import "../../styles/App.scss"
+import PaginationComponent from "../../components/navigation/pagination"
 
 export default function SelectType(props) {
-
-
   const handleSingle = e => {
-    navigate("/participants/enter-single", 
-    {state: {
-      response: props.location.state.responseVariables
-    }})
+    navigate("/participants/enter-single", {
+      state: {
+        response: props.location.state.responseVariables,
+      },
+    })
   }
 
   return (
     <div>
       <div className="type-container">
-        <div className="title">
-          <h3>Enter Data</h3>
-        </div>
         <div className="content">
-          <div className="dummy-content">
-            <h3>Single or multiple?</h3>
-            <h3>{props.location.state.participantDetails.title}</h3>
-            <p>
-              Placeholder text while implementing modal.
-            </p>
-            
+          <div className="title-content">
+            <h3>Scientist Observations</h3>
+            <p>Are you entering single or multiple pieces of data</p>
           </div>
-
-          <div className="type-btns">
-            <div className="spacer" />
-            <div className="btn-row">
-              <div className="submit-btn">
-                <input
-                  type="submit"
-                  className="submitButton"
-                  value="Single"
-                    onClick={() => {
-                      handleSingle()
-                    }}
-                ></input>
-              </div>
-              <div className="submit-btn">
-                <input
-                  type="submit"
-                  className="submitButton"
-                  value="Multiple"
-                  //   onClick={() => {
-                  //     props.discreteCallback()
-                  //   }}
-                ></input>
+          <div className="select-form">
+            <div className="select-pane">
+              <p>
+                You can enter many readings for your experiment at one time, in
+                case you have missed a day or have several pieces of bulk data
+                to add.
+              </p>
+              <div className="data-type-btns">
+                <div className="spacer" />
+                <div className="btn-row">
+                  <div className="submit-btn">
+                    <input
+                      type="submit"
+                      className="submitButton"
+                      value="Single"
+                      onClick={() => {
+                        handleSingle()
+                      }}
+                    ></input>
+                  </div>
+                  <div className="submit-btn">
+                    <input
+                      type="submit"
+                      className="submitButton"
+                      value="Multiple"
+                      //   onClick={() => {
+                      //     props.discreteCallback()
+                      //   }}
+                    ></input>
+                  </div>
+                </div>
               </div>
             </div>
+          </div>
+        </div>
+        <div className="pagination">
+          <div className="spacer" />
+          <div className="pag-component">
+            <PaginationComponent pageIndex={1} numPages={2} />
           </div>
         </div>
       </div>
