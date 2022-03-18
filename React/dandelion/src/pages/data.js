@@ -21,12 +21,12 @@ export default function Data() {
             <h1>Data Page</h1>
           </div>
           <div className="projects">
-            {projectList ?
+            {projectList.length > 0 ?
               projectList.map(function (d, idx) {
                 return (
                   <Card key={idx} title={d.title} description={d.description} image={d.project_image_link}></Card>)
               })
-              : null}
+              : <h3>No activities found</h3>}
           </div>
         </div>
       </div>
