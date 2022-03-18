@@ -282,7 +282,6 @@
           "id": 0,
           "type": "Discrete",
           "name": "Touches",
-
           "levels": [
             {
               "treatment_name": "Touches",
@@ -401,7 +400,6 @@
           "id": 0,
           "type": "Discrete",
           "name": "Touches",
-
           "levels": [
             {
               "treatment_name": "Touches",
@@ -520,7 +518,6 @@
           "id": 0,
           "type": "Discrete",
           "name": "Touches",
-
           "levels": [
             {
               "treatment_name": "Touches",
@@ -639,7 +636,6 @@
           "id": 0,
           "type": "Discrete",
           "name": "Touches",
-
           "levels": [
             {
               "treatment_name": "Touches",
@@ -1120,6 +1116,24 @@
       "unit": "°",
       "upper_limit": 180,
       "lower_limit": 0
+    }
+  ],
+  "observation": [
+    {
+      "id": 0,
+      "timestamp": "2022-03-17T23:40:30.642Z",
+      "value": 100,
+      "observation_image_link": "string",
+      "status": "valid",
+      "unit": "mm"
+    },
+    {
+      "id": 1,
+      "timestamp": "2022-03-17T23:40:30.642Z",
+      "value": 100,
+      "observation_image_link": "string",
+      "status": "valid",
+      "unit": "mm"
     }
   ]
 }

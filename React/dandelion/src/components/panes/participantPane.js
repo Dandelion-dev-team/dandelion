@@ -8,11 +8,21 @@ export default function ParticipantPane(props) {
   const [participant_details, setParticipantDetails] = useState([])
   const [response_variables, setResponseVariables] = useState([])
   const [show_type, setShowType] = useState("")
-
+  const [observations, setObservations] = useState("");
   useEffect(() => {
     setParticipantDetails(props.dataProp.participantDetails)
     setExperimentDetails(props.dataProp.experimentDetails)
     setResponseVariables(props.dataProp.responseVariables)
+    fetch(process.env.ROOT_URL + "/observation/" + 0, {
+      method: "GET",
+      headers: new Headers({
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': 0,
+      })
+    }).then(response => response.json())
+      .then(
+        data => setObservations(data));
   }, [])
 
   return (
@@ -60,7 +70,7 @@ export default function ParticipantPane(props) {
             </div>
             <p>Observations</p>
             <div className="info-box">
-              <p>{participant_details.observations}</p>
+              {observations ? <p>{observations.value}</p> : null}
             </div>
           </div>
         </div>

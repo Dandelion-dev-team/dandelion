@@ -3,19 +3,36 @@ import { navigate } from "gatsby"
 import "../../styles/App.scss"
 
 export default function EnterSingleData(props) {
-    const [length, setLength] = useState("")
-    const [recordingDate, setRecordingDate] = useState("")
+  const [length, setLength] = useState("")
+  const [recordingDate, setRecordingDate] = useState("")
 
-    const handleLengthChange = e => {
-        setLength(e.target.value)
-      }
+  const handleLengthChange = e => {
+    setLength(e.target.value)
+  }
 
-    const handleRecordDateChange = e => {
-        setRecordingDate(e.target.value)
-      }
-      useEffect(() => {
-        console.log(props.location.state);
-      }, [])
+  const handleRecordDateChange = e => {
+    setRecordingDate(e.target.value)
+  }
+
+  const onUpdate = e => {
+    let update_body = JSON.stringify({
+      id: 0,
+      timestamp: "2022-03-17T23:40:30.642Z",
+      value: 140,
+      status: "valid",
+      unit: "mm"
+    })
+    fetch(process.env.ROOT_URL + "/observation/" + 0, {
+      method: "PATCH",
+      headers: new Headers({
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': 0,
+      }),
+      body: update_body,
+    }).then(navigate("/participants/experiment-dashboard"))
+  }
+
 
   return (
     <div>
@@ -62,7 +79,9 @@ export default function EnterSingleData(props) {
               type="submit"
               className="submitButton"
               value="Finished"
-              
+              onClick={() => {
+                onUpdate();
+              }}
             ></input>
           </div>
           <div className="spacer"></div>
