@@ -31,7 +31,7 @@ export default function Header() {
               <Link to="/data">Data</Link>
               <Link to="/map">Map</Link>
               <Link to="/about">About</Link>
-              {logged ? <Link to="/signin" onClick={() => user_logout()}>Logout</Link> : <Link to="/signin">Sign In</Link>}
+              {logged ? <Link to="/" onClick={() => user_logout()}>Logout</Link> : <Link to="/signin">Sign In</Link>}
             </nav>
           </div>
         </div>

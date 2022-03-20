@@ -42,7 +42,6 @@ export default function EnterDetails(props) {
 
   const handleImageChange = async e => {
     setImage(e.target.files[0])
-
   }
 
   const handleStartChange = e => {
@@ -54,14 +53,27 @@ export default function EnterDetails(props) {
   }
 
   const handleNav = e => {
-
-    if (name && code && description && tutorial && image && startDate && endDate) {
-
+    if (
+      name &&
+      code &&
+      description &&
+      tutorial &&
+      image &&
+      startDate &&
+      endDate
+    ) {
       if (typeof window !== `undefined`) {
-        navigate("/activities/create-experiment/treatment-variables",
-          {
-            state: { name: name, code: code, description: description, tutorial: tutorial, image: image, startDate: startDate, endDate: endDate },
-          });
+        navigate("/activities/create-experiment/treatment-variables", {
+          state: {
+            name: name,
+            code: code,
+            description: description,
+            tutorial: tutorial,
+            image: image,
+            startDate: startDate,
+            endDate: endDate,
+          },
+        })
       }
     }
   }

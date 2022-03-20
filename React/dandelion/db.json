@@ -200,6 +200,36 @@
       "owner": "Dandelion"
     }
   ],
+  "participant_experiment": [
+    {
+      "id": 0,
+      "experimentDetails": {
+        "name": "Thigmomorphogenesis",
+        "code": "Code",
+        "description": "Description",
+        "tutorial": "Tutorial",
+        "experiment_image_link": "https://d32vpew203r5a2.cloudfront.net/uploads/2021/10/1525_Dandelion_Hero_Image_Landscape_AW-web.jpg",
+        "start_date": "2022-03-03T15:55:05.933Z",
+        "end_date": "2022-03-03T15:55:05.933Z",
+        "id": 0
+      }
+    },
+    {
+      "id": 1,
+      "experimentDetails": {
+        "title": "Leaf Experiment",
+        "thumbnail": "https://images.squarespace-cdn.com/content/v1/53726d44e4b07d0c6bf0b106/1535677982492-J7R729ZEBU5DZXV2VYLH/growing+red+beets+in+your+summer+garden.jpg",
+        "owner": "Dandelion",
+        "start_date": "2022-03-03T15:55:05.933Z",
+        "end_date": "2022-03-03T15:55:05.933Z",
+        "description": "We are trying to grow leaves.",
+        "observation-freq": "Every week",
+        "hypotheses": "We think that leaves can grow.",
+        "observations": "most recent observation",
+        "id": 1
+      }
+    }
+  ],
   "experiment": [
     {
       "id": 0,
@@ -252,7 +282,6 @@
           "id": 0,
           "type": "Discrete",
           "name": "Touches",
-
           "levels": [
             {
               "treatment_name": "Touches",
@@ -315,6 +344,372 @@
         "experiment_image_link": "https://d32vpew203r5a2.cloudfront.net/uploads/2021/10/1525_Dandelion_Hero_Image_Landscape_AW-web.jpg",
         "start_date": "2022-03-03T15:55:05.933Z",
         "end_date": "2022-03-03T15:55:05.933Z",
+        "id": 0
+      },
+      "participantDetails": {
+        "title": "Thigmo",
+        "thumbnail": "https://images.squarespace-cdn.com/content/v1/53726d44e4b07d0c6bf0b106/1535677982492-J7R729ZEBU5DZXV2VYLH/growing+red+beets+in+your+summer+garden.jpg",
+        "owner": "Dandelion",
+        "start_date": "2022-03-03T15:55:05.933Z",
+        "end_date": "2022-03-03T15:55:05.933Z",
+        "description": "When they are growing outside, the wind blows plants about. They may also be pushed or squashed by people or animals. But how do these interactions affect their growth? That is what we aim to find out!",
+        "observation_freq": "Every week",
+        "hypotheses": "Null hypothesis - Leaves can't grow. Higher growth - the bigger leaves grow the bigger they are. Increased weight - Increased leaf growth is positively correlated with leaf size at harvest.",
+        "observations": "I noticed that the plant has turned purple and started singing along to Tupac?",
+        "id": 0
+      },
+      "combinations": [
+        [
+          [
+            {
+              "treatment_name": "Touches",
+              "sequence": 3,
+              "name": "Heavy"
+            }
+          ],
+          [
+            {
+              "treatment_name": "Nutrition",
+              "sequence": 1,
+              "name": "Control"
+            }
+          ]
+        ],
+        [
+          [
+            {
+              "treatment_name": "Touches",
+              "sequence": 2,
+              "name": "Light"
+            }
+          ],
+          [
+            {
+              "treatment_name": "Nutrition",
+              "sequence": 3,
+              "name": "High"
+            }
+          ]
+        ]
+      ]
+    },
+    {
+      "id": 1,
+      "treatmentVariables": [
+        {
+          "id": 0,
+          "type": "Discrete",
+          "name": "Touches",
+          "levels": [
+            {
+              "treatment_name": "Touches",
+              "sequence": 1,
+              "name": "Control"
+            },
+            {
+              "treatment_name": "Touches",
+              "sequence": 2,
+              "name": "Light"
+            },
+            {
+              "treatment_name": "Touches",
+              "sequence": 3,
+              "name": "Heavy"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "type": "Discrete",
+          "name": "Nutrition",
+          "levels": [
+            {
+              "treatment_name": "Nutrition",
+              "sequence": 1,
+              "name": "Control"
+            },
+            {
+              "treatment_name": "Nutrition",
+              "sequence": 3,
+              "name": "High"
+            }
+          ]
+        }
+      ],
+      "responseVariables": [
+        {
+          "id": 0,
+          "type": "Continuous",
+          "name": "Length",
+          "unit": "mm",
+          "upper_limit": 100,
+          "lower_limit": 0
+        },
+        {
+          "id": 2,
+          "type": "Continuous",
+          "name": "Stalk Width",
+          "unit": "mm",
+          "upper_limit": 100,
+          "lower_limit": 0
+        }
+      ],
+      "experimentDetails": {
+        "name": "Thigmomorphogenesis",
+        "code": "Code",
+        "description": "Description",
+        "tutorial": "Tutorial",
+        "experiment_image_link": "https://d32vpew203r5a2.cloudfront.net/uploads/2021/10/1525_Dandelion_Hero_Image_Landscape_AW-web.jpg",
+        "start_date": "2022-03-03T15:55:05.933Z",
+        "end_date": "2022-03-03T15:55:05.933Z",
+        "id": 0
+      },
+      "participantDetails": {
+        "title": "Leaf",
+        "thumbnail": "https://images.squarespace-cdn.com/content/v1/53726d44e4b07d0c6bf0b106/1535677982492-J7R729ZEBU5DZXV2VYLH/growing+red+beets+in+your+summer+garden.jpg",
+        "owner": "Dandelion",
+        "start_date": "2022-03-03T15:55:05.933Z",
+        "end_date": "2022-03-03T15:55:05.933Z",
+        "description": "When they are growing outside, the wind blows plants about. They may also be pushed or squashed by people or animals. But how do these interactions affect their growth? That is what we aim to find out!",
+        "observation_freq": "Every week",
+        "hypotheses": "Null hypothesis - Leaves can't grow. Higher growth - the bigger leaves grow the bigger they are. Increased weight - Increased leaf growth is positively correlated with leaf size at harvest.",
+        "observations": "I noticed that the plant has turned purple and started singing along to Tupac?",
+        "id": 0
+      },
+      "combinations": [
+        [
+          [
+            {
+              "treatment_name": "Touches",
+              "sequence": 3,
+              "name": "Heavy"
+            }
+          ],
+          [
+            {
+              "treatment_name": "Nutrition",
+              "sequence": 1,
+              "name": "Control"
+            }
+          ]
+        ],
+        [
+          [
+            {
+              "treatment_name": "Touches",
+              "sequence": 2,
+              "name": "Light"
+            }
+          ],
+          [
+            {
+              "treatment_name": "Nutrition",
+              "sequence": 3,
+              "name": "High"
+            }
+          ]
+        ]
+      ]
+    },
+    {
+      "id": 2,
+      "treatmentVariables": [
+        {
+          "id": 0,
+          "type": "Discrete",
+          "name": "Touches",
+          "levels": [
+            {
+              "treatment_name": "Touches",
+              "sequence": 1,
+              "name": "Control"
+            },
+            {
+              "treatment_name": "Touches",
+              "sequence": 2,
+              "name": "Light"
+            },
+            {
+              "treatment_name": "Touches",
+              "sequence": 3,
+              "name": "Heavy"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "type": "Discrete",
+          "name": "Nutrition",
+          "levels": [
+            {
+              "treatment_name": "Nutrition",
+              "sequence": 1,
+              "name": "Control"
+            },
+            {
+              "treatment_name": "Nutrition",
+              "sequence": 3,
+              "name": "High"
+            }
+          ]
+        }
+      ],
+      "responseVariables": [
+        {
+          "id": 0,
+          "type": "Continuous",
+          "name": "Length",
+          "unit": "mm",
+          "upper_limit": 100,
+          "lower_limit": 0
+        },
+        {
+          "id": 2,
+          "type": "Continuous",
+          "name": "Stalk Width",
+          "unit": "mm",
+          "upper_limit": 100,
+          "lower_limit": 0
+        }
+      ],
+      "experimentDetails": {
+        "name": "Thigmomorphogenesis",
+        "code": "Code",
+        "description": "Description",
+        "tutorial": "Tutorial",
+        "experiment_image_link": "https://d32vpew203r5a2.cloudfront.net/uploads/2021/10/1525_Dandelion_Hero_Image_Landscape_AW-web.jpg",
+        "start_date": "2022-03-03T15:55:05.933Z",
+        "end_date": "2022-03-03T15:55:05.933Z",
+        "id": 0
+      },
+      "participantDetails": {
+        "title": "Nutrition",
+        "thumbnail": "https://images.squarespace-cdn.com/content/v1/53726d44e4b07d0c6bf0b106/1535677982492-J7R729ZEBU5DZXV2VYLH/growing+red+beets+in+your+summer+garden.jpg",
+        "owner": "Dandelion",
+        "start_date": "2022-03-03T15:55:05.933Z",
+        "end_date": "2022-03-03T15:55:05.933Z",
+        "description": "When they are growing outside, the wind blows plants about. They may also be pushed or squashed by people or animals. But how do these interactions affect their growth? That is what we aim to find out!",
+        "observation_freq": "Every week",
+        "hypotheses": "Null hypothesis - Leaves can't grow. Higher growth - the bigger leaves grow the bigger they are. Increased weight - Increased leaf growth is positively correlated with leaf size at harvest.",
+        "observations": "I noticed that the plant has turned purple and started singing along to Tupac?",
+        "id": 0
+      },
+      "combinations": [
+        [
+          [
+            {
+              "treatment_name": "Touches",
+              "sequence": 3,
+              "name": "Heavy"
+            }
+          ],
+          [
+            {
+              "treatment_name": "Nutrition",
+              "sequence": 1,
+              "name": "Control"
+            }
+          ]
+        ],
+        [
+          [
+            {
+              "treatment_name": "Touches",
+              "sequence": 2,
+              "name": "Light"
+            }
+          ],
+          [
+            {
+              "treatment_name": "Nutrition",
+              "sequence": 3,
+              "name": "High"
+            }
+          ]
+        ]
+      ]
+    },
+    {
+      "id": 3,
+      "treatmentVariables": [
+        {
+          "id": 0,
+          "type": "Discrete",
+          "name": "Touches",
+          "levels": [
+            {
+              "treatment_name": "Touches",
+              "sequence": 1,
+              "name": "Control"
+            },
+            {
+              "treatment_name": "Touches",
+              "sequence": 2,
+              "name": "Light"
+            },
+            {
+              "treatment_name": "Touches",
+              "sequence": 3,
+              "name": "Heavy"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "type": "Discrete",
+          "name": "Nutrition",
+          "levels": [
+            {
+              "treatment_name": "Nutrition",
+              "sequence": 1,
+              "name": "Control"
+            },
+            {
+              "treatment_name": "Nutrition",
+              "sequence": 3,
+              "name": "High"
+            }
+          ]
+        }
+      ],
+      "responseVariables": [
+        {
+          "id": 0,
+          "type": "Continuous",
+          "name": "Length",
+          "unit": "mm",
+          "upper_limit": 100,
+          "lower_limit": 0
+        },
+        {
+          "id": 2,
+          "type": "Continuous",
+          "name": "Stalk Width",
+          "unit": "mm",
+          "upper_limit": 100,
+          "lower_limit": 0
+        }
+      ],
+      "experimentDetails": {
+        "name": "Thigmomorphogenesis",
+        "code": "Code",
+        "description": "Description",
+        "tutorial": "Tutorial",
+        "experiment_image_link": "https://d32vpew203r5a2.cloudfront.net/uploads/2021/10/1525_Dandelion_Hero_Image_Landscape_AW-web.jpg",
+        "start_date": "2022-03-03T15:55:05.933Z",
+        "end_date": "2022-03-03T15:55:05.933Z",
+        "id": 0
+      },
+      "participantDetails": {
+        "title": "Drought",
+        "thumbnail": "https://images.squarespace-cdn.com/content/v1/53726d44e4b07d0c6bf0b106/1535677982492-J7R729ZEBU5DZXV2VYLH/growing+red+beets+in+your+summer+garden.jpg",
+        "owner": "Dandelion",
+        "start_date": "2022-03-03T15:55:05.933Z",
+        "end_date": "2022-03-03T15:55:05.933Z",
+        "description": "When they are growing outside, the wind blows plants about. They may also be pushed or squashed by people or animals. But how do these interactions affect their growth? That is what we aim to find out!",
+        "observation_freq": "Every week",
+        "hypotheses": "Null hypothesis - Leaves can't grow. Higher growth - the bigger leaves grow the bigger they are. Increased weight - Increased leaf growth is positively correlated with leaf size at harvest.",
+        "observations": "I noticed that the plant has turned purple and started singing along to Tupac?",
         "id": 0
       },
       "combinations": [
@@ -721,6 +1116,15 @@
       "unit": "°",
       "upper_limit": 180,
       "lower_limit": 0
+    }
+  ],
+  "observation": [
+    {
+      "id": 1,
+      "timestamp": "2022-03-17T23:40:30.642Z",
+      "value": "Plant was green and it had blue spots",
+      "status": "valid",
+      "unit": "mm"
     }
   ]
 }
