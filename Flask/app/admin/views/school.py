@@ -140,6 +140,8 @@ def upload_school_image(id):
     if not pic:
         return jsonify({"No pic uploaded"}), 400
 
+
+    # Saves image name and image type on db table "img"
     filename = secure_filename(pic.filename)
     mimetype = pic.mimetype
 
@@ -163,9 +165,9 @@ def upload_school_image(id):
 
     if pic and allowed_file(pic.filename):
 
+        # Image processing part (resize, rename, cropping, directory creation)
         filename = secure_filename(pic.filename)
         folder_location = current_app.config['IMAGE_UPLOADS_SCHOOL']
-
         image_processing(pic, id, filename,folder_location)
 
     else:
