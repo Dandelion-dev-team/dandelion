@@ -1,25 +1,47 @@
 .experiment-card {
-  width: 440px;
+  width: 100%;
   height: 150px;
   background-color: white;
   margin-top: 20px;
   border-radius: 20px;
   color: black;
   display: flex;
+  border: 1px solid black;
 
   .card-img {
+    width: 30%;
+    height: 100%;
+    display: flex;
     img {
       object-fit: cover;
+      width: 100%;
+      height: 100%;
       border-top-left-radius: 20px;
       border-bottom-left-radius: 20px;
-      width: 200px;
-      height: 150px;
+      border-right: 1px solid black;
     }
   }
-  h2 {
-    color: black;
-    margin-top: 10px;
-    margin-left: 10px;
+
+
+  .title-description{
+    width: 70%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    h2 {
+      color: black;
+      margin-top: 10px;
+      margin-left: 10px;
+      margin-bottom: 0;
+      font-size: 1.25vw;
+
+    }
+    h4 {
+      margin-top: 10px;
+      color: rgb(110, 110, 110);
+      margin-left: 10px;
+      font-size: 1vw;
+    }
   }
 
   .vl {
@@ -29,7 +51,9 @@
     margin-left: 20px;
     margin-right: 20px;
     border-radius: 3px;
-  }
-
-  
+  }  
+}
+.experiment-card:hover{
+  cursor: pointer;
+  background-color: $accent;
 }

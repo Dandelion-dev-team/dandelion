@@ -1126,5 +1126,100 @@
       "status": "valid",
       "unit": "mm"
     }
+  ],
+  "project":[
+    {
+      "owner": "GLA42012",
+      "updated_date": "2022-03-20T17:46:42.361Z",
+      "id": 0,
+      "title": "Lemon Balm",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "project_image_link": "https://cdn.britannica.com/77/124177-004-FEB6DB88/Balm-lemon-balm.jpg",
+      "project_text": "string",
+      "start_date": "2022-03-20T17:46:42.361Z",
+      "end_date": "2022-03-20T17:46:42.361Z",
+      "status": "active",
+      "tags": [
+        {
+          "id": 0,
+          "tag_reference_id": {
+            "id": 0,
+            "label": "string",
+            "status": "active"
+          }
+        }
+      ],
+      "experiments": [
+        {
+          "id": 0,
+          "title": "Thigmomorphogenesis",
+          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "experiment_image_link": "https://d32vpew203r5a2.cloudfront.net/uploads/2021/10/1525_Dandelion_Hero_Image_Landscape_AW-web.jpg",
+          "experiment_text": "string",
+          "start_date": "2022-03-20T17:46:42.361Z",
+          "end_date": "2022-03-20T17:46:42.361Z",
+          "status": "active"
+        },
+        {
+          "id": 1,
+          "title": "Leaf Experiment",
+          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "experiment_image_link": "https://images.squarespace-cdn.com/content/v1/53726d44e4b07d0c6bf0b106/1535677982492-J7R729ZEBU5DZXV2VYLH/growing+red+beets+in+your+summer+garden.jpg",
+          "experiment_text": "string",
+          "start_date": "2022-03-20T17:46:42.361Z",
+          "end_date": "2022-03-20T17:46:42.361Z",
+          "status": "active"
+        },
+        {
+          "id": 2,
+          "title": "Nutrition Experiment",
+          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "experiment_image_link": "https://www.parkinson.org/sites/default/files/PD-diet.png",
+          "experiment_text": "string",
+          "start_date": "2022-03-20T17:46:42.361Z",
+          "end_date": "2022-03-20T17:46:42.361Z",
+          "status": "active"
+        }
+      ],
+      "reports": [
+        {
+          "id": 0,
+          "report_date": "2022-03-20T17:46:42.361Z",
+          "title": "string",
+          "document_link": "string",
+          "report_stage": "initial",
+          "status": "draft"
+        }
+      ],
+      "partners": [
+        {
+          "id": 0,
+          "authority_id": {
+            "id": 0,
+            "name": "string"
+          },
+          "name": "string",
+          "status": "active"
+        }
+      ],
+      "leaders": [
+        {
+          "id": 0,
+          "username": "string",
+          "school id": {
+            "id": 0,
+            "authority_id": {
+              "id": 0,
+              "name": "string"
+            },
+            "name": "string",
+            "status": "active"
+          },
+          "is_sysadmin": false,
+          "is_superuser": false,
+          "status": "active"
+        }
+      ]
+    }
   ]
 }
