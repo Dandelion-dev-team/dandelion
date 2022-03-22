@@ -24,10 +24,10 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
       width: 40%;
       height: 90vh;
       border-radius: 20px;
+      padding: 20px;
 
       .students-wrapper {
         h3 {
@@ -50,11 +50,11 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
         background-color: white;
         height: 44vh;
         border-radius: 20px;
         width: 100%;
+        padding: 20px;
 
         h3 {
           color: $primary;
@@ -66,15 +66,20 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
         background-color: white;
         height: 44vh;
         border-radius: 20px;
         width: 100%;
+        padding: 20px;
 
         h3 {
           color: $primary;
           font-size: 1.6rem;
+        }
+        img{
+          object-fit: contain;
+          width: 100%;
+          height: 90%;
         }
       }
     }
@@ -84,14 +89,58 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
       width: 26%;
       height: 90vh;
       border-radius: 20px;
+      padding: 20px;
 
       h3 {
         color: $primary;
         font-size: 1.6rem;
+      }
+
+      .list{
+        width: 100%;
+        height: 60%;
+        overflow-y: scroll;
+        .dandelion-link-item{
+          display: flex;
+          align-items: center;
+          justify-content: space-around;
+          flex-direction: row;
+          width: 100%;
+          box-shadow: 2px 3px #d3d3d3;
+          height: 15%;
+          border-radius: 20px;
+          margin-bottom: 1.5rem;
+          background-color: $accent;
+          text-decoration: none;
+  
+          h3{
+            width: 70%;
+            color: black;
+            margin-bottom: 0;
+            margin-left: 10px;
+          }
+  
+          .link-icon{
+            color: black;
+            width: 20%;
+            height: 50%;
+          }
+        }
+        .dandelion-link-item:hover{
+          background-color: #d4d926;
+          cursor: pointer;
+        }
+      }
+      .list::-webkit-scrollbar {
+          display: none;
+      }
+      .calendar{
+        display: flex;
+        justify-content: center;
+        width: 100%;
       }
     }
   }
