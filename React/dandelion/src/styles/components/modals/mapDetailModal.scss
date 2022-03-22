@@ -1,0 +1,121 @@
+.map-detail-container {
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 50;
+  display: flex;
+
+  .inner-panel {
+    opacity: 100;
+    background-color: white;
+    // border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    width: 30vw;
+    height: 85%;
+    max-height: 85%;
+    // padding: 2.5rem;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    overflow-y: scroll;
+
+    .panel-content {
+      display: block;
+      flex-direction: column;
+      text-align: center;
+      width: 100%;
+      overflow-y: auto;
+      color: black;
+      font-family: "Archivo Narrow";
+
+      .school-details {
+        text-align: left;
+        padding: 2rem;
+
+        h3 {
+          font-size: 1rem;
+          font-weight: 600;
+          line-height: 0.4rem;
+        }
+        h2 {
+          font-size: 1.2rem;
+          font-weight: 800;
+          letter-spacing: 0.5px;
+        }
+
+        .title-row {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          .close-btn {
+            button {
+              background: none;
+              color: inherit;
+              border: none;
+              padding: 0;
+              font: inherit;
+              cursor: pointer;
+              outline: inherit;
+
+              .close-icon {
+                transform: scale(1.6);
+              }
+            }
+          }
+        }
+      }
+
+      hr {
+        border-top: 1px solid black;
+        width: 100%;
+        padding: 0px;
+      }
+
+      .project-list {
+        text-align: left;
+        padding-left: 2rem;
+        display: flex;
+        flex-direction: column;
+
+        .title {
+          height: 10%;
+          h2 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+          }
+        }
+
+        .cards {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-content: center;
+          height: 100%;
+          width: 80%;
+          margin-bottom: 2rem;
+          margin-left: 2rem;
+        }
+      }
+    }
+  }
+}
+
+
+.modal-enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+.modal-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 300ms, transform 300ms;
+}
+.modal-exit {
+  opacity: 1;
+}
+.modal-active {
+  opacity: 0;
+  transition: opacity 1000ms;
+}
