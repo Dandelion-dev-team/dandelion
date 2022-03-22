@@ -9,6 +9,7 @@ class DevelopmentConfig(Config):
     LOGLEVEL = logging.DEBUG
     logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
 
+
 class DevelopmentConfig(Config):
     DEBUG = True
     SLQALCHEMY_ECHO = True

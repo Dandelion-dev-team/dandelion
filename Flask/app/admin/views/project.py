@@ -77,7 +77,8 @@ def update_project(id):
 
     project_to_update.title = new_data['title']
     project_to_update.description = new_data['description']
-    project_to_update.project_image_link = new_data['project_text']
+    project_to_update.project_text = new_data['project_text']
+    project_to_update.project_image_link = new_data['project_image_link']
     project_to_update.start_date = new_data['start_date']
     project_to_update.end_date = new_data['end_date']
     project_to_update.status = new_data['status']
