@@ -1,31 +1,55 @@
 .alerts-container {
-    background: #2e5641;
-    color: $white;
-    position: relative;
+  background: #2e5641;
+  color: $white;
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-left: 240px;
+  height: 100vh;
+  overflow-y: auto;
+  flex-direction: row;
+  justify-content: space-around;
+
+  .content {
+    background-color: white;
     display: flex;
-    align-items: center;
-    margin-left: 240px;
-    height: 100vh;
-    overflow-y: auto;
     flex-direction: column;
-    justify-content: space-around;
-  
-    .content {
-      background-color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      width: 33%;
-      border-radius: 20px;
-      height: 90%;
+    align-items: center;
+    justify-content: flex-start;
+    width: 33%;
+    border-radius: 20px;
+    height: 90%;
 
     .alerts-wrapper {
-        h3 {
-            color: $primary;
-            font-size: 1.8rem;
-            margin-top: 1.5rem;
-        }
+      h3 {
+        color: $primary;
+        font-size: 1.8rem;
+        margin-top: 1.5rem;
+      }
+    }
+  }
+  .this-month {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 25%;
+    border-radius: 20px;
+    height: 90%;
+
+    .calendar{
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      height: 40%;
+    }
+
+    .month-wrapper {
+      h3 {
+        text-align: left;
+        color: white;
+        font-size: 1.8rem;
+      }
     }
   }
 }

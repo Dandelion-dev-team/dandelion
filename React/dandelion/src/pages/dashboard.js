@@ -24,7 +24,7 @@ export default function Dashboard() {
         let logged = localStorage.getItem("logged");
         if (logged == "true") {
             setLogged(true);
-        } if (logged == "false") {
+        } if (logged == "false" || logged == null) {
             navigate("/signin")
         }
     }, []);

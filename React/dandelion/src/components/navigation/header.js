@@ -12,7 +12,7 @@ export default function Header() {
     {
       setLogged(true);
     } 
-    else if (logged == "false") 
+    else if (logged == "false" || logged == null) 
     {
       setLogged(false);
     }
