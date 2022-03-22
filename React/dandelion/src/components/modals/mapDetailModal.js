@@ -4,7 +4,6 @@ import CloseIcon from "@mui/icons-material/Close"
 import MapModalCard from "../../components/cards/mapModalCard"
 
 export default function MapDetailModal(props) {
-  const [school_details, setSchoolDetails] = useState([])
 
   useEffect(() => {
     //  console.log(props.dataProp.name)
@@ -12,44 +11,45 @@ export default function MapDetailModal(props) {
 
   return (
     <div>
-      {/* {props.dataProp ? ( */}
-      <div className="map-detail-container">
-        <div className="inner-panel">
-          <div className="panel-content">
-            <div className="school-details">
-              <div className="title-row">
-                <h2>Glasgow</h2>
-                <div className="close-btn">
-                  <button
-                    className="button"
-                    onClick={() => {
-                      props.callback()
-                    }}
-                  >
-                    <CloseIcon className="close-icon" />
-                  </button>{" "}
+      {props.school.school ? (
+        <div className="map-detail-container">
+          <div className="inner-panel">
+            <div className="panel-content">
+              <div className="school-details">
+                <div className="title-row">
+                  <h2>{props.school.school.name}</h2>
+                  <div className="close-btn">
+                    <button
+                      className="button"
+                      onClick={() => {
+                        props.callback()
+                      }}
+                    >
+                      <CloseIcon className="close-icon" />
+                    </button>{" "}
+                  </div>
+                </div>
+                <h3>{props.school.school.address_line_1}, {props.school.school.town}, {props.school.school.postcode}</h3>
+                <h3>{props.school.school.telephone}</h3>
+                <div className="school-image">
+                  {/* TODO - UPDATE IMAGE LINK*/}
+                  <img src="https://www.amle.org/wp-content/uploads/2021/02/784784p888EDNmain820Davis-article-pic1.jpg" />
                 </div>
               </div>
-              <h3>11-1 Fake Ave., Glasgow, GLA 23D</h3>
-              <h3>04738 384834</h3>
-              <div className="school-image">
-                <img src="https://www.amle.org/wp-content/uploads/2021/02/784784p888EDNmain820Davis-article-pic1.jpg" />
-              </div>
-            </div>
-            <hr />
+              <hr />
 
-            <div className="project-list">
-              <div className="title">
-                <h2>Project List:</h2>
-              </div>
-              <div className="cards">
-                <MapModalCard />
+              <div className="project-list">
+                <div className="title">
+                  <h2>Project List:</h2>
+                </div>
+                <div className="cards">
+                  <MapModalCard />
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      {/* ) : null} */}
+      ) : null}
     </div>
   )
 }

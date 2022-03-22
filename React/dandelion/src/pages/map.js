@@ -23,8 +23,10 @@ export default function MapPage(props) {
   const [schoolList, setSchools] = useState([])
   const [show_map_details, setShowMapDetails] = useState("")
   const [slideModal, setSlideModal] = useState(false)
+  const [selected_school, setSelectedSchool] = useState([])
 
-  const handleDetailCallback = e => {
+  const handleDetailCallback = id => {
+    readRecord("/school/" + id, setSelectedSchool)
     setShowMapDetails(true)
   }
 
@@ -45,7 +47,7 @@ export default function MapPage(props) {
         <div>
           {show_map_details ? (
             <CSSTransition in={slideModal} timeout={200} classNames="modal">
-              <MapDetailModal callback={modalCallback} />
+              <MapDetailModal callback={modalCallback} school={selected_school}/>
             </CSSTransition>
           ) : null}
         </div>
@@ -84,7 +86,7 @@ export default function MapPage(props) {
                             type="submit"
                             className="submitButton"
                             onClick={() => {
-                              handleDetailCallback()
+                              handleDetailCallback(school.id)
                               setSlideModal(true)
                             }}
                           ></input>
