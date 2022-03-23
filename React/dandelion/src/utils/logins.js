@@ -12,7 +12,7 @@ export function user_logout() {
         localStorage.removeItem("user_id")
 
         localStorage.setItem("logged", "false"); //set to false rather than NULL as if you check for null it will be set before localstorage.getItem retrieves
-        navigate("/signin");
+        navigate("/");
     }
 }
 
@@ -50,7 +50,7 @@ export function user_login(username, password) {
                 localStorage.setItem("school_id", data.school_id);
                 localStorage.setItem("user_id", data.user_id);
                 if (data.is_sysadmin == true) {
-                    navigate("/sysadmin/auth-maintenance/")
+                    navigate("/sysadmin/dashboard/")
                 }
                 else if (data.is_superuser == true) {
                     navigate("/superuser/dashboard/")

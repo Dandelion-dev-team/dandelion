@@ -8,11 +8,10 @@
   }
 
   .schoolTable {
-    height: 60%;
+    height: auto;
     margin-top: 1.5rem;
     overflow-y: scroll;
     overflow-x: hidden;
-
 
     .schoolList {
       margin-left: 2rem;
@@ -35,8 +34,9 @@
   }
 
   .btn-row {
-justify-content: flex-end;    .add-btn {
-
+    display: flex;
+    justify-content: flex-end;
+    .add-btn {
       .submitButton {
         background-color: $accent;
         color: $primary;

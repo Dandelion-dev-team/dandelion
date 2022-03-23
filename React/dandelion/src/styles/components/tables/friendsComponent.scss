@@ -1,0 +1,30 @@
+.friends-container {
+  width: 93%;
+  height: 100%;
+  flex-direction: column;
+  .friendsTable {
+    height: 80%;
+    margin-top: 1.5rem;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    .friendList {
+      margin-left: 2rem;
+
+      tbody {
+        .active {
+          background-color: #f7f8ff;
+        }
+
+        &:hover {
+          background-color: #f7f8ff;
+          cursor: pointer;
+        }
+      }
+    }
+    .friendList::-webkit-scrollbar {
+        display: none; /* for Chrome, Safari, and Opera */
+        width: 0%;
+      }
+  }
+ 
+}

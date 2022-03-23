@@ -7,11 +7,14 @@ import { user_logout } from "../../utils/logins"
 export default function Header() {
   const [logged, setLogged] = useState()
   useEffect(() => {
-    let logged = localStorage.getItem("logged")
-    if (logged == "true") {
-      setLogged(true)
-    } else if (logged == "false") {
-      setLogged(false)
+    let logged = localStorage.getItem("logged");
+    if (logged == "true") 
+    {
+      setLogged(true);
+    } 
+    else if (logged == "false" || logged == null) 
+    {
+      setLogged(false);
     }
   }, [])
   return (
@@ -34,13 +37,7 @@ export default function Header() {
               <Link to="/data">Data</Link>
               <Link to="/map">Map</Link>
               <Link to="/about">About</Link>
-              {logged ? (
-                <Link to="/signin" onClick={() => user_logout()}>
-                  Logout
-                </Link>
-              ) : (
-                <Link to="/signin">Sign In</Link>
-              )}
+              {logged ? <Link to="/" onClick={() => user_logout()}>Logout</Link> : <Link to="/signin">Sign In</Link>}
             </nav>
           </div>
         </div>

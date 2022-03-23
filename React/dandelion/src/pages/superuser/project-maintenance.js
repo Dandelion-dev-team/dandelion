@@ -28,7 +28,17 @@ export default function ProjectMaintenance(props) {
   }, [])
 
   const handleCallback = childData => {
-    setEditingProject(childData)
+    //readRecord("/projects", setProject)
+    fetch(process.env.ROOT_URL + "/project/" + childData.id, {
+      method: "GET",
+      headers: new Headers({
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        Pragma: "no-cache",
+        Expires: 0,
+      }),
+    })
+      .then(response => response.json())
+      .then(data => setEditingProject(data))
   }
 
   const modalCallback = prop => {

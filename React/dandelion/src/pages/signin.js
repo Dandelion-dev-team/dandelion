@@ -32,7 +32,7 @@ export default function Login(props) {
       navigate("/dashboard")
     } if (logged == "false" || logged == null) 
     {
-     setRender(true); 
+      setRender(true); 
     }
   }, []);
 

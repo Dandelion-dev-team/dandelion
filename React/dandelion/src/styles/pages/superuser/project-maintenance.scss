@@ -38,6 +38,7 @@
       width: 60%;
       background-color: #f7f8ff;
       align-items: stretch;
+      overflow-y: scroll;
       height: 93vh;
       border-top-right-radius: 20px;
       border-bottom-right-radius: 20px;
@@ -46,5 +47,8 @@
         color: black;
       }
     }
+    .project-pane::-webkit-scrollbar {
+      display: none; /* for Chrome, Safari, and Opera */
+  }
   }
 }
