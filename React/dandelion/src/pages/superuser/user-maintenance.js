@@ -101,7 +101,7 @@ export default function UserMaintenance(props) {
                         <div className='user-pane'>
                             <div className='title'>
                                 <h3>Select users for experiment:</h3>
-                                {userList ? userList.users.map(user => (
+                                {userList.users ? userList.users.map(user => (
 
                                     <div className='student-row'>
                                         <input classname='checkmark' type="checkbox" id="experiment_id" name="topping" value="experiment_ID" />
