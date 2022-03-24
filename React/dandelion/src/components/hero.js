@@ -55,6 +55,7 @@ const Hero = () => {
               </Trans>
             </p>
             <div className="btn-row">
+              {/*localStorage.getItem("logged") ? null : null*/}
               <button
                 className="button"
                 onClick={() => {

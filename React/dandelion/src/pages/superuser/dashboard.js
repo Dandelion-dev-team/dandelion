@@ -1,8 +1,12 @@
 import React, { useEffect, useState, useRef } from "react"
 import "../../styles/App.scss"
 import SideNav from "../../components/navigation/superUserSideNav"
-import { navigate } from "gatsby";
+import { Link, navigate } from "gatsby";
 import { verify_superuser_storage } from "../../utils/logins";
+import LinkIcon from '@mui/icons-material/Link';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+import Placeholder from "../../images/node-placeholder.png";
 export default function SuperuserDashboard(props) {
   const [logged, setLogged] = useState("");
 
@@ -30,10 +34,33 @@ export default function SuperuserDashboard(props) {
               </div>
               <div className="node-widget">
                 <h3>Node</h3>
+                <img src={Placeholder}></img>
               </div>
             </div>
             <div className="help-pane">
               <h3>Help</h3>
+              <div className="list">
+                <a className="dandelion-link-item" href="https://dandelion.scot/" target={"_blank"}>
+                  <h3>Project Overview</h3>
+                  <LinkIcon className="link-icon" />
+                </a>
+                <a className="dandelion-link-item" href="https://dandelion.scot/" target={"_blank"}>
+                  <h3>Node FAQ</h3>
+                  <LinkIcon className="link-icon" />
+                </a>
+                <a className="dandelion-link-item" href="https://dandelion.scot/" target={"_blank"}>
+                  <h3>Node upkeep</h3>
+                  <LinkIcon className="link-icon" />
+                </a>
+                <a className="dandelion-link-item" href="https://dandelion.scot/" target={"_blank"}>
+                  <h3>Dandelion Project Plan</h3>
+                  <LinkIcon className="link-icon" />
+                </a>
+                
+              </div>
+              <div className="calendar">
+                <Calendar />
+              </div>
             </div>
           </div>
         </div>

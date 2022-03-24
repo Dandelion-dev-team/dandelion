@@ -2,22 +2,23 @@ import { Link } from "gatsby"
 import React, { useEffect, useState } from "react"
 import { deleteRecord, readRecord } from "../../utils/CRUD"
 import "../../styles/App.scss"
-
+import AddStudentModal from "../modals/addStudentModal";
 export default function SchoolUserComponent(props) {
-  const [users, setUsers] = useState(0)
-
+  const [users, setUsers] = useState()
+  const [show_modal, setShowModal] = useState(false);
   useEffect(() => {
-    // readRecord('/users', setUsers);
-    fetch(process.env.ROOT_URL + "/school-users", {
-      method: "GET",
-      headers: new Headers({
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-        Pragma: "no-cache",
-        Expires: 0,
-      }),
-    })
-      .then(response => response.json())
-      .then(data => setUsers(data))
+    let school_id = localStorage.getItem('school_id');
+    readRecord('/user/GetSchoolUsers/' + school_id, setUsers);
+    // fetch(process.env.ROOT_URL + "/school-users", {
+    //   method: "GET",
+    //   headers: new Headers({
+    //     "Cache-Control": "no-cache, no-store, must-revalidate",
+    //     Pragma: "no-cache",
+    //     Expires: 0,
+    //   }),
+    // })
+    //   .then(response => response.json())
+    //   .then(data => setUsers(data))
   }, [])
 
   const editUser = user => {
@@ -26,40 +27,37 @@ export default function SchoolUserComponent(props) {
 
   return (
     <div className="school-comp-container">
+      {show_modal ? <AddStudentModal closeModal={setShowModal} /> : null}
       <div className="schoolTable">
         <table className="schoolList">
           <thead>
             <tr>
-              <th>Student ID</th>
+              <th>Username</th>
               <th>Last Seen</th>
               <th>Status</th>
               <th>Project</th>
             </tr>
           </thead>
-
           {users
-            ? users.map(user => (
-                <tbody
-                  key={users.id}
-                  onClick={() => {
-                    editUser(user)
-                  }}
-                >
-                  <td>{user.school_id}</td>
-                  <td>{user.lastSeen}</td>
-                  <td>{user.status}</td>
-                  <td>{user.project}</td>
-                </tbody>
-              ))
+            ? users.users.map(user => (
+              <tbody key={user.id} onClick={() => {editUser(user)}}>
+                <td>{user.username}</td>
+                <td>July 9th, 2022</td>
+                <td>Active</td>
+                <td>{user.project}</td>
+              </tbody>
+            ))
             : null}
         </table>
 
       </div>
       <div className="btn-row">
-          <div className="add-btn">
-            <button className="submitButton">Add User</button>
-          </div>
+        <div className="add-btn">
+          <button onClick={() => {
+            setShowModal(true)
+          }} className="submitButton">Add User</button>
         </div>
+      </div>
     </div>
   )
 }

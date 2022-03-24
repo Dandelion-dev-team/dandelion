@@ -1,12 +1,16 @@
+import { navigate } from "gatsby"
 import React, { useEffect, useState } from "react"
 import "../../styles/App.scss"
 import ExperimentCard from "../cards/experimentCard"
 
 export default function ProjectPane(props) {
-  const [projectList, setProjects] = useState(0)
-  const [editing_project, setEditingProject] = useState("")
-
   //Tested
+
+  const cardClickCallback = (childData) => {
+   navigate("/superuser/user-maintenance", {
+    state: { experiment: childData },
+})
+  }
   return (
     <div>
       {props.dataProp ? (
@@ -23,7 +27,7 @@ export default function ProjectPane(props) {
               <img src={props.dataProp.project_image_link} />
             </div>
             <div className="experiment-row">
-              <ExperimentCard dataProp={editing_project}/>
+            {props.dataProp.experiments.map(experiment => ( <ExperimentCard callback={cardClickCallback} dataProp={experiment}/>))}
             </div>
           </div>
           <div className="btn-row">

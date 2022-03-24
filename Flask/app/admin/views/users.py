@@ -20,7 +20,8 @@ def getAllUsers():
     for user in users:
         user_data = {}
         user_data['username'] = user.username
-        user_data['password'] = user.password_hash
+        user_data['is_superuser'] = user.is_superuser
+        user_data['status'] = user.status
         user_data['school_id'] = user.school_id
         output.append(user_data)
 
@@ -81,6 +82,46 @@ def getUserByUsername(username):
     user_data['is_superuser'] = user.is_superuser
     user_data['is_sysadmin'] = user.is_sysadmin
 
+
+    return user_data
+
+
+@admin.route('/user/getsuperusers', methods=['GET'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
+@jwt_required()
+def getAllSuperUsers():
+    # user = User.query.get_or_404(username)
+    users = User.query.filter(User.is_superuser == True)
+    output = []
+
+    for user in users:
+        user_data = {}
+        user_data['username'] = user.username
+        user_data['is_superuser'] = user.is_superuser
+        user_data['status'] = user.status
+        user_data['school_id'] = user.school_id
+        output.append(user_data)
+
+    return jsonify({'users': output})
+
+    return user_data
+
+@admin.route('/user/GetSchoolUsers/<int:school_id>', methods=['GET'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
+@jwt_required()
+def getUsersBySchoolID(school_id):
+    # user = User.query.get_or_404(username)
+    users = User.query.filter(User.school_id == school_id)
+    output = []
+
+    for user in users:
+        user_data = {}
+        user_data['username'] = user.username
+        user_data['status'] = user.status
+        user_data['school_id'] = user.school_id
+        output.append(user_data)
+
+    return jsonify({'users': output})
 
     return user_data
 

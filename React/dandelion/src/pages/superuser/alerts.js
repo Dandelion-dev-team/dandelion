@@ -6,6 +6,9 @@ import { readRecord } from "../../utils/CRUD";
 import { verify_superuser_storage } from "../../utils/logins";
 import { navigate } from "gatsby";
 
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+
 export default function SuperuserAlerts(props) {
   const [alertList, setAlerts] = useState("");
   const [logged, setLogged] = useState("");
@@ -22,6 +25,14 @@ export default function SuperuserAlerts(props) {
       <div>
         <SideNav />
         <div className="alerts-container">
+          <div className="this-month">
+            <div className="month-wrapper">
+              <h3>This month</h3>
+            </div>
+            <div className="calendar"> 
+              <Calendar/>
+            </div>
+          </div>
           <div className="content">
             <div className="alerts-wrapper">
               <h3>Alerts</h3>
@@ -29,6 +40,11 @@ export default function SuperuserAlerts(props) {
             {alertList ? alertList.data.map(node => (
               <Alert alert={node} />
             )) : null}
+          </div>
+          <div className="content">
+            <div className="alerts-wrapper">
+              <h3>News</h3>
+            </div>
           </div>
         </div>
       </div>

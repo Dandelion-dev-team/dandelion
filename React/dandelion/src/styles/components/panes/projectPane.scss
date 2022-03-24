@@ -1,17 +1,19 @@
 .project-panel-content {
   display: flex;
   flex-direction: row;
-  width: 60%;
+  width: 100%;
+  height: 90%;
+  overflow-y: scroll;
   .project-title {
+    height: 100%;
+    width: 70%;
     padding-top: 1.25rem;
     padding-left: 1.25rem;
-
     h3 {
       font-size: 1.2rem;
     }
 
     .feat-img {
-      position: absolute;
       width: 27.5rem;
       z-index: 4;
 
@@ -21,7 +23,8 @@
     }
 
     .experiment-row {
-      margin-top: 23.75rem;
+      height: 90%;
+      margin-top: 1rem;
     }
   }
 
