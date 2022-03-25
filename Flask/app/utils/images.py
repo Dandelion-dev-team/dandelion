@@ -9,7 +9,6 @@ def allowed_file(filename):
 
 
 def image_processing(pic, id, filename, folder_location):
-
     # Saves the original file with original name and filetype in while creating a new unique id directory
     newdir = (os.path.join(folder_location, id))
     if not os.path.exists(newdir):
@@ -37,25 +36,21 @@ def image_processing(pic, id, filename, folder_location):
     return resp
 
 
-
-
-
 def image_processing_2(pic, id, filename, folder_location):
-
     newdir = get_image_directory_name(folder_location, id)
     save_image(pic, newdir, filename)
+
     pil_image = Image.open(pic)
 
-    # Full size
+    # Full_size
     box = get_box(pil_image, 590, 330)
     pil_resized = resize_and_crop(pil_image, box)
-    pil_resized.save(os.path.join(newdir, 'full.png')
-
+    pil_resized.save(os.path.join(newdir, 'full.png'))
 
     # Thumbnail
     box = get_box(pil_image, 115, 90)
     pil_resized = resize_and_crop(pil_image, box)
-    pil_resized.save(os.path.join(newdir, 'thumb.png')
+    pil_resized.save(os.path.join(newdir, 'thumb.png'))
 
 
 def get_box(original_image, target_width, target_height):
@@ -68,17 +63,15 @@ def get_image_directory_name(folder_location, id):
     newdir = (os.path.join(folder_location, id))
     if not os.path.exists(newdir):
         os.makedirs(newdir)
+    return newdir
 
 
-def save_image(pic, newdir,filename):
+def save_image(pic, newdir, filename):
     pic.save(os.path.join(newdir, filename))
 
 
-def resize_and_crop(image_object, box, pic):
-
-    # Image cropping and resising into the "full size" dimensions. Alternative to full size. Saving it as [id]_cropped_full.png
-    cw, ch = 590, 330
-    w, h = pic.size
-    box = w // 2 - cw // 2, h // 2 - ch // 2, w // 2 + cw // 2, h // 2 + ch // 2
-    cropped_image = pic.crop(box)
-    cropped_image.save(os.path.join(newdir, 'cropped_full.png'))
+def resize_and_crop(pic, box):
+    resized_cropped = Image.open(pic)
+    resized_cropped.thumbnail(box, Image.ANTIALIAS)
+    resized_cropped = resized_cropped.crop(box)
+    return resized_cropped

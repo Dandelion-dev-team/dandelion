@@ -5,7 +5,7 @@ from app.admin import admin
 from app.models import Experiment, Img
 from app import db
 from app.utils.functions import row2dict
-from app.utils.images import image_processing, allowed_file, image_processing_2
+from app.utils.images import allowed_file, image_processing_2, image_processing
 
 
 @admin.route('/experiment', methods=['GET'])
