@@ -120,32 +120,16 @@ def delete_project(id):
 
 @admin.route('/project/<int:id>/uploadImage', methods=['POST'])
 def upload_project_image(id):
-    dummy = request
 
     id = id
     id = str(id)
     pic = request.files['pic']
-
-    if not pic:
-        return jsonify({"No pic uploaded"}), 400
-
-
-    # Saves image name and image type on db table "img"
-    filename = secure_filename(pic.filename)
-    mimetype = pic.mimetype
-
-    img = Img(mimetype=mimetype, name=filename)
-
-    db.session.add(img)
-    db.session.commit()
 
     # check if the post request has the file part
     if 'pic' not in request.files:
         resp = jsonify({'message': 'No file part in the request'})
         resp.status_code = 400
         return resp
-
-    pic = request.files['pic']
 
     if pic.filename == '':
         resp = jsonify({'message': 'No file selected for uploading'})
@@ -157,7 +141,7 @@ def upload_project_image(id):
         # Image processing part (resize, rename, cropping, directory creation)
         filename = secure_filename(pic.filename)
         folder_location = current_app.config['IMAGE_UPLOADS_PROJECT']
-        image_processing(pic, id, filename,folder_location)
+        image_processing(pic, id, filename, folder_location)
 
     else:
         resp = jsonify({'message': 'Allowed file types are txt, pdf, png, jpg, jpeg, gif'})
