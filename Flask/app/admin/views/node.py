@@ -9,6 +9,8 @@ from app.models import Node
 from app import db
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update, audit_delete
 from app.utils.functions import row2dict, jwt_user
+import pandas as pd
+from pandas import DataFrame, read_csv
 
 
 @admin.route('/node', methods=['GET'])
@@ -124,3 +126,26 @@ def delete_node(id):
     except Exception as e:
         db.session.rollback()
         abort(409,e.orig.msg)
+
+
+@admin.route('/node/<int:id>/uploadData', methods=['POST'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
+@jwt_required()
+def upload_data(id):
+
+    j = json.loads(s) #<-- Convert JSON string, s, to JSON object, j, with j = json.loads(s)
+
+    df = pd.DataFrame(j["top"], index=[j["timestamp"]]) #<-- Convert JSON object to pandas dataframe, df, with df = pd.DataFrame(j["top"], index=[j["timestamp"]])
+    df = pd.DataFrame(j["middle"], index=[j["timestamp"]]) # Three different .csv fiiles, one for each level, with only one node_id, three pandas df (dataframes)
+    df = pd.DataFrame(j["bottom"], index=[j["timestamp"]])
+
+
+    df.index = pd.to_datetime(df.index) #<-- Convert text timestamp to actual timestamp with df.index = pd.to_datetime(df.index)
+
+
+    # BELOW EXAMPLE from image processing for creating a new route and file (.csv)
+
+    # newdir = (os.path.join(folder_location, id))
+    # if not os.path.exists(newdir):
+    #     os.makedirs(newdir)
+    # pic.save(os.path.join(newdir, filename))
