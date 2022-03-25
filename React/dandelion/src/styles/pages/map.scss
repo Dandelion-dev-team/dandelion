@@ -1,0 +1,41 @@
+.map-page {
+  background: #2e5641;
+  color: $white;
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  overflow-x: auto;
+  overflow-y: auto;
+  z-index: 5;
+  .spacer {
+    height: 15vh;
+  }
+  .map-container {
+    width: 100%;
+    height: 85%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .popup {
+      .submitButton {
+        background-color: $accent;
+        color: $primary;
+        font-size: 1.6rem;
+        margin: 1.25rem 0px;
+        padding: 15px;
+        border: none;
+        cursor: pointer;
+        border-radius: 10px;
+      }
+      .submitButton:hover {
+        background-color: #d4d926;
+      }
+    }
+  }
+}
+

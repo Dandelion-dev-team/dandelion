@@ -206,8 +206,8 @@
       "experimentDetails": {
         "name": "Thigmomorphogenesis",
         "code": "Code",
-        "description": "Description",
-        "tutorial": "Tutorial",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "tutorial": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         "experiment_image_link": "https://d32vpew203r5a2.cloudfront.net/uploads/2021/10/1525_Dandelion_Hero_Image_Landscape_AW-web.jpg",
         "start_date": "2022-03-03T15:55:05.933Z",
         "end_date": "2022-03-03T15:55:05.933Z",
@@ -339,8 +339,8 @@
       "experimentDetails": {
         "name": "Thigmomorphogenesis",
         "code": "Code",
-        "description": "Description",
-        "tutorial": "Tutorial",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "tutorial": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         "experiment_image_link": "https://d32vpew203r5a2.cloudfront.net/uploads/2021/10/1525_Dandelion_Hero_Image_Landscape_AW-web.jpg",
         "start_date": "2022-03-03T15:55:05.933Z",
         "end_date": "2022-03-03T15:55:05.933Z",
@@ -1119,9 +1119,15 @@
     }
   ],
   "observation": [
-    
+    {
+      "id": 1,
+      "timestamp": "2022-03-17T23:40:30.642Z",
+      "value": "Plant was looking very healthy and had grown since last week.",
+      "status": "valid",
+      "unit": "mm"
+    }
   ],
-  "project":[
+  "project": [
     {
       "owner": "GLA42012",
       "updated_date": "2022-03-20T17:46:42.361Z",

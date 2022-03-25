@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react"
 import { Link, navigate } from "gatsby"
-import logo from '../../images/logo.svg';
-import { user_logout } from "../../utils/logins";
+import logo from "../../images/logo.svg"
+import { user_logout } from "../../utils/logins"
 //const parse = require('../../auth');
 
 export default function Header() {
-  const [logged, setLogged] = useState();
+  const [logged, setLogged] = useState()
   useEffect(() => {
     let logged = localStorage.getItem("logged");
     if (logged == "true") 
@@ -16,15 +16,21 @@ export default function Header() {
     {
       setLogged(false);
     }
-  }, []);
+  }, [])
   return (
     <header>
       <div className="container">
         <div className="inner-header">
           <div className="logo">
-            <Link to='/' exact>
-              <img src={logo} />
-            </Link>
+            {logged ? (
+              <Link to="/dashboard" exact>
+                <img src={logo} />
+              </Link>
+            ) : (
+              <Link to="/" exact>
+                <img src={logo} />
+              </Link>
+            )}
           </div>
           <div className="navigation">
             <nav>
@@ -36,7 +42,6 @@ export default function Header() {
           </div>
         </div>
       </div>
-
     </header>
   )
 }

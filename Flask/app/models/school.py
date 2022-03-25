@@ -22,7 +22,7 @@ class School(db.Model):
 
     @property
     def summary_columns(self):
-        return ["id", "authority_id", "name"]
+        return ["id", "authority_id", "name", "address_line_1", "postcode", "town", "latitude", "longitude"]
 
 
 

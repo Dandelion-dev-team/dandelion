@@ -65,6 +65,12 @@ def getOneSchool(id):
     school_data['authority_id'] = school.authority_id
     school_data['name'] = school.name
     school_data['status'] = school.status
+    school_data['address_line_1'] = school.address_line_1
+    school_data['postcode'] = school.postcode
+    school_data['town'] = school.town
+    school_data['telephone'] = school.telephone
+    school_data['latitude'] = school.latitude
+    school_data['longitude'] = school.longitude
 
     return jsonify({'school': school_data})
 
