@@ -9,13 +9,12 @@ export default function Data() {
 
   useEffect(() => {
     // Update the document title using the browser API
-    readRecord("/project", setData);
-  }, []);
+    readRecord("/project", setData)
+  }, [])
 
   return (
     <div>
       <Header />
-      <div className="data">
       <div className="data-container">
         <div className="data-content">
           <div className="filter-list">
