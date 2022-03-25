@@ -26,8 +26,7 @@
       background-color: white;
       color: black;
       height: 86vh;
-      border-top-left-radius: 20px;
-      border-bottom-left-radius: 20px;
+      border-top-right-radius: 20px;
       .title {
         height: 15%;
         width: 100%;
@@ -55,7 +54,7 @@
     }
   }
   .spacer {
-      width: 5%;
+    width: 5%;
   }
   .data-pane {
     display: flex;
@@ -64,17 +63,33 @@
     width: 50%;
     height: 85vh;
     .tabs {
-        height: 10%;
-        width: 25%;
-        background-color: red;
+      height: 6%;
+      width: 25%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      .tab {
+        width: 49%;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .icon{
+          color: $primary;
+        }
+      }
+      .tab:hover {
+        cursor: pointer;
+      }
     }
     .pane-content {
-        background-color: #f7f8ff;
-        height: 90%;
-        width: 100%;
-        border-radius: 20px;
+      background-color: #f7f8ff;
+      height: 94%;
+      width: 100%;
+      border-top-right-radius: 20px;
 
-      
       .chart-table-view {
         width: 100%;
         height: 80%;
