@@ -86,7 +86,7 @@ export default function Data() {
               </div>
               <div className="pane-content">
                 <div className="chart-table-view">
-                  <div className="ag-theme-alpine" style={{ height: '90%', width: '100%' }}>
+                  <div className="ag-theme-alpine" style={{ backgroundColor: '#f7f8ff', height: '90%', width: '100%' }}>
                     {tab_state == 0 ?
                       <AgGridReact
                         rowData={rowData}

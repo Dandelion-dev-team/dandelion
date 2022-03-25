@@ -89,10 +89,13 @@
       height: 94%;
       width: 100%;
       border-top-right-radius: 20px;
+      display: flex;
+      justify-content: center;
 
       .chart-table-view {
-        width: 100%;
+        width: 90%;
         height: 80%;
+        margin-top: 3%;
         overflow-y: auto;
         color: black;
       }
