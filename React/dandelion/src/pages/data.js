@@ -7,7 +7,7 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-
+import { readRecord } from "../utils/CRUD"
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS } from 'chart.js/auto'
 
@@ -16,15 +16,13 @@ import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 
 export default function Data() {
-  const [projectList, setData] = useState()
   const [colour_index, setColourIndex] = useState(["#E3C3CA", "#e6e6e6"])
-
   const [tab_state, setTabState] = useState(0);
 
-  useEffect(() => {
-    // Update the document title using the browser API
-    //readRecord("/project", setData);
-  }, []);
+  const [tagsList, setTags] = useState([]);
+  const [schoolList, setSchools] = useState([]);
+  const [projectList, setProjects] = useState([]);
+  const [experimentList, setExperiments] = useState([]);
 
   const [rowData] = useState([
     { make: "Toyota", model: "Celica", price: 35000 },
@@ -38,15 +36,6 @@ export default function Data() {
     { field: 'price' }
   ])
 
-  const changeTab = e => {
-    if (e == 0) {
-      setTabState(0);
-      setColourIndex(["#E3C3CA", "#e6e6e6"])
-    } else {
-      setTabState(1);
-      setColourIndex(["#e6e6e6", "#E3C3CA"])
-    }
-  }
   const dataset = {
     labels: ['January', 'February', 'March',
       'April', 'May'],
@@ -61,6 +50,61 @@ export default function Data() {
     ]
   }
 
+  useEffect(() => {
+    readRecord("/tagreference", setTags)
+    readRecord("/school", setSchools)
+
+    fetch(process.env.ROOT_URL + "/projects", {
+      method: "GET",
+      headers: new Headers({
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        Pragma: "no-cache",
+        Expires: 0,
+      }),
+    })
+      .then(response => response.json())
+      .then(data => setProjects(data))
+  }, []);
+
+
+  const Tag = tag => {
+    return (
+      <div className="tag-item">
+        <h3>{tag.tag_ref.label}</h3>
+      </div>)
+  }
+
+  const School = school => {
+    return (
+      <div className="school-item">
+        <input type="checkbox" id="experiment_id" name="topping" value="experiment_ID" disabled={false} />
+        <h3>{school.school_ref.name}</h3>
+      </div>
+    )
+  }
+
+  const Project = project => {
+    return (
+      <div className="project-item">
+        <input type="checkbox" id="experiment_id" name="topping" value="experiment_ID" disabled={false} />
+        <h3>{project.project_ref.title}</h3>
+      </div>
+    )
+  }
+
+
+
+  const changeTab = e => {
+    if (e == 0) {
+      setTabState(0);
+      setColourIndex(["#E3C3CA", "#e6e6e6"])
+    } else {
+      setTabState(1);
+      setColourIndex(["#e6e6e6", "#E3C3CA"])
+    }
+  }
+
+
   return (
     <div>
       <Header />
@@ -72,51 +116,54 @@ export default function Data() {
                 <h3>Filters</h3>
               </div>
               <div className="filters">
-                <div className="accordions">
-                  
-                </div>
                 <Accordion>
                   <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel1a-content"
-                  id="panel1a-header">
-                    Schools
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    hello
-                  </AccordionDetails>
-                </Accordion>
-                <Accordion>
-                  <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel1a-content"
-                  id="panel1a-header">
-                    Projects
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    hello
-                  </AccordionDetails>
-                </Accordion>
-                <Accordion>
-                  <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel1a-content"
-                  id="panel1a-header">
-                    Experiments
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    hello
-                  </AccordionDetails>
-                </Accordion>
-                <Accordion>
-                  <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel1a-content"
-                  id="panel1a-header">
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header">
                     Tags
                   </AccordionSummary>
                   <AccordionDetails>
-                    hello
+                    <div className="tag-block">
+                      {tagsList.data ? tagsList.data.map(tagItem => <Tag tag_ref={tagItem} />) : <h3>No tags found</h3>}
+                    </div>
+                  </AccordionDetails>
+                </Accordion>
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header">
+                    Schools
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <div className="school-block">
+                      {schoolList.data ? schoolList.data.map(schoolItem => <School school_ref={schoolItem} />) : <h3>No schools found</h3>}
+                    </div>
+                  </AccordionDetails>
+                </Accordion>
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header">
+                    Activities
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <div className="project-block">
+                      {projectList ? projectList.map(projectItem => <Project project_ref={projectItem} />) : <h3>No schools found</h3>}
+                    </div>
+                  </AccordionDetails>
+                </Accordion>
+                <Accordion disabled={true}>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header">
+                    Experiments
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    No other data selected.
                   </AccordionDetails>
                 </Accordion>
               </div>
