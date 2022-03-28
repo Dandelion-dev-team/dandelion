@@ -1,6 +1,6 @@
 from PIL import Image
 import os
-from flask import jsonify
+from flask import jsonify, current_app
 from instance.config import ALLOWED_EXTENSIONS
 
 
@@ -36,6 +36,18 @@ def image_processing(pic, id, filename, folder_location):
     return resp
 
 
+def image_root(folder_location, id):
+    base_dir = os.path.join(folder_location, id)
+
+    if not os.path.exists(base_dir):
+        base_dir = os.path.join(folder_location, "0" + "full.png")
+        return jsonify(base_dir)
+    else:
+        return jsonify(base_dir)
+
+
+# BELOW New version of code - still working on it
+
 def image_processing_2(pic, id, filename, folder_location):
     newdir = get_image_directory_name(folder_location, id)
     save_image(pic, newdir, filename)
@@ -49,7 +61,7 @@ def image_processing_2(pic, id, filename, folder_location):
 
     # Thumbnail
     box = get_box(pil_image, 115, 90)
-    pil_resized = resize_and_crop(pil_image, box)
+    pil_resized = thumb_and_crop(pil_image, box)
     pil_resized.save(os.path.join(newdir, 'thumb.png'))
 
 
@@ -70,8 +82,17 @@ def save_image(pic, newdir, filename):
     pic.save(os.path.join(newdir, filename))
 
 
-def resize_and_crop(pic, box):
-    resized_cropped = Image.open(pic)
-    resized_cropped.thumbnail(box, Image.ANTIALIAS)
-    resized_cropped = resized_cropped.crop(box)
+def resize_and_crop(image_object, box):
+    resized_cropped = image_object
+    size = 590, 330
+    resized_cropped = resized_cropped.resize(size)
+    # resized_cropped = resized_cropped.crop(box)
+    return resized_cropped
+
+
+def thumb_and_crop(image_object, box):
+    resized_cropped = image_object
+    size = 115, 90
+    resized_cropped = resized_cropped.resize(size)
+    # resized_cropped = resized_cropped.crop(box)
     return resized_cropped

@@ -11,7 +11,7 @@ from app.models import School, Img
 from app import db
 from app.utils.auditing import audit_create, audit_update, prepare_audit_details, audit_delete
 from app.utils.functions import row2dict, jwt_user
-from app.utils.images import allowed_file, image_processing
+from app.utils.images import allowed_file, image_processing, image_root
 from PIL import Image
 
 
@@ -58,7 +58,7 @@ def add_school():
 
 
 @admin.route('/school/<int:id>', methods=['GET'])
-@jwt_required()
+# @jwt_required()
 def getOneSchool(id):
     school = School.query.get_or_404(id)
 
@@ -68,7 +68,11 @@ def getOneSchool(id):
     school_data['name'] = school.name
     school_data['status'] = school.status
 
-    return jsonify({'school': school_data})
+    # folder_location = current_app.config['IMAGE_UPLOADS_SCHOOL']
+    # image_root(folder_location, id)
+
+
+    return jsonify({'school': school_data, 'image_root' : base_dir})
 
 
 @admin.route('/school/<int:id>', methods=['PUT'])
