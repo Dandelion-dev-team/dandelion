@@ -1,0 +1,42 @@
+{
+    "project_id": 3,
+    "code": "THGX",
+    "description": "Testing the effects of tickling on plant growth across different species",
+    "end_date": "2022-03-29",
+    "name": "Thigmomorphogenesis experiment",
+    "start_date": "2022-04-27",
+    "tutorial": null
+    "experiment_id": 2,
+    "hypotheses": [
+        {
+            "description": "Touching the leaves has no effect on growth",
+            "hypothesis_no": 0,
+            "id": 2,
+            "status": "active",
+            "text": null
+        },
+        {
+            "description": "Growth rate is positively correlated with the degree of touching",
+            "hypothesis_no": 1,
+            "id": 3,
+            "status": "active",
+            "text": null
+        }
+    ],
+    "responseVariables": [
+        {
+            "id": 2,
+        },
+        {
+            "id": 3,
+        }
+    ],
+    "treatmentVariables": [
+        {
+            "id": 1,
+        },
+        {
+            "id": 4,
+        }
+    ]
+}
