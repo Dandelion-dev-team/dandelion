@@ -1,0 +1,148 @@
+{
+    "conditions": [
+        {
+            "code": "TST_LB_C",
+            "colour": null,
+            "description": "Lemon balm and Control",
+            "id": 3,
+            "status": "active",
+            "text": null
+        },
+        {
+            "code": "TST_LB_G",
+            "colour": null,
+            "description": "Lemon balm and Gentle",
+            "id": 4,
+            "status": "active",
+            "text": null
+        },
+        {
+            "code": "TST_LB_M",
+            "colour": null,
+            "description": "Lemon balm and Moderate",
+            "id": 5,
+            "status": "active",
+            "text": null
+        },
+        {
+            "code": "TST_L_C",
+            "colour": null,
+            "description": "Lettuce and Control",
+            "id": 6,
+            "status": "active",
+            "text": null
+        },
+        {
+            "code": "TST_L_G",
+            "colour": null,
+            "description": "Lettuce and Gentle",
+            "id": 7,
+            "status": "active",
+            "text": null
+        },
+        {
+            "code": "TST_L_M",
+            "colour": null,
+            "description": "Lettuce and Moderate",
+            "id": 8,
+            "status": "active",
+            "text": null
+        },
+        {
+            "code": "TST_C_C",
+            "colour": null,
+            "description": "Chives and Control",
+            "id": 9,
+            "status": "active",
+            "text": null
+        },
+        {
+            "code": "TST_C_G",
+            "colour": null,
+            "description": "Chives and Gentle",
+            "id": 10,
+            "status": "active",
+            "text": null
+        },
+        {
+            "code": "TST_C_M",
+            "colour": null,
+            "description": "Chives and Moderate",
+            "id": 11,
+            "status": "active",
+            "text": null
+        },
+        {
+            "code": "TST_KR_C",
+            "colour": null,
+            "description": "Kohl rabi and Control",
+            "id": 12,
+            "status": "active",
+            "text": null
+        },
+        {
+            "code": "TST_KR_G",
+            "colour": null,
+            "description": "Kohl rabi and Gentle",
+            "id": 13,
+            "status": "active",
+            "text": null
+        },
+        {
+            "code": "TST_KR_M",
+            "colour": null,
+            "description": "Kohl rabi and Moderate",
+            "id": 14,
+            "status": "active",
+            "text": null
+        },
+        {
+            "code": "TST_B_C",
+            "colour": null,
+            "description": "Beetroot and Control",
+            "id": 15,
+            "status": "active",
+            "text": null
+        },
+        {
+            "code": "TST_B_G",
+            "colour": null,
+            "description": "Beetroot and Gentle",
+            "id": 16,
+            "status": "active",
+            "text": null
+        },
+        {
+            "code": "TST_B_M",
+            "colour": null,
+            "description": "Beetroot and Moderate",
+            "id": 17,
+            "status": "active",
+            "text": null
+        },
+        {
+            "code": "TST_S_C",
+            "colour": null,
+            "description": "Sunflower and Control",
+            "id": 18,
+            "status": "active",
+            "text": null
+        },
+        {
+            "code": "TST_S_G",
+            "colour": null,
+            "description": "Sunflower and Gentle",
+            "id": 19,
+            "status": "active",
+            "text": null
+        },
+        {
+            "code": "TST_S_M",
+            "colour": null,
+            "description": "Sunflower and Moderate",
+            "id": 20,
+            "status": "active",
+            "text": null
+        }
+    ]
+}
