@@ -36,7 +36,21 @@
             "id": 1,
         },
         {
-            "id": 4,
-        }
-    ]
+            "levels": [
+                {
+                    "name": "Control",
+                    "sequence": 1
+                },
+                {
+                    "name": "Gentle",
+                    "sequence": 2
+                },
+                {
+                    "name": "Moderate",
+                    "sequence": 3
+                }
+            ],
+            "name": "tickling",
+            "type": "discrete"
+        }    ]
 }
