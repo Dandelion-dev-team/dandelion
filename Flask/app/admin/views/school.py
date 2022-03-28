@@ -61,6 +61,8 @@ def add_school():
 # @jwt_required()
 def getOneSchool(id):
     school = School.query.get_or_404(id)
+    id = id
+    id = str(id)
 
     school_data = {}
     school_data['school_id'] = school.id
@@ -68,11 +70,14 @@ def getOneSchool(id):
     school_data['name'] = school.name
     school_data['status'] = school.status
 
-    # folder_location = current_app.config['IMAGE_UPLOADS_SCHOOL']
-    # image_root(folder_location, id)
+    folder_location = current_app.config['IMAGE_UPLOADS_SCHOOL']
+    root_full = image_root(folder_location, id)
+    root_thumb = image_root(folder_location,id)
+    # dir = os.path.join(folder_location, id)
 
 
-    return jsonify({'school': school_data, 'image_root' : base_dir})
+
+    return jsonify({'school': school_data, 'image_root_full' : root_full, 'image_root_thumb' : root_thumb})
 
 
 @admin.route('/school/<int:id>', methods=['PUT'])
