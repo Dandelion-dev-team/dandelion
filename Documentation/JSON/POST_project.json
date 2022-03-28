@@ -1,10 +1,10 @@
 {
-	"school_id": 1,
-  "code": "AC",
-  "title": "Kohl Rabi",
-  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
-  "project_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
-  "start_date": "2022-01-31T14:31:24.262Z",
-  "end_date": "2022-01-31T14:31:24.262Z",
+  "school_id": 1,
+  "code": "THIG",
+  "title": "Thigmomorphogenesis",
+  "description": "Exploring the effects of touch on plant growth",
+  "project_text": "This is a longer text with details of the project",
+  "start_date": "2022-03-31T00:00:0Z",
+  "end_date": "2022-09-15T00:00:0Z",
   "status": "active" 
 }
