@@ -1119,9 +1119,15 @@
     }
   ],
   "observation": [
-    
+    {
+      "id": 1,
+      "timestamp": "2022-03-17T23:40:30.642Z",
+      "value": "",
+      "status": "valid",
+      "unit": "mm"
+    }
   ],
-  "project":[
+  "project": [
     {
       "owner": "GLA42012",
       "updated_date": "2022-03-20T17:46:42.361Z",

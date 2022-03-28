@@ -3,6 +3,11 @@ import Header from "../components/navigation/header"
 import { AgGridReact } from 'ag-grid-react';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import BackupTableIcon from '@mui/icons-material/BackupTable';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS } from 'chart.js/auto'
 
@@ -64,10 +69,56 @@ export default function Data() {
           <div className="data-content">
             <div className="filter-list">
               <div className="title">
-                <h3>Filter List</h3>
+                <h3>Filters</h3>
               </div>
               <div className="filters">
-                <h2>filters</h2>
+                <div className="accordions">
+                  
+                </div>
+                <Accordion>
+                  <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header">
+                    Schools
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    hello
+                  </AccordionDetails>
+                </Accordion>
+                <Accordion>
+                  <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header">
+                    Projects
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    hello
+                  </AccordionDetails>
+                </Accordion>
+                <Accordion>
+                  <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header">
+                    Experiments
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    hello
+                  </AccordionDetails>
+                </Accordion>
+                <Accordion>
+                  <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header">
+                    Tags
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    hello
+                  </AccordionDetails>
+                </Accordion>
               </div>
             </div>
             <div className="spacer" />
