@@ -37,7 +37,7 @@ def upload_experiment_image(id):
 
         filename = secure_filename(pic.filename)
         folder_location = current_app.config['IMAGE_UPLOADS_EXPERIMENT']
-        image_processing_2(pic, id, filename, folder_location)
+        image_processing_2(pic, id, filename, folder_location) #image_processing_2 is a draft code, when ready I will rename it to image_processing and update the images.py code
 
     else:
         resp = jsonify({'message': 'Allowed file types are txt, pdf, png, jpg, jpeg, gif'})
