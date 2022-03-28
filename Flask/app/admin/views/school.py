@@ -64,16 +64,18 @@ def getOneSchool(id):
     id = id
     id = str(id)
 
+
     school_data = {}
     school_data['school_id'] = school.id
     school_data['authority_id'] = school.authority_id
     school_data['name'] = school.name
     school_data['status'] = school.status
 
+    full = True
     folder_location = current_app.config['IMAGE_UPLOADS_SCHOOL']
-    root_full = image_root(folder_location, id)
-    root_thumb = image_root(folder_location,id)
-    # dir = os.path.join(folder_location, id)
+    root_full = image_root(folder_location, id, full)
+    full = False
+    root_thumb = image_root(folder_location, id, full)
 
 
 

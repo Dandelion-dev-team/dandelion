@@ -9,7 +9,7 @@ from app.models import Project, Img
 from app import db
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update, audit_delete
 from app.utils.functions import row2dict, jwt_user
-from app.utils.images import allowed_file, image_processing
+from app.utils.images import allowed_file, image_processing, image_root
 
 
 @admin.route('/project', methods=['GET'])
@@ -49,9 +49,11 @@ def add_project():
 
 
 @admin.route('/project/<int:id>', methods=['GET'])
-@jwt_required()
+# @jwt_required()
 def get_one_project(id):
     project = Project.query.get_or_404(id)
+    id = id
+    id = str(id)
 
     project_data = {}
     project_data['project_id'] = project.id
@@ -63,7 +65,13 @@ def get_one_project(id):
     project_data['end_date'] = project.end_date
     project_data['status'] = project.status
 
-    return jsonify({'Project': project_data})
+    full = True
+    folder_location = current_app.config['IMAGE_UPLOADS_PROJECT']
+    root_full = image_root(folder_location, id, full)
+    full = False
+    root_thumb = image_root(folder_location, id, full)
+
+    return jsonify({'Project': project_data, 'image_root_full' : root_full, 'image_root_thumb' : root_thumb})
 
 @admin.route('/project/<int:id>', methods=['PUT'])
 @jwt_required()

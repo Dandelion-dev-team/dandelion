@@ -8,14 +8,20 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-def image_root(folder_location, id):
+def image_root(folder_location, id, full):
     base_dir = os.path.join(folder_location, id)
 
     if not os.path.exists(base_dir):
-        base_dir = os.path.join(folder_location, "0", "full.png")
+        if full:
+            base_dir = os.path.join(folder_location, "0", "full.png")
+        else:
+            base_dir = os.path.join(folder_location, "0", "thumb.png")
         return base_dir
     else:
-        base_dir = os.path.join(folder_location, id, "full.png")
+        if full:
+            base_dir = os.path.join(folder_location, id, "full.png")
+        else:
+            base_dir = os.path.join(folder_location, id, "thumb.png")
         return base_dir
 
 
