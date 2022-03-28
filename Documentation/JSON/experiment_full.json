@@ -7,7 +7,44 @@
             "id": 3,
             "status": "active",
             "text": null,
-            "units": []
+            "units": [
+                {
+                    "code": "TST_LB_C_1",
+                    "column": 1,
+                    "cube_level": "top",
+                    "description": null,
+                    "id": 145,
+                    "replicate_no": 1,
+                    "row": "A"
+                },
+                {
+                    "code": "TST_LB_C_2",
+                    "column": 1,
+                    "cube_level": "top",
+                    "description": null,
+                    "id": 146,
+                    "replicate_no": 2,
+                    "row": "B"
+                },
+                {
+                    "code": "TST_LB_C_3",
+                    "column": 1,
+                    "cube_level": "top",
+                    "description": null,
+                    "id": 147,
+                    "replicate_no": 3,
+                    "row": "C"
+                },
+                {
+                    "code": "TST_LB_C_4",
+                    "column": 1,
+                    "cube_level": "top",
+                    "description": null,
+                    "id": 148,
+                    "replicate_no": 4,
+                    "row": "D"
+                }
+            ]
         },
         {
             "code": "TST_LB_G",
@@ -16,7 +53,44 @@
             "id": 4,
             "status": "active",
             "text": null,
-            "units": []
+            "units": [
+                {
+                    "code": "TST_LB_G_1",
+                    "column": 5,
+                    "cube_level": "middle",
+                    "description": null,
+                    "id": 149,
+                    "replicate_no": 1,
+                    "row": "B"
+                },
+                {
+                    "code": "TST_LB_G_2",
+                    "column": 5,
+                    "cube_level": "middle",
+                    "description": null,
+                    "id": 150,
+                    "replicate_no": 2,
+                    "row": "C"
+                },
+                {
+                    "code": "TST_LB_G_3",
+                    "column": 5,
+                    "cube_level": "middle",
+                    "description": null,
+                    "id": 151,
+                    "replicate_no": 3,
+                    "row": "D"
+                },
+                {
+                    "code": "TST_LB_G_4",
+                    "column": 5,
+                    "cube_level": "middle",
+                    "description": null,
+                    "id": 152,
+                    "replicate_no": 4,
+                    "row": "E"
+                }
+            ]
         },
         {
             "code": "TST_LB_M",
@@ -25,7 +99,44 @@
             "id": 5,
             "status": "active",
             "text": null,
-            "units": []
+            "units": [
+                {
+                    "code": "TST_LB_M_1",
+                    "column": 5,
+                    "cube_level": "bottom",
+                    "description": null,
+                    "id": 153,
+                    "replicate_no": 1,
+                    "row": "B"
+                },
+                {
+                    "code": "TST_LB_M_2",
+                    "column": 5,
+                    "cube_level": "bottom",
+                    "description": null,
+                    "id": 154,
+                    "replicate_no": 2,
+                    "row": "C"
+                },
+                {
+                    "code": "TST_LB_M_3",
+                    "column": 5,
+                    "cube_level": "bottom",
+                    "description": null,
+                    "id": 155,
+                    "replicate_no": 3,
+                    "row": "D"
+                },
+                {
+                    "code": "TST_LB_M_4",
+                    "column": 5,
+                    "cube_level": "bottom",
+                    "description": null,
+                    "id": 156,
+                    "replicate_no": 4,
+                    "row": "E"
+                }
+            ]
         },
         {
             "code": "TST_L_C",
@@ -34,7 +145,44 @@
             "id": 6,
             "status": "active",
             "text": null,
-            "units": []
+            "units": [
+                {
+                    "code": "TST_L_C_1",
+                    "column": 1,
+                    "cube_level": "top",
+                    "description": null,
+                    "id": 157,
+                    "replicate_no": 1,
+                    "row": "E"
+                },
+                {
+                    "code": "TST_L_C_2",
+                    "column": 2,
+                    "cube_level": "top",
+                    "description": null,
+                    "id": 158,
+                    "replicate_no": 2,
+                    "row": "A"
+                },
+                {
+                    "code": "TST_L_C_3",
+                    "column": 2,
+                    "cube_level": "top",
+                    "description": null,
+                    "id": 159,
+                    "replicate_no": 3,
+                    "row": "B"
+                },
+                {
+                    "code": "TST_L_C_4",
+                    "column": 2,
+                    "cube_level": "top",
+                    "description": null,
+                    "id": 160,
+                    "replicate_no": 4,
+                    "row": "C"
+                }
+            ]
         },
         {
             "code": "TST_L_G",
@@ -43,7 +191,44 @@
             "id": 7,
             "status": "active",
             "text": null,
-            "units": []
+            "units": [
+                {
+                    "code": "TST_L_G_1",
+                    "column": 4,
+                    "cube_level": "middle",
+                    "description": null,
+                    "id": 161,
+                    "replicate_no": 1,
+                    "row": "C"
+                },
+                {
+                    "code": "TST_L_G_2",
+                    "column": 4,
+                    "cube_level": "middle",
+                    "description": null,
+                    "id": 162,
+                    "replicate_no": 2,
+                    "row": "D"
+                },
+                {
+                    "code": "TST_L_G_3",
+                    "column": 4,
+                    "cube_level": "middle",
+                    "description": null,
+                    "id": 163,
+                    "replicate_no": 3,
+                    "row": "E"
+                },
+                {
+                    "code": "TST_L_G_4",
+                    "column": 5,
+                    "cube_level": "middle",
+                    "description": null,
+                    "id": 164,
+                    "replicate_no": 4,
+                    "row": "A"
+                }
+            ]
         },
         {
             "code": "TST_L_M",
@@ -52,7 +237,44 @@
             "id": 8,
             "status": "active",
             "text": null,
-            "units": []
+            "units": [
+                {
+                    "code": "TST_L_M_1",
+                    "column": 3,
+                    "cube_level": "bottom",
+                    "description": null,
+                    "id": 165,
+                    "replicate_no": 1,
+                    "row": "C"
+                },
+                {
+                    "code": "TST_L_M_2",
+                    "column": 3,
+                    "cube_level": "bottom",
+                    "description": null,
+                    "id": 166,
+                    "replicate_no": 2,
+                    "row": "D"
+                },
+                {
+                    "code": "TST_L_M_3",
+                    "column": 3,
+                    "cube_level": "bottom",
+                    "description": null,
+                    "id": 167,
+                    "replicate_no": 3,
+                    "row": "E"
+                },
+                {
+                    "code": "TST_L_M_4",
+                    "column": 4,
+                    "cube_level": "bottom",
+                    "description": null,
+                    "id": 168,
+                    "replicate_no": 4,
+                    "row": "B"
+                }
+            ]
         },
         {
             "code": "TST_C_C",
@@ -61,7 +283,44 @@
             "id": 9,
             "status": "active",
             "text": null,
-            "units": []
+            "units": [
+                {
+                    "code": "TST_C_C_1",
+                    "column": 2,
+                    "cube_level": "top",
+                    "description": null,
+                    "id": 169,
+                    "replicate_no": 1,
+                    "row": "E"
+                },
+                {
+                    "code": "TST_C_C_2",
+                    "column": 3,
+                    "cube_level": "top",
+                    "description": null,
+                    "id": 170,
+                    "replicate_no": 2,
+                    "row": "A"
+                },
+                {
+                    "code": "TST_C_C_3",
+                    "column": 3,
+                    "cube_level": "top",
+                    "description": null,
+                    "id": 171,
+                    "replicate_no": 3,
+                    "row": "B"
+                },
+                {
+                    "code": "TST_C_C_4",
+                    "column": 3,
+                    "cube_level": "top",
+                    "description": null,
+                    "id": 172,
+                    "replicate_no": 4,
+                    "row": "C"
+                }
+            ]
         },
         {
             "code": "TST_C_G",
@@ -70,7 +329,44 @@
             "id": 10,
             "status": "active",
             "text": null,
-            "units": []
+            "units": [
+                {
+                    "code": "TST_C_G_1",
+                    "column": 3,
+                    "cube_level": "middle",
+                    "description": null,
+                    "id": 173,
+                    "replicate_no": 1,
+                    "row": "D"
+                },
+                {
+                    "code": "TST_C_G_2",
+                    "column": 3,
+                    "cube_level": "middle",
+                    "description": null,
+                    "id": 174,
+                    "replicate_no": 2,
+                    "row": "E"
+                },
+                {
+                    "code": "TST_C_G_3",
+                    "column": 4,
+                    "cube_level": "middle",
+                    "description": null,
+                    "id": 175,
+                    "replicate_no": 3,
+                    "row": "A"
+                },
+                {
+                    "code": "TST_C_G_4",
+                    "column": 4,
+                    "cube_level": "middle",
+                    "description": null,
+                    "id": 176,
+                    "replicate_no": 4,
+                    "row": "B"
+                }
+            ]
         },
         {
             "code": "TST_C_M",
@@ -79,7 +375,44 @@
             "id": 11,
             "status": "active",
             "text": null,
-            "units": []
+            "units": [
+                {
+                    "code": "TST_C_M_1",
+                    "column": 4,
+                    "cube_level": "bottom",
+                    "description": null,
+                    "id": 177,
+                    "replicate_no": 1,
+                    "row": "C"
+                },
+                {
+                    "code": "TST_C_M_2",
+                    "column": 4,
+                    "cube_level": "bottom",
+                    "description": null,
+                    "id": 178,
+                    "replicate_no": 2,
+                    "row": "D"
+                },
+                {
+                    "code": "TST_C_M_3",
+                    "column": 4,
+                    "cube_level": "bottom",
+                    "description": null,
+                    "id": 179,
+                    "replicate_no": 3,
+                    "row": "E"
+                },
+                {
+                    "code": "TST_C_M_4",
+                    "column": 5,
+                    "cube_level": "bottom",
+                    "description": null,
+                    "id": 180,
+                    "replicate_no": 4,
+                    "row": "A"
+                }
+            ]
         },
         {
             "code": "TST_KR_C",
@@ -88,7 +421,44 @@
             "id": 12,
             "status": "active",
             "text": null,
-            "units": []
+            "units": [
+                {
+                    "code": "TST_KR_C_1",
+                    "column": 3,
+                    "cube_level": "top",
+                    "description": null,
+                    "id": 181,
+                    "replicate_no": 1,
+                    "row": "D"
+                },
+                {
+                    "code": "TST_KR_C_2",
+                    "column": 3,
+                    "cube_level": "top",
+                    "description": null,
+                    "id": 182,
+                    "replicate_no": 2,
+                    "row": "E"
+                },
+                {
+                    "code": "TST_KR_C_3",
+                    "column": 4,
+                    "cube_level": "top",
+                    "description": null,
+                    "id": 183,
+                    "replicate_no": 3,
+                    "row": "A"
+                },
+                {
+                    "code": "TST_KR_C_4",
+                    "column": 4,
+                    "cube_level": "top",
+                    "description": null,
+                    "id": 184,
+                    "replicate_no": 4,
+                    "row": "B"
+                }
+            ]
         },
         {
             "code": "TST_KR_G",
@@ -97,7 +467,44 @@
             "id": 13,
             "status": "active",
             "text": null,
-            "units": []
+            "units": [
+                {
+                    "code": "TST_KR_G_1",
+                    "column": 2,
+                    "cube_level": "middle",
+                    "description": null,
+                    "id": 185,
+                    "replicate_no": 1,
+                    "row": "D"
+                },
+                {
+                    "code": "TST_KR_G_2",
+                    "column": 2,
+                    "cube_level": "middle",
+                    "description": null,
+                    "id": 186,
+                    "replicate_no": 2,
+                    "row": "E"
+                },
+                {
+                    "code": "TST_KR_G_3",
+                    "column": 3,
+                    "cube_level": "middle",
+                    "description": null,
+                    "id": 187,
+                    "replicate_no": 3,
+                    "row": "B"
+                },
+                {
+                    "code": "TST_KR_G_4",
+                    "column": 3,
+                    "cube_level": "middle",
+                    "description": null,
+                    "id": 188,
+                    "replicate_no": 4,
+                    "row": "C"
+                }
+            ]
         },
         {
             "code": "TST_KR_M",
@@ -106,7 +513,44 @@
             "id": 14,
             "status": "active",
             "text": null,
-            "units": []
+            "units": [
+                {
+                    "code": "TST_KR_M_1",
+                    "column": 1,
+                    "cube_level": "bottom",
+                    "description": null,
+                    "id": 189,
+                    "replicate_no": 1,
+                    "row": "A"
+                },
+                {
+                    "code": "TST_KR_M_2",
+                    "column": 1,
+                    "cube_level": "bottom",
+                    "description": null,
+                    "id": 190,
+                    "replicate_no": 2,
+                    "row": "B"
+                },
+                {
+                    "code": "TST_KR_M_3",
+                    "column": 1,
+                    "cube_level": "bottom",
+                    "description": null,
+                    "id": 191,
+                    "replicate_no": 3,
+                    "row": "C"
+                },
+                {
+                    "code": "TST_KR_M_4",
+                    "column": 1,
+                    "cube_level": "bottom",
+                    "description": null,
+                    "id": 192,
+                    "replicate_no": 4,
+                    "row": "D"
+                }
+            ]
         },
         {
             "code": "TST_B_C",
@@ -115,7 +559,44 @@
             "id": 15,
             "status": "active",
             "text": null,
-            "units": []
+            "units": [
+                {
+                    "code": "TST_B_C_1",
+                    "column": 4,
+                    "cube_level": "top",
+                    "description": null,
+                    "id": 193,
+                    "replicate_no": 1,
+                    "row": "C"
+                },
+                {
+                    "code": "TST_B_C_2",
+                    "column": 4,
+                    "cube_level": "top",
+                    "description": null,
+                    "id": 194,
+                    "replicate_no": 2,
+                    "row": "D"
+                },
+                {
+                    "code": "TST_B_C_3",
+                    "column": 4,
+                    "cube_level": "top",
+                    "description": null,
+                    "id": 195,
+                    "replicate_no": 3,
+                    "row": "E"
+                },
+                {
+                    "code": "TST_B_C_4",
+                    "column": 5,
+                    "cube_level": "top",
+                    "description": null,
+                    "id": 196,
+                    "replicate_no": 4,
+                    "row": "A"
+                }
+            ]
         },
         {
             "code": "TST_B_G",
@@ -124,7 +605,44 @@
             "id": 16,
             "status": "active",
             "text": null,
-            "units": []
+            "units": [
+                {
+                    "code": "TST_B_G_1",
+                    "column": 1,
+                    "cube_level": "middle",
+                    "description": null,
+                    "id": 197,
+                    "replicate_no": 1,
+                    "row": "E"
+                },
+                {
+                    "code": "TST_B_G_2",
+                    "column": 2,
+                    "cube_level": "middle",
+                    "description": null,
+                    "id": 198,
+                    "replicate_no": 2,
+                    "row": "A"
+                },
+                {
+                    "code": "TST_B_G_3",
+                    "column": 2,
+                    "cube_level": "middle",
+                    "description": null,
+                    "id": 199,
+                    "replicate_no": 3,
+                    "row": "B"
+                },
+                {
+                    "code": "TST_B_G_4",
+                    "column": 2,
+                    "cube_level": "middle",
+                    "description": null,
+                    "id": 200,
+                    "replicate_no": 4,
+                    "row": "C"
+                }
+            ]
         },
         {
             "code": "TST_B_M",
@@ -133,7 +651,44 @@
             "id": 17,
             "status": "active",
             "text": null,
-            "units": []
+            "units": [
+                {
+                    "code": "TST_B_M_1",
+                    "column": 1,
+                    "cube_level": "bottom",
+                    "description": null,
+                    "id": 201,
+                    "replicate_no": 1,
+                    "row": "E"
+                },
+                {
+                    "code": "TST_B_M_2",
+                    "column": 2,
+                    "cube_level": "bottom",
+                    "description": null,
+                    "id": 202,
+                    "replicate_no": 2,
+                    "row": "A"
+                },
+                {
+                    "code": "TST_B_M_3",
+                    "column": 2,
+                    "cube_level": "bottom",
+                    "description": null,
+                    "id": 203,
+                    "replicate_no": 3,
+                    "row": "B"
+                },
+                {
+                    "code": "TST_B_M_4",
+                    "column": 2,
+                    "cube_level": "bottom",
+                    "description": null,
+                    "id": 204,
+                    "replicate_no": 4,
+                    "row": "C"
+                }
+            ]
         },
         {
             "code": "TST_S_C",
@@ -142,7 +697,44 @@
             "id": 18,
             "status": "active",
             "text": null,
-            "units": []
+            "units": [
+                {
+                    "code": "TST_S_C_1",
+                    "column": 5,
+                    "cube_level": "top",
+                    "description": null,
+                    "id": 205,
+                    "replicate_no": 1,
+                    "row": "B"
+                },
+                {
+                    "code": "TST_S_C_2",
+                    "column": 5,
+                    "cube_level": "top",
+                    "description": null,
+                    "id": 206,
+                    "replicate_no": 2,
+                    "row": "C"
+                },
+                {
+                    "code": "TST_S_C_3",
+                    "column": 5,
+                    "cube_level": "top",
+                    "description": null,
+                    "id": 207,
+                    "replicate_no": 3,
+                    "row": "D"
+                },
+                {
+                    "code": "TST_S_C_4",
+                    "column": 5,
+                    "cube_level": "top",
+                    "description": null,
+                    "id": 208,
+                    "replicate_no": 4,
+                    "row": "E"
+                }
+            ]
         },
         {
             "code": "TST_S_G",
@@ -151,7 +743,44 @@
             "id": 19,
             "status": "active",
             "text": null,
-            "units": []
+            "units": [
+                {
+                    "code": "TST_S_G_1",
+                    "column": 1,
+                    "cube_level": "middle",
+                    "description": null,
+                    "id": 209,
+                    "replicate_no": 1,
+                    "row": "A"
+                },
+                {
+                    "code": "TST_S_G_2",
+                    "column": 1,
+                    "cube_level": "middle",
+                    "description": null,
+                    "id": 210,
+                    "replicate_no": 2,
+                    "row": "B"
+                },
+                {
+                    "code": "TST_S_G_3",
+                    "column": 1,
+                    "cube_level": "middle",
+                    "description": null,
+                    "id": 211,
+                    "replicate_no": 3,
+                    "row": "C"
+                },
+                {
+                    "code": "TST_S_G_4",
+                    "column": 1,
+                    "cube_level": "middle",
+                    "description": null,
+                    "id": 212,
+                    "replicate_no": 4,
+                    "row": "D"
+                }
+            ]
         },
         {
             "code": "TST_S_M",
@@ -160,7 +789,44 @@
             "id": 20,
             "status": "active",
             "text": null,
-            "units": []
+            "units": [
+                {
+                    "code": "TST_S_M_1",
+                    "column": 2,
+                    "cube_level": "bottom",
+                    "description": null,
+                    "id": 213,
+                    "replicate_no": 1,
+                    "row": "D"
+                },
+                {
+                    "code": "TST_S_M_2",
+                    "column": 2,
+                    "cube_level": "bottom",
+                    "description": null,
+                    "id": 214,
+                    "replicate_no": 2,
+                    "row": "E"
+                },
+                {
+                    "code": "TST_S_M_3",
+                    "column": 3,
+                    "cube_level": "bottom",
+                    "description": null,
+                    "id": 215,
+                    "replicate_no": 3,
+                    "row": "A"
+                },
+                {
+                    "code": "TST_S_M_4",
+                    "column": 3,
+                    "cube_level": "bottom",
+                    "description": null,
+                    "id": 216,
+                    "replicate_no": 4,
+                    "row": "B"
+                }
+            ]
         }
     ],
     "experimentDetails": {
