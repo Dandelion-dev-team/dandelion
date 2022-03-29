@@ -22,6 +22,8 @@ export default function ConfigureUnits(props) {
   const [logged, setLogged] = useState("");
 
   let a = new Array(32);
+  const grid_letters = ["A", "B", "C", "D", "E"]
+
 
   const [active_class, setActiveClass] = useState([a])
 
@@ -55,14 +57,14 @@ export default function ConfigureUnits(props) {
 
     if (prop == "top") {
       let copy = [...matrix];
-      copy[0][1] = { colour: "#FFFF", code: "" };
+      copy[0][1] = { colour: "#FFFF", code: "SENSOR" };
       setMatrix(copy);
       setCurrentGrid(0);
       setColourIndex(["#F8F448", "#FFFF", "#FFFF"])
     }
     else if (prop == "mid") {
       let copy = [...matrix];
-      copy[1][2] = { colour: "#FFFF", code: "" };
+      copy[1][2] = { colour: "#FFFF", code: "SENSOR" };
       setMatrix(copy);
 
       setCurrentGrid(1);
@@ -70,7 +72,7 @@ export default function ConfigureUnits(props) {
     }
     else if (prop == "bot") {
       let copy = [...matrix];
-      copy[2][3] = { colour: "#FFFF", code: "" };
+      copy[2][3] = { colour: "#FFFF", code: "SENSOR" };
 
       setMatrix(copy);
       setCurrentGrid(2);
@@ -81,7 +83,11 @@ export default function ConfigureUnits(props) {
   const setGridData = e => {
     if (dragged_item) {
       let copy = [...matrix];
-      copy[e.gridLevel][e.gridPosition] = { colour: dragged_item.colour, code: dragged_item.code };
+      if (copy[e.gridLevel][e.gridPosition].code != "SENSOR") {
+        copy[e.gridLevel][e.gridPosition] = { colour: dragged_item.colour, code: dragged_item.code, item: dragged_item.item };
+      } else {
+        console.log("Illegal");
+      }
       setMatrix(copy);
     }
   }
@@ -91,6 +97,86 @@ export default function ConfigureUnits(props) {
     copy[childData.index] = true;
     setActiveClass(copy);
     setCurrentDraggedItem(childData);
+  }
+
+  const submitExperiment = prop => {
+    //CONVERT DATES
+    var start_date = new Date(experiment_details.startDate);
+    start_date = start_date.toISOString();
+    var end_date = new Date(experiment_details.endDate);
+    end_date = end_date.toISOString();
+
+    //HARDCODED FOR NOW
+    let hypotheses = [
+      {
+        description: "Touching the leaves has no effect on growth",
+        hypothesis_no: 0,
+        id: 2,
+        status: "Active",
+        text: null
+      },
+      {
+        description: "Growth rate is correlated with the degree of touching",
+        hypothesis_no: 1,
+        id: 3,
+        status: "Active",
+        text: null
+      }
+    ]
+
+    let constructed_conditions = [];
+    combination_list.forEach(combination => {
+      let unit_list = [];
+      let code = "";
+      let colour = "";
+      matrix.forEach((grid_level, idx) => {
+        let level = "";
+        if (idx == 0){
+          level = "top";
+        }else if (idx == 1){
+          level = "middle";
+        }else if(idx == 2){
+          level = "bottom";
+        }
+        grid_level.forEach((cell, position) => {
+          let column = Math.floor(position / 5);
+          let row = position % 5;
+          if (cell.colour == "#C4C4C4" || cell.code == "SENSOR") {
+            return;
+          } else {
+            //console.log({ cell: cell, index: idx })
+            if (combination == cell.item) {
+              let item = {code: cell.code, cube_level: level, row: grid_letters[row], column: column + 1, description: ""};
+              unit_list.push(item)
+              code = cell.code;
+              colour = cell.colour;
+            }
+          }
+        }
+        )
+      });
+      constructed_conditions.push({code: code, color: colour, description: "desc", status: "active", text: "text", units: unit_list })
+    });
+
+    console.log(constructed_conditions);
+
+    //console.log({cell: cell, index: idx}))
+
+
+    // console.log({
+    //   code: experiment_details.code,
+    //   description: experiment_details.description,
+    //   start_date: start_date,
+    //   end_date: end_date,
+    //   name: experiment_details.name,
+    //   hypotheses,
+    //   treatment_variables,
+    //   response_variables
+    // })
+
+
+    //NAVIGATE BACK TO PROJECT MAINTENANCE
+    //navigate("/superuser/project-maintenance")
   }
 
   if (typeof window !== `undefined` && logged) {
@@ -103,7 +189,7 @@ export default function ConfigureUnits(props) {
             <div className="condition-list">
               {combination_list
                 ? combination_list.map(function (d, idx) {
-                  return <UnitCard index={idx} key={idx} combination={d} onDragItem={setDraggedItem} is_active={active_class[idx]} />
+                  return <UnitCard index={idx} key={idx} base_code={experiment_details.code} combination={d} onDragItem={setDraggedItem} is_active={active_class[idx]} />
                 })
                 : null}
             </div>
@@ -179,7 +265,7 @@ export default function ConfigureUnits(props) {
                       className="submitButton"
                       value="Finished"
                       onClick={() => {
-                        navigate("/superuser/project-maintenance")
+                        submitExperiment();
                       }}
                     ></input>
                   </div>
