@@ -165,6 +165,10 @@
       .friends-list::-webkit-scrollbar {
         display: none; /* for Chrome, Safari, and Opera */
       }
+     
+    }
+    .pane-content::-webkit-scrollbar {
+      display: none; /* for Chrome, Safari, and Opera */
     }
   }
 }

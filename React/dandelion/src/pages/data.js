@@ -25,27 +25,28 @@ export default function Data() {
   const [experimentList, setExperiments] = useState([]);
 
   const [rowData] = useState([
-    { make: "Toyota", model: "Celica", price: 35000 },
-    { make: "Ford", model: "Mondeo", price: 32000 },
-    { make: "Porsche", model: "Boxter", price: 72000 }
+    { Observation: "Plant Height", "13/03/22": "1mm", "20/03/22": "2mm", "27/03/22": "3mm" },
+    { Observation: "Plant Weight", "13/03/22": "1g", "20/03/22": "2g", "27/03/22": "3g" },
+
   ]);
 
   const [columnDefs] = useState([
-    { field: 'make' },
-    { field: 'model' },
-    { field: 'price' }
+    { field: 'Observation' },
+    { field: '13/03/22' },
+    { field: '20/03/22' },
+    { field: '27/03/22' }
+
   ])
 
   const dataset = {
-    labels: ['January', 'February', 'March',
-      'April', 'May'],
+    labels: ['13/03/22', '20/03/22', '27/03/22'],
     datasets: [
       {
-        label: 'Rainfall',
+        label: 'Weight',
         backgroundColor: 'rgba(75,192,192,1)',
         borderColor: 'rgba(0,0,0,1)',
         borderWidth: 2,
-        data: [65, 59, 80, 81, 56]
+        data: [1, 2, 3]
       }
     ]
   }

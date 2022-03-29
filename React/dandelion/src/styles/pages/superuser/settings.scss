@@ -9,8 +9,12 @@
   overflow-y: auto;
   flex-direction: column;
   justify-content: space-around;
-
-  .settings-content {
+  .title {
+    h3 {
+      font-size: 3rem;
+    }
+  }
+  .content {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -18,37 +22,69 @@
     width: 97%;
     height: 90vh;
     border-radius: 20px;
-
     .settings-pane {
-      //background-color: white;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      width: 31%;
+      align-items: center;
+      width: 45%;
       height: 90vh;
-      //border-radius: 20px;
-
       .school-image {
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        //background-color: white;
+        background-color: white;
         height: 44vh;
         border-radius: 20px;
         width: 100%;
+        img {
+          object-fit: cover;
+          width: 100%;
+          height: 100%;
+          border-radius: 20px;
+        }
       }
-
       .node-settings {
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
         background-color: white;
-        // height: 44vh;
+        height: 40vh;
         border-radius: 20px;
-        width: 30rem;
+        width: 100%;
+
+        h3 {
+          color: $primary;
+          font-size: 1.2rem;
+        }
       }
+      .spacer {
+        display: flex;
+        height: 4vh;
+      }
+    }
+    .details-pane {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      width: 35%;
+      height: 90vh;
+
+      .details {
+        display: flex;
+        flex-direction: column;
+        height: 44vh;
+        width: 100%;
+
+        h3 {
+          font-size: 1.2rem;
+          font-family: "Archivo Narrow";
+
+        }
+      }
+    }
+    .spacer {
+      display: flex;
+      width: 15%;
     }
   }
 }
