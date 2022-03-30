@@ -44,12 +44,6 @@ def image_processing(pic, id, filename, folder_location):
     pil_resized.save(os.path.join(newdir, 'thumb.png'))
 
 
-def get_box(original_image, target_width, target_height):
-    width, height = original_image.size
-    box = width // 2 - target_width // 2, height // 2 - target_height // 2, width // 2 + target_width // 2, height // 2 + target_height // 2
-    return box
-
-
 def get_image_directory_name(folder_location, id):
     newdir = (os.path.join(folder_location, id))
     if not os.path.exists(newdir):
