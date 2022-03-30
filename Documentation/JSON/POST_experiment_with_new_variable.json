@@ -26,28 +26,28 @@
     ],
     "responseVariables": [
         {
-            "id": 2,
-            "monday": true,
-			"tuesday": false,
-			"wednesday": false,
-			"thursday": false,
-			"friday": false,
-			"saturday": false,
-			"sunday": false,
-			"once": false,
-			"final": false
+		"id": 2,
+		"monday": true,
+		"tuesday": false,
+		"wednesday": false,
+		"thursday": false,
+		"friday": false,
+		"saturday": false,
+		"sunday": false,
+		"once": false,
+		"final": false
         },
         {
-            "id": 3,
-            "monday": true,
-			"tuesday": false,
-			"wednesday": false,
-			"thursday": false,
-			"friday": false,
-			"saturday": false,
-			"sunday": false,
-			"once": false,
-			"final": false
+		"id": 3,
+		"monday": true,
+		"tuesday": false,
+		"wednesday": false,
+		"thursday": false,
+		"friday": false,
+		"saturday": false,
+		"sunday": false,
+		"once": false,
+		"final": false
         }
     ],
     "treatmentVariables": [
