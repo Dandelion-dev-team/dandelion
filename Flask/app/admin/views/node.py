@@ -1,8 +1,12 @@
-from flask import abort, request, jsonify
+import json
+import os
+
+from flask import abort, request, jsonify, current_app
 from flask_cors import cross_origin
 from flask_json import json_response
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import inspect
+from werkzeug.utils import secure_filename
 
 from app.admin import admin
 from app.models import Node
@@ -28,13 +32,13 @@ def add_node():
     current_user = jwt_user(get_jwt_identity())
     data = request.get_json()
     node = Node(
-        school_id = data['school_id'],
-        growcube_code = data['growcube_code'],
-        mac_address = data['mac_address'],
-        last_communication_date = data['last_communication_date'],
-        next_communication_date = data['next_communication_date'],
-        health_status = data['health_status'],
-        status = data['status']
+        school_id=data['school_id'],
+        growcube_code=data['growcube_code'],
+        mac_address=data['mac_address'],
+        last_communication_date=data['last_communication_date'],
+        next_communication_date=data['next_communication_date'],
+        health_status=data['health_status'],
+        status=data['status']
 
     )
 
@@ -68,7 +72,6 @@ def get_one_node(id):
     node_data['health_status'] = node.health_status
     node_data['status'] = node.status
 
-
     return jsonify({'Node': node_data})
 
 
@@ -87,7 +90,6 @@ def updateNode(id):
     node_to_update.next_communication_date = new_data["next_communication_date"]
     node_to_update.health_status = new_data["health_status"]
     node_to_update.status = new_data["status"]
-
 
     audit_details = prepare_audit_details(inspect(Node), node_to_update, delete=False)
 
@@ -111,9 +113,9 @@ def delete_node(id):
     current_user = jwt_user(get_jwt_identity())
     node_to_delete = Node.query.filter_by(id=id).first()
     if not node_to_delete:
-        return jsonify({"message" : "No Node found"})
+        return jsonify({"message": "No Node found"})
 
-    audit_details = prepare_audit_details(inspect(Node), node_to_delete, delete = True)
+    audit_details = prepare_audit_details(inspect(Node), node_to_delete, delete=True)
     db.session.delete(node_to_delete)
     return_status = 200
     message = "The Node has been deleted"
@@ -121,31 +123,52 @@ def delete_node(id):
     try:
         db.session.commit()
         audit_delete("authority", node_to_delete.id, audit_details, current_user.id)
-        return jsonify({"message" : message, "id": node_to_delete.id})
+        return jsonify({"message": message, "id": node_to_delete.id})
 
     except Exception as e:
         db.session.rollback()
-        abort(409,e.orig.msg)
+        abort(409, e.orig.msg)
 
 
 @admin.route('/node/<int:id>/uploadData', methods=['POST'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
-@jwt_required()
+# @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
+# @jwt_required()
 def upload_data(id):
+    id = id
+    id = str(id)
+    json_data = request.get_json()
 
-    j = json.loads(s) #<-- Convert JSON string, s, to JSON object, j, with j = json.loads(s)
+    s = json.dumps(json_data)
+    j = json.loads(s)  # <-- Convert JSON string, s, to JSON object, j, with j = json.loads(s)
 
-    df = pd.DataFrame(j["top"], index=[j["timestamp"]]) #<-- Convert JSON object to pandas dataframe, df, with df = pd.DataFrame(j["top"], index=[j["timestamp"]])
-    df = pd.DataFrame(j["middle"], index=[j["timestamp"]]) # Three different .csv fiiles, one for each level, with only one node_id, three pandas df (dataframes)
-    df = pd.DataFrame(j["bottom"], index=[j["timestamp"]])
+    top_df = pd.DataFrame(j["top"], index=[j["timestamp"]])
+    top_df.index = pd.to_datetime(top_df.index)
+
+    folder_location = current_app.config['DATA_ROOT_PATH']
+    newdir = (os.path.join(folder_location, id))
 
 
-    df.index = pd.to_datetime(df.index) #<-- Convert text timestamp to actual timestamp with df.index = pd.to_datetime(df.index)
+    if not os.path.exists(newdir):
+        os.makedirs(newdir)
+        top_df.to_csv(os.path.join(newdir, r'top.csv'))
+    # else: <-- you are here
 
+
+
+
+    # middle_df = pd.DataFrame(j["middle"], index=[j["timestamp"]])
+    # middle_df.index = pd.to_datetime(middle_df.index)
+    #
+    # bottom_df = pd.DataFrame(j["bottom"], index=[j["timestamp"]])
+    # bottom_df.index = pd.to_datetime(bottom_df.index)
 
     # BELOW EXAMPLE from image processing for creating a new route and file (.csv)
 
+    # filename = secure_filename()
+    # folder_location = current_app.config['DATA_ROOT_PATH']
     # newdir = (os.path.join(folder_location, id))
     # if not os.path.exists(newdir):
     #     os.makedirs(newdir)
     # pic.save(os.path.join(newdir, filename))
+
+    return j
