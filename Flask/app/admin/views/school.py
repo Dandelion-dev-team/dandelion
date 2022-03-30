@@ -7,7 +7,7 @@ from sqlalchemy import inspect
 from flask_cors import cross_origin
 from werkzeug.utils import secure_filename
 from app.admin import admin
-from app.models import School, Img
+from app.models import School
 from app import db
 from app.utils.auditing import audit_create, audit_update, prepare_audit_details, audit_delete
 from app.utils.functions import row2dict, jwt_user

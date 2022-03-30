@@ -31,6 +31,5 @@ from .transition import *
 from .unit import *
 from .users import *
 from .variable import *
-from .img import *
 
 
