@@ -5,7 +5,7 @@ from app.admin import admin
 from app.models import Experiment, Img
 from app import db
 from app.utils.functions import row2dict
-from app.utils.images import allowed_file, image_processing, image_processing_2, image_root
+from app.utils.images import allowed_file, image_processing, image_processing, image_root
 
 
 @admin.route('/experiment', methods=['GET'])
@@ -66,7 +66,7 @@ def upload_experiment_image(id):
 
         filename = secure_filename(pic.filename)
         folder_location = current_app.config['IMAGE_UPLOADS_EXPERIMENT']
-        image_processing_2(pic, id, filename,
+        image_processing(pic, id, filename,
                            folder_location)  # image_processing_2 is a draft code, when ready I will rename it to image_processing and update the images.py code
 
     else:
