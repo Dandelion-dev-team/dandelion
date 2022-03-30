@@ -308,6 +308,10 @@ export default function Data() {
                               },
                             },
                           },
+                          animation: {
+                            duration: 0,
+                            easing: 'linear'
+                        }
                         }}
                       />
                     )}
