@@ -78,3 +78,4 @@ yarn-error.log
 requirements.txt
 
 /Flask/app/tests/.pytest_cache/
+/Images/

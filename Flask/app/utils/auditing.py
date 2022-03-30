@@ -1,7 +1,5 @@
 from datetime import datetime
-
 from sqlalchemy import inspect
-
 from app import db
 from app.models import Audit, AuditDetail
 

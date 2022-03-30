@@ -23,7 +23,6 @@ def row2dict(row, summary=False):
 
 
 def jwt_user (username):
-
     return User.query.filter(User.username == username).first()
 
 
