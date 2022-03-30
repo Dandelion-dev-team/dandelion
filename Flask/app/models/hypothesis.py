@@ -6,13 +6,16 @@ class Hypothesis(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     experiment_id = db.Column(db.Integer, db.ForeignKey('experiment.id'), nullable=False)
-    hypothesis_no = db.Column(db.Integer)
-    description = db.Column(db.String(200))
-    hypothesis_text = db.Column(db.String(200))
-    status = db.Column(db.VARCHAR(1))
+    hypothesis_no = db.Column(db.Integer, nullable=False)
+    description = db.Column(db.String(200), nullable=False)
+    text = db.Column(db.String(200))
+    status = db.Column(db.String(20), nullable=False)
 
     @property
     def summary_columns(self):
-        return ["id", "hypothesis_no","description","status"]
+        return [("id", "id"),
+                ("hypothesis_no", "hypothesis_no"),
+                ("description", "description"),
+                ("status", "status")]
 
 

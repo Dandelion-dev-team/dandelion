@@ -1,4 +1,6 @@
 import pytest
+from flask_sqlalchemy import SQLAlchemy
+
 from app import create_app
 from app.models import *
 
@@ -22,14 +24,18 @@ def app():
         db.session.commit()
         school = School(
             name = 'Dandelion',
-            authority_id = authority.id
+            authority_id = authority.id,
+            town = 'Edinburgh',
+            postcode = 'EH1- 5DT',
+            status = 'active'
         )
         db.session.add(school)
         db.session.commit()
         user = User(
             username = 'admin',
             password = 'admin',
-            is_sysadmin = True
+            is_sysadmin = True,
+            school_id = school.id
         )
         db.session.add(user)
         db.session.commit()
@@ -40,9 +46,28 @@ def app():
             project_text = "No text",
             start_date = datetime.now(),
             end_date = datetime.now(),
-            status = 'A'
+            status = 'active'
         )
         db.session.add(project)
+        db.session.commit()
+        project_partner = ProjectPartner(
+            school_id = school.id,
+            project_id = project.id,
+            is_lead_partner = True,
+            status = 'active'
+        )
+        db.session.add(project_partner)
+        db.session.commit()
+        node = Node(
+            school_id = school.id,
+            growcube_code = None,
+            mac_address = "12:34:56:78:9A:BC",
+            last_communication_date = None,
+            next_communication_date = None,
+            health_status = "green",
+            status = 'active'
+        )
+        db.session.add(node)
         db.session.commit()
 
     # other setup can go here
@@ -61,5 +86,4 @@ def client(app):
     ctx = app.test_request_context()
     ctx.push()
     yield app.test_client()
-
 
