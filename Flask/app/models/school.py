@@ -6,11 +6,11 @@ class School(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     authority_id = db.Column(db.Integer, db.ForeignKey('authority.id'), nullable=False) #FK1
-    name = db.Column(db.String(100))
-    address_line_1 = db.Column(db.String(150))
-    address_line_2 = db.Column(db.String(150))
-    town = db.Column(db.String(50))
-    postcode = db.Column(db.String(10))
+    name = db.Column(db.String(100), nullable=False)
+    address_line_1 = db.Column(db.String(100))
+    address_line_2 = db.Column(db.String(100))
+    town = db.Column(db.String(50), nullable=False)
+    postcode = db.Column(db.String(10), nullable=False)
     latitude = db.Column(db.DECIMAL(8,6))
     longitude = db.Column(db.DECIMAL(9,6))
     telephone = db.Column(db.String(15))
