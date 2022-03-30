@@ -16,14 +16,13 @@ class School(db.Model):
     telephone = db.Column(db.String(15))
     email = db.Column(db.String(60))
     school_image_link = db.Column(db.String(400))
-    status = db.Column(db.String(200))
+    status = db.Column(db.String(20), nullable=False)
     users = db.relationship("User", backref="school")
     node = db.relationship("Node", backref="school")
+    project_partners = db.relationship("ProjectPartner", backref="school")
 
     @property
     def summary_columns(self):
-        return ["id", "authority_id", "name", "address_line_1", "postcode", "town", "latitude", "longitude"]
-
-
-
-
+        return [("id", "id"),
+                ("authority_id", "authority_id"),
+                ("name", "name")]

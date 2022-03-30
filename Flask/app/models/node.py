@@ -18,5 +18,9 @@ class Node(db.Model):
 
     @property
     def summary_columns(self):
-        return ["id", "school_id","last_communication_date", "health_status","status"]
+        return [("id", "id"),
+                ("school_id", "school_id"),
+                ("last_communication_date", "last_communication_date"),
+                ("health_status", "health_status"),
+                ("status", "status")]
 

@@ -8,7 +8,7 @@ class Project_leader(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     project_id = db.Column(db.Integer, db.ForeignKey('project.id'), nullable=False)
-    status = db.Column(db.String(200))
+    status = db.Column(db.String(20), nullable=False)
 
 
     def __repr__(self):

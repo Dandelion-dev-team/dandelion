@@ -10,5 +10,6 @@ class Tag_reference(db.Model):
 
     @property
     def summary_columns(self):
-        return ["id", "label"]
+        return [("id", "id"),
+                ("label", "label")]
 

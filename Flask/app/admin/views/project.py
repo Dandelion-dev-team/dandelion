@@ -3,9 +3,10 @@ from flask_cors import cross_origin
 from flask_json import json_response
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import inspect
+from dateutil import parser
 
 from app.admin import admin
-from app.models import Project
+from app.models import Project, ProjectPartner
 from app import db
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update, audit_delete
 from app.utils.functions import row2dict, jwt_user
@@ -28,21 +29,35 @@ def add_project():
     project = Project(
         title = data['title'],
         description = data['description'],
-        project_image_link = data['project_image_link'],
         project_text = data['project_text'],
-        start_date = data['start_date'],
-        end_date = data['end_date'],
+        start_date = parser.parse(data['start_date']),
+        end_date = parser.parse(data['end_date']),
         status = data['status'],
     )
 
     db.session.add(project)
-    return_status = 200
     message = "New project has been registered"
 
     try:
         db.session.commit()
         audit_create("project", project.id, current_user.id)
-        return jsonify({"message": message, "id": project.id})
+
+    except Exception as e:
+        db.session.rollback()
+        abort(409, e.orig.msg)
+
+    project_partner = ProjectPartner(
+        school_id = current_user.school.id,
+        project_id = project.id,
+        is_lead_partner = True,
+        status = 'active'
+    )
+
+    db.session.add(project_partner)
+    try:
+        db.session.commit()
+        audit_create("project_partner", project_partner.id, current_user.id)
+        return {"message": message, "id": project.id}
 
     except Exception as e:
         db.session.rollback()
@@ -65,7 +80,8 @@ def get_one_project(id):
     project_data['end_date'] = project.end_date
     project_data['status'] = project.status
 
-    return jsonify({'Project': project_data})
+    return {'Project': project_data}
+
 
 @admin.route('/project/<int:id>', methods=['PUT'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
@@ -91,7 +107,7 @@ def update_project(id):
         try:
             db.session.commit()
             audit_update("authority", project_to_update.id, audit_details, current_user.id)
-            return jsonify({"message": message})
+            return {"message": message}
 
         except Exception as e:
             db.session.rollback()
@@ -115,7 +131,7 @@ def delete_project(id):
     try:
         db.session.commit()
         audit_delete("authority", project_to_delete.id, audit_details, current_user.id)
-        return jsonify({"message" : message, "id": project_to_delete.id})
+        return {"message" : message, "id": project_to_delete.id}
 
     except Exception as e:
         db.session.rollback()
