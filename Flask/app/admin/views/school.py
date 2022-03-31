@@ -1,18 +1,19 @@
 import os
 
-from flask import abort, request, current_app
+from flask import abort, request
 from flask_json import json_response
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import inspect
 from flask_cors import cross_origin
-from werkzeug.utils import secure_filename
 from app.admin import admin
 from app.models import School
 from app import db
 from app.utils.auditing import audit_create, audit_update, prepare_audit_details, audit_delete
 from app.utils.functions import row2dict, jwt_user
-from app.utils.images import allowed_file, image_processing, image_root
-from PIL import Image
+from app.utils.images import image_processing
+from app.utils.uploads import content_folder
+
+from app.utils.uploads import get_uploaded_file
 
 
 @admin.route('/school', methods=['GET'])
@@ -64,14 +65,6 @@ def add_school():
 @jwt_required()
 def getOneSchool(id):
     school = School.query.get_or_404(id)
-    id = id
-    id = str(id)
-
-    full = True
-    folder_location = current_app.config['IMAGE_UPLOADS_SCHOOL']
-    root_full = image_root(folder_location, id, full)
-    full = False
-    root_thumb = image_root(folder_location, id, full)
 
     school_data = {}
     school_data['school_id'] = school.id
@@ -84,8 +77,8 @@ def getOneSchool(id):
     school_data['telephone'] = school.telephone
     school_data['latitude'] = school.latitude
     school_data['longitude'] = school.longitude
-    school_data['image_full'] = root_full
-    school_data['image_thumb'] = root_thumb
+    school_data['image_full'] = content_folder('school', id, 'image') + 'full.png'
+    school_data['image_thumb'] = content_folder('school', id, 'image') + 'thumb.png'
 
     return {'school': school_data}
 
@@ -153,31 +146,7 @@ def delete_school(id):
 @admin.route('/school/<int:id>/uploadImage', methods=['POST'])
 def upload_school_image(id):
 
-    id = id
-    id = str(id)
-    pic = request.files['pic']
+    pic, filename = get_uploaded_file(request)
+    image_processing(pic, 'school', id, filename)
 
-    # check if the post request has the file part
-    if 'pic' not in request.files:
-        resp = {'message': 'No file part in the request'}
-        resp.status_code = 400
-        return resp
-
-    if pic.filename == '':
-        resp = {'message': 'No file selected for uploading'}
-        resp.status_code = 400
-        return resp
-
-    if pic and allowed_file(pic.filename):
-
-        # Image processing part (resize, rename, cropping, directory creation)
-        filename = secure_filename(pic.filename)
-        folder_location = current_app.config['IMAGE_UPLOADS_SCHOOL']
-        image_processing(pic, id, filename, folder_location)
-
-    else:
-        resp = {'message': 'Allowed file types are txt, pdf, png, jpg, jpeg, gif'}
-        resp.status_code = 400
-        return resp
-
-    return {"School image has been uploaded"}
+    return {"message": "School image has been uploaded"}
