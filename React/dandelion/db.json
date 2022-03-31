@@ -116,6 +116,7 @@
       "id": 0,
       "title": "Lemon Balm",
       "owner": "GLA42012",
+      "school_id": 1,
       "type": "Internal",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
       "project_image_link": "https://cdn.britannica.com/77/124177-004-FEB6DB88/Balm-lemon-balm.jpg",
@@ -127,6 +128,7 @@
     {
       "id": 1,
       "title": "Lettuce Project",
+      "school_id": 2,
       "owner": "DNO1202 at Dundee Secondary School",
       "type": "Collaborative",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
@@ -140,6 +142,7 @@
     {
       "id": 2,
       "title": "Chives",
+      "school_id": 3,
       "owner": "GLA42012",
       "type": "Internal",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
@@ -152,6 +155,7 @@
     {
       "id": 3,
       "title": "Kohl Rabi",
+      "school_id": 4,
       "owner": "GLA42012",
       "type": "Internal",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
@@ -164,6 +168,7 @@
     {
       "id": 5,
       "title": "Beetroot",
+      "school_id": 1,
       "owner": "GLA42012",
       "type": "Internal",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
@@ -1130,6 +1135,7 @@
   "project": [
     {
       "owner": "GLA42012",
+      "school_id": 1,
       "updated_date": "2022-03-20T17:46:42.361Z",
       "id": 0,
       "title": "Lemon Balm",

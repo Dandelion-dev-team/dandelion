@@ -19,10 +19,16 @@ export default function Data() {
   const [colour_index, setColourIndex] = useState(["#E3C3CA", "#e6e6e6"])
   const [tab_state, setTabState] = useState(0)
 
+  //INITIAL DATA
   const [tagsList, setTags] = useState([])
   const [schoolList, setSchools] = useState([])
   const [projectList, setProjects] = useState([])
   const [experimentList, setExperiments] = useState([])
+
+  //SELECTED DATA
+  const [schoolsSelected, setSchoolSelected] = useState([]);
+  const [activitiesSelected, setActivitiesSelected] = useState([]);
+  const [experimentsDisabled, disableExperiments] = useState(true);
 
   const [rowData] = useState([
     { Observation: "13/03/22", "Plant Height": "1mm", "Plant Weight": "1g" },
@@ -35,6 +41,8 @@ export default function Data() {
     { field: "Plant Height" },
     { field: "Plant Weight" },
   ])
+
+  const test_data = [1, 2, 3];
 
   const options = {
     type: "line",
@@ -128,22 +136,60 @@ export default function Data() {
     )
   }
 
+  const onSchoolChange = (school) => {
+    let copy = [...schoolsSelected];
+    if (copy.includes(school.school_ref.id)) {
+      copy = (copy.filter(item => item !== school.school_ref.id))
+    } else {
+      copy.push(school.school_ref.id)
+    }
+    setSchoolSelected(copy);
+    console.log(schoolsSelected);
+  }
+
   const School = school => {
+    const [checked_value, setCheckedValue] = useState(false);
+    useEffect(() => {
+      if (schoolsSelected.includes(school.school_ref.id)) {
+        setCheckedValue(true);
+      }
+    }, [])
     return (
       <div className="school-item">
         <input
           type="checkbox"
           id="experiment_id"
           name="topping"
-          value="experiment_ID"
+          checked={checked_value}
           disabled={false}
+          onChange={() => { onSchoolChange(school) }}
         />
         <h3>{school.school_ref.name}</h3>
       </div>
     )
   }
 
+  const onProjectChange = (project) => {
+    let copy = [...activitiesSelected];
+    if (copy.includes(project.project_ref.id)) {
+      copy = (copy.filter(item => item !== project.project_ref.id))
+      if (copy.length == 0) {
+        disableExperiments(true);
+      }
+    } else {
+      copy.push(project.project_ref.id)
+      disableExperiments(false);
+    }
+    setActivitiesSelected(copy);
+  }
+
   const Project = project => {
+    const [checked_value, setCheckedValue] = useState(false);
+    useEffect(() => {
+      if (activitiesSelected.includes(project.project_ref.id)) {
+        setCheckedValue(true);
+      }
+    }, [])
     return (
       <div className="project-item">
         <input
@@ -151,7 +197,9 @@ export default function Data() {
           id="experiment_id"
           name="topping"
           value="experiment_ID"
+          checked={checked_value}
           disabled={false}
+          onChange={() => { onProjectChange(project) }}
         />
         <h3>{project.project_ref.title}</h3>
       </div>
@@ -227,23 +275,44 @@ export default function Data() {
                   </AccordionSummary>
                   <AccordionDetails>
                     <div className="project-block">
-                      {projectList ? (
-                        projectList.map(projectItem => (
-                          <Project project_ref={projectItem} />
-                        ))
-                      ) : (
-                        <h3>No schools found</h3>
-                      )}
+                      {projectList ?
+                        (
+                          schoolsSelected.length > 0 ? //IF SCHOOL SELECTED HAS BEEN SET SHOW FILTER, IF NOT SHOW FULL LIST
+                            projectList.filter(project => 
+                            (schoolsSelected.includes(String(project.school_id)))).map(filtered =>
+                            (
+                              <Project project_ref={filtered} />
+                            ))
+                            :
+                            projectList.map(projectItem => (
+                              <Project project_ref={projectItem} />
+                            ))
+                        )
+                        :
+                        (
+                          <h3>No schools found</h3>
+                        )}
                     </div>
                   </AccordionDetails>
                 </Accordion>
-                <Accordion disabled={true}>
+                <Accordion disabled={experimentsDisabled}>
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                   >
                     Experiments
+                  </AccordionSummary>
+                  <AccordionDetails>No other data selected.</AccordionDetails>
+                </Accordion>
+
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                  >
+                    Sensor data
                   </AccordionSummary>
                   <AccordionDetails>No other data selected.</AccordionDetails>
                 </Accordion>
@@ -311,7 +380,7 @@ export default function Data() {
                           animation: {
                             duration: 0,
                             easing: 'linear'
-                        }
+                          }
                         }}
                       />
                     )}

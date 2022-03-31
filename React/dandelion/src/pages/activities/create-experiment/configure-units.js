@@ -126,6 +126,7 @@ export default function ConfigureUnits(props) {
 
     let constructed_conditions = [];
     combination_list.forEach(combination => {
+      console.log(combination_list);
       let unit_list = [];
       let code = "";
       let colour = "";
@@ -138,15 +139,18 @@ export default function ConfigureUnits(props) {
         }else if(idx == 2){
           level = "bottom";
         }
+        let replicate = 0;
         grid_level.forEach((cell, position) => {
           let column = Math.floor(position / 5);
           let row = position % 5;
-          if (cell.colour == "#C4C4C4" || cell.code == "SENSOR") {
+          if (cell.colour == "#C4C4C4" || cell.code == "SENSOR") 
+          {
             return;
           } else {
             //console.log({ cell: cell, index: idx })
             if (combination == cell.item) {
-              let item = {code: cell.code, cube_level: level, row: grid_letters[row], column: column + 1, description: ""};
+              replicate = replicate + 1;
+              let item = {code: cell.code + "_" + replicate, cube_level: level, row: grid_letters[row], column: column + 1, description: "", replicate: replicate};
               unit_list.push(item)
               code = cell.code;
               colour = cell.colour;
@@ -158,21 +162,17 @@ export default function ConfigureUnits(props) {
       constructed_conditions.push({code: code, color: colour, description: "desc", status: "active", text: "text", units: unit_list })
     });
 
-    console.log(constructed_conditions);
-
-    //console.log({cell: cell, index: idx}))
-
-
-    // console.log({
-    //   code: experiment_details.code,
-    //   description: experiment_details.description,
-    //   start_date: start_date,
-    //   end_date: end_date,
-    //   name: experiment_details.name,
-    //   hypotheses,
-    //   treatment_variables,
-    //   response_variables
-    // })
+    console.log({
+      code: experiment_details.code,
+      description: experiment_details.description,
+      start_date: start_date,
+      end_date: end_date,
+      name: experiment_details.name,
+      hypotheses,
+      treatment_variables,
+      response_variables,
+      conditions: constructed_conditions,
+    })
 
 
     //NAVIGATE BACK TO PROJECT MAINTENANCE
