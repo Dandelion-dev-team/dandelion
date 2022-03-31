@@ -1,6 +1,5 @@
 from dateutil import parser
-from flask import abort, request, current_app
-from werkzeug.utils import secure_filename
+from flask import abort, request
 from flask_cors import cross_origin
 from flask_json import json_response
 from flask_jwt_extended import jwt_required, get_jwt_identity
@@ -14,7 +13,8 @@ from app.models import Experiment, Condition, ConditionLevel, Level, Variable, P
 from app import db
 from app.utils.auditing import audit_create
 from app.utils.functions import row2dict, jwt_user
-from app.utils.images import allowed_file, image_processing, image_processing, image_root
+from app.utils.images import image_processing
+from app.utils.uploads import get_uploaded_file, content_folder
 
 
 @admin.route('/experiment', methods=['GET'])
@@ -36,19 +36,13 @@ def listExperimentForProject(id):
 def get_one_experiment(id):
 	experiment = Experiment.query.get_or_404(id)
 
-	full = True
-	folder_location = current_app.config['IMAGE_UPLOADS_EXPERIMENT']
-	root_full = image_root(folder_location, id, full)
-	full = False
-	root_thumb = image_root(folder_location, id, full)
-
 	data = {
 		"experiment_id": experiment.id,
 		"name": experiment.title,
 		"code": experiment.code,
 		"description": experiment.description,
-		"image_full": root_full,
-		"image_thumb": root_thumb,
+		"image_full": content_folder('experiment', id, 'image') + 'full.png',
+		"image_thumb": content_folder('experiment', id, 'image') + 'thumb.png',
 		"tutorial": experiment.text,
 		"start_date": experiment.start_date,
 		"end_date": experiment.end_date,
@@ -202,34 +196,12 @@ def add_experiment():
 	message = "New experiment has been registered"
 	return {"message": message}
 
+
 @admin.route('/experiment/<int:id>/uploadImage', methods=['POST'])
 def upload_experiment_image(id):
-	id = id
-	id = str(id)
-	pic = request.files['pic']
 
-	# check if the post request has the file part
-	if 'pic' not in request.files:
-		resp = {'message': 'No file part in the request'}
-		resp.status_code = 400
-		return resp
+	dummy = request
+	pic, filename = get_uploaded_file(request)
+	image_processing(pic, 'experiment', id, filename)
 
-	if pic.filename == '':
-		resp = {'message': 'No file selected for uploading'}
-		resp.status_code = 400
-		return resp
-
-	if pic and allowed_file(pic.filename):
-
-		# Image processing part (resize, rename, cropping, directory creation)
-
-		filename = secure_filename(pic.filename)
-		folder_location = current_app.config['IMAGE_UPLOADS_EXPERIMENT']
-		image_processing(pic, id, filename, folder_location)
-
-	else:
-		resp = {'message': 'Allowed file types are txt, pdf, png, jpg, jpeg, gif'}
-		resp.status_code = 400
-		return resp
-
-	return {"Experiment image has been uploaded"}
+	return {"message": "Experiment image has been uploaded"}
