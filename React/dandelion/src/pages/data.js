@@ -341,14 +341,14 @@ export default function Data() {
                     Experiments
                   </AccordionSummary>
                   <AccordionDetails>
-                    <div className="project-block">
                       {experimentList.length > 0 ? //IF SCHOOL SELECTED HAS BEEN SET SHOW FILTER, IF NOT SHOW FULL LIST
                         experimentList.map(experimentItem => (
+                          <div className="project-block">
                           <Experiment experiment_ref={experimentItem} />
+                          </div>
                         ))
                         :
                         <h3>No other data selected.</h3>}
-                    </div>
                   </AccordionDetails>
                 </Accordion>
 
