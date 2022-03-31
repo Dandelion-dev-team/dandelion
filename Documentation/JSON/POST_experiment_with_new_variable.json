@@ -72,7 +72,6 @@
 				}
 			],
 			"name": "tickling",
-			"type": "discrete",
 			"is_sensor_quantity": false,
 			"procedure": "Brush the plants with a paintbrush a specified number of times",
 			"quantity_id": null
