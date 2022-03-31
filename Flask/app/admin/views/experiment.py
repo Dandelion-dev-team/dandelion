@@ -200,7 +200,6 @@ def add_experiment():
 @admin.route('/experiment/<int:id>/uploadImage', methods=['POST'])
 def upload_experiment_image(id):
 
-	dummy = request
 	pic, filename = get_uploaded_file(request)
 	image_processing(pic, 'experiment', id, filename)
 

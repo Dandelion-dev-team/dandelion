@@ -4,7 +4,7 @@ from app.utils.uploads import content_folder
 
 
 def make_image_directory_name(object_type, id):
-    newdir = content_folder(object_type, id, 'image', upload=True)
+    newdir = content_folder(object_type, id, 'images', upload=True)
     if not os.path.exists(newdir):
         os.makedirs(newdir)
     return newdir
