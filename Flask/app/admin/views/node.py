@@ -147,28 +147,14 @@ def upload_data(id):
     folder_location = current_app.config['DATA_ROOT_PATH']
     newdir = (os.path.join(folder_location, id))
 
-
     if not os.path.exists(newdir):
         os.makedirs(newdir)
         top_df.to_csv(os.path.join(newdir, r'top.csv'))
-    # else: <-- you are here
-
-
-
-
-    # middle_df = pd.DataFrame(j["middle"], index=[j["timestamp"]])
-    # middle_df.index = pd.to_datetime(middle_df.index)
-    #
-    # bottom_df = pd.DataFrame(j["bottom"], index=[j["timestamp"]])
-    # bottom_df.index = pd.to_datetime(bottom_df.index)
-
-    # BELOW EXAMPLE from image processing for creating a new route and file (.csv)
-
-    # filename = secure_filename()
-    # folder_location = current_app.config['DATA_ROOT_PATH']
-    # newdir = (os.path.join(folder_location, id))
-    # if not os.path.exists(newdir):
-    #     os.makedirs(newdir)
-    # pic.save(os.path.join(newdir, filename))
+    else:
+        top_df.to_csv(os.path.join(newdir, r'top1.csv'))
+        top_df = pd.read_csv(os.path.join(newdir, r'top.csv'))  # <-- https://www.usepandas.com/csv/append-csv-files
+        top_df1 = pd.read_csv(os.path.join(newdir, r'top1.csv'))
+        pd.concat([top_df, top_df1]).to_csv(os.path.join(newdir, 'top.csv'))
+        os.remove((os.path.join(newdir, r'top1.csv')))
 
     return j
