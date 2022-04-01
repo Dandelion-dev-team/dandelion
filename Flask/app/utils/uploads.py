@@ -1,22 +1,23 @@
+import os
 from flask import abort, current_app
 from werkzeug.utils import secure_filename
 from instance.config import ALLOWED_EXTENSIONS
 
 
 def content_folder(object_type, id, content_type, upload=False):
-    if upload:
-        root = current_app.config['CONTENT_ROOT_UPLOAD']
-    else:
-        root = current_app.config['CONTENT_ROOT_DOWNLOAD']
+    tail = os.path.join(content_type, object_type, str(id))
 
-    return root + \
-           '/' + \
-           content_type + \
-           '/' + \
-           object_type + \
-           '/' + \
-           str(id) + \
-           '/'
+    if upload:
+        base_dir = os.path.join(current_app.config['CONTENT_ROOT_UPLOAD'], tail)
+        if not os.path.exists(base_dir):
+            os.makedirs(base_dir)
+        return base_dir
+    else:
+        base_dir = os.path.join(current_app.config['CONTENT_ROOT_DOWNLOAD'], tail)
+        if os.path.exists(base_dir):
+            return base_dir
+        else:
+            return os.path.join(current_app.config['CONTENT_ROOT_DOWNLOAD'], content_type, object_type, '0')
 
 
 def get_uploaded_file(request):

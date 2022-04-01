@@ -77,8 +77,8 @@ def getOneSchool(id):
     school_data['telephone'] = school.telephone
     school_data['latitude'] = school.latitude
     school_data['longitude'] = school.longitude
-    school_data['image_full'] = content_folder('school', id, 'image') + 'full.png'
-    school_data['image_thumb'] = content_folder('school', id, 'image') + 'thumb.png'
+    school_data['image_full'] = os.path.join(content_folder('school', id, 'image'), 'full.png')
+    school_data['image_thumb'] = os.path.join(content_folder('school', id, 'image'), 'thumb.png')
 
     return {'school': school_data}
 

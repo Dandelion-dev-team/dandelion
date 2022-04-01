@@ -1,3 +1,5 @@
+import os
+
 from flask import abort, request
 from flask_cors import cross_origin
 from flask_json import json_response
@@ -76,8 +78,8 @@ def get_one_project(id):
     project_data['project_id'] = project.id
     project_data['title'] = project.title
     project_data['description'] = project.description
-    project_data['image_full'] = content_folder('project', id, 'image') + 'full.png'
-    project_data['image_thumb'] = content_folder('project', id, 'image') + 'thumb.png'
+    project_data['image_full'] = os.path.join(content_folder('project', id, 'image'), 'full.png')
+    project_data['image_thumb'] = os.path.join(content_folder('project', id, 'image'), 'thumb.png')
     project_data['project_text'] = project.project_text
     project_data['start_date'] = project.start_date
     project_data['end_date'] = project.end_date

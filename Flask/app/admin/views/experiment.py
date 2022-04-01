@@ -1,3 +1,5 @@
+import os
+
 from dateutil import parser
 from flask import abort, request
 from flask_cors import cross_origin
@@ -41,8 +43,8 @@ def get_one_experiment(id):
 		"name": experiment.title,
 		"code": experiment.code,
 		"description": experiment.description,
-		"image_full": content_folder('experiment', id, 'image') + 'full.png',
-		"image_thumb": content_folder('experiment', id, 'image') + 'thumb.png',
+		"image_full": os.path.join(content_folder('experiment', id, 'image'), 'full.png'),
+		"image_thumb": os.path.join(content_folder('experiment', id, 'image'), 'thumb.png'),
 		"tutorial": experiment.text,
 		"start_date": experiment.start_date,
 		"end_date": experiment.end_date,
