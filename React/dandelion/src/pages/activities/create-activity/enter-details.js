@@ -4,6 +4,7 @@ import "../../../styles/App.scss"
 import BackupIcon from "@mui/icons-material/Backup"
 import CheckIcon from '@mui/icons-material/Check';
 import { verify_superuser_storage } from "../../../utils/logins";
+import { createRecord } from "../../../utils/CRUD";
 
 export default function EnterActivityDetails(props) {
   const [name, setName] = useState("")
@@ -44,6 +45,24 @@ export default function EnterActivityDetails(props) {
     setEndDate(e.target.value)
   }
 
+  const createActivity = e => {
+    let body = JSON.stringify({
+      title: name,
+      description: description,
+      project_text: tutorial,
+      start_date: startDate,
+      end_date: endDate,
+      status: 'active'
+    })
+
+    createRecord("/project", body);
+    navigate("/superuser/project-maintenance",                             {
+      state: {
+        show_modal: true
+      },
+    })
+  }
+
   useEffect(() => {
     if (verify_superuser_storage() == true) {
       setLogged(true);
@@ -53,115 +72,126 @@ export default function EnterActivityDetails(props) {
   }, [])
 
   if (logged) {
-  return (
-    <div>
-      <div className="activity-container">
-        <div className="content">
-          <div className="text-content">
-            <h3>Activity Creation</h3>
-            <p>Tell us about your activity.</p>
-          </div>
-          <div className="activity-form">
-            <div className="activity-pane">
-              <div className="inputItem">
-                <div className="item-title">
-                  <h3>Name:</h3>
+    return (
+      <div>
+        <div className="activity-container">
+          <div className="content">
+            <div className="text-content">
+              <h3>Activity Creation</h3>
+              <p>Tell us about your activity.</p>
+            </div>
+            <div className="activity-form">
+              <div className="activity-pane">
+                <div className="inputItem">
+                  <div className="item-title">
+                    <h3>Name:</h3>
+                  </div>
+                  <div className="item-input">
+                    <input
+                      type="text"
+                      placeholder="Activity Name"
+                      name="nameBox"
+                      onChange={handleNameChange}
+                    />
+                  </div>
                 </div>
-                <div className="item-input">
-                  <input
-                    type="text"
-                    placeholder="Activity Name"
-                    name="nameBox"
-                  />
+                <div className="inputItem">
+                  <div className="item-title">
+                    <h3>Code:</h3>
+                  </div>
+                  <div className="item-input">
+                    <input
+                      type="text"
+                      placeholder="Activity Code"
+                      name="codeBox"
+                      onChange={handleCodeChange}
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="inputItem">
-                <div className="item-title">
-                  <h3>Code:</h3>
+                <div className="inputItem">
+                  <div className="desc-title">
+                    <h3>Description:</h3>
+                  </div>
+                  <div className="desc-input">
+                    <input
+                      type="text"
+                      placeholder="Description"
+                      name="descBox"
+                      onChange={handleDescChange}
+                    />
+                  </div>
                 </div>
-                <div className="item-input">
-                  <input
-                    type="text"
-                    placeholder="Activity Code"
-                    name="codeBox"
-                  />
+                <div className="inputItem">
+                  <div className="desc-title">
+                    <h3>Tutorial Text:</h3>
+                  </div>
+                  <div className="desc-input">
+                    <input
+                      type="text"
+                      placeholder="Tutorial"
+                      name="descBox"
+                      onChange={handleTutChange}
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="inputItem">
-                <div className="desc-title">
-                  <h3>Description:</h3>
+                <div className="inputItem">
+                  <div className="item-title">
+                    <h3>Image Upload</h3>
+                  </div>
+                  <div className="img-btn">
+                    <label className="image-upload-btn">
+                      <input type="file" accept=".jpg,.png" onChange={handleImageChange} hidden />
+                      {image ? <CheckIcon className="imageIcon" /> : <BackupIcon className="imageIcon" />}
+                    </label>
+                  </div>
                 </div>
-                <div className="desc-input">
-                  <input
-                    type="text"
-                    placeholder="Description"
-                    name="descBox"
-                  />
+                <div className="inputItem">
+                  <div className="item-title">
+                    <h3>Start Date:</h3>
+                  </div>
+                  <div className="item-input">
+                    <input
+                      type="date"
+                      // placeholder="Activity Code"
+                      name="codeBox"
+                      onChange={handleStartChange}
+                    />
+                  </div>
                 </div>
-              </div>
-
-              <div className="inputItem">
-                <div className="item-title">
-                  <h3>Image Upload</h3>
-                </div>
-                <div className="img-btn">
-                  <label className="image-upload-btn">
-                    <input type="file" accept=".jpg,.png" onChange={handleImageChange} hidden />
-                    {image ? <CheckIcon className="imageIcon" /> : <BackupIcon className="imageIcon" />}
-                  </label>
-                </div>
-              </div>
-              <div className="inputItem">
-                <div className="item-title">
-                  <h3>Start Date:</h3>
-                </div>
-                <div className="item-input">
-                  <input
-                    type="date"
-                    // placeholder="Activity Code"
-                    name="codeBox"
-                    onChange={handleStartChange}
-                  />
-                </div>
-              </div>
-              <div className="inputItem">
-                <div className="item-title">
-                  <h3>End Date:</h3>
-                </div>
-                <div className="item-input">
-                  <input
-                    type="date"
-                    min={startDate}
-                    //placeholder="Activity Code"
-                    name="codeBox"
-                    onChange={handleEndChange}
-                  />
+                <div className="inputItem">
+                  <div className="item-title">
+                    <h3>End Date:</h3>
+                  </div>
+                  <div className="item-input">
+                    <input
+                      type="date"
+                      min={startDate}
+                      //placeholder="Activity Code"
+                      name="codeBox"
+                      onChange={handleEndChange}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className="btn-container">
-          <div className="continue-btn">
-            <input
-              type="submit"
-              className="submitButton"
-              value="Finished"
-              onClick={() => {
-                if (typeof window !== `undefined`) {
-                  navigate("/superuser/project-maintenance",                             {
-                    state: {
-                      show_modal: true
-                    },
-                  })
-                }
-              }}
-            ></input>
+          <div className="btn-container">
+            <div className="continue-btn">
+              <input
+                type="submit"
+                className="submitButton"
+                value="Finished"
+                onClick={() => {
+                  if (typeof window !== `undefined`) {
+                    createActivity()
+                  }
+                }}
+              ></input>
+            </div>
+            <div className="spacer"></div>
           </div>
-          <div className="spacer"></div>
         </div>
       </div>
-    </div>
-  )
-} else return null;
+    )
+  } else return null;
 }

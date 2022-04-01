@@ -6,6 +6,7 @@ import UnitCard from "../../../components/cards/unitCard"
 import UnitHelpModal from "../../../components/modals/unitHelpModal"
 import UnitItem from "../../../components/unitItem"
 import { verify_superuser_storage } from "../../../utils/logins"
+import { createRecord } from "../../../utils/CRUD"
 
 export default function ConfigureUnits(props) {
   const [modal_shown, setModalShown] = useState("")
@@ -162,7 +163,7 @@ export default function ConfigureUnits(props) {
       constructed_conditions.push({code: code, color: colour, description: "desc", status: "active", text: "text", units: unit_list })
     });
 
-    console.log({
+    let body ={
       code: experiment_details.code,
       description: experiment_details.description,
       start_date: start_date,
@@ -172,9 +173,9 @@ export default function ConfigureUnits(props) {
       treatment_variables,
       response_variables,
       conditions: constructed_conditions,
-    })
+    }
 
-
+    createRecord("/experiment", body)
     //NAVIGATE BACK TO PROJECT MAINTENANCE
     //navigate("/superuser/project-maintenance")
   }
