@@ -19,6 +19,23 @@ export function createRecord(endpoint, body) {
     }).then(window.location.reload(false))
 }
 
+export function createRecordNavigate(endpoint, body, navigate) {
+    const cookies = new Cookies();
+    fetch(process.env.API_URL + endpoint, {
+        method: "POST",
+        credentials: "include",
+        mode: 'cors',
+        headers: new Headers({
+            'Content-Type': 'application/json',
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache',
+            'Expires': 0,
+            'X-CSRF-TOKEN': cookies.get('csrf_access_token')
+        }),
+        body: body,
+    })
+}
+
 export function readRecord(endpoint, setter) {
     fetch(process.env.API_URL + endpoint, {
         method: "GET",

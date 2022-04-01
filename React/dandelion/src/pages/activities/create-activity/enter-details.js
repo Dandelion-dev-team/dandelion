@@ -4,11 +4,10 @@ import "../../../styles/App.scss"
 import BackupIcon from "@mui/icons-material/Backup"
 import CheckIcon from '@mui/icons-material/Check';
 import { verify_superuser_storage } from "../../../utils/logins";
-import { createRecord } from "../../../utils/CRUD";
+import {createRecordNavigate } from "../../../utils/CRUD";
 
 export default function EnterActivityDetails(props) {
   const [name, setName] = useState("")
-  const [code, setCode] = useState("")
   const [description, setDescription] = useState("")
   const [tutorial, setTutorial] = useState("")
   const [image, setImage] = useState("")
@@ -18,10 +17,6 @@ export default function EnterActivityDetails(props) {
 
   const handleNameChange = e => {
     setName(e.target.value)
-  }
-
-  const handleCodeChange = e => {
-    setCode(e.target.value)
   }
 
   const handleDescChange = e => {
@@ -55,8 +50,8 @@ export default function EnterActivityDetails(props) {
       status: 'active'
     })
 
-    createRecord("/project", body);
-    navigate("/superuser/project-maintenance",                             {
+    createRecordNavigate("/project", body);
+    navigate("/superuser/project-maintenance", {
       state: {
         show_modal: true
       },
@@ -96,24 +91,11 @@ export default function EnterActivityDetails(props) {
                   </div>
                 </div>
                 <div className="inputItem">
-                  <div className="item-title">
-                    <h3>Code:</h3>
-                  </div>
-                  <div className="item-input">
-                    <input
-                      type="text"
-                      placeholder="Activity Code"
-                      name="codeBox"
-                      onChange={handleCodeChange}
-                    />
-                  </div>
-                </div>
-                <div className="inputItem">
                   <div className="desc-title">
                     <h3>Description:</h3>
                   </div>
                   <div className="desc-input">
-                    <input
+                    <textarea
                       type="text"
                       placeholder="Description"
                       name="descBox"
@@ -126,7 +108,7 @@ export default function EnterActivityDetails(props) {
                     <h3>Tutorial Text:</h3>
                   </div>
                   <div className="desc-input">
-                    <input
+                    <textarea
                       type="text"
                       placeholder="Tutorial"
                       name="descBox"
