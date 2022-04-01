@@ -134,27 +134,32 @@ def delete_node(id):
 # @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 # @jwt_required()
 def upload_data(id):
-    id = id
+
     id = str(id)
     json_data = request.get_json()
 
     s = json.dumps(json_data)
     j = json.loads(s)  # <-- Convert JSON string, s, to JSON object, j, with j = json.loads(s)
 
-    top_df = pd.DataFrame(j["top"], index=[j["timestamp"]])
-    top_df.index = pd.to_datetime(top_df.index)
+    for cube_level in ('top', 'middle', 'bottom'): #cube_level = top/middle/bottom
+
+
+    new_data_df = pd.DataFrame(j["top"], index=[j["timestamp"]])
+    new_data_df.index = pd.to_datetime(new_data_df.index)
+    new_data_df.index.name = "timestamp"
 
     folder_location = current_app.config['DATA_ROOT_PATH']
-    newdir = (os.path.join(folder_location, id))
+    newdir = (os.path.join(folder_location, id)) #content_folder function
 
     if not os.path.exists(newdir):
         os.makedirs(newdir)
-        top_df.to_csv(os.path.join(newdir, r'top.csv'))
+        new_data_df.to_csv(os.path.join(newdir, r'top.csv'))
     else:
-        top_df.to_csv(os.path.join(newdir, r'top1.csv'))
-        top_df = pd.read_csv(os.path.join(newdir, r'top.csv'))  # <-- https://www.usepandas.com/csv/append-csv-files
-        top_df1 = pd.read_csv(os.path.join(newdir, r'top1.csv'))
-        pd.concat([top_df, top_df1]).to_csv(os.path.join(newdir, 'top.csv'))
-        os.remove((os.path.join(newdir, r'top1.csv')))
+        try:
+            df = pd.read_csv(os.path.join(newdir, r'top.csv'), index_col="timestamp")
+            df = pd.concat([df, new_data_df])
+        except:
+            df = new_data_df
+        df.to_csv(os.path.join(newdir, 'top.csv'))
 
     return j

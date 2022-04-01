@@ -70,6 +70,11 @@ def getOneSchool(id):
 
 
 
+
+
+
+
+
 @admin.route('/school/<int:id>', methods=['PUT'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
