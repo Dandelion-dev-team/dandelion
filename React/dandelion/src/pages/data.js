@@ -303,15 +303,15 @@ export default function Data() {
 
                                 ci.show(index)
                                 legendItem.hidden = false
-
+                                //wrap this in a delay
                                 ci.update()
                               },
                             },
                           },
                           animation: {
                             duration: 0,
-                            easing: 'linear'
-                        }
+                            easing: "linear",
+                          },
                         }}
                       />
                     )}

@@ -9,14 +9,12 @@ from app import db
 from app.utils.auditing import audit_create, audit_update, prepare_audit_details, audit_delete
 from app.utils.functions import row2dict, jwt_user
 
-
 @admin.route('/school', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def listSchool():
     school = School.query.all()
     return json_response(data=(row2dict(x, summary=True) for x in school))
-
 
 @admin.route('/school', methods=['POST'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')

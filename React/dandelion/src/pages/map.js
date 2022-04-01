@@ -44,7 +44,7 @@ export default function MapPage(props) {
   if (typeof window !== "undefined") {
     return (
       <div>
-        <div>
+        {/* <div>
           {show_map_details ? (
             <CSSTransition in={slideModal} timeout={200} classNames="modal">
               <MapDetailModal callback={modalCallback} school={selected_school}/>
@@ -97,7 +97,7 @@ export default function MapPage(props) {
                 : null}
             </MapContainer>
           </div>
-        </div>
+        </div> */}
       </div>
     )
   }
