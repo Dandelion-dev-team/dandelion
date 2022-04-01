@@ -5,7 +5,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import inspect
 
 from app.admin import admin
-from app.models import Project_partner
+from app.models import ProjectPartner
 from app import db
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update, audit_delete
 from app.utils.functions import row2dict, jwt_user
@@ -15,7 +15,7 @@ from app.utils.functions import row2dict, jwt_user
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def listProjectPartner():
-    project_partner = Project_partner.query.all()
+    project_partner = ProjectPartner.query.all()
     return json_response(data=(row2dict(x, summary=False) for x in project_partner))
 
 
@@ -25,7 +25,7 @@ def listProjectPartner():
 def add_project_partner():
     current_user = jwt_user(get_jwt_identity())
     data = request.get_json()
-    project_partner = Project_partner(
+    project_partner = ProjectPartner(
         school_id = data['school_id'],
         project_id = data['project_id'],
         is_lead_partner = data['is_lead_partner'],
@@ -50,7 +50,7 @@ def add_project_partner():
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def get_one_project_partner(id):
-    project_partner = Project_partner.query.get_or_404(id)
+    project_partner = ProjectPartner.query.get_or_404(id)
 
     project_partner_data = {}
     project_partner_data['project_partner_id'] = project_partner.id
@@ -68,7 +68,7 @@ def get_one_project_partner(id):
 @jwt_required()
 def update_project_partner(id):
     current_user = jwt_user(get_jwt_identity())
-    project_partner_to_update = Project_partner.query.get_or_404(id)
+    project_partner_to_update = ProjectPartner.query.get_or_404(id)
     new_data = request.get_json()
 
     project_partner_to_update.school_id = new_data['school_id']
@@ -76,7 +76,7 @@ def update_project_partner(id):
     project_partner_to_update.is_lead_partner = new_data['is_lead_partner']
     project_partner_to_update.status = new_data['status']
 
-    audit_details = prepare_audit_details(inspect(Project_partner), project_partner_to_update, delete=False)
+    audit_details = prepare_audit_details(inspect(ProjectPartner), project_partner_to_update, delete=False)
 
     message = "Project partner has been updated"
 
@@ -96,11 +96,11 @@ def update_project_partner(id):
 @jwt_required()
 def delete_project_partner(id):
     current_user = jwt_user(get_jwt_identity())
-    project_partner_to_delete = Project_partner.query.filter_by(id=id).first()
+    project_partner_to_delete = ProjectPartner.query.filter_by(id=id).first()
     if not project_partner_to_delete:
         return jsonify({"message" : "No Project found"})
 
-    audit_details = prepare_audit_details(inspect(Project_partner), project_partner_to_delete, delete = True)
+    audit_details = prepare_audit_details(inspect(ProjectPartner), project_partner_to_delete, delete = True)
     db.session.delete(project_partner_to_delete)
     return_status = 200
     message = "The Project has been deleted"

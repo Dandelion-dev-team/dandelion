@@ -3,7 +3,6 @@ from app.auth import auth
 from app.models import User
 from flask_cors import cross_origin
 
-from flask import jsonify
 from flask import request
 from flask_jwt_extended import create_access_token, jwt_required, set_access_cookies, unset_jwt_cookies, \
     create_refresh_token, set_refresh_cookies
@@ -40,9 +39,6 @@ def login():
         set_refresh_cookies(resp, refresh_token)
         return resp
 
-
-        # access_token = create_access_token(identity=auth.username)
-        # return jsonify({'access_token': access_token, "message" : "You are logged in"})
 
     abort(401, "Invalid password")
 
@@ -81,15 +77,15 @@ def login():
 #     return redirect(url_for('auth.login'))
 
 
-@auth.route('/login_without_cookies', methods=["POST"])
-def login_without_cookies():
-    access_token = create_access_token(identity=auth.username)
-    return jsonify(access_token=access_token)
+# @auth.route('/login_without_cookies', methods=["POST"])
+# def login_without_cookies():
+#     access_token = create_access_token(identity=auth.username)
+#     return access_token=access_token
 
 
 @auth.route('/login_with_cookies', methods=['POST'])
 def login_with_cookies():
-    response = jsonify({"msg": "login successful"})
+    response = {"msg": "login successful"}
     access_token = create_access_token(identity=auth.username)
     set_access_cookies(response, access_token)
     return response
@@ -97,12 +93,6 @@ def login_with_cookies():
 
 @auth.route("/logout_with_cookies", methods=["POST"])
 def logout_with_cookies():
-    response = jsonify({"msg": "logout successful"})
+    response = {"msg": "logout successful"}
     unset_jwt_cookies(response)
     return response
-
-
-@auth.route("/only_headers")
-@jwt_required(locations=["headers"])
-def only_headers():
-    return jsonify(foo="baz")

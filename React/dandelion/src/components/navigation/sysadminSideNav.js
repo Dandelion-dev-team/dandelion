@@ -19,6 +19,7 @@ export default function SysSideNav() {
           <Link to="/sysadmin/quantity-maintenance">Quantity</Link>
           <Link to="/sysadmin/school-maintenance">School</Link>
           <Link to="/sysadmin/sensor-maintenance">Sensor</Link>
+          <Link to="/sysadmin/superuser-maintenance">Superuser</Link>
           <Link to="/sysadmin/tag-maintenance">Tag</Link>
           <div className="btn-row">
               <button

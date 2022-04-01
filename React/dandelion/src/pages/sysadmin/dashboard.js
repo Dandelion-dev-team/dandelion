@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react"
 import "../../styles/App.scss"
-import SideNav from "../../components/navigation/sysAdminSideNav"
+import SideNav from "../../components/navigation/sysadminSideNav"
 import { navigate } from "gatsby";
 import { verify_superuser_storage } from "../../utils/logins";
 export default function SuperuserDashboard(props) {

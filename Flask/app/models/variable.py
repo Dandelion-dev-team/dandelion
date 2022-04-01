@@ -5,14 +5,19 @@ class Variable(db.Model):
     __tablename__ = 'variable'
 
     id = db.Column(db.Integer, primary_key=True)
-    condition_id = db.Column(db.Integer, db.ForeignKey('condition.id'), unique=True)
-    quantity_id = db.Column(db.Integer, db.ForeignKey('quantity.id'), unique=True)
-    node_sensor_id = db.Column(db.Integer, db.ForeignKey('node_sensor.id'), unique=True)
+    quantity_id = db.Column(db.Integer, db.ForeignKey('quantity.id'), nullable=True)
     name = db.Column(db.String(30))
-    variable_role = db.Column(db.String(30))
-    status = db.Column(db.VARCHAR(1))
+    is_sensor_quantity = db.Column(db.Boolean, default=False)
+    procedure = db.Column(db.String(200))
+    status = db.Column(db.VARCHAR(20))
+
+    levels = db.relationship("Level", backref="variable")
+    response_variables = db.relationship("ResponseVariable", backref="variable")
 
     @property
     def summary_columns(self):
-        return ["id", "quantity_id","name","status"]
+        return [("id", "id"),
+                ("quantity_id", "quantity_id"),
+                ("name", "name"),
+                ("status", "status")]
 

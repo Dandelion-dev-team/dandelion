@@ -76,5 +76,8 @@ yarn-error.log
 # Yarn Integrity file
 .yarn-integrity
 requirements.txt
-requirements.txt
 
+/Flask/app/tests/.pytest_cache/
+/Images/
+/.pytest_cache/
+/Flask/instance/

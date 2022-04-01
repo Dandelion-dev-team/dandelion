@@ -74,3 +74,5 @@ yarn-error.log
 requirements.txt
 requirements.txt
 
+/app/static/images/
+/app/static/images/school example/

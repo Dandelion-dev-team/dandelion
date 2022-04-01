@@ -38,7 +38,7 @@ def add_authority():
     try:
         db.session.commit()
         audit_create("authority", authority.id, current_user.id)
-        return jsonify({"message": message, "id": authority.id})
+        return {"message": message, "id": authority.id}
 
     except Exception as e:
         db.session.rollback()
@@ -57,7 +57,7 @@ def get_one_authority(id):
     authority_data['telephone'] = authority.telephone
     authority_data['email'] = authority.email
 
-    return jsonify({'Authority': authority_data})
+    return {'Authority': authority_data}
 
 
 @admin.route('/authority/<int:id>', methods=['PUT'])
@@ -80,11 +80,13 @@ def updateAuthority(id):
         try:
             db.session.commit()
             audit_update("authority", authority_to_update.id, audit_details, current_user.id)
-            return jsonify({"message": message})
+            return {"message": message}
 
         except Exception as e:
             db.session.rollback()
             abort(409)
+    else:
+        return({'message': 'Authority record was not changed'})
 
 
 @admin.route('/authority/<int:id>', methods=['DELETE'])
@@ -98,24 +100,13 @@ def delete_authority(id):
 
     audit_details = prepare_audit_details(inspect(Authority), authority_to_delete, delete = True)
     db.session.delete(authority_to_delete)
-    return_status = 200
     message = "The Authority has been deleted"
 
     try:
         db.session.commit()
         audit_delete("authority", authority_to_delete.id, audit_details, current_user.id)
-        return jsonify({"message" : message, "id": authority_to_delete.id})
+        return {"message" : message, "id": authority_to_delete.id}
 
     except Exception as e:
         db.session.rollback()
         abort(409,e.orig.msg)
-
-
-
-
-
-
-
-
-
-

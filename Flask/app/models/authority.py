@@ -12,7 +12,8 @@ class Authority(db.Model):
 
     @property
     def summary_columns(self):
-        return ["id", "name"]
+        return [("id", "id"),
+                ("name", "name")]
 
     def __repr__(self):
         return '{}'.format(self.name)

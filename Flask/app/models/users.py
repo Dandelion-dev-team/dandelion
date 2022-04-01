@@ -18,7 +18,12 @@ class User(db.Model):
 
     @property
     def summary_columns(self):
-        return ["id", "username", "school_id", "is_sysadmin", "is_superuser", "status"]
+        return [("id", "id"),
+                ("username", "username"),
+                ("school_id", "school_id"),
+                ("is_sysadmin", "is_sysadmin"),
+                ("is_superuser", "is_superuser"),
+                ("status", "status")]
 
     @property
     def password(self):

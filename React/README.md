@@ -22,9 +22,12 @@
 
 1. Deploy the new code
 2. cd to Flask root directory
-3. set environment variable `export FLASK_APP="app:create_app('development')"`
-4. run database migrations: `flask db upgrade` See [here](https://www.arundhaj.com/blog/multiple-head-revisions-present-error-flask-migrate.html) to resolve multiple head revisions error
-5. cd to React root directory
-6. run `npm install` in case there are any new packages
-7. run `gatsby build`
-8. Restart Dandelion Flask service with `sudo service dandelion restart`
+3. activate the virtual environment
+4. install any new packages
+5. check for charnges to instance/config.py
+6. set environment variable `export FLASK_APP="app:create_app('development')"`
+7. run database migrations: `flask db upgrade` See [here](https://www.arundhaj.com/blog/multiple-head-revisions-present-error-flask-migrate.html) to resolve multiple head revisions error
+8. cd to React root directory
+9. run `npm install` in case there are any new packages
+10. run `gatsby build`
+11. Restart Dandelion Flask service with `sudo service dandelion restart`

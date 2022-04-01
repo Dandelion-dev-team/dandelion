@@ -1,4 +1,6 @@
-from flask import abort, request, jsonify
+import os
+
+from flask import abort, request
 from flask_json import json_response
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import inspect
@@ -8,6 +10,10 @@ from app.models import School
 from app import db
 from app.utils.auditing import audit_create, audit_update, prepare_audit_details, audit_delete
 from app.utils.functions import row2dict, jwt_user
+from app.utils.images import image_processing
+from app.utils.uploads import content_folder
+
+from app.utils.uploads import get_uploaded_file
 
 @admin.route('/school', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
@@ -23,18 +29,18 @@ def add_school():
     current_user = jwt_user(get_jwt_identity())
     data = request.get_json()
     school = School(
-        authority_id = data['authority_id'],
-        name = data['name'],
-        address_line_1 = data['address_line_1'],
-        address_line_2 = data['address_line_2'],
-        town = data['town'],
-        postcode = data['postcode'],
-        telephone = data['telephone'],
-        email = data['email'],
-        school_image_link = data['school_image_link'],
-        status = data['status'],
-        latitude = data['latitude'],
-        longitude = data['longitude']
+        authority_id=data['authority_id'],
+        name=data['name'],
+        address_line_1=data['address_line_1'],
+        address_line_2=data['address_line_2'],
+        town=data['town'],
+        postcode=data['postcode'],
+        telephone=data['telephone'],
+        email=data['email'],
+        school_image_link=data['school_image_link'],
+        status=data['status'],
+        latitude=data['latitude'],
+        longitude=data['longitude']
     )
 
     db.session.add(school)
@@ -44,7 +50,7 @@ def add_school():
     try:
         db.session.commit()
         audit_create("school", school.id, current_user.id)
-        return jsonify({"message": message, "id": school.id})
+        return {"message": message, "id": school.id}
 
 
     except Exception as e:
@@ -68,10 +74,12 @@ def getOneSchool(id):
     school_data['town'] = school.town
     school_data['telephone'] = school.telephone
     school_data['email'] = school.email
+    school_data['latitude'] = school.latitude
+    school_data['longitude'] = school.longitude
+    school_data['image_full'] = os.path.join(content_folder('school', id, 'image'), 'full.png')
+    school_data['image_thumb'] = os.path.join(content_folder('school', id, 'image'), 'thumb.png')
 
-
-    return jsonify({'school': school_data})
-
+    return {'school': school_data}
 
 
 @admin.route('/school/<int:id>', methods=['PUT'])
@@ -103,7 +111,7 @@ def updateSchool(id):
         try:
             db.session.commit()
             audit_update("school", school_to_update.id, audit_details, current_user.id)
-            return jsonify({"message": message})
+            return {"message": message}
 
         except Exception as e:
             db.session.rollback()
@@ -117,7 +125,7 @@ def delete_school(id):
     current_user = jwt_user(get_jwt_identity())
     school_to_delete = School.query.filter_by(id=id).first()
     if not school_to_delete:
-        return jsonify({"message" : "No school found"})
+        return {"message": "No school found"}
 
     audit_details = prepare_audit_details(inspect(School), school_to_delete, delete=True)
     db.session.delete(school_to_delete)
@@ -127,8 +135,17 @@ def delete_school(id):
     try:
         db.session.commit()
         audit_delete("school", school_to_delete.id, audit_details, current_user.id)
-        return jsonify({"message": message, "id": school_to_delete.id})
+        return {"message": message, "id": school_to_delete.id}
 
     except Exception as e:
         db.session.rollback()
-        abort(409,e.orig.msg)
+        abort(409, e.orig.msg)
+
+
+@admin.route('/school/<int:id>/uploadImage', methods=['POST'])
+def upload_school_image(id):
+
+    pic, filename = get_uploaded_file(request)
+    image_processing(pic, 'school', id, filename)
+
+    return {"message": "School image has been uploaded"}
