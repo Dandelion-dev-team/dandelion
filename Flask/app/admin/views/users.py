@@ -3,7 +3,7 @@ from flask import request, jsonify, abort
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import inspect
 from app.admin import admin
-from app.models import User
+from app.models import User, ExperimentParticipant, Experiment, Project, School
 from flask_cors import cross_origin
 from app import db
 from app.utils.functions import jwt_user
@@ -67,21 +67,21 @@ def getOneUser(id):
 
     return jsonify({'user': user_data})
 
+
 @admin.route('/user/<string:username>', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def getUserByUsername(username):
-    #user = User.query.get_or_404(username)
+    # user = User.query.get_or_404(username)
     print(username)
     user = User.query.filter(User.username == username).first()
-    
+
     user_data = {}
     user_data['user_id'] = user.id
     # user_data['password'] = user.password_hash
     user_data['school_id'] = user.school_id
     user_data['is_superuser'] = user.is_superuser
     user_data['is_sysadmin'] = user.is_sysadmin
-
 
     return user_data
 
@@ -102,11 +102,10 @@ def getAllSuperUsers():
         user_data['school_id'] = user.school_id
         output.append(user_data)
 
-    return jsonify({'users': output})
+    return jsonify({'user': user_data})
 
-    return user_data
 
-@admin.route('/user/GetSchoolUsers/<int:school_id>', methods=['GET'])
+@admin.route('/user/byschool/<int:school_id>', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def getUsersBySchoolID(school_id):
@@ -122,6 +121,36 @@ def getUsersBySchoolID(school_id):
         output.append(user_data)
 
     return jsonify({'users': output})
+
+
+@admin.route('/user/byschool/<int:school_id>/byexperiment/<int:experiment_id>', methods=['GET'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
+@jwt_required()
+def get_users_by_school_and_experiment(school_id, experiment_id):
+    users = User.query.join(ExperimentParticipant).join(Experiment).filter(User.school_id,
+                                                                           ExperimentParticipant.experiment_id)
+
+    for user in users:
+        user_data = {}
+        user_data['id'] = user.id
+        user_data['username'] = user.username
+        user_data['status'] = user.status
+        # user_data['is_participant'] =
+
+
+@admin.route('/user/byproject/<int:project_id>', methods=['GET'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
+@jwt_required()
+def get_user_by_project(project_id):
+    users = User.query.join(ExperimentParticipant).join(Experiment).join(Project).join(School).filter(
+        Project.id == project_id).all()
+
+    for user in users:
+        user_data = {}
+        user_data['id'] = user.id
+        user_data['username'] = user.username
+        user_data['status'] = user.status
+        user_data['project_id'] = project_id
 
     return user_data
 
