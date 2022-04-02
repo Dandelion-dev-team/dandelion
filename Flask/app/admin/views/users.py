@@ -3,7 +3,8 @@ from flask import request, jsonify, abort
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import inspect
 from app.admin import admin
-from app.models import User, ExperimentParticipant, Experiment, Project, School
+from app.admin.views.school import getOneSchool
+from app.models import User, ExperimentParticipant, Experiment, Project, School, ProjectPartner
 from flask_cors import cross_origin
 from app import db
 from app.utils.functions import jwt_user
@@ -123,19 +124,27 @@ def getUsersBySchoolID(school_id):
     return jsonify({'users': output})
 
 
-@admin.route('/user/byschool/<int:school_id>/byexperiment/<int:experiment_id>', methods=['GET'])
+@admin.route('/user/byschool/<int:school_id>/byexperiment/<int:experiment_id>', methods=['GET']) # <-- This route does not work properly yet
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def get_users_by_school_and_experiment(school_id, experiment_id):
-    users = User.query.join(ExperimentParticipant).join(Experiment).filter(User.school_id,
-                                                                           ExperimentParticipant.experiment_id)
 
+    users = User.query.join(ExperimentParticipant).join(Experiment).join(School).filter(User.school_id == school_id)
+
+    output = []
     for user in users:
         user_data = {}
         user_data['id'] = user.id
         user_data['username'] = user.username
         user_data['status'] = user.status
-        # user_data['is_participant'] =
+        user_data['school_id'] = user.school_id
+        if ExperimentParticipant.id == experiment_id:
+            user_data['is_participant'] = True
+        else:
+            user_data['is_participant'] = False
+        output.append(user_data)
+
+    return jsonify({'users': output}) #If I don't use jsonify, I get only the last entry
 
 
 @admin.route('/user/byproject/<int:project_id>', methods=['GET'])
@@ -145,14 +154,18 @@ def get_user_by_project(project_id):
     users = User.query.join(ExperimentParticipant).join(Experiment).join(Project).join(School).filter(
         Project.id == project_id).all()
 
+    output = []
     for user in users:
         user_data = {}
         user_data['id'] = user.id
         user_data['username'] = user.username
+        user_data['school_id'] = user.school_id #<-- it returns school_id instead of school name
         user_data['status'] = user.status
-        user_data['project_id'] = project_id
+        output.append(user_data)
 
-    return user_data
+
+    return jsonify({'users': output})
+
 
 
 @admin.route('/user/<int:id>', methods=['GET', 'PUT'])
