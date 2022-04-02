@@ -37,6 +37,10 @@ export default function ResponseVariables(props) {
         setShowChoice(false);
         setShowContinuous(false);
         setShowDiscrete(false);
+
+        if (e) {
+            updateSelectedList(arr => [...arr, JSON.parse(e)])
+        }
     }
 
     const discreteCallback = e => {
@@ -48,6 +52,7 @@ export default function ResponseVariables(props) {
         setShowContinuous(true);
         setShowChoice(false);
     }
+
 
     const checkboxCallback = e => {
         let val = e.data;
@@ -115,7 +120,7 @@ export default function ResponseVariables(props) {
             <div>
                 {show_choice ? <VariableTypeModal discreteCallback={discreteCallback} contCallback={contCallback} variable={full_detail_variable} startEditing={modal_editing} /> : null}
                 {show_discrete ? <DiscreteVariableModal callback={closeModal} variable={full_detail_variable} startEditing={modal_editing} /> : null}
-                {show_cont ? <ContinuousVariableModal closeCallback={closeModal} variable={full_detail_variable} startEditing={modal_editing} /> : null}
+                {show_cont ? <ContinuousVariableModal callback={closeModal} variable={full_detail_variable} startEditing={modal_editing} /> : null}
 
                 <div className="treatment-container">
                     <div className="content">

@@ -38,7 +38,6 @@ export default function ContinuousVariableModal(props) {
   const onCreateVariable = e => {
     if (name && description && procedure && unit && upperLimit && lowerLimit) {
       let body = JSON.stringify({
-        id: 1,
         type: "Continuous",
         name: name,
         description: description,
@@ -47,7 +46,7 @@ export default function ContinuousVariableModal(props) {
         upper_limit: upperLimit,
         lower_limit: lowerLimit,
       })
-      createRecord("/responseVariableFull", body)
+      props.callback(body);
     } else {
       console.log("did not have all information")
     }
