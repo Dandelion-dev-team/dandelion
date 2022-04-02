@@ -15,6 +15,12 @@ server {
                 # as directory, then fall back to displaying a 404.
                 try_files $uri $uri/ =404;
         }   
+        
+        location /content {
+            alias /usr/local/apps/dandelion/content;
+        }
+
+
         location /static {
             alias /usr/local/apps/dandelion/React/dandelion/public/static;
         }   
