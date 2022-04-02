@@ -8,9 +8,9 @@ export default function DiscreteVariableModal(props) {
   const [name, setName] = useState("")
   const [description, setDescription] = useState("")
   const [procedure, setProcedure] = useState("")
-  const [level_text_box, setLevelTextbox] = useState("");
+  const [level_text_box, setLevelTextbox] = useState("")
 
-  const [level_list, setLevelList] = useState([]);
+  const [level_list, setLevelList] = useState([])
 
   const [quantitiy_list, setQuantityList] = useState()
   const [quantity_selected, setSelectedQuantity] = useState()
@@ -30,15 +30,15 @@ export default function DiscreteVariableModal(props) {
   }
 
   const handleLevelListChange = e => {
-    setLevelList(e);
+    setLevelList(e)
   }
 
   const onFinish = e => {
     if (name && description && procedure && level_list) {
-      let arr = new Array();
+      let arr = new Array()
       for (let index = 0; index < level_list.length; index++) {
-        const element = level_list[index];
-        arr.push({treatment_name: name, sequence: index, name: element})
+        const element = level_list[index]
+        arr.push({ treatment_name: name, sequence: index, name: element })
       }
       let body = JSON.stringify({
         id: 1,
@@ -48,7 +48,7 @@ export default function DiscreteVariableModal(props) {
         procedure: procedure,
         levels: arr,
       })
-      props.callback(body);
+      props.callback(body)
     } else {
       console.log("did not have all information")
     }
@@ -59,9 +59,9 @@ export default function DiscreteVariableModal(props) {
   }, [])
 
   const AddLevel = e => {
-    let copy = [...level_list];
+    let copy = [...level_list]
     copy.push(level_text_box)
-    setLevelList(copy);
+    setLevelList(copy)
   }
 
   return (
@@ -113,25 +113,29 @@ export default function DiscreteVariableModal(props) {
                 </div>
               </div>
               <div className="inputItem">
-              <div className="item-title">
-                <h3>Quantity relation:</h3>
+                <div className="item-title">
+                  <h3>Quantity relation:</h3>
+                </div>
+                <div className="item-input">
+                  <Select
+                    name="authority_id_picker"
+                    options={quantitiy_list}
+                    value={quantity_selected}
+                    defaultValue={"No Quantity Relation"}
+                    onChange={setQuantityList}
+                    getOptionLabel={quantitiy_list => quantitiy_list.name}
+                    getOptionValue={quantitiy_list => quantitiy_list.id} // It should be unique value in the options. E.g. ID
+                  />
+                </div>
               </div>
-              <div className="item-input">
-              <Select
-                        name="authority_id_picker"
-                        options={quantitiy_list}
-                        value={quantity_selected}
-                        defaultValue={"No Quantity Relation"}
-                        onChange={setQuantityList}
-                        getOptionLabel={quantitiy_list => quantitiy_list.name}
-                        getOptionValue={quantitiy_list => quantitiy_list.id} // It should be unique value in the options. E.g. ID
-                      />
-              </div>
-            </div>
             </div>
             <div className="level-row">
               <div className="card-list">
-                <DiscreteCardList levelList={level_list} addLevel={AddLevel} reorderLevels={handleLevelListChange} />
+                <DiscreteCardList
+                  levelList={level_list}
+                  addLevel={AddLevel}
+                  reorderLevels={handleLevelListChange}
+                />
                 <div className="level-bar">
                   <div className="title">
                     <h3>Level:</h3>
@@ -152,9 +156,10 @@ export default function DiscreteVariableModal(props) {
                     className="submitButton"
                     value="Add Level"
                     onClick={() => {
-                      { AddLevel() }
+                      {
+                        AddLevel()
+                      }
                     }}
-
                   ></input>
                 </div>
               </div>
@@ -166,7 +171,9 @@ export default function DiscreteVariableModal(props) {
                     className="submitButton"
                     value="Finish"
                     onClick={() => {
-                      { onFinish() }
+                      {
+                        onFinish()
+                      }
                     }}
                   ></input>
                 </div>

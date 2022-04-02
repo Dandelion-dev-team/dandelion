@@ -83,7 +83,7 @@ export default function SelectCombinations(props) {
                 value="Continue"
                 onClick={() => {
                   if (typeof window !== `undefined`) {
-                    navigate("/activities/create-experiment/summary",
+                    navigate("/activities/create-experiment/enter-hypotheses",
                       {
                         state: { treatmentVariables: treatment_variables, responseVariables: response_variables, experimentDetails: experiment_details, combinations: combination_selected },
                       })

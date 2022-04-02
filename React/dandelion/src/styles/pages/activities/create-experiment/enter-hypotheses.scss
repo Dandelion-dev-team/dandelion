@@ -1,0 +1,53 @@
+.hypotheses-container {
+  background: #2e5641;
+  color: $white;
+  position: relative;
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  overflow-y: hidden;
+  flex-direction: column;
+  justify-content: space-around;
+
+  .content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 90vh;
+    width: 85%;
+    .text-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 35%;
+      height: 90vh;
+
+      h3 {
+        font-size: 4rem;
+      }
+
+      p {
+        font-size: 1.6rem;
+        line-height: 2rem;
+      }
+    }
+    .hypotheses-content {
+        display: flex;
+        width: 40%;
+        flex-direction: column;
+      .hypotheses-row {
+        .list {
+          .input-row {
+            .title {
+            }
+            .input {
+            }
+          }
+          .add-btn {
+          }
+        }
+      }
+    }
+  }
+}
