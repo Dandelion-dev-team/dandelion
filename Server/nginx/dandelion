@@ -2,7 +2,7 @@
 # This goes into /etc/nginx/sites-available
 #
 # The commented section is added automatically by certbot when configuring SSL
-# Follow the sertbot instructions here: https://certbot.eff.org/instructions
+# Follow the certbot instructions here: https://certbot.eff.org/instructions
 
 server {
         server_name _;
