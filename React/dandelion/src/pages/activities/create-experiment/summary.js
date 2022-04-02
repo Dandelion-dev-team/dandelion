@@ -169,7 +169,7 @@ export default function Summary(props) {
                           navigate("/activities/create-experiment/configure-units",
                             {
                               state: { treatmentVariables: treatment_selected, responseVariables: response_selected, experimentDetails: experiment_details, combinations: combinations_selected },
-                            }) //TODO CHANGE
+                            })
                         }
                       }}
                     ></input>

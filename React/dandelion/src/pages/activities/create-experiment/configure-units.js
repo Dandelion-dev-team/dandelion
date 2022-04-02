@@ -6,7 +6,7 @@ import UnitCard from "../../../components/cards/unitCard"
 import UnitHelpModal from "../../../components/modals/unitHelpModal"
 import UnitItem from "../../../components/unitItem"
 import { verify_superuser_storage } from "../../../utils/logins"
-import { createRecord } from "../../../utils/CRUD"
+import { createRecord, createRecordNavigate } from "../../../utils/CRUD"
 
 export default function ConfigureUnits(props) {
   const [modal_shown, setModalShown] = useState("")
@@ -163,19 +163,24 @@ export default function ConfigureUnits(props) {
       constructed_conditions.push({code: code, color: colour, description: "desc", status: "active", text: "text", units: unit_list })
     });
 
-    let body ={
+    let body = JSON.stringify({
+      project_id: 5,
+      parent_id: null,
       code: experiment_details.code,
       description: experiment_details.description,
+      tutorial: "",
+      text: "",
       start_date: start_date,
       end_date: end_date,
-      name: experiment_details.name,
-      hypotheses,
-      treatment_variables,
-      response_variables,
+      title: experiment_details.name,
+      parent_id: null,
+      hypotheses: hypotheses,
+      treatmentVariables: treatment_variables,
+      responseVariables: response_variables,
       conditions: constructed_conditions,
-    }
+    })
 
-    createRecord("/experiment", body)
+    createRecordNavigate("/experiment", body);
     //NAVIGATE BACK TO PROJECT MAINTENANCE
     //navigate("/superuser/project-maintenance")
   }

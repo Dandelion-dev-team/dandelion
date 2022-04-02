@@ -169,6 +169,16 @@ export default function DiscreteVariableModal(props) {
                   <input
                     type="submit"
                     className="submitButton"
+                    value="Close"
+                    onClick={() => {
+                      { props.callback() }
+                    }}
+                  ></input>
+                </div>
+                <div className="finish-btn">
+                  <input
+                    type="submit"
+                    className="submitButton"
                     value="Finish"
                     onClick={() => {
                       {
