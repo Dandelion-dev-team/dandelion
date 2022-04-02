@@ -1,0 +1,48 @@
+# NginX site configuration file for the Dandelion app
+# This goes into /etc/nginx/sites-available
+#
+# The commented section is added automatically by certbot when configuring SSL
+# Follow the sertbot instructions here: https://certbot.eff.org/instructions
+
+server {
+        server_name _;
+
+        root /usr/local/apps/dandelion/React/dandelion/public;
+        index index.html;
+
+        location / { 
+                # First attempt to serve request as file, then
+                # as directory, then fall back to displaying a 404.
+                try_files $uri $uri/ =404;
+        }   
+        location /static {
+            alias /usr/local/apps/dandelion/React/dandelion/public/static;
+        }   
+
+        location /api { 
+                include proxy_params;
+                proxy_pass http://localhost:9000;
+        }   
+
+
+#    listen [::]:443 ssl ipv6only=on; # managed by Certbot
+#    listen 443 ssl; # managed by Certbot
+#    ssl_certificate /etc/letsencrypt/live/dandelion.sruc.ac.uk/fullchain.pem; # managed by Certbot
+#    ssl_certificate_key /etc/letsencrypt/live/dandelion.sruc.ac.uk/privkey.pem; # managed by Certbot
+#    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+#    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+#
+#}
+#server {
+#    if ($host = dandelion.sruc.ac.uk) {
+#        return 301 https://$host$request_uri;
+#    } # managed by Certbot
+#
+#
+#	listen 80 ;
+#	listen [::]:80 ;
+#    server_name dandelion.sruc.ac.uk;
+#    return 404; # managed by Certbot
+
+
+}
