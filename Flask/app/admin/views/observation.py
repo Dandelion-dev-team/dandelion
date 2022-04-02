@@ -1,10 +1,9 @@
-from flask import abort, request
+from flask import request
 from flask_cors import cross_origin
 from flask_json import json_response
 
 from app.admin import admin
 from app.models import Observation
-from app import db
 from app.utils.functions import row2dict
 from app.utils.images import image_processing
 from app.utils.uploads import get_uploaded_file
