@@ -57,10 +57,10 @@ export default function EnterHypotheses(props) {
               <div className="list">
                 {hypothesesList.length > 0
                   ? hypothesesList.map(hypothesis => (
-                      <HypothesisCard hypothesisItem={hypothesis} />
-                    ))
+                    <HypothesisCard hypothesisItem={hypothesis} />
+                  ))
                   : null}
-                  <div className="input-row">
+                <div className="input-row">
                   <div className="title">
                     <h3>Hypothesis</h3>
                   </div>
@@ -86,6 +86,19 @@ export default function EnterHypotheses(props) {
                     }}
                   ></input>
                 </div>
+                <input
+                  type="submit"
+                  className="continue-btn"
+                  value="Continue"
+                  onClick={() => {
+                    if (typeof window !== `undefined`) {
+                      navigate("/activities/create-experiment/configure-units",
+                        {
+                          state: { hypotheses: hypothesesList,treatmentVariables: treatment_variables, responseVariables: response_variables, experimentDetails: experiment_details , combinations: combinations_selected },
+                        });
+                    }
+                  }}
+                ></input>
               </div>
             </div>
           </div>

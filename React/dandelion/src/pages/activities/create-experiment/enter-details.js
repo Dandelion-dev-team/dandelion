@@ -53,6 +53,7 @@ export default function EnterDetails(props) {
   }
 
   const handleNav = e => {
+    let project_id = props.location.state.project_id;
     if (
       name &&
       code &&
@@ -65,6 +66,7 @@ export default function EnterDetails(props) {
       if (typeof window !== `undefined`) {
         navigate("/activities/create-experiment/treatment-variables", {
           state: {
+            project_id: project_id,
             name: name,
             code: code,
             description: description,

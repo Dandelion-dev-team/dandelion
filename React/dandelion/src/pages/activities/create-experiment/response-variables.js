@@ -95,17 +95,7 @@ export default function ResponseVariables(props) {
                         "/activities/create-experiment/enter-details")
                 }
             }
-            // Update the document title using the browser API
-            fetch(process.env.ROOT_URL + "/responseVariableShortlist", {
-                method: "GET",
-                headers: new Headers({
-                    'Cache-Control': 'no-cache, no-store, must-revalidate',
-                    'Pragma': 'no-cache',
-                    'Expires': 0,
-                })
-            }).then(response => response.json())
-                .then(
-                    data => setVariables(data));
+            //TODO GRAB RESPONSE VARIABLES
         } else {
             navigate("/signin");
         }
@@ -148,7 +138,7 @@ export default function ResponseVariables(props) {
                                                     checkCallback={checkboxCallback}
                                                 />
                                             )
-                                            )) : <h3>No Experiments found</h3>}
+                                            )) : <h3>No response variables found.</h3>}
                                     </div>
                                     <PaginationComponent pageIndex={3} numPages={4} />
                                 </div>

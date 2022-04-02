@@ -8,7 +8,7 @@ export default function ProjectPane(props) {
   const [experimentList, setExperiments] = useState([]);
   //Tested
   useEffect(() => {
-    readRecord("/project/"+ props.dataProp.Project.project_id + "/experiment", setExperiments)
+    readRecord("/project/" + props.dataProp.Project.project_id + "/experiment", setExperiments)
   }, [])
 
 
@@ -37,10 +37,12 @@ export default function ProjectPane(props) {
             </div>
           </div>
           <div className="btn-row">
-            <button className="submitButton" id="exp" onClick={() => {navigate("/activities/create-experiment/predefined-experiments",
-                            {
-                              state: { project_id: props.dataProp.id},
-                            })}}>
+            <button className="submitButton" id="exp" onClick={() => {
+              navigate("/activities/create-experiment/predefined-experiments",
+                {
+                  state: {project_id: props.dataProp.Project.project_id},
+                })
+            }}>
               Create Experiment
             </button>
             <button className="submitButton">
