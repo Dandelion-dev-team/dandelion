@@ -8,8 +8,9 @@ export default function Summary(props) {
   const [response_selected, setResponseVariables] = useState([]);
   const [experiment_details, setExperimentDetails] = useState([]);
   const [combinations_selected, setCombinations] = useState([]);
-
+  const [hypotheses, setHypotheses] = useState([]);
   const [combinations_renderable, setRenderable] = useState([]);
+
   const [name, setName] = useState("")
   const [code, setCode] = useState("")
   const [startDate, setStartDate] = useState("")
@@ -46,6 +47,8 @@ export default function Summary(props) {
         setCode(props.location.state.experimentDetails.code);
         setStartDate(props.location.state.experimentDetails.startDate);
         setEndDate(props.location.state.experimentDetails.endDate);
+        setHypotheses(props.location.state.hypotheses);
+
         props.location.state.combinations.forEach(array => { result.push(array); });
 
         result.forEach(array => { setRenderable(arr => [...arr, array]); });
@@ -168,7 +171,7 @@ export default function Summary(props) {
                         if (typeof window !== `undefined`) {
                           navigate("/activities/create-experiment/configure-units",
                             {
-                              state: { treatmentVariables: treatment_selected, responseVariables: response_selected, experimentDetails: experiment_details, combinations: combinations_selected },
+                              state: { hypotheses: hypotheses,treatmentVariables: treatment_selected, responseVariables: response_selected, experimentDetails: experiment_details , combinations: combinations_selected },
                             })
                         }
                       }}

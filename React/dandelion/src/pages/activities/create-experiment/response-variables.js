@@ -95,7 +95,17 @@ export default function ResponseVariables(props) {
                         "/activities/create-experiment/enter-details")
                 }
             }
-            //TODO GRAB RESPONSE VARIABLES
+            //Update the document title using the browser API
+            fetch(process.env.ROOT_URL + "/responseVariableShortlist", {
+                method: "GET",
+                headers: new Headers({
+                    'Cache-Control': 'no-cache, no-store, must-revalidate',
+                    'Pragma': 'no-cache',
+                    'Expires': 0,
+                })
+            }).then(response => response.json())
+                .then(
+                    data => setVariables(data));
         } else {
             navigate("/signin");
         }

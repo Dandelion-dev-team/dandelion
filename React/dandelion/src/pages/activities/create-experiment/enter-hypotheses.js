@@ -92,7 +92,7 @@ export default function EnterHypotheses(props) {
                   value="Continue"
                   onClick={() => {
                     if (typeof window !== `undefined`) {
-                      navigate("/activities/create-experiment/configure-units",
+                      navigate("/activities/create-experiment/summary",
                         {
                           state: { hypotheses: hypothesesList,treatmentVariables: treatment_variables, responseVariables: response_variables, experimentDetails: experiment_details , combinations: combinations_selected },
                         });

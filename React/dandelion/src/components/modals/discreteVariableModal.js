@@ -41,7 +41,6 @@ export default function DiscreteVariableModal(props) {
         arr.push({ treatment_name: name, sequence: index, name: element })
       }
       let body = JSON.stringify({
-        id: 1,
         type: "Discrete",
         name: name,
         description: description,
@@ -117,15 +116,15 @@ export default function DiscreteVariableModal(props) {
                   <h3>Quantity relation:</h3>
                 </div>
                 <div className="item-input">
-                  <Select
+                  {quantitiy_list ? <Select
                     name="authority_id_picker"
-                    options={quantitiy_list}
+                    options={quantitiy_list.data}
                     value={quantity_selected}
                     defaultValue={"No Quantity Relation"}
-                    onChange={setQuantityList}
+                    onChange={setSelectedQuantity}
                     getOptionLabel={quantitiy_list => quantitiy_list.name}
                     getOptionValue={quantitiy_list => quantitiy_list.id} // It should be unique value in the options. E.g. ID
-                  />
+                  /> : <h3>Could not retrieve quantities.</h3>}
                 </div>
               </div>
             </div>

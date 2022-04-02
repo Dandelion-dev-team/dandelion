@@ -6,13 +6,13 @@ import CheckIcon from '@mui/icons-material/Check';
 import { verify_superuser_storage } from "../../../utils/logins";
 
 export default function EnterDetails(props) {
-  const [name, setName] = useState("")
-  const [code, setCode] = useState("")
-  const [description, setDescription] = useState("")
-  const [tutorial, setTutorial] = useState("")
-  const [image, setImage] = useState("")
-  const [startDate, setStartDate] = useState("")
-  const [endDate, setEndDate] = useState("")
+  const [name, setName] = useState("name")
+  const [code, setCode] = useState("code")
+  const [description, setDescription] = useState("desc")
+  const [tutorial, setTutorial] = useState("e")
+  const [image, setImage] = useState("ghh")
+  const [startDate, setStartDate] = useState("2022-01-01")
+  const [endDate, setEndDate] = useState("2022-02-02")
 
   const [logged, setLogged] = useState("");
 
@@ -111,6 +111,7 @@ export default function EnterDetails(props) {
                   <div className="item-input">
                     <input
                       type="text"
+                      value={code}
                       placeholder="Experiment Code"
                       name="codeBox"
                       onChange={handleCodeChange}
@@ -122,7 +123,7 @@ export default function EnterDetails(props) {
                     <h3>Description:</h3>
                   </div>
                   <div className="desc-input">
-                    <input type="text" placeholder="Description" name="descBox" onChange={handleDescChange} />
+                    <input type="text" value={description} placeholder="Description" name="descBox" onChange={handleDescChange} />
                   </div>
                 </div>
                 <div className="inputItem">
@@ -132,6 +133,7 @@ export default function EnterDetails(props) {
                   <div className="desc-input">
                     <input
                       type="text"
+                      value={tutorial}
                       placeholder="Tutorial Text"
                       name="tutBox"
                       onChange={handleTutChange}
@@ -156,6 +158,7 @@ export default function EnterDetails(props) {
                   <div className="item-input">
                     <input
                       type="date"
+                      value={startDate}
                       name="codeBox"
                       onChange={handleStartChange}
                     />
@@ -168,6 +171,7 @@ export default function EnterDetails(props) {
                   <div className="item-input">
                     <input
                       min={startDate}
+                      value={endDate}
                       type="date"
                       name="codeBox"
                       onChange={handleEndChange}
