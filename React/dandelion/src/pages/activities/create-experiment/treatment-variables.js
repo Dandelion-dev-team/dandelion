@@ -86,7 +86,16 @@ export default function TreatmentVariables(props) {
             "/activities/create-experiment/enter-details")
         }
       }
-      //TODO SET TREATMENT VARIABLES
+      fetch(process.env.ROOT_URL + "/treatmentVariablesShortlist", {
+        method: "GET",
+        headers: new Headers({
+          "Cache-Control": "no-cache, no-store, must-revalidate",
+          Pragma: "no-cache",
+          Expires: 0,
+        }),
+      })
+        .then(response => response.json())
+        .then(data => setVariables(data)).then(setLogged(true))
     } else {
       navigate("/signin");
     }
@@ -138,7 +147,7 @@ export default function TreatmentVariables(props) {
                       />
                     ))
                   ) : (
-                    <h3 style={{marginTop:"1rem"}}>No treatment variables found.</h3>
+                    <h3>No Experiments found</h3>
                   )}
                 </div>
                 <PaginationComponent pageIndex={2} numPages={4} />
