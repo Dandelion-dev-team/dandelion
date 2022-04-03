@@ -48,7 +48,7 @@ export default function Dashboard() {
                             <Tile name="About" tile_image={about} tile_color="#7c6fb6" link="/about"></Tile>
                             <Tile name="Experiments" tile_image={about} tile_color="#FFFF" link="/participants/experiment-dashboard"></Tile>
                             {is_sysadmin ? <Tile name="SysAdmin" tile_image={add_data} tile_color="#fe693c" link="/sysadmin/auth-maintenance"></Tile> : null}
-                            {is_superuser ? <Tile name="SuperUser" tile_image={chart} tile_color="#f7f369" link="/superuser/dashboard"></Tile> : null}
+                            {is_superuser || is_sysadmin ? <Tile name="SuperUser" tile_image={chart} tile_color="#f7f369" link="/superuser/dashboard"></Tile> : null}
                         </div>
                     </div>
                 </div>

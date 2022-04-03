@@ -5,7 +5,7 @@ export default function HypothesisCard(props) {
   return (
     <div className="hypothesis-card">
       <div className="desc">
-        <h3>{props.hypothesisItem}</h3>
+        <h3>{props.hypothesisItem.description}</h3>
       </div>
     </div>
   )

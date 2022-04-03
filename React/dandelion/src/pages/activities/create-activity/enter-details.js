@@ -4,7 +4,7 @@ import "../../../styles/App.scss"
 import BackupIcon from "@mui/icons-material/Backup"
 import CheckIcon from '@mui/icons-material/Check';
 import { verify_superuser_storage } from "../../../utils/logins";
-import {createRecordNavigate } from "../../../utils/CRUD";
+import {createRecordNavigate, uploadExperimentImage } from "../../../utils/CRUD";
 
 export default function EnterActivityDetails(props) {
   const [name, setName] = useState("")
@@ -50,12 +50,12 @@ export default function EnterActivityDetails(props) {
       status: 'active'
     })
 
-    createRecordNavigate("/project", body);
-    navigate("/superuser/project-maintenance", {
+    createRecordNavigate("/project", body).then(response => uploadExperimentImage("/project/" + response.id + "/uploadImage", image).then(navigate("/superuser/project-maintenance",
+    {
       state: {
         show_modal: true
       },
-    })
+    })));
   }
 
   useEffect(() => {
