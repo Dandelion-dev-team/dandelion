@@ -15,7 +15,7 @@ export default function EnterHypotheses(props) {
   const [logged, setLogged] = useState("")
 
   const [hypothesesList, setHypothesesList] = useState([])
-
+  const [hypotheses_number, setHypothesesNumer] = useState(0);
   useEffect(() => {
     if (verify_superuser_storage() == true) {
       if (props.location.state) {
@@ -40,7 +40,14 @@ export default function EnterHypotheses(props) {
 
   const AddHypothesis = e => {
     let copy = [...hypothesesList]
-    copy.push(hypothesis_text_box)
+    let hypothesis = {
+      description: hypothesis_text_box,
+      hypothesis_no: hypotheses_number,
+      status: "Active",
+      text: null
+    }
+    setHypothesesNumer(hypotheses_number + 1);
+    copy.push(hypothesis)
     setHypothesesList(copy)
   }
 
@@ -94,7 +101,7 @@ export default function EnterHypotheses(props) {
                     if (typeof window !== `undefined` && hypothesesList.length > 0) {
                       navigate("/activities/create-experiment/summary",
                         {
-                          state: { hypotheses: hypothesesList,treatmentVariables: treatment_variables, responseVariables: response_variables, experimentDetails: experiment_details , combinations: combinations_selected },
+                          state: { hypotheses: hypothesesList, treatmentVariables: treatment_variables, responseVariables: response_variables, experimentDetails: experiment_details, combinations: combinations_selected },
                         });
                     }
                   }}

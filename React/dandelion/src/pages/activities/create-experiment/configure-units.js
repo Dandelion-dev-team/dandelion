@@ -107,22 +107,6 @@ export default function ConfigureUnits(props) {
     end_date = end_date.toISOString();
 
     //HARDCODED FOR NOW
-    let hypotheses = [
-      {
-        description: "Touching the leaves has no effect on growth",
-        hypothesis_no: 0,
-        id: 2,
-        status: "Active",
-        text: null
-      },
-      {
-        description: "Growth rate is correlated with the degree of touching",
-        hypothesis_no: 1,
-        id: 3,
-        status: "Active",
-        text: null
-      }
-    ]
 
     let constructed_conditions = [];
     combination_list.forEach(combination => {
@@ -181,14 +165,14 @@ export default function ConfigureUnits(props) {
       end_date: end_date,
       title: experiment_details.name,
       parent_id: null,
-      hypotheses: hypotheses,
+      hypotheses: props.location.state.hypotheses,
       treatmentVariables: treatment_variables,
       responseVariables: response_variables,
       conditions: constructed_conditions,
     })
 
-    console.log(JSON.parse(body))
-    //createRecordNavigate("/experiment", body).then(response => uploadExperimentImage("/experiment/" + response.id + "/uploadImage", experiment_details.image).then( navigate("/superuser/project-maintenance")));
+    //console.log(JSON.parse(body))
+    createRecordNavigate("/experiment", body).then(response => uploadExperimentImage("/experiment/" + response.id + "/uploadImage", experiment_details.image).then( navigate("/superuser/project-maintenance")));
   }
 
   if (typeof window !== `undefined` && logged) {
