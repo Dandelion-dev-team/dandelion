@@ -42,6 +42,10 @@ export default function ContinuousVariableModal(props) {
 
   const onCreateVariable = e => {
     if (name && description && procedure && unit && upperLimit && lowerLimit) {
+      let quantity_check = null;
+      if(quantity_selected != null){
+        quantity_check = quantity_selected.id;
+      }
       let body = JSON.stringify({
         type: "Continuous",
         name: name,
@@ -52,7 +56,7 @@ export default function ContinuousVariableModal(props) {
         lower_limit: lowerLimit,
         is_sensor_quantity: false,
 
-        quantity_id: quantity_selected.id,
+        quantity_id: quantity_check,
         monday: false,
         tuesday: false,
         wednesday: false,

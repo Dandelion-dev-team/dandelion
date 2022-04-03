@@ -49,6 +49,10 @@ export default function DiscreteVariableModal(props) {
         const element = level_list[index]
         arr.push({ treatment_name: name, sequence: index, name: element, description: "", procedure: "" })
       }
+      let quantity_check = null;
+      if(quantity_selected != null){
+        quantity_check = quantity_selected.id;
+      }
       let body = JSON.stringify({
         type: "Discrete",
         name: name,
@@ -56,7 +60,7 @@ export default function DiscreteVariableModal(props) {
         procedure: procedure,
         levels: arr,
         is_sensor_quantity: is_sensor_selected,
-        quantity_id: quantity_selected.id,
+        quantity_id: quantity_check,
         monday: false,
         tuesday: false,
         wednesday: false,

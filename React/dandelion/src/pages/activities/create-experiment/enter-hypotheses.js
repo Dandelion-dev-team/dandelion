@@ -91,7 +91,7 @@ export default function EnterHypotheses(props) {
                   className="continue-btn"
                   value="Continue"
                   onClick={() => {
-                    if (typeof window !== `undefined`) {
+                    if (typeof window !== `undefined` && hypothesesList.length > 0) {
                       navigate("/activities/create-experiment/summary",
                         {
                           state: { hypotheses: hypothesesList,treatmentVariables: treatment_variables, responseVariables: response_variables, experimentDetails: experiment_details , combinations: combinations_selected },
