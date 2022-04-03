@@ -6,7 +6,7 @@ import UnitCard from "../../../components/cards/unitCard"
 import UnitHelpModal from "../../../components/modals/unitHelpModal"
 import UnitItem from "../../../components/unitItem"
 import { verify_superuser_storage } from "../../../utils/logins"
-import { createRecord, createRecordNavigate } from "../../../utils/CRUD"
+import { createRecord, createRecordNavigate, uploadExperimentImage } from "../../../utils/CRUD"
 
 export default function ConfigureUnits(props) {
   const [modal_shown, setModalShown] = useState("")
@@ -87,7 +87,6 @@ export default function ConfigureUnits(props) {
       if (copy[e.gridLevel][e.gridPosition].code != "SENSOR") {
         copy[e.gridLevel][e.gridPosition] = { colour: dragged_item.colour, code: dragged_item.code, item: dragged_item.item };
       } else {
-        console.log("Illegal");
       }
       setMatrix(copy);
     }
@@ -127,7 +126,6 @@ export default function ConfigureUnits(props) {
 
     let constructed_conditions = [];
     combination_list.forEach(combination => {
-      console.log(combination_list);
       let unit_list = [];
       let code = "";
       let colour = "";
@@ -147,7 +145,6 @@ export default function ConfigureUnits(props) {
           if (cell.colour == "#C4C4C4" || cell.code == "SENSOR") {
             return;
           } else {
-            //console.log({ cell: cell, index: idx })
             if (combination == cell.item) {
               replicate = replicate + 1;
               let item = { code: cell.code + "_" + replicate, cube_level: level, row: grid_letters[row], column: column + 1, description: "", replicate_no: replicate, location: null };
@@ -203,8 +200,8 @@ export default function ConfigureUnits(props) {
     //   conditions: constructed_conditions,
     // }
 
-    console.log(JSON.parse(body))
 
+    //uploadExperimentImage("/experiment/29/uploadImage", experiment_details.image);
     createRecordNavigate("/experiment", body);
     //NAVIGATE BACK TO PROJECT MAINTENANCE
     //navigate("/superuser/project-maintenance")

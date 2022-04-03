@@ -33,7 +33,7 @@ export function createRecordNavigate(endpoint, body, navigate) {
             'X-CSRF-TOKEN': cookies.get('csrf_access_token')
         }),
         body: body,
-    })
+    }).then(response => console.log(response))
 }
 
 export function readRecord(endpoint, setter) {
@@ -50,6 +50,19 @@ export function readRecord(endpoint, setter) {
         if(response.status == 401){
             user_logout();
     } else return response.json()}).then(data => setter(data))
+}
+
+export function uploadExperimentImage(endpoint, image){
+    const cookies = new Cookies();
+    const formData = new FormData();
+
+    formData.append('file', image);
+    console.log(image)
+    fetch(process.env.API_URL + endpoint, {
+        method: "POST",        
+        mode: 'cors',
+        body: formData,
+    })
 }
 
 export function updateRecord(endpoint, body) {

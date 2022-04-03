@@ -108,7 +108,6 @@ export default function Data() {
       copy.push(school.school_ref.id)
     }
     setSchoolSelected(copy);
-    console.log(schoolsSelected);
   }
 
   const School = school => {
@@ -191,7 +190,6 @@ export default function Data() {
       copy.push(sensor.sensor_ref.id)
     }
     setSelectedSensor(copy);
-    console.log(sensorSelected)
   }
 
   const Sensor = sensor => {

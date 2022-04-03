@@ -10,7 +10,6 @@ export default function ExperimentDashboard(props) {
   const [show_type, setShowType] = useState("")
 
   const handleCallback = childData => {
-    console.log("id: " + childData.id)
     fetch(process.env.ROOT_URL + "/experiment_full/" + childData.id, {
       method: "GET",
       headers: new Headers({

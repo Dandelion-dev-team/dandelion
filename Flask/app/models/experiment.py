@@ -24,6 +24,7 @@ class Experiment(db.Model):
     def summary_columns(self):
         return [("id", "id"),
                 ("title", "title"),
+                ("description", "description"),
                 ("owner_id", "project_partner.school.id"),
                 ("owner_name", "project_partner.school.name")]
 

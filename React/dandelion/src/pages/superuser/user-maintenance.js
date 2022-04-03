@@ -17,7 +17,9 @@ export default function UserMaintenance(props) {
         if (verify_superuser_storage() == true) {
             setLogged(true);
             if (props.location.state) {
-                setExperiment(props.location.state.experiment)
+                //console.log(props.location.state.experiment)
+                readRecord("/experiment/" + props.location.state.experiment.id, setExperiment)
+                //setExperiment(props.location.state.experiment)
                 let school_id = localStorage.getItem('school_id');
                 readRecord('/user/GetSchoolUsers/' + school_id, setUsers);
             } else {
@@ -30,7 +32,7 @@ export default function UserMaintenance(props) {
         }
     }, [])
 
-    if (typeof window !== `undefined` && logged) {
+    if (typeof window !== `undefined` && logged && experiment) {
         return (
             <div>
                 <SideNav />
@@ -38,7 +40,7 @@ export default function UserMaintenance(props) {
                     <div className='content'>
                         <div className='user-pane'>
                             <div className='title'>
-                                <h3>Management for {experiment.title}:</h3>
+                                <h3>Management for {experiment.name}:</h3>
                             </div>
                             <div className='experiment-image'>
                                 <img src={experiment.experiment_image_link} />
@@ -67,7 +69,7 @@ export default function UserMaintenance(props) {
                                     <h3>Procedure:</h3>
                                 </div>
                                 <div className='description'>
-                                    <h3>{experiment.text}</h3>
+                                    <h3>{experiment.tutorial}</h3>
                                 </div>
                             </div>
                             <div className='title-description'>

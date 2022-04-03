@@ -19,7 +19,6 @@ export default function ProjectPane(props) {
   }
   return (
     <div>
-      {console.log(props.dataProp)}
       {props.dataProp.Project ? (
         <div className="project-panel-content">
           <div className="project-title">
@@ -33,7 +32,7 @@ export default function ProjectPane(props) {
               <img src={props.dataProp.image_full} />
             </div>
             <div className="experiment-row">
-              {/* {props.dataProp.Projects.experiments ? props.dataProp.Project.experiments.map(experiment => (<ExperimentCard callback={cardClickCallback} dataProp={experiment} />)) : null} */}
+              {experimentList.data ? experimentList.data.map(experiment => (<ExperimentCard callback={cardClickCallback} dataProp={experiment} />)) : null}
             </div>
           </div>
           <div className="btn-row">

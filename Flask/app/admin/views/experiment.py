@@ -72,11 +72,10 @@ def get_one_experiment(id):
 			"units": [{
 				"id": unit.id,
 				"code": unit.code,
-				"description": unit.description,
 				"cube_level": unit.cube_level,
 				"replicate_no": unit.replicate_no,
-				"row": unit.row,
-				"column": unit.column
+				"row": unit.grid_row,
+				"column": unit.grid_column
 			} for unit in condition.units]
 		} for condition in experiment.conditions]
 	}
@@ -195,11 +194,11 @@ def add_experiment():
 	for c in data["conditions"]:
 		create_condition(experiment, c, treatment_variables, current_user)
 
-	message = "New experiment has been registered"
-	return {"message": message}
+	return {"id": experiment.id}
 
 
 @admin.route('/experiment/<int:id>/uploadImage', methods=['POST'])
+@cross_origin(origin='http://127.0.0.1:8000/')
 def upload_experiment_image(id):
 
 	pic, filename = get_uploaded_file(request)
