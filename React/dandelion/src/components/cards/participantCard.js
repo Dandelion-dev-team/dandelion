@@ -5,16 +5,16 @@ export default function ParticipantCard(props) {
   const [experiments, setExperiment] = useState(0)
 
   useEffect(() => {
-    fetch(process.env.ROOT_URL + "/experiment_summary/", {
-      method: "GET",
-      headers: new Headers({
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-        Pragma: "no-cache",
-        Expires: 0,
-      }),
-    })
-      .then(response => response.json())
-      .then(data => setExperiment(data))
+    // fetch(process.env.ROOT_URL + "/experiment_summary/", {
+    //   method: "GET",
+    //   headers: new Headers({
+    //     "Cache-Control": "no-cache, no-store, must-revalidate",
+    //     Pragma: "no-cache",
+    //     Expires: 0,
+    //   }),
+    // })
+    //   .then(response => response.json())
+    //   .then(data => setExperiment(data))
   }, [])
 
   const cardClickCallback = experiment => {

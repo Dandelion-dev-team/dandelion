@@ -64,28 +64,28 @@ export default function ResponseVariables(props) {
     }
 
     const handleDetailCallback = index => {
-        fetch(process.env.ROOT_URL + "/responseVariableFull/" + index, {
-            method: "GET",
-            headers: new Headers({
-                "Cache-Control": "no-cache, no-store, must-revalidate",
-                Pragma: "no-cache",
-                Expires: 0,
-            }),
-        })
-            .then(response => response.json())
-            .then(data => setDetailVariable(data)).then(setModalEditing(false)).then(setShowDetails(true));
+        // fetch(process.env.ROOT_URL + "/responseVariableFull/" + index, {
+        //     method: "GET",
+        //     headers: new Headers({
+        //         "Cache-Control": "no-cache, no-store, must-revalidate",
+        //         Pragma: "no-cache",
+        //         Expires: 0,
+        //     }),
+        // })
+        //     .then(response => response.json())
+        //     .then(data => setDetailVariable(data)).then(setModalEditing(false)).then(setShowDetails(true));
     }
     const handleEditCallback = index => {
-        fetch(process.env.ROOT_URL + "/responseVariableFull/" + index, {
-            method: "GET",
-            headers: new Headers({
-                "Cache-Control": "no-cache, no-store, must-revalidate",
-                Pragma: "no-cache",
-                Expires: 0,
-            }),
-        })
-            .then(response => response.json())
-            .then(data => setDetailVariable(data)).then(setModalEditing(true)).then(setShowDetails(true));
+        // fetch(process.env.ROOT_URL + "/responseVariableFull/" + index, {
+        //     method: "GET",
+        //     headers: new Headers({
+        //         "Cache-Control": "no-cache, no-store, must-revalidate",
+        //         Pragma: "no-cache",
+        //         Expires: 0,
+        //     }),
+        // })
+        //     .then(response => response.json())
+        //     .then(data => setDetailVariable(data)).then(setModalEditing(true)).then(setShowDetails(true));
     }
 
     useEffect(() => {
@@ -101,16 +101,16 @@ export default function ResponseVariables(props) {
                 }
             }
             //Update the document title using the browser API
-            fetch(process.env.ROOT_URL + "/responseVariableShortlist", {
-                method: "GET",
-                headers: new Headers({
-                    'Cache-Control': 'no-cache, no-store, must-revalidate',
-                    'Pragma': 'no-cache',
-                    'Expires': 0,
-                })
-            }).then(response => response.json())
-                .then(
-                    data => setVariables(data));
+            // fetch(process.env.ROOT_URL + "/responseVariableShortlist", {
+            //     method: "GET",
+            //     headers: new Headers({
+            //         'Cache-Control': 'no-cache, no-store, must-revalidate',
+            //         'Pragma': 'no-cache',
+            //         'Expires': 0,
+            //     })
+            // }).then(response => response.json())
+            //     .then(
+            //         data => setVariables(data));
         } else {
             navigate("/signin");
         }
