@@ -156,13 +156,17 @@ export default function ConfigureUnits(props) {
         }
         )
       });
-
+      let condition_levels = [];
+      if(Array.isArray(combination)){
+        combination.forEach(element => {
+          condition_levels.push({variable_name: element[0].treatment_name, level_name: element[0].name})
+        });
+      }else{
+        condition_levels.push({variable_name: combination.treatment_name, level_name: combination.name})
+      }
       constructed_conditions.push({
         code: code, colour: colour, description: "desc", status: "active", text: "text", units: unit_list, 
-        condition_levels: [{
-          variable_name: "discrete_v",
-          level_name: "test_level"
-        },]
+        condition_levels: condition_levels,
       })
     });
 
@@ -183,26 +187,8 @@ export default function ConfigureUnits(props) {
       conditions: constructed_conditions,
     })
 
-    // let body = {
-    //   project_id: experiment_details.project_id,
-    //   parent_id: null,
-    //   code: experiment_details.code,
-    //   description: experiment_details.description,
-    //   tutorial: "",
-    //   text: "",
-    //   start_date: start_date,
-    //   end_date: end_date,
-    //   title: experiment_details.name,
-    //   parent_id: null,
-    //   hypotheses: hypotheses,
-    //   treatmentVariables: treatment_variables,
-    //   responseVariables: response_variables,
-    //   conditions: constructed_conditions,
-    // }
-
-
-    //uploadExperimentImage("/experiment/29/uploadImage", experiment_details.image);
-    createRecordNavigate("/experiment", body).then(response => uploadExperimentImage("/experiment/" + response.id + "/uploadImage", experiment_details.image).then( navigate("/superuser/project-maintenance")));
+    console.log(JSON.parse(body))
+    //createRecordNavigate("/experiment", body).then(response => uploadExperimentImage("/experiment/" + response.id + "/uploadImage", experiment_details.image).then( navigate("/superuser/project-maintenance")));
   }
 
   if (typeof window !== `undefined` && logged) {

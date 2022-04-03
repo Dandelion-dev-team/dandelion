@@ -26,6 +26,16 @@
         flex-direction: column;
         width: 60%;
         overflow-y: auto;
+        .experimentCheck {
+          display: flex;
+          flex-direction: row;
+          margin-left: 30%;
+          h3{
+            color: black;
+            line-height: 50%;
+            margin-left: 1rem;
+          }
+        }
 
         .inputItem {
           text-align: left;

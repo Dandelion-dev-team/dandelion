@@ -21,6 +21,7 @@ export default function ProjectPane(props) {
     <div>
       {props.dataProp.Project ? (
         <div className="project-panel-content">
+          {console.log(props.dataProp.Project)}
           <div className="project-title">
             <h3>{props.dataProp.Project.title} </h3>
             <h3>
@@ -29,7 +30,7 @@ export default function ProjectPane(props) {
             </h3>
             <h3>{props.dataProp.Project.status}</h3>
             <div className="feat-img">
-              <img src={props.dataProp.image_full} />
+              <img src={props.dataProp.Project.image_full} />
             </div>
             <div className="experiment-row">
               {experimentList.data ? experimentList.data.map(experiment => (<ExperimentCard callback={cardClickCallback} dataProp={experiment} />)) : null}

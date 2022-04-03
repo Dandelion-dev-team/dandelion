@@ -14,6 +14,7 @@ export default function DiscreteVariableModal(props) {
 
   const [quantitiy_list, setQuantityList] = useState()
   const [quantity_selected, setSelectedQuantity] = useState(null)
+  const [is_sensor_selected, setIsSensorQuantity] = useState(false)
 
   const handleNameChange = e => {
     setName(e.target.value)
@@ -33,6 +34,15 @@ export default function DiscreteVariableModal(props) {
     setLevelList(e)
   }
 
+  const onChangeQuantity = e => {
+    console.log(e.id);
+    setSelectedQuantity(e.id)
+  }
+
+  const onChangeCheckbox = e => {
+    setIsSensorQuantity(!is_sensor_selected);
+  }
+
   const onFinish = e => {
     if (name && description && procedure && level_list) {
       let arr = new Array()
@@ -46,10 +56,11 @@ export default function DiscreteVariableModal(props) {
         description: description,
         procedure: procedure,
         levels: arr,
-        is_sensor_quantity: false,
+        is_sensor_quantity: is_sensor_selected,
         quantity_id: quantity_selected,
         monday: false,
       })
+      console.log(JSON.parse(body))
       props.callback(body)
     } else {
       console.log("did not have all information")
@@ -124,12 +135,17 @@ export default function DiscreteVariableModal(props) {
                     options={quantitiy_list.data}
                     value={quantity_selected}
                     defaultValue={"No Quantity Relation"}
-                    onChange={setSelectedQuantity}
+                    onChange={onChangeQuantity}
                     getOptionLabel={quantitiy_list => quantitiy_list.name}
                     getOptionValue={quantitiy_list => quantitiy_list.id} // It should be unique value in the options. E.g. ID
                   /> : <h3>Could not retrieve quantities.</h3>}
                 </div>
               </div>
+              {quantity_selected != null ? <div className="experimentCheck">
+                <input type="checkbox" id="experiment_id" name="topping" value="experiment_ID" onChange={onChangeCheckbox}/>
+                <h3>Is sensor quantity</h3>
+              </div> : null}
+
             </div>
             <div className="level-row">
               <div className="card-list">

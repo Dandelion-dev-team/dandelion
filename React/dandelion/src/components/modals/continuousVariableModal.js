@@ -46,6 +46,7 @@ export default function ContinuousVariableModal(props) {
         upper_limit: upperLimit,
         lower_limit: lowerLimit,
         is_sensor_quantity: false,
+
         quantity_id: quantity_selected,
         monday: false,
         tuesday: false,
@@ -169,6 +170,9 @@ export default function ContinuousVariableModal(props) {
                     getOptionLabel={quantitiy_list => quantitiy_list.name}
                     getOptionValue={quantitiy_list => quantitiy_list.id} // It should be unique value in the options. E.g. ID
                   />
+                </div>
+                <div className="experimentCheck">
+                    <input type="checkbox" id="experiment_id" name="topping" value="experiment_ID" /> Is sensor quantity
                 </div>
               </div>
             </div>
