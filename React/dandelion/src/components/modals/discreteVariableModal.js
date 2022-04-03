@@ -35,8 +35,7 @@ export default function DiscreteVariableModal(props) {
   }
 
   const onChangeQuantity = e => {
-    console.log(e.id);
-    setSelectedQuantity(e.id)
+    setSelectedQuantity(e)
   }
 
   const onChangeCheckbox = e => {
@@ -57,10 +56,17 @@ export default function DiscreteVariableModal(props) {
         procedure: procedure,
         levels: arr,
         is_sensor_quantity: is_sensor_selected,
-        quantity_id: quantity_selected,
+        quantity_id: quantity_selected.id,
         monday: false,
+        tuesday: false,
+        wednesday: false,
+        thursday: false,
+        friday: false,
+        saturday: false,
+        sunday: false,
+        once: true,
+        final: true,
       })
-      console.log(JSON.parse(body))
       props.callback(body)
     } else {
       console.log("did not have all information")
@@ -141,7 +147,8 @@ export default function DiscreteVariableModal(props) {
                   /> : <h3>Could not retrieve quantities.</h3>}
                 </div>
               </div>
-              {quantity_selected != null ? <div className="experimentCheck">
+              {quantity_selected != null ? 
+              <div className="experimentCheck">
                 <input type="checkbox" id="experiment_id" name="topping" value="experiment_ID" onChange={onChangeCheckbox}/>
                 <h3>Is sensor quantity</h3>
               </div> : null}
