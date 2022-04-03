@@ -19,9 +19,9 @@ export function createRecord(endpoint, body) {
     }).then(window.location.reload(false))
 }
 
-export function createRecordNavigate(endpoint, body, navigate) {
+export function createRecordNavigate(endpoint, body) {
     const cookies = new Cookies();
-    fetch(process.env.API_URL + endpoint, {
+    return fetch(process.env.API_URL + endpoint, {
         method: "POST",
         credentials: "include",
         mode: 'cors',
@@ -33,7 +33,9 @@ export function createRecordNavigate(endpoint, body, navigate) {
             'X-CSRF-TOKEN': cookies.get('csrf_access_token')
         }),
         body: body,
-    }).then(response => console.log(response))
+    }).then((response) => response.json()).then((responseData) => {
+        return responseData;
+    })
 }
 
 export function readRecord(endpoint, setter) {
@@ -41,25 +43,26 @@ export function readRecord(endpoint, setter) {
         method: "GET",
         credentials: "include",
         mode: 'cors',
-        headers: new Headers({  
+        headers: new Headers({
             'Cache-Control': 'no-cache, no-store, must-revalidate',
             'Pragma': 'no-cache',
             'Expires': 0,
         })
     }).then(response => {
-        if(response.status == 401){
+        if (response.status == 401) {
             user_logout();
-    } else return response.json()}).then(data => setter(data))
+        } else return response.json()
+    }).then(data => setter(data))
 }
 
-export function uploadExperimentImage(endpoint, image){
+export function uploadExperimentImage(endpoint, image) {
     const cookies = new Cookies();
     const formData = new FormData();
 
     formData.append('file', image);
     console.log(image)
-    fetch(process.env.API_URL + endpoint, {
-        method: "POST",        
+    return fetch(process.env.API_URL + endpoint, {
+        method: "POST",
         mode: 'cors',
         body: formData,
     })
@@ -77,7 +80,7 @@ export function updateRecord(endpoint, body) {
             'Expires': 0,
         }),
         body: body
-      }).then(window.location.reload(false))
+    }).then(window.location.reload(false))
 }
 
 export function deleteRecord(endpoint) {
@@ -86,7 +89,7 @@ export function deleteRecord(endpoint) {
         method: "DELETE",
         credentials: "include",
         mode: 'cors',
-        headers: new Headers({ 
+        headers: new Headers({
             'Content-Type': 'application/json',
             'X-CSRF-TOKEN': cookies.get('csrf_access_token')
         }),

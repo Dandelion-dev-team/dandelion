@@ -1,4 +1,6 @@
 from app import db
+import os
+from app.utils.uploads import get_uploaded_file, content_folder
 
 
 class Experiment(db.Model):

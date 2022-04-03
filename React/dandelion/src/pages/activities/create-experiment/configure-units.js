@@ -202,9 +202,7 @@ export default function ConfigureUnits(props) {
 
 
     //uploadExperimentImage("/experiment/29/uploadImage", experiment_details.image);
-    createRecordNavigate("/experiment", body);
-    //NAVIGATE BACK TO PROJECT MAINTENANCE
-    //navigate("/superuser/project-maintenance")
+    createRecordNavigate("/experiment", body).then(response => uploadExperimentImage("/experiment/" + response.id + "/uploadImage", experiment_details.image).then( navigate("/superuser/project-maintenance")));
   }
 
   if (typeof window !== `undefined` && logged) {
