@@ -3,15 +3,15 @@ import { createRecord, readRecord } from "../../utils/CRUD"
 import Select from "react-select"
 
 export default function ContinuousVariableModal(props) {
-  const [name, setName] = useState("")
-  const [description, setDescription] = useState("")
-  const [procedure, setProcedure] = useState("")
-  const [unit, setUnit] = useState("")
-  const [upperLimit, setUpperLimit] = useState("")
-  const [lowerLimit, setLowerLimit] = useState("")
+  const [name, setName] = useState("variable_1")
+  const [description, setDescription] = useState("desc")
+  const [procedure, setProcedure] = useState("proc")
+  const [unit, setUnit] = useState("mm")
+  const [upperLimit, setUpperLimit] = useState("100")
+  const [lowerLimit, setLowerLimit] = useState("0")
 
   const [quantitiy_list, setQuantityList] = useState()
-  const [quantity_selected, setSelectedQuantity] = useState()
+  const [quantity_selected, setSelectedQuantity] = useState(null)
 
   const handleNameChange = e => {
     setName(e.target.value)
@@ -45,6 +45,17 @@ export default function ContinuousVariableModal(props) {
         unit: unit,
         upper_limit: upperLimit,
         lower_limit: lowerLimit,
+        is_sensor_quantity: false,
+        quantity_id: quantity_selected,
+        monday: false,
+        tuesday: false,
+        wednesday: false,
+        thursday: false,
+        friday: false,
+        saturday: false,
+        sunday: false,
+        once: true, 
+        final: true,
       })
       props.callback(body);
     } else {

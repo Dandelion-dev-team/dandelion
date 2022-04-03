@@ -150,7 +150,7 @@ export default function ConfigureUnits(props) {
             //console.log({ cell: cell, index: idx })
             if (combination == cell.item) {
               replicate = replicate + 1;
-              let item = { code: cell.code + "_" + replicate, cube_level: level, row: grid_letters[row], column: column + 1, description: "", replicate: replicate };
+              let item = { code: cell.code + "_" + replicate, cube_level: level, row: grid_letters[row], column: column + 1, description: "", replicate_no: replicate, location: null };
               unit_list.push(item)
               code = cell.code;
               colour = cell.colour;
@@ -159,10 +159,34 @@ export default function ConfigureUnits(props) {
         }
         )
       });
-      constructed_conditions.push({ code: code, color: colour, description: "desc", status: "active", text: "text", units: unit_list })
+
+      constructed_conditions.push({
+        code: code, colour: colour, description: "desc", status: "active", text: "text", units: unit_list, 
+        condition_levels: [{
+          variable_name: "discrete_v",
+          level_name: "test_level"
+        },]
+      })
     });
 
-    // let body = JSON.stringify({
+
+    let body = JSON.stringify({
+      project_id: experiment_details.project_id,
+      code: experiment_details.code,
+      description: experiment_details.description,
+      tutorial: "",
+      text: "",
+      start_date: start_date,
+      end_date: end_date,
+      title: experiment_details.name,
+      parent_id: null,
+      hypotheses: hypotheses,
+      treatmentVariables: treatment_variables,
+      responseVariables: response_variables,
+      conditions: constructed_conditions,
+    })
+
+    // let body = {
     //   project_id: experiment_details.project_id,
     //   parent_id: null,
     //   code: experiment_details.code,
@@ -177,26 +201,11 @@ export default function ConfigureUnits(props) {
     //   treatmentVariables: treatment_variables,
     //   responseVariables: response_variables,
     //   conditions: constructed_conditions,
-    // })
-    let body = {
-      project_id: experiment_details.project_id,
-      parent_id: null,
-      code: experiment_details.code,
-      description: experiment_details.description,
-      tutorial: "",
-      text: "",
-      start_date: start_date,
-      end_date: end_date,
-      title: experiment_details.name,
-      parent_id: null,
-      hypotheses: hypotheses,
-      treatmentVariables: treatment_variables,
-      responseVariables: response_variables,
-      conditions: constructed_conditions,
-    }
-    console.log(body);
+    // }
 
-    //createRecordNavigate("/experiment", body);
+    console.log(JSON.parse(body))
+
+    createRecordNavigate("/experiment", body);
     //NAVIGATE BACK TO PROJECT MAINTENANCE
     //navigate("/superuser/project-maintenance")
   }
