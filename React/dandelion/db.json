@@ -1090,6 +1090,20 @@
           "sequence": 3,
           "name": "Durable"
         }
+      ],
+      "levels": [
+        {
+          "sequence": 1,
+          "name": "Brittle"
+        },
+        {
+          "sequence": 2,
+          "name": "Spongey"
+        },
+        {
+          "sequence": 3,
+          "name": "Durable"
+        }
       ]
     },
     {
