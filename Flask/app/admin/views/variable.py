@@ -48,25 +48,23 @@ def listAllVariable():
     return jsonify({'Treatment Variables': output}, {'Response Variables': output2})
 
 
-# json_response(data=(row2dict(x) for x in response_variable))
+@admin.route('/discreteVariable', methods=['GET'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
+def listAlldiscreteVariable():
+    treatment_variable = Variable.query.all()
+    output = []
 
+    for variable in treatment_variable:
+        treatment_variable_data = {}
+        treatment_variable_data['id'] = variable.id
+        treatment_variable_data['name'] = variable.name
+        treatment_variable_data['status'] = variable.status
+        treatment_variable_data['is_sensor_quantity'] = variable.is_sensor_quantity
+        treatment_variable_data['procedure'] = variable.procedure
+        treatment_variable_data['quantity_id'] = variable.quantity_id
+        output.append(treatment_variable_data)
 
-# @admin.route('/user/byschool/<int:school_id>', methods=['GET'])
-# @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
-# @jwt_required()
-# def getUsersBySchoolID(school_id):
-#     # user = User.query.get_or_404(username)
-#     users = User.query.filter(User.school_id == school_id)
-#     output = []
-#
-#     for user in users:
-#         user_data = {}
-#         user_data['username'] = user.username
-#         user_data['status'] = user.status
-#         user_data['school_id'] = user.school_id
-#         output.append(user_data)
-#
-#     return jsonify({'users': output})
+    return jsonify({'Treatment Variables': output})
 
 
 @admin.route('/variable', methods=['POST'])
