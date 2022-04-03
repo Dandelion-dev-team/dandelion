@@ -5,15 +5,15 @@ import DiscreteCardList from "../cards/discreteCardList"
 import Select from "react-select"
 
 export default function DiscreteVariableModal(props) {
-  const [name, setName] = useState("")
-  const [description, setDescription] = useState("")
-  const [procedure, setProcedure] = useState("")
+  const [name, setName] = useState("discrete_v")
+  const [description, setDescription] = useState("desc")
+  const [procedure, setProcedure] = useState("proc")
   const [level_text_box, setLevelTextbox] = useState("")
 
   const [level_list, setLevelList] = useState([])
 
   const [quantitiy_list, setQuantityList] = useState()
-  const [quantity_selected, setSelectedQuantity] = useState()
+  const [quantity_selected, setSelectedQuantity] = useState(null)
 
   const handleNameChange = e => {
     setName(e.target.value)
@@ -38,7 +38,7 @@ export default function DiscreteVariableModal(props) {
       let arr = new Array()
       for (let index = 0; index < level_list.length; index++) {
         const element = level_list[index]
-        arr.push({ treatment_name: name, sequence: index, name: element })
+        arr.push({ treatment_name: name, sequence: index, name: element, description: "", procedure: "" })
       }
       let body = JSON.stringify({
         type: "Discrete",
@@ -46,6 +46,9 @@ export default function DiscreteVariableModal(props) {
         description: description,
         procedure: procedure,
         levels: arr,
+        is_sensor_quantity: false,
+        quantity_id: quantity_selected,
+        monday: false,
       })
       props.callback(body)
     } else {

@@ -37,6 +37,10 @@ export default function ResponseVariables(props) {
     setShowChoice(false)
     setShowContinuous(false)
     setShowDiscrete(false)
+
+    if (e) {
+      updateSelectedList(arr => [...arr, JSON.parse(e)])
+    }
   }
 
   const discreteCallback = e => {
@@ -133,7 +137,7 @@ export default function ResponseVariables(props) {
         ) : null}
         {show_cont ? (
           <ContinuousVariableModal
-            closeCallback={closeModal}
+            callback={closeModal}
             variable={full_detail_variable}
             startEditing={modal_editing}
           />

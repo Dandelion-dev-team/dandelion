@@ -12,7 +12,7 @@ export function user_logout() {
         localStorage.removeItem("user_id")
 
         localStorage.setItem("logged", "false"); //set to false rather than NULL as if you check for null it will be set before localstorage.getItem retrieves
-        navigate("/");
+        navigate("/").then( window.location.reload(false));
     }
 }
 

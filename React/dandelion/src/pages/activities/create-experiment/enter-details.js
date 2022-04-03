@@ -10,7 +10,7 @@ export default function EnterDetails(props) {
   const [code, setCode] = useState("code")
   const [description, setDescription] = useState("desc")
   const [tutorial, setTutorial] = useState("e")
-  const [image, setImage] = useState("ghh")
+  const [image, setImage] = useState(null)
   const [startDate, setStartDate] = useState("2022-01-01")
   const [endDate, setEndDate] = useState("2022-02-02")
 

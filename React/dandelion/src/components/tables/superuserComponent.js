@@ -33,7 +33,6 @@ export default function CrudComponent(props) {
           <tbody key={users.id}>
             <td>{user.school_id}</td>
             <td>{user.username}</td>
-            {console.log(user)}
             <td>{user.is_superuser.toString()}</td>
             <td>{user.status}</td>
             <td>
