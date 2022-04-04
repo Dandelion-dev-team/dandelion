@@ -15,7 +15,7 @@ export default function EnterHypotheses(props) {
   const [logged, setLogged] = useState("")
 
   const [hypothesesList, setHypothesesList] = useState([])
-  const [hypotheses_number, setHypothesesNumer] = useState(0);
+  const [hypotheses_number, setHypothesesNumer] = useState(0)
   useEffect(() => {
     if (verify_superuser_storage() == true) {
       if (props.location.state) {
@@ -44,9 +44,9 @@ export default function EnterHypotheses(props) {
       description: hypothesis_text_box,
       hypothesis_no: hypotheses_number,
       status: "Active",
-      text: null
+      text: null,
     }
-    setHypothesesNumer(hypotheses_number + 1);
+    setHypothesesNumer(hypotheses_number + 1)
     copy.push(hypothesis)
     setHypothesesList(copy)
   }
@@ -57,15 +57,17 @@ export default function EnterHypotheses(props) {
         <div className="content">
           <div className="text-content">
             <h3>Enter your Hypotheses</h3>
-            <p>What do you think will happen to the plants during the experiment?</p>
+            <p>
+              What do you think will happen to the plants during the experiment?
+            </p>
           </div>
           <div className="hypotheses-content">
             <div className="hypotheses-row">
               <div className="list">
                 {hypothesesList.length > 0
                   ? hypothesesList.map(hypothesis => (
-                    <HypothesisCard hypothesisItem={hypothesis} />
-                  ))
+                      <HypothesisCard hypothesisItem={hypothesis} />
+                    ))
                   : null}
                 <div className="input-row">
                   <div className="title">
@@ -85,7 +87,7 @@ export default function EnterHypotheses(props) {
                   <input
                     type="submit"
                     className="submitButton"
-                    value="Add Level"
+                    value="Add Hypothesis"
                     onClick={() => {
                       {
                         AddHypothesis()
@@ -93,19 +95,32 @@ export default function EnterHypotheses(props) {
                     }}
                   ></input>
                 </div>
-                <input
-                  type="submit"
-                  className="continue-btn"
-                  value="Continue"
-                  onClick={() => {
-                    if (typeof window !== `undefined` && hypothesesList.length > 0) {
-                      navigate("/activities/create-experiment/summary",
-                        {
-                          state: { hypotheses: hypothesesList, treatmentVariables: treatment_variables, responseVariables: response_variables, experimentDetails: experiment_details, combinations: combinations_selected },
-                        });
-                    }
-                  }}
-                ></input>
+              </div>
+              <div className="cont-btn">
+                <div className="spacer" />
+                <div className="button">
+                  <input
+                    type="submit"
+                    className="continue-btn"
+                    value="Continue"
+                    onClick={() => {
+                      if (
+                        typeof window !== `undefined` &&
+                        hypothesesList.length > 0
+                      ) {
+                        navigate("/activities/create-experiment/summary", {
+                          state: {
+                            hypotheses: hypothesesList,
+                            treatmentVariables: treatment_variables,
+                            responseVariables: response_variables,
+                            experimentDetails: experiment_details,
+                            combinations: combinations_selected,
+                          },
+                        })
+                      }
+                    }}
+                  />
+                </div>
               </div>
             </div>
           </div>
