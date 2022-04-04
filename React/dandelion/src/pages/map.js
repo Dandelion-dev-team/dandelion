@@ -25,7 +25,7 @@ export default function MapPage(props){
       <div>
         <Header />
         <div className="map-page">
-          <div className="spacer">
+          <div className="spacer"/>
             <div id="map-container">
               <MapContainer
                  center={[starting_lat, starting_lng]}
@@ -37,7 +37,6 @@ export default function MapPage(props){
                  />
               </MapContainer>
             </div>
-          </div>
         </div>
       </div>
              )
