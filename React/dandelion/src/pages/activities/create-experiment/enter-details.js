@@ -10,7 +10,7 @@ export default function EnterDetails(props) {
   const [code, setCode] = useState("")
   const [description, setDescription] = useState("")
   const [tutorial, setTutorial] = useState("")
-  const [image, setImage] = useState("")
+  const [image, setImage] = useState(null)
   const [startDate, setStartDate] = useState("")
   const [endDate, setEndDate] = useState("")
 
@@ -53,6 +53,7 @@ export default function EnterDetails(props) {
   }
 
   const handleNav = e => {
+    let project_id = props.location.state.project_id;
     if (
       name &&
       code &&
@@ -65,6 +66,7 @@ export default function EnterDetails(props) {
       if (typeof window !== `undefined`) {
         navigate("/activities/create-experiment/treatment-variables", {
           state: {
+            project_id: project_id,
             name: name,
             code: code,
             description: description,
@@ -109,6 +111,7 @@ export default function EnterDetails(props) {
                   <div className="item-input">
                     <input
                       type="text"
+                      value={code}
                       placeholder="Experiment Code"
                       name="codeBox"
                       onChange={handleCodeChange}
@@ -120,7 +123,7 @@ export default function EnterDetails(props) {
                     <h3>Description:</h3>
                   </div>
                   <div className="desc-input">
-                    <input type="text" placeholder="Description" name="descBox" onChange={handleDescChange} />
+                    <input type="text" value={description} placeholder="Description" name="descBox" onChange={handleDescChange} />
                   </div>
                 </div>
                 <div className="inputItem">
@@ -130,6 +133,7 @@ export default function EnterDetails(props) {
                   <div className="desc-input">
                     <input
                       type="text"
+                      value={tutorial}
                       placeholder="Tutorial Text"
                       name="tutBox"
                       onChange={handleTutChange}
@@ -154,6 +158,7 @@ export default function EnterDetails(props) {
                   <div className="item-input">
                     <input
                       type="date"
+                      value={startDate}
                       name="codeBox"
                       onChange={handleStartChange}
                     />
@@ -166,6 +171,7 @@ export default function EnterDetails(props) {
                   <div className="item-input">
                     <input
                       min={startDate}
+                      value={endDate}
                       type="date"
                       name="codeBox"
                       onChange={handleEndChange}

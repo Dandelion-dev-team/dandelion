@@ -29,6 +29,7 @@ def add_quantity():
         name = data['name'],
         unit = data['unit'],
         help_url = data['help_url']
+
     )
 
     db.session.add(quantity)
@@ -39,7 +40,6 @@ def add_quantity():
         db.session.commit()
         audit_create("school", quantity.id, current_user.id)
         return jsonify({"message": message, "id": quantity.id})
-
 
     except Exception as e:
         db.session.rollback()

@@ -31,7 +31,7 @@ def login():
     if user.verify_password(auth.password):
         access_token = create_access_token(identity=auth.username, expires_delta=None)
         refresh_token = create_refresh_token(identity=auth.username)
-        resp = make_response(redirect("http://127.0.0.1:5000/api/", 200))
+        resp = make_response(redirect(request.host_url, 200))
         resp.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
         resp.headers.add('Access-Control-Allow-Headers', 'Authorization, Content-Type')
 

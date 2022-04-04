@@ -38,13 +38,11 @@
     }
 
     .middle-pane {
-      //background-color: white;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       width: 31%;
       height: 90vh;
-      //border-radius: 20px;
 
       .projects-widget {
         display: flex;

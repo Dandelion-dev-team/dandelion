@@ -1,21 +1,21 @@
 import React, { useEffect, useState, useRef } from "react"
 import { navigate } from "gatsby"
 import "../../../styles/App.scss"
-import { verify_superuser_storage } from "../../../utils/logins";
+import { verify_superuser_storage } from "../../../utils/logins"
 
 export default function Summary(props) {
-  const [treatment_selected, setTreatmentVariables] = useState([]);
-  const [response_selected, setResponseVariables] = useState([]);
-  const [experiment_details, setExperimentDetails] = useState([]);
-  const [combinations_selected, setCombinations] = useState([]);
+  const [treatment_selected, setTreatmentVariables] = useState([])
+  const [response_selected, setResponseVariables] = useState([])
+  const [experiment_details, setExperimentDetails] = useState([])
+  const [combinations_selected, setCombinations] = useState([])
+  const [hypotheses, setHypotheses] = useState([])
 
-  const [combinations_renderable, setRenderable] = useState([]);
   const [name, setName] = useState("")
   const [code, setCode] = useState("")
   const [startDate, setStartDate] = useState("")
   const [endDate, setEndDate] = useState("")
 
-  const [logged, setLogged] = useState("");
+  const [logged, setLogged] = useState("")
 
   const handleStartChange = e => {
     setStartDate(e.target.value)
@@ -35,30 +35,32 @@ export default function Summary(props) {
 
   useEffect(() => {
     if (verify_superuser_storage() == true) {
-      setLogged(true);
+      setLogged(true)
       if (props.location.state) {
-        var result = [];
-        setTreatmentVariables(props.location.state.treatmentVariables);
-        setResponseVariables(props.location.state.responseVariables);
-        setExperimentDetails(props.location.state.experimentDetails);
-        setCombinations(props.location.state.combinations);
-        setName(props.location.state.experimentDetails.name);
-        setCode(props.location.state.experimentDetails.code);
-        setStartDate(props.location.state.experimentDetails.startDate);
-        setEndDate(props.location.state.experimentDetails.endDate);
-        props.location.state.combinations.forEach(array => { result.push(array); });
+        var result = []
+        setTreatmentVariables(props.location.state.treatmentVariables)
+        setResponseVariables(props.location.state.responseVariables)
+        setExperimentDetails(props.location.state.experimentDetails)
+        setCombinations(props.location.state.combinations)
+        setName(props.location.state.experimentDetails.name)
+        setCode(props.location.state.experimentDetails.code)
+        setStartDate(props.location.state.experimentDetails.startDate)
+        setEndDate(props.location.state.experimentDetails.endDate)
+        setHypotheses(props.location.state.hypotheses)
 
-        result.forEach(array => { setRenderable(arr => [...arr, array]); });
+        props.location.state.combinations.forEach(array => {
+          result.push(array)
+        })
+
       } else {
         if (typeof window !== `undefined`) {
-          navigate(
-            "/activities/create-experiment/enter-details")
+          navigate("/activities/create-experiment/enter-details")
         }
       }
     } else {
-      navigate("/signin");
+      navigate("/signin")
     }
-  }, []);
+  }, [])
 
   if (logged) {
     return (
@@ -80,13 +82,23 @@ export default function Summary(props) {
                       <h3>Conditions:</h3>
                     </div>
                     <div className="condition-list">
-                      <h3>1 - Touch × Length </h3>
-                      <h3>2 - Touch × Stalk Strength </h3>
+                      {console.log(combinations_selected)}
+                      {combinations_selected
+                        ? combinations_selected.map(function (d, idx) {
+                          if (Array.isArray(d)) {
+                            d.forEach(element => {
+                              return <h3>{element[0].treatment_name} ({element[0].name})</h3>
+                            })
+                          } else {
+                            return <h3>{d.treatment_name} ({d.name})</h3>
+                        }
+                        })
+                        : null}
                     </div>
                   </div>
                   <div className="exp-item">
                     <div className="item-title">
-                      <h3>Description:</h3>
+                      <h3>Desc:</h3>
                     </div>
                     <div className="item-content">
                       <h3>{experiment_details.description}</h3>
@@ -97,9 +109,21 @@ export default function Summary(props) {
                       <h3>Tutorial Text:</h3>
                     </div>
                     <div className="item-content">
-                      <h3>
-                        <h3>{experiment_details.tutorial}</h3>
-                      </h3>
+                      <h3>{experiment_details.tutorial}</h3>
+                    </div>
+                  </div>
+                  <div className="exp-item">
+                    <div className="item-title">
+                      <h3>Hypotheses:</h3>
+                    </div>
+                    <div className="item-content">
+                      <div className="hypotheses">
+                        {hypotheses
+                          ? hypotheses.map(function (d, idx) {
+                            return <h3>{d.hypothesis_no} - {d.description}</h3>
+                          })
+                          : null}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -115,7 +139,13 @@ export default function Summary(props) {
                         <h3>Code:</h3>
                       </div>
                       <div className="item-input">
-                        <input type="text" placeholder="Code" name="descBox" onChange={handleCodeChange} value={code} />
+                        <input
+                          type="text"
+                          placeholder="Code"
+                          name="descBox"
+                          onChange={handleCodeChange}
+                          value={code}
+                        />
                       </div>
                     </div>
                     <div className="info-item">
@@ -123,11 +153,13 @@ export default function Summary(props) {
                         <h3>Name:</h3>
                       </div>
                       <div className="item-input">
-                        <input type="text"
+                        <input
+                          type="text"
                           placeholder="Experiment Name"
                           value={name}
                           name="descBox"
-                          onChange={handleNameChange} />
+                          onChange={handleNameChange}
+                        />
                       </div>
                     </div>
                     <div className="info-item">
@@ -166,10 +198,18 @@ export default function Summary(props) {
                       value="Continue"
                       onClick={() => {
                         if (typeof window !== `undefined`) {
-                          navigate("/activities/create-experiment/configure-units",
+                          navigate(
+                            "/activities/create-experiment/configure-units",
                             {
-                              state: { treatmentVariables: treatment_selected, responseVariables: response_selected, experimentDetails: experiment_details, combinations: combinations_selected },
-                            }) //TODO CHANGE
+                              state: {
+                                hypotheses: hypotheses,
+                                treatmentVariables: treatment_selected,
+                                responseVariables: response_selected,
+                                experimentDetails: experiment_details,
+                                combinations: combinations_selected,
+                              },
+                            }
+                          )
                         }
                       }}
                     ></input>
@@ -182,5 +222,5 @@ export default function Summary(props) {
         </div>
       </div>
     )
-  } else return null;
+  } else return null
 }

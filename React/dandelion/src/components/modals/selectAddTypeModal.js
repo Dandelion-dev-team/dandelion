@@ -8,7 +8,6 @@ export default function SelectAddTypeModal(props) {
   const [response_variables, setResponseVariables] = useState([])
 
   useEffect(() => {
-    console.log(props.dataProp)
     // setResponseVariables(props.dataProp.responseVariables)
     // setExperimentDetails(props.dataProp.experimentDetails)
     // setParticipantDetails(props.dataProp.participantDetails)

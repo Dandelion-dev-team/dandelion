@@ -14,28 +14,13 @@ export default function activityCreatedModal(props) {
             choose from the list of available experiments or create your own.
           </p>
           <p>
-            Would you like to do this now? You can always do this at a later
-            date.
+            To add an experiment, simply click the activity you have just created and hit the green "Create experiment" button in the right hand panel.
           </p>
           <div className="submit-btn">
             <input
               type="submit"
               className="submitButton"
-              value="Yes"
-              onClick={() => {
-                if (typeof window !== `undefined`) {
-                  navigate(
-                    "/activities/create-experiment/predefined-experiments"
-                  )
-                }
-              }}
-            ></input>
-          </div>
-          <div className="submit-btn">
-            <input
-              type="submit"
-              className="submitButton"
-              value="No"
+              value="Close"
               onClick={() => {
                 props.callback("prop")
               }}

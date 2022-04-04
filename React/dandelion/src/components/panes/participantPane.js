@@ -13,16 +13,16 @@ export default function ParticipantPane(props) {
     setParticipantDetails(props.dataProp.participantDetails)
     setExperimentDetails(props.dataProp.experimentDetails)
     setResponseVariables(props.dataProp.responseVariables)
-    fetch(process.env.ROOT_URL + "/observation/" + 1, {
-      method: "GET",
-      headers: new Headers({
-        'Cache-Control': 'no-cache, no-store, must-revalidate',
-        'Pragma': 'no-cache',
-        'Expires': 0,
-      })
-    }).then(response => {if(response.status == 200) {return response.json()}})
-      .then(
-        data => setObservations(data));
+    // fetch(process.env.ROOT_URL + "/observation/" + 1, {
+    //   method: "GET",
+    //   headers: new Headers({
+    //     'Cache-Control': 'no-cache, no-store, must-revalidate',
+    //     'Pragma': 'no-cache',
+    //     'Expires': 0,
+    //   })
+    // }).then(response => {if(response.status == 200) {return response.json()}})
+    //   .then(
+    //     data => setObservations(data));
   }, [])
 
   return (

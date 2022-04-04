@@ -1,5 +1,6 @@
-import { navigate } from 'gatsby';
-import React, { useEffect, useState } from 'react'
+import { navigate, useStaticQuery, graphql } from 'gatsby';
+import Img from "gatsby-image"
+import React, { useEffect, useState, Image } from 'react'
 import { verify_superuser_storage } from '../../utils/logins';
 import { readRecord } from "../../utils/CRUD"
 import "../../styles/App.scss"
@@ -17,7 +18,7 @@ export default function UserMaintenance(props) {
         if (verify_superuser_storage() == true) {
             setLogged(true);
             if (props.location.state) {
-                setExperiment(props.location.state.experiment)
+                readRecord("/experiment/" + props.location.state.experiment.id, setExperiment)
                 let school_id = localStorage.getItem('school_id');
                 readRecord('/user/GetSchoolUsers/' + school_id, setUsers);
             } else {
@@ -30,18 +31,19 @@ export default function UserMaintenance(props) {
         }
     }, [])
 
-    if (typeof window !== `undefined` && logged) {
+    if (typeof window !== `undefined` && logged && experiment) {
         return (
             <div>
                 <SideNav />
+                {console.log(experiment)}
                 <div className='user-maintenance-container'>
                     <div className='content'>
                         <div className='user-pane'>
                             <div className='title'>
-                                <h3>Management for {experiment.title}:</h3>
+                                <h3>Management for {experiment.name}:</h3>
                             </div>
                             <div className='experiment-image'>
-                                <img src={experiment.experiment_image_link} />
+                            <img src={experiment.image_full}  />
                                 <div className='edit-circle'>
                                     <EditIcon className='edit-icon' />
                                 </div>
@@ -51,7 +53,7 @@ export default function UserMaintenance(props) {
                                     <h3>Code: </h3>
                                 </div>
                                 <div className='description'>
-                                    <h3>GLA123</h3>
+                                    <h3>{experiment.code}</h3>
                                 </div>
                             </div>
                             <div className='title-description'>
@@ -67,7 +69,7 @@ export default function UserMaintenance(props) {
                                     <h3>Procedure:</h3>
                                 </div>
                                 <div className='description'>
-                                    <h3>{experiment.text}</h3>
+                                    <h3>{experiment.tutorial}</h3>
                                 </div>
                             </div>
                             <div className='title-description'>

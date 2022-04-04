@@ -6,9 +6,11 @@ import ProjectComponent from "../../components/tables/projectComponent"
 import ActivityCreatedModal from "../../components/modals/activityCreatedModal"
 import { navigate } from "gatsby"
 import { verify_superuser_storage } from "../../utils/logins"
+import { readRecord } from "../../utils/CRUD"
 
 export default function ProjectMaintenance(props) {
   const [editing_project, setEditingProject] = useState("")
+  const [editing_experiments, setExperiments] = useState();
   const [modal_shown, setModalShown] = useState("")
   const [logged, setLogged] = useState("");
 
@@ -28,17 +30,9 @@ export default function ProjectMaintenance(props) {
   }, [])
 
   const handleCallback = childData => {
-    //readRecord("/projects", setProject)
-    fetch(process.env.ROOT_URL + "/project/" + childData.id, {
-      method: "GET",
-      headers: new Headers({
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-        Pragma: "no-cache",
-        Expires: 0,
-      }),
-    })
-      .then(response => response.json())
-      .then(data => setEditingProject(data))
+    readRecord("/project/" + childData.id, setEditingProject)
+    readRecord("/project/" + childData.id + "/experiment", setExperiments)
+
   }
 
   const modalCallback = prop => {
@@ -58,7 +52,7 @@ export default function ProjectMaintenance(props) {
                 <ProjectComponent parentCallback={handleCallback} />
               </div>
               <div className="project-pane">
-                <ProjectPane dataProp={editing_project} />
+                {editing_project ? <ProjectPane project={editing_project.Project} experiments={editing_experiments} /> : null}
               </div>
             </div>
           </div>

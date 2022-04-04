@@ -1,0 +1,27 @@
+# This file is used to define the Dandelion app as a Linux service.
+# This means that it can be started/stopped/restarted with the usual commands (e.g. `sudo service dandelion start`) 
+# and it is also started automatically by the operating system on reboot.
+#
+# The script runs an instance of the gunicorn application server on port 9000. 
+# The port is an arbitrary choice - it is different from the default 5000 for security
+#
+# The file goes into /etc/systemd/system/
+
+[Unit]
+Description=Dandelion Service
+After=network.target
+
+[Service]
+WorkingDirectory=/usr/local/apps/dandelion/Flask
+Environment=PATH=/usr/local/anaconda3/envs/dandelion/bin:/usr/local/anaconda3/condabin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+Environment=FLASK_APP=run.py
+Environment=FLASK_ENV=production
+ExecStart=/bin/bash -c 'gunicorn --error-log /tmp/dandelion.log -b 127.0.0.1:9000 run:app'
+Restart=always
+RestartSec=5
+KillSignal=SIGQUIT
+Type=notify
+NotifyAccess=all
+
+[Install]
+WantedBy=multi-user.target

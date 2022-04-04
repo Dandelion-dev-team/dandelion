@@ -112,6 +112,7 @@
     align-items: flex-start;
     width: 100%;
     margin-left: auto;
+
     .finish-btn {
       margin-left: auto;
       align-items: flex-start;
@@ -119,7 +120,6 @@
         background-color: $accent;
         color: $primary;
         font-size: 1.6rem;
-        margin: 1.25rem 0px;
         padding: 15px;
         border: none;
         cursor: pointer;

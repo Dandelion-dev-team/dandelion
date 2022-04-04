@@ -27,6 +27,17 @@
         width: 60%;
         overflow-y: auto;
 
+        .experimentCheck {
+          display: flex;
+          flex-direction: row;
+          margin-left: 30%;
+          h3{
+            color: black;
+            line-height: 50%;
+            margin-left: 1rem;
+          }
+        }
+
         .inputItem {
           text-align: left;
           display: flex;
@@ -48,6 +59,7 @@
           .item-input {
             width: 50%;
             height: 100%;
+            color: black;
             h3 {
               display: inline;
               font-size: 1vw;
@@ -145,7 +157,7 @@
           flex-direction: row;
           align-items: center;
           .spacer {
-            width: 90%;
+            width: 40%;
           }
           .finish-btn {
             margin-left: auto;

@@ -48,32 +48,32 @@ export default function TreatmentVariables(props) {
   }
 
   const handleDetailCallback = index => {
-    fetch(process.env.ROOT_URL + "/treatmentVariableFull/" + index, {
-      method: "GET",
-      headers: new Headers({
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-        Pragma: "no-cache",
-        Expires: 0,
-      }),
-    })
-      .then(response => response.json())
-      .then(data => setDetailVariable(data))
-      .then(setModalEditing(false))
-      .then(setShowDetails(true))
+    // fetch(process.env.ROOT_URL + "/treatmentVariableFull/" + index, {
+    //   method: "GET",
+    //   headers: new Headers({
+    //     "Cache-Control": "no-cache, no-store, must-revalidate",
+    //     Pragma: "no-cache",
+    //     Expires: 0,
+    //   }),
+    // })
+    //   .then(response => response.json())
+    //   .then(data => setDetailVariable(data))
+    //   .then(setModalEditing(false))
+    //   .then(setShowDetails(true))
   }
   const handleEditCallback = index => {
-    fetch(process.env.ROOT_URL + "/treatmentVariableFull/" + index, {
-      method: "GET",
-      headers: new Headers({
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-        Pragma: "no-cache",
-        Expires: 0,
-      }),
-    })
-      .then(response => response.json())
-      .then(data => setDetailVariable(data))
-      .then(setModalEditing(true))
-      .then(setShowDetails(true))
+    // fetch(process.env.ROOT_URL + "/treatmentVariableFull/" + index, {
+    //   method: "GET",
+    //   headers: new Headers({
+    //     "Cache-Control": "no-cache, no-store, must-revalidate",
+    //     Pragma: "no-cache",
+    //     Expires: 0,
+    //   }),
+    // })
+    //   .then(response => response.json())
+    //   .then(data => setDetailVariable(data))
+    //   .then(setModalEditing(true))
+    //   .then(setShowDetails(true))
   }
 
   useEffect(() => {
@@ -86,16 +86,16 @@ export default function TreatmentVariables(props) {
             "/activities/create-experiment/enter-details")
         }
       }
-      fetch(process.env.ROOT_URL + "/treatmentVariablesShortlist", {
-        method: "GET",
-        headers: new Headers({
-          "Cache-Control": "no-cache, no-store, must-revalidate",
-          Pragma: "no-cache",
-          Expires: 0,
-        }),
-      })
-        .then(response => response.json())
-        .then(data => setVariables(data)).then(setLogged(true))
+      // fetch(process.env.ROOT_URL + "/treatmentVariablesShortlist", {
+      //   method: "GET",
+      //   headers: new Headers({
+      //     "Cache-Control": "no-cache, no-store, must-revalidate",
+      //     Pragma: "no-cache",
+      //     Expires: 0,
+      //   }),
+      // })
+      //   .then(response => response.json())
+      //   .then(data => setVariables(data)).then(setLogged(true))
     } else {
       navigate("/signin");
     }

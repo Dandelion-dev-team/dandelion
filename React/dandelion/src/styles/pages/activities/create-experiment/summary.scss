@@ -71,6 +71,11 @@
             .item-content {
               width: 40%;
               height: 100%;
+
+              .hypotheses{
+                display: flex;
+                flex-direction: column;
+              }
               h3 {
                 display: inline;
                 font-size: 1vw;

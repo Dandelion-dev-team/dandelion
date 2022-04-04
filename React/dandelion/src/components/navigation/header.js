@@ -2,44 +2,63 @@ import React, { useState, useEffect } from "react"
 import { Link, navigate } from "gatsby"
 import logo from "../../images/logo.svg"
 import { user_logout } from "../../utils/logins"
-//const parse = require('../../auth');
+import MenuIcon from "@mui/icons-material/Menu"
+import CloseIcon from "@mui/icons-material/Close"
 
 export default function Header() {
   const [logged, setLogged] = useState()
   useEffect(() => {
-    let logged = localStorage.getItem("logged");
-    if (logged == "true") 
-    {
-      setLogged(true);
-    } 
-    else if (logged == "false" || logged == null) 
-    {
-      setLogged(false);
+    let logged = localStorage.getItem("logged")
+    if (logged == "true") {
+      setLogged(true)
+    } else if (logged == "false" || logged == null) {
+      setLogged(false)
     }
   }, [])
+
+  const [click, setClick] = useState(false)
+  const handleClick = () => setClick(!click)
+  const closeMobileMenu = () => setClick(false)
   return (
     <header>
-      <div className="container">
-        <div className="inner-header">
-          <div className="logo">
+      <div className="inner-header">
+        <div className="logo">
+          {logged ? (
+            <Link to="/dashboard" exact>
+              <img src={logo} />
+            </Link>
+          ) : (
+            <Link to="/" exact>
+              <img src={logo} />
+            </Link>
+          )}
+        </div>
+        <div className={click ? "navigation active" : "navigation"}>
+          <nav>
+            <Link to="/data" onClick={closeMobileMenu}>
+              Data
+            </Link>
+            <Link to="/map" onClick={closeMobileMenu}>
+              Map
+            </Link>
+            <Link to="/about" onClick={closeMobileMenu}>
+              About
+            </Link>
             {logged ? (
-              <Link to="/dashboard" exact>
-                <img src={logo} />
+              <Link to="/" onClick={() => user_logout()}>
+                Logout
               </Link>
             ) : (
-              <Link to="/" exact>
-                <img src={logo} />
-              </Link>
+              <Link to="/signin">Sign In</Link>
             )}
-          </div>
-          <div className="navigation">
-            <nav>
-              <Link to="/data">Data</Link>
-              <Link to="/map">Map</Link>
-              <Link to="/about">About</Link>
-              {logged ? <Link to="/" onClick={() => user_logout()}>Logout</Link> : <Link to="/signin">Sign In</Link>}
-            </nav>
-          </div>
+          </nav>
+        </div>
+        <div className="mobile-menu" onClick={handleClick}>
+          {click ? (
+            <CloseIcon className="menu-icon" />
+          ) : (
+            <MenuIcon className="menu-icon" />
+          )}
         </div>
       </div>
     </header>

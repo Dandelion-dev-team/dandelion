@@ -10,17 +10,16 @@ export default function ExperimentDashboard(props) {
   const [show_type, setShowType] = useState("")
 
   const handleCallback = childData => {
-    console.log("id: " + childData.id)
-    fetch(process.env.ROOT_URL + "/experiment_full/" + childData.id, {
-      method: "GET",
-      headers: new Headers({
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-        Pragma: "no-cache",
-        Expires: 0,
-      }),
-    })
-      .then(response => response.json())
-      .then(data => setSelectedExperiment(data))
+    // fetch(process.env.ROOT_URL + "/experiment_full/" + childData.id, {
+    //   method: "GET",
+    //   headers: new Headers({
+    //     "Cache-Control": "no-cache, no-store, must-revalidate",
+    //     Pragma: "no-cache",
+    //     Expires: 0,
+    //   }),
+    // })
+    //   .then(response => response.json())
+    //   .then(data => setSelectedExperiment(data))
   }
 
   return (

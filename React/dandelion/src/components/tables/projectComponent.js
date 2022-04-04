@@ -1,25 +1,26 @@
 import React, { useEffect, useState } from "react"
 import { navigate } from "gatsby"
 import "../../styles/App.scss"
+import { readRecord } from "../../utils/CRUD"
 //import { readRecord } from "../utils/CRUD"
 
 export default function ProjectComponent(props) {
   const [projects, setProject] = useState(0)
   //TESTED
   useEffect(() => {
-    //readRecord("/projects", setProject)
+    readRecord("/project", setProject)
     //TESTED
     // Update the document title using the browser API
-    fetch(process.env.ROOT_URL + "/projects", {
-      method: "GET",
-      headers: new Headers({
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-        Pragma: "no-cache",
-        Expires: 0,
-      }),
-    })
-      .then(response => response.json())
-      .then(data => setProject(data))
+    // fetch(process.env.ROOT_URL + "/projects", {
+    //   method: "GET",
+    //   headers: new Headers({
+    //     "Cache-Control": "no-cache, no-store, must-revalidate",
+    //     Pragma: "no-cache",
+    //     Expires: 0,
+    //   }),
+    // })
+    //   .then(response => response.json())
+    //   .then(data => setProject(data))
   }, [])
 
   const editAuth = project => {
@@ -35,13 +36,13 @@ export default function ProjectComponent(props) {
         <thead>
           <tr>
             <th>Title</th>
-            <th>Owner</th>
-            <th>Type</th>
+            {/* <th>Owner</th>
+            <th>Type</th> */}
           </tr>
         </thead>
 
         {projects
-          ? projects.map(project => (
+          ? projects.data.map(project => (
             <tbody
               key={projects.id}
               className={className}
@@ -51,8 +52,8 @@ export default function ProjectComponent(props) {
               }}
             >
               <td>{project.title}</td>
-              <td>{project.owner.substring(0, 7)}</td>
-              <td>{project.type}</td>
+              {/* <td>{project.owner.substring(0, 7)}</td>
+              <td>{project.type}</td> */}
             </tbody>
           ))
           : null}

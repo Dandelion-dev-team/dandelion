@@ -8,12 +8,12 @@ export default function UnitCard(props) {
   const [show_picker, setShowPicker] = useState();
   const [colour, setColour] = useState();
   const [checked, setChecked] = useState(false);
-  const [active, setActive] = useState(false);
+  const [gen_code, setCode] = useState("NO_CODE");
 
   const handleChangeComplete = (color) => {
     setColour(color.hex);
     setShowPicker(false);
-    props.onDragItem({ item: props.combination, colour: color.hex, code: "CODE1", index:props.index});
+    props.onDragItem({ item: props.combination, colour: color.hex,  code: gen_code, index:props.index});
     setChecked(true);
   };
 
@@ -21,14 +21,27 @@ export default function UnitCard(props) {
     setChecked(!checked);
   }
 
+  const getCode = (code) => {
+    let construction = props.base_code;
+    construction = construction + "_";
+    if(Array.isArray(props.combination)){
+      props.combination.map(variable => construction = construction + variable[0].name.substring(0,1) + variable[0].treatment_name.substring(0,1) + "_");
+      construction = construction.substring(0, construction.length - 1);
+    } else {
+      construction = construction + props.combination.name.substring(0,1) + props.combination.treatment_name.substring(0,1);
+    }  
+    return construction;
+  }
+
   useEffect(() => {
+    setCode(getCode());
     if(props.index == 0){
-      props.onDragItem({ item: props.combination, colour: colour, code: "CODE1", index:props.index });
+      props.onDragItem({ item: props.combination, colour: colour, code: gen_code, index:props.index });
     }
   }, [])
 
   return (
-    <div id={props.is_active ? "active" : ""} className="unit-card" onClick={() => { props.onDragItem({ item: props.combination, colour: colour, code: "CODE1", index:props.index }); handleClick()}}>
+    <div id={props.is_active ? "active" : ""} className="unit-card" onClick={() => { props.onDragItem({ item: props.combination, colour: colour, code: gen_code, index:props.index }); handleClick()}}>
       <div className="card-content">
         <input
           type="checkbox"

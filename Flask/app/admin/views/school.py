@@ -15,14 +15,12 @@ from app.utils.uploads import content_folder
 
 from app.utils.uploads import get_uploaded_file
 
-
 @admin.route('/school', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def listSchool():
     school = School.query.all()
     return json_response(data=(row2dict(x, summary=True) for x in school))
-
 
 @admin.route('/school', methods=['POST'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
@@ -75,10 +73,11 @@ def getOneSchool(id):
     school_data['postcode'] = school.postcode
     school_data['town'] = school.town
     school_data['telephone'] = school.telephone
+    school_data['email'] = school.email
     school_data['latitude'] = school.latitude
     school_data['longitude'] = school.longitude
-    school_data['image_full'] = content_folder('school', id, 'image') + 'full.png'
-    school_data['image_thumb'] = content_folder('school', id, 'image') + 'thumb.png'
+    school_data['image_full'] = os.path.join(content_folder('school', id, 'image'), 'full.png')
+    school_data['image_thumb'] = os.path.join(content_folder('school', id, 'image'), 'thumb.png')
 
     return {'school': school_data}
 
