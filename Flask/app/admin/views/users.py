@@ -38,7 +38,9 @@ def createUser():
     user = User(
         username=data['username'],
         password=data['password'],
-        school_id=data['school_id']
+        school_id=data['school_id'],
+        is_superuser=data['is_superuser'],
+        is_sysadmin=data['is_sysadmin']
     )
     db.session.add(user)
     return_status = 200
@@ -92,7 +94,7 @@ def getUserByUsername(username):
 @jwt_required()
 def getAllSuperUsers():
     # user = User.query.get_or_404(username)
-    users = User.query.filter(User.is_superuser == True)
+    users = User.query.filter(User.is_superuser == True).all()
     output = []
 
     for user in users:

@@ -4,7 +4,7 @@ import "../../styles/App.scss"
 import { deleteRecord, readRecord } from "../../utils/CRUD";
 
 export default function CrudComponent(props) {
-  const [users, setUsers] = useState(0);
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     readRecord("/user/getsuperusers", setUsers)
@@ -29,8 +29,9 @@ export default function CrudComponent(props) {
           </tr>
         </thead>
 
-        {users ? users.users.map(user => (
-          <tbody key={users.id}>
+        {users.users ? 
+        users.users.map(user => (
+          <tbody key={user.id}>
             <td>{user.school_id}</td>
             <td>{user.username}</td>
             <td>{user.is_superuser.toString()}</td>
@@ -54,7 +55,8 @@ export default function CrudComponent(props) {
               ></input>
             </td>
           </tbody>
-        )) : null}
+        )) 
+        : null}
 
       </table>
     </div>

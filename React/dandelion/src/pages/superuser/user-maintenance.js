@@ -20,7 +20,8 @@ export default function UserMaintenance(props) {
             if (props.location.state) {
                 readRecord("/experiment/" + props.location.state.experiment.id, setExperiment)
                 let school_id = localStorage.getItem('school_id');
-                readRecord('/user/GetSchoolUsers/' + school_id, setUsers);
+                console.log("/user/byschool/" + school_id + "/byexperiment/" + props.location.state.experiment.id);
+                readRecord("/user/byschool/" + school_id + "/byexperiment/" + props.location.state.experiment.id, console.log);
             } else {
                 if (typeof window !== `undefined`) {
                     navigate("/superuser/project-maintenance")
@@ -103,14 +104,15 @@ export default function UserMaintenance(props) {
                         <div className='user-pane'>
                             <div className='title'>
                                 <h3>Select users for experiment:</h3>
-                                {userList.users ? userList.users.map(user => (
-
-                                    <div className='student-row'>
-                                        <input classname='checkmark' type="checkbox" id="experiment_id" name="topping" value="experiment_ID" />
-                                        <h3>{user.username}</h3>
-                                    </div>
-                                ))
-                                    : null}
+                                {/* {userList.users ? 
+                                console.log(userList)
+                                // userList.users.map(user => (
+                                //     <div className='student-row'>
+                                //         <input classname='checkmark' type="checkbox" id="experiment_id" name="topping" value="experiment_ID" />
+                                //         <h3>{user.username}</h3>
+                                //     </div>
+                                // ))
+                                    : null} */}
                             </div>
                         </div>
                     </div>

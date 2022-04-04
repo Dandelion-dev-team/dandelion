@@ -5,7 +5,7 @@ import Select from "react-select"
 import UserComponent from "../../components/tables/superuserComponent"
 import { createRecord, readRecord, updateRecord } from "../../utils/CRUD"
 import { navigate } from "gatsby"
-import { verify_superuser_storage } from "../../utils/logins"
+import { verify_sysadmin_storage } from "../../utils/logins"
 
 export default function SuperuserMaintenance(props) {
   const selectInputRef = useRef()
@@ -16,15 +16,15 @@ export default function SuperuserMaintenance(props) {
   const [editing, setEditing] = useState("")
   const [notes, setNotes] = useState("")
   const [status, setStatus] = useState("")
-  const [sys_admin_checkbox, setAdminCheckbox] = useState("")
-  const [superuser_checkbox, setSuperuserCheckbox] = useState("")
+  const [sys_admin_checkbox, setAdminCheckbox] = useState(false)
+  const [superuser_checkbox, setSuperuserCheckbox] = useState(true)
   const [school_name, setSchoolName] = useState("")
   const [is_active, setActive] = useState("")
   const [editing_user, setEditingUser] = useState("")
   const [logged, setLogged] = useState("");
 
   useEffect(() => {
-    if (verify_superuser_storage() == true) {
+    if (verify_sysadmin_storage() == true) {
       setLogged(true);
       readRecord("/school", setSchools);
     } else {
@@ -62,7 +62,6 @@ export default function SuperuserMaintenance(props) {
   const onCreateUser = e => {
     if (school_selected && entered_username && password) {
       let body = JSON.stringify({
-        id: 1234,
         school_id: school_selected.id,
         username: entered_username,
         password: password,
@@ -138,7 +137,7 @@ export default function SuperuserMaintenance(props) {
                     name="authority_id_picker"
                     className="authority_id_picker"
                     ref={selectInputRef}
-                    options={schoolList}
+                    options={schoolList.data}
                     value={school_selected}
                     defaultValue={school_selected}
                     onChange={setDropdown}
