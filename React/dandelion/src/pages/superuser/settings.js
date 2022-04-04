@@ -7,39 +7,70 @@ import { verify_superuser_storage } from "../../utils/logins"
 import { navigate } from "gatsby"
 export default function SuperuserSettings() {
   const [fetchedSchool, setSchool] = useState("")
-  const [logged, setLogged] = useState("");
+  const [logged, setLogged] = useState("")
 
   useEffect(() => {
     if (verify_superuser_storage() == true) {
-      let school_id = localStorage.getItem("school_id");
-      readRecord("/school/" + school_id, setSchool);
-      setLogged(true);
+      let school_id = localStorage.getItem("school_id")
+      readRecord("/school/" + school_id, setSchool)
+      setLogged(true)
     } else {
-      navigate("/signin");
+      navigate("/signin")
     }
   }, [])
 
   if (typeof window !== `undefined` && logged) {
     return (
       <div>
-        <SideNav />
+        <SideNav/>
         <div className="settings-container">
-          <div className="settings-content">
-            {fetchedSchool ? (
-              <h3>{fetchedSchool.school.name}</h3>) : null}
+          <div className="title">
+          {fetchedSchool ? <h3>{fetchedSchool.school.name}</h3> : null}
+          </div>
+          <div className="content">
             <div className="settings-pane">
               <div className="school-image">
-
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6e/Hillhead_High_School.JPG"/>
               </div>
+              <div className="spacer"/>
               <div className="node-settings">
-                {fetchedSchool ? (
-                  <NodeInfoComponent node={fetchedSchool.school.nodes} />
-                ) : null}
+                <h3>Node Settings</h3>
               </div>
             </div>
+            <div className="details-pane">
+              <div className="details">
+              {fetchedSchool ? <h3>Authority ID: {fetchedSchool.school.authority_id}</h3> : null}
+              {fetchedSchool ? <h3>Name: {fetchedSchool.school.name}</h3>  : null}
+              {fetchedSchool ? <h3>Address: {fetchedSchool.school.address_line_1}</h3>  : null}
+              {fetchedSchool ? <h3>Town: {fetchedSchool.school.town}</h3>  : null}
+              {fetchedSchool ? <h3>Email: {fetchedSchool.school.email}</h3>  : null}
+              {fetchedSchool ? <h3>Phone: {fetchedSchool.school.telephone}</h3>  : null}
+              </div>
+            </div>
+            <div className="spacer"/>
           </div>
         </div>
       </div>
     )
-  } else { return null }
+  } else {
+    return null
+  }
 }
+
+
+//  <div>
+//         <SideNav />
+//         <div className="settings-container">
+//           <div className="settings-content">
+//             {fetchedSchool ? <h3>{fetchedSchool.school.name}</h3> : null}
+//             <div className="settings-pane">
+//               <div className="school-image"></div>
+//               <div className="node-settings">
+//                 {fetchedSchool ? (
+//                   <NodeInfoComponent node={fetchedSchool.school.nodes} />
+//                 ) : null}
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//       </div> 

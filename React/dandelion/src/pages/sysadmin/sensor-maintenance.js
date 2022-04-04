@@ -8,7 +8,7 @@ import { verify_sysadmin_storage } from "../../utils/logins"
 import { navigate } from "gatsby"
 
 export default function SuperuserMaintenance(props) {
-  const [logged, setLogged] = useState("");
+  const [logged, setLogged] = useState("")
   const [entered_code, setCode] = useState("")
   const [entered_desc, setDesc] = useState("")
   const [entered_url, setURL] = useState("")
@@ -87,16 +87,16 @@ export default function SuperuserMaintenance(props) {
         quantities: selected_quantities,
       })
 
-      updateRecord("/sensor/" + editing_ID, body);
+      updateRecord("/sensor/" + editing_ID, body)
     }
   }
 
   useEffect(() => {
     if (verify_sysadmin_storage() == true) {
-      setLogged(true);
+      setLogged(true)
       //readRecord("/sensorQuantity", setQuantityList);
     } else {
-      navigate("/signin");
+      navigate("/signin")
     }
   }, [])
   if (logged) {
@@ -151,7 +151,7 @@ export default function SuperuserMaintenance(props) {
                   />
                 </div>
                 <div className="quantityPicker">
-                <h3>Quantity:</h3>
+                  <h3>Quantity:</h3>
                   <Select
                     value={selected_quantities}
                     closeMenuOnSelect={false}
@@ -189,5 +189,5 @@ export default function SuperuserMaintenance(props) {
         </div>
       </div>
     )
-  } else return null;
+  } else return null
 }

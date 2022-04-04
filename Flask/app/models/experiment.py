@@ -1,4 +1,6 @@
 from app import db
+import os
+from app.utils.uploads import get_uploaded_file, content_folder
 
 
 class Experiment(db.Model):
@@ -24,6 +26,7 @@ class Experiment(db.Model):
     def summary_columns(self):
         return [("id", "id"),
                 ("title", "title"),
+                ("description", "description"),
                 ("owner_id", "project_partner.school.id"),
                 ("owner_name", "project_partner.school.name")]
 

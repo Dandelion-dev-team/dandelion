@@ -18,16 +18,16 @@ export default function PredefinedExperiments(props) {
   }
 
   const handleCallback = childData => {
-    fetch(process.env.ROOT_URL + "/experiment_full/" + childData.id, {
-      method: "GET",
-      headers: new Headers({
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-        Pragma: "no-cache",
-        Expires: 0,
-      }),
-    })
-      .then(response => response.json())
-      .then(data => setSelectedExperiment(data))
+    // fetch(process.env.ROOT_URL + "/experiment_full/" + childData.id, {
+    //   method: "GET",
+    //   headers: new Headers({
+    //     "Cache-Control": "no-cache, no-store, must-revalidate",
+    //     Pragma: "no-cache",
+    //     Expires: 0,
+    //   }),
+    // })
+    //   .then(response => response.json())
+    //   .then(data => setSelectedExperiment(data))
   }
 
   useEffect(() => {
@@ -76,7 +76,10 @@ export default function PredefinedExperiments(props) {
                       className="submitButton"
                       onClick={() => {
                         if (typeof window !== `undefined`) {
-                          navigate("/activities/create-experiment/enter-details")
+                          navigate("/activities/create-experiment/enter-details",
+                          {
+                            state: { project_id: props.location.state.project_id},
+                          })
                         }
                       }}
                     >

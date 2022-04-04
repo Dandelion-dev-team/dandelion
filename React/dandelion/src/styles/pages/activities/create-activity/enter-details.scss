@@ -110,7 +110,7 @@
           .desc-title {
             width: 30%;
             height: 100%;
-            margin-top: 4vh;
+            margin-top: 1.5vh;
             h3 {
               display: inline;
               font-size: 1.5vw;
@@ -120,11 +120,16 @@
           .desc-input {
             width: 50%;
             height: 100%;
+            max-height: 100%;
             margin-top: 1.5vh;
             margin-bottom: 1.5vh;
-            input {
-              height: 100%;
-              width: 100%;
+            textarea {
+              min-height: 100%;
+              max-height: 100%;
+              min-width: 100%;
+              max-width: 100%;
+              margin: auto;
+              resize: none;
             }
           }
 

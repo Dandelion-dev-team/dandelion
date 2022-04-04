@@ -1,60 +1,52 @@
-
-.about 
-{
-    padding: 48px 0;
-    background: #2E5641;
-    position: relative;
-    color: $white;
-
-    .hero-section 
-    {
+.about {
+  background: #2e5641;
+  color: $white;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: scroll;
+  font-family: "Archivo Narrow";
+  .content {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    //height: 80vh;
+    margin-top: 8.5%;
+    .feature-image {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      .content 
-      {
-        width: 33%;
-
-        @media (max-width: 1440px) {
-          width: 40%;
-        }
-
+      flex-direction: column;
+      justify-content: flex-start;
+      background-color: white;
+      height: 44vh;
+      width: 100%;
+      img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
       }
-      .heading 
-      {
+    }
+    .hero-text {
+      display: flex;
+      flex-direction: column;
+      height: 60vh;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+
+      .title {
+        height: 40%;
         width: 50%;
-        height: 1000px;
-        position: relative;
-        display: flex;
-        align-items: center;
-        z-index: 7;
-        @media (max-width: 1440px) {
-          height: 800px;
-        }
 
         h3 {
-          padding-right: 120px;
-        }
-        .feat-img
-        {
-          position: absolute;
-          width: 640px;
-          z-index: 4;
-        //   @media (max-width: 1440px) {
-        //     width: 360px;
-        //   }
-        }
-        .bottom-left 
-        {
-          position: absolute;
-          width: 410px;
-          left: 0;
-          bottom: 0;
-          @media (max-width: 1440px) {
-            width: 310px;
-          }
+          color: $primary;
+          font-size: 3rem;
+          text-align: center;
         }
       }
     }
-   
   }
+}

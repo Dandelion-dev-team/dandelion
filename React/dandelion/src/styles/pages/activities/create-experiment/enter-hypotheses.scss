@@ -1,0 +1,130 @@
+.hypotheses-container {
+  background: #2e5641;
+  color: $white;
+  position: relative;
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  overflow-y: hidden;
+  flex-direction: column;
+  justify-content: space-around;
+
+  .content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 90vh;
+    width: 85%;
+    .text-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 35%;
+      height: 90vh;
+
+      h3 {
+        font-size: 4rem;
+      }
+
+      p {
+        font-size: 1.6rem;
+        line-height: 2rem;
+      }
+    }
+    .hypotheses-content {
+      display: flex;
+      width: 60%;
+      height: 70vh;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: white;
+      border-radius: 20px;
+
+      .hypotheses-row {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        height: 85%;
+        h3 {
+          color: black;
+        }
+        .list {
+          height: 85%;
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+
+          .input-row {
+            text-align: left;
+            display: flex;
+            flex-direction: row;
+            justify-items: left;
+            width: 100%;
+            height: auto;
+            margin-top: 3vh;
+            .title {
+              width: 50%;
+              height: 100%;
+              h3 {
+                display: inline;
+                font-size: 1.5vw;
+              }
+            }
+            .input {
+              width: 50%;
+              height: 100%;
+              h3 {
+                display: inline;
+                font-size: 1vw;
+              }
+            }
+          }
+          .add-btn {
+            .submitButton {
+              background-color: $accent;
+              color: $primary;
+              font-size: 1.6rem;
+              margin: 1.25rem 0px;
+              padding: 0.625rem;
+              width: 13rem;
+              border: none;
+              cursor: pointer;
+              border-radius: 10px;
+            }
+            .submitButton:hover {
+              background-color: #d4d926;
+            }
+          }
+        }
+
+        .cont-btn {
+          height: 10%;
+          margin-top: auto;
+          .spacer {
+            width: 85%;
+          }
+          .button {
+            width: 15%;
+            margin-left: auto;
+            .continue-btn {
+              background-color: $accent;
+              color: $primary;
+              font-size: 1.6rem;
+              margin: 1.25rem 0px;
+              padding: 0.625rem;
+              width: 13rem;
+              border: none;
+              cursor: pointer;
+              border-radius: 10px;
+            }
+            .continue-btn:hover {
+              background-color: #d4d926;
+            }
+          }
+        }
+      }
+    }
+  }
+}
