@@ -80,16 +80,16 @@ export default function Data() {
     readRecord("/tagreference", setTags)
     readRecord("/school", setSchools)
 
-    fetch(process.env.ROOT_URL + "/projects", {
-      method: "GET",
-      headers: new Headers({
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-        Pragma: "no-cache",
-        Expires: 0,
-      }),
-    })
-      .then(response => response.json())
-      .then(data => setProjects(data))
+    // fetch(process.env.ROOT_URL + "/projects", {
+    //   method: "GET",
+    //   headers: new Headers({
+    //     "Cache-Control": "no-cache, no-store, must-revalidate",
+    //     Pragma: "no-cache",
+    //     Expires: 0,
+    //   }),
+    // })
+    //   .then(response => response.json())
+    //   .then(data => setProjects(data))
   }, [])
 
   const Tag = tag => {
@@ -144,16 +144,16 @@ export default function Data() {
       }
     } else {
       copy.push(project.project_ref.id)
-      fetch(process.env.ROOT_URL + "/project/" + project.project_ref.id, {
-        method: "GET",
-        headers: new Headers({
-          "Cache-Control": "no-cache, no-store, must-revalidate",
-          Pragma: "no-cache",
-          Expires: 0,
-        }),
-      })
-        .then(response => response.json())
-        .then(data => setExperiments(experimentList => [...experimentList, { project_id: project.project_ref.id, experiments: data.experiments }]))
+      // fetch(process.env.ROOT_URL + "/project/" + project.project_ref.id, {
+      //   method: "GET",
+      //   headers: new Headers({
+      //     "Cache-Control": "no-cache, no-store, must-revalidate",
+      //     Pragma: "no-cache",
+      //     Expires: 0,
+      //   }),
+      // })
+      //   .then(response => response.json())
+      //   .then(data => setExperiments(experimentList => [...experimentList, { project_id: project.project_ref.id, experiments: data.experiments }]))
       disableExperiments(false);
     }
     setActivitiesSelected(copy);

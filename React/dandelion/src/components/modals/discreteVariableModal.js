@@ -5,9 +5,9 @@ import DiscreteCardList from "../cards/discreteCardList"
 import Select from "react-select"
 
 export default function DiscreteVariableModal(props) {
-  const [name, setName] = useState("discrete_v")
-  const [description, setDescription] = useState("desc")
-  const [procedure, setProcedure] = useState("proc")
+  const [name, setName] = useState("")
+  const [description, setDescription] = useState("")
+  const [procedure, setProcedure] = useState("")
   const [level_text_box, setLevelTextbox] = useState("")
 
   const [level_list, setLevelList] = useState([])

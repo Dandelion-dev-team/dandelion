@@ -16,22 +16,22 @@ export default function EnterSingleData(props) {
 
   const onUpdate = e => {
     console.log("Updated body")
-    fetch("http://localhost:3000/observation", {
-      method: "POST",
-      body: JSON.stringify({
-        id: 0,
-        timestamp: "2022-03-17T23:40:30.642Z",
-        value: length,
-        status: "valid",
-        unit: "mm"
-      }),
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        'Cache-Control': 'no-cache, no-store, must-revalidate',
-        'Pragma': 'no-cache',
-        'Expires': 0,
-      }),
-    }).then(navigate("/participants/experiment-dashboard"))
+    // fetch("http://localhost:3000/observation", {
+    //   method: "POST",
+    //   body: JSON.stringify({
+    //     id: 0,
+    //     timestamp: "2022-03-17T23:40:30.642Z",
+    //     value: length,
+    //     status: "valid",
+    //     unit: "mm"
+    //   }),
+    //   headers: new Headers({
+    //     'Content-Type': 'application/json',
+    //     'Cache-Control': 'no-cache, no-store, must-revalidate',
+    //     'Pragma': 'no-cache',
+    //     'Expires': 0,
+    //   }),
+    // }).then(navigate("/participants/experiment-dashboard"))
   }
 
 

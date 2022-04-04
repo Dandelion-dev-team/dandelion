@@ -6,13 +6,13 @@ import CheckIcon from '@mui/icons-material/Check';
 import { verify_superuser_storage } from "../../../utils/logins";
 
 export default function EnterDetails(props) {
-  const [name, setName] = useState("name")
-  const [code, setCode] = useState("code")
-  const [description, setDescription] = useState("desc")
-  const [tutorial, setTutorial] = useState("e")
+  const [name, setName] = useState("")
+  const [code, setCode] = useState("")
+  const [description, setDescription] = useState("")
+  const [tutorial, setTutorial] = useState("")
   const [image, setImage] = useState(null)
-  const [startDate, setStartDate] = useState("2022-01-01")
-  const [endDate, setEndDate] = useState("2022-02-02")
+  const [startDate, setStartDate] = useState("")
+  const [endDate, setEndDate] = useState("")
 
   const [logged, setLogged] = useState("");
 

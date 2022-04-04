@@ -5,16 +5,16 @@ export default function MapModalCard(props) {
   const [project, setProject] = useState(0)
 
   useEffect(() => {
-    fetch(process.env.ROOT_URL + "/projects", {
-      method: "GET",
-      headers: new Headers({
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-        Pragma: "no-cache",
-        Expires: 0,
-      }),
-    })
-      .then(response => response.json())
-      .then(data => setProject(data))
+    // fetch(process.env.ROOT_URL + "/projects", {
+    //   method: "GET",
+    //   headers: new Headers({
+    //     "Cache-Control": "no-cache, no-store, must-revalidate",
+    //     Pragma: "no-cache",
+    //     Expires: 0,
+    //   }),
+    // })
+    //   .then(response => response.json())
+    //   .then(data => setProject(data))
   }, [])
   
 
