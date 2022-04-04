@@ -9,7 +9,6 @@ export default function Summary(props) {
   const [experiment_details, setExperimentDetails] = useState([])
   const [combinations_selected, setCombinations] = useState([])
   const [hypotheses, setHypotheses] = useState([])
-  const [combinations_renderable, setRenderable] = useState([])
 
   const [name, setName] = useState("")
   const [code, setCode] = useState("")
@@ -53,9 +52,6 @@ export default function Summary(props) {
           result.push(array)
         })
 
-        result.forEach(array => {
-          setRenderable(arr => [...arr, array])
-        })
       } else {
         if (typeof window !== `undefined`) {
           navigate("/activities/create-experiment/enter-details")
@@ -86,13 +82,23 @@ export default function Summary(props) {
                       <h3>Conditions:</h3>
                     </div>
                     <div className="condition-list">
-                      <h3>1 - Touch × Length </h3>
-                      <h3>2 - Touch × Stalk Strength </h3>
+                      {console.log(combinations_selected)}
+                      {combinations_selected
+                        ? combinations_selected.map(function (d, idx) {
+                          if (Array.isArray(d)) {
+                            d.forEach(element => {
+                              return <h3>{element[0].treatment_name} ({element[0].name})</h3>
+                            })
+                          } else {
+                            return <h3>{d.treatment_name} ({d.name})</h3>
+                        }
+                        })
+                        : null}
                     </div>
                   </div>
                   <div className="exp-item">
                     <div className="item-title">
-                      <h3>Description:</h3>
+                      <h3>Desc:</h3>
                     </div>
                     <div className="item-content">
                       <h3>{experiment_details.description}</h3>
@@ -111,11 +117,13 @@ export default function Summary(props) {
                       <h3>Hypotheses:</h3>
                     </div>
                     <div className="item-content">
-                      {hypotheses
-                        ? hypotheses.map(function (d, idx) {
-                            return <h3>{hypotheses.description}</h3>
+                      <div className="hypotheses">
+                        {hypotheses
+                          ? hypotheses.map(function (d, idx) {
+                            return <h3>{d.hypothesis_no} - {d.description}</h3>
                           })
-                        : null}
+                          : null}
+                      </div>
                     </div>
                   </div>
                 </div>
