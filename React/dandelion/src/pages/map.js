@@ -23,6 +23,7 @@ export default function MapPage(props){
     const {TileLayer} = require("../../node_modules/react-leaflet/cjs/TileLayer.js");
     return (
       <div>
+        <Header />
         <div className="map-page">
           <div className="spacer">
             <div id="map-container">
