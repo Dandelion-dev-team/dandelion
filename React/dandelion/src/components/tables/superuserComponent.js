@@ -29,34 +29,33 @@ export default function CrudComponent(props) {
           </tr>
         </thead>
 
-        {users.user ? 
-        console.log(users)
-        // users.user.map(user => (
-        //   <tbody key={user.id}>
-        //     <td>{user.school_id}</td>
-        //     <td>{user.username}</td>
-        //     <td>{user.is_superuser.toString()}</td>
-        //     <td>{user.status}</td>
-        //     <td>
-        //       <div className="submit-btn">
-        //         <input
-        //           type="submit"
-        //           className="submitButton"
-        //           value="Edit"
-        //           onClick={() => { editUser(user) }}
-        //         ></input>
-        //       </div>
-        //     </td>
-        //     <td>
-        //       <input
-        //         type="submit"
-        //         className="submitButton"
-        //         value="Delete"
-        //         onClick={() => { deleteRecord("/users/" + user.id) }}
-        //       ></input>
-        //     </td>
-        //   </tbody>
-        // )) 
+        {users.users ? 
+        users.users.map(user => (
+          <tbody key={user.id}>
+            <td>{user.school_id}</td>
+            <td>{user.username}</td>
+            <td>{user.is_superuser.toString()}</td>
+            <td>{user.status}</td>
+            <td>
+              <div className="submit-btn">
+                <input
+                  type="submit"
+                  className="submitButton"
+                  value="Edit"
+                  onClick={() => { editUser(user) }}
+                ></input>
+              </div>
+            </td>
+            <td>
+              <input
+                type="submit"
+                className="submitButton"
+                value="Delete"
+                onClick={() => { deleteRecord("/users/" + user.id) }}
+              ></input>
+            </td>
+          </tbody>
+        )) 
         : null}
 
       </table>

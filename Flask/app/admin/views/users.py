@@ -93,7 +93,7 @@ def getUserByUsername(username):
 @jwt_required()
 def getAllSuperUsers():
     # user = User.query.get_or_404(username)
-    users = User.query.filter(User.is_superuser == True)
+    users = User.query.filter(User.is_superuser == True).all()
     output = []
 
     for user in users:
