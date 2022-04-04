@@ -25,4 +25,6 @@ class School(db.Model):
     def summary_columns(self):
         return [("id", "id"),
                 ("authority_id", "authority_id"),
+                ("latitude", "latitude"),
+                ("longitude", "longitude"),
                 ("name", "name")]
