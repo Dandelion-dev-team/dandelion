@@ -79,17 +79,7 @@ export default function Data() {
   useEffect(() => {
     readRecord("/tagreference", setTags)
     readRecord("/school", setSchools)
-
-    // fetch(process.env.ROOT_URL + "/projects", {
-    //   method: "GET",
-    //   headers: new Headers({
-    //     "Cache-Control": "no-cache, no-store, must-revalidate",
-    //     Pragma: "no-cache",
-    //     Expires: 0,
-    //   }),
-    // })
-    //   .then(response => response.json())
-    //   .then(data => setProjects(data))
+    readRecord("/project", setProjects)
   }, [])
 
   const Tag = tag => {
@@ -144,16 +134,16 @@ export default function Data() {
       }
     } else {
       copy.push(project.project_ref.id)
-      // fetch(process.env.ROOT_URL + "/project/" + project.project_ref.id, {
-      //   method: "GET",
-      //   headers: new Headers({
-      //     "Cache-Control": "no-cache, no-store, must-revalidate",
-      //     Pragma: "no-cache",
-      //     Expires: 0,
-      //   }),
-      // })
-      //   .then(response => response.json())
-      //   .then(data => setExperiments(experimentList => [...experimentList, { project_id: project.project_ref.id, experiments: data.experiments }]))
+      fetch(process.env.API_URL + "/project/" + project.project_ref.id + "/experiment", {
+        method: "GET",
+        headers: new Headers({
+          "Cache-Control": "no-cache, no-store, must-revalidate",
+          Pragma: "no-cache",
+          Expires: 0,
+        }),
+      })
+        .then(response => response.json())
+        .then(data => setExperiments(experimentList => [...experimentList, { project_id: project.project_ref.id, experiments: data.data}]))
       disableExperiments(false);
     }
     setActivitiesSelected(copy);
@@ -232,7 +222,7 @@ export default function Data() {
             value="experiment_ID"
             checked={checked_value}
             disabled={false}
-            onChange={() => { onSensorChange(experiment) }}
+            onChange={() => { console.log("oog") }}
           />
           <h3>{experiment.title}</h3>
         </div>
@@ -310,16 +300,16 @@ export default function Data() {
                   </AccordionSummary>
                   <AccordionDetails>
                     <div className="project-block">
-                      {projectList ?
+                      {projectList.data ?
                         (
                           schoolsSelected.length > 0 ? //IF SCHOOL SELECTED HAS BEEN SET SHOW FILTER, IF NOT SHOW FULL LIST
-                            projectList.filter(project =>
+                            projectList.data.filter(project =>
                               (schoolsSelected.includes(String(project.school_id)))).map(filtered =>
                               (
                                 <Project project_ref={filtered} />
                               ))
                             :
-                            projectList.map(projectItem => (
+                            projectList.data.map(projectItem => (
                               <Project project_ref={projectItem} />
                             ))
                         )
@@ -339,7 +329,7 @@ export default function Data() {
                     Experiments
                   </AccordionSummary>
                   <AccordionDetails>
-                      {experimentList.length > 0 ? //IF SCHOOL SELECTED HAS BEEN SET SHOW FILTER, IF NOT SHOW FULL LIST
+                      {experimentList ? //IF SCHOOL SELECTED HAS BEEN SET SHOW FILTER, IF NOT SHOW FULL LIST
                         experimentList.map(experimentItem => (
                           <div className="project-block">
                           <Experiment experiment_ref={experimentItem} />
@@ -368,6 +358,16 @@ export default function Data() {
                     </div>
                   </AccordionDetails>
                 </Accordion>
+              </div>
+              <div className="generate-btn">
+                <input
+                  type="submit"
+                  className="submitButton"
+                  value="Generate"
+                    onClick={() => {
+                      console.log("generate")
+                    }}
+                ></input>
               </div>
             </div>
             <div className="spacer" />

@@ -15,6 +15,24 @@
     height: 75vh;
     border-radius: 20px;
     margin-top: 7.5%;
+    
+    .generate-btn {
+      margin-left: auto;
+      align-items: flex-start;
+      .submitButton {
+        background-color: $accent;
+        color: $primary;
+        font-size: 1.6rem;
+        margin-right: 1rem;
+        padding: 15px;
+        border: none;
+        cursor: pointer;
+        border-radius: 10px;
+      }
+      .submitButton:hover {
+        background-color: #d4d926;
+      }
+    }
 
     .filter-list {
       width: 40%;
