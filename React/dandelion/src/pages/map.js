@@ -2,17 +2,14 @@ import React, { useEffect, useState } from "react"
 import Header from "../components/navigation/header"
 import "../styles/App.scss"
 import { readRecord } from "../utils/CRUD"
-import L from "leaflet"
-import "leaflet/dist/leaflet.css"
-import icon from "../images/marker.png"
 
-let DefaultIcon = L.icon({
-  iconUrl: icon,
-  iconSize: [36, 36],
-  iconAnchor: [18, 18],
-})
+// let DefaultIcon = L.icon({
+//   iconUrl: icon,
+//   iconSize: [36, 36],
+//   iconAnchor: [18, 18],
+// })
 
-L.Marker.prototype.options.icon = DefaultIcon
+// L.Marker.prototype.options.icon = DefaultIcon
 
 export default function MapPage(props){
   const [starting_lat, setStartingLat] = useState(57.40040961518596);

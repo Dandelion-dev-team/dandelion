@@ -1,13 +1,13 @@
 import React, { useEffect, useState, useRef } from "react"
 import "../../styles/App.scss"
 import SysSideNav from "../../components/navigation/sysadminSideNav"
-import { verify_superuser_storage } from "../../utils/logins";
+import { verify_sysadmin_storage } from "../../utils/logins";
 import { navigate } from "gatsby";
 
 export default function SysadminDashboard(props) {
   const [render, setRender] = useState("");
   useEffect(() => {
-    if (verify_superuser_storage() == true) {
+    if (verify_sysadmin_storage() == true) {
       setRender(true);
     } else {
       navigate("/signin");
