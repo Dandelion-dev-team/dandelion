@@ -6,9 +6,9 @@ class Variable(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     quantity_id = db.Column(db.Integer, db.ForeignKey('quantity.id'), nullable=True)
-    name = db.Column(db.String(30))
+    name = db.Column(db.String(100))
     is_sensor_quantity = db.Column(db.Boolean, default=False)
-    procedure = db.Column(db.String(200))
+    procedure = db.Column(db.String(5000))
     status = db.Column(db.VARCHAR(20))
 
     levels = db.relationship("Level", backref="variable")

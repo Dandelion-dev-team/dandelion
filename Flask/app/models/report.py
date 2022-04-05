@@ -9,14 +9,14 @@ class Report(db.Model):
     experiment_id = db.Column(db.Integer, db.ForeignKey('experiment.id'), nullable=False)
     report_stage = db.Column(db.String(20), nullable=False)
     report_date = db.Column(db.DateTime, nullable=False)
-    title = db.Column(db.String(20), nullable=False)
+    title = db.Column(db.String(100), nullable=False)
     document_link = db.Column(db.String(200))
     status = db.Column(db.VARCHAR(20), nullable=False)
 
     @property
     def summary_columns(self):
         return [("id", "id"),
-                ("report_name", "report_name"),
+                ("report_name", "title"),
                 ("title", "title"),
                 ("document_link", "document_link")]
 

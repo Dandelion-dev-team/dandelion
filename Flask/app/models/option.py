@@ -8,7 +8,7 @@ class Option(db.Model):
     question_id = db.Column(db.Integer,db.ForeignKey('question.id'), nullable=False)
     value = db.Column(db.Integer)
     label = db.Column(db.Integer)
-    description = db.Column(db.String(200))
+    description = db.Column(db.String(500))
     status = db.Column(db.String(20))
 
     def __repr__(self):

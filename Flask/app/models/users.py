@@ -7,12 +7,12 @@ class User(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     school_id = db.Column(db.Integer, db.ForeignKey('school.id'))
-    username = db.Column(db.String(20), unique=True)
+    username = db.Column(db.String(100), unique=True)
     password_hash = db.Column(db.String(128))
     is_sysadmin = db.Column(db.Boolean, default=False)
     is_superuser = db.Column(db.Boolean, default=False)
     status = db.Column(db.String(20))
-    notes = db.Column(db.String(200))
+    notes = db.Column(db.String(500))
     audit = db.relationship("Audit", backref="users")
     session = db.relationship("Session", backref="users")
 

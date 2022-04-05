@@ -12,7 +12,7 @@ class Observation(db.Model):
     observation_image_link = (db.String(200))
     created_by = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     status = db.Column(db.VARCHAR(20), nullable=False)
-    comment = db.Column(db.String(200))
+    comment = db.Column(db.String(500))
 
     @property
     def summary_columns(self):
