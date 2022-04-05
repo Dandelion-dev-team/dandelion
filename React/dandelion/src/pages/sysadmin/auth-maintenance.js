@@ -55,7 +55,7 @@ export default function AuthMaintenance(props) {
 
   const onCreateAuth = e => {
     if (auth_name && telephone && email) {
-      let body = JSON.stringify({ id: 1234, name: auth_name, telephone: telephone, email: email })
+      let body = JSON.stringify({name: auth_name, telephone: telephone, email: email })
       createRecord("/authority", body);
     } else {
       console.log("did not have all information")

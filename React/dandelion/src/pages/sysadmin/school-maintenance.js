@@ -76,7 +76,6 @@ export default function SuperuserMaintenance(props) {
       entered_image_link
     ) {
       let body = JSON.stringify({
-        id: 1234,
         authority_id: authority_selected.id,
         name: entered_school_name,
         address_line_1: addressLineOne,
@@ -177,7 +176,7 @@ export default function SuperuserMaintenance(props) {
                         //IF NOT EDITING SHOW PICKER
                         <Select
                           name="authority_id_picker"
-                          options={authList}
+                          options={authList.data}
                           value={authority_selected}
                           defaultValue={authority_selected}
                           onChange={setAuthority}
