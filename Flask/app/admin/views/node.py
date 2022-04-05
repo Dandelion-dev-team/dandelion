@@ -134,7 +134,7 @@ def delete_node(id):
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def upload_data(id):
-    Node.query.get_or_404(id) #if node id doens't exist, it returns a 404 message
+    Node.query.get_or_404(id)  # if node id doens't exist, it returns a 404 message
     id = str(id)
     json_data = request.get_json()
 
@@ -150,15 +150,11 @@ def upload_data(id):
         folder_location = current_app.config['DATA_ROOT_PATH']
         newdir = (os.path.join(folder_location, id))  # content_folder function when merged with main
 
-        if not os.path.exists(newdir):
-            os.makedirs(newdir)
-            new_data_df.to_csv(os.path.join(newdir, cube_level + '.csv'))
-        else:
-            try:
-                df = pd.read_csv(os.path.join(newdir, cube_level + '.csv'), index_col="timestamp")
-                df = pd.concat([df, new_data_df])
-            except:
-                df = new_data_df
-            df.to_csv(os.path.join(newdir, cube_level + '.csv'))
+        try:
+            df = pd.read_csv(os.path.join(newdir, cube_level + '.csv'), index_col="timestamp")
+            df = pd.concat([df, new_data_df])
+        except:
+            df = new_data_df
+        df.to_csv(os.path.join(newdir, cube_level + '.csv'))
 
     return j
