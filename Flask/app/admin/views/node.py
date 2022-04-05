@@ -131,35 +131,34 @@ def delete_node(id):
 
 
 @admin.route('/node/<int:id>/uploadData', methods=['POST'])
-# @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
-# @jwt_required()
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
+@jwt_required()
 def upload_data(id):
-
+    Node.query.get_or_404(id) #if node id doens't exist, it returns a 404 message
     id = str(id)
     json_data = request.get_json()
 
     s = json.dumps(json_data)
     j = json.loads(s)  # <-- Convert JSON string, s, to JSON object, j, with j = json.loads(s)
 
-    for cube_level in ('top', 'middle', 'bottom'): #cube_level = top/middle/bottom
+    for cube_level in ('top', 'middle', 'bottom'):
 
+        new_data_df = pd.DataFrame(j[cube_level], index=[j["timestamp"]])
+        new_data_df.index = pd.to_datetime(new_data_df.index)
+        new_data_df.index.name = "timestamp"
 
-    new_data_df = pd.DataFrame(j["top"], index=[j["timestamp"]])
-    new_data_df.index = pd.to_datetime(new_data_df.index)
-    new_data_df.index.name = "timestamp"
+        folder_location = current_app.config['DATA_ROOT_PATH']
+        newdir = (os.path.join(folder_location, id))  # content_folder function when merged with main
 
-    folder_location = current_app.config['DATA_ROOT_PATH']
-    newdir = (os.path.join(folder_location, id)) #content_folder function
-
-    if not os.path.exists(newdir):
-        os.makedirs(newdir)
-        new_data_df.to_csv(os.path.join(newdir, r'top.csv'))
-    else:
-        try:
-            df = pd.read_csv(os.path.join(newdir, r'top.csv'), index_col="timestamp")
-            df = pd.concat([df, new_data_df])
-        except:
-            df = new_data_df
-        df.to_csv(os.path.join(newdir, 'top.csv'))
+        if not os.path.exists(newdir):
+            os.makedirs(newdir)
+            new_data_df.to_csv(os.path.join(newdir, cube_level + '.csv'))
+        else:
+            try:
+                df = pd.read_csv(os.path.join(newdir, cube_level + '.csv'), index_col="timestamp")
+                df = pd.concat([df, new_data_df])
+            except:
+                df = new_data_df
+            df.to_csv(os.path.join(newdir, cube_level + '.csv'))
 
     return j
