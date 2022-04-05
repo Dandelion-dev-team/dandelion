@@ -13,9 +13,8 @@ def content_folder(object_type, id, content_type, upload=False):
             os.makedirs(base_dir)
         return base_dir
     else:
-        base_dir = os.path.join(current_app.config['CONTENT_ROOT_DOWNLOAD'], tail)
-        if os.path.exists(base_dir):
-            return base_dir
+        if os.path.exists(os.path.join(current_app.config['CONTENT_ROOT_UPLOAD'], tail)):
+            return os.path.join(current_app.config['CONTENT_ROOT_DOWNLOAD'], tail)
         else:
             return os.path.join(current_app.config['CONTENT_ROOT_DOWNLOAD'], content_type, object_type, '0')
 

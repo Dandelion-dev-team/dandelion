@@ -14,7 +14,7 @@ def image_processing(pic, object_type, id, filename):
     newdir = content_folder(object_type, id, 'image', upload=True)
     save_image(pic, newdir, filename)
 
-    pil_image = Image.open(pic)
+    pil_image = Image.open(os.path.join(newdir, filename))
 
     # Full_size
     target_width = 590
@@ -38,8 +38,8 @@ def resize_and_crop(pil_image, target_width, target_height):
     resized_cropped = pil_image
 
     # Calculate the reduction factor
-    factor = int(min(height / target_height, width / target_width))
-    size = (int(width / factor), int(height / factor))
+    factor = min(height / target_height, width / target_width)
+    size = (round(width / factor), round(height / factor))
     resized_cropped = resized_cropped.resize(size)  # This does not change the aspect ratio
 
     width, height = resized_cropped.size
