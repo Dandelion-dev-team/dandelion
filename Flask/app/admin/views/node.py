@@ -1,14 +1,20 @@
-from flask import abort, request, jsonify
+import json
+import os
+
+from flask import abort, request, jsonify, current_app
 from flask_cors import cross_origin
 from flask_json import json_response
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import inspect
+from werkzeug.utils import secure_filename
 
 from app.admin import admin
 from app.models import Node
 from app import db
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update, audit_delete
 from app.utils.functions import row2dict, jwt_user
+import pandas as pd
+from pandas import DataFrame, read_csv
 
 
 @admin.route('/node', methods=['GET'])
@@ -26,13 +32,13 @@ def add_node():
     current_user = jwt_user(get_jwt_identity())
     data = request.get_json()
     node = Node(
-        school_id = data['school_id'],
-        growcube_code = data['growcube_code'],
-        mac_address = data['mac_address'],
-        last_communication_date = data['last_communication_date'],
-        next_communication_date = data['next_communication_date'],
-        health_status = data['health_status'],
-        status = data['status']
+        school_id=data['school_id'],
+        growcube_code=data['growcube_code'],
+        mac_address=data['mac_address'],
+        last_communication_date=data['last_communication_date'],
+        next_communication_date=data['next_communication_date'],
+        health_status=data['health_status'],
+        status=data['status']
 
     )
 
@@ -66,7 +72,6 @@ def get_one_node(id):
     node_data['health_status'] = node.health_status
     node_data['status'] = node.status
 
-
     return jsonify({'Node': node_data})
 
 
@@ -85,7 +90,6 @@ def updateNode(id):
     node_to_update.next_communication_date = new_data["next_communication_date"]
     node_to_update.health_status = new_data["health_status"]
     node_to_update.status = new_data["status"]
-
 
     audit_details = prepare_audit_details(inspect(Node), node_to_update, delete=False)
 
@@ -109,9 +113,9 @@ def delete_node(id):
     current_user = jwt_user(get_jwt_identity())
     node_to_delete = Node.query.filter_by(id=id).first()
     if not node_to_delete:
-        return jsonify({"message" : "No Node found"})
+        return jsonify({"message": "No Node found"})
 
-    audit_details = prepare_audit_details(inspect(Node), node_to_delete, delete = True)
+    audit_details = prepare_audit_details(inspect(Node), node_to_delete, delete=True)
     db.session.delete(node_to_delete)
     return_status = 200
     message = "The Node has been deleted"
@@ -119,8 +123,38 @@ def delete_node(id):
     try:
         db.session.commit()
         audit_delete("authority", node_to_delete.id, audit_details, current_user.id)
-        return jsonify({"message" : message, "id": node_to_delete.id})
+        return jsonify({"message": message, "id": node_to_delete.id})
 
     except Exception as e:
         db.session.rollback()
-        abort(409,e.orig.msg)
+        abort(409, e.orig.msg)
+
+
+@admin.route('/node/<int:id>/uploadData', methods=['POST'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
+@jwt_required()
+def upload_data(id):
+    Node.query.get_or_404(id)  # if node id doens't exist, it returns a 404 message
+    id = str(id)
+    json_data = request.get_json()
+
+    s = json.dumps(json_data)
+    j = json.loads(s)  # <-- Convert JSON string, s, to JSON object, j, with j = json.loads(s)
+
+    for cube_level in ('top', 'middle', 'bottom'):
+
+        new_data_df = pd.DataFrame(j[cube_level], index=[j["timestamp"]])
+        new_data_df.index = pd.to_datetime(new_data_df.index)
+        new_data_df.index.name = "timestamp"
+
+        folder_location = current_app.config['DATA_ROOT_PATH']
+        newdir = (os.path.join(folder_location, id))  # content_folder function when merged with main
+
+        try:
+            df = pd.read_csv(os.path.join(newdir, cube_level + '.csv'), index_col="timestamp")
+            df = pd.concat([df, new_data_df])
+        except:
+            df = new_data_df
+        df.to_csv(os.path.join(newdir, cube_level + '.csv'))
+
+    return j
