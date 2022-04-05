@@ -131,7 +131,9 @@ def getUsersBySchoolID(school_id):
 @jwt_required()
 def get_users_by_school_and_experiment(school_id, experiment_id):
 
-    users = User.query.join(ExperimentParticipant).join(Experiment).join(School).filter(User.school_id == school_id)
+    users = User.query.join(ExperimentParticipant).join(Experiment).join(School).filter(User.school_id == school_id).all()
+    # users = User.query.filter(User.school_id == school_id)
+
 
     output = []
     for user in users:
@@ -140,7 +142,7 @@ def get_users_by_school_and_experiment(school_id, experiment_id):
         user_data['username'] = user.username
         user_data['status'] = user.status
         user_data['school_id'] = user.school_id
-        if ExperimentParticipant.id == experiment_id:
+        if ExperimentParticipant.experiment_id == experiment_id:
             user_data['is_participant'] = True
         else:
             user_data['is_participant'] = False
