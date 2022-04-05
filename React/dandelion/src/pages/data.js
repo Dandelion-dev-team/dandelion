@@ -302,7 +302,7 @@ export default function Data() {
                     <div className="project-block">
                       {projectList.data ?
                         (
-                          schoolsSelected.length > 0 ? //IF SCHOOL SELECTED HAS BEEN SET SHOW FILTER, IF NOT SHOW FULL LIST
+                          schoolsSelected > 0 ? //IF SCHOOL SELECTED HAS BEEN SET SHOW FILTER, IF NOT SHOW FULL LIST
                             projectList.data.filter(project =>
                               (schoolsSelected.includes(String(project.school_id)))).map(filtered =>
                               (
