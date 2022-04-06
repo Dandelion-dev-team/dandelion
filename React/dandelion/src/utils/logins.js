@@ -69,7 +69,8 @@ export function retrieve_user() {
 
 export function verify_superuser_storage() {
     let is_superuser = localStorage.getItem("is_superuser");
-    if (is_superuser == "true" ) 
+    let is_sysadmin = localStorage.getItem("is_sysadmin");
+    if (is_superuser == "true" || is_sysadmin == "true") 
     {
         return true;
     } 
