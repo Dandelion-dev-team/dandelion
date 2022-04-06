@@ -16,6 +16,8 @@ from app.utils.functions import row2dict, jwt_user
 import pandas as pd
 from pandas import DataFrame, read_csv
 
+from app.utils.uploads import content_folder
+
 
 @admin.route('/node', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
@@ -148,7 +150,8 @@ def upload_data(id):
         new_data_df.index.name = "timestamp"
 
         folder_location = current_app.config['DATA_ROOT_PATH']
-        newdir = (os.path.join(folder_location, id))  # content_folder function when merged with main
+        newdir =  os.path.join(content_folder("DATA_ROOT", id, "FLASK",upload=True))
+        # newdir = (os.path.join(folder_location, id))  # content_folder function when merged with main
 
         try:
             df = pd.read_csv(os.path.join(newdir, cube_level + '.csv'), index_col="timestamp")
