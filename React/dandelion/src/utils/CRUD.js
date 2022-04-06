@@ -105,7 +105,7 @@ export function updateRecord(endpoint, body) {
             'X-CSRF-TOKEN': cookies.get('csrf_access_token')
         }),
         body: body
-    }).then(window.location.reload(false))
+    })//.then(window.location.reload(false))
 }
 
 export function deleteRecord(endpoint) {

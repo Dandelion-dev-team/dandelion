@@ -21,12 +21,6 @@ export default function CrudComponent(props) {
             <th>ID</th>
             <th>Auth ID</th>
             <th>Name</th>
-            <th>Address Line 1</th>
-            <th>Town</th>
-            <th>Postcode</th>
-            <th>Telephone</th>
-            <th>Email</th>
-            <th>Status</th>
             <th>Edit</th>
             <th>Delete</th>
           </tr>
@@ -38,14 +32,6 @@ export default function CrudComponent(props) {
             <td>{school.id}</td>
             <td>{school.authority_id}</td>
             <td>{school.name}</td>
-            <td>{school.address_line_1}</td>
-            <td>{school.town}</td>
-            <td>{school.postcode}</td>
-            <td>{school.telephone}</td>
-            <td>{school.email}</td>
-            <td>{school.status}</td>
-
-
             <td>
               <div>
                 <input

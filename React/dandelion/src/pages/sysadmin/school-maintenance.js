@@ -3,7 +3,7 @@ import SysSideNav from "../../components/navigation/sysadminSideNav"
 import "../../styles/App.scss"
 import Select from "react-select"
 import SchoolComponent from "../../components/tables/schoolComponent"
-import { createRecord, readRecord, updateRecord } from "../../utils/CRUD"
+import { createRecord, readAdminRecord, readRecord, updateRecord } from "../../utils/CRUD"
 import { verify_sysadmin_storage } from "../../utils/logins"
 import { navigate } from "gatsby"
 
@@ -19,7 +19,7 @@ export default function SuperuserMaintenance(props) {
   const [entered_school_name, setSchoolName] = useState("")
   const [authority_selected, setAuthority] = useState("")
   const [addressLineOne, setAddress1] = useState("")
-  const [addressLineTwo, setAddress2] = useState("")
+  const [addressLineTwo, setAddress2] = useState(null)
   const [entered_town, setTown] = useState("")
   const [entered_postcode, setPostcode] = useState("")
   const [entered_latitude, setLatitude] = useState("")
@@ -66,7 +66,6 @@ export default function SuperuserMaintenance(props) {
       entered_school_name &&
       authority_selected &&
       addressLineOne &&
-      addressLineTwo &&
       entered_town &&
       entered_postcode &&
       lat_num &&
@@ -99,29 +98,27 @@ export default function SuperuserMaintenance(props) {
     if (
       entered_school_name &&
       addressLineOne &&
-      addressLineTwo &&
       entered_town &&
       entered_postcode &&
       entered_latitude &&
       entered_longitude &&
       entered_telephone &&
-      entered_email &&
-      entered_image_link
+      entered_email
     ) {
 
       let body = JSON.stringify({
         id: editing_school_id,
-        authority_id: authority_selected.id,
+        authority_id: auth_id,
         name: entered_school_name,
         address_line_1: addressLineOne,
         address_line_2: addressLineTwo,
         town: entered_town,
+        school_image_link: null,
         postcode: entered_postcode,
         latitude: entered_latitude,
         longitude: entered_longitude,
         telephone: entered_telephone,
         email: entered_email,
-        school_image_link: entered_image_link,
         status: "active",
       });
       updateRecord("/school/" + editing_school_id, body)
@@ -138,20 +135,25 @@ export default function SuperuserMaintenance(props) {
   }, [])
 
   const handleCallback = childData => {
-    setAuthID(childData.authority_id)
+   
+    readAdminRecord("/school/" + childData.id).then(data => 
+      {
+        setAuthID(data.school.authority_id)
+        setSchoolName(data.school.name)
+        setAddress1(data.school.address_line_1)
+        setAddress2(data.school.address_line_2)
+        setTown(data.school.town)
+        setPostcode(data.school.postcode)
+        setLatitude(data.school.latitude)
+        setLongitude(data.school.longitude)
+        setTelephone(data.school.telephone)
+        setEmail(data.school.email)
+        setImage(data.school.school_image_link)
+        setSchoolID(data.school.school_id)
+      }
+    )
     //SET FIELDS USING PASSED DATA FROM CHILD
-    setSchoolName(childData.name)
-    setAddress1(childData.address_line_1)
-    setAddress2(childData.address_line_2)
-    setTown(childData.town)
-    setPostcode(childData.postcode)
-    setLatitude(childData.latitude)
-    setLongitude(childData.longitude)
-    setTelephone(childData.telephone)
-    setEmail(childData.email)
-    setImage(childData.school_image_link)
 
-    setSchoolID(childData.id)
 
     setEditing(true)
     setAdding(true)
@@ -274,16 +276,6 @@ export default function SuperuserMaintenance(props) {
                           name="usernameBox"
                           value={entered_email}
                           onChange={handleEmailChange}
-                        />
-                      </div>
-                      <div className="nameBox">
-                        <h3>School Image:</h3>
-                        <input
-                          type="text"
-                          placeholder="Image Link"
-                          name="usernameBox"
-                          value={entered_image_link}
-                          onChange={handleImageChange}
                         />
                       </div>
                     </div>

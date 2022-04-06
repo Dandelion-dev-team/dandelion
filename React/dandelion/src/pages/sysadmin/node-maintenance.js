@@ -18,7 +18,7 @@ export default function NodeMaintenance(props) {
 
   const [editing, setEditing] = useState("")
   const [editing_node, setEditingNode] = useState("")
-
+  const [editing_id, setID] = useState();
   useEffect(() => {
     if (verify_sysadmin_storage() == true) {
       setLogged(true);
@@ -37,6 +37,7 @@ export default function NodeMaintenance(props) {
         setMAC(data.Node.mac_address)
         setStatus(data.Node.status)
         setEditingNode(data.Node);
+        setID(childData.id);
       }
     )
   }
@@ -57,7 +58,6 @@ export default function NodeMaintenance(props) {
       entered_status
     ) {
       let body = JSON.stringify({
-        id: 3,
         school_id: school_selected.id,
         growcube_code: entered_code,
         mac_address: entered_MAC_address,
@@ -74,22 +74,21 @@ export default function NodeMaintenance(props) {
 
   const onUpdateQuantity = e => {
     if (
-      school_selected &&
       entered_MAC_address &&
       entered_code &&
       entered_status
     ) {
       let body = JSON.stringify({
-        id: editing_node.node_id,
-        school_id: school_selected.id,
+        id: editing_id,
+        school_id: editing_node.school_id,
         growcube_code: entered_code,
         mac_address: entered_MAC_address,
         last_communication_date: editing_node.last_communication_date,
-        next_communication_expected: editing_node.next_communication_expected,
+        next_communication_date: editing_node.next_communication_date,
         health_status: editing_node.health_status,
         status: entered_status,
       });
-      updateRecord("/node/" + editing_node.id, body)
+      updateRecord("/node/" + editing_node.node_id, body)
     } else {
       console.log("did not have all information")
     }
