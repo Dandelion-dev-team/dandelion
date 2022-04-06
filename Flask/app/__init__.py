@@ -25,9 +25,9 @@ def create_app(config_name):
 
     from app import models
 
-    logging.basicConfig(filename=app.config['LOGFILE'],
-                        level=app.config['LOGLEVEL'],
-                        format='%(asctime)s %(levelname)s %(name)s %(threadName)s: %(message)s')
+    # logging.basicConfig(filename=app.config['LOGFILE'],
+    #                     level=app.config['LOGLEVEL'],
+    #                     format='%(asctime)s %(levelname)s %(name)s %(threadName)s: %(message)s')
 
     from .public import public as public_blueprint
     app.register_blueprint(public_blueprint, url_prefix='/api')
