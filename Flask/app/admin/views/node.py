@@ -150,7 +150,7 @@ def upload_data(id):
         new_data_df.index.name = "timestamp"
 
         folder_location = current_app.config['DATA_ROOT_PATH']
-        newdir =  os.path.join(content_folder("DATA_ROOT", id, "FLASK",upload=True))
+        newdir = os.path.join(content_folder("DATA_ROOT", id, "FLASK", upload=True))
         # newdir = (os.path.join(folder_location, id))  # content_folder function when merged with main
 
         try:
@@ -161,3 +161,67 @@ def upload_data(id):
         df.to_csv(os.path.join(newdir, cube_level + '.csv'))
 
     return j
+
+
+@admin.route('/node/latest/<int:node_id>', methods=['GET'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
+@jwt_required()
+def get_latest_data(node_id):
+    Node.query.get_or_404(node_id)  # if node id doens't exist, it returns a 404 message
+    str(node_id)
+
+    for cube_level in ('top', 'middle', 'bottom'):
+        dir = os.path.join(content_folder("DATA_ROOT", node_id, "FLASK", upload=True))
+        df_to_read = pd.read_csv(os.path.join(dir, cube_level + '.csv'), index_col="timestamp")
+
+        if cube_level == "top":
+            last_row = df_to_read.iloc[-1]
+            output_top = last_row.to_json()
+        elif cube_level == "middle":
+            last_row = df_to_read.iloc[-1]
+            output_middle = last_row.to_json()
+        else:
+            last_row = df_to_read.iloc[-1]
+            output_bottom = last_row.to_json()
+
+
+
+    return jsonify({"top" : output_top, "middle" : output_middle, "bottom" : output_bottom})
+    # return json_response(output_top + output_middle + output_bottom)
+
+    # THE CODE has to read the three .csv files (using a for loop) and generating the json file below
+    # {
+    #     "top": {
+    #         "air_temp": 19.5,
+    #         "humidity": 88.9,
+    #         "lux": 40321.0,
+    #         "pressure": 899.5,
+    #         "sub_temp": 18.4,
+    #         "moisture": 78.0,
+    #         "ec": 33962.0,
+    #         "pH": 7.8,
+    #         "water_level": 54.8
+    #     },
+    #     "middle": {
+    #         "air_temp": 19.5,
+    #         "humidity": 88.9,
+    #         "lux": 40321.0,
+    #         "pressure": 899.5,
+    #         "sub_temp": 18.4,
+    #         "moisture": 78.0,
+    #         "ec": 33962.0,
+    #         "pH": 7.8,
+    #         "water_level": 54.8
+    #     },
+    #     "bottom": {
+    #         "air_temp": 19.5,
+    #         "humidity": 88.9,
+    #         "lux": 40321.0,
+    #         "pressure": 899.5,
+    #         "sub_temp": 18.4,
+    #         "moisture": 78.0,
+    #         "ec": 33962.0,
+    #         "pH": 7.8,
+    #         "water_level": 54.8
+    #     }
+    # }
