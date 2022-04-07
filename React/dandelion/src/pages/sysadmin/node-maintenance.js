@@ -3,7 +3,7 @@ import SysSideNav from "../../components/navigation/sysadminSideNav"
 import "../../styles/App.scss"
 import NodeComponent from "../../components/tables/nodeComponent"
 import Select from "react-select"
-import { createRecord, readRecord, updateRecord } from "../../utils/CRUD"
+import { createRecord, readAdminRecord, readRecord, updateRecord } from "../../utils/CRUD"
 import { verify_sysadmin_storage } from "../../utils/logins"
 import { navigate } from "gatsby"
 
@@ -18,7 +18,7 @@ export default function NodeMaintenance(props) {
 
   const [editing, setEditing] = useState("")
   const [editing_node, setEditingNode] = useState("")
-
+  const [editing_id, setID] = useState();
   useEffect(() => {
     if (verify_sysadmin_storage() == true) {
       setLogged(true);
@@ -30,10 +30,16 @@ export default function NodeMaintenance(props) {
 
   const handleCallback = childData => {
     setEditing(true)
-    setCode(childData.growcube_code)
-    setMAC(childData.mac_address)
-    setStatus(childData.status)
-    setEditingNode(childData)
+    console.log(childData.id);
+    readAdminRecord("/node/" + childData.id).then(data => 
+      {
+        setCode(data.Node.growcube_code)
+        setMAC(data.Node.mac_address)
+        setStatus(data.Node.status)
+        setEditingNode(data.Node);
+        setID(childData.id);
+      }
+    )
   }
   const handleCodeChange = e => {
     setCode(e.target.value)
@@ -52,7 +58,6 @@ export default function NodeMaintenance(props) {
       entered_status
     ) {
       let body = JSON.stringify({
-        id: 3,
         school_id: school_selected.id,
         growcube_code: entered_code,
         mac_address: entered_MAC_address,
@@ -69,22 +74,21 @@ export default function NodeMaintenance(props) {
 
   const onUpdateQuantity = e => {
     if (
-      school_selected &&
       entered_MAC_address &&
       entered_code &&
       entered_status
     ) {
       let body = JSON.stringify({
-        id: editing_node.id,
-        school_id: school_selected.id,
+        id: editing_id,
+        school_id: editing_node.school_id,
         growcube_code: entered_code,
         mac_address: entered_MAC_address,
         last_communication_date: editing_node.last_communication_date,
-        next_communication_expected: editing_node.next_communication_expected,
+        next_communication_date: editing_node.next_communication_date,
         health_status: editing_node.health_status,
         status: entered_status,
       });
-      updateRecord("/node/" + editing_node.id, body)
+      updateRecord("/node/" + editing_node.node_id, body)
     } else {
       console.log("did not have all information")
     }
@@ -101,15 +105,18 @@ export default function NodeMaintenance(props) {
               </div>
               <div className="edit-content">
                 <div className="quantityPicker">
-                  <h3>School:</h3>
+                  <h3>School {editing ? "ID" : null}: </h3>
+                  {editing ? <h3>{editing_node.school_id}</h3>
+                  :                   
                   <Select
-                    options={schoolList}
+                    options={schoolList.data}
                     value={school_selected}
                     defaultValue={school_selected}
                     onChange={setDropdown}
                     getOptionLabel={schoolList => schoolList.name}
                     getOptionValue={schoolList => schoolList.id} // It should be unique value in the options. E.g. ID
-                  />
+                  />}
+
                 </div>
                 <div className="textbox">
                   <h3>Growcube Code:</h3>

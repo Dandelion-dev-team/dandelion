@@ -3,12 +3,13 @@ import "../../../styles/App.scss"
 import TuneIcon from "@mui/icons-material/Tune"
 import VariableListComponent from "../../../components/cards/variableListComponent"
 import ViewDetailedVariable from "../../../components/modals/viewDetailedVariable"
-import VariableSelectedComponent from "../../../components/cards/variableSelectedComponent"
+import TreatmentSelectedComponent from "../../../components/cards/treatmentSelectedComponent"
 import PaginationComponent from "../../../components/navigation/pagination"
 import { navigate } from "gatsby"
 import VariableTypeModal from "../../../components/modals/variableTypeModal"
 import DiscreteVariableModal from "../../../components/modals/discreteVariableModal"
 import { verify_superuser_storage } from "../../../utils/logins"
+import { readRecord } from "../../../utils/CRUD"
 
 export default function TreatmentVariables(props) {
   const [search_value, changeSearch] = useState("")
@@ -39,12 +40,13 @@ export default function TreatmentVariables(props) {
   }
 
   const checkboxCallback = e => {
-    let val = e.data
-    if (e.value == true) {
-      updateSelectedList(arr => [...arr, val])
-    } else {
-      updateSelectedList(selected_list.filter(item => item !== val))
-    }
+    // let val = e.data
+    // if (e.value == true) {
+    //   updateSelectedList(arr => [...arr, val])
+    // } else {
+    //   updateSelectedList(selected_list.filter(item => item !== val))
+    // }
+    console.log(e);
   }
 
   const handleDetailCallback = index => {
@@ -80,24 +82,15 @@ export default function TreatmentVariables(props) {
     if (verify_superuser_storage() == true) {
       if (props.location.state) {
         setExperimentDetails(props.location.state)
+        readRecord("/discreteVariable", setVariables)
       } else {
         if (typeof window !== `undefined`) {
           navigate(
             "/activities/create-experiment/enter-details")
         }
       }
-      // fetch(process.env.ROOT_URL + "/treatmentVariablesShortlist", {
-      //   method: "GET",
-      //   headers: new Headers({
-      //     "Cache-Control": "no-cache, no-store, must-revalidate",
-      //     Pragma: "no-cache",
-      //     Expires: 0,
-      //   }),
-      // })
-      //   .then(response => response.json())
-      //   .then(data => setVariables(data)).then(setLogged(true))
     } else {
-      navigate("/signin");
+      //navigate("/signin");
     }
   }, [])
 
@@ -138,16 +131,18 @@ export default function TreatmentVariables(props) {
                   </div>
                 </div>
                 <div className="treatment-list">
-                  {variable_list ? (
-                    variable_list.filter(variable => variable.name.toUpperCase().includes(search_value.toUpperCase())).map(filtered_variable => (
+                  {variable_list.data ? 
+                  (
+                    variable_list.data.filter(variable => variable.name.toUpperCase().includes(search_value.toUpperCase())).map(filtered_variable => (
                       <VariableListComponent
                         mappedValue={filtered_variable}
                         detailCallback={handleDetailCallback}
                         checkCallback={checkboxCallback}
                       />
                     ))
-                  ) : (
-                    <h3>No Experiments found</h3>
+                  ) 
+                  : (
+                    <h3>No Treatment Variables Found.</h3>
                   )}
                 </div>
                 <PaginationComponent pageIndex={2} numPages={4} />
@@ -161,7 +156,7 @@ export default function TreatmentVariables(props) {
                 <div className="selected-list">
                   {selected_list
                     ? selected_list.map(variable => (
-                      <VariableSelectedComponent
+                      <TreatmentSelectedComponent
                         editCallback={handleEditCallback}
                         data={variable}
                       />

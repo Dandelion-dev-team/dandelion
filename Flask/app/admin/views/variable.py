@@ -64,7 +64,7 @@ def listAlldiscreteVariable():
         treatment_variable_data['quantity_id'] = variable.quantity_id
         output.append(treatment_variable_data)
 
-    return jsonify({'Treatment Variables': output})
+    return jsonify({'data': output})
 
 
 @admin.route('/variable', methods=['POST'])

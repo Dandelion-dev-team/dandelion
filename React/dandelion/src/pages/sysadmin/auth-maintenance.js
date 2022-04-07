@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react"
 import SysSideNav from "../../components/navigation/sysadminSideNav"
 import "../../styles/App.scss"
 import AuthComponent from "../../components/tables/authComponent"
-import { createRecord, readRecord, updateRecord } from "../../utils/CRUD"
+import { createRecord, readAdminRecord, readRecord, updateRecord } from "../../utils/CRUD"
 import { user_logout, verify_sysadmin_storage } from "../../utils/logins"
 import { navigate } from "gatsby"
 
@@ -15,7 +15,7 @@ export default function AuthMaintenance(props) {
   const [email, setEmail] = useState("")
   const [is_active, setActive] = useState("")
   const [editing, setEditing] = useState("")
-  const [editing_auth, setEditingAuth] = useState("")
+  const [editing_id, setID] = useState("")
 
   useEffect(() => {
     if(verify_sysadmin_storage() == true){
@@ -41,10 +41,15 @@ export default function AuthMaintenance(props) {
   }
 
   const handleCallback = childData => {
-    setEditingAuth(childData)
-    setAuthName(childData.name)
-    setTelephone(childData.telephone)
-    setEmail(childData.email)
+    console.log(childData.id);
+    readAdminRecord("/authority/" + childData.id).then(data => 
+      {
+        setTelephone(data.Authority.telephone);
+        setEmail(data.Authority.email);
+        setAuthName(data.Authority.name);
+        setID(childData.id);
+      }
+    )
     if (childData.status == "active") {
       setActive(true)
     } else {
@@ -69,8 +74,8 @@ export default function AuthMaintenance(props) {
       setEmail("")
       setEditing(false)
 
-      let body = JSON.stringify({id: editing_auth.id,name: auth_name, telephone: telephone,email: email})
-      updateRecord("/authority/" + editing_auth.id, body);
+      let body = JSON.stringify({id: editing_id, name: auth_name, telephone: telephone, email: email})
+      updateRecord("/authority/" + editing_id, body);
     }else 
     {
       console.log("did not have all the information")

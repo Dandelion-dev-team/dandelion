@@ -94,7 +94,7 @@ export default function SuperuserMaintenance(props) {
   useEffect(() => {
     if (verify_sysadmin_storage() == true) {
       setLogged(true)
-      //readRecord("/sensorQuantity", setQuantityList);
+      readRecord("/sensorQuantity", setQuantityList);
     } else {
       navigate("/signin")
     }
@@ -155,11 +155,12 @@ export default function SuperuserMaintenance(props) {
                   <Select
                     value={selected_quantities}
                     closeMenuOnSelect={false}
-                    options={quantityList}
+                    options={quantityList.data}
                     onChange={handleSelection}
                     getOptionLabel={quantity => quantity.name}
                     getOptionValue={quantity => quantity.id} // It should be unique value in the options. E.g. ID
                     isMulti={true}
+                    placeholder={"Select measurement days."}
                   />
                 </div>
                 {editing ? (

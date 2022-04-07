@@ -156,8 +156,29 @@
           display: flex;
           flex-direction: row;
           align-items: center;
+          
           .spacer {
-            width: 40%;
+            width: 30%;
+          }
+          .close-btn {
+            margin-left: auto;
+            display: flex;
+            height: 10%;
+            align-self: center;
+            width: 10%;
+            .submitButton {
+              background-color: $accent;
+              color: $primary;
+              font-size: 1.6rem;
+              margin: 1.25rem 0px;
+              padding: 15px;
+              border: none;
+              cursor: pointer;
+              border-radius: 10px;
+            }
+            .submitButton:hover {
+              background-color: #d4d926;
+            }
           }
           .finish-btn {
             margin-left: auto;

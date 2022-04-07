@@ -105,6 +105,18 @@
                     .continue-btn:hover {
                       background-color: #d4d926;
                     }
+                    .disabled-btn {
+                        background-color: #d3d3d3;
+                        color: black;
+                        font-size: 1.6rem;
+                        margin: 1.25rem 0px;
+                        padding: 0.625rem;
+                        width: 13vw;
+                        margin-left: 30%;
+                        height: 7vh;
+                        border: none;
+                        border-radius: 10px;
+                      }
                 }
 
               .treatment-selected-content {

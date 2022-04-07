@@ -24,8 +24,6 @@ export default function SensorComponent(props) {
               <tr>
                 <th>ID</th>
                 <th>School ID</th>
-                <th>Code</th>
-                <th>MAC Address</th>
                 <th>Last Communication Date</th>
                 <th>Health Status</th>
                 <th>Status</th>
@@ -38,8 +36,6 @@ export default function SensorComponent(props) {
               <tbody key={node.id}>
                 <td>{node.id}</td>
                 <td>{node.school_id}</td>
-                <td>{node.growcube_code}</td>
-                <td>{node.mac_address}</td>
                 <td>
                   {
                     (new Date(node.last_communication_date)).toUTCString()

@@ -6,7 +6,7 @@ import { createRecordNavigate, readRecord } from "../../utils/CRUD"
 import "../../styles/App.scss"
 import SideNav from "../../components/navigation/superUserSideNav"
 import EditIcon from "@mui/icons-material/Edit"
-import VariableSelectedComponent from '../../components/cards/variableSelectedComponent';
+import VariableListComponent from '../../components/cards/variableListComponent';
 
 export default function UserMaintenance(props) {
     //Tested
@@ -134,13 +134,13 @@ export default function UserMaintenance(props) {
                             </div>
                             <div className='variable-list'>
                                 <h3>Treatment Variables:</h3>
-                                <VariableSelectedComponent data={{ name: "Touches", type: "Discrete", levels: [{ name: "Control" }, { name: "Soft" }, { name: "Rough" }] }} />
-                                <VariableSelectedComponent data={{ name: "Music", type: "Discrete", levels: [{ name: "Control" }, { name: "Hip-Hop" }, { name: "Classical" }] }} />
+                                <VariableListComponent data={{ name: "Touches", type: "Discrete", levels: [{ name: "Control" }, { name: "Soft" }, { name: "Rough" }] }} />
+                                <VariableListComponent data={{ name: "Music", type: "Discrete", levels: [{ name: "Control" }, { name: "Hip-Hop" }, { name: "Classical" }] }} />
                             </div>
                             <div className='variable-list'>
                                 <h3>Response Variables:</h3>
-                                <VariableSelectedComponent data={{ name: "Length", type: "Continuous", unit: "mm", upper_limit: 100, lower_limit: 0 }} />
-                                <VariableSelectedComponent data={{ name: "Strength", type: "Discrete", levels: [{ name: "Control" }, { name: "Hip-Hop" }, { name: "Classical" }] }} />
+                                <VariableListComponent data={{ name: "Length", type: "Continuous", unit: "mm", upper_limit: 100, lower_limit: 0 }} />
+                                <VariableListComponent data={{ name: "Strength", type: "Discrete", levels: [{ name: "Control" }, { name: "Hip-Hop" }, { name: "Classical" }] }} />
                             </div>
                         </div>
                         <div className='user-pane'>

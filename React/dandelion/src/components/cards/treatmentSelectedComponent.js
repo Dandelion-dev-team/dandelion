@@ -27,13 +27,6 @@ export default function VariableSelectedComponent(props) {
           )}
         </div>
       </div>
-      <div className="datepicker">
-        <Select 
-        closeMenuOnSelect={false}
-        value={selected_dates}
-        
-         />
-      </div>
       <div className="button-content">
         <input
           value="Edit"
