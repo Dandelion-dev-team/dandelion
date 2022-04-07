@@ -42,6 +42,7 @@ def get_one_experiment(id):
 		"experiment_id": experiment.id,
 		"name": experiment.title,
 		"code": experiment.code,
+		"project_id": experiment.project_id,
 		"description": experiment.description,
 		"image_full": os.path.join(content_folder('experiment', id, 'image'), 'full.png'),
 		"image_thumb": os.path.join(content_folder('experiment', id, 'image'), 'thumb.png'),

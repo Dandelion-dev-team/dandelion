@@ -46,7 +46,7 @@ export default function DiscreteVariableModal(props) {
       let arr = new Array()
       for (let index = 0; index < level_list.length; index++) {
         const element = level_list[index]
-        arr.push({ treatment_name: name, sequence: index, name: element, description: "", procedure: "" })
+        arr.push({ treatment_name: name, sequence: index, name: element, description: "desc", procedure: "proc" })
       }
       let quantity_check = null;
       if(quantity_selected != null){

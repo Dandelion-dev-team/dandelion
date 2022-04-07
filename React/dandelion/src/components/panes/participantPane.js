@@ -11,7 +11,7 @@ export default function ParticipantPane(props) {
   const [observations, setObservations] = useState("");
 
   return (
-    <div>
+    <div className="participant-panel">
       {show_type ? <SelectAddTypeModal props={props.dataProp} /> : null}
       {props.dataProp ? (
         <div className="participant-pane-content">
@@ -47,12 +47,17 @@ export default function ParticipantPane(props) {
             </h3>
           </div>
           <div className="description">
-            <h3>{participant_details.description}</h3>
+            <h3>{props.dataProp.description}</h3>
           </div>
           <div className="info-column">
             <p>Hypotheses</p>
             <div className="info-box">
-              <p>{participant_details.hypotheses}</p>
+              {props.dataProp.hypotheses ?
+                props.dataProp.hypotheses.map(hypothesis => (
+                  <p>{hypothesis.hypothesis_no}. {hypothesis.description}</p>
+                ))
+                :
+                <h3>No hypotheses found.</h3>}
             </div>
             <p>Observations</p>
             <div className="info-box">
