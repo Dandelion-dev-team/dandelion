@@ -14,7 +14,7 @@ export default function SchoolUserMaintenance(props) {
 
   useEffect(() => {
     if (verify_superuser_storage() == true) {
-      //readRecord("/school-users", setUsers)
+      let school_id = localStorage.getItem("school_id");
       setLogged(true);
     } else {
       navigate("/signin");

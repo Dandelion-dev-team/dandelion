@@ -1,38 +1,35 @@
 import React, { useEffect, useState, useRef } from "react"
 import { navigate } from "gatsby"
 import "../../styles/App.scss"
-
+import { createRecordNavigate } from "../../utils/CRUD"
 export default function EnterSingleData(props) {
-  const [length, setLength] = useState("")
-  const [recordingDate, setRecordingDate] = useState("")
+  const [observation, setLength] = useState("")
 
   const handleLengthChange = e => {
     setLength(e.target.value)
   }
 
-  const handleRecordDateChange = e => {
-    setRecordingDate(e.target.value)
+  const onUpdate = e => {
+    let student_id = localStorage.getItem("user_id");
+    console.log("Updated body")
+    let body = JSON.stringify({
+      timestamp: null,
+      value: 21,
+      created_by: student_id,
+      status: "valid",
+      comment: "",
+      unit_id: 22,
+      response_variable_id: props.location.state.variable.id,
+    })
+
+    createRecordNavigate("/observation", body).then(navigate("/participants/experiment-dashboard"));
   }
 
-  const onUpdate = e => {
-    console.log("Updated body")
-    // fetch("http://localhost:3000/observation", {
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     id: 0,
-    //     timestamp: "2022-03-17T23:40:30.642Z",
-    //     value: length,
-    //     status: "valid",
-    //     unit: "mm"
-    //   }),
-    //   headers: new Headers({
-    //     'Content-Type': 'application/json',
-    //     'Cache-Control': 'no-cache, no-store, must-revalidate',
-    //     'Pragma': 'no-cache',
-    //     'Expires': 0,
-    //   }),
-    // }).then(navigate("/participants/experiment-dashboard"))
-  }
+  useEffect(() => {
+    if (props.location.state) {
+      console.log(props.location.state.variable)
+    }
+  }, []);
 
 
   return (
@@ -47,12 +44,12 @@ export default function EnterSingleData(props) {
             <div className="data-pane">
               <div className="inputItem">
                 <div className="item-title">
-                  <h3>Appearance:</h3>
+                  <h3>Observation:</h3>
                 </div>
                 <div className="item-input">
                   <input
                     type="text"
-                    value={length}
+                    value={observation}
                     placeholder=""
                     name="nameBox"
                     onChange={handleLengthChange}
@@ -61,15 +58,15 @@ export default function EnterSingleData(props) {
               </div>
               <div className="inputItem">
                 <div className="item-title">
-                  <h3>Recording Date:</h3>
+                  {/* <h3>Recording Date:</h3> */}
                 </div>
-                <div className="item-input">
+                {/* <div className="item-input">
                   <input
                     type="date"
                     name="codeBox"
                     onChange={handleRecordDateChange}
                   />
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

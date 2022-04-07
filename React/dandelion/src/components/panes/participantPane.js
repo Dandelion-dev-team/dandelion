@@ -89,12 +89,12 @@ export default function ParticipantPane(props) {
                       <p>6 Days until</p>
                     </div>
                     <div className="btn">
-                      <p>butt</p>
+                      <p></p>
                     </div>
                   </div>
                 </div>
                 <div className="latest-observation">
-                  <p>i noticed tht the plant was unbelievably tiny and peed out the balls</p>
+                  <p></p>
                   </div>
               </div> */}
 
@@ -111,7 +111,13 @@ export default function ParticipantPane(props) {
                       <input
                         type="submit"
                         className="submitButton"
-                        value="Edit"
+                        value="Add Observation"
+                        onClick={() => {
+                          navigate("/participants/enter-single",
+                          {
+                            state: { variable: variable },
+                          })
+                        }}
                       ></input>
                     </div>
                   </div>

@@ -67,7 +67,6 @@ def get_one_experiment(id):
 			"sunday": response_variable.sunday,
 			"once": response_variable.once,
 			"final": response_variable.final,
-
 			"levels": sorted([{
 				"id": l.id,
 				"sequence": l.sequence,
