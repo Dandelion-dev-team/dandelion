@@ -142,7 +142,7 @@ export default function TreatmentVariables(props) {
                     ))
                   ) 
                   : (
-                    <h3>No Experiments found</h3>
+                    <h3>No Treatment Variables Found.</h3>
                   )}
                 </div>
                 <PaginationComponent pageIndex={2} numPages={4} />
