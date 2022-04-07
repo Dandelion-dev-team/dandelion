@@ -5,7 +5,17 @@ import Select from "react-select"
 export default function VariableSelectedComponent(props) {
 
   const [selected_dates, setDates] = useState("")
-
+  const datalist =
+    [{ day: "Monday", id: 0 },
+    { day: "Tuesday", id: 1 },
+    { day: "Wednesday", id: 2 },
+    { day: "Thursday", id: 3 },
+    { day: "Friday", id: 4 },
+    { day: "Saturday", id: 5 },
+    { day: "Sunday", id: 6 },
+    { day: "Once", id: 7 },
+    { day: "Final", id: 8 },
+    ]
   const handleSelection = e => {
     setDates(e)
   }
@@ -28,11 +38,15 @@ export default function VariableSelectedComponent(props) {
         </div>
       </div>
       <div className="datepicker">
-        <Select 
-        closeMenuOnSelect={false}
-        value={selected_dates}
-        
-         />
+        <Select
+          closeMenuOnSelect={false}
+          value={selected_dates}
+          options={datalist}
+          onChange={setDates}
+          getOptionLabel={(sensor) => sensor.day}
+          getOptionValue={(sensor) => sensor.id} // It should be unique value in the options. E.g. ID}
+          isMulti={true}
+        />
       </div>
       <div className="button-content">
         <input

@@ -13,7 +13,7 @@
    .text-content {
       display: flex;
       flex-direction: column;
-      width: 60%;
+      width: 40%;
       display: inline;
       margin-left: 3rem;
       h3 {
@@ -37,9 +37,19 @@
             color: #a9a9a9;
          }
       }
+
+
+   }
+   .datepicker{
+      width: 25%;
+      color: black;
+      max-height: 90%;
+      Select{
+         width: 100%;
+      }
    }
    .button-content{
-      width: 30%;
+      width: 20%;
       max-width: 30%;
       height: 100%;
       display: flex;

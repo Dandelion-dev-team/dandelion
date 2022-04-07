@@ -60,15 +60,6 @@ export default function DiscreteVariableModal(props) {
         levels: arr,
         is_sensor_quantity: is_sensor_selected,
         quantity_id: quantity_check,
-        monday: false,
-        tuesday: false,
-        wednesday: false,
-        thursday: false,
-        friday: false,
-        saturday: false,
-        sunday: false,
-        once: true,
-        final: true,
       })
       props.callback(body)
     } else {

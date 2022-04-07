@@ -3,7 +3,7 @@ import "../../../styles/App.scss"
 import TuneIcon from "@mui/icons-material/Tune"
 import VariableListComponent from "../../../components/cards/variableListComponent"
 import ViewDetailedVariable from "../../../components/modals/viewDetailedVariable"
-import VariableSelectedComponent from "../../../components/cards/variableSelectedComponent"
+import TreatmentSelectedComponent from "../../../components/cards/treatmentSelectedComponent"
 import PaginationComponent from "../../../components/navigation/pagination"
 import { navigate } from "gatsby"
 import VariableTypeModal from "../../../components/modals/variableTypeModal"
@@ -156,7 +156,7 @@ export default function TreatmentVariables(props) {
                 <div className="selected-list">
                   {selected_list
                     ? selected_list.map(variable => (
-                      <VariableSelectedComponent
+                      <TreatmentSelectedComponent
                         editCallback={handleEditCallback}
                         data={variable}
                       />
