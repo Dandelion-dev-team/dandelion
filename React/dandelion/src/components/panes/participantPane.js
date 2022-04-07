@@ -38,7 +38,7 @@ export default function ParticipantPane(props) {
     }
 
     console.log(days)
-    return (<h3>{days}</h3>)
+    return <h3>{days}</h3>
   }
 
   return (
@@ -100,10 +100,20 @@ export default function ParticipantPane(props) {
 
               {props.dataProp.responseVariables ? (
                 props.dataProp.responseVariables.map(variable => (
-                  <div>
-                    <h3>{variable.name}</h3>
-                    <h3>{variable.tutorial}</h3>
-                    {get_response_day(variable)}
+                  <div className="worksheet-item">
+                    <div className="desc">
+                      <h3>{variable.name}</h3>
+                      <h3>{variable.tutorial}</h3>
+                      {get_response_day(variable)}
+                    </div>
+
+                    <div className="submit-btn">
+                      <input
+                        type="submit"
+                        className="submitButton"
+                        value="Edit"
+                      ></input>
+                    </div>
                   </div>
                 ))
               ) : (
