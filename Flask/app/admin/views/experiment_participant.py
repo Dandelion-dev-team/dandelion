@@ -3,9 +3,12 @@ from flask_cors import cross_origin
 from flask_json import json_response
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from sqlalchemy.sql.functions import user
+import os
+from app.utils.uploads import get_uploaded_file, content_folder
 
 from app.admin import admin
 from app.models import ExperimentParticipant
+from app.models import Experiment
 from app import db
 from app.utils.auditing import audit_create
 from app.utils.functions import row2dict, jwt_user
@@ -16,6 +19,25 @@ from app.utils.functions import row2dict, jwt_user
 def listExperiment_participant():
     experiment_participant = ExperimentParticipant.query.all()
     return json_response(data=(row2dict(x, summary=True) for x in experiment_participant))
+
+
+@admin.route('/experiment_participant/<int:user_id>', methods=['GET'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
+def experiments_by_participant(user_id):
+    participating = ExperimentParticipant.query.filter(ExperimentParticipant.user_id == user_id).all()
+
+    output = []
+    for user in participating:
+        experiment = Experiment.query.get_or_404(user.experiment_id)
+        experiment_data = {}
+        experiment_data['experiment_id'] = experiment.id
+        experiment_data['title'] = experiment.title
+        experiment_data['image_thumb'] = os.path.join(content_folder('project', id, 'image'), 'thumb.png')
+
+        output.append(experiment_data)
+
+
+    return jsonify({'data': output})
 
 
 @admin.route('/experiment_paticipant/<int:experiment_id>/<int:user_id>', methods=['POST'])

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import "../../styles/App.scss"
+import { readRecord } from "../../utils/CRUD"
 
 export default function FriendsComponent(props) {
   const [friends, setFriends] = useState(0)
