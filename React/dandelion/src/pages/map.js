@@ -4,6 +4,7 @@ import "../styles/App.scss"
 import { readRecord } from "../utils/CRUD"
 import MapDetailModal from "../components/modals/mapDetailModal"
 import { CSSTransition } from "react-transition-group"
+import icon from "../images/marker.png"
 
 export default function MapPage(props) {
   const [schoolList, setSchools] = useState([])
@@ -35,24 +36,19 @@ export default function MapPage(props) {
     setShowMapDetails(false)
   }
 
-  const {
-    MapContainer,
-  } = require("../../node_modules/react-leaflet/esm/MapContainer.js") // import it outside the function
-  const {
-    TileLayer,
-  } = require("../../node_modules/react-leaflet/cjs/TileLayer.js")
+  const { MapContainer } = require("../../node_modules/react-leaflet/esm/MapContainer.js") // import it outside the function
+  const { TileLayer, } = require("../../node_modules/react-leaflet/cjs/TileLayer.js")
   const { Marker } = require("../../node_modules/react-leaflet/cjs/Marker.js")
   const { Popup } = require("../../node_modules/react-leaflet/cjs/Popup.js")
-
-  // let DefaultIcon = L.icon({
-  //   iconUrl: icon,
-  //   iconSize: [36, 36],
-  //   iconAnchor: [18, 18],
-  // })
-
-  // L.Marker.prototype.options.icon = DefaultIcon
+  const { Icon } = require("../../node_modules/leaflet/src/layer/marker/Icon.js")
 
   if (typeof window !== "undefined") {
+    let customIcon = new Icon({
+      iconUrl: icon,
+      iconSize: [36, 36],
+      iconAnchor: [18, 18],
+    });
+
     if (own_school != null && update_render == true) {
       setStartingLat(own_school.school.latitude)
       setStartingLng(own_school.school.longitude)
@@ -93,6 +89,7 @@ export default function MapPage(props) {
                         <Marker
                           position={[school.latitude, school.longitude]}
                           key={idx}
+                          icon={customIcon}
                         >
                           <Popup div className="popup">
                             <u>{school.name}</u>
