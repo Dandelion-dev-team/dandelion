@@ -56,15 +56,19 @@
       font-weight: 600;
     }
   }
-  .info-column {
+  
+  .hypotheses {
     .info-box {
       background-color: white;
       border-radius: 20px;
       width: 100%;
       padding: 10px;
-     // margin-bottom: 20px;
+      margin-bottom: 2.5%;
       p {
-        padding: 10px;
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 2.5%;
+        padding: 0px;
       }
     }
   }
@@ -79,3 +83,5 @@
 #date{
   font-weight: 400;
 }
+
+
