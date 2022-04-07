@@ -9,21 +9,6 @@ export default function ParticipantPane(props) {
   const [response_variables, setResponseVariables] = useState([])
   const [show_type, setShowType] = useState("")
   const [observations, setObservations] = useState("");
-  useEffect(() => {
-    setParticipantDetails(props.dataProp.participantDetails)
-    setExperimentDetails(props.dataProp.experimentDetails)
-    setResponseVariables(props.dataProp.responseVariables)
-    // fetch(process.env.ROOT_URL + "/observation/" + 1, {
-    //   method: "GET",
-    //   headers: new Headers({
-    //     'Cache-Control': 'no-cache, no-store, must-revalidate',
-    //     'Pragma': 'no-cache',
-    //     'Expires': 0,
-    //   })
-    // }).then(response => {if(response.status == 200) {return response.json()}})
-    //   .then(
-    //     data => setObservations(data));
-  }, [])
 
   return (
     <div>
@@ -32,7 +17,8 @@ export default function ParticipantPane(props) {
         <div className="participant-pane-content">
           <div className="title">
             <div className="title-btn-row">
-              <h2>{props.dataProp.participantDetails.title}</h2>
+              <h2>{props.dataProp.name}</h2>
+              {console.log(props.dataProp)}
               <div className="exercise-btn">
                 {observations ? null : <button
                   className="exerciseBtn"
@@ -53,11 +39,11 @@ export default function ParticipantPane(props) {
               </div>
             </div>
             <h3>
-              {new Date(participant_details.start_date).toDateString()} -{" "}
-              {new Date(participant_details.end_date).toDateString()}{" "}
+              {new Date(props.dataProp.start_date).toDateString()} -{" "}
+              {new Date(props.dataProp.end_date).toDateString()}{" "}
             </h3>
             <h3>
-              Observation frequency: {participant_details.observation_freq}
+              {/* Observation frequency: {participant_details.observation_freq} */}
             </h3>
           </div>
           <div className="description">

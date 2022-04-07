@@ -4,22 +4,17 @@ import ParticipantPane from "../../components/panes/participantPane"
 import Header from "../../components/navigation/header"
 import FriendsComponent from "../../components/tables/friendsComponent"
 import "../../styles/App.scss"
+import { readRecord } from "../../utils/CRUD"
 
 export default function ExperimentDashboard(props) {
-  const [selected_experiment, setSelectedExperiment] = useState("")
+  const [selected_experiment, setSelectedExperiment] = useState(null)
   const [show_type, setShowType] = useState("")
 
+  const [experiment_list, setExperimentList] = useState([])
+
+
   const handleCallback = childData => {
-    // fetch(process.env.ROOT_URL + "/experiment_full/" + childData.id, {
-    //   method: "GET",
-    //   headers: new Headers({
-    //     "Cache-Control": "no-cache, no-store, must-revalidate",
-    //     Pragma: "no-cache",
-    //     Expires: 0,
-    //   }),
-    // })
-    //   .then(response => response.json())
-    //   .then(data => setSelectedExperiment(data))
+    readRecord("/experiment/" + childData.experiment_id, setSelectedExperiment)
   }
 
   return (
