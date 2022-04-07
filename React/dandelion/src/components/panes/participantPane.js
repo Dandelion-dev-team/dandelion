@@ -4,11 +4,24 @@ import "../../styles/App.scss"
 import SelectAddTypeModal from "../modals/selectAddTypeModal"
 
 export default function ParticipantPane(props) {
-  const [experiment_details, setExperimentDetails] = useState([])
-  const [participant_details, setParticipantDetails] = useState([])
-  const [response_variables, setResponseVariables] = useState([])
   const [show_type, setShowType] = useState("")
-  const [observations, setObservations] = useState("");
+
+  const get_response_day = e => {
+    let days = "";
+
+    if (e.monday == true) { days = days + "Monday " }
+    if (e.tuesday == true) { days = days + "Tuesday " }
+    if (e.wednesday == true) { days = days + "Wednesday " }
+    if (e.thursday == true) { days = days + "Thursday " }
+    if (e.friday == true) { days = days + "Friday " }
+    if (e.saturday == true) { days = days + "Saturday " }
+    if (e.sunday == true) { days = days + "Sunday " }
+    if (e.once == true) { days = days + "Once " }
+    if (e.final == true) { days = days + "Final " }
+
+    console.log(days)
+    return (<h3>{days}</h3>);
+  }
 
   return (
     <div className="participant-panel">
@@ -20,22 +33,6 @@ export default function ParticipantPane(props) {
               <h2>{props.dataProp.name}</h2>
               {console.log(props.dataProp)}
               <div className="exercise-btn">
-                {observations ? null : <button
-                  className="exerciseBtn"
-                  onClick={() => {
-                    if (typeof window !== `undefined`) {
-                      navigate("/participants/select-type", {
-                        state: {
-                          participantDetails: participant_details,
-                          responseVariables: response_variables,
-                          experimentDetails: experiment_details,
-                        },
-                      })
-                    }
-                  }}
-                >
-                  Complete Exercise
-                </button>}
               </div>
             </div>
             <h3>
@@ -59,11 +56,18 @@ export default function ParticipantPane(props) {
                 :
                 <h3>No hypotheses found.</h3>}
             </div>
-            <p>Observations</p>
-            <div className="info-box">
-              {observations ?
-                <div>
-                  <p id='observation'>{observations.value}</p> <p id='date'>{new Date(observations.timestamp).toDateString()}</p> </div> : null}
+            <div className="description">
+              <p>Variables: </p>
+              {props.dataProp.responseVariables ?
+                props.dataProp.responseVariables.map(variable => (
+                  <div>
+                    <h3>{variable.name}</h3>
+                    <h3>{variable.tutorial}</h3>
+                    {get_response_day(variable)}
+                  </div>
+                ))
+                :
+                <h3>No Response Variables found.</h3>}
             </div>
           </div>
         </div>

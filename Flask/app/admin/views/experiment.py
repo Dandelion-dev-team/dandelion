@@ -57,6 +57,17 @@ def get_one_experiment(id):
 			"unit": response_variable.variable.quantity.unit if response_variable.variable.quantity else None,
 			"upper_limit": response_variable.variable.quantity.upper_limit if response_variable.variable.quantity else None,
 			"lower_limit": response_variable.variable.quantity.lower_limit if response_variable.variable.quantity else None,
+			"tutorial": response_variable.variable.procedure,
+			"monday": response_variable.monday,
+			"tuesday": response_variable.tuesday,
+			"wednesday": response_variable.wednesday,
+			"thursday": response_variable.thursday,
+			"friday": response_variable.friday,
+			"saturday": response_variable.saturday,
+			"sunday": response_variable.sunday,
+			"once": response_variable.once,
+			"final": response_variable.final,
+
 			"levels": sorted([{
 				"id": l.id,
 				"sequence": l.sequence,

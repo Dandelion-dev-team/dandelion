@@ -19,7 +19,7 @@ export default function FriendsComponent(props) {
           {props.users
             ? props.users.map(friend => (
                 <tbody key={friend.id}>
-                  <td>{friend.school_id}</td>
+                  <td>{friend.id}</td>
                   <td>{friend.username}</td>
                   <td>{friend.status}</td>
                 </tbody>
