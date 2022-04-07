@@ -12,4 +12,4 @@ class Unit(db.Model):
     replicate_no = db.Column(db.Integer)
     grid_row = db.Column(db.String(1), db.CheckConstraint("grid_row in ('A', 'B', 'C', 'D', 'E')"))
     grid_column = db.Column(db.Integer, db.CheckConstraint('grid_column between 1 and 5'))
-    location = db.Column(db.String(200))
+    location = db.Column(db.String(500))

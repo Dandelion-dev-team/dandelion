@@ -7,8 +7,8 @@ class Hypothesis(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     experiment_id = db.Column(db.Integer, db.ForeignKey('experiment.id'), nullable=False)
     hypothesis_no = db.Column(db.Integer, nullable=False)
-    description = db.Column(db.String(200), nullable=False)
-    text = db.Column(db.String(200))
+    description = db.Column(db.String(500), nullable=False)
+    text = db.Column(db.String(5000))
     status = db.Column(db.String(20), nullable=False)
 
     @property

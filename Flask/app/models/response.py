@@ -8,7 +8,7 @@ class Response(db.Model):
     question_id = db.Column(db.Integer, db.ForeignKey('question.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     option_id = db.Column(db.Integer, nullable=False)
-    response_text = db.Column(db.String(100))
+    response_text = db.Column(db.String(5000))
 
     def __repr__(self):
         return '{}'.format(self.name)

@@ -6,7 +6,7 @@ class Node_alert(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     node_id = db.Column(db.Integer, db.ForeignKey('node.id'), nullable=False)
-    description = db.Column(db.String(200), nullable=False)
+    description = db.Column(db.String(500), nullable=False)
     created_date = db.Column(db.DateTime, nullable=False)
     updated_date = db.Column(db.DateTime)
     status = db.Column(db.String(20), nullable=False)

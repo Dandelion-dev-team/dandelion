@@ -12,7 +12,6 @@ export default function AddStudentModal(props) {
         let school = localStorage.getItem("school_id");
         if (school && entered_username && entered_password) {
             let body = JSON.stringify({
-                id: 1234,
                 school_id: school,
                 username: entered_username,
                 password: entered_password,

@@ -1,5 +1,4 @@
-from os import abort
-from flask import request, jsonify
+from flask import request, jsonify, abort
 from flask_cors import cross_origin
 from flask_json import json_response
 from flask_jwt_extended import jwt_required, get_jwt_identity

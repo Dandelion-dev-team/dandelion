@@ -7,7 +7,7 @@ class AuditDetail(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     audit_id = db.Column(db.Integer, db.ForeignKey('audit.id'), nullable=False)
     column_name = db.Column(db.String(100))
-    old_value = db.Column(db.String(250))
+    old_value = db.Column(db.String(5000))
 
     def __repr__(self):
         return '{}'.format(self.name)

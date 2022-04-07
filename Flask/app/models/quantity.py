@@ -9,7 +9,7 @@ class Quantity(db.Model):
     unit = db.Column(db.String(5))
     lower_limit = db.Column(db.DECIMAL)
     upper_limit = db.Column(db.DECIMAL)
-    help_url = db.Column(db.String(200))
+    help_url = db.Column(db.String(500))
 
     variables = db.relationship("Variable", backref="quantity")
 
