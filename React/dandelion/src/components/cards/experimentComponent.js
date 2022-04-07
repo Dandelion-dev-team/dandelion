@@ -48,7 +48,7 @@ export default function ExperimentComponent(props) {
               </div>
             </div>
           ))
-        : null}
+        : <h3>No Experiments Found.</h3>}
     </div>
   )
 }

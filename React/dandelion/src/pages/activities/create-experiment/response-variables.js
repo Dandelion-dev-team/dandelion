@@ -180,7 +180,7 @@ export default function ResponseVariables(props) {
                           />
                         ))
                     ) : (
-                      <h3>No response variables found.</h3>
+                      <h3>No Response Variables Found.</h3>
                     )}
                   </div>
                   <PaginationComponent pageIndex={3} numPages={4} />
