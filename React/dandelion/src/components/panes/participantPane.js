@@ -31,7 +31,7 @@ export default function ParticipantPane(props) {
           <div className="title">
             <div className="title-btn-row">
               <h2>{props.dataProp.name}</h2>
-              {console.log(props.dataProp)}
+              {console.log(JSON.stringify(props.dataProp))}
               <div className="exercise-btn">
               </div>
             </div>
