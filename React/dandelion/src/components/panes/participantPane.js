@@ -38,7 +38,7 @@ export default function ParticipantPane(props) {
     }
 
     console.log(days)
-    return <h3>{days}</h3>
+    return (<h3>{days}</h3>)
   }
 
   return (
@@ -50,7 +50,6 @@ export default function ParticipantPane(props) {
             <div className="title-btn-row">
               <h2>{props.dataProp.name}</h2>
               {console.log(props.dataProp)}
-              <div className="exercise-btn"></div>
             </div>
             <h3>
               {new Date(props.dataProp.start_date).toDateString()} -{" "}

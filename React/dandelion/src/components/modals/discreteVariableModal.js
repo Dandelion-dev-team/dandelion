@@ -58,7 +58,7 @@ export default function DiscreteVariableModal(props) {
         description: description,
         procedure: procedure,
         levels: arr,
-        is_sensor_quantity: is_sensor_selected,
+        is_sensor_quantity: false,
         quantity_id: quantity_check,
       })
       props.callback(body)
