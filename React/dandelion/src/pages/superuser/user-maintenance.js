@@ -44,6 +44,7 @@ export default function UserMaintenance(props) {
                 createRecordNavigate("/experiment_paticipant/" +  props.location.state.experiment.id + "/" + element.id, body)
             });
         }
+        window.location.reload(false)
     }
 
     const User = user => {
@@ -134,13 +135,11 @@ export default function UserMaintenance(props) {
                             </div>
                             <div className='variable-list'>
                                 <h3>Treatment Variables:</h3>
-                                <VariableListComponent data={{ name: "Touches", type: "Discrete", levels: [{ name: "Control" }, { name: "Soft" }, { name: "Rough" }] }} />
-                                <VariableListComponent data={{ name: "Music", type: "Discrete", levels: [{ name: "Control" }, { name: "Hip-Hop" }, { name: "Classical" }] }} />
+
                             </div>
                             <div className='variable-list'>
                                 <h3>Response Variables:</h3>
-                                <VariableListComponent data={{ name: "Length", type: "Continuous", unit: "mm", upper_limit: 100, lower_limit: 0 }} />
-                                <VariableListComponent data={{ name: "Strength", type: "Discrete", levels: [{ name: "Control" }, { name: "Hip-Hop" }, { name: "Classical" }] }} />
+
                             </div>
                         </div>
                         <div className='user-pane'>
