@@ -160,6 +160,7 @@ export default function SuperuserMaintenance(props) {
                     getOptionLabel={quantity => quantity.name}
                     getOptionValue={quantity => quantity.id} // It should be unique value in the options. E.g. ID
                     isMulti={true}
+                    placeholder={"Select measurement days."}
                   />
                 </div>
                 {editing ? (

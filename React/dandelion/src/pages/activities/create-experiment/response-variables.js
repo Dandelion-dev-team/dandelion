@@ -27,7 +27,7 @@ export default function ResponseVariables(props) {
   const [show_discrete, setShowDiscrete] = useState("")
 
   const [logged, setLogged] = useState("")
-
+  const [response_dates_valid, setValidResponseDates] = useState(false);
   const handleSearchValueChange = e => {
     changeSearch(e.target.value)
   }
@@ -51,6 +51,10 @@ export default function ResponseVariables(props) {
   const contCallback = e => {
     setShowContinuous(true)
     setShowChoice(false)
+  }
+
+  const checkResponseDatesRerender = e => {
+    setValidResponseDates(true);
   }
 
   const checkboxCallback = e => {
@@ -194,11 +198,12 @@ export default function ResponseVariables(props) {
                   <div className="selected-list">
                     {selected_list
                       ? selected_list.map(variable => (
-                          <ResponseSelectedComponent
-                            editCallback={handleEditCallback}
-                            data={variable}
-                          />
-                        ))
+                        <ResponseSelectedComponent
+                          editCallback={handleEditCallback}
+                          data={variable}
+                          rerenderCallback={checkResponseDatesRerender}
+                        />
+                      ))
                       : null}
                   </div>
                   <div className="btn-row">
@@ -211,25 +216,33 @@ export default function ResponseVariables(props) {
                       }}
                     ></input>
                     {selected_list.length > 0 ? (
-                      <input
-                        type="submit"
-                        className="continue-btn"
-                        value="Continue"
-                        onClick={() => {
-                          if (typeof window !== `undefined`) {
-                            navigate(
-                              "/activities/create-experiment/select-conditions",
-                              {
-                                state: {
-                                  treatmentVariables: treatment_variables_list,
-                                  responseVariables: selected_list,
-                                  experimentDetails: experiment_details,
-                                },
-                              }
-                            )
-                          }
-                        }}
-                      ></input>
+                      response_dates_valid == true ?
+                        <input
+                          type="submit"
+                          className="continue-btn"
+                          value="Continue"
+                          onClick={() => {
+                            if (typeof window !== `undefined`) {
+                              navigate(
+                                "/activities/create-experiment/select-conditions",
+                                {
+                                  state: {
+                                    treatmentVariables: treatment_variables_list,
+                                    responseVariables: selected_list,
+                                    experimentDetails: experiment_details,
+                                  },
+                                }
+                              )
+                            }
+                          }}
+                        ></input>
+                        :
+                        <input
+                          type="submit"
+                          className="disabled-btn"
+                          value="Continue"
+                          disabled={true}
+                        ></input>
                     ) : null}
                   </div>
                 </div>
