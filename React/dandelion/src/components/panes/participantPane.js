@@ -155,6 +155,7 @@ export default function ParticipantPane(props) {
                           {response_observations.length > 0 ? get_variable_observations(variable) : null}
                         </div>
                       </div>
+                      <div className="spacer" />
                       <div className="observation-column">
                         {get_response_day(variable)}
                         <div className="btn-row">
@@ -183,7 +184,6 @@ export default function ParticipantPane(props) {
                   //     <h3>{variable.tutorial}</h3>
                   //     {get_response_day(variable)}
                   //   </div>
-
 
                 ))
               ) : (
