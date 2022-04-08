@@ -155,7 +155,7 @@ export default function ParticipantPane(props) {
                           <p>{variable.name}</p>
                         </div>
                         <div className="latest-observation">
-                          {response_observations.length > 0 ? get_variable_observations(variable) : null}
+                          {response_observations.length > 0 ? get_variable_observations(variable) : (<p>No Observations Have Been Made.</p>)}
                         </div>
                       </div>
                       <div className="spacer" />
