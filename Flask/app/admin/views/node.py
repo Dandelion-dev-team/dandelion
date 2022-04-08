@@ -171,57 +171,67 @@ def get_latest_data(node_id):
     str(node_id)
 
     for cube_level in ('top', 'middle', 'bottom'):
-        dir = os.path.join(content_folder("DATA_ROOT", node_id, "FLASK", upload=True))
-        df_to_read = pd.read_csv(os.path.join(dir, cube_level + '.csv'), index_col="timestamp")
+        dir = os.path.join(content_folder("DATA_ROOT", node_id, "FLASK", upload=True)) # creates the path for the correct file to be read in the next line
+        df_to_read = pd.read_csv(os.path.join(dir, cube_level + '.csv'), index_col="timestamp") # reads the correct .csv file
 
         if cube_level == "top":
-            last_row = df_to_read.iloc[-1]
-            output_top = last_row.to_json()
+            out_top = []
+            last_row = df_to_read.iloc[-1] #gets the last rown from the dataframe
+            output_top = {}
+            output_top['air_temp'] = last_row.values[0]
+            output_top['humidity'] = last_row.values[2]
+            output_top['lux'] = last_row.values[3]
+            output_top['pressure'] = last_row.values[6]
+            output_top['sub_temp'] = last_row.values[7]
+            output_top['moisture'] = last_row.values[4]
+            output_top['ec'] = last_row.values[1]
+            output_top['pH'] = last_row.values[5]
+            output_top['water_level'] = last_row.values[8]
+            out_top.append(output_top)
         elif cube_level == "middle":
+            out_middle = []
             last_row = df_to_read.iloc[-1]
-            output_middle = last_row.to_json()
+            output_middle = {}
+            output_middle['air_temp'] = last_row.values[0]
+            output_middle['humidity'] = last_row.values[2]
+            output_middle['lux'] = last_row.values[3]
+            output_middle['pressure'] = last_row.values[6]
+            output_middle['sub_temp'] = last_row.values[7]
+            output_middle['moisture'] = last_row.values[4]
+            output_middle['ec'] = last_row.values[1]
+            output_middle['pH'] = last_row.values[5]
+            output_middle['water_level'] = last_row.values[8]
+            out_middle.append(output_middle)
         else:
+            out_bottom = []
             last_row = df_to_read.iloc[-1]
-            output_bottom = last_row.to_json()
+            output_bottom = {}
+            output_bottom['air_temp'] = last_row.values[0]
+            output_bottom['humidity'] = last_row.values[2]
+            output_bottom['lux'] = last_row.values[3]
+            output_bottom['pressure'] = last_row.values[6]
+            output_bottom['sub_temp'] = last_row.values[7]
+            output_bottom['moisture'] = last_row.values[4]
+            output_bottom['ec'] = last_row.values[1]
+            output_bottom['pH'] = last_row.values[5]
+            output_bottom['water_level'] = last_row.values[8]
+            out_bottom.append(output_bottom)
+
+    return jsonify({'top': output_top , 'middle' : output_middle, 'bottom' : output_bottom})
 
 
 
-    return jsonify({"top" : output_top, "middle" : output_middle, "bottom" : output_bottom})
-    # return json_response(output_top + output_middle + output_bottom)
 
-    # THE CODE has to read the three .csv files (using a for loop) and generating the json file below
-    # {
-    #     "top": {
-    #         "air_temp": 19.5,
-    #         "humidity": 88.9,
-    #         "lux": 40321.0,
-    #         "pressure": 899.5,
-    #         "sub_temp": 18.4,
-    #         "moisture": 78.0,
-    #         "ec": 33962.0,
-    #         "pH": 7.8,
-    #         "water_level": 54.8
-    #     },
-    #     "middle": {
-    #         "air_temp": 19.5,
-    #         "humidity": 88.9,
-    #         "lux": 40321.0,
-    #         "pressure": 899.5,
-    #         "sub_temp": 18.4,
-    #         "moisture": 78.0,
-    #         "ec": 33962.0,
-    #         "pH": 7.8,
-    #         "water_level": 54.8
-    #     },
-    #     "bottom": {
-    #         "air_temp": 19.5,
-    #         "humidity": 88.9,
-    #         "lux": 40321.0,
-    #         "pressure": 899.5,
-    #         "sub_temp": 18.4,
-    #         "moisture": 78.0,
-    #         "ec": 33962.0,
-    #         "pH": 7.8,
-    #         "water_level": 54.8
-    #     }
-    # }
+
+
+        # if cube_level == "top":
+        #     last_row = df_to_read.iloc[-1]
+        #     output_top = last_row.to_json()
+        # elif cube_level == "middle":
+        #     last_row = df_to_read.iloc[-1]
+        #     output_middle = last_row.to_json()
+        # else:
+        #     last_row = df_to_read.iloc[-1]
+        #     output_bottom = last_row.to_json()
+
+
