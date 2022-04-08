@@ -79,7 +79,6 @@ export default function ParticipantPane(props) {
     if(filtered.length > 0){
       return(<p>{filtered[filtered.length - 1].value}</p>)
     }else {
-      return (<p>No Observations Have Been Made.</p>)
     }
   }
 
@@ -156,7 +155,7 @@ export default function ParticipantPane(props) {
                           <p>{variable.name}</p>
                         </div>
                         <div className="latest-observation">
-                          {response_observations.length > 0 ? get_variable_observations(variable) : null}
+                          {response_observations.length > 0 ? get_variable_observations(variable) : (<p>No Observations Have Been Made.</p>)}
                         </div>
                       </div>
                       <div className="spacer" />

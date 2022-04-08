@@ -14,7 +14,7 @@ export default function EnterSingleData(props) {
     console.log("Updated body")
     let body = JSON.stringify({
       timestamp: null,
-      value: 21,
+      value: parseInt(observation),
       created_by: student_id,
       status: "valid",
       comment: "",
