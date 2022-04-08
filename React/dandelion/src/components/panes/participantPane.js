@@ -2,77 +2,196 @@ import React, { useEffect, useState } from "react"
 import { navigate } from "gatsby"
 import "../../styles/App.scss"
 import SelectAddTypeModal from "../modals/selectAddTypeModal"
+import { readAdminRecord } from "../../utils/CRUD"
 
 export default function ParticipantPane(props) {
-  const [experiment_details, setExperimentDetails] = useState([])
-  const [participant_details, setParticipantDetails] = useState([])
-  const [response_variables, setResponseVariables] = useState([])
   const [show_type, setShowType] = useState("")
-  const [observations, setObservations] = useState("");
+  const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+  const [response_observations, setObservations] = useState([])
+
+  const get_response_day = e => {
+    let days = ""
+    var today = new Date().getDay();
+    let current_day_int = [];
+    if (e.monday == true) {
+      days = days + "Monday ";
+      current_day_int.push(1)
+    }
+    if (e.tuesday == true) {
+      days = days + "Tuesday "
+      current_day_int.push(2)
+    }
+    if (e.wednesday == true) {
+      days = days + "Wednesday "
+      current_day_int.push(3)
+    }
+    if (e.thursday == true) {
+      days = days + "Thursday "
+      current_day_int.push(4)
+    }
+    if (e.friday == true) {
+      days = days + "Friday "
+      current_day_int.push(5)
+    }
+    if (e.saturday == true) {
+      days = days + "Saturday "
+      current_day_int.push(6)
+    }
+    if (e.sunday == true) {
+      days = days + "Sunday "
+      current_day_int.push(0)
+    }
+    if (e.once == true) {
+      days = days + "Once "
+    }
+    if (e.final == true) {
+      days = days + "Final "
+    }
+
+    if (current_day_int.includes(today)) {
+      console.log("There is an observation required today.")
+    }
+
+    let days_until = [];
+    current_day_int.forEach(day => {
+      let day_int = day - today;
+      if (day_int < 0) {
+        day_int = day_int + 7;
+      }
+      days_until.push(day_int);
+    });
+
+    const min = Math.min(...days_until)
+    return (
+      <div className="days-until">
+        <div className="day">
+          {days}
+        </div>
+        <div className="days-remaining">
+          <p>{min} days until...</p>
+        </div>
+      </div>)
+  }
+
+  const get_variable_observations = e => {
+    let filtered = response_observations.filter(item => item.response_variable_id == e.id);
+
+    if(filtered.length > 0){
+      return(<p>{filtered[filtered.length - 1].value}</p>)
+    }else {
+    }
+  }
+
   useEffect(() => {
-    setParticipantDetails(props.dataProp.participantDetails)
-    setExperimentDetails(props.dataProp.experimentDetails)
-    setResponseVariables(props.dataProp.responseVariables)
-    // fetch(process.env.ROOT_URL + "/observation/" + 1, {
-    //   method: "GET",
-    //   headers: new Headers({
-    //     'Cache-Control': 'no-cache, no-store, must-revalidate',
-    //     'Pragma': 'no-cache',
-    //     'Expires': 0,
-    //   })
-    // }).then(response => {if(response.status == 200) {return response.json()}})
-    //   .then(
-    //     data => setObservations(data));
-  }, [])
+    let user_id = localStorage.getItem("user_id");
+    readAdminRecord('/observation/byuser/' + user_id).then(data => {
+      let observations = data.users;
+      setObservations(observations);
+    })
+  }, []);
 
   return (
-    <div>
+    <div className="participant-panel">
       {show_type ? <SelectAddTypeModal props={props.dataProp} /> : null}
       {props.dataProp ? (
         <div className="participant-pane-content">
           <div className="title">
             <div className="title-btn-row">
-              <h2>{props.dataProp.participantDetails.title}</h2>
-              <div className="exercise-btn">
-                {observations ? null : <button
-                  className="exerciseBtn"
-                  onClick={() => {
-                    if (typeof window !== `undefined`) {
-                      navigate("/participants/select-type", {
-                        state: {
-                          participantDetails: participant_details,
-                          responseVariables: response_variables,
-                          experimentDetails: experiment_details,
-                        },
-                      })
-                    }
-                  }}
-                >
-                  Complete Exercise
-                </button>}
-              </div>
+              <h2>{props.dataProp.name}</h2>
             </div>
             <h3>
-              {new Date(participant_details.start_date).toDateString()} -{" "}
-              {new Date(participant_details.end_date).toDateString()}{" "}
+              {new Date(props.dataProp.start_date).toDateString()} -{" "}
+              {new Date(props.dataProp.end_date).toDateString()}{" "}
             </h3>
             <h3>
-              Observation frequency: {participant_details.observation_freq}
+              {/* Observation frequency: {participant_details.observation_freq} */}
             </h3>
           </div>
           <div className="description">
-            <h3>{participant_details.description}</h3>
+            <h3>{props.dataProp.description}</h3>
           </div>
-          <div className="info-column">
+          <div className="hypotheses">
             <p>Hypotheses</p>
             <div className="info-box">
-              <p>{participant_details.hypotheses}</p>
+              {props.dataProp.hypotheses ? (
+                props.dataProp.hypotheses.map(hypothesis => (
+                  <p>
+                    {hypothesis.hypothesis_no}. {hypothesis.description}
+                  </p>
+                ))
+              ) : (
+                <h3>No hypotheses found.</h3>
+              )}
             </div>
-            <p>Observations</p>
-            <div className="info-box">
-              {observations ?
-                <div>
-                  <p id='observation'>{observations.value}</p> <p id='date'>{new Date(observations.timestamp).toDateString()}</p> </div> : null}
+            <div className="worksheet">
+              {/* <div className="worksheet-item">
+                <div className="name-column">
+                  <div className="name">
+                    <p>hello</p>
+                  </div>
+                  <div className="spacer" />
+                  <div className="complete-button">
+                    
+                    <div className="days-until">
+                      <p>Tuesday</p>
+                      <p>6 Days until</p>
+                    </div>
+                    <div className="btn">
+                      <p></p>
+                    </div>
+                  </div>
+                </div>
+                <div className="latest-observation">
+                  <p></p>
+                  </div>
+              </div> */}
+
+              {props.dataProp.responseVariables ? (
+                props.dataProp.responseVariables.map(variable => (
+                  <div className="worksheet-item">
+                    <div className="item-content">
+                      <div className="name-column">
+                        <div className="name">
+                          <p>{variable.name}</p>
+                        </div>
+                        <div className="latest-observation">
+                          {response_observations.length > 0 ? get_variable_observations(variable) : (<p>No Observations Have Been Made.</p>)}
+                        </div>
+                      </div>
+                      <div className="spacer" />
+                      <div className="observation-column">
+                        {get_response_day(variable)}
+                        <div className="btn-row">
+                          <div className="spacer" />
+                          <div className="submit-btn">
+                            <input
+                              type="submit"
+                              className="submitButton"
+                              value="Add Observation"
+                              onClick={() => {
+                                navigate("/participants/enter-single",
+                                  {
+                                    state: { variable: variable },
+                                  })
+                              }}
+                            ></input>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  // <div className="worksheet-item">
+                  //   <div className="desc">
+                  //     <h3>{variable.name}</h3>
+                  //     <h3>{variable.tutorial}</h3>
+                  //     {get_response_day(variable)}
+                  //   </div>
+
+                ))
+              ) : (
+                <h3>No Response Variables found.</h3>
+              )}
             </div>
           </div>
         </div>

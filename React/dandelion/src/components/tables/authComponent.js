@@ -20,8 +20,6 @@ export default function AuthComponent(props) {
           <tr>
             <th>ID</th>
             <th>Name</th>
-            <th>Telephone</th>
-            <th>Email</th>
             <th>Edit</th>
             <th>Delete</th>
           </tr>
@@ -32,8 +30,6 @@ export default function AuthComponent(props) {
             <tbody key={auths.id}>
               <td>{auth.id}</td>
               <td>{auth.name}</td>
-              <td>{auth.email}</td>
-              <td>{auth.telephone}</td>
               <td>
                 <div className="submit-btn">
                   <input

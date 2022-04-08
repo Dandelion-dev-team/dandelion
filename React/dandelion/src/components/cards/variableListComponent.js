@@ -22,10 +22,10 @@ export default function VariableListComponent(props) {
 
             <div className="vl"></div>
             <div className="second-third">
-                {props.mappedValue.type == "Continuous" ?
+                {/* {props.mappedValue.type == "Continuous" ?
                     <h3>{props.mappedValue.unit} ({props.mappedValue.lower_limit} - {props.mappedValue.upper_limit})</h3>
                     :
-                    props.mappedValue.levels.map(variable => (<h3>{variable.name}, </h3>))}       
+                    props.mappedValue.levels.map(variable => (<h3>{variable.name}, </h3>))}        */}
             </div>
             <div className="vl"></div>
 

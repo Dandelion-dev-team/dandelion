@@ -19,7 +19,6 @@ export default function SideNav() {
             <Link to="/superuser/help">Help</Link>
             <Link to="/superuser/alerts">Alerts</Link>
             <Link to="/superuser/school-user-maintenance">Students</Link>
-            <Link to="/superuser/templates">Templates</Link>
             <Link to="/superuser/settings">Settings</Link>
             <div className="news-pane">
               <h3>News</h3>

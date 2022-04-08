@@ -28,10 +28,12 @@
       color: black;
       .exp-pane {
         width: 50%;
+        display: flex;
 
         .exp-pane-wrapper {
           margin-left: 2rem;
           margin-top: 2rem;
+
           .title {
             display: flex;
             flex-direction: column;

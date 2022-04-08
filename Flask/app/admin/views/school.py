@@ -70,6 +70,7 @@ def getOneSchool(id):
     school_data['name'] = school.name
     school_data['status'] = school.status
     school_data['address_line_1'] = school.address_line_1
+    school_data['address_line_2'] = school.address_line_2
     school_data['postcode'] = school.postcode
     school_data['town'] = school.town
     school_data['telephone'] = school.telephone

@@ -45,7 +45,7 @@ export default function Dashboard() {
                         <div className="tiles">
                             <Tile name="Map" tile_image={map} tile_color="#e3c3ca" link="/map"></Tile>
                             <Tile name="School" tile_image={school} tile_color="#58a140" link="/data"></Tile>
-                            <Tile name="About" tile_image={about} tile_color="#7c6fb6" link="/about"></Tile>
+                            <Tile name="About" tile_image={about} tile_color="#7c6fb6" link="https://dandelion.scot/blog/programmes/dandelion-school-growing-initiative"></Tile>
                             <Tile name="Experiments" tile_image={about} tile_color="#FFFF" link="/participants/experiment-dashboard"></Tile>
                             {is_sysadmin ? <Tile name="SysAdmin" tile_image={add_data} tile_color="#fe693c" link="/sysadmin/auth-maintenance"></Tile> : null}
                             {is_superuser || is_sysadmin ? <Tile name="SuperUser" tile_image={chart} tile_color="#f7f369" link="/superuser/dashboard"></Tile> : null}

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { createRecord, readRecord } from "../../utils/CRUD"
-import DiscreteModalCard from "../cards/discreteModalCard"
-import DiscreteCardList from "../cards/discreteCardList"
 import Select from "react-select"
+import DiscreteCard from "../cards/discreteCard"
 
 export default function DiscreteVariableModal(props) {
   const [name, setName] = useState("")
@@ -47,7 +46,7 @@ export default function DiscreteVariableModal(props) {
       let arr = new Array()
       for (let index = 0; index < level_list.length; index++) {
         const element = level_list[index]
-        arr.push({ treatment_name: name, sequence: index, name: element, description: "", procedure: "" })
+        arr.push({ treatment_name: name, sequence: index, name: element, description: "desc", procedure: "proc" })
       }
       let quantity_check = null;
       if(quantity_selected != null){
@@ -59,17 +58,8 @@ export default function DiscreteVariableModal(props) {
         description: description,
         procedure: procedure,
         levels: arr,
-        is_sensor_quantity: is_sensor_selected,
+        is_sensor_quantity: false,
         quantity_id: quantity_check,
-        monday: false,
-        tuesday: false,
-        wednesday: false,
-        thursday: false,
-        friday: false,
-        saturday: false,
-        sunday: false,
-        once: true,
-        final: true,
       })
       props.callback(body)
     } else {
@@ -160,11 +150,17 @@ export default function DiscreteVariableModal(props) {
             </div>
             <div className="level-row">
               <div className="card-list">
-                <DiscreteCardList
-                  levelList={level_list}
-                  addLevel={AddLevel}
-                  reorderLevels={handleLevelListChange}
+                {level_list.length > 0 ? level_list.map(card => (
+                  <DiscreteCard
+                  card={card}
                 />
+                ))  : null}
+                {/* <DiscreteCardList
+                  levelList={level_list}
+
+                  // addLevel={AddLevel}
+                  // reorderLevels={handleLevelListChange}
+                /> */}
                 <div className="level-bar">
                   <div className="title">
                     <h3>Level:</h3>
@@ -193,8 +189,7 @@ export default function DiscreteVariableModal(props) {
                 </div>
               </div>
               <div className="finish-btn-row">
-                <div className="spacer" />
-                <div className="finish-btn">
+                <div className="close-btn">
                   <input
                     type="submit"
                     className="submitButton"
@@ -204,6 +199,7 @@ export default function DiscreteVariableModal(props) {
                     }}
                   ></input>
                 </div>
+                <div className="spacer" />
                 <div className="finish-btn">
                   <input
                     type="submit"

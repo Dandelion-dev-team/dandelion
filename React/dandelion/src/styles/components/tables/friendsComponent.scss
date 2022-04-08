@@ -25,6 +25,9 @@
         display: none; /* for Chrome, Safari, and Opera */
         width: 0%;
       }
+  }.friendsTable::-webkit-scrollbar {
+    display: none; /* for Chrome, Safari, and Opera */
+    width: 0%;
   }
  
 }
