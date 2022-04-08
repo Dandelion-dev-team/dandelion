@@ -38,7 +38,7 @@ export default function ParticipantPane(props) {
     }
 
     console.log(days)
-    return <h3>{days}</h3>
+    return <p>{days}</p>
   }
 
   return (
@@ -101,26 +101,55 @@ export default function ParticipantPane(props) {
               {props.dataProp.responseVariables ? (
                 props.dataProp.responseVariables.map(variable => (
                   <div className="worksheet-item">
-                    <div className="desc">
-                      <h3>{variable.name}</h3>
-                      <h3>{variable.tutorial}</h3>
-                      {get_response_day(variable)}
-                    </div>
-
-                    <div className="submit-btn">
-                      <input
-                        type="submit"
-                        className="submitButton"
-                        value="Add Observation"
-                        onClick={() => {
-                          navigate("/participants/enter-single",
-                          {
-                            state: { variable: variable },
-                          })
-                        }}
-                      ></input>
+                    <div className="item-content">
+                      <div className="name-column">
+                        <div className="name">
+                          <p>{variable.name}</p>
+                        </div>
+                        <div className="latest-observation">
+                          <p>i noticed the plant was redi noticed the plant was redi noticed the plant was redi noticed the plant was redi noticed the plant was red</p>
+                        </div>
+                      </div>
+                      <div className="observation-column">
+                        <div className="days-until">
+                          <div className="day">
+                            {get_response_day(variable)}
+                          </div>
+                          <div className="days-remaining">
+                            <p>6 days until...</p>
+                          </div>
+                        </div>
+                        <div className="btn-row">
+                          <div className="spacer" />
+                          <div className="submit-btn">
+                            <p>button</p>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
+
+                  // <div className="worksheet-item">
+                  //   <div className="desc">
+                  //     <h3>{variable.name}</h3>
+                  //     <h3>{variable.tutorial}</h3>
+                  //     {get_response_day(variable)}
+                  //   </div>
+
+                  //   <div className="submit-btn">
+                  //     <input
+                  //       type="submit"
+                  //       className="submitButton"
+                  //       value="Add Observation"
+                  //       onClick={() => {
+                  //         navigate("/participants/enter-single",
+                  //         {
+                  //           state: { variable: variable },
+                  //         })
+                  //       }}
+                  //     ></input>
+                  //   </div>
+                  // </div>
                 ))
               ) : (
                 <h3>No Response Variables found.</h3>
