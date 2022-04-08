@@ -18,7 +18,7 @@ export default function EnterSingleData(props) {
       created_by: student_id,
       status: "valid",
       comment: "",
-      unit_id: 22,
+      unit_id: 1,
       response_variable_id: props.location.state.variable.id,
     })
 
