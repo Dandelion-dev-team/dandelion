@@ -3,7 +3,6 @@ import Header from "../components/navigation/header"
 import "../styles/App.scss"
 import { readRecord } from "../utils/CRUD"
 import MapDetailModal from "../components/modals/mapDetailModal"
-import { CSSTransition } from "react-transition-group"
 import icon from "../images/marker.png"
 
 export default function MapPage(props) {
@@ -60,12 +59,12 @@ export default function MapPage(props) {
         <div>
           <div>
             {show_map_details ? (
-              <CSSTransition in={slideModal} timeout={200} classNames="modal">
+              // <CSSTransition in={slideModal} timeout={200} classNames="modal">
                 <MapDetailModal
                   callback={modalCallback}
                   school={selected_school}
                 />
-              </CSSTransition>
+              // </CSSTransition>
             ) : null}
           </div>
           <Header />
