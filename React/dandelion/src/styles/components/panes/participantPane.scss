@@ -124,6 +124,21 @@
                 display: flex;
                 align-items: flex-end;
                 justify-content: flex-end;
+
+                .submitButton {
+                  background-color: $accent;
+                  color: $primary;
+                  font-size: 1.2rem;
+                  margin: 0.625rem 0px;
+                  padding: 0.625rem;
+                  width: 10rem;
+                  border: none;
+                  cursor: pointer;
+                  border-radius: 10px;
+                }
+                .submitButton:hover {
+                  background-color: #d4d926;
+                }
               }
             }
           }
@@ -131,21 +146,6 @@
 
         // .submit-btn {
         //   width: 40%;;
-        //   .submitButton {
-        //     background-color: $accent;
-        //     color: $primary;
-        //     font-size: 1.2rem;
-        //     margin: 0.625rem 0px;
-        //     padding: 0.625rem;
-        //     width: 10rem;
-        //     border: none;
-        //     cursor: pointer;
-        //     border-radius: 10px;
-        //   }
-        //   .submitButton:hover {
-        //     background-color: #d4d926;
-        //   }
-        // }
       }
     }
   }

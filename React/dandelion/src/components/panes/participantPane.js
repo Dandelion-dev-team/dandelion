@@ -107,9 +107,14 @@ export default function ParticipantPane(props) {
                           <p>{variable.name}</p>
                         </div>
                         <div className="latest-observation">
-                          <p>i noticed the plant was redi noticed the plant was redi noticed the plant was redi noticed the plant was redi noticed the plant was red</p>
+                          <p>
+                            i noticed the plant was redi noticed the plant was
+                            redi noticed the plant was redi noticed the plant
+                            was redi noticed the plant was red
+                          </p>
                         </div>
                       </div>
+                      <div className="spacer" />
                       <div className="observation-column">
                         <div className="days-until">
                           <div className="day">
@@ -122,7 +127,16 @@ export default function ParticipantPane(props) {
                         <div className="btn-row">
                           <div className="spacer" />
                           <div className="submit-btn">
-                            <p>button</p>
+                            <input
+                              type="submit"
+                              className="submitButton"
+                              value="Add Observation"
+                              onClick={() => {
+                                navigate("/participants/enter-single", {
+                                  state: { variable: variable },
+                                })
+                              }}
+                            />
                           </div>
                         </div>
                       </div>
@@ -137,17 +151,6 @@ export default function ParticipantPane(props) {
                   //   </div>
 
                   //   <div className="submit-btn">
-                  //     <input
-                  //       type="submit"
-                  //       className="submitButton"
-                  //       value="Add Observation"
-                  //       onClick={() => {
-                  //         navigate("/participants/enter-single",
-                  //         {
-                  //           state: { variable: variable },
-                  //         })
-                  //       }}
-                  //     ></input>
                   //   </div>
                   // </div>
                 ))
