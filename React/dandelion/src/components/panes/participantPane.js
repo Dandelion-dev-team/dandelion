@@ -5,30 +5,39 @@ import SelectAddTypeModal from "../modals/selectAddTypeModal"
 
 export default function ParticipantPane(props) {
   const [show_type, setShowType] = useState("")
-
+  const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
   const get_response_day = e => {
     let days = ""
-
+    var today = new Date().getDay();
+    console.log("today is " + weekdays[today])
+    let current_day_int = [];
     if (e.monday == true) {
-      days = days + "Monday "
+      days = days + "Monday ";
+      current_day_int.push(1)
     }
     if (e.tuesday == true) {
       days = days + "Tuesday "
+      current_day_int.push(2)
     }
     if (e.wednesday == true) {
       days = days + "Wednesday "
+      current_day_int.push(3)
     }
     if (e.thursday == true) {
       days = days + "Thursday "
+      current_day_int.push(4)
     }
     if (e.friday == true) {
       days = days + "Friday "
+      current_day_int.push(5)
     }
     if (e.saturday == true) {
       days = days + "Saturday "
+      current_day_int.push(6)
     }
     if (e.sunday == true) {
       days = days + "Sunday "
+      current_day_int.push(0)
     }
     if (e.once == true) {
       days = days + "Once "
@@ -37,8 +46,30 @@ export default function ParticipantPane(props) {
       days = days + "Final "
     }
 
-    console.log(days)
-    return <p>{days}</p>
+    if (current_day_int.includes(today)) {
+      console.log("There is an observation required today.")
+    }
+
+    let days_until = [];
+    current_day_int.forEach(day => {
+      let day_int = day - today;
+      if (day_int < 0) {
+        day_int = day_int + 7;
+      }
+      days_until.push(day_int);
+    });
+
+    const min = Math.min(...days_until)
+    console.log(min)
+    return (
+      <div className="days-until">
+        <div className="day">
+          {days}
+        </div>
+        <div className="days-remaining">
+          <p>{min} days until...</p>
+        </div>
+      </div>)
   }
 
   return (
@@ -111,14 +142,7 @@ export default function ParticipantPane(props) {
                         </div>
                       </div>
                       <div className="observation-column">
-                        <div className="days-until">
-                          <div className="day">
-                            {get_response_day(variable)}
-                          </div>
-                          <div className="days-remaining">
-                            <p>6 days until...</p>
-                          </div>
-                        </div>
+                        {get_response_day(variable)}
                         <div className="btn-row">
                           <div className="spacer" />
                           <div className="submit-btn">
