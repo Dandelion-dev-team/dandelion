@@ -229,6 +229,7 @@ def updateExperiment(experiment_id):
     experiment_to_update.description = new_experiment_data['description']
     experiment_to_update.end_date = new_experiment_data['end_date']
     experiment_to_update.text = new_experiment_data['text']
+    experiment_to_update.status = new_experiment_data['status']
 
     audit_details = prepare_audit_details(inspect(Experiment), experiment_to_update, delete=False)
 
