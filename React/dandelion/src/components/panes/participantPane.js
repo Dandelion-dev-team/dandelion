@@ -2,14 +2,16 @@ import React, { useEffect, useState } from "react"
 import { navigate } from "gatsby"
 import "../../styles/App.scss"
 import SelectAddTypeModal from "../modals/selectAddTypeModal"
+import { readAdminRecord } from "../../utils/CRUD"
 
 export default function ParticipantPane(props) {
   const [show_type, setShowType] = useState("")
   const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+  const [response_observations, setObservations] = useState([])
+
   const get_response_day = e => {
     let days = ""
     var today = new Date().getDay();
-    console.log("today is " + weekdays[today])
     let current_day_int = [];
     if (e.monday == true) {
       days = days + "Monday ";
@@ -60,7 +62,6 @@ export default function ParticipantPane(props) {
     });
 
     const min = Math.min(...days_until)
-    console.log(min)
     return (
       <div className="days-until">
         <div className="day">
@@ -72,6 +73,20 @@ export default function ParticipantPane(props) {
       </div>)
   }
 
+  const get_variable_observations = e => {
+    let filtered = response_observations.filter(item => item.response_variable_id == e.id);
+
+    return(<p>{filtered[filtered.length - 1].value}</p>)
+  }
+
+  useEffect(() => {
+    let user_id = localStorage.getItem("user_id");
+    readAdminRecord('/observation/byuser/' + user_id).then(data => {
+      let observations = data.users;
+      setObservations(observations);
+    })
+  }, []);
+
   return (
     <div className="participant-panel">
       {show_type ? <SelectAddTypeModal props={props.dataProp} /> : null}
@@ -80,7 +95,6 @@ export default function ParticipantPane(props) {
           <div className="title">
             <div className="title-btn-row">
               <h2>{props.dataProp.name}</h2>
-              {console.log(props.dataProp)}
             </div>
             <h3>
               {new Date(props.dataProp.start_date).toDateString()} -{" "}
@@ -138,7 +152,7 @@ export default function ParticipantPane(props) {
                           <p>{variable.name}</p>
                         </div>
                         <div className="latest-observation">
-                          <p>i noticed the plant was redi noticed the plant was redi noticed the plant was redi noticed the plant was redi noticed the plant was red</p>
+                          {response_observations.length > 0 ? get_variable_observations(variable) : null}
                         </div>
                       </div>
                       <div className="observation-column">
@@ -146,7 +160,17 @@ export default function ParticipantPane(props) {
                         <div className="btn-row">
                           <div className="spacer" />
                           <div className="submit-btn">
-                            <p>button</p>
+                            <input
+                              type="submit"
+                              className="submitButton"
+                              value="Add Observation"
+                              onClick={() => {
+                                navigate("/participants/enter-single",
+                                  {
+                                    state: { variable: variable },
+                                  })
+                              }}
+                            ></input>
                           </div>
                         </div>
                       </div>
@@ -160,20 +184,7 @@ export default function ParticipantPane(props) {
                   //     {get_response_day(variable)}
                   //   </div>
 
-                  //   <div className="submit-btn">
-                  //     <input
-                  //       type="submit"
-                  //       className="submitButton"
-                  //       value="Add Observation"
-                  //       onClick={() => {
-                  //         navigate("/participants/enter-single",
-                  //         {
-                  //           state: { variable: variable },
-                  //         })
-                  //       }}
-                  //     ></input>
-                  //   </div>
-                  // </div>
+
                 ))
               ) : (
                 <h3>No Response Variables found.</h3>

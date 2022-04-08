@@ -11,12 +11,17 @@ export default function ExperimentDashboard(props) {
   const [project_user_list, setUsersOnProject] = useState(null)
 
 
+
   const handleCallback = childData => {
+    console.log(childData);
     readAdminRecord("/experiment/" + childData.experiment_id).then(data => {
       setSelectedExperiment(data);
-      readRecord("/user/byproject/" + data.project_id, setUsersOnProject)
+      readRecord("/user/byproject/" + data.project_id, setUsersOnProject);
+      readRecord("/user/byproject/" + data.project_id, setUsersOnProject);
     })
   }
+
+
 
   return (
     <div>
@@ -41,7 +46,7 @@ export default function ExperimentDashboard(props) {
               <h3>Your friends on this activity:</h3>
             </div>
             <div className="friends-list">
-              {project_user_list ? <FriendsComponent users={project_user_list.users}/>
+              {project_user_list ? <FriendsComponent users={project_user_list.users} />
                 : null}
             </div>
           </div>

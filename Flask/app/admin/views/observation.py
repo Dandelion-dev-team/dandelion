@@ -132,6 +132,7 @@ def getObservationbyuser(user_id):
     for observation in observations:
         observation_data = {}
         observation_data['id'] = observation.id
+        observation_data['value'] = observation.value
         observation_data['timestamp'] = observation.timestamp
         observation_data['created_by'] = observation.created_by
         observation_data['status'] = observation.status
