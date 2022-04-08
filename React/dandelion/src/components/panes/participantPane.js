@@ -76,7 +76,11 @@ export default function ParticipantPane(props) {
   const get_variable_observations = e => {
     let filtered = response_observations.filter(item => item.response_variable_id == e.id);
 
-    return(<p>{filtered[filtered.length - 1].value}</p>)
+    if(filtered.length > 0){
+      return(<p>{filtered[filtered.length - 1].value}</p>)
+    }else {
+      return (<p>No Observations Have Been Made.</p>)
+    }
   }
 
   useEffect(() => {
