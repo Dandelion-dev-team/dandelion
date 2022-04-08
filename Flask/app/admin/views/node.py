@@ -149,9 +149,7 @@ def upload_data(id):
         new_data_df.index = pd.to_datetime(new_data_df.index)
         new_data_df.index.name = "timestamp"
 
-        folder_location = current_app.config['DATA_ROOT_PATH']
         newdir = os.path.join(content_folder("DATA_ROOT", id, "FLASK", upload=True))
-        # newdir = (os.path.join(folder_location, id))  # content_folder function when merged with main
 
         try:
             df = pd.read_csv(os.path.join(newdir, cube_level + '.csv'), index_col="timestamp")
@@ -160,7 +158,8 @@ def upload_data(id):
             df = new_data_df
         df.to_csv(os.path.join(newdir, cube_level + '.csv'))
 
-    return j
+    message = "Node Data uploaded"
+    return jsonify({"message" : message})
 
 
 @admin.route('/node/latest/<int:node_id>', methods=['GET'])
