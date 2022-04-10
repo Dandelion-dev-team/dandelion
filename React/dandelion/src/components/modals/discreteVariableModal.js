@@ -7,7 +7,9 @@ export default function DiscreteVariableModal(props) {
   const [name, setName] = useState("")
   const [description, setDescription] = useState("")
   const [procedure, setProcedure] = useState("")
-  const [level_text_box, setLevelTextbox] = useState("")
+  const [levelName, setLevelName] = useState("")
+  const [levelDescription, setLevelDescription] = useState("")
+  const [levelProcedure, setLevelProcedure] = useState("")
 
   const [level_list, setLevelList] = useState([])
 
@@ -25,8 +27,16 @@ export default function DiscreteVariableModal(props) {
     setProcedure(e.target.value)
   }
 
-  const handleLevelTextboxChange = e => {
-    setLevelTextbox(e.target.value)
+  const handleLevelNameChange = e => {
+    setLevelName(e.target.value)
+  }
+
+  const handleLevelDescriptionChange = e => {
+    setLevelDescription(e.target.value)
+  }
+
+  const handleLevelProcedureChange = e => {
+    setLevelProcedure(e.target.value)
   }
 
   const handleLevelListChange = e => {
@@ -79,7 +89,7 @@ export default function DiscreteVariableModal(props) {
 
   const AddLevel = e => {
     let copy = [...level_list]
-    copy.push(level_text_box)
+    copy.push(levelName)
     setLevelList(copy)
   }
 
@@ -182,12 +192,12 @@ export default function DiscreteVariableModal(props) {
                       type="text"
                       placeholder="Level"
                       name="descBox"
-                      onChange={handleLevelTextboxChange}
-                      value={level_text_box}
+                      onChange={handleLevelNameChange}
+                      value={levelName}
                     />
                   </div>
                 </div>
-                {/* <div className="input-item">
+                <div className="input-item">
                   <div className="input-title">
                     <h3>Description:</h3>
                   </div>
@@ -196,8 +206,8 @@ export default function DiscreteVariableModal(props) {
                       type="text"
                       placeholder="Level"
                       name="descBox"
-                      onChange={handleLevelTextboxChange}
-                      value={level_text_box}
+                      onChange={handleLevelDescriptionChange}
+                      value={levelDescription}
                     />
                   </div>
                 </div>
@@ -210,11 +220,11 @@ export default function DiscreteVariableModal(props) {
                       type="text"
                       placeholder="Level"
                       name="descBox"
-                      onChange={handleLevelTextboxChange}
-                      value={level_text_box}
+                      onChange={handleLevelProcedureChange}
+                      value={levelProcedure}
                     />
                   </div>
-                </div> */}
+                </div>
                 <div className="spacer" />
                 <div className="add-btn">
                   <input

@@ -29,6 +29,8 @@
       .exp-pane {
         width: 50%;
         display: flex;
+        height: 65vh;
+        overflow-y: auto;
 
         .exp-pane-wrapper {
           margin-left: 2rem;
