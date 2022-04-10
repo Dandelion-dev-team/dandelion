@@ -9,6 +9,7 @@ export default function EnterHypotheses(props) {
   const [treatment_variables, setTreatment] = useState("")
   const [response_variables, setResponse] = useState("")
   const [hypothesis_text_box, setHypothesisTextbox] = useState("")
+  const [hypothesis_desc_box, setHypothesisDesc] = useState("")
 
   const [combinations_selected, setCombinations] = useState([])
   const [experiment_details, setExperimentDetails] = useState("")
@@ -38,13 +39,17 @@ export default function EnterHypotheses(props) {
     setHypothesisTextbox(e.target.value)
   }
 
+  const handleHypothesisDescChange = e => {
+    setHypothesisDesc(e.target.value)
+  }
+
   const AddHypothesis = e => {
     let copy = [...hypothesesList]
     let hypothesis = {
       description: hypothesis_text_box,
       hypothesis_no: hypotheses_number,
       status: "Active",
-      text: null,
+      text: hypothesis_desc_box,
     }
     setHypothesesNumer(hypotheses_number + 1)
     copy.push(hypothesis)
@@ -71,7 +76,7 @@ export default function EnterHypotheses(props) {
                   : null}
                 <div className="input-row">
                   <div className="title">
-                    <h3>Hypothesis</h3>
+                    <h3>{hypotheses_number}. Hypothesis</h3>
                   </div>
                   <div className="input">
                     <input
@@ -80,6 +85,20 @@ export default function EnterHypotheses(props) {
                       name="descBox"
                       onChange={handleHypothesisTextboxChange}
                       value={hypothesis_text_box}
+                    />
+                  </div>
+                </div>
+                <div className="input-row">
+                  <div className="title">
+                    <h3>Description</h3>
+                  </div>
+                  <div className="input">
+                    <input
+                      type="text"
+                      placeholder="Level"
+                      name="descBox"
+                      onChange={handleHypothesisDescChange}
+                      value={hypothesis_desc_box}
                     />
                   </div>
                 </div>
