@@ -1,76 +1,161 @@
-.participant-pane-content {
-  display: flex;
-  flex-direction: column;
-  width: 95%;
-  margin-top: 5%;
-  color: black;
-  padding-left: 1.25rem;
-  .title {
-    .title-btn-row {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      width: 100%;
-      justify-content: space-between;
+.participant-panel {
+  width: 100%;
+  display: block;
+  .participant-pane-content {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    min-width: 95%;
+    margin-top: 5%;
+    color: black;
+    padding-left: 1.25rem;
+    .title {
+      .title-btn-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        width: 100%;
+        justify-content: space-between;
+        h2 {
+          margin-top: 0.75rem;
+          font-size: 1.4rem;
+          font-weight: 800;
+          letter-spacing: 0.5px;
+        }
+      }
+      h3 {
+        font-size: 1rem;
+        font-weight: 600;
+        line-height: 0.4rem;
+      }
+    }
+    .description {
       h2 {
-        margin-top: 0.75rem;
-        font-size: 1.4rem;
+        font-size: 1.2rem;
         font-weight: 800;
         letter-spacing: 0.5px;
       }
-      .exercise-btn {
-        .exerciseBtn {
-          background-color: #f52f2f;
-          color: $primary;
-          font-size: 1.6rem;
-          margin-bottom: 1.25rem;
-          padding: 0.625rem;
-          border: none;
-          cursor: pointer;
-          border-radius: 10px;
-          color: white;
-        }
-        .exerciseBtn:hover {
-          background-color:#be2424;
+      h3 {
+        font-size: 1rem;
+        font-weight: 600;
+      }
+    }
+
+    .hypotheses {
+      .info-box {
+        background-color: white;
+        border-radius: 20px;
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 2.5%;
+        p {
+          font-size: 1rem;
+          font-weight: 600;
+          margin-bottom: 2.5%;
+          padding: 0px;
         }
       }
     }
-    h3 {
-      font-size: 1rem;
-      font-weight: 600;
-      line-height: 0.4rem;
-    }
-  }
-  .description {
-    h2 {
-      font-size: 1.2rem;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-    }
-    h3 {
-      font-size: 1rem;
-      font-weight: 600;
-    }
-  }
-  .info-column {
-    .info-box {
-      background-color: white;
-      border-radius: 20px;
-      width: 100%;
-      padding: 10px;
-     // margin-bottom: 20px;
-      p {
-        padding: 10px;
+
+    .worksheet {
+      .worksheet-item {
+        background-color: white;
+        display: flex;
+        margin-bottom: 5%;
+        border-radius: 20px;
+
+        .item-content {
+          margin-top: 2.5%;
+          width: 100%;
+          display: flex;
+          .name-column {
+            width: 45%;
+            margin-left: 2.5%;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-content: flex-start;
+            .name {
+              p {
+                margin-bottom: 0px;
+                padding-bottom: 2.5%;
+              }
+            }
+            .latest-observation {
+              font-weight: 400;
+              font-size: 1rem;
+            }
+          }
+          .spacer {
+            width: 12.5%;
+          }
+          .observation-column {
+            width: 42.5%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-content: flex-start;
+            margin-left: auto;
+            .days-until {
+              display: flex;
+              flex-direction: column;
+              height: 35%;
+              .day {
+                p {
+                  margin-bottom: 0px;
+                  padding-bottom: 0px;
+                }
+              }
+              .days-remaining {
+                font-weight: 400;
+                font-size: 0.8rem;
+              }
+            }
+            .btn-row {
+              display: flex;
+              flex-direction: row;
+              height: 50%;
+
+              .spacer {
+                width: 75%;
+              }
+              .submit-btn {
+                height: 100%;
+                width: 20%;
+                display: flex;
+                align-items: flex-end;
+                justify-content: flex-end;
+
+                .submitButton {
+                  background-color: $accent;
+                  color: $primary;
+                  font-size: 1.2rem;
+                  margin: 0.625rem 0px;
+                  padding: 0.625rem;
+                  width: 10rem;
+                  border: none;
+                  cursor: pointer;
+                  border-radius: 10px;
+                }
+                .submitButton:hover {
+                  background-color: #d4d926;
+                }
+              }
+            }
+          }
+        }
+
+        // .submit-btn {
+        //   width: 40%;;
       }
     }
   }
 }
 
-#observation{
+#observation {
   margin-bottom: 0;
   font-weight: 700;
 }
 
-#date{
+#date {
   font-weight: 400;
 }

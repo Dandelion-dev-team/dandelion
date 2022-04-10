@@ -67,8 +67,6 @@ def listAlldiscreteVariable():
     return jsonify({'data': output})
 
 
-@admin.route('/variable', methods=['POST'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def create_variable(variable_dict):
     current_user = jwt_user(get_jwt_identity())

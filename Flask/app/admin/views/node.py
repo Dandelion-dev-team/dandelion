@@ -16,6 +16,8 @@ from app.utils.functions import row2dict, jwt_user
 import pandas as pd
 from pandas import DataFrame, read_csv
 
+from app.utils.uploads import content_folder
+
 
 @admin.route('/node', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
@@ -147,8 +149,7 @@ def upload_data(id):
         new_data_df.index = pd.to_datetime(new_data_df.index)
         new_data_df.index.name = "timestamp"
 
-        folder_location = current_app.config['DATA_ROOT_PATH']
-        newdir = (os.path.join(folder_location, id))  # content_folder function when merged with main
+        newdir = os.path.join(content_folder("DATA_ROOT", id, "FLASK", upload=True))
 
         try:
             df = pd.read_csv(os.path.join(newdir, cube_level + '.csv'), index_col="timestamp")
@@ -157,4 +158,79 @@ def upload_data(id):
             df = new_data_df
         df.to_csv(os.path.join(newdir, cube_level + '.csv'))
 
-    return j
+    message = "Node Data uploaded"
+    return jsonify({"message" : message})
+
+
+@admin.route('/node/latest/<int:node_id>', methods=['GET'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
+@jwt_required()
+def get_latest_data(node_id):
+    Node.query.get_or_404(node_id)  # if node id doens't exist, it returns a 404 message
+    str(node_id)
+
+    for cube_level in ('top', 'middle', 'bottom'):
+        dir = os.path.join(content_folder("DATA_ROOT", node_id, "FLASK", upload=True)) # creates the path for the correct file to be read in the next line
+        df_to_read = pd.read_csv(os.path.join(dir, cube_level + '.csv'), index_col="timestamp") # reads the correct .csv file
+
+        if cube_level == "top":
+            out_top = []
+            last_row = df_to_read.iloc[-1] #gets the last rown from the dataframe
+            output_top = {}
+            output_top['air_temp'] = last_row.values[0]
+            output_top['humidity'] = last_row.values[2]
+            output_top['lux'] = last_row.values[3]
+            output_top['pressure'] = last_row.values[6]
+            output_top['sub_temp'] = last_row.values[7]
+            output_top['moisture'] = last_row.values[4]
+            output_top['ec'] = last_row.values[1]
+            output_top['pH'] = last_row.values[5]
+            output_top['water_level'] = last_row.values[8]
+            out_top.append(output_top)
+        elif cube_level == "middle":
+            out_middle = []
+            last_row = df_to_read.iloc[-1]
+            output_middle = {}
+            output_middle['air_temp'] = last_row.values[0]
+            output_middle['humidity'] = last_row.values[2]
+            output_middle['lux'] = last_row.values[3]
+            output_middle['pressure'] = last_row.values[6]
+            output_middle['sub_temp'] = last_row.values[7]
+            output_middle['moisture'] = last_row.values[4]
+            output_middle['ec'] = last_row.values[1]
+            output_middle['pH'] = last_row.values[5]
+            output_middle['water_level'] = last_row.values[8]
+            out_middle.append(output_middle)
+        else:
+            out_bottom = []
+            last_row = df_to_read.iloc[-1]
+            output_bottom = {}
+            output_bottom['air_temp'] = last_row.values[0]
+            output_bottom['humidity'] = last_row.values[2]
+            output_bottom['lux'] = last_row.values[3]
+            output_bottom['pressure'] = last_row.values[6]
+            output_bottom['sub_temp'] = last_row.values[7]
+            output_bottom['moisture'] = last_row.values[4]
+            output_bottom['ec'] = last_row.values[1]
+            output_bottom['pH'] = last_row.values[5]
+            output_bottom['water_level'] = last_row.values[8]
+            out_bottom.append(output_bottom)
+
+    return jsonify({'top': output_top , 'middle' : output_middle, 'bottom' : output_bottom})
+
+
+
+
+
+
+        # if cube_level == "top":
+        #     last_row = df_to_read.iloc[-1]
+        #     output_top = last_row.to_json()
+        # elif cube_level == "middle":
+        #     last_row = df_to_read.iloc[-1]
+        #     output_middle = last_row.to_json()
+        # else:
+        #     last_row = df_to_read.iloc[-1]
+        #     output_bottom = last_row.to_json()
+
+

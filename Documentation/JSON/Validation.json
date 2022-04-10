@@ -1,0 +1,45 @@
+{
+	"validation": [{
+			"field_name": "<field name 1>",
+			"required": true,
+			"datatype": "float",
+			"min": 0.0,
+			"max": 100.0,
+			"values": []
+		},
+		{
+			"field_name": "<field name 2>",
+			"required": true,
+			"datatype": "int",
+			"min": 0,
+			"max": 14,
+			"values": []
+		},
+		{
+			"field_name": "<field name 3>",
+			"required": false,
+			"datatype": "string",
+			"min": null,
+			"max": null,
+			"values": [
+				"top",
+				"middle",
+				"bottom"
+			]
+		},
+		{
+			"field_name": "<field name 4>",
+			"required": false,
+			"datatype": "string",
+			"min": null,
+			"max": null,
+			"values": [
+				"A",
+				"B", 
+        "C", 
+        "D", 
+        "E"
+			]
+		}
+	]
+}

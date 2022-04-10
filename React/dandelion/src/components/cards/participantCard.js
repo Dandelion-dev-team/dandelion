@@ -1,21 +1,15 @@
 import React, { useEffect, useState } from "react"
 import "../../styles/App.scss"
+import { readRecord } from "../../utils/CRUD";
 
 export default function ParticipantCard(props) {
-  const [experiments, setExperiment] = useState(0)
+  const [experiments, setExperiment] = useState([])
 
   useEffect(() => {
-    // fetch(process.env.ROOT_URL + "/experiment_summary/", {
-    //   method: "GET",
-    //   headers: new Headers({
-    //     "Cache-Control": "no-cache, no-store, must-revalidate",
-    //     Pragma: "no-cache",
-    //     Expires: 0,
-    //   }),
-    // })
-    //   .then(response => response.json())
-    //   .then(data => setExperiment(data))
-  }, [])
+    let user_id = localStorage.getItem('user_id');
+    readRecord("/experiment_participant/" + user_id, setExperiment)
+}, []);
+
 
   const cardClickCallback = experiment => {
     props.parentCallback(experiment)
@@ -25,8 +19,8 @@ export default function ParticipantCard(props) {
   var className = isActive ? "active" : ""
   return (
     <div>
-      {experiments
-        ? experiments.map(experiment => (
+      {experiments.data
+        ? experiments.data.map(experiment => (
             <div
               className="participant-card"
               onClick={() => {
@@ -35,11 +29,10 @@ export default function ParticipantCard(props) {
               }}
             >
               <div className="card-img">
-                <img src={experiment.thumbnail} />
+                <img src={experiment.image_thumb} />
               </div>
               <div className="item-details">
                 <div className="card-owner">
-                  <h2>{experiment.owner}</h2>
                 </div>
                 <div className="card-title">
                   <h2>{experiment.title}</h2>

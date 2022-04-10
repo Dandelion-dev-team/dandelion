@@ -41,9 +41,9 @@ export default function Header() {
             <Link to="/map" onClick={closeMobileMenu}>
               Map
             </Link>
-            <Link to="/about" onClick={closeMobileMenu}>
+            <a target="_blank" href="https://dandelion.scot/blog/programmes/dandelion-school-growing-initiative" onClick={closeMobileMenu}>
               About
-            </Link>
+            </a>
             {logged ? (
               <Link to="/" onClick={() => user_logout()}>
                 Logout

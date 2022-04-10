@@ -3,7 +3,7 @@
    flex-direction: row;
    background-color: white;
    width: 100%;
-   height: 20%;
+   height: 25%;
    margin-top: 2rem;
    border-radius: 20px;
    justify-content: left;
@@ -13,7 +13,7 @@
    .text-content {
       display: flex;
       flex-direction: column;
-      width: 40%;
+      width: 20%;
       display: inline;
       margin-left: 3rem;
       h3 {
@@ -41,15 +41,20 @@
 
    }
    .datepicker{
-      width: 25%;
+      width: 40%;
       color: black;
-      max-height: 90%;
-      Select{
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .dropdown {
+         height: 100%;
          width: 100%;
+         margin-top: 20%;
       }
    }
    .button-content{
-      width: 20%;
+      width: 25%;
       max-width: 30%;
       height: 100%;
       display: flex;

@@ -4,23 +4,24 @@ import ParticipantPane from "../../components/panes/participantPane"
 import Header from "../../components/navigation/header"
 import FriendsComponent from "../../components/tables/friendsComponent"
 import "../../styles/App.scss"
+import { readAdminRecord, readRecord } from "../../utils/CRUD"
 
 export default function ExperimentDashboard(props) {
-  const [selected_experiment, setSelectedExperiment] = useState("")
-  const [show_type, setShowType] = useState("")
+  const [selected_experiment, setSelectedExperiment] = useState(null)
+  const [project_user_list, setUsersOnProject] = useState(null)
+
+
 
   const handleCallback = childData => {
-    // fetch(process.env.ROOT_URL + "/experiment_full/" + childData.id, {
-    //   method: "GET",
-    //   headers: new Headers({
-    //     "Cache-Control": "no-cache, no-store, must-revalidate",
-    //     Pragma: "no-cache",
-    //     Expires: 0,
-    //   }),
-    // })
-    //   .then(response => response.json())
-    //   .then(data => setSelectedExperiment(data))
+    console.log(childData);
+    readAdminRecord("/experiment/" + childData.experiment_id).then(data => {
+      setSelectedExperiment(data);
+      readRecord("/user/byproject/" + data.project_id, setUsersOnProject);
+      readRecord("/user/byproject/" + data.project_id, setUsersOnProject);
+    })
   }
+
+
 
   return (
     <div>
@@ -45,7 +46,8 @@ export default function ExperimentDashboard(props) {
               <h3>Your friends on this activity:</h3>
             </div>
             <div className="friends-list">
-              <FriendsComponent />
+              {project_user_list ? <FriendsComponent users={project_user_list.users} />
+                : null}
             </div>
           </div>
         </div>

@@ -1,7 +1,7 @@
 from xml.dom import UserDataHandler
 from flask import request, jsonify, abort
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from sqlalchemy import inspect
+from sqlalchemy import inspect, and_
 from app.admin import admin
 from app.admin.views.school import getOneSchool
 from app.models import User, ExperimentParticipant, Experiment, Project, School, ProjectPartner
@@ -126,14 +126,22 @@ def getUsersBySchoolID(school_id):
     return jsonify({'users': output})
 
 
-@admin.route('/user/byschool/<int:school_id>/byexperiment/<int:experiment_id>', methods=['GET']) # <-- This route does not work properly yet
+@admin.route('/user/byschoolandexperiment/<int:school_id>/<int:experiment_id>', methods=['GET']) # <-- This route does not work properly yet
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def get_users_by_school_and_experiment(school_id, experiment_id):
 
-    users = User.query.join(ExperimentParticipant).join(Experiment).join(School).filter(User.school_id == school_id).all()
-    # users = User.query.filter(User.school_id == school_id)
-
+    users = User.query.\
+        join(School).\
+        outerjoin(ExperimentParticipant, and_(User.id == ExperimentParticipant.user_id, ExperimentParticipant.experiment_id == experiment_id)).\
+        outerjoin(Experiment).\
+        filter(User.school_id == school_id).\
+        with_entities(User.id,
+                      User.username,
+                      User.status,
+                      User.school_id,
+                      ExperimentParticipant.experiment_id).\
+        all()
 
     output = []
     for user in users:
@@ -142,10 +150,7 @@ def get_users_by_school_and_experiment(school_id, experiment_id):
         user_data['username'] = user.username
         user_data['status'] = user.status
         user_data['school_id'] = user.school_id
-        if ExperimentParticipant.experiment_id == experiment_id:
-            user_data['is_participant'] = True
-        else:
-            user_data['is_participant'] = False
+        user_data['is_participant'] = True if user.experiment_id else False
         output.append(user_data)
 
     return jsonify({'users': output}) #If I don't use jsonify, I get only the last entry

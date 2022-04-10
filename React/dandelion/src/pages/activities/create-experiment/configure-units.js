@@ -182,7 +182,7 @@ export default function ConfigureUnits(props) {
     let body = JSON.stringify({
       project_id: experiment_details.project_id,
       code: experiment_details.code,
-      description: experiment_details.description,
+      description: "test",
       tutorial: "",
       text: "",
       start_date: start_date,
@@ -195,7 +195,7 @@ export default function ConfigureUnits(props) {
       conditions: constructed_conditions,
     })
 
-    //console.log(JSON.parse(body))
+    console.log(JSON.parse(body))
     createRecordNavigate("/experiment", body).then(response =>
       uploadExperimentImage(
         "/experiment/" + response.id + "/uploadImage",

@@ -46,21 +46,11 @@ export default function DiscreteVariableModal(props) {
       let arr = new Array()
       for (let index = 0; index < level_list.length; index++) {
         const element = level_list[index]
-<<<<<<< Updated upstream
-        arr.push({ treatment_name: name, sequence: index, name: element, description: "", procedure: "" })
-=======
-        arr.push({
-          treatment_name: name,
-          sequence: index,
-          name: element,
-          description: "desc",
-          procedure: "proc",
-        })
->>>>>>> Stashed changes
+        arr.push({ treatment_name: name, sequence: index, name: element, description: "desc", procedure: "proc" })
       }
-      let quantity_check = null
-      if (quantity_selected != null) {
-        quantity_check = quantity_selected.id
+      let quantity_check = null;
+      if(quantity_selected != null){
+        quantity_check = quantity_selected.id;
       }
       let body = JSON.stringify({
         type: "Discrete",
@@ -68,7 +58,7 @@ export default function DiscreteVariableModal(props) {
         description: description,
         procedure: procedure,
         levels: arr,
-        is_sensor_quantity: is_sensor_selected,
+        is_sensor_quantity: false,
         quantity_id: quantity_check,
       })
       props.callback(body)

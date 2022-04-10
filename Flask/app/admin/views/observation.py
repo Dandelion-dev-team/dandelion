@@ -66,7 +66,7 @@ def addMultipleObservations():
     current_user = jwt_user(get_jwt_identity())
     multiple_data = request.get_json()
 
-    for data in multiple_data: #NEED HELP
+    for data in multiple_data:
         observation = Observation(
             timestamp=data['timestamp'],
             value=data['value'],
@@ -78,18 +78,20 @@ def addMultipleObservations():
         )
 
         db.session.add(observation)
+        db.session.commit()
         return_status = 200
-        message = "New observation has been registered"
 
         try:
-            db.session.commit()
+            # db.session.commit()
             audit_create("observation", observation.id, current_user.id)
-            return {"message": message, "id": observation.id}
+            # return {"message": message, "id": observation.id}
         except Exception as e:
             db.session.rollback()
             abort(409, e.orig.msg)
 
-    return {"message": "All observations have been registered"}
+    message = "Multiple Observations have been registered"
+
+    return {"message": message}
 
 
 @admin.route('/observation/<int:observation_id>', methods=['GET', 'PUT'])
@@ -130,6 +132,7 @@ def getObservationbyuser(user_id):
     for observation in observations:
         observation_data = {}
         observation_data['id'] = observation.id
+        observation_data['value'] = observation.value
         observation_data['timestamp'] = observation.timestamp
         observation_data['created_by'] = observation.created_by
         observation_data['status'] = observation.status

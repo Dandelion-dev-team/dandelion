@@ -1,0 +1,38 @@
+{
+	"node_id": 100,
+	"check": "10AFC82B",
+	"timestamp": "2022-04-05T13:45:30Z",
+	"top": {
+		"air_temp": 22.22,
+		"ec": 14488.00,
+		"humidity": 77.00,
+		"lux": 4434.00,
+		"moisture": 63.00,
+		"pH": 7.97,
+		"pressure": 490.00,
+		"sub_temp": 23.45,
+		"water": 3.43
+	},
+	"middle": {
+		"air_temp": 22.67,
+		"ec": 25600.00,
+		"humidity": 88.00,
+		"lux": 1234.00,
+		"moisture": 67.00,
+		"pH": 7.87,
+		"pressure": 990.00,
+		"sub_temp": 13.45,
+		"water": 3.43
+	},
+	"bottom": {
+		"air_temp": 33.67,
+		"ec": 35900.00,
+		"humidity": 88.00,
+		"lux": 13144.00,
+		"moisture": 67.00,
+		"pH": 7.87,
+		"pressure": 990.00,
+		"sub_temp": 13.45,
+		"water": 3.43
+	}
+}

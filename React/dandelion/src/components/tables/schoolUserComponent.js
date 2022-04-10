@@ -8,17 +8,7 @@ export default function SchoolUserComponent(props) {
   const [show_modal, setShowModal] = useState(false);
   useEffect(() => {
     let school_id = localStorage.getItem('school_id');
-    readRecord('/user/GetSchoolUsers/' + school_id, setUsers);
-    // fetch(process.env.ROOT_URL + "/school-users", {
-    //   method: "GET",
-    //   headers: new Headers({
-    //     "Cache-Control": "no-cache, no-store, must-revalidate",
-    //     Pragma: "no-cache",
-    //     Expires: 0,
-    //   }),
-    // })
-    //   .then(response => response.json())
-    //   .then(data => setUsers(data))
+    readRecord('/user/byschool/' + school_id, setUsers);
   }, [])
 
   const editUser = user => {
