@@ -11,8 +11,8 @@
     opacity: 100;
     background-color: white;
     border-radius: 20px;
-    width: 65vw;
-    height: 75vh;
+    width: 75vw;
+    height: 80vh;
     padding: 2.5rem;
     display: flex;
 
@@ -31,7 +31,7 @@
           display: flex;
           flex-direction: row;
           margin-left: 30%;
-          h3{
+          h3 {
             color: black;
             line-height: 50%;
             margin-left: 1rem;
@@ -96,7 +96,6 @@
               width: 100%;
             }
           }
-
           h3 {
             font-size: 1.6rem;
             color: $primary;
@@ -105,53 +104,36 @@
           }
         }
       }
-      .level-row {
-        width: 30%;
-        height: 100%;
-        h3 {
-          color: black;
-        }
+      .right-pane {
+        display: flex;
+        flex-direction: column;
+        width: 40%;
+        margin-top: 3vh;
 
-        .card-list {
-          height: 100%;
-          width: 100%;
+        .level-input {
           display: flex;
           flex-direction: column;
           justify-content: space-around;
-
-          .cards {
+          height: 45%;
+          width: 100%;
+          .input-item {
+            text-align: left;
             display: flex;
-            height: 60%;
-            flex-direction: column;
-            overflow-y: scroll;
-            margin-top: auto;
-          }
+            flex-direction: row;
+            justify-items: left;
+            width: 100%;
+            height: auto;
+            margin-bottom: auto;
 
-          .level-input {
-            display: flex;
-            height: 30%;
-            flex-direction: column;
-
-    
-            .level-bar {
-              text-align: left;
-              display: flex;
-              flex-direction: row;
-              justify-items: left;
-              width: 100%;
-              height: auto;
-              margin-bottom: 3vh;
-              .title {
-                width: 30%;
-                height: 100%;
-                h3 {
-                  display: inline;
-                  font-size: 1.25vw;
-                }
+            .input-title {
+              width: 30%;
+              height: 100%;
+              h3 {
+                display: inline;
+                font-size: 1.25vw;
               }
-          }
-         
-            .input {
+            }
+            .input-box {
               width: 50%;
               height: 100%;
               h3 {
@@ -160,15 +142,25 @@
               }
             }
           }
-
+          h3 {
+            font-size: 1.6rem;
+            color: $primary;
+            margin-bottom: 0px;
+            padding-bottom: 0px;
+          }
+          .spacer {
+            height: 3vh;
+          }
           .add-btn {
+            display: flex;
+            justify-content: center;
             .submitButton {
               background-color: $accent;
               color: $primary;
-              font-size: 1.6rem;
+              font-size: 1.2rem;
               margin: 1.25rem 0px;
-              padding: 0.625rem;
-              width: 13rem;
+              padding: 0.5rem;
+              width: 50%;
               border: none;
               cursor: pointer;
               border-radius: 10px;
@@ -179,11 +171,25 @@
           }
         }
 
-        .finish-btn-row {
+        .card-list {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+          height: 40%;
+          width: 100%;
+          overflow-y: scroll;
+
+          h3 {
+            color: black;
+          }
+        }
+
+        .btn-row {
           display: flex;
           flex-direction: row;
           align-items: center;
-          
+          height: 15%;
+
           .spacer {
             width: 30%;
           }
@@ -229,6 +235,131 @@
           }
         }
       }
+
+      // .level-row {
+      //   width: 30%;
+      //   height: 100%;
+      //   h3 {
+      //     color: black;
+      //   }
+
+      //   .card-list {
+      //     height: 100%;
+      //     width: 100%;
+      //     display: flex;
+      //     flex-direction: column;
+      //     justify-content: space-around;
+
+      //     .cards {
+      //       display: flex;
+      //       height: 60%;
+      //       flex-direction: column;
+      //       overflow-y: scroll;
+      //       margin-top: auto;
+      //     }
+
+      //     .level-input {
+      //       display: flex;
+      //       height: 30%;
+      //       width: 100%;
+      //       flex-direction: column;
+
+      //       .level-bar {
+      //         text-align: left;
+      //         display: flex;
+      //         flex-direction: row;
+      //         justify-items: left;
+      //         width: 100%;
+      //         height: auto;
+      //         margin-bottom: 3vh;
+      //         .title {
+      // width: 30%;
+      // height: 100%;
+      // h3 {
+      //   display: inline;
+      //   font-size: 1.25vw;
+      // }
+      //         }
+      //     }
+
+      //       .input {
+      // width: 50%;
+      // height: 100%;
+      // h3 {
+      //   display: inline;
+      //   font-size: 1vw;
+      // }
+      //       }
+      //     }
+
+      // .add-btn {
+      //   .submitButton {
+      //     background-color: $accent;
+      //     color: $primary;
+      //     font-size: 1.6rem;
+      //     margin: 1.25rem 0px;
+      //     padding: 0.625rem;
+      //     width: 13rem;
+      //     border: none;
+      //     cursor: pointer;
+      //     border-radius: 10px;
+      //   }
+      //   .submitButton:hover {
+      //     background-color: #d4d926;
+      //   }
+      // }
+      //   }
+
+      //   .finish-btn-row {
+          // display: flex;
+          // flex-direction: row;
+          // align-items: center;
+
+          // .spacer {
+          //   width: 30%;
+          // }
+          // .close-btn {
+          //   margin-left: auto;
+          //   display: flex;
+          //   height: 10%;
+          //   align-self: center;
+          //   width: 10%;
+          //   .submitButton {
+          //     background-color: $accent;
+          //     color: $primary;
+          //     font-size: 1.6rem;
+          //     margin: 1.25rem 0px;
+          //     padding: 15px;
+          //     border: none;
+          //     cursor: pointer;
+          //     border-radius: 10px;
+          //   }
+          //   .submitButton:hover {
+          //     background-color: #d4d926;
+          //   }
+          // }
+          // .finish-btn {
+          //   margin-left: auto;
+          //   display: flex;
+          //   height: 10%;
+          //   align-self: center;
+          //   width: 10%;
+          //   .submitButton {
+          //     background-color: $accent;
+          //     color: $primary;
+          //     font-size: 1.6rem;
+          //     margin: 1.25rem 0px;
+          //     padding: 15px;
+          //     border: none;
+          //     cursor: pointer;
+          //     border-radius: 10px;
+          //   }
+          //   .submitButton:hover {
+          //     background-color: #d4d926;
+          //   }
+          // }
+      //   }
+      // }
     }
   }
 }

@@ -46,11 +46,17 @@ export default function DiscreteVariableModal(props) {
       let arr = new Array()
       for (let index = 0; index < level_list.length; index++) {
         const element = level_list[index]
-        arr.push({ treatment_name: name, sequence: index, name: element, description: "desc", procedure: "proc" })
+        arr.push({
+          treatment_name: name,
+          sequence: index,
+          name: element,
+          description: "desc",
+          procedure: "proc",
+        })
       }
-      let quantity_check = null;
-      if(quantity_selected != null){
-        quantity_check = quantity_selected.id;
+      let quantity_check = null
+      if (quantity_selected != null) {
+        quantity_check = quantity_selected.id
       }
       let body = JSON.stringify({
         type: "Discrete",
@@ -158,60 +164,59 @@ export default function DiscreteVariableModal(props) {
                 </div>
               ) : null}
             </div>
-            <div className="level-row">
-              <div className="card-list">
-
-                {/* <DiscreteCardList
+            {/* Response Card List - w/ typescript component */}
+            {/* <DiscreteCardList
                   levelList={level_list}
 
                   // addLevel={AddLevel}
                   // reorderLevels={handleLevelListChange}
                 /> */}
-                <div className="level-input">
-                  <div className="level-bar">
-                    <div className="title">
-                      <h3>Level:</h3>
-                    </div>
-                    <div className="input">
-                      <input
-                        type="text"
-                        placeholder="Level"
-                        name="descBox"
-                        onChange={handleLevelTextboxChange}
-                        value={level_text_box}
-                      />
-                    </div>
+            <div className="right-pane">
+              <div className="level-input">
+                <div className="input-item">
+                  <div className="input-title">
+                    <h3>Name:</h3>
                   </div>
-                  <div className="level-bar">
-                    <div className="title">
-                      <h3>Description:</h3>
-                    </div>
-                    <div className="input">
-                      <input
-                        type="text"
-                        placeholder="Description"
-                        name="descBox"
-                        onChange={handleLevelTextboxChange}
-                        value={level_text_box}
-                      />
-                    </div>
+                  <div className="input-box">
+                    <input
+                      type="text"
+                      placeholder="Level"
+                      name="descBox"
+                      onChange={handleLevelTextboxChange}
+                      value={level_text_box}
+                    />
                   </div>
-                  <div className="level-bar">
-                    <div className="title">
-                      <h3>Procedure:</h3>
-                    </div>
-                    <div className="input">
-                      <input
-                        type="text"
-                        placeholder="Procedure"
-                        name="descBox"
-                        onChange={handleLevelTextboxChange}
-                        value={level_text_box}
-                      />
-                    </div>
+                </div>
+                {/* <div className="input-item">
+                  <div className="input-title">
+                    <h3>Description:</h3>
                   </div>
-
-                  <div className="add-btn">
+                  <div className="input-box">
+                    <input
+                      type="text"
+                      placeholder="Level"
+                      name="descBox"
+                      onChange={handleLevelTextboxChange}
+                      value={level_text_box}
+                    />
+                  </div>
+                </div>
+                <div className="input-item">
+                  <div className="input-title">
+                    <h3>Procedure:</h3>
+                  </div>
+                  <div className="input-box">
+                    <input
+                      type="text"
+                      placeholder="Level"
+                      name="descBox"
+                      onChange={handleLevelTextboxChange}
+                      value={level_text_box}
+                    />
+                  </div>
+                </div> */}
+                <div className="spacer" />
+                <div className="add-btn">
                   <input
                     type="submit"
                     className="submitButton"
@@ -223,17 +228,13 @@ export default function DiscreteVariableModal(props) {
                     }}
                   />
                 </div>
-
-                </div>
-                <div className="cards">
-                  {level_list.length > 0
-                    ? level_list.map(card => <DiscreteCard card={card} />)
-                    : null}
-                </div>
-
-               
               </div>
-              <div className="finish-btn-row">
+              <div className="card-list">
+                {level_list.length > 0
+                  ? level_list.map(card => <DiscreteCard card={card} />)
+                  : null}
+              </div>
+              <div className="btn-row">
                 <div className="close-btn">
                   <input
                     type="submit"
