@@ -6,7 +6,7 @@ export default function DiscreteCard(props) {
     <div className="discrete-card">
       <div className="card-content">
           <div className="title">
-              <h3>{props.card}</h3>
+              <h3>{props.card.name}</h3>
           </div>
           <div className="drag-icon"/>
       </div>

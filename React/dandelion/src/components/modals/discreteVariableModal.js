@@ -59,9 +59,9 @@ export default function DiscreteVariableModal(props) {
         arr.push({
           treatment_name: name,
           sequence: index,
-          name: element,
-          description: "desc",
-          procedure: "proc",
+          name: element.name,
+          description: element.description,
+          procedure: element.procedure,
         })
       }
       let quantity_check = null
@@ -77,6 +77,7 @@ export default function DiscreteVariableModal(props) {
         is_sensor_quantity: false,
         quantity_id: quantity_check,
       })
+      console.log(body)
       props.callback(body)
     } else {
       console.log("did not have all information")
@@ -89,7 +90,10 @@ export default function DiscreteVariableModal(props) {
 
   const AddLevel = e => {
     let copy = [...level_list]
-    copy.push(levelName)
+    copy.push({name: levelName, description: levelDescription, procedure: levelProcedure})
+    setLevelName("");
+    setLevelDescription("");
+    setLevelProcedure("");
     setLevelList(copy)
   }
 
@@ -190,7 +194,7 @@ export default function DiscreteVariableModal(props) {
                   <div className="input-box">
                     <input
                       type="text"
-                      placeholder="Level"
+                      placeholder="Level name"
                       name="descBox"
                       onChange={handleLevelNameChange}
                       value={levelName}
@@ -204,7 +208,7 @@ export default function DiscreteVariableModal(props) {
                   <div className="input-box">
                     <input
                       type="text"
-                      placeholder="Level"
+                      placeholder="Level Description"
                       name="descBox"
                       onChange={handleLevelDescriptionChange}
                       value={levelDescription}
@@ -218,7 +222,7 @@ export default function DiscreteVariableModal(props) {
                   <div className="input-box">
                     <input
                       type="text"
-                      placeholder="Level"
+                      placeholder="Level Procedure"
                       name="descBox"
                       onChange={handleLevelProcedureChange}
                       value={levelProcedure}
