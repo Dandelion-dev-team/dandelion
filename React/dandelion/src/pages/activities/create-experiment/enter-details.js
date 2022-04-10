@@ -123,7 +123,7 @@ export default function EnterDetails(props) {
                     <h3>Description:</h3>
                   </div>
                   <div className="desc-input">
-                    <input type="text" value={description} placeholder="Description" name="descBox" onChange={handleDescChange} />
+                    <textarea value={description} placeholder="Description" name="descBox" onChange={handleDescChange} />
                   </div>
                 </div>
                 <div className="inputItem">
@@ -131,8 +131,7 @@ export default function EnterDetails(props) {
                     <h3>Tutorial Text:</h3>
                   </div>
                   <div className="desc-input">
-                    <input
-                      type="text"
+                    <textarea
                       value={tutorial}
                       placeholder="Tutorial Text"
                       name="tutBox"
