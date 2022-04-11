@@ -5,6 +5,8 @@ import Alert from "../../components/cards/alertCard";
 import { readRecord } from "../../utils/CRUD";
 import { verify_superuser_storage } from "../../utils/logins";
 import { navigate } from "gatsby";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
@@ -25,6 +27,7 @@ export default function SuperuserAlerts(props) {
       <div>
         <SideNav />
         <div className="alerts-container">
+          <ToastContainer/>
           <div className="this-month">
             <div className="month-wrapper">
               <h3>This month</h3>

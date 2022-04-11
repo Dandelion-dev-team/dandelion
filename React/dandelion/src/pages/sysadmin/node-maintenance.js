@@ -6,7 +6,8 @@ import Select from "react-select"
 import { createRecord, readAdminRecord, readRecord, updateRecord } from "../../utils/CRUD"
 import { verify_sysadmin_storage } from "../../utils/logins"
 import { navigate } from "gatsby"
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function NodeMaintenance(props) {
   const [schoolList, setSchoolList] = useState("")
   const [logged, setLogged] = useState("");

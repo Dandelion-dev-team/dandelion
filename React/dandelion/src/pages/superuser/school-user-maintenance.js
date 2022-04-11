@@ -6,6 +6,9 @@ import SchoolUserPane from "../../components/panes/schoolUserPane"
 import { readRecord } from "../../utils/CRUD"
 import { verify_superuser_storage } from "../../utils/logins"
 import { navigate } from "gatsby"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export default function SchoolUserMaintenance(props) {
   const [userList, setUsers] = useState("")
   const [editing_user, setEditingUser] = useState("")
@@ -30,6 +33,7 @@ export default function SchoolUserMaintenance(props) {
     <div>
       <SideNav />
       <div className="school-user-container">
+        <ToastContainer/>
         <div className="school-content">
           <div className="table-wrapper">
             <div className="table">

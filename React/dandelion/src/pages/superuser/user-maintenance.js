@@ -7,6 +7,8 @@ import "../../styles/App.scss"
 import SideNav from "../../components/navigation/superUserSideNav"
 import EditIcon from "@mui/icons-material/Edit"
 import VariableListComponent from '../../components/cards/variableListComponent';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function UserMaintenance(props) {
     //Tested
@@ -82,6 +84,7 @@ export default function UserMaintenance(props) {
             <div>
                 <SideNav />
                 <div className='user-maintenance-container'>
+                    <ToastContainer/>
                     <div className='content'>
                         <div className='user-pane'>
                             <div className='title'>

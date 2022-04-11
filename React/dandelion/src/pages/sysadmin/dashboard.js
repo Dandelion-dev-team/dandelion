@@ -3,6 +3,8 @@ import "../../styles/App.scss"
 import SideNav from "../../components/navigation/sysadminSideNav"
 import { navigate } from "gatsby";
 import { verify_sysadmin_storage } from "../../utils/logins";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function SuperuserDashboard(props) {
   const [logged, setLogged] = useState("");
 

@@ -6,7 +6,8 @@ import SchoolComponent from "../../components/tables/schoolComponent"
 import { createRecord, readAdminRecord, readRecord, updateRecord } from "../../utils/CRUD"
 import { verify_sysadmin_storage } from "../../utils/logins"
 import { navigate } from "gatsby"
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function SuperuserMaintenance(props) {
   const [logged, setLogged] = useState("");
   const [authList, setAuthorities] = useState(0)

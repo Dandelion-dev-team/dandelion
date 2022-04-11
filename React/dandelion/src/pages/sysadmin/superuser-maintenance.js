@@ -6,7 +6,8 @@ import UserComponent from "../../components/tables/superuserComponent"
 import { createRecord, readRecord, updateRecord } from "../../utils/CRUD"
 import { navigate } from "gatsby"
 import { verify_sysadmin_storage } from "../../utils/logins"
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function SuperuserMaintenance(props) {
   const selectInputRef = useRef()
   const [schoolList, setSchools] = useState(0)

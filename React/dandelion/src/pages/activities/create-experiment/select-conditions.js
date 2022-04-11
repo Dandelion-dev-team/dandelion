@@ -3,8 +3,8 @@ import { navigate } from "gatsby"
 import CombinationListComponent from "../../../components/cards/combinationListCard";
 import "../../../styles/App.scss"
 import { verify_superuser_storage } from "../../../utils/logins";
-import { ToastContainer } from "react-toastify";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function SelectCombinations(props) {
   const [treatment_variables, setTreatment] = useState("");
   const [response_variables, setResponse] = useState("");

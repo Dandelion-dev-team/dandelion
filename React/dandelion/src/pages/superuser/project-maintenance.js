@@ -7,6 +7,8 @@ import ActivityCreatedModal from "../../components/modals/activityCreatedModal"
 import { navigate } from "gatsby"
 import { verify_superuser_storage } from "../../utils/logins"
 import { readRecord } from "../../utils/CRUD"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function ProjectMaintenance(props) {
   const [editing_project, setEditingProject] = useState("")
@@ -46,6 +48,7 @@ export default function ProjectMaintenance(props) {
           : null}
         <SideNav />
         <div className="project-container">
+          <ToastContainer/>
           <div className="project-content">
             <div className="content-wrapper">
               <div className="table">

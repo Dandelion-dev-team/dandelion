@@ -34,7 +34,7 @@ export default function EnterSingleData(props) {
       let date = new Date();
       let timestamp = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
       let body = JSON.stringify({
-        timestamp: date,
+        timestamp: timestamp,
         value: parseInt(obs),
         created_by: student_id,
         status: "valid",
