@@ -13,7 +13,6 @@ export default function ExperimentDashboard(props) {
 
 
   const handleCallback = childData => {
-    console.log(childData);
     readAdminRecord("/experiment/" + childData.experiment_id).then(data => {
       setSelectedExperiment(data);
       readRecord("/user/byproject/" + data.project_id, setUsersOnProject);

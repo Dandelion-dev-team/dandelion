@@ -12,7 +12,6 @@ export default function ParticipantPane(props) {
 
 
   const get_response_day = e => {
-    console.log(e);
     let days = ""
     var today = new Date().getDay();
     let current_day_int = [];

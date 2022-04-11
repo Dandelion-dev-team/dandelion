@@ -315,7 +315,7 @@ export default function Data() {
                         )
                         :
                         (
-                          <h3>No schools found</h3>
+                          <h3>No Activities found</h3>
                         )}
                     </div>
                   </AccordionDetails>
