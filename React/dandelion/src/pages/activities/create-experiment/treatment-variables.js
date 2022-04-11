@@ -10,6 +10,7 @@ import VariableTypeModal from "../../../components/modals/variableTypeModal"
 import DiscreteVariableModal from "../../../components/modals/discreteVariableModal"
 import { verify_superuser_storage } from "../../../utils/logins"
 import { readRecord } from "../../../utils/CRUD"
+import { ToastContainer } from "react-toastify"
 
 export default function TreatmentVariables(props) {
   const [search_value, changeSearch] = useState("")
@@ -106,6 +107,7 @@ export default function TreatmentVariables(props) {
         />
       ) : null}
       <div className="treatment-container">
+        <ToastContainer/>
         <div className="content">
           <div className="content-wrapper">
             <div className="treatment-pane">

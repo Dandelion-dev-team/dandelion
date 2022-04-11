@@ -66,6 +66,7 @@ export default function Summary(props) {
     return (
       <div>
         <div className="summary-container">
+          <ToastContainer/>
           <div className="title">
             <h3>Your Experiment</h3>
           </div>

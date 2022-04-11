@@ -4,7 +4,8 @@ import CombinationListComponent from "../../../components/cards/combinationListC
 import "../../../styles/App.scss"
 import { verify_superuser_storage } from "../../../utils/logins"
 import HypothesisCard from "../../../components/cards/hypothesisCard"
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function EnterHypotheses(props) {
   const [treatment_variables, setTreatment] = useState("")
   const [response_variables, setResponse] = useState("")
@@ -59,6 +60,7 @@ export default function EnterHypotheses(props) {
   if (logged) {
     return (
       <div className="hypotheses-container">
+        <ToastContainer/>
         <div className="content">
           <div className="text-content">
             <h3>Enter your Hypotheses</h3>

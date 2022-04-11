@@ -1,6 +1,8 @@
 import React from 'react'
 import { navigate } from "gatsby"
 import Cookies from 'universal-cookie';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const base64 = require('base-64');
 
@@ -60,7 +62,7 @@ export function user_login(username, password) {
                 }
             })
         }
-    })
+    }).catch(toast.error("Incorrect sign in details."))
 }
 
 export function retrieve_user() {
@@ -70,24 +72,20 @@ export function retrieve_user() {
 export function verify_superuser_storage() {
     let is_superuser = localStorage.getItem("is_superuser");
     let is_sysadmin = localStorage.getItem("is_sysadmin");
-    if (is_superuser == "true" || is_sysadmin == "true") 
-    {
+    if (is_superuser == "true" || is_sysadmin == "true") {
         return true;
-    } 
-    else if (is_superuser == "false") 
-    {
+    }
+    else if (is_superuser == "false") {
         return false;
     }
 }
 
 export function verify_sysadmin_storage() {
     let is_sysadmin = localStorage.getItem("is_sysadmin");
-    if (is_sysadmin == "true") 
-    {
+    if (is_sysadmin == "true") {
         return true;
-    } 
-    else if (is_sysadmin == "false" || is_sysadmin == null) 
-    {
+    }
+    else if (is_sysadmin == "false" || is_sysadmin == null) {
         return false;
     }
 }

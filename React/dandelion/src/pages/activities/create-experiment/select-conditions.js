@@ -3,6 +3,7 @@ import { navigate } from "gatsby"
 import CombinationListComponent from "../../../components/cards/combinationListCard";
 import "../../../styles/App.scss"
 import { verify_superuser_storage } from "../../../utils/logins";
+import { ToastContainer } from "react-toastify";
 
 export default function SelectCombinations(props) {
   const [treatment_variables, setTreatment] = useState("");
@@ -66,6 +67,7 @@ export default function SelectCombinations(props) {
   if (logged) {
     return (
       <div className="conditions-container">
+        <ToastContainer/>
         <div className="content">
           <div className="text-content">
             <h3>Select your Conditions</h3>

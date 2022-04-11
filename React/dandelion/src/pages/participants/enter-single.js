@@ -3,6 +3,8 @@ import { navigate } from "gatsby"
 import "../../styles/App.scss"
 import { createRecordNavigate } from "../../utils/CRUD"
 import Select from "react-select"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function EnterSingleData(props) {
 
@@ -32,11 +34,11 @@ export default function EnterSingleData(props) {
       let date = new Date();
       let timestamp = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
       let body = JSON.stringify({
-        timestamp: timestamp,
+        timestamp: date,
         value: parseInt(obs),
         created_by: student_id,
         status: "valid",
-        comment: comment,
+        comment: "",
         unit_id: 24,
         response_variable_id: props.location.state.variable.id,
       })
@@ -60,6 +62,7 @@ export default function EnterSingleData(props) {
   return (
     <div>
       <div className="enter-single-container">
+      <ToastContainer />
         <div className="content">
           <div className="title-content">
             <h3>Scientist Observations</h3>
