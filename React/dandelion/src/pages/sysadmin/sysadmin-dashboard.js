@@ -3,7 +3,8 @@ import "../../styles/App.scss"
 import SysSideNav from "../../components/navigation/sysadminSideNav"
 import { verify_sysadmin_storage } from "../../utils/logins";
 import { navigate } from "gatsby";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function SysadminDashboard(props) {
   const [render, setRender] = useState("");
   useEffect(() => {

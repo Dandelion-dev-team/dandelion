@@ -96,7 +96,7 @@ export default function ContinuousVariableModal(props) {
                 <h3>Description:</h3>
               </div>
               <div className="desc-input">
-                <input
+                <textarea
                   type="text"
                   placeholder="Description"
                   name="descBox"
@@ -110,7 +110,7 @@ export default function ContinuousVariableModal(props) {
                 <h3>Measurement Procedure:</h3>
               </div>
               <div className="desc-input">
-                <input
+                <textarea
                   type="text"
                   placeholder="Measurement Procedure"
                   name="descBox"

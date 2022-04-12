@@ -3,6 +3,8 @@ import "../../styles/App.scss"
 import SideNav from "../../components/navigation/superUserSideNav"
 import { navigate } from "gatsby";
 import { verify_superuser_storage } from "../../utils/logins";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function SuperuserHelp(props) {
   const [logged, setLogged] = useState("");
 
@@ -18,6 +20,7 @@ export default function SuperuserHelp(props) {
     <div>
       <SideNav />
       <div className="help-container">
+        <ToastContainer/>
         <div className="help-content">
           
         </div>

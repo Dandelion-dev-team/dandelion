@@ -5,6 +5,8 @@ import NodeInfoComponent from "../../components/cards/nodeInfoCard"
 import { readRecord } from "../../utils/CRUD"
 import { verify_superuser_storage } from "../../utils/logins"
 import { navigate } from "gatsby"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function SuperuserSettings() {
   const [fetchedSchool, setSchool] = useState("")
   const [logged, setLogged] = useState("")
@@ -24,6 +26,7 @@ export default function SuperuserSettings() {
       <div>
         <SideNav/>
         <div className="settings-container">
+          <ToastContainer/>
           <div className="title">
           {fetchedSchool ? <h3>{fetchedSchool.school.name}</h3> : null}
           </div>

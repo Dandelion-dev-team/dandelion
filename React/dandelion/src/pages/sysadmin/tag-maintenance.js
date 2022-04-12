@@ -5,7 +5,8 @@ import TagComponent from "../../components/tables/tagComponent"
 import { createRecord, readRecord, updateRecord } from "../../utils/CRUD"
 import { verify_sysadmin_storage } from "../../utils/logins"
 import { navigate } from "gatsby"
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function TagMaintenance(props) {
   const selectInputRef = useRef()
   const [logged, setLogged] = useState("");

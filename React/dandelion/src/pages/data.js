@@ -10,7 +10,8 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import { readRecord } from "../utils/CRUD"
 import { Bar } from "react-chartjs-2"
 import { Chart as ChartJS } from "chart.js/auto"
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "../styles/App.scss"
 import "ag-grid-community/dist/styles/ag-grid.css"
 import "ag-grid-community/dist/styles/ag-theme-alpine.css"
@@ -245,6 +246,7 @@ export default function Data() {
     <div>
       <Header />
       <div className="data">
+        <ToastContainer/>
         <div className="data-container">
           <div className="data-content">
             <div className="filter-list">
@@ -315,7 +317,7 @@ export default function Data() {
                         )
                         :
                         (
-                          <h3>No schools found</h3>
+                          <h3>No Activities found</h3>
                         )}
                     </div>
                   </AccordionDetails>

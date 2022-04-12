@@ -60,6 +60,7 @@
     "react-leaflet": "^3.2.5",
     "react-native-base64": "^0.2.1",
     "react-select": "^5.2.2",
+    "react-toastify": "^8.2.0",
     "react-token-auth": "^2.3.8",
     "sass-loader": "^12.4.0",
     "ts-jest": "^27.1.3",

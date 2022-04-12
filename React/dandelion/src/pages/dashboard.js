@@ -9,6 +9,8 @@ import about from '../images/about_icon.png';
 import chart from '../images/chart.png';
 import add_data from '../images/add data.png';
 import {verify_superuser_storage, verify_sysadmin_storage} from "../utils/logins"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function Dashboard() {
     const [logged, setLogged] = useState();
     const [is_superuser, setSuperuser] = useState();
@@ -34,6 +36,7 @@ export default function Dashboard() {
         <div>
             <Header />
             <div className="dashboard">
+                <ToastContainer/>
                 <div className="container">
                     <div className="inner-dashboard">
                         <div className="content">

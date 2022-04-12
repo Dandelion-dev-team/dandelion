@@ -7,6 +7,8 @@ import LinkIcon from '@mui/icons-material/Link';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import Placeholder from "../../images/node-placeholder.png";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function SuperuserDashboard(props) {
   const [logged, setLogged] = useState("");
 
@@ -22,6 +24,7 @@ export default function SuperuserDashboard(props) {
       <div>
         <SideNav />
         <div className="dashboard-container">
+          <ToastContainer/>
           <div className="content">
             <div className="students-pane">
               <div className="students-wrapper">

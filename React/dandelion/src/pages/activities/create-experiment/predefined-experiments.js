@@ -5,6 +5,8 @@ import ExperimentPane from "../../../components/panes/experimentPane"
 import "../../../styles/App.scss"
 import TuneIcon from "@mui/icons-material/Tune"
 import { verify_superuser_storage } from "../../../utils/logins"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function PredefinedExperiments(props) {
   const [search_value, changeSearch] = useState("")
@@ -41,6 +43,7 @@ export default function PredefinedExperiments(props) {
     return (
       <div>
         <div className="exp-container">
+          <ToastContainer/>
           <div className="content">
             <div className="content-wrapper">
               <div className="exp-list">

@@ -10,6 +10,8 @@ import VariableTypeModal from "../../../components/modals/variableTypeModal"
 import DiscreteVariableModal from "../../../components/modals/discreteVariableModal"
 import ContinuousVariableModal from "../../../components/modals/continuousVariableModal"
 import { verify_superuser_storage } from "../../../utils/logins"
+import { ToastContainer } from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function ResponseVariables(props) {
   const [search_value, changeSearch] = useState("")
@@ -144,6 +146,7 @@ export default function ResponseVariables(props) {
         ) : null}
 
         <div className="treatment-container">
+          <ToastContainer/>
           <div className="content">
             <div className="content-wrapper">
               <div className="treatment-pane">

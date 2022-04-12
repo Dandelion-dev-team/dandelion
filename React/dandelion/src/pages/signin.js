@@ -3,6 +3,8 @@ import Header from "../components/navigation/header"
 import "../styles/App.scss"
 import { navigate } from "gatsby"
 import { user_login } from "../utils/logins"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const isBrowser = () => typeof window !== "undefined"
 
@@ -44,6 +46,7 @@ export default function Login(props) {
         <div>
           <Header />
           <div className="signin">
+          <ToastContainer />
             <div className="container">
               <div className="hero-section">
                 <div className="heading">

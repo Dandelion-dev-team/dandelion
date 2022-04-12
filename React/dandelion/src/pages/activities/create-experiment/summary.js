@@ -2,7 +2,8 @@ import React, { useEffect, useState, useRef } from "react"
 import { navigate } from "gatsby"
 import "../../../styles/App.scss"
 import { verify_superuser_storage } from "../../../utils/logins"
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function Summary(props) {
   const [treatment_selected, setTreatmentVariables] = useState([])
   const [response_selected, setResponseVariables] = useState([])
@@ -66,6 +67,7 @@ export default function Summary(props) {
     return (
       <div>
         <div className="summary-container">
+          <ToastContainer/>
           <div className="title">
             <h3>Your Experiment</h3>
           </div>

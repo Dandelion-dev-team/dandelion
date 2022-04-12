@@ -4,7 +4,8 @@ import "../../../styles/App.scss"
 import BackupIcon from "@mui/icons-material/Backup"
 import CheckIcon from '@mui/icons-material/Check';
 import { verify_superuser_storage } from "../../../utils/logins";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function EnterDetails(props) {
   const [name, setName] = useState("")
   const [code, setCode] = useState("")
@@ -83,6 +84,7 @@ export default function EnterDetails(props) {
     return (
       <div>
         <div className="create-exp-container">
+          <ToastContainer/>
           <div className="content">
             <div className="title-content">
               <h3>Experiment Creation</h3>
@@ -123,7 +125,7 @@ export default function EnterDetails(props) {
                     <h3>Description:</h3>
                   </div>
                   <div className="desc-input">
-                    <input type="text" value={description} placeholder="Description" name="descBox" onChange={handleDescChange} />
+                    <textarea value={description} placeholder="Description" name="descBox" onChange={handleDescChange} />
                   </div>
                 </div>
                 <div className="inputItem">
@@ -131,8 +133,7 @@ export default function EnterDetails(props) {
                     <h3>Tutorial Text:</h3>
                   </div>
                   <div className="desc-input">
-                    <input
-                      type="text"
+                    <textarea
                       value={tutorial}
                       placeholder="Tutorial Text"
                       name="tutBox"

@@ -5,6 +5,8 @@ import Header from "../../components/navigation/header"
 import FriendsComponent from "../../components/tables/friendsComponent"
 import "../../styles/App.scss"
 import { readAdminRecord, readRecord } from "../../utils/CRUD"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function ExperimentDashboard(props) {
   const [selected_experiment, setSelectedExperiment] = useState(null)
@@ -13,7 +15,6 @@ export default function ExperimentDashboard(props) {
 
 
   const handleCallback = childData => {
-    console.log(childData);
     readAdminRecord("/experiment/" + childData.experiment_id).then(data => {
       setSelectedExperiment(data);
       readRecord("/user/byproject/" + data.project_id, setUsersOnProject);
@@ -27,6 +28,7 @@ export default function ExperimentDashboard(props) {
     <div>
       <Header />
       <div className="dash-container">
+      <ToastContainer />
         <div className="dash-content">
           <div className="experiment-list">
             <div className="title">

@@ -7,7 +7,9 @@ export default function DiscreteVariableModal(props) {
   const [name, setName] = useState("")
   const [description, setDescription] = useState("")
   const [procedure, setProcedure] = useState("")
-  const [level_text_box, setLevelTextbox] = useState("")
+  const [levelName, setLevelName] = useState("")
+  const [levelDescription, setLevelDescription] = useState("")
+  const [levelProcedure, setLevelProcedure] = useState("")
 
   const [level_list, setLevelList] = useState([])
 
@@ -25,8 +27,16 @@ export default function DiscreteVariableModal(props) {
     setProcedure(e.target.value)
   }
 
-  const handleLevelTextboxChange = e => {
-    setLevelTextbox(e.target.value)
+  const handleLevelNameChange = e => {
+    setLevelName(e.target.value)
+  }
+
+  const handleLevelDescriptionChange = e => {
+    setLevelDescription(e.target.value)
+  }
+
+  const handleLevelProcedureChange = e => {
+    setLevelProcedure(e.target.value)
   }
 
   const handleLevelListChange = e => {
@@ -38,7 +48,7 @@ export default function DiscreteVariableModal(props) {
   }
 
   const onChangeCheckbox = e => {
-    setIsSensorQuantity(!is_sensor_selected);
+    setIsSensorQuantity(!is_sensor_selected)
   }
 
   const onFinish = e => {
@@ -46,11 +56,17 @@ export default function DiscreteVariableModal(props) {
       let arr = new Array()
       for (let index = 0; index < level_list.length; index++) {
         const element = level_list[index]
-        arr.push({ treatment_name: name, sequence: index, name: element, description: "desc", procedure: "proc" })
+        arr.push({
+          treatment_name: name,
+          sequence: index,
+          name: element.name,
+          description: element.description,
+          procedure: element.procedure,
+        })
       }
-      let quantity_check = null;
-      if(quantity_selected != null){
-        quantity_check = quantity_selected.id;
+      let quantity_check = null
+      if (quantity_selected != null) {
+        quantity_check = quantity_selected.id
       }
       let body = JSON.stringify({
         type: "Discrete",
@@ -61,6 +77,7 @@ export default function DiscreteVariableModal(props) {
         is_sensor_quantity: false,
         quantity_id: quantity_check,
       })
+      console.log(body)
       props.callback(body)
     } else {
       console.log("did not have all information")
@@ -73,7 +90,10 @@ export default function DiscreteVariableModal(props) {
 
   const AddLevel = e => {
     let copy = [...level_list]
-    copy.push(level_text_box)
+    copy.push({name: levelName, description: levelDescription, procedure: levelProcedure})
+    setLevelName("");
+    setLevelDescription("");
+    setLevelProcedure("");
     setLevelList(copy)
   }
 
@@ -102,7 +122,7 @@ export default function DiscreteVariableModal(props) {
                   <h3>Description:</h3>
                 </div>
                 <div className="desc-input">
-                  <input
+                  <textarea
                     type="text"
                     placeholder="Description"
                     name="descBox"
@@ -116,7 +136,7 @@ export default function DiscreteVariableModal(props) {
                   <h3>Measurement Procedure:</h3>
                 </div>
                 <div className="desc-input">
-                  <input
+                  <textarea
                     type="text"
                     placeholder="Measurement Procedure"
                     name="descBox"
@@ -130,51 +150,86 @@ export default function DiscreteVariableModal(props) {
                   <h3>Quantity relation:</h3>
                 </div>
                 <div className="item-input">
-                  {quantitiy_list ? <Select
-                    name="authority_id_picker"
-                    options={quantitiy_list.data}
-                    value={quantity_selected}
-                    defaultValue={"No Quantity Relation"}
-                    onChange={onChangeQuantity}
-                    getOptionLabel={quantitiy_list => quantitiy_list.name}
-                    getOptionValue={quantitiy_list => quantitiy_list.id} // It should be unique value in the options. E.g. ID
-                  /> : <h3>Could not retrieve quantities.</h3>}
+                  {quantitiy_list ? (
+                    <Select
+                      name="authority_id_picker"
+                      options={quantitiy_list.data}
+                      value={quantity_selected}
+                      defaultValue={"No Quantity Relation"}
+                      onChange={onChangeQuantity}
+                      getOptionLabel={quantitiy_list => quantitiy_list.name}
+                      getOptionValue={quantitiy_list => quantitiy_list.id} // It should be unique value in the options. E.g. ID
+                    />
+                  ) : (
+                    <h3>Could not retrieve quantities.</h3>
+                  )}
                 </div>
               </div>
-              {quantity_selected != null ? 
-              <div className="experimentCheck">
-                <input type="checkbox" id="experiment_id" name="topping" value="experiment_ID" onChange={onChangeCheckbox}/>
-                <h3>Is sensor quantity</h3>
-              </div> : null}
-
+              {quantity_selected != null ? (
+                <div className="experimentCheck">
+                  <input
+                    type="checkbox"
+                    id="experiment_id"
+                    name="topping"
+                    value="experiment_ID"
+                    onChange={onChangeCheckbox}
+                  />
+                  <h3>Is sensor quantity</h3>
+                </div>
+              ) : null}
             </div>
-            <div className="level-row">
-              <div className="card-list">
-                {level_list.length > 0 ? level_list.map(card => (
-                  <DiscreteCard
-                  card={card}
-                />
-                ))  : null}
-                {/* <DiscreteCardList
+            {/* Response Card List - w/ typescript component */}
+            {/* <DiscreteCardList
                   levelList={level_list}
 
                   // addLevel={AddLevel}
                   // reorderLevels={handleLevelListChange}
                 /> */}
-                <div className="level-bar">
-                  <div className="title">
-                    <h3>Level:</h3>
+            <div className="right-pane">
+              <div className="level-input">
+                <div className="input-item">
+                  <div className="input-title">
+                    <h3>Name:</h3>
                   </div>
-                  <div className="input">
+                  <div className="input-box">
                     <input
                       type="text"
-                      placeholder="Level"
+                      placeholder="Level name"
                       name="descBox"
-                      onChange={handleLevelTextboxChange}
-                      value={level_text_box}
+                      onChange={handleLevelNameChange}
+                      value={levelName}
                     />
                   </div>
                 </div>
+                <div className="input-item">
+                  <div className="input-title">
+                    <h3>Description:</h3>
+                  </div>
+                  <div className="input-box">
+                    <input
+                      type="text"
+                      placeholder="Level Description"
+                      name="descBox"
+                      onChange={handleLevelDescriptionChange}
+                      value={levelDescription}
+                    />
+                  </div>
+                </div>
+                <div className="input-item">
+                  <div className="input-title">
+                    <h3>Procedure:</h3>
+                  </div>
+                  <div className="input-box">
+                    <input
+                      type="text"
+                      placeholder="Level Procedure"
+                      name="descBox"
+                      onChange={handleLevelProcedureChange}
+                      value={levelProcedure}
+                    />
+                  </div>
+                </div>
+                <div className="spacer" />
                 <div className="add-btn">
                   <input
                     type="submit"
@@ -185,17 +240,24 @@ export default function DiscreteVariableModal(props) {
                         AddLevel()
                       }
                     }}
-                  ></input>
+                  />
                 </div>
               </div>
-              <div className="finish-btn-row">
+              <div className="card-list">
+                {level_list.length > 0
+                  ? level_list.map(card => <DiscreteCard card={card} />)
+                  : null}
+              </div>
+              <div className="btn-row">
                 <div className="close-btn">
                   <input
                     type="submit"
                     className="submitButton"
                     value="Close"
                     onClick={() => {
-                      { props.callback() }
+                      {
+                        props.callback()
+                      }
                     }}
                   ></input>
                 </div>

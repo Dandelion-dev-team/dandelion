@@ -1,7 +1,18 @@
 import React from 'react'
 import Cookies from 'universal-cookie';
 import { user_logout } from './logins';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
+function handleErrors(response) {
+    console.log("called")
+    console.log(response)
+    if (response.status !== 200) {
+        console.log("Error")
+        toast.error("Database Error " + response.status);
+    }
+    return response;
+}
 export function createRecord(endpoint, body) {
     const cookies = new Cookies();
     fetch(process.env.API_URL + endpoint, {
@@ -16,7 +27,7 @@ export function createRecord(endpoint, body) {
             'X-CSRF-TOKEN': cookies.get('csrf_access_token')
         }),
         body: body,
-    }).then(window.location.reload(false))
+    }).then(window.location.reload(false)).catch(toast.error("Database Error"))
 }
 
 export function createRecordNavigate(endpoint, body) {
@@ -33,8 +44,12 @@ export function createRecordNavigate(endpoint, body) {
             'X-CSRF-TOKEN': cookies.get('csrf_access_token')
         }),
         body: body,
-    }).then((response) => response.json()).then((responseData) => {
-        return responseData;
+    }).then(response => {
+        if (response.status !== 200) {
+            toast.error("Could not create record.")
+        } else {
+            return response.json()
+        }
     })
 }
 
@@ -47,17 +62,23 @@ export function readRecord(endpoint, setter) {
             'Cache-Control': 'no-cache, no-store, must-revalidate',
             'Pragma': 'no-cache',
             'Expires': 0,
+        })})
+        .then((response) => {
+            if (response.status >= 200 && response.status <= 299) {
+                return response.json();
+            } else {
+                throw Error(response.status);
+            }
         })
-    }).then(response => {
-        if (response.status == 401) {
-            user_logout();
-        } else return response.json()
-    }).then(data => setter(data))
+        .then((jsonResponse) => {
+            setter(jsonResponse)
+        }).catch((error) => {
+            toast.error("Database error " + error)
+            console.log(error);
+        });
 }
 
 export function readAdminRecord(endpoint) {
-    //THIS FUNCTION RETURNS DATA DIRECTLY RATHER THAN THROUGH A SETTER
-    //USEFUL FOR SYSADMIN PAGES WHEN EDITING
     return fetch(process.env.API_URL + endpoint, {
         method: "GET",
         credentials: "include",
@@ -66,16 +87,23 @@ export function readAdminRecord(endpoint) {
             'Cache-Control': 'no-cache, no-store, must-revalidate',
             'Pragma': 'no-cache',
             'Expires': 0,
+        })})
+        .then((response) => {
+            if (response.status >= 200 && response.status <= 299) {
+                return response.json();
+            } else if (response.status == 401) {
+                user_logout();
+            }
+            else {
+                throw Error(response.statusText);
+            }
         })
-    }).then(response => {
-        if (response.status == 401) {
-            user_logout();
-        }else {
-            return response.json()
-        }
-    }).then((responseData) => {
-        return responseData;
-    })
+        .then((jsonResponse) => {
+            return jsonResponse;
+        }).catch((error) => {
+            toast.error("Database failure.")
+            console.log(error);
+        });
 }
 
 export function uploadExperimentImage(endpoint, image) {
@@ -88,7 +116,7 @@ export function uploadExperimentImage(endpoint, image) {
         method: "POST",
         mode: 'cors',
         body: formData,
-    })
+    }).catch(toast.error("Failed to upload image."))
 }
 
 export function updateRecord(endpoint, body) {
@@ -105,7 +133,7 @@ export function updateRecord(endpoint, body) {
             'X-CSRF-TOKEN': cookies.get('csrf_access_token')
         }),
         body: body
-    })//.then(window.location.reload(false))
+    }).then(window.location.reload(false)).catch(toast.error("Failed to update."))
 }
 
 export function deleteRecord(endpoint) {
@@ -118,6 +146,6 @@ export function deleteRecord(endpoint) {
             'Content-Type': 'application/json',
             'X-CSRF-TOKEN': cookies.get('csrf_access_token')
         }),
-    }).then(window.location.reload(false))
+    }).then(window.location.reload(false)).catch(toast.error("Failed to delete."))
 }
 
