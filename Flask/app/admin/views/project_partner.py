@@ -70,7 +70,7 @@ def add_project_partner_by_invite(project_id, school_id):
         abort(409, e.orig.msg)
 
 
-@admin.route('/project_partner/<int:school_id>', methods=['GET'])
+@admin.route('/project_partner/<int:school_id>', methods=['GET']) #testing
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def ListAllSchoolInvitations(school_id):
