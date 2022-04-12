@@ -1,18 +1,11 @@
-import React, { useEffect, useState, useRef } from "react"
+import React, { useEffect, useState } from "react"
 import { navigate } from "gatsby"
 import "../../styles/App.scss"
-import HelpOutlineIcon from "@mui/icons-material/HelpOutline"
-import UnitCard from "../../components/cards/unitCard"
-import UnitHelpModal from "../../components/modals/unitHelpModal"
-import UnitItem from "../../components/unitItem"
+import ObservationItem from "../../components/cards/observationCard"
 import { verify_superuser_storage } from "../../utils/logins"
-import { ToastContainer, toast } from "react-toastify"
-import "react-toastify/dist/ReactToastify.css"
-import {
-  createRecord,
-  createRecordNavigate,
-  uploadExperimentImage,
-} from "../../utils/CRUD"
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { createRecord, createRecordNavigate, uploadExperimentImage } from "../../utils/CRUD"
 import Select from "react-select"
 import EnterObservationModal from "../../components/modals/enterObservationModal"
 
@@ -255,7 +248,7 @@ export default function EnterObservations(props) {
                         <div className="square-grid">
                           {matrix[0].map(function (d, idx) {
                             return (
-                              <UnitItem
+                              <ObservationItem
                                 key={idx}
                                 setItemCallback={setGridData}
                                 gridLevel={current_grid}
