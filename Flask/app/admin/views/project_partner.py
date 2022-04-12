@@ -62,10 +62,11 @@ def get_one_project_partner(id):
 
     return jsonify({'Project': project_partner_data})
 
-@admin.route('/project_partner/byschool/<int:id>', methods=['GET'])
+
+@admin.route('/project_partner/byschool/<int:school_id>', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
-def get_project_by_partner(id):
+def get_project_by_partner(school_id):
     project_partner = ProjectPartner.query.filter(ProjectPartner.school_id == id).all()
 
     project_partner_data = {}
