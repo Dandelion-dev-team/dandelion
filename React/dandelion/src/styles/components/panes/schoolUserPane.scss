@@ -7,6 +7,34 @@
     width: 95%;
     height: 95%;
 
+    .inputItem {
+      text-align: left;
+      display: flex;
+      flex-direction: row;
+      justify-items: left;
+      width: 100%;
+      height: auto;
+      margin-top: 3vh;
+
+      .item-title {
+        width: 30%;
+        height: 100%;
+        h3 {
+          display: inline;
+          font-size: 1.5vw;
+        }
+      }
+
+      .item-input {
+        width: 50%;
+        height: 100%;
+        h3 {
+          display: inline;
+          font-size: 1vw;
+        }
+      }
+    }
+
     .btn-row {
       display: flex;
       justify-content: space-between;

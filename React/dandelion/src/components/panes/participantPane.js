@@ -113,7 +113,7 @@ export default function ParticipantPane(props) {
               onClick={() => {
                 navigate("/participants/enter-single",
                   {
-                    state: { variable: e },
+                    state: { variable: e, conditions: props.dataProp.conditions },
                   })
               }}
             ></input>

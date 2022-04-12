@@ -1,96 +1,158 @@
 import React, { useEffect, useState, useRef } from "react"
 import { navigate } from "gatsby"
 import "../../styles/App.scss"
-import { createRecordNavigate } from "../../utils/CRUD"
-import Select from "react-select"
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline"
+import UnitCard from "../../components/cards/unitCard"
+import UnitHelpModal from "../../components/modals/unitHelpModal"
+import UnitItem from "../../components/unitItem"
+import { verify_superuser_storage } from "../../utils/logins"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { createRecord, createRecordNavigate, uploadExperimentImage } from "../../utils/CRUD"
+import Select from "react-select"
 
-export default function EnterSingleData(props) {
+export default function EnterObservations(props) {
+  const [modal_shown, setModalShown] = useState("")
+  const [treatment_variables, setTreatment] = useState("")
+  const [response_variables, setResponse] = useState("")
+  const [combination_list, setCombinationList] = useState("")
+  const [experiment_details, setExperimentDetails] = useState("")
+  const [colour_index, setColourIndex] = useState(["#FFFF", "#FFFF", "#FFFF"])
+  const [row_index] = ["A", "B", "C", "D", "E"];
+  let grid_values = { colour: "#C4C4C4", code: "" }
+  const [current_grid, setCurrentGrid] = useState(0)
+  const [matrix, setMatrix] = useState(
+    Array.from({ length: 3 }, () =>
+      Array.from({ length: 25 }, () => grid_values)
+    )
+  )
+  const [dragged_item, setCurrentDraggedItem] = useState()
+  const [logged, setLogged] = useState("")
 
-  const [observation, setObservation] = useState("")
-  const [levels, setLevels] = useState([])
-  const [comment, setComment] = useState("")
+  let a = new Array(32)
+  const grid_letters = ["A", "B", "C", "D", "E"]
 
-  const handleLengthChange = e => {
-    setObservation(e.target.value)
-  }
-
-  const onCommentChange = e => {
-    setComment(e.target.value)
-  }
-
-  const onUpdate = e => {
-    let student_id = localStorage.getItem("user_id");
-    console.log("Updated body")
-    let obs;
-    if(levels.length > 0){
-      obs = observation.id;
-    }else{
-      obs = observation;
-    }
-
-    if(obs){
-      let date = new Date();
-      let timestamp = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-      let body = JSON.stringify({
-        timestamp: timestamp,
-        value: parseInt(obs),
-        created_by: student_id,
-        status: "valid",
-        comment: "",
-        unit_id: 24,
-        response_variable_id: props.location.state.variable.id,
-      })
-      console.log(JSON.parse(body))
-      createRecordNavigate("/observation", body)//.then(navigate("/participants/experiment-dashboard"));
-    }
-  }
+  const [active_class, setActiveClass] = useState([a])
 
   useEffect(() => {
-    if (props.location.state) {
-      let variable = props.location.state.variable;
-      if (variable.levels.length > 0) {
-        setLevels(variable.levels);
-      } else {
-        console.log("false")
-      }
+    setItem("top")
+    if (verify_superuser_storage() == true) {
+      console.log(props.location.state.variable)
+
+      let conditions = props.location.state.conditions;
+
+      let copy = [...matrix];
+      conditions.forEach(condition => {
+        condition.units.forEach(unit => {
+          console.log(unit)
+          let row = grid_letters.indexOf(unit.row)
+          let column = unit.column;
+
+          let position = ((column - 1) * 5) + (row);
+          let level = 0;
+          if (unit.cube_level = "top") {
+            level = 0;
+          } else if (unit.cube_level = "middle") {
+            level = 1;
+          } else if (unit.cube_level = "bottom") {
+            level = 2;
+          }
+
+          if (copy[level][position].code != "SENSOR") {
+            copy[level][position] = {
+              colour: condition.colour,
+              code: unit.code,
+              item: condition,
+            }
+          }
+        });
+      });
+      setLogged(true)
+    } else {
+      navigate("/signin")
     }
-  }, []);
+  }, [])
 
+  const closeModal = prop => {
+    setModalShown(false)
+  }
 
-  return (
-    <div>
-      <div className="enter-single-container">
-      <ToastContainer />
-        <div className="content">
-          <div className="title-content">
-            <h3>Scientist Observations</h3>
-            <p>Here you can enter the data you’ve collected!</p>
-          </div>
-          <div className="data-form">
-            <div className="data-pane">
+  const setItem = prop => {
+    setColourIndex(["#FFFF", "#FFFF", "#FFFF"])
+
+    if (prop == "top") {
+      let copy = [...matrix]
+      copy[0][1] = { colour: "#FFFF", code: "SENSOR" }
+      setMatrix(copy)
+      setCurrentGrid(0)
+      setColourIndex(["#F8F448", "#FFFF", "#FFFF"])
+    } else if (prop == "mid") {
+      let copy = [...matrix]
+      copy[1][2] = { colour: "#FFFF", code: "SENSOR" }
+      setMatrix(copy)
+
+      setCurrentGrid(1)
+      setColourIndex(["#FFFF", "#F8F448", "#FFFF"])
+    } else if (prop == "bot") {
+      let copy = [...matrix]
+      copy[2][3] = { colour: "#FFFF", code: "SENSOR" }
+
+      setMatrix(copy)
+      setCurrentGrid(2)
+      setColourIndex(["#FFFF", "#FFFF", "#F8F448"])
+    }
+  }
+
+  const setGridData = e => {
+    if (dragged_item) {
+      let copy = [...matrix]
+      if (copy[e.gridLevel][e.gridPosition].code != "SENSOR") {
+        copy[e.gridLevel][e.gridPosition] = {
+          colour: dragged_item.colour,
+          code: dragged_item.code,
+          item: dragged_item.item,
+        }
+      } else {
+      }
+      setMatrix(copy)
+    }
+  }
+
+  const setDraggedItem = childData => {
+  }
+
+  const submitExperiment = prop => {
+  }
+
+  if (typeof window !== `undefined` && logged) {
+    return (
+      <div>
+        <div className="configure-container">
+          <ToastContainer />
+          <div className="content">
+            <div className="condition-list">
+              <h3>{props.location.state.variable.name}</h3>
               <div className="inputItem">
                 <div className="item-title">
                   <h3>Observation:</h3>
                 </div>
                 <div className="item-input">
-                  {levels.length > 0 ? 
-                  <Select
-                    name="authority_id_picker"
-                    options={levels}
-                    value={observation}
-                    onChange={setObservation}
-                    getOptionLabel={(level) => level.name}
-                    getOptionValue={(level) => level.id} // It should be unique value in the options. E.g. ID
-                  /> 
-                  :
+                  {props.location.state.variable.levels.length > 0 ?
+                    <Select
+                      name="authority_id_picker"
+                      options={props.location.state.variable.levels}
+                      // value={observation}
+                      // onChange={setObservation}
+                      getOptionLabel={(level) => level.name}
+                      getOptionValue={(level) => level.id} 
+                    />
+                    :
                     <input
                       type="text"
-                      value={observation}
-                      placeholder=""
+                      //value={observation}
+                      // placeholder=""
                       name="nameBox"
-                      onChange={handleLengthChange}
+                    //  onChange={handleLengthChange}
                     />}
                 </div>
               </div>
@@ -98,32 +160,127 @@ export default function EnterSingleData(props) {
                 <div className="item-title">
                   <h3>Comment:</h3>
                 </div>
-                 <div className="item-input">
+                <div className="item-input">
                   <textarea
-                    value={comment}
-                    onChange={onCommentChange}
+                    //value={comment}
+                    //onChange={onCommentChange}
                     type="date"
                     name="codeBox"
                   />
                 </div>
               </div>
             </div>
+            <div className="grid-container">
+              <div className="level-row">
+                <div
+                  className="top-level"
+                  style={{ backgroundColor: colour_index[0] }}
+                  onClick={() => {
+                    setItem("top")
+                  }}
+                >
+                  <h3>Top Level</h3>
+                </div>
+                <div
+                  className="middle-level"
+                  style={{ backgroundColor: colour_index[1] }}
+                  onClick={() => {
+                    setItem("mid")
+                  }}
+                >
+                  <h3>Middle Level</h3>
+                </div>
+                <div
+                  className="bottom-level"
+                  style={{ backgroundColor: colour_index[2] }}
+                  onClick={() => {
+                    setItem("bot")
+                  }}
+                >
+                  <h3>Bottom Level</h3>
+                </div>
+              </div>
+              <div className="grid-row">
+                <div className="grid">
+                  <div className="label-wrapper">
+                    <div className="column-wrapper">
+                      <div className="spacer" />
+                      <div className="numerical-column">
+                        <div className="number">
+                          <h3>1</h3>
+                        </div>
+                        <div className="number">
+                          <h3>2</h3>
+                        </div>
+                        <div className="number">
+                          <h3>3</h3>
+                        </div>
+                        <div className="number">
+                          <h3>4</h3>
+                        </div>
+                        <div className="number">
+                          <h3>5</h3>
+                        </div>
+                      </div>
+                      <div className="spacer" />
+                    </div>
+
+                    <div className="right-pane">
+                      <div className="alphabetical-row">
+                        <div className="letter">
+                          <h3>A</h3>
+                        </div>
+                        <div className="letter">
+                          <h3>B</h3>
+                        </div>
+                        <div className="letter">
+                          <h3>C</h3>
+                        </div>
+                        <div className="letter">
+                          <h3>D</h3>
+                        </div>
+                        <div className="letter">
+                          <h3>E</h3>
+                        </div>
+                      </div>
+                      <div className="grid-wrapper">
+                        <div className="square-grid">
+                          {matrix[0].map(function (d, idx) {
+                            return (
+                              <UnitItem
+                                key={idx}
+                                setItemCallback={setGridData}
+                                gridLevel={current_grid}
+                                gridPosition={idx}
+                                gridData={matrix[current_grid][idx]}
+                              />
+                            )
+                          })}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="btn-container">
+                  <div className="continue-btn">
+                    <input
+                      type="submit"
+                      className="submitButton"
+                      value="Finished"
+                      onClick={() => {
+                        submitExperiment()
+                      }}
+                    ></input>
+                  </div>
+                  <div className="spacer"></div>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="btn-container">
-          <div className="finish-btn">
-            <input
-              type="submit"
-              className="submitButton"
-              value="Finished"
-              onClick={() => {
-                onUpdate();
-              }}
-            ></input>
-          </div>
-          <div className="spacer"></div>
         </div>
       </div>
-    </div>
-  )
+    )
+  } else {
+    return null
+  }
 }
