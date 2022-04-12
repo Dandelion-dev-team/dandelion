@@ -9,7 +9,7 @@ function handleErrors(response) {
     console.log(response)
     if (response.status !== 200) {
         console.log("Error")
-        toast.error("Database Error" + response.statusText);
+        toast.error("Database Error " + response.status);
     }
     return response;
 }
@@ -67,13 +67,13 @@ export function readRecord(endpoint, setter) {
             if (response.status >= 200 && response.status <= 299) {
                 return response.json();
             } else {
-                throw Error(response.statusText);
+                throw Error(response.status);
             }
         })
         .then((jsonResponse) => {
             setter(jsonResponse)
         }).catch((error) => {
-            toast.error("Database failure.")
+            toast.error("Database error " + error)
             console.log(error);
         });
 }
