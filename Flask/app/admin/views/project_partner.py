@@ -67,7 +67,7 @@ def get_one_project_partner(id):
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def get_project_by_partner(school_id):
-    project_partner = ProjectPartner.query.filter(ProjectPartner.school_id == id).all()
+    project_partner = ProjectPartner.query.filter(ProjectPartner.school_id == school_id).all()
 
     project_partner_data = {}
     project_partner_data['project_partner_id'] = project_partner.id
