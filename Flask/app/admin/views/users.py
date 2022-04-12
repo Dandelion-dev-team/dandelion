@@ -126,7 +126,7 @@ def getUsersBySchoolID(school_id):
     return jsonify({'users': output})
 
 
-@admin.route('/user/byschoolandexperiment/<int:school_id>/<int:experiment_id>', methods=['GET']) # <-- This route does not work properly yet
+@admin.route('/user/byschoolandexperiment/<int:school_id>/<int:experiment_id>', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def get_users_by_school_and_experiment(school_id, experiment_id):
