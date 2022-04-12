@@ -67,14 +67,18 @@ def get_one_project_partner(id):
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def get_project_by_partner(school_id):
-    project_partner = ProjectPartner.query.filter(ProjectPartner.school_id == school_id).all()
+    project_partners = ProjectPartner.query.filter(ProjectPartner.school_id == school_id).all()
 
-    project_partner_data = {}
-    project_partner_data['project_partner_id'] = project_partner.id
-    project_partner_data['school_id'] = project_partner.school_id
-    project_partner_data['project_id'] = project_partner.project_id
-    project_partner_data['is_lead_partner'] = project_partner.is_lead_partner
-    project_partner_data['status'] = project_partner.status
+    output = []
+
+    for project_partner in project_partners:
+        project_partner_data = {}
+        project_partner_data['project_partner_id'] = project_partner.id
+        project_partner_data['school_id'] = project_partner.school_id
+        project_partner_data['project_id'] = project_partner.project_id
+        project_partner_data['is_lead_partner'] = project_partner.is_lead_partner
+        project_partner_data['status'] = project_partner.status
+        output.append(project_partner_data)
 
 
     return jsonify({'Project': project_partner_data})
