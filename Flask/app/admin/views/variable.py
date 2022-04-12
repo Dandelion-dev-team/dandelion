@@ -5,10 +5,39 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 
 from app.admin import admin
 from app.admin.views.level import create_level
-from app.models import Variable, Response, variable, ResponseVariable
+from app.models import Variable, Response, variable, ResponseVariable, Level
 from app import db
 from app.utils.auditing import audit_create
 from app.utils.functions import row2dict, jwt_user
+
+
+@admin.route('/variable/<int:id>', methods=['GET'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
+def getFullVariable(id):
+    variable = Variable.query.get_or_404(id)
+
+    data = {
+        "variable_id": variable.id,
+        "name": variable.name,
+        "status": variable.status,
+        "is_sensor_quantity": variable.is_sensor_quantity,
+        "procedure": variable.procedure,
+        "quantity_id": variable.quantity_id,
+        "quantity": [{
+            "lower_limit": variable.quantity.lower_limit,
+            "upper_limit": variable.quantity.upper_limit,
+            "unit": variable.quantity.unit,
+            "levels": sorted([{
+                "id": l.id,
+                "sequence": l.sequence,
+                "name": l.name
+            } for l in variable.levels], key=lambda l: l["sequence"])
+        }]}
+
+
+    return data
+
+
 
 
 @admin.route('/allVariables', methods=['GET'])
