@@ -121,6 +121,7 @@ def getUsersBySchoolID(school_id):
         user_data['username'] = user.username
         user_data['status'] = user.status
         user_data['school_id'] = user.school_id
+        user_data['notes'] = user.notes
         output.append(user_data)
 
     return jsonify({'users': output})

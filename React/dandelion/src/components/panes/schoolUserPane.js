@@ -8,25 +8,30 @@ export default function SchoolUserPane(props) {
     <div>
       {props.dataProp ? (
         <div className="pane-container">
-          <div className="title">
-            <h2>
-              Student {props.dataProp.school_id} - {props.dataProp.school_class}
-            </h2>
-            <h2>{props.dataProp.project} Project </h2>
-            <h3>{props.dataProp.experiment} Experiment</h3>
-          </div>
-          <div className="project-column">
-            <p>Description</p>
-            <div className="description-box">
-              <p>{props.dataProp.description}</p>
+          <div className="pane-content">
+            <div className="title">
+              <h2>
+                {props.dataProp.username}
+              </h2>
+              <h3>{props.dataProp.notes}</h3>
             </div>
-            <p>Hypotheses</p>
-            <div className="description-box">
-              <p>{props.dataProp.hypotheses}</p>
-            </div>
-            <p>Variables</p>
-            <div className="description-box">
-              <p>{props.dataProp.variables}</p>
+            <div className="btn-row">
+              <input
+                type="submit"
+                className="submitButton"
+                value="Create User"
+                onClick={() => {
+
+                }}
+              ></input>
+              <input
+                type="submit"
+                className="submitButton"
+                value="Close"
+                onClick={() => {
+
+                }}
+              ></input>
             </div>
           </div>
         </div>

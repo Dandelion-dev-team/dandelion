@@ -1,25 +1,44 @@
 .pane-container {
 
-  .title {
-    padding-top: 20px;
-    padding-left: 20px;
-  }
-
-  .project-column {
-    padding-left: 20px;
-
-    p {
+  .pane-content{
+    .title {
+      padding-top: 20px;
+      padding-left: 20px;
     }
-
-    .description-box {
-      background-color: white;
-      border-radius: 20px;
-      width: 90%;
-      padding: 10px;
-      margin-bottom: 20px;
+  
+    .btn-row {
+        .submitButton {
+          background-color: $accent;
+          color: $primary;
+          font-size: 1.6rem;
+          margin: 1.25rem 0px;
+          padding: 15px;
+          border: none;
+          cursor: pointer;
+          border-radius: 10px;
+        }
+        .submitButton:hover {
+          background-color: #d4d926;
+        }
+    }
+  
+    .project-column {
+      padding-left: 20px;
+  
       p {
+      }
+  
+      .description-box {
+        background-color: white;
+        border-radius: 20px;
+        width: 90%;
         padding: 10px;
+        margin-bottom: 20px;
+        p {
+          padding: 10px;
+        }
       }
     }
   }
+  
 }
