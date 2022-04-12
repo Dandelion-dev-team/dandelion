@@ -87,7 +87,7 @@ def get_project_by_partner(school_id):
         project_partner_data['status'] = project.status
         output.append(project_partner_data)
 
-    return jsonify({'Project': output})
+    return jsonify(output)
 
 
 @admin.route('/project_partner/<int:id>', methods=['PUT'])
