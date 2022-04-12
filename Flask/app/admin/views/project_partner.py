@@ -78,6 +78,7 @@ def ListAllSchoolInvitations(school_id):
         join(School).\
         filter(School.id == school_id). \
         with_entities(ProjectPartner.project_id,
+                      ProjectPartner.id,
                       ProjectPartner.school_id,
                       ProjectPartner.status,
                       School.name)
@@ -86,7 +87,7 @@ def ListAllSchoolInvitations(school_id):
     for schools in invited_schools:
         if schools.status == 'invited':
             invited_data = {}
-            invited_data['id'] = schools.project_id
+            invited_data['id'] = schools.id
             invited_data['inviting_school_name'] = schools.name
             invited_data['project_title'] = schools.project_id
             output.append(invited_data)
