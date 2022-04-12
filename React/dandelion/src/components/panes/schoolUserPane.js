@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react"
 import "../../styles/App.scss"
 
 export default function SchoolUserPane(props) {
+  const [editing, setEditing] = useEffect(false);
   //TESTED
   return (
     <div>
@@ -16,22 +17,36 @@ export default function SchoolUserPane(props) {
               <h3>{props.dataProp.notes}</h3>
             </div>
             <div className="btn-row">
-              <input
-                type="submit"
-                className="submitButton"
-                value="Create User"
-                onClick={() => {
+              {editing ?                  
+               <input
+                    type="submit"
+                    className="submitButton"
+                    value="Edit User"
+                    onClick={() => {
+                      setEditing(true)
+                    }}
+                  ></input> 
+                  :
+                <div>
+                  <input
+                    type="submit"
+                    className="submitButton"
+                    value="Update User"
+                    onClick={() => {
 
-                }}
-              ></input>
-              <input
-                type="submit"
-                className="submitButton"
-                value="Close"
-                onClick={() => {
+                    }}
+                  ></input>
+                  <input
+                    type="submit"
+                    className="submitButton"
+                    value="Cancel"
+                    onClick={() => {
+                      setEditing(false)
+                    }}
+                  ></input>
+                </div>
+              }
 
-                }}
-              ></input>
             </div>
           </div>
         </div>

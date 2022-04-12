@@ -1,12 +1,16 @@
 .pane-container {
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 93vh;
   .pane-content{
-    .title {
-      padding-top: 20px;
-      padding-left: 20px;
-    }
-  
+    width: 95%;
+    height: 95%;
+
     .btn-row {
+      display: flex;
+      justify-content: space-between;
+      width: 40%;
         .submitButton {
           background-color: $accent;
           color: $primary;
@@ -23,10 +27,6 @@
     }
   
     .project-column {
-      padding-left: 20px;
-  
-      p {
-      }
   
       .description-box {
         background-color: white;

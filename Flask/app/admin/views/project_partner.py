@@ -1,3 +1,5 @@
+import os
+
 from flask import abort, request, jsonify
 from flask_cors import cross_origin
 from flask_json import json_response
@@ -5,11 +7,11 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import inspect
 
 from app.admin import admin
-from app.models import ProjectPartner
+from app.models import ProjectPartner, Project
 from app import db
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update, audit_delete
 from app.utils.functions import row2dict, jwt_user
-
+from app.utils.uploads import get_uploaded_file, content_folder
 
 @admin.route('/project_partner', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
@@ -73,11 +75,16 @@ def get_project_by_partner(school_id):
 
     for project_partner in project_partners:
         project_partner_data = {}
-        project_partner_data['project_partner_id'] = project_partner.id
-        project_partner_data['school_id'] = project_partner.school_id
-        project_partner_data['project_id'] = project_partner.project_id
-        project_partner_data['is_lead_partner'] = project_partner.is_lead_partner
-        project_partner_data['status'] = project_partner.status
+        project = Project.query.get_or_404(project_partner.project_id)
+        project_partner_data['project_id'] = project.id
+        project_partner_data['title'] = project.title
+        project_partner_data['description'] = project.description
+        project_partner_data['image_full'] = os.path.join(content_folder('project', id, 'image'), 'full.png')
+        project_partner_data['image_thumb'] = os.path.join(content_folder('project', id, 'image'), 'thumb.png')
+        project_partner_data['project_text'] = project.project_text
+        project_partner_data['start_date'] = project.start_date
+        project_partner_data['end_date'] = project.end_date
+        project_partner_data['status'] = project.status
         output.append(project_partner_data)
 
 
