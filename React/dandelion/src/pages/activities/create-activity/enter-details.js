@@ -128,6 +128,10 @@ export default function EnterActivityDetails(props) {
                       <input type="file" accept=".jpg,.png" onChange={handleImageChange} hidden />
                       {image ? <CheckIcon className="imageIcon" /> : <BackupIcon className="imageIcon" />}
                     </label>
+                    <div className="spacer" />
+                    <div className="file-name">
+                      {image ? <h3>{image.name}</h3> : null}
+                    </div>
                   </div>
                 </div>
                 <div className="inputItem">

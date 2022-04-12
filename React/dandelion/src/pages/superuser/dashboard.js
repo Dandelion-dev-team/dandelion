@@ -33,7 +33,7 @@ export default function SuperuserDashboard(props) {
             </div>
             <div className="middle-pane">
               <div className="projects-widget">
-                <h3>Projects</h3>
+                <h3>Activities</h3>
               </div>
               <div className="node-widget">
                 <h3>Node</h3>
