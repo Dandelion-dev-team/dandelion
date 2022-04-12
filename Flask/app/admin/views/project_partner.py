@@ -76,11 +76,13 @@ def add_project_partner_by_invite(project_id, school_id):
 def ListAllSchoolInvitations(school_id):
     invited_schools = ProjectPartner.query.\
         join(School).\
+        join(Project).\
         filter(School.id == school_id). \
         with_entities(ProjectPartner.project_id,
                       ProjectPartner.id,
                       ProjectPartner.school_id,
                       ProjectPartner.status,
+                      Project.title,
                       School.name)
 
     output = []
@@ -89,7 +91,7 @@ def ListAllSchoolInvitations(school_id):
             invited_data = {}
             invited_data['id'] = schools.id
             invited_data['inviting_school_name'] = schools.name
-            invited_data['project_title'] = schools.project_id
+            invited_data['project_title'] = schools.title
             output.append(invited_data)
 
     return jsonify({'Invitations of this school': output})
