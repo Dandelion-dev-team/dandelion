@@ -117,13 +117,14 @@
 
               .spacer {
                 width: 75%;
+                height: 100%;
               }
               .submit-btn {
                 height: 100%;
                 width: 20%;
                 display: flex;
-                align-items: flex-end;
-                justify-content: flex-end;
+                align-items: flex-start;
+                justify-content: flex-start;
 
                 .submitButton {
                   background-color: $accent;

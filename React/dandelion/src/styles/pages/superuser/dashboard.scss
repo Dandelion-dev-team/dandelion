@@ -52,7 +52,35 @@
         height: 44vh;
         border-radius: 20px;
         width: 100%;
-        padding: 20px;
+
+        .title {
+         // margin-top: 10%;
+          height: 25%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .activity-list {
+          height: 60%;
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+          justify-content: center;
+          align-items: center;
+          .activity {
+            display: flex;
+            flex-direction: row;
+            width: 80%;
+            .img {
+              width: 30%;
+
+            }
+            .name {
+              width: 65%;
+            }
+          }
+        }
+
 
         h3 {
           color: $primary;
@@ -74,7 +102,7 @@
           color: $primary;
           font-size: 1.6rem;
         }
-        img{
+        img {
           object-fit: contain;
           width: 100%;
           height: 90%;
@@ -97,48 +125,66 @@
         font-size: 1.6rem;
       }
 
-      .list{
+      .list {
         width: 100%;
         height: 60%;
         overflow-y: scroll;
-        .dandelion-link-item{
+        .dandelion-link-item {
           display: flex;
           align-items: center;
           justify-content: space-around;
           flex-direction: row;
           width: 100%;
           box-shadow: 2px 3px #d3d3d3;
-          height: 15%;
+          min-height: fit-content;
           border-radius: 20px;
           margin-bottom: 1.5rem;
           background-color: $accent;
           text-decoration: none;
-  
-          h3{
-            width: 70%;
-            color: black;
-            margin-bottom: 0;
-            margin-left: 10px;
-          }
-  
-          .link-icon{
-            color: black;
-            width: 20%;
-            height: 50%;
+
+          .item-title {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            flex-direction: row;
+            h3 {
+              width: 70%;
+              min-width: 70%;
+              font-size: 100%;
+              color: black;
+              margin-bottom: 0;
+              margin-left: 10px;
+            }
+
+            .link-icon {
+              color: black;
+              width: 20%;
+              height: 50%;
+            }
           }
         }
-        .dandelion-link-item:hover{
+        .dandelion-link-item:hover {
           background-color: #d4d926;
           cursor: pointer;
         }
       }
       .list::-webkit-scrollbar {
-          display: none;
+        display: none;
       }
-      .calendar{
+      .calendar {
         display: flex;
         justify-content: center;
         width: 100%;
+        height: 35%;
+        max-height: 35% !important;
+        background-color: red;
+
+        .superuser-calendar {
+          height: 100%;
+          width: 100%;
+        }
       }
     }
   }

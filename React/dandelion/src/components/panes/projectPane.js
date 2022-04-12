@@ -10,7 +10,6 @@ export default function ProjectPane(props) {
     //readRecord("/project/" + props.dataProp.Project.project_id + "/experiment", setExperiments)
   }, [])
 
-
   const cardClickCallback = (childData) => {
     navigate("/superuser/user-maintenance", {
       state: { experiment: childData },

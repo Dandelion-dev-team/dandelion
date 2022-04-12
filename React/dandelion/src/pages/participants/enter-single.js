@@ -6,10 +6,15 @@ import UnitCard from "../../components/cards/unitCard"
 import UnitHelpModal from "../../components/modals/unitHelpModal"
 import UnitItem from "../../components/unitItem"
 import { verify_superuser_storage } from "../../utils/logins"
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { createRecord, createRecordNavigate, uploadExperimentImage } from "../../utils/CRUD"
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+import {
+  createRecord,
+  createRecordNavigate,
+  uploadExperimentImage,
+} from "../../utils/CRUD"
 import Select from "react-select"
+import EnterObservationModal from "../../components/modals/enterObservationModal"
 
 export default function EnterObservations(props) {
   const [modal_shown, setModalShown] = useState("")
@@ -18,7 +23,7 @@ export default function EnterObservations(props) {
   const [combination_list, setCombinationList] = useState("")
   const [experiment_details, setExperimentDetails] = useState("")
   const [colour_index, setColourIndex] = useState(["#FFFF", "#FFFF", "#FFFF"])
-  const [row_index] = ["A", "B", "C", "D", "E"];
+  const [row_index] = ["A", "B", "C", "D", "E"]
   let grid_values = { colour: "#C4C4C4", code: "" }
   const [current_grid, setCurrentGrid] = useState(0)
   const [matrix, setMatrix] = useState(
@@ -28,6 +33,7 @@ export default function EnterObservations(props) {
   )
   const [dragged_item, setCurrentDraggedItem] = useState()
   const [logged, setLogged] = useState("")
+  const [observation_modal_shown, setObservationModalShown] = useState("")
 
   let a = new Array(32)
   const grid_letters = ["A", "B", "C", "D", "E"]
@@ -39,23 +45,23 @@ export default function EnterObservations(props) {
     if (verify_superuser_storage() == true) {
       console.log(props.location.state.variable)
 
-      let conditions = props.location.state.conditions;
+      let conditions = props.location.state.conditions
 
-      let copy = [...matrix];
+      let copy = [...matrix]
       conditions.forEach(condition => {
         condition.units.forEach(unit => {
           console.log(unit)
           let row = grid_letters.indexOf(unit.row)
-          let column = unit.column;
+          let column = unit.column
 
-          let position = ((column - 1) * 5) + (row);
-          let level = 0;
-          if (unit.cube_level = "top") {
-            level = 0;
-          } else if (unit.cube_level = "middle") {
-            level = 1;
-          } else if (unit.cube_level = "bottom") {
-            level = 2;
+          let position = (column - 1) * 5 + row
+          let level = 0
+          if ((unit.cube_level = "top")) {
+            level = 0
+          } else if ((unit.cube_level = "middle")) {
+            level = 1
+          } else if ((unit.cube_level = "bottom")) {
+            level = 2
           }
 
           if (copy[level][position].code != "SENSOR") {
@@ -65,9 +71,10 @@ export default function EnterObservations(props) {
               item: condition,
             }
           }
-        });
-      });
+        })
+      })
       setLogged(true)
+      setModalShown(true);
     } else {
       navigate("/signin")
     }
@@ -118,15 +125,15 @@ export default function EnterObservations(props) {
     }
   }
 
-  const setDraggedItem = childData => {
-  }
+  const setDraggedItem = childData => {}
 
-  const submitExperiment = prop => {
-  }
+  const submitExperiment = prop => {}
 
   if (typeof window !== `undefined` && logged) {
     return (
       <div>
+         {modal_shown ? <EnterObservationModal props={props.location.state.variable} />
+          : null}
         <div className="configure-container">
           <ToastContainer />
           <div className="content">
@@ -137,23 +144,24 @@ export default function EnterObservations(props) {
                   <h3>Observation:</h3>
                 </div>
                 <div className="item-input">
-                  {props.location.state.variable.levels.length > 0 ?
+                  {props.location.state.variable.levels.length > 0 ? (
                     <Select
                       name="authority_id_picker"
                       options={props.location.state.variable.levels}
                       // value={observation}
                       // onChange={setObservation}
-                      getOptionLabel={(level) => level.name}
-                      getOptionValue={(level) => level.id} 
+                      getOptionLabel={level => level.name}
+                      getOptionValue={level => level.id}
                     />
-                    :
+                  ) : (
                     <input
                       type="text"
                       //value={observation}
                       // placeholder=""
                       name="nameBox"
-                    //  onChange={handleLengthChange}
-                    />}
+                      //  onChange={handleLengthChange}
+                    />
+                  )}
                 </div>
               </div>
               <div className="inputItem">
