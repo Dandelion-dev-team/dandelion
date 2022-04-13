@@ -1,3 +1,5 @@
+import os
+
 from flask import abort, request, jsonify
 from flask_cors import cross_origin
 from flask_json import json_response
@@ -9,6 +11,7 @@ from app.models import ProjectPartner, School, project_partner, Project
 from app import db
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update, audit_delete
 from app.utils.functions import row2dict, jwt_user
+from app.utils.uploads import content_folder
 
 
 @admin.route('/project_partner', methods=['GET'])
@@ -105,10 +108,12 @@ def get_invitation_details(project_partner_id):
     invitations = ProjectPartner.query.\
         join(School).\
         join(Project).\
+        filter(ProjectPartner.id == project_partner_id).\
         with_entities(ProjectPartner.project_id,
                       ProjectPartner.id,
                       ProjectPartner.school_id,
                       ProjectPartner.status,
+                      Project.id,
                       Project.title,
                       Project.start_date,
                       Project.end_date,
@@ -117,18 +122,20 @@ def get_invitation_details(project_partner_id):
 
     output = []
     for invites in invitations:
-        invitation_details = {} # It works, but it doens't return the correct invitations
-        invitation_details['id'] = project_partner_id
-        invitation_details['inviting_school_name'] = invites.name
-        invitation_details['project_title'] = invites.title
-        invitation_details['start_date'] = invites.start_date
-        invitation_details['end_date'] = invites.end_date
-        invitation_details['description'] = invites.description
-        invitation_details['test']
-        # invitation_details['image_full'] = invites.title
-        # invitation_details['image_thumb'] = invites.title
-        output.append(invitation_details)
-
+        if invites.status == 'invited':
+            invitation_details = {} # It works, but it doens't return the correct invitations
+            invitation_details['id'] = project_partner_id
+            invitation_details['inviting_school_name'] = invites.name
+            invitation_details['project_title'] = invites.title
+            invitation_details['start_date'] = invites.start_date
+            invitation_details['end_date'] = invites.end_date
+            invitation_details['description'] = invites.description
+            # invitation_details['test']
+            invitation_details['image_full'] = os.path.join(content_folder('project', Project.id, 'image'), 'full.png')
+            invitation_details['image_thumb'] = os.path.join(content_folder('project', Project.id, 'image'), 'thumb.png')
+            output.append(invitation_details)
+        else:
+            return jsonify({'This project partner was not invited'})
     return jsonify({'Invitation details': output})
 
 
