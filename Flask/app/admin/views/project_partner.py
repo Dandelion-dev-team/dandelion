@@ -70,7 +70,7 @@ def add_project_partner_by_invite(project_id, school_id):
         abort(409, e.orig.msg)
 
 
-@admin.route('/project_partner/<int:school_id>', methods=['GET']) #testing
+@admin.route('/project_partner/<int:school_id>', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def ListAllSchoolInvitations(school_id):
@@ -94,7 +94,59 @@ def ListAllSchoolInvitations(school_id):
             invited_data['project_title'] = schools.title
             output.append(invited_data)
 
-    return jsonify({'Invitations of this school': output})
+    return jsonify({'Invitations in this school': output})
+
+
+@admin.route('/project_partner/invitation_details/<int:project_partner_id>', methods=['GET'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
+@jwt_required()
+def get_invitation_details(project_partner_id):
+
+    invitations = ProjectPartner.query.\
+        join(School).\
+        join(Project).\
+        with_entities(ProjectPartner.project_id,
+                      ProjectPartner.id,
+                      ProjectPartner.school_id,
+                      ProjectPartner.status,
+                      Project.title,
+                      Project.start_date,
+                      Project.end_date,
+                      Project.description,
+                      School.name)
+
+    output = []
+    for invites in invitations:
+        invitation_details = {} # It works, but it doens't return the correct invitations
+        invitation_details['id'] = project_partner_id
+        invitation_details['inviting_school_name'] = invites.name
+        invitation_details['project_title'] = invites.title
+        invitation_details['start_date'] = invites.start_date
+        invitation_details['end_date'] = invites.end_date
+        invitation_details['description'] = invites.description
+        invitation_details['test']
+        # invitation_details['image_full'] = invites.title
+        # invitation_details['image_thumb'] = invites.title
+        output.append(invitation_details)
+
+    return jsonify({'Invitation details': output})
+
+
+    # {
+    #     "id": 12,
+    #     "inviting_school_name": "Leith Academy",
+    #     "project_title": "Lighting variation project",
+    #     "start_date": "2022-04-30",
+    #     "end_date": "2022-5-31",
+    #     "description": "How do different lighting schedules affect plant growth?",
+    #     "test": "We are going to investigate...",
+    #     "image_full": "/content/image/project/43/full.png",
+    #     "image_thumb": "/content/image/project/43/thumb.png"
+    # }
+
+
+
+
 
 
 @admin.route('/project_partner/<int:id>', methods=['GET'])
