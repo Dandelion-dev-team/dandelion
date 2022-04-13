@@ -118,19 +118,20 @@ def get_invitation_details(project_partner_id):
                       Project.start_date,
                       Project.end_date,
                       Project.description,
+                      Project.project_text,
                       School.name)
 
     output = []
     for invites in invitations:
         if invites.status == 'invited':
-            invitation_details = {} # It works, but it doens't return the correct invitations
+            invitation_details = {}
             invitation_details['id'] = project_partner_id
             invitation_details['inviting_school_name'] = invites.name
             invitation_details['project_title'] = invites.title
             invitation_details['start_date'] = invites.start_date
             invitation_details['end_date'] = invites.end_date
             invitation_details['description'] = invites.description
-            # invitation_details['test']
+            invitation_details['text'] = invites.project_text #This slot calls the project_text from the Project table. Did you mean "text" instead of "test" on github issue?
             invitation_details['image_full'] = os.path.join(content_folder('project', Project.id, 'image'), 'full.png')
             invitation_details['image_thumb'] = os.path.join(content_folder('project', Project.id, 'image'), 'thumb.png')
             output.append(invitation_details)
