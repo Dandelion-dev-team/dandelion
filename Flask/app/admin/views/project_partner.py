@@ -77,9 +77,9 @@ def add_project_partner_by_invite(project_id, school_id):
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def ListAllSchoolInvitations(school_id):
-    invited_schools = ProjectPartner.query.\
-        join(School).\
-        join(Project).\
+    invited_schools = ProjectPartner.query. \
+        join(School). \
+        join(Project). \
         filter(School.id == school_id). \
         with_entities(ProjectPartner.project_id,
                       ProjectPartner.id,
@@ -104,11 +104,10 @@ def ListAllSchoolInvitations(school_id):
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def get_invitation_details(project_partner_id):
-
-    invitations = ProjectPartner.query.\
-        join(School).\
-        join(Project).\
-        filter(ProjectPartner.id == project_partner_id).\
+    invitations = ProjectPartner.query. \
+        join(School). \
+        join(Project). \
+        filter(ProjectPartner.id == project_partner_id). \
         with_entities(ProjectPartner.project_id,
                       ProjectPartner.id,
                       ProjectPartner.school_id,
@@ -131,30 +130,15 @@ def get_invitation_details(project_partner_id):
             invitation_details['start_date'] = invites.start_date
             invitation_details['end_date'] = invites.end_date
             invitation_details['description'] = invites.description
-            invitation_details['text'] = invites.project_text #This slot calls the project_text from the Project table. Did you mean "text" instead of "test" on github issue?
+            invitation_details[
+                'text'] = invites.project_text  # This slot calls the project_text from the Project table. Did you mean "text" instead of "test" on github issue?
             invitation_details['image_full'] = os.path.join(content_folder('project', Project.id, 'image'), 'full.png')
-            invitation_details['image_thumb'] = os.path.join(content_folder('project', Project.id, 'image'), 'thumb.png')
+            invitation_details['image_thumb'] = os.path.join(content_folder('project', Project.id, 'image'),
+                                                             'thumb.png')
             output.append(invitation_details)
         else:
             return jsonify({'This project partner was not invited'})
     return jsonify({'Invitation details': output})
-
-
-    # {
-    #     "id": 12,
-    #     "inviting_school_name": "Leith Academy",
-    #     "project_title": "Lighting variation project",
-    #     "start_date": "2022-04-30",
-    #     "end_date": "2022-5-31",
-    #     "description": "How do different lighting schedules affect plant growth?",
-    #     "test": "We are going to investigate...",
-    #     "image_full": "/content/image/project/43/full.png",
-    #     "image_thumb": "/content/image/project/43/thumb.png"
-    # }
-
-
-
-
 
 
 @admin.route('/project_partner/<int:id>', methods=['GET'])
@@ -199,6 +183,35 @@ def update_project_partner(id):
         except Exception as e:
             db.session.rollback()
             abort(409)
+
+
+@admin.route('/project_partner/update_invitation/<int:project_partner_id>', methods=['PUT'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
+@jwt_required()
+def update_project_partner_status(project_partner_id):
+    current_user = jwt_user(get_jwt_identity())
+    project_partner_status_to_update = ProjectPartner.query.get_or_404(project_partner_id)
+    new_data = request.get_json()
+
+    project_partner_status_to_update.status = new_data['status']
+    new_status = project_partner_status_to_update.status
+
+    if new_status == 'accepted' or new_status == 'declined':
+        audit_details = prepare_audit_details(inspect(ProjectPartner), project_partner_status_to_update, delete=False)
+        message = "Project partner status has been updated"
+        if len(audit_details) > 0:
+            try:
+                db.session.commit()
+                audit_update("project_partner", project_partner_status_to_update.id, audit_details, current_user.id)
+                return {"message": message}
+
+            except Exception as e:
+                db.session.rollback()
+                abort(409)
+    else:
+        message = "Status value wrong. It should be either 'accepted' or 'declined'"
+
+    return jsonify({message})
 
 
 @admin.route('/project_partner/<int:id>', methods=['DELETE'])
