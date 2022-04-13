@@ -69,7 +69,7 @@ export default function NodeMaintenance(props) {
       })
       createRecord("/node", body);
     } else {
-      console.log("did not have all information")
+      toast.error("More information needed.")
     }
   }
 
@@ -91,7 +91,7 @@ export default function NodeMaintenance(props) {
       });
       updateRecord("/node/" + editing_node.node_id, body)
     } else {
-      console.log("did not have all information")
+      toast.error("More information needed.")
     }
   }
   if (logged) {

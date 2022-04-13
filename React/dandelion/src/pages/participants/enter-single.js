@@ -6,11 +6,10 @@ import { verify_superuser_storage } from "../../utils/logins"
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { createRecord, createRecordNavigate, uploadExperimentImage } from "../../utils/CRUD"
-import Select from "react-select"
 import EnterObservationModal from "../../components/modals/enterObservationModal"
 
 export default function EnterObservations(props) {
-  const [modal_shown, setModalShown] = useState("")
+  const [modal_shown, setModalShown] = useState(false)
   const [treatment_variables, setTreatment] = useState("")
   const [response_variables, setResponse] = useState("")
   const [combination_list, setCombinationList] = useState("")
@@ -19,6 +18,7 @@ export default function EnterObservations(props) {
   const [row_index] = ["A", "B", "C", "D", "E"]
   let grid_values = { colour: "#C4C4C4", code: "" }
   const [current_grid, setCurrentGrid] = useState(0)
+
   const [matrix, setMatrix] = useState(
     Array.from({ length: 3 }, () =>
       Array.from({ length: 25 }, () => grid_values)
@@ -67,7 +67,7 @@ export default function EnterObservations(props) {
         })
       })
       setLogged(true)
-      setModalShown(true);
+      setModalShown(false);
     } else {
       navigate("/signin")
     }
@@ -104,73 +104,26 @@ export default function EnterObservations(props) {
   }
 
   const setGridData = e => {
-    if (dragged_item) {
-      let copy = [...matrix]
-      if (copy[e.gridLevel][e.gridPosition].code != "SENSOR") {
-        copy[e.gridLevel][e.gridPosition] = {
-          colour: dragged_item.colour,
-          code: dragged_item.code,
-          item: dragged_item.item,
-        }
-      } else {
-      }
-      setMatrix(copy)
+    console.log(e.gridData);
+    if(e.gridData.code !== "" && e.gridData.colour !== "#C4C4C4"){
+      setModalShown(true)
     }
   }
 
-  const setDraggedItem = childData => {}
-
+  const saveObservation = e => {
+    console.log(e);
+    closeModal()
+  }
   const submitExperiment = prop => {}
 
   if (typeof window !== `undefined` && logged) {
     return (
       <div>
-         {modal_shown ? <EnterObservationModal props={props.location.state.variable} />
+         {modal_shown ? <EnterObservationModal props={props.location.state.variable} saveObservation={saveObservation} closeModal={closeModal} />
           : null}
         <div className="configure-container">
-          <ToastContainer />
-          <div className="content">
-            <div className="condition-list">
-              <h3>{props.location.state.variable.name}</h3>
-              <div className="inputItem">
-                <div className="item-title">
-                  <h3>Observation:</h3>
-                </div>
-                <div className="item-input">
-                  {props.location.state.variable.levels.length > 0 ? (
-                    <Select
-                      name="authority_id_picker"
-                      options={props.location.state.variable.levels}
-                      // value={observation}
-                      // onChange={setObservation}
-                      getOptionLabel={level => level.name}
-                      getOptionValue={level => level.id}
-                    />
-                  ) : (
-                    <input
-                      type="text"
-                      //value={observation}
-                      // placeholder=""
-                      name="nameBox"
-                      //  onChange={handleLengthChange}
-                    />
-                  )}
-                </div>
-              </div>
-              <div className="inputItem">
-                <div className="item-title">
-                  <h3>Comment:</h3>
-                </div>
-                <div className="item-input">
-                  <textarea
-                    //value={comment}
-                    //onChange={onCommentChange}
-                    type="date"
-                    name="codeBox"
-                  />
-                </div>
-              </div>
-            </div>
+          <ToastContainer position="top-center"/>
+          <div className="content">            
             <div className="grid-container">
               <div className="level-row">
                 <div
@@ -250,7 +203,7 @@ export default function EnterObservations(props) {
                             return (
                               <ObservationItem
                                 key={idx}
-                                setItemCallback={setGridData}
+                                clickItem={setGridData}
                                 gridLevel={current_grid}
                                 gridPosition={idx}
                                 gridData={matrix[current_grid][idx]}

@@ -137,7 +137,6 @@ export default function ParticipantPane(props) {
     let user_id = localStorage.getItem("user_id");
     let today = new Date();
     let end_date = new Date(props.dataProp.end_date);
-    console.log(props.dataProp);
     if (today < end_date) {
       setExperimentFinished(false);
     } else {

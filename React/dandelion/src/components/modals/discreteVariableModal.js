@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import { createRecord, readRecord } from "../../utils/CRUD"
 import Select from "react-select"
 import DiscreteCard from "../cards/discreteCard"
+import { toast } from "react-toastify"
 
 export default function DiscreteVariableModal(props) {
   const [name, setName] = useState("")
@@ -77,10 +78,9 @@ export default function DiscreteVariableModal(props) {
         is_sensor_quantity: false,
         quantity_id: quantity_check,
       })
-      console.log(body)
       props.callback(body)
     } else {
-      console.log("did not have all information")
+      toast.error("More information needed.")
     }
   }
 

@@ -65,7 +65,7 @@ export default function AuthMaintenance(props) {
       let body = JSON.stringify({name: auth_name, telephone: telephone, email: email })
       createRecord("/authority", body);
     } else {
-      console.log("did not have all information")
+      toast.error("More information needed.")
     }
   }
 
@@ -80,7 +80,7 @@ export default function AuthMaintenance(props) {
       updateRecord("/authority/" + editing_id, body);
     }else 
     {
-      console.log("did not have all the information")
+      toast.error("More information needed.")
     }
   }
 
