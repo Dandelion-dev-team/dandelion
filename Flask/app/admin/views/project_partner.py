@@ -1,3 +1,5 @@
+import os
+
 from flask import abort, request, jsonify
 from flask_cors import cross_origin
 from flask_json import json_response
@@ -9,6 +11,7 @@ from app.models import ProjectPartner, School, project_partner, Project
 from app import db
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update, audit_delete
 from app.utils.functions import row2dict, jwt_user
+from app.utils.uploads import content_folder
 
 
 @admin.route('/project_partner', methods=['GET'])
@@ -74,24 +77,68 @@ def add_project_partner_by_invite(project_id, school_id):
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def ListAllSchoolInvitations(school_id):
-    invited_schools = ProjectPartner.query.\
-        join(School).\
+    invited_schools = ProjectPartner.query. \
+        join(School). \
+        join(Project). \
         filter(School.id == school_id). \
         with_entities(ProjectPartner.project_id,
+                      ProjectPartner.id,
                       ProjectPartner.school_id,
                       ProjectPartner.status,
+                      Project.title,
                       School.name)
 
     output = []
     for schools in invited_schools:
         if schools.status == 'invited':
             invited_data = {}
-            invited_data['id'] = schools.project_id
+            invited_data['id'] = schools.id
             invited_data['inviting_school_name'] = schools.name
-            invited_data['project_title'] = schools.project_id
+            invited_data['project_title'] = schools.title
             output.append(invited_data)
 
-    return jsonify({'Invitations of this school': output})
+    return jsonify({'Invitations in this school': output})
+
+
+@admin.route('/project_partner/invitation_details/<int:project_partner_id>', methods=['GET'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
+@jwt_required()
+def get_invitation_details(project_partner_id):
+    invitations = ProjectPartner.query. \
+        join(School). \
+        join(Project). \
+        filter(ProjectPartner.id == project_partner_id). \
+        with_entities(ProjectPartner.project_id,
+                      ProjectPartner.id,
+                      ProjectPartner.school_id,
+                      ProjectPartner.status,
+                      Project.id,
+                      Project.title,
+                      Project.start_date,
+                      Project.end_date,
+                      Project.description,
+                      Project.project_text,
+                      School.name)
+
+    output = []
+    for invites in invitations:
+        if invites.status == 'invited':
+            invitation_details = {}
+            invitation_details['id'] = project_partner_id
+            invitation_details['inviting_school_name'] = invites.name
+            invitation_details['project_title'] = invites.title
+            invitation_details['start_date'] = invites.start_date
+            invitation_details['end_date'] = invites.end_date
+            invitation_details['description'] = invites.description
+            invitation_details[
+                'text'] = invites.project_text  # This slot calls the project_text from the Project table. Did you mean "text" instead of "test" on github issue?
+            invitation_details['image_full'] = os.path.join(content_folder('project', Project.id, 'image'), 'full.png')
+            invitation_details['image_thumb'] = os.path.join(content_folder('project', Project.id, 'image'),
+                                                             'thumb.png')
+            output.append(invitation_details)
+        else:
+            return jsonify({'This project partner was not invited'})
+    return jsonify({'Invitation details': output})
 
 
 @admin.route('/project_partner/<int:id>', methods=['GET'])
@@ -136,6 +183,35 @@ def update_project_partner(id):
         except Exception as e:
             db.session.rollback()
             abort(409)
+
+
+@admin.route('/project_partner/update_invitation/<int:project_partner_id>', methods=['PUT'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
+@jwt_required()
+def update_project_partner_status(project_partner_id):
+    current_user = jwt_user(get_jwt_identity())
+    project_partner_status_to_update = ProjectPartner.query.get_or_404(project_partner_id)
+    new_data = request.get_json()
+
+    project_partner_status_to_update.status = new_data['status']
+    new_status = project_partner_status_to_update.status
+
+    if new_status == 'accepted' or new_status == 'declined':
+        audit_details = prepare_audit_details(inspect(ProjectPartner), project_partner_status_to_update, delete=False)
+        message = "Project partner status has been updated"
+        if len(audit_details) > 0:
+            try:
+                db.session.commit()
+                audit_update("project_partner", project_partner_status_to_update.id, audit_details, current_user.id)
+                return {"message": message}
+
+            except Exception as e:
+                db.session.rollback()
+                abort(409)
+    else:
+        message = "Status value wrong. It should be either 'accepted' or 'declined'"
+
+    return jsonify({message})
 
 
 @admin.route('/project_partner/<int:id>', methods=['DELETE'])
