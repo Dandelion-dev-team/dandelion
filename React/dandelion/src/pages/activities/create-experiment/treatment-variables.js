@@ -9,7 +9,7 @@ import { navigate } from "gatsby"
 import VariableTypeModal from "../../../components/modals/variableTypeModal"
 import DiscreteVariableModal from "../../../components/modals/discreteVariableModal"
 import { verify_superuser_storage } from "../../../utils/logins"
-import { readRecord } from "../../../utils/CRUD"
+import { readAdminRecord, readRecord } from "../../../utils/CRUD"
 import { ToastContainer } from "react-toastify"
 
 export default function TreatmentVariables(props) {
@@ -41,13 +41,12 @@ export default function TreatmentVariables(props) {
   }
 
   const checkboxCallback = e => {
-    // let val = e.data
-    // if (e.value == true) {
-    //   updateSelectedList(arr => [...arr, val])
-    // } else {
-    //   updateSelectedList(selected_list.filter(item => item !== val))
-    // }
-    console.log(e);
+    let val = e.data
+    if (e.value == true) {
+      readAdminRecord("/variable/" + val.id).then(data => updateSelectedList(arr => [...arr, data]))
+    } else {
+      updateSelectedList(selected_list.filter(item => item !== val))
+    }
   }
 
   const handleDetailCallback = index => {
