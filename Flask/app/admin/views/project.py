@@ -11,6 +11,7 @@ from app.admin import admin
 from app.models import Project, ProjectPartner
 from app import db
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update, audit_delete
+from app.utils.authorisation import check_authorisation
 from app.utils.functions import row2dict, jwt_user
 from app.utils.images import image_processing
 from app.utils.uploads import get_uploaded_file, content_folder
@@ -29,14 +30,17 @@ def listProject():
 @jwt_required()
 def add_project():
     current_user = jwt_user(get_jwt_identity())
+
+    authorised = check_authorisation(current_user, "school_user")
+
     data = request.get_json()
     project = Project(
-        title = data['title'],
-        description = data['description'],
-        project_text = data['project_text'],
-        start_date = parser.parse(data['start_date']),
-        end_date = parser.parse(data['end_date']),
-        status = data['status'],
+        title=data['title'],
+        description=data['description'],
+        project_text=data['project_text'],
+        start_date=parser.parse(data['start_date']),
+        end_date=parser.parse(data['end_date']),
+        status=data['status'],
     )
 
     db.session.add(project)
@@ -51,10 +55,10 @@ def add_project():
         abort(409, e.orig.msg)
 
     project_partner = ProjectPartner(
-        school_id = current_user.school.id,
-        project_id = project.id,
-        is_lead_partner = True,
-        status = 'active'
+        school_id=current_user.school.id,
+        project_id=project.id,
+        is_lead_partner=True,
+        status='active'
     )
 
     db.session.add(project_partner)
@@ -126,9 +130,9 @@ def delete_project(id):
     current_user = jwt_user(get_jwt_identity())
     project_to_delete = Project.query.filter_by(id=id).first()
     if not project_to_delete:
-        return {"message" : "No Project found"}
+        return {"message": "No Project found"}
 
-    audit_details = prepare_audit_details(inspect(Project), project_to_delete, delete = True)
+    audit_details = prepare_audit_details(inspect(Project), project_to_delete, delete=True)
     db.session.delete(project_to_delete)
     return_status = 200
     message = "The Project has been deleted"
@@ -136,16 +140,15 @@ def delete_project(id):
     try:
         db.session.commit()
         audit_delete("authority", project_to_delete.id, audit_details, current_user.id)
-        return {"message" : message, "id": project_to_delete.id}
+        return {"message": message, "id": project_to_delete.id}
 
     except Exception as e:
         db.session.rollback()
-        abort(409,e.orig.msg)
+        abort(409, e.orig.msg)
 
 
 @admin.route('/project/<int:id>/uploadImage', methods=['POST'])
 def upload_project_image(id):
-
     pic, filename = get_uploaded_file(request)
     image_processing(pic, 'project', id, filename)
 
