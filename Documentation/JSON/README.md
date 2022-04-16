@@ -10,5 +10,13 @@ The files in this folder contain benchmark examples of JSON structures used to p
 * **POST_experiment_with_new_variable.json**: Details of new experiment to be created including some new variables
 * **POST_node_data.json**: Data received from a node
 * **POST_project.json**: Details of a new project to be created
-* **RESPONSE_conditions.json**: Ciondition details for a specific experiment
+* **RESPONSE_conditions.json**: Condition details for a specific experiment
+* **RESPONSE_experiment_data.json**: Experiment data for display as line or grouped bar chart
 * **Validation.json**: Form validation details for specified object
+
+
+
+## RESPONSE_experiment_data.json
+
+**images** element is used to render image links for observations that have them
+**milestomes** are "once" variables that may be displayed on the chart. They correspond to particular conditions - e.g. "germination time"
