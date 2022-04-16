@@ -71,7 +71,6 @@
           .experiment-list {
             display: flex;
             flex-direction: column;
-            justify-content: center;
             height: 80%;
           }
 
@@ -81,7 +80,7 @@
             margin-left: auto;
 
             .spacer {
-              width: 65%;
+              width: 40%;
             }
 
             .submitButton {

@@ -17,8 +17,7 @@ export default function ExperimentComponent(props) {
   var className = isActive ? "active" : ""
 
   return (
-    <div>
-      {experiments.data
+      experiments.data
         ? experiments.data.map(experiment => (
             <div
               className="preset-card"
@@ -40,7 +39,6 @@ export default function ExperimentComponent(props) {
               </div>
             </div>
           ))
-        : <h3>No Experiments Found.</h3>}
-    </div>
+        : <h3>No Experiments Found.</h3>
   )
 }

@@ -164,6 +164,21 @@
     .continue-btn {
       margin-left: auto;
       align-items: flex-start;
+      .back-button {
+        background-color: $accent;
+        color: $primary;
+        font-size: 1.6rem;
+        margin: 1.25rem 0px;
+        padding: 15px;
+        padding-left: 50px;
+        padding-right: 50px;
+        border: none;
+        cursor: pointer;
+        border-radius: 10px;
+      }
+      .back-button:hover {
+        background-color: #d4d926;
+      }
       .submitButton {
         background-color: $accent;
         color: $primary;

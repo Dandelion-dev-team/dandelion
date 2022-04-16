@@ -19,14 +19,15 @@ export default function VariableSelectedComponent(props) {
         <div className="sub-text">
           {props.data.levels.length <= 0 ? (
             <h3>
-              Unit: {props.data.unit}, {props.data.lower_limit} -{" "}
+              Unit: {props.data.unit}, {props.data.lower_limit} - {" "}
               {props.data.upper_limit}
             </h3>
           ) : (
-            props.data.levels.map(variable => <h3>{variable.name}, &nbsp;</h3>)
+            props.data.levels.map(variable => <h3>{variable.name}</h3>)
           )}
         </div>
       </div>
+      <div className="spacer"/>
       <div className="button-content">
         <input
           value="Edit"

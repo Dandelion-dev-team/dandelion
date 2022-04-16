@@ -7,6 +7,7 @@ import TuneIcon from "@mui/icons-material/Tune"
 import { verify_superuser_storage } from "../../../utils/logins"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { readAdminRecord, readRecord } from "../../../utils/CRUD"
 
 export default function PredefinedExperiments(props) {
   const [search_value, changeSearch] = useState("")
@@ -20,16 +21,7 @@ export default function PredefinedExperiments(props) {
   }
 
   const handleCallback = childData => {
-    // fetch(process.env.ROOT_URL + "/experiment_full/" + childData.id, {
-    //   method: "GET",
-    //   headers: new Headers({
-    //     "Cache-Control": "no-cache, no-store, must-revalidate",
-    //     Pragma: "no-cache",
-    //     Expires: 0,
-    //   }),
-    // })
-    //   .then(response => response.json())
-    //   .then(data => setSelectedExperiment(data))
+    readAdminRecord("/experiment/" + childData.id).then(data => setSelectedExperiment(data));
   }
 
   useEffect(() => {
@@ -74,6 +66,15 @@ export default function PredefinedExperiments(props) {
                     <ExperimentComponent parentCallback={handleCallback} />
                   </div>
                   <div className="use-own-btn">
+                    <button
+                      className="submitButton"
+                      onClick={() => {
+                        if (typeof window !== `undefined`) {
+                          navigate("/superuser/project-maintenance/")}
+                      }}
+                    >
+                      Back
+                    </button>
                     <div className="spacer" />
                     <button
                       className="submitButton"
@@ -87,7 +88,7 @@ export default function PredefinedExperiments(props) {
                       }}
                     >
                       Create Own Experiment
-                    </button>
+                    </button>                
                   </div>
                 </div>
               </div>
