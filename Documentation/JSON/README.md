@@ -20,4 +20,4 @@ The files in this folder contain benchmark examples of JSON structures used to p
 
 **images** element is used to render image links for observations that have them
 
-**milestomes** are "once" variables that may be displayed on the chart. They correspond to particular conditions - e.g. "germination time"
+**milestones** are "once" variables that may be displayed on the chart. They correspond to particular conditions - e.g. "germination time"
