@@ -1,238 +1,256 @@
-.data-container {
+.data{
   background: #2e5641;
-  color: $white;
+  height: 100vh;
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  overflow-y: auto;
-  .data-content {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  overflow-y: hidden;
+
+  @include media("<=tablet") {
+    height: 100%;
+    width: 100vh;
+  }
+
+  @include media("<=phone") {
+    height: 100%;
     width: 100%;
-    height: 75%;
-    border-radius: 20px;
-    margin-top: 7.5%;
-
-    @include media("<=phone") {
-      flex-direction: column;
-    }
-
-    .generate-btn {
-      margin-left: auto;
-      align-items: flex-start;
-
-      @include media("<=phone") {
-        margin-top: 5%;
-        margin-bottom: 5%;
-      }
-
-      .submitButton {
-        background-color: $accent;
-        color: $primary;
-        font-size: 1.6rem;
-        margin-right: 1rem;
-        padding: 15px;
-        border: none;
-        cursor: pointer;
-        border-radius: 10px;
-      }
-      .submitButton:hover {
-        background-color: #d4d926;
-      }
-    }
-
-    .filter-list {
-      width: 40%;
+  }
+  .data-container {
+    background: #2e5641;
+    color: $white;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    overflow-y: auto;
+    .data-content {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       align-items: center;
-      justify-content: flex-start;
-      z-index: 7;
-      background-color: white;
-      color: black;
-      height: 86vh;
-      border-top-right-radius: 20px;
-
+      width: 100%;
+      height: 75%;
+      border-radius: 20px;
+      margin-top: 7.5%;
+  
       @include media("<=phone") {
-        width: 100%;
-        border-radius: 20px;
-        height: 100%;
+        flex-direction: column;
+        margin-top: 30%;
       }
-
-      .title {
-        height: 15%;
-        width: 100%;
+  
+      .generate-btn {
+        margin-left: auto;
+        align-items: flex-start;
+  
+        @include media("<=phone") {
+          margin-top: 5%;
+          margin-bottom: 5%;
+        }
+  
+        .submitButton {
+          background-color: $accent;
+          color: $primary;
+          font-size: 1.6rem;
+          margin-right: 1rem;
+          padding: 15px;
+          border: none;
+          cursor: pointer;
+          border-radius: 10px;
+        }
+        .submitButton:hover {
+          background-color: #d4d926;
+        }
+      }
+  
+      .filter-list {
+        width: 40%;
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        border-radius: 20px;
-        h3 {
-          color: black;
-          font-size: 2rem;
-          font-family: "Archivo Narrow";
-          letter-spacing: 0.1mm;
-          margin-bottom: 0;
-
-          @include media("<=phone") {
-            margin-top: 1rem;
-            margin-bottom: 1rem;
-          }
+        justify-content: flex-start;
+        z-index: 7;
+        background-color: white;
+        color: black;
+        height: 86vh;
+        border-top-right-radius: 20px;
+  
+        @include media("<=phone") {
+          width: 100%;
+          border-radius: 20px;
+          height: 100%;
         }
-      }
-      .filters {
-        width: 100%;
-        height: 75%;
-        border-top: 1px solid #c8c8c8;
-
-        .tag-block {
+  
+        .title {
+          height: 15%;
+          width: 100%;
           display: flex;
-          flex-direction: row;
-          .tag-item {
-            width: 7rem;
-            height: 4rem;
-            background-color: #8c77ce;
-            border-radius: 10px;
-            box-shadow: 2px 3px #d3d3d3;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-right: 1rem;
-            h3 {
-              margin-bottom: 0;
-              color: white;
-              font-size: 100%;
-              text-align: center;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          border-radius: 20px;
+          h3 {
+            color: black;
+            font-size: 2rem;
+            font-family: "Archivo Narrow";
+            letter-spacing: 0.1mm;
+            margin-bottom: 0;
+  
+            @include media("<=phone") {
+              margin-top: 1rem;
+              margin-bottom: 1rem;
             }
           }
         }
-
-        .school-block {
-          flex-direction: row;
-          justify-content: space-around;
-          display: grid;
-          grid-template-columns: 33% 33% 33%;
-          grid-template-rows: 2rem;
-
-          @include media("<=phone") {
-            grid-template-columns: 45% 45%;
-            grid-template-rows: 3rem;
-          }
-
-          .school-item {
-            width: 100%;
-            height: 2rem;
+        .filters {
+          width: 100%;
+          height: 75%;
+          border-top: 1px solid #c8c8c8;
+  
+          .tag-block {
             display: flex;
             flex-direction: row;
-            h3 {
-              color: black;
-              margin-left: 1rem;
-              font-size: 100%;
-              margin-bottom: 0;
+            .tag-item {
+              width: 7rem;
+              height: 4rem;
+              background-color: #8c77ce;
+              border-radius: 10px;
+              box-shadow: 2px 3px #d3d3d3;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              margin-right: 1rem;
+              h3 {
+                margin-bottom: 0;
+                color: white;
+                font-size: 100%;
+                text-align: center;
+              }
             }
           }
-        }
-
-        .project-block {
-          flex-direction: row;
-          justify-content: space-around;
-          display: grid;
-          grid-template-columns: 33% 33% 33%;
-          grid-template-rows: 2rem;
-          @include media("<=phone") {
-            grid-template-columns: 45% 45%;
-            grid-template-rows: 3rem;
-          }
-          .project-item {
-            width: 100%;
-            height: 2rem;
-            display: flex;
+  
+          .school-block {
             flex-direction: row;
-            h3 {
-              color: black;
-              margin-left: 1rem;
-              font-size: 100%;
-              margin-bottom: 0;
+            justify-content: space-around;
+            display: grid;
+            grid-template-columns: 33% 33% 33%;
+            grid-template-rows: 2rem;
+  
+            @include media("<=phone") {
+              grid-template-columns: 45% 45%;
+              grid-template-rows: 3rem;
+            }
+  
+            .school-item {
+              width: 100%;
+              height: 2rem;
+              display: flex;
+              flex-direction: row;
+              h3 {
+                color: black;
+                margin-left: 1rem;
+                font-size: 100%;
+                margin-bottom: 0;
+              }
+            }
+          }
+  
+          .project-block {
+            flex-direction: row;
+            justify-content: space-around;
+            display: grid;
+            grid-template-columns: 33% 33% 33%;
+            grid-template-rows: 2rem;
+            @include media("<=phone") {
+              grid-template-columns: 45% 45%;
+              grid-template-rows: 3rem;
+            }
+            .project-item {
+              width: 100%;
+              height: 2rem;
+              display: flex;
+              flex-direction: row;
+              h3 {
+                color: black;
+                margin-left: 1rem;
+                font-size: 100%;
+                margin-bottom: 0;
+              }
             }
           }
         }
-      }
-      .card-list::-webkit-scrollbar {
-        display: none; /* for Chrome, Safari, and Opera */
+        .card-list::-webkit-scrollbar {
+          display: none; /* for Chrome, Safari, and Opera */
+        }
       }
     }
-  }
-  .spacer {
-    width: 5%;
-  }
-  .data-pane {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 50%;
-    height: 85vh;
-
-    @include media("<=phone") {
-      width: 100%;
-      margin-top: 10%;
+    .spacer {
+      width: 5%;
     }
-
-    .tabs {
-      height: 6%;
-      width: 30%;
+    .data-pane {
       display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-
+      flex-direction: column;
+      justify-content: center;
+      width: 50%;
+      height: 85vh;
+  
       @include media("<=phone") {
         width: 100%;
-        height: 10%;
+        margin-top: 10%;
       }
-      
-      .tab {
-        width: 49%;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
+  
+      .tabs {
+        height: 6%;
+        width: 30%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+  
+        @include media("<=phone") {
+          width: 100%;
+          height: 10%;
+        }
+        
+        .tab {
+          width: 49%;
+          border-top-left-radius: 10px;
+          border-top-right-radius: 10px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+  
+          .icon {
+            color: $primary;
+          }
+        }
+        .tab:hover {
+          cursor: pointer;
+        }
+      }
+      .pane-content {
+        background-color: #f7f8ff;
+        height: 94%;
+        width: 100%;
+        border-top-right-radius: 20px;
         display: flex;
         justify-content: center;
-        align-items: center;
-
-        .icon {
-          color: $primary;
+  
+        @include media("<=phone") {
+          border-top-right-radius: 0px;
+        }
+  
+        .chart-table-view {
+          width: 90%;
+          height: 80%;
+          margin-top: 3%;
+          overflow-y: auto;
+          color: black;
+        }
+        .friends-list::-webkit-scrollbar {
+          display: none; /* for Chrome, Safari, and Opera */
         }
       }
-      .tab:hover {
-        cursor: pointer;
-      }
-    }
-    .pane-content {
-      background-color: #f7f8ff;
-      height: 94%;
-      width: 100%;
-      border-top-right-radius: 20px;
-      display: flex;
-      justify-content: center;
-
-      @include media("<=phone") {
-        border-top-right-radius: 0px;
-      }
-
-      .chart-table-view {
-        width: 90%;
-        height: 80%;
-        margin-top: 3%;
-        overflow-y: auto;
-        color: black;
-      }
-      .friends-list::-webkit-scrollbar {
+      .pane-content::-webkit-scrollbar {
         display: none; /* for Chrome, Safari, and Opera */
       }
     }
-    .pane-content::-webkit-scrollbar {
-      display: none; /* for Chrome, Safari, and Opera */
-    }
   }
+  
 }
