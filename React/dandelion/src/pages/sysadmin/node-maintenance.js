@@ -31,7 +31,6 @@ export default function NodeMaintenance(props) {
 
   const handleCallback = childData => {
     setEditing(true)
-    console.log(childData.id);
     readAdminRecord("/node/" + childData.id).then(data => 
       {
         setCode(data.Node.growcube_code)

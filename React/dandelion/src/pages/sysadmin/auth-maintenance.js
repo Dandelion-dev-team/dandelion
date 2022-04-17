@@ -43,7 +43,6 @@ export default function AuthMaintenance(props) {
   }
 
   const handleCallback = childData => {
-    console.log(childData.id);
     readAdminRecord("/authority/" + childData.id).then(data => 
       {
         setTelephone(data.Authority.telephone);

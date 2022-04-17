@@ -19,7 +19,6 @@ export default function ProjectPane(props) {
     <div>
       {props.project ? (
         <div className="project-panel-content">
-          {console.log(props.project)}
           <div className="project-title">
             <h3>{props.project.title} </h3>
             <h3>

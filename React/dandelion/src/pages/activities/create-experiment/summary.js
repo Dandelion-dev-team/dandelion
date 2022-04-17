@@ -84,7 +84,6 @@ export default function Summary(props) {
                       <h3>Conditions:</h3>
                     </div>
                     <div className="condition-list">
-                      {console.log(combinations_selected)}
                       {combinations_selected
                         ? combinations_selected.map(function (d, idx) {
                           if (Array.isArray(d)) {

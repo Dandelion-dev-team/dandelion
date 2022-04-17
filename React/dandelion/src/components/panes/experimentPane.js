@@ -21,7 +21,6 @@ export default function ExperimentPane(props) {
         <div className="experiment-panel-content">
           <div className="experiment-title">
             <h2>{props.dataProp.name} </h2>
-            {console.log(props.dataProp)}
             <h3>
               {new Date(props.dataProp.start_date).toDateString()} -{" "}
               {new Date(props.dataProp.end_date).toDateString()}{" "}

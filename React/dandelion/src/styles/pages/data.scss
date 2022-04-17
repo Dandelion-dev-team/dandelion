@@ -73,7 +73,7 @@
         border-top-right-radius: 20px;
   
         @include media("<=phone") {
-          width: 100%;
+          width: 90%;
           border-radius: 20px;
           height: 100%;
         }
