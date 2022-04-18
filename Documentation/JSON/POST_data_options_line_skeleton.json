@@ -32,5 +32,6 @@
     ...
   ],
   "milestones": <true | false>,
-  "sensor_quantity": <null | <sq_name>
+  "sensor_quantity": <null | <sq_name>,
+  "average_over_replicates": <true | false>
 }
