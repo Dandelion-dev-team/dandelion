@@ -20,5 +20,13 @@ The files in this folder contain benchmark examples of JSON structures used to p
 ## RESPONSE_experiment_data.json
 
 **images** element is used to render image links for observations that have them
-
 **milestones** are "once" variables that may be displayed on the chart. They correspond to particular conditions - e.g. "germination time"
+
+## POST_data_options_selection.json
+
+**chart_type**: defines the type of chart requested - has constraints for the data selection
+**schools**: list of school ids. If the list is empty, schools are collapsed and the data returned is an average value
+**treatment_variables**: What to do with the treament variables. If the **levels** list is empty, the tv is collapsed
+**response_variables**: Which response variables to show. Any not mentioned are omitted
+**milestones**: Include milestones or not
+**sensor_quantity**: Include one sensor value or not
