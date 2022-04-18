@@ -2,7 +2,8 @@
 
 The files in this folder contain benchmark examples of JSON structures used to pass information between the front and back ends.
 
-* **GET_data_options_return_value**: Options for data selections for a particular experiment
+* **GET_data_options_skeleton**: Options for data selections for a particular experiment in skeleton format
+* **GET_data_options_example**: Options for data selections for a particular experiment - concrete example
 * **GET_experiment_full.json**: Full experiment details including conditions, untis, etc.
 * **GET_experiment_summary_list.json**: Summary experiment details
 * **POST_data_options_selection.json**: Options selected by the user that are used to create the appropriate dataset
