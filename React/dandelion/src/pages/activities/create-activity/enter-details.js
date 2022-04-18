@@ -2,11 +2,14 @@ import React, { useEffect, useState, useRef } from "react"
 import { navigate } from "gatsby"
 import "../../../styles/App.scss"
 import BackupIcon from "@mui/icons-material/Backup"
-import CheckIcon from '@mui/icons-material/Check';
-import { verify_superuser_storage } from "../../../utils/logins";
-import { createRecordNavigate, uploadExperimentImage } from "../../../utils/CRUD";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import CheckIcon from "@mui/icons-material/Check"
+import { verify_superuser_storage } from "../../../utils/logins"
+import {
+  createRecordNavigate,
+  uploadExperimentImage,
+} from "../../../utils/CRUD"
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 export default function EnterActivityDetails(props) {
   const [name, setName] = useState("")
@@ -15,7 +18,7 @@ export default function EnterActivityDetails(props) {
   const [image, setImage] = useState("")
   const [startDate, setStartDate] = useState("")
   const [endDate, setEndDate] = useState("")
-  const [logged, setLogged] = useState("");
+  const [logged, setLogged] = useState("")
 
   const handleNameChange = e => {
     setName(e.target.value)
@@ -31,7 +34,6 @@ export default function EnterActivityDetails(props) {
 
   const handleImageChange = async e => {
     setImage(e.target.files[0])
-
   }
 
   const handleStartChange = e => {
@@ -49,22 +51,28 @@ export default function EnterActivityDetails(props) {
       project_text: tutorial,
       start_date: startDate,
       end_date: endDate,
-      status: 'active'
+      status: "active",
     })
 
-    createRecordNavigate("/project", body).then(response => uploadExperimentImage("/project/" + response.id + "/uploadImage", image).then(navigate("/superuser/project-maintenance",
-      {
-        state: {
-          show_modal: true
-        },
-      })));
+    createRecordNavigate("/project", body).then(response =>
+      uploadExperimentImage(
+        "/project/" + response.id + "/uploadImage",
+        image
+      ).then(
+        navigate("/superuser/project-maintenance", {
+          state: {
+            show_modal: true,
+          },
+        })
+      )
+    )
   }
 
   useEffect(() => {
     if (verify_superuser_storage() == true) {
-      setLogged(true);
+      setLogged(true)
     } else {
-      navigate("/signin");
+      navigate("/signin")
     }
   }, [])
 
@@ -125,8 +133,17 @@ export default function EnterActivityDetails(props) {
                   </div>
                   <div className="img-btn">
                     <label className="image-upload-btn">
-                      <input type="file" accept=".jpg,.png" onChange={handleImageChange} hidden />
-                      {image ? <CheckIcon className="imageIcon" /> : <BackupIcon className="imageIcon" />}
+                      <input
+                        type="file"
+                        accept=".jpg,.png"
+                        onChange={handleImageChange}
+                        hidden
+                      />
+                      {image ? (
+                        <CheckIcon className="imageIcon" />
+                      ) : (
+                        <BackupIcon className="imageIcon" />
+                      )}
                     </label>
                     <div className="spacer" />
                     <div className="file-name">
@@ -164,12 +181,12 @@ export default function EnterActivityDetails(props) {
               </div>
             </div>
           </div>
-          
+
           <div className="btn-container">
-          <div className="continue-btn">
+            <div className="continue-btn">
               <input
                 type="submit"
-                className="submitButton"
+                className="back-button"
                 value="Back"
                 onClick={() => {
                   if (typeof window !== `undefined`) {
@@ -190,9 +207,10 @@ export default function EnterActivityDetails(props) {
                 }}
               ></input>
             </div>
+            <div className="spacer"/>
           </div>
         </div>
       </div>
     )
-  } else return null;
+  } else return null
 }

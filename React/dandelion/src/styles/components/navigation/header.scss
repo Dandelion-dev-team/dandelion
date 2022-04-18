@@ -6,6 +6,7 @@ header {
   width: 100vw;
   display: flex;
   justify-content: center;
+  background-color: $primary;
 
   .inner-header {
     display: flex;
@@ -83,6 +84,7 @@ header {
         flex-direction: column;
         grid-gap: 0px;
         z-index: 20;
+        justify-content: center;
       }
     }
     .active {

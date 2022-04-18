@@ -221,7 +221,7 @@ export default function EnterDetails(props) {
                 }}
               ></input>
             </div>
-            <div className="spacer"></div>
+            <div className="spacer"/>
           </div>
         </div>
       </div>
