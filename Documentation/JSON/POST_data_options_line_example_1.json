@@ -1,0 +1,29 @@
+{
+  "experiment_id": 23,
+  "chart_type": "line",
+  "first_date": "2022-05-10",
+  "last_date": "2022-05-20",
+  "schools": [],
+  "treatment_variables": [
+    {
+      "variable_id": 1,
+      "name": "species",
+      "levels": [
+        6
+      ]
+    },
+    {
+      "variable_id":6,
+      "name": "tickling",
+      "levels": [
+        18, 19, 20
+      ]
+    }
+  ],
+  "response_variables": [
+    3, 7
+  ],
+  "milestones": true,
+  "sensor_quantity": null,
+  "average_over_replicates": true
+}
