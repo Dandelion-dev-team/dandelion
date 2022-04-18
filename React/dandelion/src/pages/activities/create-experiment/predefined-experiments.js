@@ -82,7 +82,7 @@ export default function PredefinedExperiments(props) {
                         if (typeof window !== `undefined`) {
                           navigate("/activities/create-experiment/enter-details",
                           {
-                            state: { project_id: props.location.state.project_id},
+                            state: {project_id: props.location.state.project_id, start_date: props.location.state.start_date, end_date: props.location.state.end_date},
                           })
                         }
                       }}

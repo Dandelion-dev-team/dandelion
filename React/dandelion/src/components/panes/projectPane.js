@@ -37,7 +37,7 @@ export default function ProjectPane(props) {
             <button className="submitButton" id="exp" onClick={() => {
               navigate("/activities/create-experiment/predefined-experiments",
                 {
-                  state: {project_id: props.project.project_id},
+                  state: {project_id: props.project.project_id, start_date: props.project.start_date, end_date: props.project.end_date},
                 })
             }}>
               Create Experiment

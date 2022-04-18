@@ -171,6 +171,7 @@ export default function EnterDetails(props) {
                   <div className="item-input">
                     <input
                       type="date"
+                      min={props.location.state.start_date}
                       value={startDate}
                       name="codeBox"
                       onChange={handleStartChange}
@@ -184,6 +185,7 @@ export default function EnterDetails(props) {
                   <div className="item-input">
                     <input
                       min={startDate}
+                      max={props.location.state.end_date}
                       value={endDate}
                       type="date"
                       name="codeBox"

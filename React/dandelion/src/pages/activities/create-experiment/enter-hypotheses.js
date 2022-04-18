@@ -55,6 +55,9 @@ export default function EnterHypotheses(props) {
     setHypothesesNumer(hypotheses_number + 1)
     copy.push(hypothesis)
     setHypothesesList(copy)
+
+    setHypothesisTextbox("")
+    setHypothesisDesc("")
   }
 
   if (logged) {
@@ -83,7 +86,7 @@ export default function EnterHypotheses(props) {
                   <div className="input">
                     <input
                       type="text"
-                      placeholder="Level"
+                      placeholder="Hypothesis title"
                       name="descBox"
                       onChange={handleHypothesisTextboxChange}
                       value={hypothesis_text_box}
@@ -97,7 +100,7 @@ export default function EnterHypotheses(props) {
                   <div className="input">
                     <input
                       type="text"
-                      placeholder="Level"
+                      placeholder="Description"
                       name="descBox"
                       onChange={handleHypothesisDescChange}
                       value={hypothesis_desc_box}
