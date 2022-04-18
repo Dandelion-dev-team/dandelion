@@ -39,7 +39,6 @@ export default function UserMaintenance(props) {
     const onUpdateClick = () => {
         if(addUserList.length > 0){
             addUserList.forEach(element => {
-                console.log(element); 
                 let body = JSON.stringify({
                     status: element.status
                 })
@@ -52,7 +51,6 @@ export default function UserMaintenance(props) {
     const User = user => {
         const [checked_value, setCheckedValue] = useState(false);
         useEffect(() => {
-            console.log(user)
             if (addUserList.includes(user.user) || user.user.is_participant == true) {
                 setCheckedValue(true);
             }

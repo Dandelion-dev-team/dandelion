@@ -20,23 +20,23 @@ export default function ExperimentPane(props) {
       {props.dataProp ? (
         <div className="experiment-panel-content">
           <div className="experiment-title">
-            <h2>{experiment_details.name} </h2>
+            <h2>{props.dataProp.name} </h2>
             <h3>
-              {new Date(experiment_details.start_date).toDateString()} -{" "}
-              {new Date(experiment_details.end_date).toDateString()}{" "}
+              {new Date(props.dataProp.start_date).toDateString()} -{" "}
+              {new Date(props.dataProp.end_date).toDateString()}{" "}
             </h3>
             <h3>Created by Dandelion</h3>
           </div>
 
           <div className="experiment-img">
-            <img src={experiment_details.experiment_image_link} />
+            <img src={props.dataProp.image_full} />
           </div>
 
           <div className="experiment-desc">
             <h2>Description:</h2>
-            <h3>{experiment_details.description}</h3>
+            <h3>{props.dataProp.description}</h3>
             <h2>Tutorial:</h2>
-            <h3>{experiment_details.tutorial}</h3>
+            <h3>{props.dataProp.tutorial}</h3>
           </div>
 
           <div className="exp-btn-row">

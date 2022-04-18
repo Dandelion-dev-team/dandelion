@@ -12,6 +12,7 @@ import ContinuousVariableModal from "../../../components/modals/continuousVariab
 import { verify_superuser_storage } from "../../../utils/logins"
 import { ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
+import { readAdminRecord, readRecord } from "../../../utils/CRUD"
 
 export default function ResponseVariables(props) {
   const [search_value, changeSearch] = useState("")
@@ -94,6 +95,7 @@ export default function ResponseVariables(props) {
   }
 
   useEffect(() => {
+    console.log(props.location.state)
     if (verify_superuser_storage() == true) {
       setLogged(true)
       if (props.location.state) {
@@ -104,17 +106,7 @@ export default function ResponseVariables(props) {
           navigate("/activities/create-experiment/enter-details")
         }
       }
-      //Update the document title using the browser API
-      // fetch(process.env.ROOT_URL + "/responseVariableShortlist", {
-      //     method: "GET",
-      //     headers: new Headers({
-      //         'Cache-Control': 'no-cache, no-store, must-revalidate',
-      //         'Pragma': 'no-cache',
-      //         'Expires': 0,
-      //     })
-      // }).then(response => response.json())
-      //     .then(
-      //         data => setVariables(data));
+      readRecord("/allVariables", setVariables)
     } else {
       navigate("/signin")
     }
@@ -172,8 +164,8 @@ export default function ResponseVariables(props) {
                     </div>
                   </div>
                   <div className="treatment-list">
-                    {variable_list ? (
-                      variable_list
+                    {variable_list.data ? (
+                      variable_list.data
                         .filter(variable =>
                           variable.name
                             .toUpperCase()
@@ -190,7 +182,30 @@ export default function ResponseVariables(props) {
                       <h3>No Response Variables Found.</h3>
                     )}
                   </div>
+                  <div className="pagination">
+                  <input
+                    type="submit"
+                    className="back-btn"
+                    value="Back"
+                    onClick={() => {
+                      if (typeof window !== `undefined`) {
+                        navigate("/activities/create-experiment/treatment-variables/", {
+                          state: { 
+                              project_id:  props.location.state.experimentDetails.project_id,
+                              name: props.location.state.experimentDetails.name,
+                              code: props.location.state.experimentDetails.code,
+                              description: props.location.state.experimentDetails.description,
+                              tutorial: props.location.state.experimentDetails.tutorial,
+                              image:  props.location.state.experimentDetails.image,
+                              startDate: props.location.state.experimentDetails.startDate,
+                              endDate: props.location.state.experimentDetails.endDate,
+                          },
+                        })
+                      }
+                    }}
+                  ></input>
                   <PaginationComponent pageIndex={3} numPages={4} />
+                </div>
                 </div>
               </div>
               <div className="treatment-selected-pane">

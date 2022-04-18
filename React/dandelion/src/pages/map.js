@@ -63,7 +63,6 @@ export default function MapPage(props) {
         setZoom(6.5)
       }
       setUpdate(false)
-      console.log(own_school)
     }
     if (update_render == false) {
       return (

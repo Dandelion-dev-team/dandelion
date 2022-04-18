@@ -61,17 +61,7 @@ export default function VariableSelectedComponent(props) {
           )}
         </div>
       </div>
-      <div className="datepicker">
-        <Select
-          closeMenuOnSelect={false}
-          value={selected_dates}
-          options={datalist}
-          onChange={onSelectionChange}
-          getOptionLabel={(sensor) => sensor.day}
-          getOptionValue={(sensor) => sensor.id} // It should be unique value in the options. E.g. ID}
-          isMulti={true}
-        />
-      </div>
+
       <div className="button-content">
         <input
           value="Edit"
@@ -81,6 +71,17 @@ export default function VariableSelectedComponent(props) {
             props.editCallback(props.data.id)
           }}
         ></input>
+        <div className="datepicker">
+          <Select
+            closeMenuOnSelect={false}
+            value={selected_dates}
+            options={datalist}
+            onChange={onSelectionChange}
+            getOptionLabel={(sensor) => sensor.day}
+            getOptionValue={(sensor) => sensor.id} // It should be unique value in the options. E.g. ID}
+            isMulti={true}
+          />
+        </div>
       </div>
     </div>
   )

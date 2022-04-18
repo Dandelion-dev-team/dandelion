@@ -118,6 +118,25 @@ export default function EnterHypotheses(props) {
                 </div>
               </div>
               <div className="cont-btn">
+                <div className="button">
+                  <input
+                    type="submit"
+                    className="continue-btn"
+                    value="Back"
+                    onClick={() => {
+                      if (
+                        typeof window !== `undefined`) {
+                        navigate("/activities/create-experiment/select-conditions", {
+                          state: {
+                            treatmentVariables: props.location.state.treatmentVariables,
+                            responseVariables: props.location.state.responseVariables,
+                            experimentDetails: props.location.state.experimentDetails,
+                          },
+                        })
+                      }
+                    }}
+                  />
+                </div>
                 <div className="spacer" />
                 <div className="button">
                   <input
