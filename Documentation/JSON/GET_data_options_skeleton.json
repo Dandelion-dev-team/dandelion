@@ -1,5 +1,15 @@
 {
     "experiment_id": <e_id>,
+    "start_date": <experiment start date>,
+    "end_date": <experiment end date>,
+    "data_count": <observation count>,
+    "data_max_date": <earliest obsevation date>,
+    "data_min_date": <latest observation date>,
+    "chart_types": [
+        <chart_type_1>,
+        <chart_type_2>,
+        ...
+    ],
     "schools": [
         {
             "school_id": <s_id1>,
