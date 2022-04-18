@@ -7,6 +7,8 @@ The files in this folder contain benchmark examples of JSON structures used to p
 * **GET_experiment_full.json**: Full experiment details including conditions, untis, etc.
 * **GET_experiment_summary_list.json**: Summary experiment details
 * **POST_data_options_line_skeleton.json**: Options selected by the user that are used to create the datasetfor a line chart
+* **POST_data_options_line_example_1.json**: Simple example of a data request with collapsed schools
+* **RESPONSE_data_options_line_example_1.json**: Response to post request
 * **POST_experiment_all_variables_exist.json**: Details of new experiment to be created where variables already exist
 * **POST_experiment_with_new_variable.json**: Details of new experiment to be created including some new variables
 * **POST_node_data.json**: Data received from a node
