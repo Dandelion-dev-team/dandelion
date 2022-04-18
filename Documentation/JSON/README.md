@@ -6,7 +6,7 @@ The files in this folder contain benchmark examples of JSON structures used to p
 * **GET_data_options_example**: Options for data selections for a particular experiment - concrete example
 * **GET_experiment_full.json**: Full experiment details including conditions, untis, etc.
 * **GET_experiment_summary_list.json**: Summary experiment details
-* **POST_data_options_selection.json**: Options selected by the user that are used to create the appropriate dataset
+* **POST_data_options_line_skeleton.json**: Options selected by the user that are used to create the datasetfor a line chart
 * **POST_experiment_all_variables_exist.json**: Details of new experiment to be created where variables already exist
 * **POST_experiment_with_new_variable.json**: Details of new experiment to be created including some new variables
 * **POST_node_data.json**: Data received from a node
@@ -22,7 +22,7 @@ The files in this folder contain benchmark examples of JSON structures used to p
 **images** element is used to render image links for observations that have them
 **milestones** are "once" variables that may be displayed on the chart. They correspond to particular conditions - e.g. "germination time"
 
-## POST_data_options_selection.json
+## POST_data_options_line.json
 
 **chart_type**: defines the type of chart requested - has constraints for the data selection
 **schools**: list of school ids. If the list is empty, schools are collapsed and the data returned is an average value
