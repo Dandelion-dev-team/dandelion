@@ -8,6 +8,7 @@
         "data_count": 12096,
         "data_max_date": "2022-05-21T12:00:00",
         "data_min_date": "2022-05-01T12:00:00",
+        "end_date": "2022-05-28",
         "experiment_id": 23,
         "response_variables": [
             {
@@ -144,6 +145,7 @@
                 "sensor_quantity_id": 8
             }
         ],
+        "start_date": "2022-04-27",
         "treatment_variables": [
             {
                 "levels": [
