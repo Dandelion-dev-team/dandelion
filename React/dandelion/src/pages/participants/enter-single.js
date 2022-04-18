@@ -36,14 +36,10 @@ export default function EnterObservations(props) {
   useEffect(() => {
     setItem("top")
     if (verify_superuser_storage() == true) {
-      console.log(props.location.state.variable)
-
       let conditions = props.location.state.conditions
-
       let copy = [...matrix]
       conditions.forEach(condition => {
         condition.units.forEach(unit => {
-          console.log(unit)
           let row = grid_letters.indexOf(unit.row)
           let column = unit.column
 
@@ -114,12 +110,14 @@ export default function EnterObservations(props) {
     console.log(e);
     closeModal()
   }
-  const submitExperiment = prop => {}
+  const submitExperiment = prop => {
+    navigate("/participants/enter-single");
+  }
 
   if (typeof window !== `undefined` && logged) {
     return (
       <div>
-         {modal_shown ? <EnterObservationModal props={props.location.state.variable} saveObservation={saveObservation} closeModal={closeModal} />
+         {modal_shown ? <EnterObservationModal props={props.location.state.responseVariables} saveObservation={saveObservation} closeModal={closeModal} />
           : null}
         <div className="configure-container">
           <ToastContainer position="top-center"/>

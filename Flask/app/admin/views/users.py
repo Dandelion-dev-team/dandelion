@@ -40,7 +40,8 @@ def createUser():
         password=data['password'],
         school_id=data['school_id'],
         is_superuser=data['is_superuser'],
-        is_sysadmin=data['is_sysadmin']
+        is_sysadmin=data['is_sysadmin'],
+        status=data['status']
     )
     db.session.add(user)
     return_status = 200

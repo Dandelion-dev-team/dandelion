@@ -17,7 +17,7 @@ export default function AddStudentModal(props) {
                 password: entered_password,
                 is_sysadmin: false,
                 is_superuser: false,
-                status: "active",
+                status: "Active",
                 notes: entered_notes,
             })
             createRecord("/user", body)

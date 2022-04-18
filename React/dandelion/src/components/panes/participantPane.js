@@ -19,51 +19,31 @@ export default function ParticipantPane(props) {
     if (e.monday == true) {
       days = days + "Monday ";
       current_day_int.push(1)
-      if (experiment_finished == false) {
-        show_button = true;
-      }
     }
     if (e.tuesday == true) {
       days = days + "Tuesday "
       current_day_int.push(2)
-      if (experiment_finished == false) {
-        show_button = true;
-      }
     }
     if (e.wednesday == true) {
       days = days + "Wednesday "
       current_day_int.push(3)
-      if (experiment_finished == false) {
-        show_button = true;
-      }
     }
     if (e.thursday == true) {
       days = days + "Thursday "
       current_day_int.push(4)
-      if (experiment_finished == false) {
-        show_button = true;
-      }
     }
     if (e.friday == true) {
       days = days + "Friday "
       current_day_int.push(5)
-      if (experiment_finished == false) {
-        show_button = true;
-      }
+
     }
     if (e.saturday == true) {
       days = days + "Saturday "
       current_day_int.push(6)
-      if (experiment_finished == false) {
-        show_button = true;
-      }
     }
     if (e.sunday == true) {
       days = days + "Sunday "
       current_day_int.push(0)
-      if (experiment_finished == false) {
-        show_button = true;
-      }
     }
     if (e.once == true) {
       days = days + "Once "
@@ -89,9 +69,9 @@ export default function ParticipantPane(props) {
     });
 
     let min = Math.min(...days_until)
-    if(min == Infinity){
+    if (min == Infinity) {
       min = props.dataProp.end_date
-    }else {
+    } else {
       min = min + ' days until.'
     }
     return (
@@ -102,25 +82,6 @@ export default function ParticipantPane(props) {
         <div className="days-remaining">
           <p>{min}</p>
         </div>
-        {show_button ? 
-        <div className="btn-row">
-          <div className="spacer" />
-          <div className="submit-btn">
-            <input
-              type="submit"
-              className="submitButton"
-              value="Add Observation"
-              onClick={() => {
-                navigate("/participants/enter-single",
-                  {
-                    state: { variable: e, conditions: props.dataProp.conditions },
-                  })
-              }}
-            ></input>
-          </div>
-        </div> 
-        : 
-        null}
       </div>)
   }
 
@@ -156,6 +117,22 @@ export default function ParticipantPane(props) {
           <div className="title">
             <div className="title-btn-row">
               <h2>{props.dataProp.name}</h2>
+              <div className="btn-row">
+                <div className="spacer" />
+                <div className="submit-btn">
+                  <input
+                    type="submit"
+                    className="submitButton"
+                    value="Add Observations"
+                    onClick={() => {
+                      navigate("/participants/enter-single",
+                      {
+                        state: props.dataProp,
+                      })
+                    }}
+                  ></input>
+                </div>
+              </div>
             </div>
             <h3>
               {new Date(props.dataProp.start_date).toDateString()} -{" "}

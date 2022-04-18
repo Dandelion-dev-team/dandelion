@@ -164,7 +164,20 @@ export default function EnterActivityDetails(props) {
               </div>
             </div>
           </div>
+          
           <div className="btn-container">
+          <div className="continue-btn">
+              <input
+                type="submit"
+                className="submitButton"
+                value="Back"
+                onClick={() => {
+                  if (typeof window !== `undefined`) {
+                    createActivity()
+                  }
+                }}
+              ></input>
+            </div>
             <div className="continue-btn">
               <input
                 type="submit"
@@ -177,7 +190,6 @@ export default function EnterActivityDetails(props) {
                 }}
               ></input>
             </div>
-            <div className="spacer"></div>
           </div>
         </div>
       </div>
