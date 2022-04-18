@@ -31,6 +31,7 @@ def getFullVariable(id):
         "levels": sorted([{
             "id": l.id,
             "sequence": l.sequence,
+            "treatment_name": variable.name,
             "name": l.name
         } for l in variable.levels], key=lambda l: l["sequence"])
     }
