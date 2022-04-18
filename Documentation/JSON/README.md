@@ -1,254 +1,38 @@
-# JSON Specification for experiment creation 
+# JSON examples
 
-The React App requires multiple API routes created. 
+The files in this folder contain benchmark examples of JSON structures used to pass information between the front and back ends.
 
-# GET METHODS
-## Experiment Summary
-A summary of experiments used in the "/activities/create-experiment/predefined-experiments/" React page.
-Owner name is used to show who created the original experiment, owner ID is used to generate the file path for the image.
-```json
-	"experiment_summary": [
-		"id": 0,
-		"title": "Thigmomorphogenesis",
-		"owner_name": "Dandelion",
-		"owner_id": 1,
-	]
-```
+* **GET_data_options_skeleton**: Options for data selections for a particular experiment in skeleton format
+* **GET_data_options_example**: Options for data selections for a particular experiment - concrete example
+* **GET_experiment_full.json**: Full experiment details including conditions, untis, etc.
+* **GET_experiment_summary_list.json**: Summary experiment details
+* **POST_data_options_line_skeleton.json**: Options selected by the user that are used to create the datasetfor a line chart
+* **POST_experiment_all_variables_exist.json**: Details of new experiment to be created where variables already exist
+* **POST_experiment_with_new_variable.json**: Details of new experiment to be created including some new variables
+* **POST_node_data.json**: Data received from a node
+* **POST_project.json**: Details of a new project to be created
+* **RESPONSE_conditions.json**: Condition details for a specific experiment
+* **RESPONSE_experiment_data.json**: Experiment data for display as line or grouped bar chart
+* **Validation.json**: Form validation details for specified object
 
-## Experiment
-Experiment is the entire experiment that has been selected. It includes treatment variables, response variables, combinations, and details. This is passed to the next page for display.
-```json
 
-"experiment_full": [ 
-{
-	"id": 0, //ID OF THE EXPERIMENT
-	"experimentDetails": { //DETAILS FROM THE EXPERIMENT TABLE
-		"name": "Thigmomorphogenesis",
-		"code": "Code",
-		"description": "Description",
-		"tutorial": "Tutorial",
-		"start_date": "2022-03-03T15:55:05.933Z",
-		"end_date": "2022-03-03T15:55:05.933Z",
-	},
-	"treatmentVariables": [ //VARIABLES RELATING TO EXPERIMENT, ARRAY OF MULTIPLE VARIABLES
-	{
-		"id": 0,
-		"type": "Discrete",
-		"name": "Touches",
-		"levels": [ //LEVELS OF EXPERIMENT AND THEIR SEQUENCE IN THE VARIABLE (AND ID OF TABLE) 
-			      //ARRAY OF LEVELS
-			{
-				"id": 0,
-				"sequence": 1,
-				"name": "Control"
-			},
-			{
-				"id": 1,
-				"sequence": 2,
-				"name": "Light"
-			},
-			{
-				"id": 3,
-				"sequence": 3,
-				"name": "Heavy"
-			}
-		]
-	},
-],
-	"responseVariables": [ //ARRAY OF RESPONSE VARIABLES, CAN BE DISCRETE OR CONTINUOUS
-	{
-		//CONTINUOUS EXAMPLE
-		"id": 0,
-		"type": "Continuous",
-		"name": "Length",
-		"unit": "mm",
-		"upper_limit": 100,
-		"lower_limit": 0
-	},
-	{
-		//DISCRETE EXAMPLE
-		"id": 1,
-		"type": "Discrete",
-		"name": "Stalk Strength",
-		"levels": [
-			{
-				"id": 0,
-				"sequence": 1,
-				"name": "Control"
-			},
-			{
-				"id": 1,
-				"sequence": 2,
-				"name": "Light"
-			},
-			{
-				"id": 3,
-				"sequence": 3,
-				"name": "Heavy"
-			}
-		]
-	},
-],
-"combinations": [ //ARRAY OF ARRAY OF COMBINATION VARIABLES. REPONSE WOULD BE IN THE FORMAT 
-//[[{TREATMENT}][{TREATMENT}]], [[{TREATMENT}][{TREATMENT}]], [[{TREATMENT}][{TREATMENT}]]]
-[
-	[
-		{
-			"treatment_name": "Touches",
-			"sequence": 3,
-			"name": "Heavy"
-		}
-	],
-	[
-		{
-			"treatment_name": "Nutrition",
-			"sequence": 1,
-			"name": "Control"
-		}
-	]
-],
-```
 
-# POST METHODS
-We will upload the image as part of a separate call with the school id, project id and experiment id where relevant.
+## RESPONSE_experiment_data.json
 
-## Create Activity
-```json
-"activity": [
-	"school_id": 1,
-	"user_id": 1,
-	"activity_details": [
-		"code": "AC",
-		"name": "Kohl Rabi",
-		"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
-		"project_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
-		"start_date": "2022-01-31T14:31:24.262Z",
-		"end_date": "2022-01-31T14:31:24.262Z",
-		"status": "active" 
-	]
-]
-```
-## CREATE EXPERIMENT
-```json
-"experiment": [ 
-{
-	"user_id": 0, //USER WHO CREATED
-	"school_id": 0, //SCHOOL BELONGS TO 
-	"experimentDetails": {
-		"name": "Thigmomorphogenesis",
-		"code": "Code",
-		"description": "Description",
-		"tutorial": "Tutorial",
-		"start_date": "2022-03-03T15:55:05.933Z",
-		"end_date": "2022-03-03T15:55:05.933Z",
-	},
-	"treatmentVariables": [ //VARIABLES RELATING TO EXPERIMENT, ARRAY OF MULTIPLE VARIABLES
-	{
-		"status": "copy", //IF "new" CREATE NEW ENTRY, IF "edited" COPY ENTRY WITH UPDATED DETAILS, 
-						//IF "copy" JUST CREATE REFERENCE TO ENTRY 
-		"id": 0,
-		"type": "Discrete",
-		"name": "Touches",
-		"levels": [ //LEVELS OF EXPERIMENT AND THEIR SEQUENCE IN THE VARIABLE (AND ID OF TABLE) 
-			      //ARRAY OF LEVELS
-			{
-				"id": 0,
-				"sequence": 1,
-				"name": "Control"
-			},
-			{
-				"id": 1,
-				"sequence": 2,
-				"name": "Light"
-			},
-			{
-				"id": 3,
-				"sequence": 3,
-				"name": "Heavy"
-			}
-		]
-	},
-],
-	"responseVariables": [ //ARRAY OF RESPONSE VARIABLES, CAN BE DISCRETE OR CONTINUOUS
-	{
-		//CONTINUOUS EXAMPLE
-		"status": "new", //IF "new" CREATE NEW ENTRY, IF "edited" COPY ENTRY WITH UPDATED DETAILS, 
-						//IF "copy" JUST CREATE REFERENCE TO ENTRY 
-		"id": 0,
-		"type": "Continuous",
-		"name": "Length",
-		"unit": "mm",
-		"upper_limit": 100,
-		"lower_limit": 0
-	},
-	{
-		//DISCRETE EXAMPLE
-		"status": "copy", //IF "new" CREATE NEW ENTRY, IF "edited" COPY ENTRY WITH UPDATED DETAILS, 
-						//IF "copy" JUST CREATE REFERENCE TO ENTRY 
-		"id": 1,
-		"type": "Discrete",
-		"name": "Stalk Strength",
-		"levels": [
-			{
-				"id": 0,
-				"sequence": 1,
-				"name": "Control"
-			},
-			{
-				"id": 1,
-				"sequence": 2,
-				"name": "Light"
-			},
-			{
-				"id": 3,
-				"sequence": 3,
-				"name": "Heavy"
-			}
-		]
-	},
-],
-"combination": [ 
-{
-	"placement": "TA1", //TOP A1
-	"colour": "#FFFFF",
-	"combinations_variables":
-		[
-			[	
-				{
-					"treatment_name": "Touches",
-					"sequence": 3,
-					"name": "Heavy"
-				}
-			],
-			[
-				{
-					"treatment_name": "Nutrition",
-					"sequence": 1,
-					"name": "Control"
-				}
-			]
-		]
-	},
-	{
-	"placement": "TA1", //TOP A1
-	"colour": "#FFFFF",
-	"combinations_variables":
-		[
-			[
-				{
-					"treatment_name": "Touches",
-					"sequence": 3,
-					"name": "Heavy"
-				}
-			],
-			[
-				{
-					"treatment_name": "Nutrition",
-					"sequence": 1,
-					"name": "Control"
-				}
-			]
-		]
-	}
-]
-```
+**images** element is used to render image links for observations that have them
+
+**milestones** are "once" variables that may be displayed on the chart. They correspond to particular conditions - e.g. "germination time"
+
+## POST_data_options_line.json
+
+**chart_type**: defines the type of chart requested - has constraints for the data selection
+
+**schools**: list of school ids. If the list is empty, schools are collapsed and the data returned is an average value
+
+**treatment_variables**: What to do with the treament variables. If the **levels** list is empty, the tv is collapsed
+
+**response_variables**: Which response variables to show. Any not mentioned are omitted
+
+**milestones**: Include milestones or not
+
+**sensor_quantity**: Include one sensor value or not

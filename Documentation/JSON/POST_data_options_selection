@@ -1,0 +1,38 @@
+{
+    "id": <experiment_id>,
+    "chart_type": <line | bar | pie>,
+    "schools": [
+        <s_id1>, 
+        <s_id2>, 
+        ...
+    ]
+    "treatment_variables": [
+        {
+            "variable_id": <tv_id1>,
+            "levels": [
+                <l_id1>, 
+                <l_id2>, 
+                ...
+            ]
+        },
+        {
+            "variable_id": <tv_id2>,
+            "levels": [
+                <l_id3>, 
+                <l_id4>, 
+                ...
+            ]
+        },
+        ...
+    ],
+    "response_variables": [
+        <rv_id1>, 
+        <rv_id2>, 
+        ...
+    ],
+    "sensor_quantities": [
+        <q_id1>,
+        <q_id1>,
+        ...
+    ]
+}

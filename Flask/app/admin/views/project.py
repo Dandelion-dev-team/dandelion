@@ -110,7 +110,7 @@ def update_project(id):
     if len(audit_details) > 0:
         try:
             db.session.commit()
-            audit_update("authority", project_to_update.id, audit_details, current_user.id)
+            audit_update("project", project_to_update.id, audit_details, current_user.id)
             return {"message": message}
 
         except Exception as e:

@@ -1,0 +1,38 @@
+{
+  "experiment_id": <experiment_id>,
+  "chart_type": "line",
+  "first_date": <data start date>,
+  "last_date": <data end date>,
+  "schools": [
+      <school_id_1>,
+      <school_id_2>,
+      ...
+    ],
+  "treatment_variables": [
+    {
+      "id": <variable_id_1>,
+      "name": <tv_name_1>,
+      "levels": [
+        <level_id_1>,
+        <level_id_2>,
+        ...
+      ]
+    },
+    {
+      "id": <variable_id_2>,
+      "name": <tv_name_2>,
+      "levels": [
+        <level_id_3>,
+        <level_id_4>,
+        ...
+      ]
+    },
+  ],
+  "response_variables": [
+    <rv_name_1>,
+    <rv_name_2>,
+    ...
+  ],
+  "milestones": <true | false>,
+  "sensor_quantity": <null | <sq_name> >
+}
