@@ -107,11 +107,11 @@ export default function EnterObservations(props) {
   }
 
   const saveObservation = e => {
-    console.log(e);
     closeModal()
   }
   const submitExperiment = prop => {
-    navigate("/participants/enter-single");
+    console.log("oog")
+    navigate("/participants/experiment-dashboard");
   }
 
   if (typeof window !== `undefined` && logged) {

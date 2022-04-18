@@ -16,16 +16,18 @@ export default function EnterObservationModal(props) {
 
   const onSave = e => {
     let obs;
-    if (props.props.levels.length > 0) {
-      obs = observation.id;
-    } else {
-      obs = observation;
-    }
-    if (observation || comment) {
-      props.saveObservation({ observation: parseInt(obs), comment: comment })
-    } else {
-      toast.error("More data needed.")
-    }
+    props.props.map((condition => {
+      if (condition.levels.length > 0) {
+        obs = observation.id;
+      } else {
+        obs = observation;
+      }
+      if (observation || comment) {
+        props.saveObservation({ observation: parseInt(obs), comment: comment })
+      } else {
+        toast.error("More data needed.")
+      }
+    }))
   }
   return (
     <div className="modal-container">
