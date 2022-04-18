@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react"
 import SideNav from "../../components/navigation/superUserSideNav"
 import "../../styles/App.scss"
 import ProjectPane from "../../components/panes/projectPane"
-import ProjectComponent from "../../components/tables/projectComponent"
+import ProjectComponent from "../../components/tables/superuserProjectTable"
 import ActivityCreatedModal from "../../components/modals/activityCreatedModal"
 import { navigate } from "gatsby"
 import { verify_superuser_storage } from "../../utils/logins"
@@ -32,8 +32,8 @@ export default function ProjectMaintenance(props) {
   }, [])
 
   const handleCallback = childData => {
-    readRecord("/project/" + childData.id, setEditingProject)
-    readRecord("/project/" + childData.id + "/experiment", setExperiments)
+    readRecord("/project/" + childData.project_id, setEditingProject)
+    readRecord("/project/" + childData.project_id + "/experiment", setExperiments)
 
   }
 
