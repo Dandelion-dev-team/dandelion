@@ -21,6 +21,37 @@
           font-weight: 800;
           letter-spacing: 0.5px;
         }
+
+        .btn-row {
+          display: flex;
+          flex-direction: row;
+          height: 50%;
+
+          .submit-btn {
+            height: 100%;
+            width: 20%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+
+            .submitButton {
+              background-color: $accent;
+              color: $primary;
+              font-size: 1.2rem;
+              margin: 0.625rem 0px;
+              padding: 0.625rem;
+              width: 10rem;
+              border: none;
+              cursor: pointer;
+              border-radius: 10px;
+            }
+            .submitButton:hover {
+              background-color: #d4d926;
+            }
+          }
+        }
+
+
       }
       h3 {
         font-size: 1rem;
@@ -107,38 +138,6 @@
               .days-remaining {
                 font-weight: 400;
                 font-size: 0.8rem;
-              }
-            }
-            .btn-row {
-              display: flex;
-              flex-direction: row;
-              height: 50%;
-
-              .spacer {
-                width: 75%;
-                height: 100%;
-              }
-              .submit-btn {
-                height: 100%;
-                width: 20%;
-                display: flex;
-                align-items: flex-start;
-                justify-content: flex-start;
-
-                .submitButton {
-                  background-color: $accent;
-                  color: $primary;
-                  font-size: 1.2rem;
-                  margin: 0.625rem 0px;
-                  padding: 0.625rem;
-                  width: 10rem;
-                  border: none;
-                  cursor: pointer;
-                  border-radius: 10px;
-                }
-                .submitButton:hover {
-                  background-color: #d4d926;
-                }
               }
             }
           }

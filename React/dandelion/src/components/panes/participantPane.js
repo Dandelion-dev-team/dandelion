@@ -118,7 +118,6 @@ export default function ParticipantPane(props) {
             <div className="title-btn-row">
               <h2>{props.dataProp.name}</h2>
               <div className="btn-row">
-                <div className="spacer" />
                 <div className="submit-btn">
                   <input
                     type="submit"
@@ -130,7 +129,7 @@ export default function ParticipantPane(props) {
                         state: props.dataProp,
                       })
                     }}
-                  ></input>
+                  />
                 </div>
               </div>
             </div>
