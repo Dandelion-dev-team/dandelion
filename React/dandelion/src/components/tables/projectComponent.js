@@ -8,19 +8,8 @@ export default function ProjectComponent(props) {
   const [projects, setProject] = useState(0)
   //TESTED
   useEffect(() => {
-    readRecord("/project", setProject)
-    //TESTED
-    // Update the document title using the browser API
-    // fetch(process.env.ROOT_URL + "/projects", {
-    //   method: "GET",
-    //   headers: new Headers({
-    //     "Cache-Control": "no-cache, no-store, must-revalidate",
-    //     Pragma: "no-cache",
-    //     Expires: 0,
-    //   }),
-    // })
-    //   .then(response => response.json())
-    //   .then(data => setProject(data))
+    let school_id = localStorage.getItem("school_id");
+    readRecord("/project_partner/byschool/" + school_id, setProject)
   }, [])
 
   const editAuth = project => {
@@ -42,7 +31,7 @@ export default function ProjectComponent(props) {
         </thead>
 
         {projects
-          ? projects.data.map(project => (
+          ? projects.map(project => (
             <tbody
               key={projects.id}
               className={className}
