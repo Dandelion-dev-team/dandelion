@@ -1,0 +1,207 @@
+{
+    "data": {
+        "chart_types": [
+            "line",
+            "bar",
+            "pie"
+        ],
+        "data_count": 12096,
+        "data_max_date": "2022-05-21T12:00:00",
+        "data_min_date": "2022-05-01T12:00:00",
+        "experiment_id": 23,
+        "response_variables": [
+            {
+                "levels": [],
+                "variable_id": 2,
+                "variable_name": "height",
+                "variable_timing": "repeated",
+                "variable_type": "continuous"
+            },
+            {
+                "levels": [
+                    {
+                        "level_id": 7,
+                        "level_name": "pale yellow",
+                        "level_sequence": 1
+                    },
+                    {
+                        "level_id": 8,
+                        "level_name": "bright yellow",
+                        "level_sequence": 2
+                    },
+                    {
+                        "level_id": 9,
+                        "level_name": "light green",
+                        "level_sequence": 3
+                    },
+                    {
+                        "level_id": 10,
+                        "level_name": "mid green",
+                        "level_sequence": 4
+                    },
+                    {
+                        "level_id": 11,
+                        "level_name": "dark green",
+                        "level_sequence": 5
+                    }
+                ],
+                "variable_id": 3,
+                "variable_name": "leaf colour",
+                "variable_timing": "repeated",
+                "variable_type": "discrete"
+            },
+            {
+                "levels": [
+                    {
+                        "level_id": 21,
+                        "level_name": "dead",
+                        "level_sequence": 1
+                    },
+                    {
+                        "level_id": 22,
+                        "level_name": "very weak",
+                        "level_sequence": 2
+                    },
+                    {
+                        "level_id": 23,
+                        "level_name": "weak",
+                        "level_sequence": 3
+                    },
+                    {
+                        "level_id": 24,
+                        "level_name": "medium",
+                        "level_sequence": 4
+                    },
+                    {
+                        "level_id": 25,
+                        "level_name": "strong",
+                        "level_sequence": 5
+                    },
+                    {
+                        "level_id": 26,
+                        "level_name": "very strong",
+                        "level_sequence": 6
+                    }
+                ],
+                "variable_id": 7,
+                "variable_name": "vigour",
+                "variable_timing": "repeated",
+                "variable_type": "discrete"
+            },
+            {
+                "levels": [],
+                "variable_id": 8,
+                "variable_name": "seedling count",
+                "variable_timing": "repeated",
+                "variable_type": "continuous"
+            }
+        ],
+        "schools": [
+            {
+                "school_id": 114,
+                "school_name": "Fake School 1"
+            },
+            {
+                "school_id": 115,
+                "school_name": "Fake School 2"
+            },
+            {
+                "school_id": 1,
+                "school_name": "Dandelion"
+            }
+        ],
+        "sensor_quantities": [
+            {
+                "quantity_name": "air temperature",
+                "sensor_quantity_id": 1
+            },
+            {
+                "quantity_name": "humidity",
+                "sensor_quantity_id": 2
+            },
+            {
+                "quantity_name": "pressure",
+                "sensor_quantity_id": 3
+            },
+            {
+                "quantity_name": "luminosity",
+                "sensor_quantity_id": 4
+            },
+            {
+                "quantity_name": "electrical conductivity",
+                "sensor_quantity_id": 5
+            },
+            {
+                "quantity_name": "moisture",
+                "sensor_quantity_id": 6
+            },
+            {
+                "quantity_name": "substrate temperature",
+                "sensor_quantity_id": 7
+            },
+            {
+                "quantity_name": "pH",
+                "sensor_quantity_id": 8
+            }
+        ],
+        "treatment_variables": [
+            {
+                "levels": [
+                    {
+                        "level_id": 1,
+                        "level_name": "Lemon balm",
+                        "level_sequence": 4
+                    },
+                    {
+                        "level_id": 2,
+                        "level_name": "Lettuce",
+                        "level_sequence": 5
+                    },
+                    {
+                        "level_id": 3,
+                        "level_name": "Chives",
+                        "level_sequence": 2
+                    },
+                    {
+                        "level_id": 4,
+                        "level_name": "Kohl rabi",
+                        "level_sequence": 3
+                    },
+                    {
+                        "level_id": 5,
+                        "level_name": "Beetroot",
+                        "level_sequence": 1
+                    },
+                    {
+                        "level_id": 6,
+                        "level_name": "Sunflower",
+                        "level_sequence": 6
+                    }
+                ],
+                "variable_id": 1,
+                "variable_name": "species"
+            },
+            {
+                "levels": [
+                    {
+                        "level_id": 18,
+                        "level_name": "Control",
+                        "level_sequence": 1
+                    },
+                    {
+                        "level_id": 19,
+                        "level_name": "Gentle",
+                        "level_sequence": 2
+                    },
+                    {
+                        "level_id": 20,
+                        "level_name": "Moderate",
+                        "level_sequence": 3
+                    }
+                ],
+                "variable_id": 6,
+                "variable_name": "tickling"
+            }
+        ]
+    }
+}
