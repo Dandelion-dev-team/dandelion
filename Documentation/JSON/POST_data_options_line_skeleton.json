@@ -1,6 +1,8 @@
 {
   "experiment_id": <experiment_id>,
   "chart_type": "line",
+  "first_date": <data start date>,
+  "last_date": <data end date>,
   "schools": [
       <school_id_1>,
       <school_id_2>,
@@ -23,6 +25,7 @@
         ...
       ]
     },
+  ],
   "response_variables": [
     <rv_name_1>,
     <rv_name_2>,
