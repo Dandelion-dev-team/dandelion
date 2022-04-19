@@ -30,7 +30,7 @@ export default function UserMaintenance(props) {
                 readRecord("/user/byschoolandexperiment/" + school_id + "/" + props.location.state.experiment.id, setUsers)
             } else {
                 if (typeof window !== `undefined`) {
-                    navigate("/superuser/project-maintenance")
+                    navigate("/superuser/activity-maintenance")
                 }
             }
         } else {

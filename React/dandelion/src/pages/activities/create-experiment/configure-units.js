@@ -200,7 +200,7 @@ export default function ConfigureUnits(props) {
       uploadExperimentImage(
         "/experiment/" + response.id + "/uploadImage",
         experiment_details.image
-      ).then(navigate("/superuser/project-maintenance"))
+      ).then(navigate("/superuser/activity-maintenance"))
     )
   }
 

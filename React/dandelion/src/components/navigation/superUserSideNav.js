@@ -15,7 +15,7 @@ export default function SideNav() {
               </Link>
             </div>
             <Link to="/superuser/dashboard">Dashboard</Link>
-            <Link to="/superuser/project-maintenance">Activities</Link>
+            <Link to="/superuser/activity-maintenance">Activities</Link>
             <Link to="/superuser/help">Help</Link>
             <Link to="/superuser/alerts">Alerts</Link>
             <Link to="/superuser/school-user-maintenance">Students</Link>
