@@ -16,7 +16,7 @@ class TestExperiment:
 			                       headers=headers,
 			                       json=test_dict())
 			j = json.loads(response.data)
-			assert j["message"] == "New experiment has been registered"
+			assert j["id"] == 1
 
 			experiment = Experiment.query.first()
 			assert experiment.title == "Thigmomorphogenesis experiment"

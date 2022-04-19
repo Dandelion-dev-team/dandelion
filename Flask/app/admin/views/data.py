@@ -72,7 +72,7 @@ def get_data_selection_options(experiment_id):
     schools = [re.project_partner.school for re in related_experiments]
 
     sensor_quantity_ids = []
-    for ns in experiment.project_partner.school.node[0].node_sensors:
+    for ns in experiment.project_partner.school.nodes[0].node_sensors:
         for sq in ns.sensor.sensor_quantities:
             sensor_quantity_ids.append(sq.id)
     sensor_quantities = SensorQuantity.query.filter(SensorQuantity.id.in_(set(sensor_quantity_ids))).all()
