@@ -179,10 +179,11 @@ def add_experiment():
             variable_id = rv["id"]
         except:
             variable = create_variable(rv)
+            variable_id = variable.id
 
         response_variable = ResponseVariable(
             experiment_id = experiment.id,
-            variable_id = variable.id,
+            variable_id = variable_id,
             monday = rv["monday"],
             tuesday = rv["tuesday"],
             wednesday = rv["wednesday"],

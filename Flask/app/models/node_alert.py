@@ -1,7 +1,7 @@
 from app import db
 
 
-class Node_alert(db.Model):
+class NodeAlert(db.Model):
     __tablename__ = 'node_alert'
 
     id = db.Column(db.Integer, primary_key=True)

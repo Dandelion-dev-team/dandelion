@@ -1,3 +1,5 @@
+from sqlalchemy.orm import backref
+
 from app import db
 import os
 from app.utils.uploads import get_uploaded_file, content_folder
@@ -21,6 +23,7 @@ class Experiment(db.Model):
     hypotheses = db.relationship("Hypothesis", backref="experiment")
     conditions = db.relationship("Condition", backref="experiment")
     response_variables = db.relationship("ResponseVariable", backref="experiment")
+    children = db.relationship("Experiment", backref=backref('parent', remote_side=[id]))
 
     @property
     def summary_columns(self):

@@ -2,7 +2,7 @@ from app import db
 
 
 
-class Project_leader(db.Model):
+class ProjectLeader(db.Model):
     __tablename__ = 'project_leader'
 
     id = db.Column(db.Integer, primary_key=True)
