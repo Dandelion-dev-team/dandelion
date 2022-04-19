@@ -23,6 +23,7 @@ export default function SideNav() {
             <div className="news-pane">
               <h3>News</h3>
             </div>
+            <div className="spacer"/>
             <div className="btn-row">
               <button
                 className="button"
