@@ -11,7 +11,7 @@ from app.admin import admin
 from app.models import Project, ProjectPartner
 from app import db
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update, audit_delete
-from app.utils.authorisation import check_authorisation
+from app.utils.authorisation import check_authorisation, auth_check
 from app.utils.functions import row2dict, jwt_user
 from app.utils.images import image_processing
 from app.utils.uploads import get_uploaded_file, content_folder
@@ -21,6 +21,8 @@ from app.utils.uploads import get_uploaded_file, content_folder
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def listProject():
+    current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     project = Project.query.all()
     return json_response(data=(row2dict(x, summary=True) for x in project))
 
@@ -30,8 +32,7 @@ def listProject():
 @jwt_required()
 def add_project():
     current_user = jwt_user(get_jwt_identity())
-
-    authorised = check_authorisation(current_user, "school_user")
+    authorised = auth_check(request.path, request.method, current_user)
 
     data = request.get_json()
     project = Project(
@@ -76,6 +77,8 @@ def add_project():
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def get_one_project(id):
+    current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     project = Project.query.get_or_404(id)
 
     project_data = {}
@@ -97,6 +100,7 @@ def get_one_project(id):
 @jwt_required()
 def update_project(id):
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     project_to_update = Project.query.get_or_404(id)
     new_data = request.get_json()
 
@@ -128,6 +132,7 @@ def update_project(id):
 @jwt_required()
 def delete_project(id):
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     project_to_delete = Project.query.filter_by(id=id).first()
     if not project_to_delete:
         return {"message": "No Project found"}
@@ -149,6 +154,8 @@ def delete_project(id):
 
 @admin.route('/project/<int:id>/uploadImage', methods=['POST'])
 def upload_project_image(id):
+    current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     pic, filename = get_uploaded_file(request)
     image_processing(pic, 'project', id, filename)
 

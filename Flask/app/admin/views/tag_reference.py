@@ -8,6 +8,7 @@ from app.admin import admin
 from app.models import Tag_reference
 from app import db
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update, audit_delete
+from app.utils.authorisation import check_authorisation, auth_check
 from app.utils.functions import row2dict, jwt_user
 
 
@@ -15,6 +16,8 @@ from app.utils.functions import row2dict, jwt_user
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def listTagReference():
+    current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     tag_reference = Tag_reference.query.all()
     return json_response(data=(row2dict(x, summary=True) for x in tag_reference))
 
@@ -24,6 +27,7 @@ def listTagReference():
 @jwt_required()
 def add_tag_reference():
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     data = request.get_json()
     tag_reference = Tag_reference(
         label = data['label'],
@@ -48,6 +52,8 @@ def add_tag_reference():
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def getOneTag_Reference(id):
+    current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     tag_reference = Tag_reference.query.get_or_404(id)
 
     tag_reference_data = {}
@@ -61,6 +67,7 @@ def getOneTag_Reference(id):
 @jwt_required()
 def updateTag_Reference(id):
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     tag_reference_to_update = Tag_reference.query.get_or_404(id)
     new_data = request.get_json()
 
@@ -86,6 +93,7 @@ def updateTag_Reference(id):
 @jwt_required()
 def delete_tag_reference(id):
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     tag_reference_to_delete = Tag_reference.query.filter_by(id=id).first()
     if not tag_reference_to_delete:
         return jsonify({"message": "No Tag Reference found"})

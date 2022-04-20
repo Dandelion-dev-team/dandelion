@@ -7,6 +7,7 @@ from app.admin import admin
 from app.models import Quantity
 from app import db
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update, audit_delete
+from app.utils.authorisation import check_authorisation, auth_check
 from app.utils.functions import row2dict, jwt_user
 
 
@@ -14,6 +15,8 @@ from app.utils.functions import row2dict, jwt_user
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def listQuantity():
+    current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     quantity = Quantity.query.all()
     return json_response(data=(row2dict(x, summary=False) for x in quantity))
 
@@ -23,6 +26,7 @@ def listQuantity():
 @jwt_required()
 def add_quantity():
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     data = request.get_json()
     quantity = Quantity(
         name = data['name'],
@@ -49,6 +53,8 @@ def add_quantity():
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def getOneQuantity(id):
+    current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     quantity = Quantity.query.get_or_404(id)
 
     quantity_data = {}
@@ -65,6 +71,7 @@ def getOneQuantity(id):
 @jwt_required()
 def updateQuantity(id):
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     quantity_to_update = Quantity.query.get_or_404(id)
     new_data = request.get_json()
 
@@ -92,6 +99,7 @@ def updateQuantity(id):
 @jwt_required()
 def delete_quantity(id):
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     quantity_to_delete = Quantity.query.filter_by(id=id).first()
     if not quantity_to_delete:
         return jsonify({"message" : "No quantity found"})

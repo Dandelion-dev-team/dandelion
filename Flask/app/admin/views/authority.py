@@ -8,6 +8,7 @@ from app.admin import admin
 from app.models import Authority
 from app import db
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update, audit_delete
+from app.utils.authorisation import check_authorisation, auth_check
 from app.utils.functions import row2dict, jwt_user
 
 
@@ -15,6 +16,8 @@ from app.utils.functions import row2dict, jwt_user
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def listAuthority():
+    current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     authority = Authority.query.all()
     return json_response(data=(row2dict(x, summary=True) for x in authority))
 
@@ -24,6 +27,7 @@ def listAuthority():
 @jwt_required()
 def add_authority():
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     data = request.get_json()
     authority = Authority(
         name = data['name'],
@@ -49,6 +53,8 @@ def add_authority():
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def get_one_authority(id):
+    current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     authority = Authority.query.get_or_404(id)
 
     authority_data = {}
@@ -65,6 +71,7 @@ def get_one_authority(id):
 @jwt_required()
 def updateAuthority(id):
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     authority_to_update = Authority.query.get_or_404(id)
     new_data = request.get_json()
 
@@ -94,6 +101,7 @@ def updateAuthority(id):
 @jwt_required()
 def delete_authority(id):
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     authority_to_delete = Authority.query.filter_by(id=id).first()
     if not authority_to_delete:
         return jsonify({"message" : "No Authority found"})

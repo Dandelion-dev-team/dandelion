@@ -9,12 +9,15 @@ from sqlalchemy import DATETIME
 from app.admin import admin
 from app.models import Node_alert
 from app import db
+from app.utils.authorisation import check_authorisation, auth_check
 from app.utils.functions import row2dict, jwt_user
 
 
 @admin.route('/node_alert', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def listNode_alert():
+    current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     node_alert = Node_alert.query.all()
     return json_response(data=(row2dict(x, summary=True) for x in node_alert))
 
@@ -23,6 +26,8 @@ def listNode_alert():
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def listActiveNode_alerts():
+    current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     node_alerts = Node_alert.query.all()
 
     output = []
@@ -44,6 +49,7 @@ def listActiveNode_alerts():
 @jwt_required()
 def update_node_alert_status(node_alert_id):
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     node_alert_to_update = Node_alert.query.get_or_404(node_alert_id)
     new_node_alert_data = request.get_json()
 

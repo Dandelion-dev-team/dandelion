@@ -10,6 +10,7 @@ from app.admin import admin
 from app.models import ProjectPartner, School, project_partner, Project
 from app import db
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update, audit_delete
+from app.utils.authorisation import check_authorisation, auth_check
 from app.utils.functions import row2dict, jwt_user
 from app.utils.uploads import content_folder
 
@@ -18,6 +19,8 @@ from app.utils.uploads import content_folder
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def listProjectPartner():
+    current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     project_partner = ProjectPartner.query.all()
     return json_response(data=(row2dict(x, summary=False) for x in project_partner))
 
@@ -27,6 +30,7 @@ def listProjectPartner():
 @jwt_required()
 def add_project_partner():
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     data = request.get_json()
     project_partner = ProjectPartner(
         school_id=data['school_id'],
@@ -54,6 +58,7 @@ def add_project_partner():
 @jwt_required()
 def add_project_partner_by_invite(project_id, school_id):
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     new_project_partner = ProjectPartner(
         school_id=school_id,
         project_id=project_id,
@@ -77,6 +82,8 @@ def add_project_partner_by_invite(project_id, school_id):
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def ListAllSchoolInvitations(school_id):
+    current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     invited_schools = ProjectPartner.query. \
         join(School). \
         join(Project). \
@@ -104,6 +111,8 @@ def ListAllSchoolInvitations(school_id):
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def get_invitation_details(project_partner_id):
+    current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     invitations = ProjectPartner.query. \
         join(School). \
         join(Project). \
@@ -145,6 +154,8 @@ def get_invitation_details(project_partner_id):
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def get_one_project_partner(id):
+    current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     project_partner = ProjectPartner.query.get_or_404(id)
 
     project_partner_data = {}
@@ -162,6 +173,7 @@ def get_one_project_partner(id):
 @jwt_required()
 def update_project_partner(id):
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     project_partner_to_update = ProjectPartner.query.get_or_404(id)
     new_data = request.get_json()
 
@@ -190,6 +202,7 @@ def update_project_partner(id):
 @jwt_required()
 def update_project_partner_status(project_partner_id):
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     project_partner_status_to_update = ProjectPartner.query.get_or_404(project_partner_id)
     new_data = request.get_json()
 
@@ -219,6 +232,7 @@ def update_project_partner_status(project_partner_id):
 @jwt_required()
 def delete_project_partner(id):
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     project_partner_to_delete = ProjectPartner.query.filter_by(id=id).first()
     if not project_partner_to_delete:
         return jsonify({"message": "No Project found"})
