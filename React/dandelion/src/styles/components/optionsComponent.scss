@@ -1,0 +1,85 @@
+.options-list {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    z-index: 7;
+    background-color: white;
+    color: black;
+    height: 86vh;
+    border-top-right-radius: 20px;
+    .title {
+      height: 15%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      h3 {
+        color: black;
+        font-size: 2rem;
+        font-family: "Archivo Narrow";
+        letter-spacing: 0.1mm;
+      }
+    }
+
+    .inputs{
+        width: 90%;
+        height: 80%;
+        .project-block{
+            flex-direction: row;
+            justify-content: space-around;
+            display: grid;
+            grid-template-columns: 33% 33% 33%;
+            grid-template-rows: 2rem;
+            .project-item{
+              width: 100%;
+              height: 2rem;
+              display: flex;
+              flex-direction: row;
+              h3{
+                color: black;
+                margin-left: 1rem;
+                font-size: 100%;
+                margin-bottom: 0;
+              }
+            }
+          }
+          .generate-btn {
+            margin-left: auto;
+            display: flex;
+            justify-content: flex-end;
+            .submitButton {
+              background-color: $accent;
+              color: $primary;
+              font-size: 1.6rem;
+              margin-right: 1rem;
+              padding: 15px;
+              border: none;
+              cursor: pointer;
+              border-radius: 10px;
+            }
+            .submitButton:hover {
+              background-color: #d4d926;
+            }
+          }
+    
+        .row-item{
+            display: flex;
+            width: 90%;
+            flex-direction: row;
+            justify-content: space-between;
+            .label{
+                width: 30%;
+                display: flex;
+                align-items: center;
+                h3{
+                    margin-bottom: 0;
+                }
+            }
+            .item{
+                width: 60%;
+            }
+        }
+    }
+}
