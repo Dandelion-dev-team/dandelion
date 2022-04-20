@@ -8,7 +8,7 @@ from app.admin import admin
 from app.models import Authority
 from app import db
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update, audit_delete
-from app.utils.authorisation import check_authorisation, auth_check
+from app.utils.authorisation import auth_check
 from app.utils.functions import row2dict, jwt_user
 
 
@@ -101,7 +101,7 @@ def updateAuthority(id):
 @jwt_required()
 def delete_authority(id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method,id, current_user)
     authority_to_delete = Authority.query.filter_by(id=id).first()
     if not authority_to_delete:
         return jsonify({"message" : "No Authority found"})

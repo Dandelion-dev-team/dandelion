@@ -8,7 +8,7 @@ from app.admin.views.condition_level import create_condition_level
 from app.admin.views.unit import create_unit
 from app.models import Condition
 from app import db
-from app.utils.authorisation import check_authorisation, auth_check
+from app.utils.authorisation import auth_check
 from app.utils.functions import row2dict, jwt_user
 
 

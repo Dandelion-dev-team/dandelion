@@ -7,7 +7,7 @@ from flask_jwt_extended import get_jwt_identity
 from app.admin import admin
 from app.models import Node_sensor
 from app import db
-from app.utils.authorisation import check_authorisation, auth_check
+from app.utils.authorisation import auth_check
 from app.utils.functions import row2dict, jwt_user
 
 

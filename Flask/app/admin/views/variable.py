@@ -8,7 +8,7 @@ from app.admin.views.level import create_level
 from app.models import Variable, Response, variable, ResponseVariable, Level
 from app import db
 from app.utils.auditing import audit_create
-from app.utils.authorisation import check_authorisation, auth_check
+from app.utils.authorisation import auth_check
 from app.utils.functions import row2dict, jwt_user
 
 

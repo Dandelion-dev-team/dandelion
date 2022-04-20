@@ -6,7 +6,7 @@ from sqlalchemy import inspect
 from sqlalchemy.sql.functions import user
 import os
 
-from app.utils.authorisation import check_authorisation, auth_check
+from app.utils.authorisation import auth_check
 from app.utils.uploads import get_uploaded_file, content_folder
 
 from app.admin import admin

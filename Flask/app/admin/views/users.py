@@ -7,7 +7,7 @@ from app.admin.views.school import getOneSchool
 from app.models import User, ExperimentParticipant, Experiment, Project, School, ProjectPartner
 from flask_cors import cross_origin
 from app import db
-from app.utils.authorisation import check_authorisation, auth_check
+from app.utils.authorisation import auth_check
 from app.utils.functions import jwt_user
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update, audit_delete
 

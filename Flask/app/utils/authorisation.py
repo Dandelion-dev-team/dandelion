@@ -3,24 +3,26 @@ from app import db
 from app.models import ExperimentParticipant, User
 
 
-def auth_check(route, method, current_user=None):
+def auth_check(route, method,id, current_user=None):
+
+    id = str(id)
 
     all_routes = [
         {"route": "/api/authority", "method": "GET", "auth_level": "public"},
         {"route": "/api/authority", "method": "POST", "auth_level": "sysadmin"},
-        {"route": "/api/authority/id", "method": "GET", "auth_level": "superuser"},
-        {"route": "/api/authority/id", "method": "PUT", "auth_level": "sysadmin"},
-        {"route": "/api/authority/id", "method": "DELETE", "auth_level": "sysadmin"},
+        {"route": "/api/authority/"+id, "method": "GET", "auth_level": "superuser"},
+        {"route": "/api/authority/"+id, "method": "PUT", "auth_level": "sysadmin"},
+        {"route": "/api/authority/"+id, "method": "DELETE", "auth_level": "sysadmin"},
         {"route": "/api/condition", "method": "GET", "auth_level": "public"},
-        {"route": "/api/experiment/id", "method": "GET", "auth_level": "school_user"},
+        {"route": "/api/experiment/"+id, "method": "GET", "auth_level": "school_user"},
         {"route": "/api/project/id/experiment", "method": "GET", "auth_level": "experiment_participant"},
-        {"route": "/api/experiment/id", "method": "GET", "auth_level": "experiment_participant"},
+        {"route": "/api/experiment/"+id, "method": "GET", "auth_level": "experiment_participant"},
         {"route": "/api/experiment", "method": "POST", "auth_level": "superuser"},
         {"route": "/api/experiment/id/uploadimage", "method": "PUT", "auth_level": "superuser"},
-        {"route": "/api/experiment/id", "method": "PUT", "auth_level": "superuser"},
+        {"route": "/api/experiment/"+id, "method": "PUT", "auth_level": "superuser"},
         {"route": "/api/experiment_participant", "method": "GET", "auth_level": "public"},
         {"route": "/api/experiment_participant/add", "method": "POST", "auth_level": "public"},
-        {"route": "/api/experiment_participant/user_id", "method": "GET", "auth_level": "public"},
+        {"route": "/api/experiment_participant/"+id, "method": "GET", "auth_level": "public"},
         {"route": "/api/experiment_participant/experiment_id/user_id ", "method": "POST", "auth_level": "public"},
         {"route": "/api/experiment_participant/updatestatus/experiment_participant_id ", "method": "PUT",
          "auth_level": "public"},

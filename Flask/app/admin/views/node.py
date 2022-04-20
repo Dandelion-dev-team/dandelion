@@ -12,7 +12,7 @@ from app.admin import admin
 from app.models import Node
 from app import db
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update, audit_delete
-from app.utils.authorisation import check_authorisation, auth_check
+from app.utils.authorisation import auth_check
 from app.utils.functions import row2dict, jwt_user
 import pandas as pd
 from pandas import DataFrame, read_csv

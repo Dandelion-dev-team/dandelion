@@ -14,7 +14,7 @@ from app.models import Experiment, Condition, ConditionLevel, Level, Variable, P
     ProjectPartner
 from app import db
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update
-from app.utils.authorisation import check_authorisation, auth_check
+from app.utils.authorisation import auth_check
 from app.utils.functions import row2dict, jwt_user
 from app.utils.images import image_processing
 from app.utils.uploads import get_uploaded_file, content_folder
