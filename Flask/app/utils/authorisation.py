@@ -114,6 +114,7 @@ def auth_check(route, method,id_1, current_user=None):
         {"route": "/api/allVariables", "method": "GET", "auth_level": "superuser"},
         {"route": "/api/variable/"+id_1, "method": "GET", "auth_level": "experiment_participant"},
         {"route": "/api/allVariables", "method": "GET", "auth_level": "experiment_participant"}
+    ]
 
 
     for x in all_routes:
