@@ -31,7 +31,7 @@ def listExperiment_participant():
 @jwt_required()
 def addExperiment_participant():
     current_user = jwt_user(get_jwt_identity())
-    authorised = check_authorisation(current_user, "superuser")
+    authorised = auth_check(request.path, request.method, current_user)
     data = request.get_json()
 
     experiment_participant = ExperimentParticipant(
