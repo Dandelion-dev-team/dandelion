@@ -22,6 +22,7 @@ from app.utils.uploads import get_uploaded_file, content_folder
 
 @admin.route('/experiment', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
+@jwt_required()
 def listExperiment():
     current_user = jwt_user(get_jwt_identity())
     authorised = auth_check(request.path, request.method, current_user)
@@ -31,15 +32,17 @@ def listExperiment():
 
 @admin.route('/project/<int:id>/experiment', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
+@jwt_required()
 def listExperimentForProject(id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method,id, current_user)
     project = Project.query.get_or_404(id)
     return json_response(data=(row2dict(x, summary=True) for x in project.experiments))
 
 
 @admin.route('/experiment/<int:id>', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
+@jwt_required()
 def get_one_experiment(id):
     current_user = jwt_user(get_jwt_identity())
     authorised = auth_check(request.path, request.method, current_user)
