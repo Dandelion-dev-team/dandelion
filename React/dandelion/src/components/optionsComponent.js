@@ -135,86 +135,117 @@ export default function OptionsComponent(props) {
   return (
     <div className="options-list">
       <div className="title">
-        <h3>Options:</h3>
+        <h3>Options</h3>
       </div>
       <div className="inputs">
-        <div className="row-item">
+        <div className="chart-select">
           <div className="label">
             <h3>Chart Type:</h3>
           </div>
-          <div className="item">
+          <div className="dropdown">
             {chart_types ? (
               <Select
                 options={chart_types}
                 getOptionLabel={chart => chart.label}
                 getOptionValue={chart => chart.id} // It should be unique value in the options. E.g. I
                 onChange={setChart}
+                menuColor="red"
               />
             ) : null}
           </div>
         </div>
-        <h3>Date Range:</h3>
-        <div className="row-item">
-          <div className="label">
-            <h3>From:</h3>
+        <div className="date-select">
+          <div className="title">
+            <h3>Date Range</h3>
           </div>
-          <div className="item">
-            <input
-              type="date"
-              name="codeBox"
-              min={min_date}
-              max={max_date}
-              onChange={e => {
-                setFrom(e.target.value)
-              }}
-            />
-          </div>
-        </div>
-        <div className="row-item">
-          <div className="label">
-            <h3>To:</h3>
-          </div>
-          <div className="item">
-            <input
-              type="date"
-              name="codeBox"
-              min={from_selected}
-              max={max_date}
-              onChange={e => {
-                setTo(e.target.value)
-              }}
-            />
-          </div>
-        </div>
-        <DropdownTreeSelect
-          data={props.dataOptions.treatment_variables}
-          onChange={onChange}
-          onAction={onAction}
-          onNodeToggle={onNodeToggle}
-        />
-        <DropdownTreeSelect
-          data={props.dataOptions.response_variables}
-          onChange={onChange}
-          onAction={onAction}
-          onNodeToggle={onNodeToggle}
-        />
-
-        <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-          >
-            Sensor Quantities
-          </AccordionSummary>
-          <AccordionDetails>
-            <div className="project-block">
-              {props.dataOptions.sensor_quantities.map(quantity => (
-                <SensorQuantity sensor_ref={quantity} />
-              ))}
+          <div className="date-pickers">
+            <div className="from-picker">
+              <div className="label">
+                <h3>From:</h3>
+              </div>
+              <div className="dropdown">
+                <input
+                  type="date"
+                  name="codeBox"
+                  min={min_date}
+                  max={max_date}
+                  onChange={e => {
+                    setFrom(e.target.value)
+                  }}
+                />
+              </div>
             </div>
-          </AccordionDetails>
-        </Accordion>
+            <div className="to-picker">
+              <div className="label">
+                <h3>To:</h3>
+              </div>
+              <div className="dropdown">
+                <input
+                  type="date"
+                  name="codeBox"
+                  min={from_selected}
+                  max={max_date}
+                  onChange={e => {
+                    setTo(e.target.value)
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="variables">
+          <div className="title">
+            <h3>Variables</h3>
+          </div>
+          <div className="variable-pickers">
+            <div className="treatment-picker">
+              <div className="label">Treatment Variables:</div>
+              <div className="dropdown">
+                <DropdownTreeSelect
+                  data={props.dataOptions.treatment_variables}
+                  onChange={onChange}
+                  onAction={onAction}
+                  onNodeToggle={onNodeToggle}
+                />
+              </div>
+            </div>
+            <div className="response-picker">
+              <div className="label">Response Variables:</div>
+              <div className="dropdown">
+                <DropdownTreeSelect
+                  data={props.dataOptions.response_variables}
+                  onChange={onChange}
+                  onAction={onAction}
+                  onNodeToggle={onNodeToggle}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="sensors">
+          <div className="title">
+              <h3>Sensors</h3>
+          </div>
+          <div className="accordion">
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+              >
+                Sensor Quantities
+              </AccordionSummary>
+              <AccordionDetails>
+                <div className="project-block">
+                  {props.dataOptions.sensor_quantities.map(quantity => (
+                    <SensorQuantity sensor_ref={quantity} />
+                  ))}
+                </div>
+              </AccordionDetails>
+            </Accordion>
+          </div>
+        </div>
+
         <div className="generate-btn">
           <input
             type="submit"
