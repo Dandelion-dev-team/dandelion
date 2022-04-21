@@ -23,7 +23,17 @@ export default function Data() {
   const [table_data, setTableData] = useState([]);
   const [columnDefs, setColumns] = useState();
   const [chart_data, setChartData] = useState();
+
+  const [chart_type, setChartType] = useState("");
   //INITIAL DATA
+
+  const options = {
+    scales: {
+        y: {
+            beginAtZero: true
+        }
+    }
+}
 
   const getRandomInt = max => {
     return Math.floor(Math.random() * max);
@@ -44,7 +54,7 @@ export default function Data() {
       let line_data = [];
       e.data.forEach((data_item, index) => {
         data_item.forEach(((item, idx) => {
-          if(idx == column_index){
+          if (idx == column_index) {
             line_data.push(item)
           }
         }))
@@ -54,7 +64,7 @@ export default function Data() {
       let b = getRandomInt(255);
 
       let colour = "rgba(" + (r) + "," + (g) + "," + (b) + ")";
-      lines.push({ label: rows, data: line_data, fill: false, borderColor: colour, backgroundColor: colour,});
+      lines.push({ label: rows, data: line_data, fill: false, borderColor: colour, backgroundColor: colour, });
     });
     setChartData({
       labels: labels,
@@ -111,7 +121,8 @@ export default function Data() {
   }
 
   const tableReturn = e => {
-    generateColumns(e);
+    generateColumns(e.data);
+    setChartType(e.chart.label)
   }
 
   return (
@@ -162,34 +173,9 @@ export default function Data() {
                         ></AgGridReact>
                       ) : null
                     ) : (
-                      // <Bar
-                      //   data={dataset}
-                      //   options={{
-                      //     plugins: {
-                      //       legend: {
-                      //         onClick: (evt, legendItem, legend) => {
-                      //           const index = legendItem.datasetIndex
-                      //           const ci = legend.chart
-
-                      //           legend.chart.data.datasets.forEach((d, i) => {
-                      //             ci.hide(i)
-                      //             d.hidden = true
-                      //           })
-
-                      //           ci.show(index)
-                      //           legendItem.hidden = false
-                      //           //wrap this in a delay
-                      //           ci.update()
-                      //         },
-                      //       },
-                      //     },
-                      //     animation: {
-                      //       duration: 0,
-                      //       easing: "linear",
-                      //     },
-                      //   }}
-                      // />
-                      <Bar data={chart_data} />
+                      chart_type == "line" ? <Line data={chart_data} options={options}/>
+                        : chart_type == "bar" ? <Bar data={chart_data} options={options}/>
+                        : null
                     )}
                   </div>
                 </div>

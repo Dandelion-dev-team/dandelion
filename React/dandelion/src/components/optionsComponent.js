@@ -23,63 +23,62 @@ export default function OptionsComponent(props) {
   const [from_selected, setFrom] = useState()
   const [to_selected, setTo] = useState()
   const [chart_selected, setChart] = useState()
+  const [treatment_selected, setSelectedTreatment] = useState([])
+  const [response_selected, setSelectedResponse] = useState([])
 
   const onSensorChange = sensor => {
     setSelectedSensor(sensor.sensor_ref)
   }
 
   const onChartClick = chart => {
-    // if (from_selected && to_selected && chart_selected) {
-    let body = JSON.stringify({
-      experiment_id: 23,
-      chart_type: "line",
-      first_date: "2022-05-10",
-      last_date: "2022-05-20",
-      schools: [114, 115],
-      treatment_variables: [
-        {
-          variable_id: 1,
-          name: "species",
-          levels: [1, 2, 3, 4, 5, 6],
-        },
-        {
-          variable_id: 6,
-          name: "tickling",
-          levels: [18, 19, 20],
-        },
-      ],
-      response_variables: [3, 7],
-      milestones: true,
-      sensor_quantity: null,
-      average_over_replicates: true,
-    })
-    fetch(process.env.API_URL + "/data", {
-      method: "POST",
-      credentials: "include",
-      mode: "cors",
-      headers: new Headers({
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-        Pragma: "no-cache",
-        Expires: 0,
-        "Content-Type": "application/json",
-      }),
-      body: body,
-    })
-      .then(response => {
-        if (response.status >= 200 && response.status <= 299) {
-          return response.json()
-        } else {
-          throw Error(response.status)
-        }
+    let sensor_id = null
+    if (sensor_selected) {
+      sensor_id = sensor_selected.sensor_quantity_id
+    }
+    if (
+      from_selected &&
+      to_selected &&
+      chart_selected &&
+      treatment_selected.length > 0
+    ) {
+      let body = JSON.stringify({
+        experiment_id: 23,
+        chart_type: chart_selected.label,
+        first_date: from_selected,
+        last_date: to_selected,
+        schools: [],
+        treatment_variables: treatment_selected,
+        response_variables: response_selected,
+        milestones: true,
+        sensor_quantity: null,
+        average_over_replicates: true,
       })
-      .then(jsonResponse => {
-        props.setTable(jsonResponse.data)
+      fetch(process.env.API_URL + "/data", {
+        method: "POST",
+        credentials: "include",
+        mode: "cors",
+        headers: new Headers({
+          "Cache-Control": "no-cache, no-store, must-revalidate",
+          Pragma: "no-cache",
+          Expires: 0,
+          "Content-Type": "application/json",
+        }),
+        body: body,
       })
-      .catch(error => {
-        toast.error("Database error " + error)
-        console.log(error)
-      })
-    //}
+        .then(response => {
+          if (response.status >= 200 && response.status <= 299) {
+            return response.json()
+          } else {
+            throw Error(response.status)
+          }
+        })
+        .then(jsonResponse => {
+          props.setTable({ data: jsonResponse.data, chart: chart_selected })
+        })
+        .catch(error => {
+          toast.error("Database error " + error)
+        })
+    }
   }
   const SensorQuantity = sensor => {
     const [checked_value, setCheckedValue] = useState(false)
@@ -92,9 +91,6 @@ export default function OptionsComponent(props) {
           sensor.sensor_ref.sensor_quantity_id
         ) {
           setCheckedValue(true)
-          {
-            console.log(sensor)
-          }
         }
       }
     }, [])
@@ -123,15 +119,67 @@ export default function OptionsComponent(props) {
       })
     }
   }, [])
-  const onChange = (currentNode, selectedNodes) => {
-    console.log("onChange::", currentNode, selectedNodes)
+
+  const onChangeTreatment = (currentNode, selectedNodes) => {
+    let copy = []
+    let variables = props.dataOptions.treatment_variables
+    if (currentNode._depth == 0) {
+      console.log(currentNode._depth)
+      variables.forEach(treatment => {
+        treatment.children.forEach(child => {
+          child.checked = true
+        })
+      })
+    }
+    variables.forEach(treatment => {
+      let treatment_generated = {
+        variable_id: treatment.value,
+        name: treatment.label,
+        levels: [],
+      }
+      treatment.children.forEach(child => {
+        if (
+          child.value == currentNode.value &&
+          child.label == currentNode.label
+        ) {
+          if (child.checked == true) {
+            child.checked = false
+          } else {
+            child.checked = true
+          }
+        }
+        if (child.checked == true) {
+          treatment_generated.levels.push(child.value)
+        }
+      })
+      copy.push(treatment_generated)
+    })
+    console.log(copy)
+    setSelectedTreatment(copy)
   }
-  const onAction = (node, action) => {
-    console.log("onAction::", action, node)
+
+  const onChangeResponse = (currentNode, selectedNodes) => {
+    let copy = [...response_selected]
+
+    if (copy.includes(currentNode.value)) {
+      copy = copy.filter(item => item !== currentNode.value)
+    } else {
+      copy.push(currentNode.value)
+    }
+    if (currentNode._depth == 0) {
+      response_selected.forEach(response => {
+        if (currentNode.value == response.value) {
+          response.checked = true
+        }
+      })
+    }
+    console.log(copy)
+    setSelectedResponse(copy)
   }
-  const onNodeToggle = currentNode => {
-    console.log("onNodeToggle::", currentNode)
-  }
+
+  const onAction = (node, action) => {}
+  const onNodeToggle = currentNode => {}
+
   return (
     <div className="options-list">
       <div className="title">
@@ -203,7 +251,7 @@ export default function OptionsComponent(props) {
               <div className="dropdown">
                 <DropdownTreeSelect
                   data={props.dataOptions.treatment_variables}
-                  onChange={onChange}
+                  onChange={onChangeTreatment}
                   onAction={onAction}
                   onNodeToggle={onNodeToggle}
                 />
@@ -214,7 +262,7 @@ export default function OptionsComponent(props) {
               <div className="dropdown">
                 <DropdownTreeSelect
                   data={props.dataOptions.response_variables}
-                  onChange={onChange}
+                  onChange={onChangeResponse}
                   onAction={onAction}
                   onNodeToggle={onNodeToggle}
                 />
@@ -224,7 +272,7 @@ export default function OptionsComponent(props) {
         </div>
         <div className="sensors">
           <div className="title">
-              <h3>Sensors</h3>
+            <h3>Sensors</h3>
           </div>
           <div className="accordion">
             <Accordion>
@@ -245,7 +293,20 @@ export default function OptionsComponent(props) {
             </Accordion>
           </div>
         </div>
-
+        {/* <input
+          type="checkbox"
+          id="experiment_id"
+          name="topping"
+          value="experiment_ID"
+        />{" "}
+        Average over replicates
+        <input
+          type="checkbox"
+          id="experiment_id"
+          name="topping"
+          value="experiment_ID"
+        />{" "}
+        Include milestones */}
         <div className="generate-btn">
           <input
             type="submit"

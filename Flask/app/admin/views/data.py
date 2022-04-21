@@ -162,11 +162,13 @@ def get_data_selection_options(experiment_id):
         "response_variables": [
             {
                 "value": rv.variable.id,
+                "checked": False,
                 "label": rv.variable.name,
                 "variable_timing": "once" if rv.once else "final" if rv.final else "repeated",
                 "variable_type": "continuous" if rv.variable.quantity_id else "discrete" if len(rv.variable.levels) > 0 else "qualitative",
                 "children": [
                     {
+                        "checked": False,
                         "value": level.id,
                         "label": level.name,
                         "level_sequence": level.sequence
