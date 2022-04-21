@@ -30,12 +30,6 @@ export function user_login(username, password) {
             'Accept': 'application/json',
             'Cache-Control': 'no-cache',
         }),
-    }).then((response) => {
-        if (response.status >= 200 && response.status <= 299) {
-            return response.json();
-        } else {
-            throw Error(response.status);
-        }
     }).then(response => {
         if (response.status == 200) {
             localStorage.setItem("logged", true);
@@ -68,10 +62,7 @@ export function user_login(username, password) {
                 }
             })
         }
-    }).catch((error) => {
-        toast.error("Database error " + error)
-        console.log(error);
-    });
+    }).catch(toast.error("Incorrect sign in details."))
 }
 
 export function retrieve_user() {
