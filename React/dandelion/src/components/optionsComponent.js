@@ -24,39 +24,45 @@ export default function OptionsComponent(props) {
     const [from_selected, setFrom] = useState();
     const [to_selected, setTo] = useState();
     const [chart_selected, setChart] = useState();
-
+    const [treatment_selected, setSelectedTreatment] = useState();
+    const [response_selected, setSelectedResponse] = useState();
+    
+    
     const onSensorChange = (sensor) => {
         setSelectedSensor(sensor.sensor_ref);
     }
 
     const onChartClick = (chart) => {
-        // if (from_selected && to_selected && chart_selected) {
+        let sensor_id = null;
+        if(sensor_selected){
+            sensor_id = sensor_selected.sensor_quantity_id
+        }
+        if (from_selected && to_selected && chart_selected) {
             let body = JSON.stringify({
                     experiment_id: 23,
-                    chart_type: "line",
-                    first_date: "2022-05-10",
-                    last_date: "2022-05-20",
+                    chart_type: chart_selected.label,
+                    first_date: from_selected,
+                    last_date: to_selected,
                     schools: [
-                        114, 115
                     ],
                     treatment_variables: [
                         {
                             variable_id: 1,
                             name: "species",
                             levels: [
-                                1, 2, 3, 4, 5, 6
+                                1, 2
                             ]
                         },
                         {
                             variable_id: 6,
                             name: "tickling",
                             levels: [
-                                18, 19, 20
+                                18
                             ]
                         }
                     ],
                     response_variables: [
-                        3, 7
+                        3
                     ],
                     milestones: true,
                     sensor_quantity: null,
@@ -87,7 +93,7 @@ export default function OptionsComponent(props) {
                     toast.error("Database error " + error)
                     console.log(error);
                 });
-        //}
+        }
     }
     const SensorQuantity = sensor => {
         const [checked_value, setCheckedValue] = useState(false);
@@ -125,9 +131,14 @@ export default function OptionsComponent(props) {
             });
         }
     }, [])
-    const onChange = (currentNode, selectedNodes) => {
-        console.log('onChange::', currentNode, selectedNodes)
+    const onChangeTreatment = (currentNode, selectedNodes) => {
+        setSelectedTreatment(selectedNodes)
     }
+
+    const onChangeResponse = (currentNode, selectedNodes) => {
+        setSelectedResponse(selectedNodes)
+    }
+
     const onAction = (node, action) => {
         console.log('onAction::', action, node)
     }
@@ -185,8 +196,8 @@ export default function OptionsComponent(props) {
                         />
                     </div>
                 </div>
-                <DropdownTreeSelect data={props.dataOptions.treatment_variables} onChange={onChange} onAction={onAction} onNodeToggle={onNodeToggle} />
-                <DropdownTreeSelect data={props.dataOptions.response_variables} onChange={onChange} onAction={onAction} onNodeToggle={onNodeToggle} />
+                <DropdownTreeSelect data={props.dataOptions.treatment_variables} onChange={onChangeTreatment} onAction={onAction} onNodeToggle={onNodeToggle} />
+                <DropdownTreeSelect data={props.dataOptions.response_variables} onChange={onChangeResponse} onAction={onAction} onNodeToggle={onNodeToggle} />
 
                 <Accordion>
                     <AccordionSummary
@@ -201,7 +212,6 @@ export default function OptionsComponent(props) {
                                 <SensorQuantity sensor_ref={quantity} />
                             ))}
                         </div>
-
                     </AccordionDetails>
                 </Accordion>
                 <div className="generate-btn">

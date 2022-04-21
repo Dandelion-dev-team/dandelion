@@ -4,7 +4,7 @@ import { AgGridReact } from "ag-grid-react"
 import BarChartIcon from "@mui/icons-material/BarChart"
 import BackupTableIcon from "@mui/icons-material/BackupTable"
 import { readAdminRecord, readRecord } from "../utils/CRUD"
-import { Line } from "react-chartjs-2";
+import { Line, Bar } from "react-chartjs-2";
 import { Chart as ChartJS } from 'chart.js/auto'
 
 import { ToastContainer, toast } from 'react-toastify';
@@ -25,6 +25,9 @@ export default function Data() {
   const [chart_data, setChartData] = useState();
   //INITIAL DATA
 
+  const getRandomInt = max => {
+    return Math.floor(Math.random() * max);
+  }
   const generateChart = e => {
     let labels = [];
     e.index.forEach(date => {
@@ -46,7 +49,12 @@ export default function Data() {
           }
         }))
       })
-      lines.push({ label: rows, data: line_data, fill: false});
+      let r = getRandomInt(255);
+      let g = getRandomInt(255);
+      let b = getRandomInt(255);
+
+      let colour = "rgba(" + (r) + "," + (g) + "," + (b) + ")";
+      lines.push({ label: rows, data: line_data, fill: false, borderColor: colour, backgroundColor: colour,});
     });
     setChartData({
       labels: labels,
@@ -84,28 +92,6 @@ export default function Data() {
     setColumns(columns)
     generateChart(e);
   }
-
-  const dataset = {
-    labels: ["13/03/22", "20/03/22", "27/03/22"],
-    datasets: [
-      {
-        label: "Weight (g)",
-        backgroundColor: "rgba(75,192,192,1)",
-        borderColor: "rgba(0,0,0,1)",
-        borderWidth: 2,
-        data: [1, 2, 3],
-      },
-      {
-        label: "Height (mm)",
-        backgroundColor: "rgba(132,60,98)",
-        borderColor: "rgba(0,0,0,1)",
-        borderWidth: 2,
-        hidden: true,
-        data: [5, 6, 7],
-      },
-    ],
-  }
-
 
   const changeTab = e => {
     if (e == 0) {
@@ -203,7 +189,7 @@ export default function Data() {
                       //     },
                       //   }}
                       // />
-                      <Line data={chart_data} />
+                      <Bar data={chart_data} />
                     )}
                   </div>
                 </div>
