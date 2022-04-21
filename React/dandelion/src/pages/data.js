@@ -23,6 +23,8 @@ export default function Data() {
   const [table_data, setTableData] = useState([]);
   const [columnDefs, setColumns] = useState();
   const [chart_data, setChartData] = useState();
+
+  const [chart_type, setChartType] = useState("");
   //INITIAL DATA
 
   const getRandomInt = max => {
@@ -44,7 +46,7 @@ export default function Data() {
       let line_data = [];
       e.data.forEach((data_item, index) => {
         data_item.forEach(((item, idx) => {
-          if(idx == column_index){
+          if (idx == column_index) {
             line_data.push(item)
           }
         }))
@@ -54,7 +56,7 @@ export default function Data() {
       let b = getRandomInt(255);
 
       let colour = "rgba(" + (r) + "," + (g) + "," + (b) + ")";
-      lines.push({ label: rows, data: line_data, fill: false, borderColor: colour, backgroundColor: colour,});
+      lines.push({ label: rows, data: line_data, fill: false, borderColor: colour, backgroundColor: colour, });
     });
     setChartData({
       labels: labels,
@@ -111,7 +113,8 @@ export default function Data() {
   }
 
   const tableReturn = e => {
-    generateColumns(e);
+    generateColumns(e.data);
+    setChartType(e.chart.label)
   }
 
   return (
@@ -189,7 +192,10 @@ export default function Data() {
                       //     },
                       //   }}
                       // />
-                      <Bar data={chart_data} />
+
+                      chart_type == "line" ? <Line data={chart_data} />
+                        : chart_type == "bar" ? <Bar data={chart_data} />
+                        : null
                     )}
                   </div>
                 </div>

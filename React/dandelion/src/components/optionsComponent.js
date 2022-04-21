@@ -89,7 +89,7 @@ export default function OptionsComponent(props) {
                     }
                 })
                 .then((jsonResponse) => {
-                    props.setTable(jsonResponse.data)
+                    props.setTable({data: jsonResponse.data, chart: chart_selected})
                 }).catch((error) => {
                     toast.error("Database error " + error)
                     console.log(error);
