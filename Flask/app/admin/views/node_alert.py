@@ -7,7 +7,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import DATETIME
 
 from app.admin import admin
-from app.models import Node_alert
+from app.models import NodeAlert
 from app import db
 from app.utils.functions import row2dict, jwt_user
 
@@ -15,7 +15,7 @@ from app.utils.functions import row2dict, jwt_user
 @admin.route('/node_alert', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def listNode_alert():
-    node_alert = Node_alert.query.all()
+    node_alert = NodeAlert.query.all()
     return json_response(data=(row2dict(x, summary=True) for x in node_alert))
 
 
@@ -23,7 +23,7 @@ def listNode_alert():
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def listActiveNode_alerts():
-    node_alerts = Node_alert.query.all()
+    node_alerts = NodeAlert.query.all()
 
     output = []
     for alerts in node_alerts:
@@ -44,7 +44,7 @@ def listActiveNode_alerts():
 @jwt_required()
 def update_node_alert_status(node_alert_id):
     current_user = jwt_user(get_jwt_identity())
-    node_alert_to_update = Node_alert.query.get_or_404(node_alert_id)
+    node_alert_to_update = NodeAlert.query.get_or_404(node_alert_id)
     new_node_alert_data = request.get_json()
 
     node_alert_to_update.status = new_node_alert_data['status']

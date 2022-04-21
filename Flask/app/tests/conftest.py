@@ -1,4 +1,5 @@
 import pytest
+from flask_jwt_extended import create_access_token
 from flask_sqlalchemy import SQLAlchemy
 
 from app import create_app
@@ -10,7 +11,9 @@ def app():
     app = create_app('production')
     app.config.update({
         "TESTING": True,
-        "SQLALCHEMY_DATABASE_URI": 'mysql+mysqlconnector://test_user:test@localhost/test_db'
+        "SQLALCHEMY_DATABASE_URI": 'mysql+mysqlconnector://test_user:test@localhost/test_db',
+        "JWT_COOKIE_CSRF_PROTECT": False,
+        "JWT_TOKEN_LOCATION": 'headers'
     })
 
     with app.app_context():

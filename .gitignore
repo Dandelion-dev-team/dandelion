@@ -81,3 +81,4 @@ requirements.txt
 /Images/
 /.pytest_cache/
 /Flask/instance/
+/content/node/1/

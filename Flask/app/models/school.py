@@ -18,7 +18,7 @@ class School(db.Model):
     school_image_link = db.Column(db.String(400))
     status = db.Column(db.String(20), nullable=False)
     users = db.relationship("User", backref="school")
-    node = db.relationship("Node", backref="school")
+    nodes = db.relationship("Node", backref="school")
     project_partners = db.relationship("ProjectPartner", backref="school")
 
     @property

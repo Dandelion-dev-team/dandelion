@@ -4,6 +4,7 @@ admin = Blueprint('admin', __name__)
 
 from .views.authority import *
 from .views.condition import *
+from .views.data import *
 from .views.experiment import *
 from .views.experiment_participant import *
 from .views.hypothesis import *
