@@ -54,18 +54,12 @@ export default function EnterActivityDetails(props) {
       status: "active",
     })
 
-    createRecordNavigate("/project", body).then(response =>
-      uploadExperimentImage(
-        "/project/" + response.id + "/uploadImage",
-        image
-      ).then(
-        navigate("/superuser/project-maintenance", {
-          state: {
-            show_modal: true,
-          },
-        })
-      )
-    )
+    createRecordNavigate("/project", body).then(response => uploadExperimentImage("/project/" + response.id + "/uploadImage", image).then(navigate("/superuser/activity-maintenance",
+      {
+        state: {
+          show_modal: true
+        },
+      })));
   }
 
   useEffect(() => {
@@ -190,7 +184,7 @@ export default function EnterActivityDetails(props) {
                 value="Back"
                 onClick={() => {
                   if (typeof window !== `undefined`) {
-                    createActivity()
+                    navigate("/superuser/project-maintenance/")
                   }
                 }}
               ></input>

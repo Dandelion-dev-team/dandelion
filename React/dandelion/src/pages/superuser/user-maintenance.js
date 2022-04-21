@@ -8,7 +8,9 @@ import SideNav from "../../components/navigation/superUserSideNav"
 import EditIcon from "@mui/icons-material/Edit"
 import VariableListComponent from '../../components/cards/variableListComponent';
 import { ToastContainer, toast } from 'react-toastify';
+
 import 'react-toastify/dist/ReactToastify.css';
+import VariableCard from '../../components/cards/variableCard';
 
 export default function UserMaintenance(props) {
     //Tested
@@ -28,7 +30,7 @@ export default function UserMaintenance(props) {
                 readRecord("/user/byschoolandexperiment/" + school_id + "/" + props.location.state.experiment.id, setUsers)
             } else {
                 if (typeof window !== `undefined`) {
-                    navigate("/superuser/project-maintenance")
+                    navigate("/superuser/activity-maintenance")
                 }
             }
         } else {
@@ -136,11 +138,15 @@ export default function UserMaintenance(props) {
                             </div>
                             <div className='variable-list'>
                                 <h3>Treatment Variables:</h3>
-
+                               {experiment.responseVariables.map(response => {
+                                   return (<VariableCard mappedValue={response}/>)
+                               })}
                             </div>
                             <div className='variable-list'>
                                 <h3>Response Variables:</h3>
-
+                                {experiment.treatmentVariables.map(response => {
+                                   return (<VariableCard mappedValue={response}/>)
+                               })}
                             </div>
                         </div>
                         <div className='user-pane'>

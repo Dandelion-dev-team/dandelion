@@ -22,8 +22,7 @@
     }
   }
 
-
-  .title-description{
+  .title-description {
     width: 70%;
     height: 100%;
     display: flex;
@@ -34,7 +33,6 @@
       margin-left: 10px;
       margin-bottom: 0;
       font-size: 1.25vw;
-
     }
     h4 {
       margin-top: 10px;
@@ -51,9 +49,9 @@
     margin-left: 20px;
     margin-right: 20px;
     border-radius: 3px;
-  }  
+  }
 }
-.experiment-card:hover{
+.experiment-card:hover {
   cursor: pointer;
-  background-color: $accent;
+  border: 2.4px solid $contrast;
 }

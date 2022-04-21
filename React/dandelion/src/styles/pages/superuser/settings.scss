@@ -4,7 +4,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  margin-left: 240px;
+  margin-left: 20%;
   height: 100vh;
   overflow-y: auto;
   flex-direction: column;
@@ -38,7 +38,8 @@
         border-radius: 20px;
         width: 100%;
         img {
-          object-fit: cover;
+          object-fit: fill;
+          margin: 0;
           width: 100%;
           height: 100%;
           border-radius: 20px;
@@ -57,10 +58,14 @@
           align-items: center;
 
           .edit-icon {
-              color: black;
-              width: 70%;
-              height: 70%;
+            color: black;
+            width: 70%;
+            height: 70%;
           }
+        }
+        .edit-circle:hover{
+          background-color: #d4d926;
+          cursor: pointer;
         }
       }
       .node-settings {
@@ -86,6 +91,7 @@
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
+      margin-top: 2%;
       width: 35%;
       height: 90vh;
 
@@ -95,10 +101,34 @@
         height: 44vh;
         width: 100%;
 
+        .item-input{
+          width: 60%;
+          margin-bottom: 5%;
+        }
+
         h3 {
           font-size: 1.2rem;
           font-family: "Archivo Narrow";
-
+        }
+        .btn-update-delete {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          .update-button {
+            background-color: $accent;
+            color: $primary;
+            font-size: 1.25rem;
+            margin: 1.25rem 0px;
+            padding: 10px;
+            padding-left: 20px;
+            padding-right: 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+          }
+          .back-button:hover {
+            background-color: #d4d926;
+          }
         }
       }
     }
