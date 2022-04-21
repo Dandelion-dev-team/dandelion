@@ -27,6 +27,14 @@ export default function Data() {
   const [chart_type, setChartType] = useState("");
   //INITIAL DATA
 
+  const options = {
+    scales: {
+        y: {
+            beginAtZero: true
+        }
+    }
+}
+
   const getRandomInt = max => {
     return Math.floor(Math.random() * max);
   }
@@ -193,8 +201,8 @@ export default function Data() {
                       //   }}
                       // />
 
-                      chart_type == "line" ? <Line data={chart_data} />
-                        : chart_type == "bar" ? <Bar data={chart_data} />
+                      chart_type == "line" ? <Line data={chart_data} options={options}/>
+                        : chart_type == "bar" ? <Bar data={chart_data} options={options}/>
                         : null
                     )}
                   </div>
