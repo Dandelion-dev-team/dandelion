@@ -173,34 +173,6 @@ export default function Data() {
                         ></AgGridReact>
                       ) : null
                     ) : (
-                      // <Bar
-                      //   data={dataset}
-                      //   options={{
-                      //     plugins: {
-                      //       legend: {
-                      //         onClick: (evt, legendItem, legend) => {
-                      //           const index = legendItem.datasetIndex
-                      //           const ci = legend.chart
-
-                      //           legend.chart.data.datasets.forEach((d, i) => {
-                      //             ci.hide(i)
-                      //             d.hidden = true
-                      //           })
-
-                      //           ci.show(index)
-                      //           legendItem.hidden = false
-                      //           //wrap this in a delay
-                      //           ci.update()
-                      //         },
-                      //       },
-                      //     },
-                      //     animation: {
-                      //       duration: 0,
-                      //       easing: "linear",
-                      //     },
-                      //   }}
-                      // />
-
                       chart_type == "line" ? <Line data={chart_data} options={options}/>
                         : chart_type == "bar" ? <Bar data={chart_data} options={options}/>
                         : null

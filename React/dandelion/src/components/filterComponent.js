@@ -286,25 +286,6 @@ export default function FilterComponent(props) {
                             <h3>No other data selected.</h3>}
                     </AccordionDetails>
                 </Accordion>
-
-                <Accordion>
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel1a-content"
-                        id="panel1a-header"
-                    >
-                        Sensor data
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <div className="project-block">
-                            {
-                                sensorList.map(sensorItem => (
-                                    <Sensor sensor_ref={sensorItem} />
-                                ))
-                            }
-                        </div>
-                    </AccordionDetails>
-                </Accordion>
             </div>
             <div className="generate-btn">
                 <input

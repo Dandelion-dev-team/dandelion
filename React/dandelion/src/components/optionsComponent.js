@@ -25,7 +25,7 @@ export default function OptionsComponent(props) {
     const [to_selected, setTo] = useState();
     const [chart_selected, setChart] = useState();
     const [treatment_selected, setSelectedTreatment] = useState([]);
-    const [response_selected, setSelectedResponse] = useState();
+    const [response_selected, setSelectedResponse] = useState([]);
     
     
     const onSensorChange = (sensor) => {
@@ -37,8 +37,7 @@ export default function OptionsComponent(props) {
         if(sensor_selected){
             sensor_id = sensor_selected.sensor_quantity_id
         }
-        console.log(chart_selected)
-        if (from_selected && to_selected && chart_selected) {
+        if (from_selected && to_selected && chart_selected && treatment_selected.length > 0) {
             let body = JSON.stringify({
                     experiment_id: 23,
                     chart_type: chart_selected.label,
@@ -46,25 +45,8 @@ export default function OptionsComponent(props) {
                     last_date: to_selected,
                     schools: [
                     ],
-                    treatment_variables: [
-                        {
-                            variable_id: 1,
-                            name: "species",
-                            levels: [
-                                1, 2
-                            ]
-                        },
-                        {
-                            variable_id: 6,
-                            name: "tickling",
-                            levels: [
-                                18
-                            ]
-                        }
-                    ],
-                    response_variables: [
-                        3
-                    ],
+                    treatment_variables: treatment_selected,
+                    response_variables: response_selected,
                     milestones: true,
                     sensor_quantity: null,
                     average_over_replicates: true
@@ -92,7 +74,6 @@ export default function OptionsComponent(props) {
                     props.setTable({data: jsonResponse.data, chart: chart_selected})
                 }).catch((error) => {
                     toast.error("Database error " + error)
-                    console.log(error);
                 });
         }
     }
@@ -104,7 +85,6 @@ export default function OptionsComponent(props) {
             if (sensor_selected != null) {
                 if (sensor_selected.sensor_quantity_id == sensor.sensor_ref.sensor_quantity_id) {
                     setCheckedValue(true)
-                    { console.log(sensor) }
                 }
             }
         }, [])
@@ -133,21 +113,53 @@ export default function OptionsComponent(props) {
         }
     }, [])
     const onChangeTreatment = (currentNode, selectedNodes) => {
-        setSelectedTreatment(selectedNodes)
-        let copy = [...treatment_selected];
-        if (copy.includes(currentNode)) {
-            //copy = (copy.filter(item => item !== school.school_ref.id))
-        } else {
-            copy.push(currentNode)
-            props.dataOptions.treatment_variables[0].children[0].checked = true;        
+        let copy = [];
+        let variables = props.dataOptions.treatment_variables;
+        if(currentNode._depth == 0){
+            console.log(currentNode._depth)
+            variables.forEach(treatment => {
+                treatment.children.forEach(child => {
+                 child.checked = true;   
+                })
+            })
         }
-        if(treatment_selected.includes(currentNode)){
-            console.log("Test")
-        }
+        variables.forEach(treatment => {
+            let treatment_generated = {variable_id: treatment.value, name: treatment.label, levels: []}
+            treatment.children.forEach(child => {
+                if(child.value == currentNode.value && child.label == currentNode.label){
+                    if(child.checked == true){
+                        child.checked = false;
+                    } else{
+                        child.checked = true;
+                    }
+                }
+                if(child.checked == true){
+                    treatment_generated.levels.push(child.value)
+                }
+            })
+            copy.push(treatment_generated);        
+        });
+        console.log(copy)
+        setSelectedTreatment(copy);
     }
 
     const onChangeResponse = (currentNode, selectedNodes) => {
-        setSelectedResponse(selectedNodes)
+        let copy = [...response_selected];
+
+        if (copy.includes(currentNode.value)) {
+            copy = (copy.filter(item => item !== currentNode.value))
+        } else {
+            copy.push(currentNode.value)
+        }
+        if(currentNode._depth == 0){
+            response_selected.forEach(response => {
+               if(currentNode.value == response.value){
+                   response.checked = true;
+               }
+            })
+        }
+        console.log(copy)
+        setSelectedResponse(copy);
     }
 
     const onAction = (node, action) => {
@@ -223,6 +235,8 @@ export default function OptionsComponent(props) {
                         </div>
                     </AccordionDetails>
                 </Accordion>
+                <input type="checkbox" id="experiment_id" name="topping" value="experiment_ID" /> Average over replicates
+            <input type="checkbox" id="experiment_id" name="topping" value="experiment_ID" /> Include milestones
                 <div className="generate-btn">
                     <input
                         type="submit"
@@ -234,6 +248,8 @@ export default function OptionsComponent(props) {
                     ></input>
                 </div>
             </div>
+
+
         </div>
     )
 }
