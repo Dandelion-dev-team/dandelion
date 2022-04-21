@@ -24,7 +24,7 @@ export default function OptionsComponent(props) {
     const [from_selected, setFrom] = useState();
     const [to_selected, setTo] = useState();
     const [chart_selected, setChart] = useState();
-    const [treatment_selected, setSelectedTreatment] = useState();
+    const [treatment_selected, setSelectedTreatment] = useState([]);
     const [response_selected, setSelectedResponse] = useState();
     
     
@@ -37,6 +37,7 @@ export default function OptionsComponent(props) {
         if(sensor_selected){
             sensor_id = sensor_selected.sensor_quantity_id
         }
+        console.log(chart_selected)
         if (from_selected && to_selected && chart_selected) {
             let body = JSON.stringify({
                     experiment_id: 23,
@@ -133,6 +134,16 @@ export default function OptionsComponent(props) {
     }, [])
     const onChangeTreatment = (currentNode, selectedNodes) => {
         setSelectedTreatment(selectedNodes)
+        let copy = [...treatment_selected];
+        if (copy.includes(currentNode)) {
+            //copy = (copy.filter(item => item !== school.school_ref.id))
+        } else {
+            copy.push(currentNode)
+            props.dataOptions.treatment_variables[0].children[0].checked = true;        
+        }
+        if(treatment_selected.includes(currentNode)){
+            console.log("Test")
+        }
     }
 
     const onChangeResponse = (currentNode, selectedNodes) => {
@@ -140,10 +151,8 @@ export default function OptionsComponent(props) {
     }
 
     const onAction = (node, action) => {
-        console.log('onAction::', action, node)
     }
     const onNodeToggle = currentNode => {
-        console.log('onNodeToggle::', currentNode)
     }
     return (
         <div className="options-list">

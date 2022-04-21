@@ -148,9 +148,11 @@ def get_data_selection_options(experiment_id):
             {
                 "value": tv.id,
                 "label": tv.name,
+                "checked": False,
                 "children": [
                     {
                         "value": level.id,
+                        "checked": False,
                         "label": level.name,
                         "level_sequence": level.sequence
                     } for level in tv.levels
