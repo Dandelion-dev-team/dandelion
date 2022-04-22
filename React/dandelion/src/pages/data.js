@@ -3,234 +3,105 @@ import Header from "../components/navigation/header"
 import { AgGridReact } from "ag-grid-react"
 import BarChartIcon from "@mui/icons-material/BarChart"
 import BackupTableIcon from "@mui/icons-material/BackupTable"
-import Accordion from "@mui/material/Accordion"
-import AccordionSummary from "@mui/material/AccordionSummary"
-import AccordionDetails from "@mui/material/AccordionDetails"
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
-import { readRecord } from "../utils/CRUD"
-import { Bar } from "react-chartjs-2"
-import { Chart as ChartJS } from "chart.js/auto"
+import { readAdminRecord, readRecord } from "../utils/CRUD"
+import { Line, Bar } from "react-chartjs-2";
+import { Chart as ChartJS } from 'chart.js/auto'
+
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "../styles/App.scss"
 import "ag-grid-community/dist/styles/ag-grid.css"
 import "ag-grid-community/dist/styles/ag-theme-alpine.css"
+import FilterComponent from "../components/filterComponent"
+import OptionsComponent from "../components/optionsComponent"
 
 export default function Data() {
   const [colour_index, setColourIndex] = useState(["#E3C3CA", "#e6e6e6"])
   const [tab_state, setTabState] = useState(0)
+  const [data_options, setDataOptions] = useState();
+  const [show_data_options, setShowOptions] = useState(false);
+  const [table_data, setTableData] = useState([]);
+  const [columnDefs, setColumns] = useState();
+  const [chart_data, setChartData] = useState();
 
+  const [chart_type, setChartType] = useState("");
   //INITIAL DATA
-  const [tagsList, setTags] = useState([])
-  const [schoolList, setSchools] = useState([])
-  const [projectList, setProjects] = useState([])
-  const [experimentList, setExperiments] = useState([])
-  const [sensorList, setSensors] = useState([{
-    id: 0, sensor: "Air Temperature"
-  },
-  { id: 1, sensor: "Relative Humidity" },
-  { id: 2, sensor: "Light Intensity" },
-  { id: 3, sensor: "Barometric Pressure" },
-  { id: 4, sensor: "Water Level" },
-  { id: 5, sensor: "Substrate pH" },
-  { id: 6, sensor: "Substrate Conductivity" },
-  { id: 7, sensor: "Substrate Moisture" },
-  { id: 8, sensor: "Substrate Temperature" }])
 
-  //SELECTED DATA
-  const [schoolsSelected, setSchoolSelected] = useState([]);
-  const [activitiesSelected, setActivitiesSelected] = useState([]);
-  const [experimentsDisabled, disableExperiments] = useState(true);
-  const [sensorSelected, setSelectedSensor] = useState([]);
-  const [experimentSelected, setSelectedExperiments] = useState([]);
-
-  const [rowData] = useState([
-    { Observation: "13/03/22", "Plant Height": "1mm", "Plant Weight": "1g" },
-    { Observation: "20/03/22", "Plant Height": "2mm", "Plant Weight": "2g" },
-    { Observation: "27/03/22", "Plant Height": "3mm", "Plant Weight": "3g" },
-  ])
-
-  const [columnDefs] = useState([
-    { field: "Observation" },
-    { field: "Plant Height" },
-    { field: "Plant Weight" },
-  ])
-
-  const dataset = {
-    labels: ["13/03/22", "20/03/22", "27/03/22"],
-    datasets: [
-      {
-        label: "Weight (g)",
-        backgroundColor: "rgba(75,192,192,1)",
-        borderColor: "rgba(0,0,0,1)",
-        borderWidth: 2,
-        data: [1, 2, 3],
-      },
-      {
-        label: "Height (mm)",
-        backgroundColor: "rgba(132,60,98)",
-        borderColor: "rgba(0,0,0,1)",
-        borderWidth: 2,
-        hidden: true,
-        data: [5, 6, 7],
-      },
-    ],
-  }
-
-  useEffect(() => {
-    readRecord("/tagreference", setTags)
-    readRecord("/school", setSchools)
-    readRecord("/project", setProjects)
-  }, [])
-
-  const Tag = tag => {
-    return (
-      <div className="tag-item">
-        <h3>{tag.tag_ref.label}</h3>
-      </div>
-    )
-  }
-
-  const onSchoolChange = (school) => {
-    let copy = [...schoolsSelected];
-    if (copy.includes(school.school_ref.id)) {
-      copy = (copy.filter(item => item !== school.school_ref.id))
-    } else {
-      copy.push(school.school_ref.id)
+  const options = {
+    scales: {
+        y: {
+            beginAtZero: true
+        }
     }
-    setSchoolSelected(copy);
-  }
+}
 
-  const School = school => {
-    const [checked_value, setCheckedValue] = useState(false);
-    useEffect(() => {
-      if (schoolsSelected.includes(school.school_ref.id)) {
-        setCheckedValue(true);
-      }
-    }, [])
-    return (
-      <div className="school-item">
-        <input
-          type="checkbox"
-          id="experiment_id"
-          name="topping"
-          checked={checked_value}
-          disabled={false}
-          onChange={() => { onSchoolChange(school) }}
-        />
-        <h3>{school.school_ref.name}</h3>
-      </div>
-    )
+  const getRandomInt = max => {
+    return Math.floor(Math.random() * max);
   }
+  const generateChart = e => {
+    let labels = [];
+    e.index.forEach(date => {
+      let converted_date = new Date(date).toDateString();
+      labels.push(converted_date)
+    });
 
-  const onProjectChange = (project) => {
-    let copy = [...activitiesSelected];
-    if (copy.includes(project.project_ref.id)) {
-      copy = (copy.filter(item => item !== project.project_ref.id))
-      let experiments_copy = [...experimentList];
-      experiments_copy = (experiments_copy.filter(item => item.project_id !== project.project_ref.id))
-      setExperiments(experiments_copy);
-      if (copy.length == 0) {
-        disableExperiments(true);
-      }
-    } else {
-      copy.push(project.project_ref.id)
-      fetch(process.env.API_URL + "/project/" + project.project_ref.id + "/experiment", {
-        method: "GET",
-        headers: new Headers({
-          "Cache-Control": "no-cache, no-store, must-revalidate",
-          Pragma: "no-cache",
-          Expires: 0,
-        }),
+    let lines = [];
+    e.columns.forEach((column, column_index) => {
+      let rows = ""
+      column.forEach(data => {
+        rows = rows + data + " ";
       })
-        .then(response => response.json())
-        .then(data => setExperiments(experimentList => [...experimentList, { project_id: project.project_ref.id, experiments: data.data}]))
-      disableExperiments(false);
-    }
-    setActivitiesSelected(copy);
+      let line_data = [];
+      e.data.forEach((data_item, index) => {
+        data_item.forEach(((item, idx) => {
+          if (idx == column_index) {
+            line_data.push(item)
+          }
+        }))
+      })
+      let r = getRandomInt(255);
+      let g = getRandomInt(255);
+      let b = getRandomInt(255);
+
+      let colour = "rgba(" + (r) + "," + (g) + "," + (b) + ")";
+      lines.push({ label: rows, data: line_data, fill: false, borderColor: colour, backgroundColor: colour, });
+    });
+    setChartData({
+      labels: labels,
+      datasets: lines,
+    })
   }
 
-  const Project = project => {
-    const [checked_value, setCheckedValue] = useState(false);
-    useEffect(() => {
-      if (activitiesSelected.includes(project.project_ref.id)) {
-        setCheckedValue(true);
-      }
-    }, [])
-    return (
-      <div className="project-item">
-        <input
-          type="checkbox"
-          id="experiment_id"
-          name="topping"
-          value="experiment_ID"
-          checked={checked_value}
-          disabled={false}
-          onChange={() => { onProjectChange(project) }}
-        />
-        <h3>{project.project_ref.title}</h3>
-      </div>
-    )
-  }
+  const generateColumns = e => {
+    console.log(e);
+    let columns = [];
+    columns.push({ field: "Observation" })
+    e.columns.forEach(column => {
+      let rows = ""
+      column.forEach(data => {
+        rows = rows + data + " ";
+      })
+      columns.push({ field: rows });
+    });
 
-  const onSensorChange = (sensor) => {
-    let copy = [...sensorSelected];
-    if (copy.includes(sensor.sensor_ref.id)) {
-      copy = (copy.filter(item => item !== sensor.sensor_ref.id))
-    } else {
-      copy.push(sensor.sensor_ref.id)
-    }
-    setSelectedSensor(copy);
+    let column_data = [];
+    e.data.forEach((data_item, index) => {
+      let row_data = {}
+      data_item.forEach(((item, idx) => {
+        if (idx == 0) {
+          let date = new Date(e.index[index]);
+          row_data = { ...row_data, Observation: date.toDateString() }
+        } else {
+          let column_name = columns[idx].field;
+          row_data = { ...row_data, [column_name]: item }
+        }
+      }))
+      column_data.push(row_data)
+    })
+    setTableData(column_data)
+    setColumns(columns)
+    generateChart(e);
   }
-
-  const Sensor = sensor => {
-    const [checked_value, setCheckedValue] = useState(false);
-    useEffect(() => {
-      if (sensorSelected.includes(sensor.sensor_ref.id)) {
-        setCheckedValue(true);
-      }
-    }, [])
-    return (
-      <div className="project-item">
-        <input
-          type="checkbox"
-          id="experiment_id"
-          name="topping"
-          value="experiment_ID"
-          checked={checked_value}
-          disabled={false}
-          onChange={() => { onSensorChange(sensor) }}
-        />
-        <h3>{sensor.sensor_ref.sensor}</h3>
-      </div>
-    )
-  }
-
-  const Experiment = experiment => {
-    const [checked_value, setCheckedValue] = useState(false);
-    // useEffect(() => {
-    //   if (sensorSelected.includes(sensor.sensor_ref.id)) {
-    //     setCheckedValue(true);
-    //   }
-    // }, [])
-    return (
-      experiment.experiment_ref.experiments.map(experiment => (
-        <div className="project-item">
-          <input
-            type="checkbox"
-            id="experiment_id"
-            name="topping"
-            value="experiment_ID"
-            checked={checked_value}
-            disabled={false}
-            onChange={() => { console.log("oog") }}
-          />
-          <h3>{experiment.title}</h3>
-        </div>
-      ))
-    )
-  }
-
 
   const changeTab = e => {
     if (e == 0) {
@@ -242,136 +113,26 @@ export default function Data() {
     }
   }
 
+  const fetchOptions = e => {
+    readAdminRecord("/data_options/" + e).then((response) => {
+      setDataOptions(response.data);
+      setShowOptions(true);
+    })
+  }
+
+  const tableReturn = e => {
+    generateColumns(e.data);
+    setChartType(e.chart.label)
+  }
+
   return (
     <div>
       <Header />
       <div className="data">
-        <ToastContainer/>
+        <ToastContainer />
         <div className="data-container">
           <div className="data-content">
-            <div className="filter-list">
-              <div className="title">
-                <h3>Filters</h3>
-              </div>
-              <div className="filters">
-                <Accordion>
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel1a-content"
-                    id="panel1a-header"
-                  >
-                    Tags
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <div className="tag-block">
-                      {tagsList.data ? (
-                        tagsList.data.map(tagItem => <Tag tag_ref={tagItem} />)
-                      ) : (
-                        <h3>No tags found</h3>
-                      )}
-                    </div>
-                  </AccordionDetails>
-                </Accordion>
-                <Accordion>
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel1a-content"
-                    id="panel1a-header"
-                  >
-                    Schools
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <div className="school-block">
-                      {schoolList.data ? (
-                        schoolList.data.map(schoolItem => (
-                          <School school_ref={schoolItem} />
-                        ))
-                      ) : (
-                        <h3>No schools found</h3>
-                      )}
-                    </div>
-                  </AccordionDetails>
-                </Accordion>
-                <Accordion>
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel1a-content"
-                    id="panel1a-header"
-                  >
-                    Activities
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <div className="project-block">
-                      {projectList.data ?
-                        (
-                          schoolsSelected > 0 ? //IF SCHOOL SELECTED HAS BEEN SET SHOW FILTER, IF NOT SHOW FULL LIST
-                            projectList.data.filter(project =>
-                              (schoolsSelected.includes(String(project.school_id)))).map(filtered =>
-                              (
-                                <Project project_ref={filtered} />
-                              ))
-                            :
-                            projectList.data.map(projectItem => (
-                              <Project project_ref={projectItem} />
-                            ))
-                        )
-                        :
-                        (
-                          <h3>No Activities found</h3>
-                        )}
-                    </div>
-                  </AccordionDetails>
-                </Accordion>
-                <Accordion disabled={experimentsDisabled}>
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel1a-content"
-                    id="panel1a-header"
-                  >
-                    Experiments
-                  </AccordionSummary>
-                  <AccordionDetails>
-                      {experimentList ? //IF SCHOOL SELECTED HAS BEEN SET SHOW FILTER, IF NOT SHOW FULL LIST
-                        experimentList.map(experimentItem => (
-                          <div className="project-block">
-                          <Experiment experiment_ref={experimentItem} />
-                          </div>
-                        ))
-                        :
-                        <h3>No other data selected.</h3>}
-                  </AccordionDetails>
-                </Accordion>
-
-                <Accordion>
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel1a-content"
-                    id="panel1a-header"
-                  >
-                    Sensor data
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <div className="project-block">
-                      {
-                        sensorList.map(sensorItem => (
-                          <Sensor sensor_ref={sensorItem} />
-                        ))
-                      }
-                    </div>
-                  </AccordionDetails>
-                </Accordion>
-              </div>
-              <div className="generate-btn">
-                <input
-                  type="submit"
-                  className="submitButton"
-                  value="Generate"
-                    onClick={() => {
-                      console.log("generate")
-                    }}
-                ></input>
-              </div>
-            </div>
+            {show_data_options ? <OptionsComponent dataOptions={data_options} setTable={tableReturn} /> : <FilterComponent fetchOptions={fetchOptions} />}
             <div className="spacer" />
             <div className="data-pane">
               <div className="tabs">
@@ -405,38 +166,16 @@ export default function Data() {
                     }}
                   >
                     {tab_state == 0 ? (
-                      <AgGridReact
-                        rowData={rowData}
-                        columnDefs={columnDefs}
-                      ></AgGridReact>
+                      columnDefs ? (
+                        <AgGridReact
+                          rowData={table_data}
+                          columnDefs={columnDefs}
+                        ></AgGridReact>
+                      ) : null
                     ) : (
-                      <Bar
-                        data={dataset}
-                        options={{
-                          plugins: {
-                            legend: {
-                              onClick: (evt, legendItem, legend) => {
-                                const index = legendItem.datasetIndex
-                                const ci = legend.chart
-
-                                legend.chart.data.datasets.forEach((d, i) => {
-                                  ci.hide(i)
-                                  d.hidden = true
-                                })
-
-                                ci.show(index)
-                                legendItem.hidden = false
-                                //wrap this in a delay
-                                ci.update()
-                              },
-                            },
-                          },
-                          animation: {
-                            duration: 0,
-                            easing: "linear",
-                          },
-                        }}
-                      />
+                      chart_type == "line" ? <Line data={chart_data} options={options}/>
+                        : chart_type == "bar" ? <Bar data={chart_data} options={options}/>
+                        : null
                     )}
                   </div>
                 </div>

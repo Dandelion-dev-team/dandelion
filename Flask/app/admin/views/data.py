@@ -117,12 +117,14 @@ def get_data_selection_options(experiment_id):
         ],
         "treatment_variables": [
             {
-                "variable_id": tv.id,
-                "variable_name": tv.name,
-                "levels": [
+                "value": tv.id,
+                "label": tv.name,
+                "checked": False,
+                "children": [
                     {
-                        "level_id": level.id,
-                        "level_name": level.name,
+                        "value": level.id,
+                        "checked": False,
+                        "label": level.name,
                         "level_sequence": level.sequence
                     } for level in tv.levels
                 ]
@@ -130,14 +132,16 @@ def get_data_selection_options(experiment_id):
         ],
         "response_variables": [
             {
-                "variable_id": rv.variable.id,
-                "variable_name": rv.variable.name,
+                "value": rv.variable.id,
+                "checked": False,
+                "label": rv.variable.name,
                 "variable_timing": "once" if rv.once else "final" if rv.final else "repeated",
                 "variable_type": "continuous" if rv.variable.quantity_id else "discrete" if len(rv.variable.levels) > 0 else "qualitative",
-                "levels": [
+                "children": [
                     {
-                        "level_id": level.id,
-                        "level_name": level.name,
+                        "checked": False,
+                        "value": level.id,
+                        "label": level.name,
                         "level_sequence": level.sequence
                     } for level in rv.variable.levels
                 ]
