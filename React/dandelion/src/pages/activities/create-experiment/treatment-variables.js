@@ -9,7 +9,7 @@ import { navigate } from "gatsby"
 import VariableTypeModal from "../../../components/modals/variableTypeModal"
 import DiscreteVariableModal from "../../../components/modals/discreteVariableModal"
 import { verify_superuser_storage } from "../../../utils/logins"
-import { readRecord } from "../../../utils/CRUD"
+import { readAdminRecord, readRecord } from "../../../utils/CRUD"
 import { ToastContainer } from "react-toastify"
 
 export default function TreatmentVariables(props) {
@@ -41,13 +41,12 @@ export default function TreatmentVariables(props) {
   }
 
   const checkboxCallback = e => {
-    // let val = e.data
-    // if (e.value == true) {
-    //   updateSelectedList(arr => [...arr, val])
-    // } else {
-    //   updateSelectedList(selected_list.filter(item => item !== val))
-    // }
-    console.log(e);
+    let val = e.data
+    if (e.value == true) {
+      readAdminRecord("/variable/" + val.id).then(data => updateSelectedList(arr => [...arr, data]))
+    } else {
+      updateSelectedList(selected_list.filter(item => item.variable_id != val.id))
+    }
   }
 
   const handleDetailCallback = index => {
@@ -107,7 +106,7 @@ export default function TreatmentVariables(props) {
         />
       ) : null}
       <div className="treatment-container">
-        <ToastContainer/>
+        <ToastContainer />
         <div className="content">
           <div className="content-wrapper">
             <div className="treatment-pane">
@@ -133,21 +132,45 @@ export default function TreatmentVariables(props) {
                   </div>
                 </div>
                 <div className="treatment-list">
-                  {variable_list.data ? 
-                  (
-                    variable_list.data.filter(variable => variable.name.toUpperCase().includes(search_value.toUpperCase())).map(filtered_variable => (
-                      <VariableListComponent
-                        mappedValue={filtered_variable}
-                        detailCallback={handleDetailCallback}
-                        checkCallback={checkboxCallback}
-                      />
-                    ))
-                  ) 
-                  : (
-                    <h3>No Treatment Variables Found.</h3>
-                  )}
+                  {variable_list.data ?
+                    (
+                      variable_list.data.filter(variable => variable.name.toUpperCase().includes(search_value.toUpperCase())).map(filtered_variable => (
+                        <VariableListComponent
+                          mappedValue={filtered_variable}
+                          detailCallback={handleDetailCallback}
+                          checkCallback={checkboxCallback}
+                        />
+                      ))
+                    )
+                    : (
+                      <h3>No Treatment Variables Found.</h3>
+                    )}
                 </div>
-                <PaginationComponent pageIndex={2} numPages={4} />
+                <div className="pagination">
+                  <input
+                    type="submit"
+                    className="back-btn"
+                    value="Back"
+                    onClick={() => {
+                      if (typeof window !== `undefined`) {
+                        navigate("/activities/create-experiment/enter-details/",
+                          {
+                            state: { 
+                                project_id:  props.location.state.project_id,
+                                name: props.location.state.name,
+                                code: props.location.state.code,
+                                description: props.location.state.description,
+                                tutorial: props.location.state.tutorial,
+                                image:  props.location.state.image,
+                                startDate: props.location.state.startDate,
+                                endDate: props.location.state.endDate,
+                            },
+                          })
+                      }
+                    }}
+                  ></input>
+                  <PaginationComponent pageIndex={2} numPages={4} />
+                </div>
               </div>
             </div>
             <div className="treatment-selected-pane">

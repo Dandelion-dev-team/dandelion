@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { createRecord, readRecord } from "../../utils/CRUD"
 import Select from "react-select"
+import { toast } from "react-toastify"
 
 export default function ContinuousVariableModal(props) {
   const [name, setName] = useState("")
@@ -59,7 +60,7 @@ export default function ContinuousVariableModal(props) {
       })
       props.callback(body);
     } else {
-      console.log("did not have all information")
+      toast.error("Not enough information.")
     }
   }
 
@@ -68,7 +69,6 @@ export default function ContinuousVariableModal(props) {
   }, [])
 
   const onChangeQuantity = e => {
-    console.log(e.id);
     setSelectedQuantity(e)
   }
 

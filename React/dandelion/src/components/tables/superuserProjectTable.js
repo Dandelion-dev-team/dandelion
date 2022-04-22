@@ -8,7 +8,8 @@ export default function ProjectComponent(props) {
   const [projects, setProject] = useState(0)
   //TESTED
   useEffect(() => {
-    readRecord("/project", setProject)
+    let school_id = localStorage.getItem("school_id");
+    readRecord("/project_partner/byschool/" + school_id, setProject)
   }, [])
 
   const editAuth = project => {

@@ -36,6 +36,26 @@
                   margin: 3rem;
                   width: 85%;
                   height: 90%;
+                  .pagination{
+                      display: flex;
+                      flex-direction: row;
+                      align-items: center;
+                      .back-btn {
+                        background-color: $accent;
+                        color: $primary;
+                        font-size: 1.6rem;
+                        margin: 1.25rem 0px;
+                        padding: 15px;
+                        padding-left: 50px;
+                        padding-right: 50px;
+                        border: none;
+                        cursor: pointer;
+                        border-radius: 10px;
+                      }
+                      .back-btn:hover {
+                        background-color: #d4d926;
+                      }
+                  }
                   .treatment-list{
                       overflow-y: auto;
                       height: 75%;

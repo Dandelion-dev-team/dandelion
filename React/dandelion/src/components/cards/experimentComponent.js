@@ -1,20 +1,12 @@
 import React, { useEffect, useState } from "react"
 import "../../styles/App.scss"
+import { readRecord } from "../../utils/CRUD";
 
 export default function ExperimentComponent(props) {
-  const [experiments, setExperiment] = useState(0)
+  const [experiments, setExperiment] = useState([])
   //TESTED
   useEffect(() => {
-    // fetch(process.env.ROOT_URL + "/experiment_summary", {
-    //   method: "GET",
-    //   headers: new Headers({
-    //     "Cache-Control": "no-cache, no-store, must-revalidate",
-    //     Pragma: "no-cache",
-    //     Expires: 0,
-    //   }),
-    // })
-    //   .then(response => response.json())
-    //   .then(data => setExperiment(data))
+    readRecord("/experiment", setExperiment);
   }, [])
 
   const cardClickCallback = experiment => {
@@ -25,9 +17,8 @@ export default function ExperimentComponent(props) {
   var className = isActive ? "active" : ""
 
   return (
-    <div>
-      {experiments
-        ? experiments.map(experiment => (
+      experiments.data
+        ? experiments.data.map(experiment => (
             <div
               className="preset-card"
               onClick={() => {
@@ -48,7 +39,6 @@ export default function ExperimentComponent(props) {
               </div>
             </div>
           ))
-        : <h3>No Experiments Found.</h3>}
-    </div>
+        : <h3>No Experiments Found.</h3>
   )
 }

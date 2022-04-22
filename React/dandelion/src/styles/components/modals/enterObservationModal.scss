@@ -1,0 +1,126 @@
+.modal-container {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .inner-content {
+    opacity: 100;
+    background-color: white;
+    border-radius: 20px;
+    width: 45vw;
+    height: 70vh;
+    padding: 2.5rem;
+    display: flex;
+    .panel-content {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      justify-content: space-around;
+      width: 100%;
+      overflow-y: auto;
+      .title {
+        height: 15%;
+        width: 100%;
+        h2 {
+          font-size: 2.5vw;
+          color: $primary;
+        }
+      }
+      .inputs {
+        height: 60%;
+        width: 100%;
+
+        .inputItem {
+          text-align: left;
+          display: flex;
+          flex-direction: row;
+          justify-items: left;
+          width: 100%;
+          height: auto;
+          margin-top: 3vh;
+          color: $primary;
+
+          .item-title {
+            width: 30%;
+            height: 100%;
+            h3 {
+              display: inline;
+              font-size: 1.5vw;
+            }
+          }
+
+          .item-input {
+            width: 50%;
+            height: 100%;
+            color: black;
+
+            textarea {
+              resize: none;
+            }
+            h3 {
+              display: inline;
+              font-size: 1vw;
+            }
+          }
+
+          .desc-title {
+            width: 30%;
+            height: 100%;
+            margin-top: 4vh;
+            h3 {
+              display: inline;
+              font-size: 1.5vw;
+            }
+          }
+
+          .desc-input {
+            width: 50%;
+            height: 100%;
+            margin-top: 1.5vh;
+            margin-bottom: 1.5vh;
+            input {
+              height: 100%;
+              width: 100%;
+            }
+          }
+
+          h3 {
+            font-size: 1.6rem;
+            color: $primary;
+            margin-bottom: 0px;
+            padding-bottom: 0px;
+          }
+        }
+      }
+      .btn-row {
+        height: 15%;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-end;
+        margin-top: auto;
+        .submitButton {
+          width: 10vw;
+          height: 8vh;
+          background-color: $accent;
+          color: $primary;
+          font-size: 1.6rem;
+          margin: 1rem 0px;
+          padding: 15px;
+          border: none;
+          cursor: pointer;
+          border-radius: 10px;
+          margin-left: 1.25rem;
+        }
+        .submitButton:hover {
+          background-color: #d4d926;
+        }
+      }
+    }
+  }
+}

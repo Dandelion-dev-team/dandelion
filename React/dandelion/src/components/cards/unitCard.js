@@ -28,6 +28,7 @@ export default function UnitCard(props) {
       props.combination.map(variable => construction = construction + variable[0].name.substring(0,1) + variable[0].treatment_name.substring(0,1) + "_");
       construction = construction.substring(0, construction.length - 1);
     } else {
+      console.log(props.combination)
       construction = construction + props.combination.name.substring(0,1) + props.combination.treatment_name.substring(0,1);
     }  
     return construction;

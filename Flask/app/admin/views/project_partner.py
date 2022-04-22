@@ -13,7 +13,6 @@ from app.utils.auditing import audit_create, prepare_audit_details, audit_update
 from app.utils.functions import row2dict, jwt_user
 from app.utils.uploads import content_folder
 
-
 @admin.route('/project_partner', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
@@ -155,6 +154,31 @@ def get_one_project_partner(id):
     project_partner_data['status'] = project_partner.status
 
     return jsonify({'Project': project_partner_data})
+
+
+@admin.route('/project_partner/byschool/<int:school_id>', methods=['GET'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
+@jwt_required()
+def get_project_by_partner(school_id):
+    project_partners = ProjectPartner.query.filter(ProjectPartner.school_id == school_id).all()
+
+    output = []
+
+    for project_partner in project_partners:
+        project_partner_data = {}
+        project = Project.query.get_or_404(project_partner.project_id)
+        project_partner_data['project_id'] = project.id
+        project_partner_data['title'] = project.title
+        project_partner_data['description'] = project.description
+        project_partner_data['image_full'] = os.path.join(content_folder('project', id, 'image'), 'full.png')
+        project_partner_data['image_thumb'] = os.path.join(content_folder('project', id, 'image'), 'thumb.png')
+        project_partner_data['project_text'] = project.project_text
+        project_partner_data['start_date'] = project.start_date
+        project_partner_data['end_date'] = project.end_date
+        project_partner_data['status'] = project.status
+        output.append(project_partner_data)
+
+    return jsonify(output)
 
 
 @admin.route('/project_partner/<int:id>', methods=['PUT'])

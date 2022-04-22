@@ -66,20 +66,19 @@ export default function ConfigureUnits(props) {
 
     if (prop == "top") {
       let copy = [...matrix]
-      copy[0][1] = { colour: "#FFFF", code: "SENSOR" }
+      copy[0][24] = { colour: "#FFFF", code: "SENSOR" }
       setMatrix(copy)
       setCurrentGrid(0)
       setColourIndex(["#F8F448", "#FFFF", "#FFFF"])
     } else if (prop == "mid") {
       let copy = [...matrix]
-      copy[1][2] = { colour: "#FFFF", code: "SENSOR" }
+      copy[1][24] = { colour: "#FFFF", code: "SENSOR" }
       setMatrix(copy)
-
       setCurrentGrid(1)
       setColourIndex(["#FFFF", "#F8F448", "#FFFF"])
     } else if (prop == "bot") {
       let copy = [...matrix]
-      copy[2][3] = { colour: "#FFFF", code: "SENSOR" }
+      copy[2][24] = { colour: "#FFFF", code: "SENSOR" }
 
       setMatrix(copy)
       setCurrentGrid(2)
@@ -197,13 +196,11 @@ export default function ConfigureUnits(props) {
       responseVariables: response_variables,
       conditions: constructed_conditions,
     })
-
-    console.log(JSON.parse(body))
     createRecordNavigate("/experiment", body).then(response =>
       uploadExperimentImage(
         "/experiment/" + response.id + "/uploadImage",
         experiment_details.image
-      ).then(navigate("/superuser/project-maintenance"))
+      ).then(navigate("/superuser/activity-maintenance"))
     )
   }
 

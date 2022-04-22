@@ -1,25 +1,72 @@
 .pane-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 93vh;
+  .pane-content{
+    width: 95%;
+    height: 95%;
 
-  .title {
-    padding-top: 20px;
-    padding-left: 20px;
-  }
+    .inputItem {
+      text-align: left;
+      display: flex;
+      flex-direction: row;
+      justify-items: left;
+      width: 100%;
+      height: auto;
+      margin-top: 3vh;
 
-  .project-column {
-    padding-left: 20px;
+      .item-title {
+        width: 30%;
+        height: 100%;
+        h3 {
+          display: inline;
+          font-size: 1.5vw;
+        }
+      }
 
-    p {
+      .item-input {
+        width: 50%;
+        height: 100%;
+        h3 {
+          display: inline;
+          font-size: 1vw;
+        }
+      }
     }
 
-    .description-box {
-      background-color: white;
-      border-radius: 20px;
-      width: 90%;
-      padding: 10px;
-      margin-bottom: 20px;
-      p {
+    .btn-row {
+      display: flex;
+      justify-content: space-between;
+      width: 40%;
+        .submitButton {
+          background-color: $accent;
+          color: $primary;
+          font-size: 1.6rem;
+          margin: 1.25rem 0px;
+          padding: 15px;
+          border: none;
+          cursor: pointer;
+          border-radius: 10px;
+        }
+        .submitButton:hover {
+          background-color: #d4d926;
+        }
+    }
+  
+    .project-column {
+  
+      .description-box {
+        background-color: white;
+        border-radius: 20px;
+        width: 90%;
         padding: 10px;
+        margin-bottom: 20px;
+        p {
+          padding: 10px;
+        }
       }
     }
   }
+  
 }

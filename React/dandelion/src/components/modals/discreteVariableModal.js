@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import { createRecord, readRecord } from "../../utils/CRUD"
 import Select from "react-select"
 import DiscreteCard from "../cards/discreteCard"
+import { toast } from "react-toastify"
 
 export default function DiscreteVariableModal(props) {
   const [name, setName] = useState("")
@@ -12,9 +13,6 @@ export default function DiscreteVariableModal(props) {
   const [levelProcedure, setLevelProcedure] = useState("")
 
   const [level_list, setLevelList] = useState([])
-
-  const [quantitiy_list, setQuantityList] = useState()
-  const [quantity_selected, setSelectedQuantity] = useState(null)
   const [is_sensor_selected, setIsSensorQuantity] = useState(false)
 
   const handleNameChange = e => {
@@ -43,10 +41,6 @@ export default function DiscreteVariableModal(props) {
     setLevelList(e)
   }
 
-  const onChangeQuantity = e => {
-    setSelectedQuantity(e)
-  }
-
   const onChangeCheckbox = e => {
     setIsSensorQuantity(!is_sensor_selected)
   }
@@ -64,10 +58,7 @@ export default function DiscreteVariableModal(props) {
           procedure: element.procedure,
         })
       }
-      let quantity_check = null
-      if (quantity_selected != null) {
-        quantity_check = quantity_selected.id
-      }
+
       let body = JSON.stringify({
         type: "Discrete",
         name: name,
@@ -75,22 +66,16 @@ export default function DiscreteVariableModal(props) {
         procedure: procedure,
         levels: arr,
         is_sensor_quantity: false,
-        quantity_id: quantity_check,
       })
-      console.log(body)
       props.callback(body)
     } else {
-      console.log("did not have all information")
+      toast.error("More information needed.")
     }
   }
 
-  useEffect(() => {
-    readRecord("/quantity", setQuantityList)
-  }, [])
-
   const AddLevel = e => {
     let copy = [...level_list]
-    copy.push({name: levelName, description: levelDescription, procedure: levelProcedure})
+    copy.push({ name: levelName, description: levelDescription, procedure: levelProcedure })
     setLevelName("");
     setLevelDescription("");
     setLevelProcedure("");
@@ -145,38 +130,6 @@ export default function DiscreteVariableModal(props) {
                   />
                 </div>
               </div>
-              <div className="inputItem">
-                <div className="item-title">
-                  <h3>Quantity relation:</h3>
-                </div>
-                <div className="item-input">
-                  {quantitiy_list ? (
-                    <Select
-                      name="authority_id_picker"
-                      options={quantitiy_list.data}
-                      value={quantity_selected}
-                      defaultValue={"No Quantity Relation"}
-                      onChange={onChangeQuantity}
-                      getOptionLabel={quantitiy_list => quantitiy_list.name}
-                      getOptionValue={quantitiy_list => quantitiy_list.id} // It should be unique value in the options. E.g. ID
-                    />
-                  ) : (
-                    <h3>Could not retrieve quantities.</h3>
-                  )}
-                </div>
-              </div>
-              {quantity_selected != null ? (
-                <div className="experimentCheck">
-                  <input
-                    type="checkbox"
-                    id="experiment_id"
-                    name="topping"
-                    value="experiment_ID"
-                    onChange={onChangeCheckbox}
-                  />
-                  <h3>Is sensor quantity</h3>
-                </div>
-              ) : null}
             </div>
             {/* Response Card List - w/ typescript component */}
             {/* <DiscreteCardList

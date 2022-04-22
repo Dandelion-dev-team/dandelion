@@ -35,6 +35,7 @@
         .exp-pane-wrapper {
           margin-left: 2rem;
           margin-top: 2rem;
+          width: 100%;
 
           .title {
             display: flex;
@@ -153,12 +154,30 @@
           flex-direction: row;
           align-items: flex-start;
           width: 100%;
-          margin-left: auto;
           margin-top: auto;
           .continue-btn {
-            margin-left: auto;
-            align-items: flex-start;
+            width: 50%;
+            float: right;
+            right: 0;
             .submitButton {
+              background-color: $accent;
+              color: $primary;
+              font-size: 1.6rem;
+              float: right;
+              margin: 1.25rem 0px;
+              padding: 15px;
+              border: none;
+              cursor: pointer;
+              border-radius: 10px;
+            }
+            .submitButton:hover {
+              background-color: #d4d926;
+            }
+          }
+          .back-btn {
+            width: 50%;
+            left: 0;
+            .backButton {
               background-color: $accent;
               color: $primary;
               font-size: 1.6rem;
