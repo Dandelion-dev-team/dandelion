@@ -35,7 +35,7 @@ def listExperiment():
 @jwt_required()
 def listExperimentForProject(id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, id, current_user)
+    authorised = auth_check(request.path, request.method, current_user, id)
     project = Project.query.get_or_404(id)
     return json_response(data=(row2dict(x, summary=True) for x in project.experiments))
 
@@ -45,7 +45,7 @@ def listExperimentForProject(id):
 @jwt_required()
 def get_one_experiment(id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, id)
     experiment = Experiment.query.get_or_404(id)
 
     data = {
@@ -224,7 +224,7 @@ def add_experiment():
 @jwt_required()
 def upload_experiment_image(id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, id)
     pic, filename = get_uploaded_file(request)
     image_processing(pic, 'experiment', id, filename)
 
@@ -236,7 +236,7 @@ def upload_experiment_image(id):
 @jwt_required()
 def updateExperiment(experiment_id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, experiment_id)
     experiment_to_update = Experiment.query.get_or_404(experiment_id)
     new_experiment_data = request.get_json()
 

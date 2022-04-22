@@ -54,7 +54,7 @@ def add_project_leader():
 @jwt_required()
 def get_one_project_leader(id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, id)
     project_leader = Project_leader.query.get_or_404(id)
 
     project_leader_data = {}
@@ -71,7 +71,7 @@ def get_one_project_leader(id):
 @jwt_required()
 def update_project_leader(id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, id)
     project_leader_to_update = Project_leader.query.get_or_404(id)
     new_data = request.get_json()
 
@@ -99,7 +99,7 @@ def update_project_leader(id):
 @jwt_required()
 def delete_project_leader(id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, id)
     project_leader_to_delete = Project_leader.query.filter_by(id=id).first()
     if not project_leader_to_delete:
         return jsonify({"message" : "No Project found"})

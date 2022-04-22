@@ -16,7 +16,7 @@ from app.utils.functions import row2dict, jwt_user
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def getFullVariable(id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, id)
     variable = Variable.query.get_or_404(id)
 
     data = {
@@ -47,7 +47,7 @@ def getFullVariable(id):
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def listAllVariable():
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, id)
     response_variable_demo = ResponseVariable.query.all()
     treatment_variable = Variable.query.all()
     output = []
@@ -106,7 +106,7 @@ def listAlldiscreteVariable():
 @jwt_required()
 def create_variable(variable_dict):
     current_user = jwt_user(get_jwt_identity())
-
+    authorised = auth_check(request.path, request.method, current_user)
     variable = Variable(
         name=variable_dict["name"],
         status='active',

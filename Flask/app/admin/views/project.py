@@ -78,7 +78,7 @@ def add_project():
 @jwt_required()
 def get_one_project(id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, id)
     project = Project.query.get_or_404(id)
 
     project_data = {}
@@ -100,7 +100,7 @@ def get_one_project(id):
 @jwt_required()
 def update_project(id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, id)
     project_to_update = Project.query.get_or_404(id)
     new_data = request.get_json()
 
@@ -132,7 +132,7 @@ def update_project(id):
 @jwt_required()
 def delete_project(id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, id)
     project_to_delete = Project.query.filter_by(id=id).first()
     if not project_to_delete:
         return {"message": "No Project found"}
@@ -155,7 +155,7 @@ def delete_project(id):
 @admin.route('/project/<int:id>/uploadImage', methods=['POST'])
 def upload_project_image(id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, id)
     pic, filename = get_uploaded_file(request)
     image_processing(pic, 'project', id, filename)
 

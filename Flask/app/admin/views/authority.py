@@ -54,7 +54,7 @@ def add_authority():
 @jwt_required()
 def get_one_authority(id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, id)
     authority = Authority.query.get_or_404(id)
 
     authority_data = {}
@@ -71,7 +71,7 @@ def get_one_authority(id):
 @jwt_required()
 def updateAuthority(id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, id)
     authority_to_update = Authority.query.get_or_404(id)
     new_data = request.get_json()
 
@@ -101,7 +101,7 @@ def updateAuthority(id):
 @jwt_required()
 def delete_authority(id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method,id, current_user)
+    authorised = auth_check(request.path, request.method, current_user, id)
     authority_to_delete = Authority.query.filter_by(id=id).first()
     if not authority_to_delete:
         return jsonify({"message" : "No Authority found"})

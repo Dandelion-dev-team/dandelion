@@ -42,7 +42,7 @@ def add_sensor_quantity():
 @jwt_required()
 def get_one_sensor_quantity(id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, id)
     sensor_quantity = Sensor_quantity.query.get_or_404(id)
 
     sensor_quantity_data = {}
@@ -58,7 +58,7 @@ def get_one_sensor_quantity(id):
 @jwt_required()
 def Update_sensory_quantity(id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, id)
     sensor_quantity_to_update = Sensor_quantity.query.get_or_404(id)
     new_data = request.get_json()
 
@@ -85,7 +85,7 @@ def Update_sensory_quantity(id):
 @jwt_required()
 def delete_sensor_quantity(id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, id)
     sensor_quantity_to_delete = Sensor_quantity.query.filter_by(id=id).first()
     if not sensor_quantity_to_delete:
         return jsonify({"message" : "No Sensor Quantity found"})

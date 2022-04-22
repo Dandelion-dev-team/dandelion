@@ -53,7 +53,7 @@ def add_tag_reference():
 @jwt_required()
 def getOneTag_Reference(id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, id)
     tag_reference = Tag_reference.query.get_or_404(id)
 
     tag_reference_data = {}
@@ -67,7 +67,7 @@ def getOneTag_Reference(id):
 @jwt_required()
 def updateTag_Reference(id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, id)
     tag_reference_to_update = Tag_reference.query.get_or_404(id)
     new_data = request.get_json()
 
@@ -93,7 +93,7 @@ def updateTag_Reference(id):
 @jwt_required()
 def delete_tag_reference(id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, id)
     tag_reference_to_delete = Tag_reference.query.filter_by(id=id).first()
     if not tag_reference_to_delete:
         return jsonify({"message": "No Tag Reference found"})

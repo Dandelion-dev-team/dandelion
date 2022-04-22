@@ -49,7 +49,7 @@ def listActiveNode_alerts():
 @jwt_required()
 def update_node_alert_status(node_alert_id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, node_alert_id)
     node_alert_to_update = Node_alert.query.get_or_404(node_alert_id)
     new_node_alert_data = request.get_json()
 

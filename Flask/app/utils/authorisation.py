@@ -3,7 +3,7 @@ from app import db
 from app.models import ExperimentParticipant, User
 
 
-def auth_check(route, method, id_1, current_user=None, id_2=None):
+def auth_check(route, method, current_user=None, id_1=None, id_2=None):
     id_1 = str(id_1)
     id_2 = str(id_2)
 
@@ -64,7 +64,6 @@ def auth_check(route, method, id_1, current_user=None, id_2=None):
         {"route": "/api/project_partner", "method": "GET", "auth_level": "superuser"},
         {"route": "/api/project_partner", "method": "POST", "auth_level": "superuser"},
         {"route": "/api/project_partner/" + id_1 + "/" + id_2, "method": "POST", "auth_level": "superuser"},
-        # todo this line has 2 id values, needs attention
         {"route": "/api/project_partner/" + id_1, "method": "GET", "auth_level": "superuser"},
         {"route": "/api/project_partner/invitation_details/" + id_1, "method": "GET",
          "auth_level": "superuser"},
@@ -108,7 +107,7 @@ def auth_check(route, method, id_1, current_user=None, id_2=None):
         {"route": "/api/user/getsuperusers", "method": "GET", "auth_level": "superuser"},
         {"route": "/api/user/byschool/" + id_1, "method": "GET", "auth_level": "superuser"},
         {"route": "/api/user/byschoolandexperiment/" + id_1 + "/" + id_2, "method": "GET",
-         "auth_level": "superuser"},  # todo this line has 2 id values
+         "auth_level": "superuser"},
         {"route": "/api/user/user/byproject/" + id_1, "method": "GET", "auth_level": "superuser"},
         {"route": "/api/user/" + id_1, "method": "PUT", "auth_level": "superuser"},
         {"route": "/api/user/" + id_1, "method": "DELETE", "auth_level": "superuser"},

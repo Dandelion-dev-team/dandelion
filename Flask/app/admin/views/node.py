@@ -67,7 +67,8 @@ def add_node():
 @jwt_required()
 def get_one_node(id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, id)
+
     node = Node.query.get_or_404(id)
 
     node_data = {}
@@ -88,7 +89,7 @@ def get_one_node(id):
 @jwt_required()
 def updateNode(id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, id)
     node_to_update = Node.query.get_or_404(id)
     new_data = request.get_json()
 
@@ -120,7 +121,7 @@ def updateNode(id):
 @jwt_required()
 def delete_node(id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, id)
     node_to_delete = Node.query.filter_by(id=id).first()
     if not node_to_delete:
         return jsonify({"message": "No Node found"})
@@ -145,7 +146,7 @@ def delete_node(id):
 @jwt_required()
 def upload_data(id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, id)
 
     Node.query.get_or_404(id)  # if node id doens't exist, it returns a 404 message
     id = str(id)
@@ -178,7 +179,7 @@ def upload_data(id):
 @jwt_required()
 def get_latest_data(node_id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, node_id)
 
     Node.query.get_or_404(node_id)  # if node id doens't exist, it returns a 404 message
     str(node_id)

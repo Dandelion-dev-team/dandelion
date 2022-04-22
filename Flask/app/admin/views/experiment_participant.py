@@ -58,7 +58,7 @@ def addExperiment_participant():
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def experiments_by_participant(user_id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, user_id)
     participating = ExperimentParticipant.query.filter(ExperimentParticipant.user_id == user_id).all()
 
     output = []
@@ -80,8 +80,7 @@ def experiments_by_participant(user_id):
 @jwt_required()
 def add_new_experiment_participant(experiment_id, user_id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, experiment_id, current_user, user_id)
-
+    authorised = auth_check(request.path, request.method, current_user, experiment_id, user_id)
     data = request.get_json()
     participant = ExperimentParticipant(
         user_id=user_id,
@@ -107,7 +106,7 @@ def add_new_experiment_participant(experiment_id, user_id):
 @jwt_required()
 def updateExperimentParticipantStatus(experiment_participant_id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, experiment_participant_id)
     experiment_participant_to_update = ExperimentParticipant.query.get_or_404(experiment_participant_id)
     new_data = request.get_json()
 
@@ -134,7 +133,7 @@ def updateExperimentParticipantStatus(experiment_participant_id):
 @jwt_required()
 def deleteΕxperimentPaticipant(experiment_participant_id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, experiment_participant_id)
     experiment_participant_to_delete = ExperimentParticipant.query.filter_by(id=experiment_participant_id).first()
     if not experiment_participant_to_delete:
         return jsonify({"message": "No experiment participant found!"})

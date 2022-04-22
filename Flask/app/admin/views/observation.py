@@ -26,7 +26,7 @@ def listObservation():
 @admin.route('/observation/<int:id>/uploadImage', methods=['POST'])
 def upload_observation_image(id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, id)
     pic, filename = get_uploaded_file(request)
     image_processing(pic, 'observation', id, filename)
 
@@ -106,7 +106,7 @@ def addMultipleObservations():
 @jwt_required()
 def updateObservationStatus(observation_id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, observation_id)
     observation_status_to_update = Observation.query.get_or_404(observation_id)
     new_data = request.get_json()
 
@@ -132,7 +132,7 @@ def updateObservationStatus(observation_id):
 @jwt_required()
 def updateObservation(observation_id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, observation_id)
     observation_to_update = Observation.query.get_or_404(observation_id)
     new_data = request.get_json()
 
@@ -159,7 +159,7 @@ def updateObservation(observation_id):
 @jwt_required()
 def getObservationbyuser(user_id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, user_id)
     observations = Observation.query.filter(Observation.created_by == user_id)
     output = []
 
@@ -177,12 +177,13 @@ def getObservationbyuser(user_id):
 
     return jsonify({'users': output})
 
+
 @admin.route('/observation/delete/<int:observation_id>', methods=['DELETE'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def deleteObservation(observation_id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, observation_id)
     observation_to_delete = Observation.query.filter_by(id=observation_id).first()
     if not observation_to_delete:
         return jsonify({"message": "No observation found!"})

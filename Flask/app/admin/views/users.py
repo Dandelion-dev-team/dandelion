@@ -65,7 +65,7 @@ def createUser():
 @jwt_required()
 def getOneUser(id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, id)
     user = User.query.get_or_404(id)
 
     user_data = {}
@@ -82,7 +82,7 @@ def getOneUser(id):
 @jwt_required()
 def getUserByUsername(username):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, username)
     print(username)
     user = User.query.filter(User.username == username).first()
 
@@ -121,7 +121,7 @@ def getAllSuperUsers():
 @jwt_required()
 def getUsersBySchoolID(school_id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, school_id)
     users = User.query.filter(User.school_id == school_id)
     output = []
 
@@ -140,7 +140,7 @@ def getUsersBySchoolID(school_id):
 @jwt_required()
 def get_users_by_school_and_experiment(school_id, experiment_id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, school_id, experiment_id)
 
     users = User.query.\
         join(School).\
@@ -172,7 +172,7 @@ def get_users_by_school_and_experiment(school_id, experiment_id):
 @jwt_required()
 def get_user_by_project(project_id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, project_id)
     users = User.query.join(ExperimentParticipant).join(Experiment).join(Project).join(School).filter(
         Project.id == project_id).all()
 
@@ -195,7 +195,7 @@ def get_user_by_project(project_id):
 @jwt_required()
 def updateUser(id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, id)
     user_to_update = User.query.get_or_404(id)
     new_data = request.get_json()
 
@@ -227,7 +227,7 @@ def updateUser(id):
 @jwt_required()
 def deleteUser(id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, id)
     user_to_delete = User.query.filter_by(id=id).first()
     if not user_to_delete:
         return jsonify({"message": "No user found!"})

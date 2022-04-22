@@ -58,7 +58,7 @@ def add_project_partner():
 @jwt_required()
 def add_project_partner_by_invite(project_id, school_id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, project_id, school_id)
     new_project_partner = ProjectPartner(
         school_id=school_id,
         project_id=project_id,
@@ -83,7 +83,7 @@ def add_project_partner_by_invite(project_id, school_id):
 @jwt_required()
 def ListAllSchoolInvitations(school_id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, school_id)
     invited_schools = ProjectPartner.query. \
         join(School). \
         join(Project). \
@@ -112,7 +112,7 @@ def ListAllSchoolInvitations(school_id):
 @jwt_required()
 def get_invitation_details(project_partner_id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, project_partner_id)
     invitations = ProjectPartner.query. \
         join(School). \
         join(Project). \
@@ -155,7 +155,7 @@ def get_invitation_details(project_partner_id):
 @jwt_required()
 def get_one_project_partner(id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, id)
     project_partner = ProjectPartner.query.get_or_404(id)
 
     project_partner_data = {}
@@ -173,7 +173,7 @@ def get_one_project_partner(id):
 @jwt_required()
 def update_project_partner(id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, id)
     project_partner_to_update = ProjectPartner.query.get_or_404(id)
     new_data = request.get_json()
 
@@ -202,7 +202,7 @@ def update_project_partner(id):
 @jwt_required()
 def update_project_partner_status(project_partner_id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, project_partner_id)
     project_partner_status_to_update = ProjectPartner.query.get_or_404(project_partner_id)
     new_data = request.get_json()
 
@@ -232,7 +232,7 @@ def update_project_partner_status(project_partner_id):
 @jwt_required()
 def delete_project_partner(id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, id)
     project_partner_to_delete = ProjectPartner.query.filter_by(id=id).first()
     if not project_partner_to_delete:
         return jsonify({"message": "No Project found"})

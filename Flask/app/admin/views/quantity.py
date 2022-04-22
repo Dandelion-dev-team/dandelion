@@ -54,7 +54,7 @@ def add_quantity():
 @jwt_required()
 def getOneQuantity(id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, id)
     quantity = Quantity.query.get_or_404(id)
 
     quantity_data = {}
@@ -71,7 +71,7 @@ def getOneQuantity(id):
 @jwt_required()
 def updateQuantity(id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, id)
     quantity_to_update = Quantity.query.get_or_404(id)
     new_data = request.get_json()
 
@@ -99,7 +99,7 @@ def updateQuantity(id):
 @jwt_required()
 def delete_quantity(id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, id)
     quantity_to_delete = Quantity.query.filter_by(id=id).first()
     if not quantity_to_delete:
         return jsonify({"message" : "No quantity found"})

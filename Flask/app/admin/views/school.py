@@ -67,7 +67,7 @@ def add_school():
 @jwt_required()
 def getOneSchool(id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, id)
     school = School.query.get_or_404(id)
 
     school_data = {}
@@ -99,7 +99,7 @@ def getOneSchool(id):
 @jwt_required()
 def updateSchool(id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, id)
     school_to_update = School.query.get_or_404(id)
     new_data = request.get_json()
 
@@ -136,7 +136,7 @@ def updateSchool(id):
 @jwt_required()
 def delete_school(id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, id)
     school_to_delete = School.query.filter_by(id=id).first()
     if not school_to_delete:
         return {"message": "No school found"}
@@ -159,7 +159,7 @@ def delete_school(id):
 @admin.route('/school/<int:id>/uploadImage', methods=['POST'])
 def upload_school_image(id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, current_user, id)
     pic, filename = get_uploaded_file(request)
     image_processing(pic, 'school', id, filename)
 
