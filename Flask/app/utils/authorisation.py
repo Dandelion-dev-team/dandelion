@@ -3,9 +3,9 @@ from app import db
 from app.models import ExperimentParticipant, User
 
 
-def auth_check(route, method, id_1, current_user=None):
+def auth_check(route, method, id_1, current_user=None, id_2=None):
     id_1 = str(id_1)
-    # id_2 = str(id_2)
+    id_2 = str(id_2)
 
     all_routes = [
         {"route": "/api/authority", "method": "GET", "auth_level": "public"},
@@ -23,7 +23,8 @@ def auth_check(route, method, id_1, current_user=None):
         {"route": "/api/experiment_participant", "method": "GET", "auth_level": "superuser"},
         {"route": "/api/experiment_participant/add", "method": "POST", "auth_level": "superuser"},
         {"route": "/api/experiment_participant/" + id_1, "method": "GET", "auth_level": "superuser"},
-        {"route": "/api/experiment_participant/experiment_id/" + id_1, "method": "POST", "auth_level": "superuser"}, #todo this line has two id values
+        {"route": "/api/experiment_participant/" + id_1 + "/" + id_2, "method": "POST", "auth_level": "superuser"},
+        # todo this line has two id values
         {"route": "/api/experiment_participant/updatestatus/" + id_1, "method": "PUT",
          "auth_level": "superuser"},
         {"route": "/api/experiment_participant/delete/" + id_1, "method": "DELETE",
@@ -62,7 +63,7 @@ def auth_check(route, method, id_1, current_user=None):
         {"route": "/api/project_leader/" + id_1, "method": "DELETE", "auth_level": "superuser"},
         {"route": "/api/project_partner", "method": "GET", "auth_level": "superuser"},
         {"route": "/api/project_partner", "method": "POST", "auth_level": "superuser"},
-        {"route": "/api/project_partner/project_id/school_id", "method": "POST", "auth_level": "superuser"},
+        {"route": "/api/project_partner/" + id_1 + "/" + id_2, "method": "POST", "auth_level": "superuser"},
         # todo this line has 2 id values, needs attention
         {"route": "/api/project_partner/" + id_1, "method": "GET", "auth_level": "superuser"},
         {"route": "/api/project_partner/invitation_details/" + id_1, "method": "GET",
@@ -106,7 +107,7 @@ def auth_check(route, method, id_1, current_user=None):
         {"route": "/api/user/" + id_1, "method": "GET", "auth_level": "public"},
         {"route": "/api/user/getsuperusers", "method": "GET", "auth_level": "superuser"},
         {"route": "/api/user/byschool/" + id_1, "method": "GET", "auth_level": "superuser"},
-        {"route": "/api/user/byschoolandexperiment/school_id/experiment_id", "method": "GET",
+        {"route": "/api/user/byschoolandexperiment/" + id_1 + "/" + id_2, "method": "GET",
          "auth_level": "superuser"},  # todo this line has 2 id values
         {"route": "/api/user/user/byproject/" + id_1, "method": "GET", "auth_level": "superuser"},
         {"route": "/api/user/" + id_1, "method": "PUT", "auth_level": "superuser"},
@@ -130,11 +131,14 @@ def auth_check(route, method, id_1, current_user=None):
         else:
             return True
     elif auth_level == "superuser":
+        sysadmin = current_user.is_sysadmin
         superuser = current_user.is_superuser
-        if not superuser:
-            abort(403, 'This user does not have the proper level of authorisation to access this page')
-        else:
+        if superuser:
             return True
+        elif sysadmin:
+            return True
+        else:
+            abort(403, 'This user does not have the proper level of authorisation to access this page')
     elif auth_level == "experiment_participant":
         experiment_participant_exists = db.session.query(ExperimentParticipant). \
             filter_by(user_id=current_user.id). \

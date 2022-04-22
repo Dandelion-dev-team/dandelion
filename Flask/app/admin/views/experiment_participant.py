@@ -75,12 +75,12 @@ def experiments_by_participant(user_id):
     return jsonify({'data': output})
 
 
-@admin.route('/experiment_paticipant/<int:experiment_id>/<int:user_id>', methods=['POST'])
+@admin.route('/experiment_participant/<int:experiment_id>/<int:user_id>', methods=['POST'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def add_new_experiment_participant(experiment_id, user_id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    authorised = auth_check(request.path, request.method, experiment_id, current_user, user_id)
 
     data = request.get_json()
     participant = ExperimentParticipant(
@@ -102,13 +102,13 @@ def add_new_experiment_participant(experiment_id, user_id):
         abort(409, e.orig.msg)
 
 
-@admin.route('/experiment_paticipant/updatestatus/<int:experiment_paticipant_id>', methods=['PUT'])
+@admin.route('/experiment_participant/updatestatus/<int:experiment_participant_id>', methods=['PUT'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
-def updateExperimentParticipantStatus(experiment_paticipant_id):
+def updateExperimentParticipantStatus(experiment_participant_id):
     current_user = jwt_user(get_jwt_identity())
     authorised = auth_check(request.path, request.method, current_user)
-    experiment_participant_to_update = ExperimentParticipant.query.get_or_404(experiment_paticipant_id)
+    experiment_participant_to_update = ExperimentParticipant.query.get_or_404(experiment_participant_id)
     new_data = request.get_json()
 
     experiment_participant_to_update.status = new_data['status']
@@ -129,13 +129,13 @@ def updateExperimentParticipantStatus(experiment_paticipant_id):
             abort(409)
 
 
-@admin.route('/experiment_paticipant/delete/<int:experiment_paticipant_id>', methods=['DELETE'])
+@admin.route('/experiment_participant/delete/<int:experiment_participant_id>', methods=['DELETE'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
-def deleteΕxperimentPaticipant(experiment_paticipant_id):
+def deleteΕxperimentPaticipant(experiment_participant_id):
     current_user = jwt_user(get_jwt_identity())
     authorised = auth_check(request.path, request.method, current_user)
-    experiment_participant_to_delete = ExperimentParticipant.query.filter_by(id=experiment_paticipant_id).first()
+    experiment_participant_to_delete = ExperimentParticipant.query.filter_by(id=experiment_participant_id).first()
     if not experiment_participant_to_delete:
         return jsonify({"message": "No experiment participant found!"})
 

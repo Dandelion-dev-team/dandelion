@@ -35,7 +35,7 @@ def listExperiment():
 @jwt_required()
 def listExperimentForProject(id):
     current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method,id, current_user)
+    authorised = auth_check(request.path, request.method, id, current_user)
     project = Project.query.get_or_404(id)
     return json_response(data=(row2dict(x, summary=True) for x in project.experiments))
 
@@ -135,16 +135,16 @@ def add_experiment():
                                                        ProjectPartner.school_id == current_user.school_id)).first()
 
     experiment = Experiment(
-        project_id = data["project_id"],
-        project_partner_id = project_partner.id,
-        title = data["title"],
-        description = data["description"],
-        start_date = parser.parse(data["start_date"]),
-        end_date = parser.parse(data["end_date"]),
-        parent_id = data["parent_id"],
-        code = data["code"],
-        text = data["text"],
-        status = "active"
+        project_id=data["project_id"],
+        project_partner_id=project_partner.id,
+        title=data["title"],
+        description=data["description"],
+        start_date=parser.parse(data["start_date"]),
+        end_date=parser.parse(data["end_date"]),
+        parent_id=data["parent_id"],
+        code=data["code"],
+        text=data["text"],
+        status="active"
     )
 
     db.session.add(experiment)
@@ -160,11 +160,11 @@ def add_experiment():
     if "hypotheses" in data.keys():
         for h in data["hypotheses"]:
             hypothesis = Hypothesis(
-                experiment_id = experiment.id,
-                hypothesis_no = h["hypothesis_no"],
-                description = h["description"],
-                status = 'active',
-                text = h["text"]
+                experiment_id=experiment.id,
+                hypothesis_no=h["hypothesis_no"],
+                description=h["description"],
+                status='active',
+                text=h["text"]
             )
 
             db.session.add(hypothesis)
@@ -192,17 +192,17 @@ def add_experiment():
             variable = create_variable(rv)
 
         response_variable = ResponseVariable(
-            experiment_id = experiment.id,
-            variable_id = variable.id,
-            monday = rv["monday"],
-            tuesday = rv["tuesday"],
-            wednesday = rv["wednesday"],
-            thursday = rv["thursday"],
-            friday = rv["friday"],
-            saturday = rv["saturday"],
-            sunday = rv["sunday"],
-            once = rv["once"],
-            final = rv["final"]
+            experiment_id=experiment.id,
+            variable_id=variable.id,
+            monday=rv["monday"],
+            tuesday=rv["tuesday"],
+            wednesday=rv["wednesday"],
+            thursday=rv["thursday"],
+            friday=rv["friday"],
+            saturday=rv["saturday"],
+            sunday=rv["sunday"],
+            once=rv["once"],
+            final=rv["final"]
         )
 
         db.session.add(response_variable)
@@ -258,4 +258,3 @@ def updateExperiment(experiment_id):
         except Exception as e:
             db.session.rollback()
             abort(409)
-
