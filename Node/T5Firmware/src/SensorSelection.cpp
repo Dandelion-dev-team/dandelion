@@ -1,22 +1,12 @@
 #include <SensorSelection.h>
+#include "definitions.h"
+#include <cstdarg>
 
-#define LEVEL_1_SELECT 0
-#define LEVEL_2_SELECT 12
-#define LEVEL_3_SELECT 27
-#define SET_1_SELECT 26
-#define SET_2_SELECT 25
-#define SET_3_SELECT 33
-#define SCL 22
-#define SDA 21
-#define DATA1 36
-#define DATA2 19
-#define ANALOGUE 32
-#define BUTTONPIN 39
-
-char message_buffer[100];
+extern Utils utils;
 
 void initialise_pins();
-void select(int level_select, int set_select);
+using namespace std;
+void select(int ...);
 
 SensorModule m_sensor;
 
@@ -27,88 +17,78 @@ void SensorSelection::setAndLevelSelection()
   * and then turn on power to only the level and set that has been selected. After the last
   * level and set have had their readings taken, the SensorModule class handles the rest of the process from this point.
   */
-  pinMode(BUTTONPIN, INPUT_PULLDOWN);
-  pinMode(LEVEL_1_SELECT, OUTPUT);
-  pinMode(LEVEL_2_SELECT, OUTPUT);
-  pinMode(LEVEL_3_SELECT, OUTPUT);
-  pinMode(SET_1_SELECT, OUTPUT);
-  pinMode(SET_2_SELECT, OUTPUT);
-  pinMode(SET_3_SELECT, OUTPUT);
 
-  pinMode(SCL, INPUT);
-  pinMode(SDA, INPUT);
-  pinMode(DATA1, INPUT);
-  pinMode(DATA2, INPUT);
-  pinMode(ANALOGUE, INPUT);
-
-  select(LEVEL_1_SELECT, SET_1_SELECT);
+  select(2, TOP, SET_1);
   delay(2000);
   m_sensor.initialiseSet1();
   m_sensor.getReadingsSet1();
 
-  select(LEVEL_1_SELECT, SET_2_SELECT);
+  select(2, TOP, SET_2);
   delay(2000);
   m_sensor.initialiseSet2();
   m_sensor.getReadingsSet2();
 
-  // select(LEVEL_1_SELECT, SET_3_SELECT);
+  // select(2, TOP, SET_3);
   // // delay(2000);
   // m_sensor.initialiseSet3();
   // m_sensor.getReadingsSet3();
-  
 
 
-
-  // select(LEVEL_2_SELECT, SET_1_SELECT);
+  // select(2, MIDDLE, SET_1);
   // delay(2000);
   // m_sensor.initialiseSet1();
   // m_sensor.getReadingsSet1();
 
-  // select(LEVEL_2_SELECT, SET_2_SELECT);
+  // select(2, MIDDLE, SET_2);
   // delay(2000);
   // m_sensor.initialiseSet2();
   // m_sensor.getReadingsSet2();
 
 
-  // select(LEVEL_2_SELECT, SET_3_SELECT);
+  // select(2, MIDDLE, SET_3);
   // delay(2000);
   // m_sensor.initialiseSet3();
   // m_sensor.getReadingsSet3();
 
 
-
-
-  // select(LEVEL_3_SELECT, SET_1_SELECT);
+  // select(2, BOTTOM, SET_1);
   // delay(2000);
   // m_sensor.initialiseSet1();
   // m_sensor.getReadingsSet1();
 
-  // select(LEVEL_3_SELECT, SET_2_SELECT);
+  // select(2, BOTTOM, SET_2);
   // delay(2000);
   // m_sensor.initialiseSet2();
   // m_sensor.getReadingsSet2();
 
-  // select(LEVEL_3_SELECT, SET_3_SELECT);
+  // select(2, BOTTOM, SET_3);
   // delay(2000);
   // m_sensor.initialiseSet3();
   // m_sensor.getReadingsSet3();
-
-
 }
 
 void initialise_pins() {
-  digitalWrite(LEVEL_1_SELECT, LOW);
-  digitalWrite(LEVEL_2_SELECT, LOW);
-  digitalWrite(LEVEL_3_SELECT, LOW);
-  digitalWrite(SET_1_SELECT, LOW);
-  digitalWrite(SET_2_SELECT, LOW);
-  digitalWrite(SET_3_SELECT, LOW);
+  digitalWrite(TOP, LOW);
+  digitalWrite(MIDDLE, LOW);
+  digitalWrite(BOTTOM, LOW);
+  digitalWrite(SET_1, LOW);
+  digitalWrite(SET_2, LOW);
+  digitalWrite(SET_3, LOW);
 }
 
-void select(int level_select, int set_select) {
+void select(int num, ...) {
+  va_list valist;
+  uint8_t this_pin;
   initialise_pins();
-  digitalWrite(level_select, HIGH);
-  digitalWrite(set_select, HIGH);
-  sprintf(message_buffer, "Level %d, Set %d", level_select, set_select);
-  Serial.println(message_buffer);
+  char message_buffer[20];
+
+  va_start(valist, num); // initialize valist for num number of arguments
+  for (uint8_t i = 0; i < num; i++)
+  {
+    this_pin = va_arg(valist, int);
+    sprintf(message_buffer, "Setting pin %d", this_pin);
+    utils.debug(message_buffer, false);
+    digitalWrite(this_pin, HIGH);
+  }
+  va_end(valist); // clean memory reserved for valist
 }

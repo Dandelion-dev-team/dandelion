@@ -2,8 +2,10 @@
 #include <TSL2591.h>
 #include <BME280.h>
 #include <DS18B20.h>
-#include <TGSMeter.h>
+#include <TDSMeter.h>
 #include <PHSensor.h>
+
+extern Utils utils;
 
 /*In this class, readings are taken from each sensor, with the values returned stored in a map. The data types of the
 * key-value pair in the map is String-float where String is the name of the type of measurement being recorded and 
@@ -15,14 +17,14 @@
 TSL2591 luminositySensor;
 BME280 multiPurposeSensor;
 DS18B20 substrateTemperatureSensor;
-TGSMeter tgsMeter;
+TDSMeter tdsMeter;
 PHSensor pHSensor;
 
 //Map for storing readings and the name of measurement type
 std::map <String, float> readings;
 
 //DataTransformation instance variable to access the serialise method it provides.
-DataTransformation dataTransformation;
+// DataTransformation dataTransformation;
 
 /* The following method is currently called within this class, however it may instead be declared as a method in SensorModule.h and called from the SensorSelection.cpp class once 
 * all readings have been taken. Currently unable to test readings being taken from all three levels, only one level is possible at this stage.
@@ -36,7 +38,7 @@ void SensorModule::initialiseSet1()
 {
     luminositySensor.initialise();
     multiPurposeSensor.initialise();
-    // tgsMeter.initialise(); sensor not currently connected.
+    // tdsMeter.initialise(); sensor not currently connected.
     // initialise water level sensor
 }
 
@@ -65,7 +67,7 @@ void SensorModule::getReadingsSet1()
     delay(500);
     readings["humidity"] = multiPurposeSensor.getReadings(3);
 
-    // readings["electrical conductivity"] = tgsMeter.getReadings();
+    // readings["electrical conductivity"] = tdsMeter.getReadings();
 
     //get water level sensor readings
 
@@ -86,16 +88,16 @@ void SensorModule::getReadingsSet3()
     sendReadings(); //DELETE, FOR TESTING PURPOSES ONLY WHILE getReadingsSet3() IS NOT BEING CALLED.
 }
 
-void sendReadings()
-{
-    /*Please read Future work document in the Node/Documentation folder of the GitHub repository for further 
-    * information on the changes required before this method can be called when the hardware allows for readings
-    * to be taken from multiple Levels at one time.
+// void sendReadings()
+// {
+//     /*Please read Future work document in the Node/Documentation folder of the GitHub repository for further 
+//     * information on the changes required before this method can be called when the hardware allows for readings
+//     * to be taken from multiple Levels at one time.
 
-    /*Currently, this method is called after the Set 3 sensor's readings has been taken. This works for when readings are only
-    * being taken from one Level, but when the hardware allows for testing to be conducted of taking readings from all Levels 
-    * and Sets, then the getReadingsSet1, 2 and 3 methods will need adapted to allow for knowledge of what Level is calling 
-    * the method.
-    */
-    dataTransformation.serialise(readings);
-}
+//     /*Currently, this method is called after the Set 3 sensor's readings has been taken. This works for when readings are only
+//     * being taken from one Level, but when the hardware allows for testing to be conducted of taking readings from all Levels 
+//     * and Sets, then the getReadingsSet1, 2 and 3 methods will need adapted to allow for knowledge of what Level is calling 
+//     * the method.
+//     */
+//     dataTransformation.serialise(readings);
+// }

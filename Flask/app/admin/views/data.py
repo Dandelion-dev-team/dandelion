@@ -12,6 +12,8 @@ from app.admin import admin
 from app.models import Observation, Experiment, School, Variable, SensorQuantity, ProjectPartner, Condition, Unit, \
     Level, ConditionLevel, ResponseVariable
 from app.utils.uploads import content_folder
+import logging
+logger = logging.getLogger()
 
 
 @admin.route('/data', methods=['POST'])

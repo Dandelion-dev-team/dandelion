@@ -6,6 +6,7 @@
 #include <GxDEPG0213BN/GxDEPG0213BN.h>
 #include <GxIO/GxIO_SPI/GxIO_SPI.h>
 #include <GxIO/GxIO.h>
+#include <definitions.h>
 
 //Fonts
 #include <Fonts/FreeMonoBold9pt7b.h>
@@ -22,8 +23,11 @@ class Display
 {
 public:
     void setupDisplay();
+    void update_display();
     void enterUserInteractionMode();
-    void updateWiFiIcon(bool);
+    void displayLogo();
+    void displayWiFiIcon(bool);
+    void displayMessage(char *, uint8_t = 1, bool = false);
 };
 
 

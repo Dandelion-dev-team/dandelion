@@ -1,6 +1,5 @@
 #include <EventDrivenButtonPress.h>
-
-#define BUTTONPIN 39
+#include <definitions.h>
 
 volatile int buttonCount = 0;
 volatile unsigned long last_millis;
@@ -12,7 +11,7 @@ void EventDrivenButtonPress::initialise()
 {
     pinMode(BUTTONPIN, INPUT_PULLDOWN);
     attachInterrupt(BUTTONPIN, catchButton, RISING);
-    print_wakeup_reason();
+    // print_wakeup_reason();
 }
 
 void catchButton()

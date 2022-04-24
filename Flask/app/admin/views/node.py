@@ -132,34 +132,34 @@ def delete_node(id):
         abort(409, e.orig.msg)
 
 
-@admin.route('/node/<int:id>/uploadData', methods=['POST'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
-@jwt_required()
-def upload_data(id):
-    Node.query.get_or_404(id)  # if node id doens't exist, it returns a 404 message
-    id = str(id)
-    json_data = request.get_json()
-
-    s = json.dumps(json_data)
-    j = json.loads(s)  # <-- Convert JSON string, s, to JSON object, j, with j = json.loads(s)
-
-    for cube_level in ('top', 'middle', 'bottom'):
-
-        new_data_df = pd.DataFrame(j[cube_level], index=[j["timestamp"]])
-        new_data_df.index = pd.to_datetime(new_data_df.index)
-        new_data_df.index.name = "timestamp"
-
-        newdir = os.path.join(content_folder("DATA_ROOT", id, "FLASK", upload=True))
-
-        try:
-            df = pd.read_csv(os.path.join(newdir, cube_level + '.csv'), index_col="timestamp")
-            df = pd.concat([df, new_data_df])
-        except:
-            df = new_data_df
-        df.to_csv(os.path.join(newdir, cube_level + '.csv'))
-
-    message = "Node Data uploaded"
-    return jsonify({"message" : message})
+# @admin.route('/node/<int:id>/uploadData', methods=['POST'])
+# @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
+# @jwt_required()
+# def upload_data(id):
+#     Node.query.get_or_404(id)  # if node id doens't exist, it returns a 404 message
+#     id = str(id)
+#     json_data = request.get_json()
+#
+#     s = json.dumps(json_data)
+#     j = json.loads(s)  # <-- Convert JSON string, s, to JSON object, j, with j = json.loads(s)
+#
+#     for cube_level in ('top', 'middle', 'bottom'):
+#
+#         new_data_df = pd.DataFrame(j[cube_level], index=[j["timestamp"]])
+#         new_data_df.index = pd.to_datetime(new_data_df.index)
+#         new_data_df.index.name = "timestamp"
+#
+#         newdir = os.path.join(content_folder("DATA_ROOT", id, "FLASK", upload=True))
+#
+#         try:
+#             df = pd.read_csv(os.path.join(newdir, cube_level + '.csv'), index_col="timestamp")
+#             df = pd.concat([df, new_data_df])
+#         except:
+#             df = new_data_df
+#         df.to_csv(os.path.join(newdir, cube_level + '.csv'))
+#
+#     message = "Node Data uploaded"
+#     return jsonify({"message" : message})
 
 
 @admin.route('/node/latest/<int:node_id>', methods=['GET'])
