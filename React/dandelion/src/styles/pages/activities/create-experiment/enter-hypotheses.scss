@@ -46,6 +46,7 @@
         display: flex;
         flex-direction: column;
         justify-content: space-around;
+        width: 90%;
         height: 85%;
         h3 {
           color: black;
@@ -102,19 +103,21 @@
         .cont-btn {
           height: 10%;
           margin-top: auto;
+          width: 100%;
+          flex-direction: row;
+          display: flex;
+          justify-content: space-between;
           .spacer {
-            width: 85%;
+            width: 10%;
           }
           .button {
-            width: 15%;
             margin-left: auto;
             .continue-btn {
               background-color: $accent;
               color: $primary;
               font-size: 1.6rem;
               margin: 1.25rem 0px;
-              padding: 0.625rem;
-              width: 13rem;
+              padding: 1.25rem;
               border: none;
               cursor: pointer;
               border-radius: 10px;

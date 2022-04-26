@@ -30,12 +30,14 @@ def getFullVariable(id):
             "lower_limit": variable.quantity.lower_limit,
             "upper_limit": variable.quantity.upper_limit,
             "unit": variable.quantity.unit,
-            "levels": sorted([{
-                "id": l.id,
-                "sequence": l.sequence,
-                "name": l.name
-            } for l in variable.levels], key=lambda l: l["sequence"])
-        }]}
+        }] if variable.quantity else None,
+        "levels": sorted([{
+            "id": l.id,
+            "sequence": l.sequence,
+            "treatment_name": variable.name,
+            "name": l.name
+        } for l in variable.levels], key=lambda l: l["sequence"])
+    }
 
 
     return data

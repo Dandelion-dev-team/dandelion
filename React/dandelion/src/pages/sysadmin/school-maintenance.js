@@ -91,7 +91,7 @@ export default function SuperuserMaintenance(props) {
       })
       createRecord("/school", body);
     } else {
-      console.log("did not have all information")
+      toast.error("More information needed.")
     }
   }
 

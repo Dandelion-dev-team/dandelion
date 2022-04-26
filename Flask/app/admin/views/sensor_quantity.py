@@ -4,7 +4,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import inspect
 
 from app.admin import admin
-from app.models import Sensor_quantity
+from app.models import SensorQuantity
 from app import db
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update, audit_delete
 from app.utils.authorisation import auth_check
@@ -18,7 +18,7 @@ def add_sensor_quantity():
     current_user = jwt_user(get_jwt_identity())
     authorised = auth_check(request.path, request.method, current_user)
     data = request.get_json()
-    sensor_quantity = Sensor_quantity(
+    sensor_quantity = SensorQuantity(
         sensor_id = data['sensor_id'],
         quantity_id = data['quantity_id'],
     )
@@ -45,6 +45,7 @@ def get_one_sensor_quantity(id):
     authorised = auth_check(request.path, request.method, current_user, id)
     sensor_quantity = Sensor_quantity.query.get_or_404(id)
 
+
     sensor_quantity_data = {}
     sensor_quantity_data['sensor_quantity_id'] = sensor_quantity.id
     sensor_quantity_data['sensor_id'] = sensor_quantity.sensor_id
@@ -65,7 +66,7 @@ def Update_sensory_quantity(id):
     sensor_quantity_to_update.sensor_id = new_data["sensor_id"]
     sensor_quantity_to_update.quantity_id = new_data["quantity_id"]
 
-    audit_details = prepare_audit_details(inspect(Sensor_quantity), sensor_quantity_to_update, delete=False)
+    audit_details = prepare_audit_details(inspect(SensorQuantity), sensor_quantity_to_update, delete=False)
 
     message = "Sensor Quantity has been updated"
 
@@ -87,10 +88,11 @@ def delete_sensor_quantity(id):
     current_user = jwt_user(get_jwt_identity())
     authorised = auth_check(request.path, request.method, current_user, id)
     sensor_quantity_to_delete = Sensor_quantity.query.filter_by(id=id).first()
+
     if not sensor_quantity_to_delete:
         return jsonify({"message" : "No Sensor Quantity found"})
 
-    audit_details = prepare_audit_details(inspect(Sensor_quantity), sensor_quantity_to_delete, delete = True)
+    audit_details = prepare_audit_details(inspect(SensorQuantity), sensor_quantity_to_delete, delete = True)
     db.session.delete(sensor_quantity_to_delete)
     return_status = 200
     message = "The Sensor Quantity has been deleted"

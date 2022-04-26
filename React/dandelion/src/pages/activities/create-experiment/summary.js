@@ -84,7 +84,6 @@ export default function Summary(props) {
                       <h3>Conditions:</h3>
                     </div>
                     <div className="condition-list">
-                      {console.log(combinations_selected)}
                       {combinations_selected
                         ? combinations_selected.map(function (d, idx) {
                           if (Array.isArray(d)) {
@@ -193,6 +192,29 @@ export default function Summary(props) {
                   </div>
                 </div>
                 <div className="btn-container">
+                <div className="spacer"/>
+                <div className="back-btn">
+                    <input
+                      type="submit"
+                      className="backButton"
+                      value="Back"
+                      onClick={() => {
+                        if (typeof window !== `undefined`) {
+                          navigate(
+                            "/activities/create-experiment/enter-hypotheses",
+                            {
+                              state: {
+                                treatmentVariables: props.location.state.treatmentVariables,
+                                responseVariables: props.location.state.responseVariables,
+                                experimentDetails: props.location.state.experimentDetails,
+                                combinations: props.location.state.combinations,
+                              },
+                            }
+                          )
+                        }
+                      }}
+                    ></input>
+                  </div>
                   <div className="continue-btn">
                     <input
                       type="submit"

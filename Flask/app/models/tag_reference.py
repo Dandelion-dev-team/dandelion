@@ -1,7 +1,7 @@
 from app import db
 
 
-class Tag_reference(db.Model):
+class TagReference(db.Model):
     __tablename__ = 'tag_reference'
 
     id = db.Column(db.Integer, primary_key=True)

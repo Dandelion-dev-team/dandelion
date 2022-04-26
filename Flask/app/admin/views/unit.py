@@ -12,7 +12,7 @@ def create_unit(condition, data, user):
 		location = data["location"],
 		replicate_no = data["replicate_no"],
 		grid_row = data["row"],
-		node_id = user.school.node[0].id if data["cube_level"] else None
+		node_id = user.school.nodes[0].id if data["cube_level"] else None
 	)
 
 	db.session.add(unit)

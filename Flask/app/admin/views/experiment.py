@@ -190,6 +190,7 @@ def add_experiment():
             variable_id = rv["id"]
         except:
             variable = create_variable(rv)
+            variable_id = variable.id
 
         response_variable = ResponseVariable(
             experiment_id=experiment.id,
@@ -203,6 +204,7 @@ def add_experiment():
             sunday=rv["sunday"],
             once=rv["once"],
             final=rv["final"]
+
         )
 
         db.session.add(response_variable)

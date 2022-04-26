@@ -9,11 +9,16 @@
     justify-content: space-between;
     align-items: center;
     height: 100vh;
+    @include media("<=phone") {
+      justify-content: center;
+    }
     .content {
       width: 33%;
 
-      @media (max-width: 1440px) {
-        width: 40%;
+      @include media("<=phone") {
+        height: 0%;
+        width: 0%;
+        display: none;
       }
 
       h3 {
@@ -33,11 +38,17 @@
     .tiles {
       justify-content: center;
       align-items: center;
-      width: 50%;
-      gap: 20px;
+      height: auto;
+      overflow: hidden;
+      width: 28%;
+      gap: 1rem;
       display: grid;
-      grid-template-rows: 200px 200px 200px;
-      grid-template-columns: 200px 200px;
+      grid-template-columns: 45% 45%;
+
+      @include media("<=phone") {
+        height: 80%;
+        width: 90%;
+      }
     }
   }
 }

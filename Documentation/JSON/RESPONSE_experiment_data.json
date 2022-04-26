@@ -1,0 +1,62 @@
+{
+    "data": {
+        "experiment_id": <experiment_id>,
+        "min_date": <experiment start date>,
+        "max_date": <currdate | experiment end date>,
+        "columns": [
+            {
+                "headerName": "Timestamp",
+                "field": "ts"
+            },
+            {
+                "headerName": <heading 1>,
+                "field": "V" + <school_id> + <condition_id> + <rv_id_1> 
+            }
+            {
+                "headerName": <heading 2>,
+                "field": "V" + <school_id> + <condition_id> + <rv_id_2>
+            }
+            ...,
+            {
+                "headerName": <sensor_heading_1>,
+                "field": "S" + <school_id> + <condition_id> + <quantity_id>
+            }
+        ],
+        "rows": [
+            {
+                "ts": <timestamp_1>,
+                "V" + <school_id> + <condition_id> + <rv_id_1> : <value 1>,
+                "V" + <school_id> + <condition_id> + <rv_id_2> : <value 2>,
+                ...
+            },
+            {
+                "ts": <timestamp_2>,
+                "V" + <school_id> + <condition_id> + <rv_id_1> : <value 3>,
+                "V" + <school_id> + <condition_id> + <rv_id_2> : <value 4>,
+                ...
+            }
+        ],
+        "images": [
+            {
+                "rownum": <row_sequence_no>,
+                "column": "V" + <school_id> + <condition_id> + <rv_id_x>,
+                "image_url": <img_url 1>
+            },
+            {
+                "rownum": <row_sequence_no>,
+                "heading": "V" + <school_id> + <condition_id> + <rv_id_y>,
+                "image_url": <img_url 2>
+            },
+            ...
+        ]
+        "milestones": [
+            {
+                "timestamp": <timestamp_3>,
+                "school_id": <school_id_1>,
+                "condition_id": <condition_id>,
+                "milestone": <label_1>
+            },
+            ...
+        ]
+    }
+}

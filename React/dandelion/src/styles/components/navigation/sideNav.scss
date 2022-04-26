@@ -3,13 +3,16 @@
   position: relative;
 
   .sidenav {
-    width: 240px;
+    width: 20%;
     height: 100%;
     background: #f5f5f5;
     padding: 30px 0px;
     position: fixed;
+    display: flex;
+    flex-direction: column;
 
     .logo {
+      height: 15%;
       img {
         height: 3.2rem;
         margin-bottom: 2rem;
@@ -45,9 +48,9 @@
       .news-pane {
         justify-content: center;
         display: flex;
-        width: 200px;
-        height: 240px;
-        background-color: #E3C3CA;
+        width: 95%;
+        height: 30vh;
+        background-color: #e3c3ca;
         margin-top: 5px;
         bottom: 10px;
         margin-left: 5px;
@@ -58,12 +61,17 @@
           margin-top: 10px;
         }
       }
-
+      .spacer {
+        height: 5%;
+      }
       .btn-row {
         justify-content: center;
-        margin-left: 30px;
         position: absolute;
-        bottom: 40px;
+        margin-top: auto;
+        left: 0;
+        width: 100%;
+        display: flex;
+        align-items: center;
 
         .button {
           background-color: $accent;
@@ -78,7 +86,6 @@
           padding: 10px 48px;
           touch-action: manipulation;
           margin-top: auto;
-          
         }
         .button:hover,
         .button:focus {

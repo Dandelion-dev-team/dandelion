@@ -62,7 +62,8 @@ export function readRecord(endpoint, setter) {
             'Cache-Control': 'no-cache, no-store, must-revalidate',
             'Pragma': 'no-cache',
             'Expires': 0,
-        })})
+        })
+    })
         .then((response) => {
             if (response.status >= 200 && response.status <= 299) {
                 return response.json();
@@ -87,7 +88,8 @@ export function readAdminRecord(endpoint) {
             'Cache-Control': 'no-cache, no-store, must-revalidate',
             'Pragma': 'no-cache',
             'Expires': 0,
-        })})
+        })
+    })
         .then((response) => {
             if (response.status >= 200 && response.status <= 299) {
                 return response.json();
@@ -116,7 +118,15 @@ export function uploadExperimentImage(endpoint, image) {
         method: "POST",
         mode: 'cors',
         body: formData,
-    }).catch(toast.error("Failed to upload image."))
+    }).then((response) => {
+        if (response.status == 200) {
+            return response.json()
+        } else {
+            throw Error(response.statusText);
+        }
+    }).then((jsonResponse) => { return jsonResponse; }).catch((error) => {
+        toast.error("Failed to upload image. Error " + error)
+    });
 }
 
 export function updateRecord(endpoint, body) {

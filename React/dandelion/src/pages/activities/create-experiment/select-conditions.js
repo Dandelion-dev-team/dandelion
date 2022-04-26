@@ -67,7 +67,7 @@ export default function SelectCombinations(props) {
   if (logged) {
     return (
       <div className="conditions-container">
-        <ToastContainer/>
+        <ToastContainer />
         <div className="content">
           <div className="text-content">
             <h3>Select your Conditions</h3>
@@ -78,21 +78,39 @@ export default function SelectCombinations(props) {
             <div className="condition-list">
               {combination_list ? combination_list.map(variable => (<CombinationListComponent condition={variable} checkCallback={checkboxCallback} />)) : null}
             </div>
-            {combination_selected.length > 0 ?
+            <div className="btn-row">
               <input
                 type="submit"
                 className="continue-btn"
-                value="Continue"
+                value="Back"
                 onClick={() => {
                   if (typeof window !== `undefined`) {
-                    navigate("/activities/create-experiment/enter-hypotheses",
+                    navigate("/activities/create-experiment/response-variables",
                       {
-                        state: { treatmentVariables: treatment_variables, responseVariables: response_variables, experimentDetails: experiment_details, combinations: combination_selected },
+                        state: {
+                          experimentDetails: props.location.state.experimentDetails,
+                          treatmentVariables: props.location.state.treatmentVariables,
+                        },
                       })
                   }
                 }}
               ></input>
-              : null}
+              {combination_selected.length > 0 ?
+                <input
+                  type="submit"
+                  className="continue-btn"
+                  value="Continue"
+                  onClick={() => {
+                    if (typeof window !== `undefined`) {
+                      navigate("/activities/create-experiment/enter-hypotheses",
+                        {
+                          state: { treatmentVariables: treatment_variables, responseVariables: response_variables, experimentDetails: experiment_details, combinations: combination_selected },
+                        })
+                    }
+                  }}
+                ></input>
+                : null}
+            </div>
           </div>
         </div>
       </div>

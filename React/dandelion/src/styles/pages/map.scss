@@ -20,6 +20,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    @include media("<=phone") {
+      height: 100%;
+      width: 100%;
+    }
 
     .popup {
       .submitButton {

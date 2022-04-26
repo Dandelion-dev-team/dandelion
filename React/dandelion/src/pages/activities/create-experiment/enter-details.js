@@ -18,6 +18,14 @@ export default function EnterDetails(props) {
   const [logged, setLogged] = useState("");
 
   useEffect(() => {
+    if (props.location.state.name) { setName(props.location.state.name); }
+    if (props.location.state.code) { setCode(props.location.state.code); }
+    if (props.location.state.description) { setDescription(props.location.state.description); }
+    if (props.location.state.tutorial) { setTutorial(props.location.state.tutorial); }
+    if (props.location.state.image) { setImage(props.location.state.image); }
+    if (props.location.state.startDate) { setStartDate(props.location.state.startDate); }
+    if (props.location.state.endDate) { setEndDate(props.location.state.endDate); }
+
     if (verify_superuser_storage() == true) {
       setLogged(true);
     } else {
@@ -84,7 +92,7 @@ export default function EnterDetails(props) {
     return (
       <div>
         <div className="create-exp-container">
-          <ToastContainer/>
+          <ToastContainer />
           <div className="content">
             <div className="title-content">
               <h3>Experiment Creation</h3>
@@ -150,6 +158,10 @@ export default function EnterDetails(props) {
                       <input type="file" accept=".jpg,.png" onChange={handleImageChange} hidden />
                       {image ? <CheckIcon className="imageIcon" /> : <BackupIcon className="imageIcon" />}
                     </label>
+                    <div className="spacer" />
+                    <div className="file-name">
+                      {image ? <h3>{image.name}</h3> : null}
+                    </div>
                   </div>
                 </div>
                 <div className="inputItem">
@@ -159,6 +171,7 @@ export default function EnterDetails(props) {
                   <div className="item-input">
                     <input
                       type="date"
+                      min={props.location.state.start_date}
                       value={startDate}
                       name="codeBox"
                       onChange={handleStartChange}
@@ -172,6 +185,7 @@ export default function EnterDetails(props) {
                   <div className="item-input">
                     <input
                       min={startDate}
+                      max={props.location.state.end_date}
                       value={endDate}
                       type="date"
                       name="codeBox"
@@ -186,6 +200,21 @@ export default function EnterDetails(props) {
             <div className="continue-btn">
               <input
                 type="submit"
+                className="back-button"
+                value="Back"
+                onClick={() => {
+                  if (typeof window !== `undefined`) {
+                    navigate("/activities/create-experiment/predefined-experiments/",
+                      {
+                        state: { project_id: props.location.state.project_id },
+                      })
+                  }
+                }}
+              ></input>
+            </div>
+            <div className="continue-btn">
+              <input
+                type="submit"
                 className="submitButton"
                 value="Finished"
                 onClick={() => {
@@ -194,7 +223,7 @@ export default function EnterDetails(props) {
                 }}
               ></input>
             </div>
-            <div className="spacer"></div>
+            <div className="spacer"/>
           </div>
         </div>
       </div>

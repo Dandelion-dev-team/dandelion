@@ -67,7 +67,7 @@ export default function SuperuserMaintenance(props) {
       })
       createRecord("/sensor", body)
     } else {
-      console.log("did not have all information")
+      toast.error("More information neeeded.")
     }
   }
 

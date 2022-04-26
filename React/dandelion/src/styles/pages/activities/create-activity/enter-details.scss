@@ -60,14 +60,28 @@
           width: 100%;
           height: auto;
           margin-top: 3vh;
+
+          
           
           
           .img-btn {
             width: 50%;
-            height: 100%;
+            height: 4vh;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .file-name{
+              width: 100%;
+              h3{
+                font-size: 100%;
+              }
+            }
+            .spacer{
+              width: 10%;
+            }
 
             .image-upload-btn{
-              width: 35%;
+              width: 50%;
               height: 100%;
               display: flex;
               background-color: $accent;
@@ -155,20 +169,34 @@
     .continue-btn {
       margin-left: auto;
       align-items: flex-start;
-        .submitButton {
-          background-color: $accent;
-          color: $primary;
-          font-size: 1.6rem;
-          margin: 1.25rem 0px;
-          padding: 15px;
-          border: none;
-          cursor: pointer;
-          border-radius: 10px;
-        }
-        .submitButton:hover {
-          background-color: #d4d926;
-        }
-      
+      .back-button {
+        background-color: $accent;
+        color: $primary;
+        font-size: 1.6rem;
+        margin: 1.25rem 0px;
+        padding: 15px;
+        padding-left: 50px;
+        padding-right: 50px;
+        border: none;
+        cursor: pointer;
+        border-radius: 10px;
+      }
+      .back-button:hover {
+        background-color: #d4d926;
+      }
+      .submitButton {
+        background-color: $accent;
+        color: $primary;
+        font-size: 1.6rem;
+        margin: 1.25rem 0px;
+        padding: 15px;
+        border: none;
+        cursor: pointer;
+        border-radius: 10px;
+      }
+      .submitButton:hover {
+        background-color: #d4d926;
+      }
     }
     .spacer {
       width: 2%;

@@ -130,20 +130,63 @@ insert into school (authority_id, name, address_line_1, address_line_2, town, po
 
 # INSERT INTO users VALUES (1,1,'admin','pbkdf2:sha256:260000$UEWxpPFkExfFNKWD$4fd9d1567740bb494fda3f82fa2da1dc748545fe742cdebc59af0ed6be9340c3',1,0,NULL,NULL);
 
-INSERT INTO quantity (name, unit, help_url, lower_limit, upper_limit) VALUES ('length', 'mm', 'https://www.bbc.co.uk/bitesize/topics/z4nsgk7', 0, NULL);
-INSERT INTO quantity (name, unit, help_url, lower_limit, upper_limit) VALUES ('weight', 'g', 'https://www.bbc.co.uk/bitesize/topics/z9sfr82', 0, NULL);
-INSERT INTO quantity (name, unit, help_url, lower_limit, upper_limit) VALUES ('temperature', '°C', 'https://www.bbc.co.uk/bitesize/guides/zg6bdxs/revision/2', NULL, NULL);
-INSERT INTO quantity (name, unit, help_url, lower_limit, upper_limit) VALUES ('humidity', '%', 'https://www.bbc.co.uk/bitesize/topics/z6hv9j6/articles/zsqfp4j', 0, 100);
-INSERT INTO quantity (name, unit, help_url, lower_limit, upper_limit) VALUES ('pressure', 'mbar', 'https://www.bbc.co.uk/bitesize/guides/zwbwpbk/revision/1', 0, NULL);
-INSERT INTO quantity (name, unit, help_url, lower_limit, upper_limit) VALUES ('luminosity', 'lx', 'https://energysparks.uk/activity_types/66', 0, NULL);
-INSERT INTO quantity (name, unit, help_url, lower_limit, upper_limit) VALUES ('pH', 'pH', 'https://university.upstartfarmers.com/blog/what-need-know-ph-in-hydroponics', 0, 14);
-INSERT INTO quantity (name, unit, help_url, lower_limit, upper_limit) VALUES ('electrical conductivity', 'uS/cm', 'https://www.anyleaf.org/blog/electrical-conductivity-(ec)-for-hydroponics', 0, NULL);
-INSERT INTO quantity (name, unit, help_url, lower_limit, upper_limit) VALUES ('time', 's', 'https://www.bbc.co.uk/bitesize/topics/zkfycdm', 0, NULL);
+INSERT INTO `quantity` (name, unit, help_url, lower_limit, upper_limit) VALUES ('length','mm','https://www.bbc.co.uk/bitesize/topics/z4nsgk7',0,NULL);
+INSERT INTO `quantity` (name, unit, help_url, lower_limit, upper_limit) VALUES ('weight','g','https://www.bbc.co.uk/bitesize/topics/z9sfr82',0,NULL);
+INSERT INTO `quantity` (name, unit, help_url, lower_limit, upper_limit) VALUES ('temperature ','°C','https://www.bbc.co.uk/bitesize/guides/zg6bdxs/revision/2',NULL,NULL);
+INSERT INTO `quantity` (name, unit, help_url, lower_limit, upper_limit) VALUES ('humidity','%','https://www.bbc.co.uk/bitesize/topics/z6hv9j6/articles/zsqfp4j',0,100);
+INSERT INTO `quantity` (name, unit, help_url, lower_limit, upper_limit) VALUES ('pressure','mbar','https://www.bbc.co.uk/bitesize/guides/zwbwpbk/revision/1',0,NULL);
+INSERT INTO `quantity` (name, unit, help_url, lower_limit, upper_limit) VALUES ('luminosity','lx','https://energysparks.uk/activity_types/66',0,NULL);
+INSERT INTO `quantity` (name, unit, help_url, lower_limit, upper_limit) VALUES ('pH','pH','https://university.upstartfarmers.com/blog/what-need-know-ph-in-hydroponics',0,14);
+INSERT INTO `quantity` (name, unit, help_url, lower_limit, upper_limit) VALUES ('electrical conductivity','uS/cm','https://www.anyleaf.org/blog/electrical-conductivity-(ec)-for-hydroponics',0,NULL);
+INSERT INTO `quantity` (name, unit, help_url, lower_limit, upper_limit) VALUES ('time','s','https://www.bbc.co.uk/bitesize/topics/zkfycdm',0,NULL);
+INSERT INTO `quantity` (name, unit, help_url, lower_limit, upper_limit) VALUES ('moisture','%','https://www.vanwalt.com/news/2015/04/08/why-do-we-need-to-know-the-soil-moisture-content-of-soil/',0,100);
+INSERT INTO `quantity` (name, unit, help_url, lower_limit, upper_limit) VALUES ('count',NULL,NULL,0,NULL);
 
-INSERT INTO variable (name, status, is_sensor_quantity, `procedure`, quantity_id) VALUES ('Species', 'active', 0, 'Compare leaf shape with reference picture', NULL);
-INSERT INTO level (variable_id, name, sequence, description, `procedure`) SELECT id, 'Lemon balm', 4, 'Highly fragrant as a microgreen and also perennial - this is a free for all (FFA) plant', 'Compare leaf shape with reference picture' FROM variable WHERE name = 'Species';
-INSERT INTO level (variable_id, name, sequence, description, `procedure`) SELECT id, 'Lettuce', 5, 'Cut and come again type but only 1 variety for accurate data collection - this is a free for all (FFA) plant', 'Compare leaf shape with reference picture' FROM variable WHERE name = 'Species';
-INSERT INTO level (variable_id, name, sequence, description, `procedure`) SELECT id, 'Chives', 2, 'Standard variety (not garlic chive) - this is a free for all (FFA) plant', 'Compare leaf shape with reference picture' FROM variable WHERE name = 'Species';
-INSERT INTO level (variable_id, name, sequence, description, `procedure`) SELECT id, 'Kohl rabi', 3, 'Really interesting and underrated - looks quite spacey/alien', 'Compare leaf shape with reference picture' FROM variable WHERE name = 'Species';
-INSERT INTO level (variable_id, name, sequence, description, `procedure`) SELECT id, 'Beetroot', 1, 'A classic that grows well in both situs', 'Compare leaf shape with reference picture' FROM variable WHERE name = 'Species';
-INSERT INTO level (variable_id, name, sequence, description, `procedure`) SELECT id, 'Sunflower', 6, 'A super trendy microgreen now and would be great for the gardens too. The microgreens are very high in nutrients so great from a food security perspective', 'Compare leaf shape with reference picture' FROM variable WHERE name = 'Species';
+
+INSERT INTO `sensor` VALUES (1,'SHTC3','Digital temperature and humidity','https://coolcomponents.co.uk/products/sensirion-shtc3-temperature-humidity-sensor-stemma-qt-qwiic','https://sensirion.com/media/documents/643F9C8E/6164081E/Sensirion_Humidity_Sensors_SHTC3_Datasheet.pdf');
+INSERT INTO `sensor` VALUES (2,'BMP280','Digital barometer','https://www.circuitschools.com/interfacing-bmp280-with-esp-32-on-i2c-with-errors-and-solutions/','https://cdn-shop.adafruit.com/datasheets/BST-BMP280-DS001-11.pdf');
+INSERT INTO `sensor` VALUES (3,'BH1750','Light intensity','https://www.teachmemicro.com/using-the-bh1750-gy-30-sensor-with-arduino/','http://www.elechouse.com/elechouse/images/product/Digital%20light%20Sensor/bh1750fvi-e.pdf');
+INSERT INTO `sensor` VALUES (4,'SEN0244','Electrical conductivity','https://wiki.dfrobot.com/Gravity__Analog_TDS_Sensor___Meter_For_Arduino_SKU__SEN0244','https://wiki.dfrobot.com/Gravity__Analog_TDS_Sensor___Meter_For_Arduino_SKU__SEN0244');
+INSERT INTO `sensor` VALUES (5,'DS18B20','Soil temperature probe','https://randomnerdtutorials.com/esp32-ds18b20-temperature-arduino-ide/','https://datasheets.maximintegrated.com/en/ds/DS18B20.pdf');
+INSERT INTO `sensor` VALUES (6,'SEN0161','pH meter with solid-state sensor','https://wiki.dfrobot.com/Gravity__Analog_pH_Sensor_Meter_Kit_V2_SKU_SEN0161-V2','https://www.zimmerpeacocktech.com/products/electrochemical-sensors/ph-sensor/');
+INSERT INTO `sensor` VALUES (7,'SEN0193','Capacitive soil moisture sensor','https://how2electronics.com/capacitive-soil-moisture-sensor-esp8266-esp32-oled-display/','https://media.digikey.com/pdf/Data%20Sheets/DFRobot%20PDFs/SEN0193_Web.pdf');
+
+
+INSERT INTO `sensor_quantity` (sensor_id, quantity_id, label) select s.id, q.id,'air temperature' from sensor s, quantity q where sensor.code = 'SHTC3' and q.name = 'temperature';
+INSERT INTO `sensor_quantity` (sensor_id, quantity_id, label) select s.id, q.id,'humidity' from sensor s, quantity q where sensor.code = 'SHTC3' and q.name = 'humidity';
+INSERT INTO `sensor_quantity` (sensor_id, quantity_id, label) select s.id, q.id,'pressure' from sensor s, quantity q where sensor.code = 'BMP280' and q.name = 'pressure';
+INSERT INTO `sensor_quantity` (sensor_id, quantity_id, label) select s.id, q.id,'luminosity' from sensor s, quantity q where sensor.code = 'BH1750' and q.name = 'luminosity';
+INSERT INTO `sensor_quantity` (sensor_id, quantity_id, label) select s.id, q.id,'electrical conductivity' from sensor s, quantity q where sensor.code = 'SEN0244' and q.name = 'electrical conductivity';
+INSERT INTO `sensor_quantity` (sensor_id, quantity_id, label) select s.id, q.id,'moisture' from sensor s, quantity q where sensor.code = 'SEN0193' and q.name = 'moisture';
+INSERT INTO `sensor_quantity` (sensor_id, quantity_id, label) select s.id, q.id,'substrate temperature' from sensor s, quantity q where sensor.code = 'DS18B20' and q.name = 'temperature';
+INSERT INTO `sensor_quantity` (sensor_id, quantity_id, label) select s.id, q.id,'pH' from sensor s, quantity q where sensor.code = 'SEN0161' and q.name = 'pH';
+
+
+INSERT INTO `variable` (name, status, is_sensor_quantity, `procedure`) VALUES ('species','active',0,'Compare leaf shape to reference');
+INSERT INTO `variable` (name, status, is_sensor_quantity, `procedure`) VALUES ('leaf colour','active',0,'Compare leaves to reference colour chart');
+INSERT INTO `variable` (name, status, is_sensor_quantity, `procedure`) VALUES ('tickling','active',0,'Brush the plants with a paintbrush a specified number of times');
+INSERT INTO `variable` (name, status, is_sensor_quantity, `procedure`) VALUES ('vigour','active',0,'Compare plants using the level criteria');
+INSERT INTO `variable` (name, status, is_sensor_quantity, `procedure`, quantity_id) select 'seedling count','active',0,'Count the seedlings in the patch', id from quantity where name = 'count';
+INSERT INTO `variable` (name, status, is_sensor_quantity, `procedure`, quantity_id) select 'height','active',0,'Measure the distance from the substrate surface to the topmost part of each plant in its natural position. Calculate and record the average value.', id from quantity where name = 'length';
+
+
+INSERT INTO `level` (variable_id, name, sequence, description, `procedure`) select id,'lemon balm',4,'highly fragrant as a microgreen and also perennial - this is a free for all (FFA) plant, so nice continuity with the wider Dandelion remit',NULL from variable where name = 'species';
+INSERT INTO `level` (variable_id, name, sequence, description, `procedure`) select id,'lettuce',5,'cut and come again type but only 1 variety for accurate data collection - also a FFA plant',NULL from variable where name = 'species';
+INSERT INTO `level` (variable_id, name, sequence, description, `procedure`) select id,'chives',2,'standard variety (not garlic chive) - also a FFA plant',NULL from variable where name = 'species';
+INSERT INTO `level` (variable_id, name, sequence, description, `procedure`) select id,'Kohl rabi',3,'really interesting and underrated - looks quite spacey/alien-y so should be engaging for the kids',NULL from variable where name = 'species';
+INSERT INTO `level` (variable_id, name, sequence, description, `procedure`) select id,'beetroot',1,'a classic that grows well in both situs',NULL from variable where name = 'species';
+INSERT INTO `level` (variable_id, name, sequence, description, `procedure`) select id,'sunflower',6,'a super trendy microgreen now and would be great for the gardens too. The microgreens are very high in nutrients so great from a food security perspective',NULL from variable where name = 'species';
+INSERT INTO `level` (variable_id, name, sequence, description, `procedure`) select id,'pale yellow',1,'pale yellow',NULL from variable where name = 'leaf colour';
+INSERT INTO `level` (variable_id, name, sequence, description, `procedure`) select id,'bright yellow',2,'bright yellow',NULL from variable where name = 'leaf colour';
+INSERT INTO `level` (variable_id, name, sequence, description, `procedure`) select id,'light green',3,'light green',NULL from variable where name = 'leaf colour';
+INSERT INTO `level` (variable_id, name, sequence, description, `procedure`) select id,'mid green',4,'mid green',NULL from variable where name = 'leaf colour';
+INSERT INTO `level` (variable_id, name, sequence, description, `procedure`) select id,'dark green',5,'dark green',NULL from variable where name = 'leaf colour';
+INSERT INTO `level` (variable_id, name, sequence, description, `procedure`) select id,'control',1,'The control level: no touching at all','Avoid touching the plants' from variable where name = 'tickling';
+INSERT INTO `level` (variable_id, name, sequence, description, `procedure`) select id,'gentle',2,'Gentle tickling','Brush each plant 5 times with a paintbrush' from variable where name = 'tickling';
+INSERT INTO `level` (variable_id, name, sequence, description, `procedure`) select id,'moderate',3,'Moderate tickling','Brush each plant 10 times with a paintbrush' from variable where name = 'tickling';
+INSERT INTO `level` (variable_id, name, sequence, description, `procedure`) select id,'dead',1,'dead',NULL from variable where name = 'vigour';
+INSERT INTO `level` (variable_id, name, sequence, description, `procedure`) select id,'very weak',2,'stems very thin and weak (like thread)',NULL from variable where name = 'vigour';
+INSERT INTO `level` (variable_id, name, sequence, description, `procedure`) select id,'weak',3,'stems quite thin and slightly weak',NULL from variable where name = 'vigour';
+INSERT INTO `level` (variable_id, name, sequence, description, `procedure`) select id,'medium',4,'some stems moderately thick and getting stronger',NULL from variable where name = 'vigour';
+INSERT INTO `level` (variable_id, name, sequence, description, `procedure`) select id,'strong',5,'most stems moderately strong and thick (springy to light touch)  (like soft brush)',NULL from variable where name = 'vigour';
+INSERT INTO `level` (variable_id, name, sequence, description, `procedure`) select id,'very strong',6,'all plants very strong with thick stems (more rigid to light touch) (like brush)',NULL from variable where name = 'vigour';

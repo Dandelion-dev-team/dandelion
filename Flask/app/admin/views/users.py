@@ -44,7 +44,8 @@ def createUser():
         password=data['password'],
         school_id=data['school_id'],
         is_superuser=data['is_superuser'],
-        is_sysadmin=data['is_sysadmin']
+        is_sysadmin=data['is_sysadmin'],
+        status=data['status']
     )
     db.session.add(user)
     return_status = 200
@@ -130,6 +131,7 @@ def getUsersBySchoolID(school_id):
         user_data['username'] = user.username
         user_data['status'] = user.status
         user_data['school_id'] = user.school_id
+        user_data['notes'] = user.notes
         output.append(user_data)
 
     return jsonify({'users': output})

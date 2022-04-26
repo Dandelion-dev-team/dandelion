@@ -1,0 +1,94 @@
+{
+    "experiment_id": <e_id>,
+    "start_date": <experiment start date>,
+    "end_date": <experiment end date>,
+    "data_count": <observation count>,
+    "data_max_date": <earliest obsevation date>,
+    "data_min_date": <latest observation date>,
+    "chart_types": [
+        <chart_type_1>,
+        <chart_type_2>,
+        ...
+    ],
+    "schools": [
+        {
+            "school_id": <s_id1>,
+            "school_name": <s_name1>
+        },
+        {
+            "school_id": <s_id2>,
+            "school_name": <s_name2>
+        },
+        ...
+    ],
+    "treatment_variables": [
+        {
+            "variable_id": <v_id1>,
+            "variable_name": <v_name1>,
+            "levels": [
+                {
+                    "level_id": <l_id1>,
+                    "level_name": <l_name1>,
+                    "level_sequence": <l_seq1>
+                },
+                {
+                    "level_id": <l_id2>,
+                    "level_name": <l_name2>,
+                    "level_sequence": <l_seq2>
+                },
+                ...
+            ]
+        },
+        {
+            "variable_id": <v_id2>,
+            "variable_name": <v_name2>,
+            "levels": [
+                {
+                    "level_id": <l_id3>,
+                    "level_name": <l_name3>,
+                    "level_sequence": <l_seq3>
+                },
+                {
+                    "level_id": <l_id4>,
+                    "level_name": <l_name4>,
+                    "level_sequence": <l_seq4>
+                },
+                ...
+            ]
+        },
+        ...        
+    ],
+    "response_variables": [
+        {
+            "variable_id": <v_id3>,
+            "variable_name": <v_name3>,
+            "variable_timing": <repeated | once | final>,
+            "variable_type": <continuous | discrete | qualitative>,
+            "levels": [
+                {
+                    "level_id": <l_id5>,
+                    "level_name": <l_name5>,
+                    "level_sequence": <l_seq5>
+                },
+                {
+                    "level_id": <l_id6>,
+                    "level_name": <l_name6>,
+                    "level_sequence": <l_seq6>
+                },
+                ...
+            ]
+        },
+        {
+            "variable_id": <v_id4>,
+            "variable_name": <v_name4>,
+            "variable_timing": <repeated | once | final>,
+            "variable_type": <continuous | discrete | qualitative>,
+            "levels": []
+        },
+    ]
+    "sensor_quantities": [
+        <quantity_name_1>, 
+        <quantity_name_2>, 
+        ...
+    ]
+}

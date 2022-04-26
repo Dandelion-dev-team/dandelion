@@ -23,18 +23,14 @@ export default function SchoolUserComponent(props) {
           <thead>
             <tr>
               <th>Username</th>
-              <th>Last Seen</th>
               <th>Status</th>
-              <th>Project</th>
             </tr>
           </thead>
           {users
             ? users.users.map(user => (
               <tbody key={user.id} onClick={() => {editUser(user)}}>
                 <td>{user.username}</td>
-                <td>July 9th, 2022</td>
-                <td>Active</td>
-                <td>{user.project}</td>
+                <td>{user.status}</td>
               </tbody>
             ))
             : null}
