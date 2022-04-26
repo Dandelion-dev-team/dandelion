@@ -5,7 +5,6 @@ from flask import request, jsonify, abort
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import inspect, and_
 
-
 from app.admin import admin
 from app.admin.views.school import getOneSchool
 from app.models import User, ExperimentParticipant, Experiment, Project, School, ProjectPartner
@@ -271,11 +270,9 @@ def create_multiple_accounts():
         )
 
         db.session.add(user)
-        db.session.commit()
-        return_status = 200
 
         try:
-            # db.session.commit()
+            db.session.commit()
             audit_create("users", user.id, current_user.id)
 
         except Exception as e:
@@ -285,3 +282,30 @@ def create_multiple_accounts():
     message = "Multiple user accounts have been created"
 
     return {"message": message}
+
+
+@admin.route('/user/updatestatus/<int:id>', methods=['PUT']) #Updates the new user account status from unallocated to active
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
+@jwt_required()
+def updateUserStatus(id):
+    current_user = jwt_user(get_jwt_identity())
+    user_status_to_update = User.query.get_or_404(id)
+    new_data = request.get_json()
+
+    if user_status_to_update.status == 'unallocated':
+        if new_data['status'] == 'active':
+            user_status_to_update.status = new_data['status']
+
+    audit_details = prepare_audit_details(inspect(User), user_status_to_update, delete=False)
+
+    message = "User status has been updated from unallocated to active"
+
+    if len(audit_details) > 0:
+        try:
+            db.session.commit()
+            audit_update("users", user_status_to_update.id, audit_details, current_user.id)
+            return jsonify({"message": message})
+
+        except Exception as e:
+            db.session.rollback()
+            abort(409)
