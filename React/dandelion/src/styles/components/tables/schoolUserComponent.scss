@@ -16,6 +16,14 @@
     .schoolList {
       margin-left: 2rem;
 
+      thead {
+        tr {
+          th {
+            text-align: center;
+          }
+        }
+      }
+
       tbody {
         .active {
           background-color: #f7f8ff;
@@ -24,6 +32,33 @@
         &:hover {
           background-color: #f7f8ff;
           cursor: pointer;
+        }
+
+        .username {
+          text-align: center;
+        }
+
+        .btn-container {
+          display: flex;
+          justify-content: center;
+          .edit-btn {
+            display: flex;
+            align-items: center;
+            .editButton {
+              background-color: $accent;
+              color: $primary;
+              font-size: 100%;
+              margin: 13% 0px;
+              width: 7.5vw;
+              height: 50%;
+              border: none;
+              cursor: pointer;
+              border-radius: 10px;
+            }
+            .submitButton:hover {
+              background-color: #d4d926;
+            }
+          }
         }
       }
     }

@@ -293,20 +293,26 @@ export default function OptionsComponent(props) {
             </Accordion>
           </div>
         </div>
-        {/* <input
-          type="checkbox"
-          id="experiment_id"
-          name="topping"
-          value="experiment_ID"
-        />{" "}
-        Average over replicates
-        <input
-          type="checkbox"
-          id="experiment_id"
-          name="topping"
-          value="experiment_ID"
-        />{" "}
-        Include milestones */}
+        <div className="checkboxes">
+          <div className="average-checkbox">
+            <input
+              type="checkbox"
+              id="experiment_id"
+              name="topping"
+              value="experiment_ID"
+            />{" "}
+            Average over replicates
+          </div>
+          <div className="milestone-checkbox">
+            <input
+              type="checkbox"
+              id="experiment_id"
+              name="topping"
+              value="experiment_ID"
+            />{" "}
+            Include milestones
+          </div>
+        </div>
         <div className="generate-btn">
           <input
             type="submit"

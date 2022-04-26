@@ -33,6 +33,7 @@ def add_project():
     project = Project(
         title = data['title'],
         description = data['description'],
+        project_image_link=data['project_image_link'],
         project_text = data['project_text'],
         start_date = parser.parse(data['start_date']),
         end_date = parser.parse(data['end_date']),

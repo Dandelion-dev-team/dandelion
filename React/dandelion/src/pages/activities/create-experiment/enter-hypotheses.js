@@ -4,8 +4,8 @@ import CombinationListComponent from "../../../components/cards/combinationListC
 import "../../../styles/App.scss"
 import { verify_superuser_storage } from "../../../utils/logins"
 import HypothesisCard from "../../../components/cards/hypothesisCard"
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 export default function EnterHypotheses(props) {
   const [treatment_variables, setTreatment] = useState("")
   const [response_variables, setResponse] = useState("")
@@ -63,7 +63,7 @@ export default function EnterHypotheses(props) {
   if (logged) {
     return (
       <div className="hypotheses-container">
-        <ToastContainer/>
+        <ToastContainer />
         <div className="content">
           <div className="text-content">
             <h3>Enter your Hypotheses</h3>
@@ -97,8 +97,8 @@ export default function EnterHypotheses(props) {
                   <div className="title">
                     <h3>Description</h3>
                   </div>
-                  <div className="input">
-                    <input
+                  <div className="desc-input">
+                    <textarea
                       type="text"
                       placeholder="Description"
                       name="descBox"
@@ -127,20 +127,25 @@ export default function EnterHypotheses(props) {
                     className="continue-btn"
                     value="Back"
                     onClick={() => {
-                      if (
-                        typeof window !== `undefined`) {
-                        navigate("/activities/create-experiment/select-conditions", {
-                          state: {
-                            treatmentVariables: props.location.state.treatmentVariables,
-                            responseVariables: props.location.state.responseVariables,
-                            experimentDetails: props.location.state.experimentDetails,
-                          },
-                        })
+                      if (typeof window !== `undefined`) {
+                        navigate(
+                          "/activities/create-experiment/select-conditions",
+                          {
+                            state: {
+                              treatmentVariables:
+                                props.location.state.treatmentVariables,
+                              responseVariables:
+                                props.location.state.responseVariables,
+                              experimentDetails:
+                                props.location.state.experimentDetails,
+                            },
+                          }
+                        )
                       }
                     }}
                   />
                 </div>
-                <div className="spacer" />
+                {/* <div className="spacer" /> */}
                 <div className="button">
                   <input
                     type="submit"

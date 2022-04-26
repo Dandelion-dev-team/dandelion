@@ -48,6 +48,7 @@ export default function EnterActivityDetails(props) {
     let body = JSON.stringify({
       title: name,
       description: description,
+      project_image_link: image,
       project_text: tutorial,
       start_date: startDate,
       end_date: endDate,

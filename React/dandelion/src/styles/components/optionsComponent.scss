@@ -33,6 +33,7 @@
     z-index: 7;
     background-color: white;
     overflow-y: scroll;
+    
 
     .chart-select {
       display: flex;
@@ -42,6 +43,7 @@
       margin-bottom: 2.5%;
       flex-direction: row;
       justify-content: space-between;
+      
       z-index: 15;
       .label {
         width: 3%;
@@ -217,6 +219,12 @@
           }
         }
       }
+    }
+
+    .checkboxes {
+      height: 10%;
+      display: flex;
+      flex-direction: column;
     }
 
     .generate-btn {
