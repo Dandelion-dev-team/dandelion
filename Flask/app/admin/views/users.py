@@ -1,7 +1,11 @@
+import random
+from random import randint
 from xml.dom import UserDataHandler
 from flask import request, jsonify, abort
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import inspect, and_
+
+
 from app.admin import admin
 from app.admin.views.school import getOneSchool
 from app.models import User, ExperimentParticipant, Experiment, Project, School, ProjectPartner
@@ -132,17 +136,17 @@ def getUsersBySchoolID(school_id):
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def get_users_by_school_and_experiment(school_id, experiment_id):
-
-    users = User.query.\
-        join(School).\
-        outerjoin(ExperimentParticipant, and_(User.id == ExperimentParticipant.user_id, ExperimentParticipant.experiment_id == experiment_id)).\
-        outerjoin(Experiment).\
-        filter(User.school_id == school_id).\
+    users = User.query. \
+        join(School). \
+        outerjoin(ExperimentParticipant,
+                  and_(User.id == ExperimentParticipant.user_id, ExperimentParticipant.experiment_id == experiment_id)). \
+        outerjoin(Experiment). \
+        filter(User.school_id == school_id). \
         with_entities(User.id,
                       User.username,
                       User.status,
                       User.school_id,
-                      ExperimentParticipant.experiment_id).\
+                      ExperimentParticipant.experiment_id). \
         all()
 
     output = []
@@ -155,7 +159,7 @@ def get_users_by_school_and_experiment(school_id, experiment_id):
         user_data['is_participant'] = True if user.experiment_id else False
         output.append(user_data)
 
-    return jsonify({'users': output}) #If I don't use jsonify, I get only the last entry
+    return jsonify({'users': output})  # If I don't use jsonify, I get only the last entry
 
 
 @admin.route('/user/byproject/<int:project_id>', methods=['GET'])
@@ -170,13 +174,11 @@ def get_user_by_project(project_id):
         user_data = {}
         user_data['id'] = user.id
         user_data['username'] = user.username
-        user_data['school_id'] = user.school_id #<-- it returns school_id instead of school name
+        user_data['school_id'] = user.school_id  # <-- it returns school_id instead of school name
         user_data['status'] = user.status
         output.append(user_data)
 
-
     return jsonify({'users': output})
-
 
 
 @admin.route('/user/<int:id>', methods=['GET', 'PUT'])
@@ -241,3 +243,45 @@ def deleteUser(id):
     # except Exception as e:
     #     db.session.rollback()
     #     abort(409, e.orig.msg)
+
+
+@admin.route('/user/create_account/multiple', methods=['POST'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
+@jwt_required()
+def create_multiple_accounts():
+    current_user = jwt_user(get_jwt_identity())
+    multiple_accounts = request.get_json()
+    school_id = multiple_accounts['school_id']
+    school = School.query.filter(School.id == school_id).with_entities(School.name).first()
+    school_name = school.name
+    animal_list = ['Panda', 'Giraffe', 'Rabbit', 'Fox', 'Elephant', 'Hamster', 'Turtle', 'Lion', 'Bee', 'Dolphin']
+    accounts_number = multiple_accounts['accounts_number']
+
+    for i in range(accounts_number):
+        # for data in multiple_accounts:
+        number = str(randint(1, 99))
+        animal = random.choice(animal_list)
+        user = User(
+            username=str(animal + number),
+            password=str(animal + number),
+            school_id=multiple_accounts['school_id'],
+            is_superuser=False,
+            is_sysadmin=False,
+            status="unallocated"
+        )
+
+        db.session.add(user)
+        db.session.commit()
+        return_status = 200
+
+        try:
+            # db.session.commit()
+            audit_create("users", user.id, current_user.id)
+
+        except Exception as e:
+            db.session.rollback()
+            abort(409, e.orig.msg)
+
+    message = "Multiple user accounts have been created"
+
+    return {"message": message}
