@@ -165,6 +165,7 @@ def closeIssue(issue_id):
             db.session.rollback()
             abort(409)
 
+
 @admin.route('/issue/upload_image/<int:issue_id>', methods=['POST'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def uploadIssueImage(issue_id):
