@@ -56,6 +56,32 @@
       }
       .dropdown {
         width: 60%;
+        .project-block {
+          display: flex;
+          flex-direction: column;
+          height: 50%;
+
+          .variable-list-item {
+            display: flex;
+            flex-direction: row;
+            width: 25%;
+
+            .label {
+              width: 45%;
+              h3 {
+                display: inline;
+                font-size: 1.25vw;
+              }
+            }
+            .checkbox {
+              width: 45%;
+              input {
+                height: 3vh;
+                width: 2vw;
+              }
+            }
+          }
+        }
       }
     }
 
