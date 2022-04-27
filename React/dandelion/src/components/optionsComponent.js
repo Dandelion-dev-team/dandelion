@@ -124,11 +124,13 @@ export default function OptionsComponent(props) {
     let copy = []
     let variables = props.dataOptions.treatment_variables
     if (currentNode._depth == 0) {
-      console.log(currentNode._depth)
       variables.forEach(treatment => {
-        treatment.children.forEach(child => {
-          child.checked = true
-        })
+        console.log("treatment::",treatment, "node::",currentNode);
+        if(currentNode.label == treatment.label){
+          treatment.children.forEach(child => {
+            child.checked = true
+          })
+        }
       })
     }
     variables.forEach(treatment => {
