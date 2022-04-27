@@ -18,6 +18,7 @@ export default function EnterHypotheses(props) {
 
   const [hypothesesList, setHypothesesList] = useState([])
   const [hypotheses_number, setHypothesesNumer] = useState(0)
+
   useEffect(() => {
     if (verify_superuser_storage() == true) {
       if (props.location.state) {
@@ -156,7 +157,7 @@ export default function EnterHypotheses(props) {
                         typeof window !== `undefined` &&
                         hypothesesList.length > 0
                       ) {
-                        navigate("/activities/create-experiment/summary", {
+                        navigate("/activities/create-experiment/your-observations", {
                           state: {
                             hypotheses: hypothesesList,
                             treatmentVariables: treatment_variables,

@@ -3,21 +3,26 @@ import Header from "../components/navigation/header"
 import "../styles/App.scss"
 import { navigate } from "gatsby"
 import { user_login } from "../utils/logins"
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+import { useStepContext } from "@mui/material"
+import { TrendingUpOutlined } from "@mui/icons-material"
+import PasswordResetModal from "../components/modals/passwordResetModal"
 
 export const isBrowser = () => typeof window !== "undefined"
 
 export default function Login(props) {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
-  const [render, setRender] = useState("");
+  const [render, setRender] = useState("")
+  const [showModal, setShowModal] = useState("")
 
   const onSubmitClick = e => {
     e.preventDefault()
-    if (username && password) {
-      user_login(username, password);
-    }
+    setShowModal(true)
+    // if (username && password) {
+    //   user_login(username, password);
+    // }
   }
 
   const handleUsernameChange = e => {
@@ -29,24 +34,26 @@ export default function Login(props) {
   }
 
   useEffect(() => {
-    let logged = localStorage.getItem("logged");
+    let logged = localStorage.getItem("logged")
     if (logged == "true") {
       navigate("/dashboard")
-    } if (logged == "false" || logged == null) 
-    {
-      setRender(true); 
     }
-  }, []);
+    if (logged == "false" || logged == null) {
+      setRender(true)
+    }
+  }, [])
 
   if (!isBrowser) {
-    return;
+    return
   } else {
     if (render == true) {
       return (
         <div>
+          {showModal ? <PasswordResetModal /> : null}
+
           <Header />
           <div className="signin">
-          <ToastContainer />
+            <ToastContainer />
             <div className="container">
               <div className="hero-section">
                 <div className="heading">
@@ -65,7 +72,7 @@ export default function Login(props) {
                         placeholder="Your username"
                         name="username"
                         onChange={handleUsernameChange}
-                      //value={formik.values.username}
+                        //value={formik.values.username}
                       />
                       <label>Password: </label>
                       <input
@@ -74,7 +81,7 @@ export default function Login(props) {
                         placeholder="Your password"
                         name="pass"
                         onChange={handlePasswordChange}
-                      //value={formik.values.password}
+                        //value={formik.values.password}
                       />
                       <div className="submit-btn">
                         <input
@@ -94,6 +101,6 @@ export default function Login(props) {
           </div>
         </div>
       )
-    } else return null;
+    } else return null
   }
 }
