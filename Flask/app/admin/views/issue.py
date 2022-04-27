@@ -1,6 +1,6 @@
 from flask import abort, jsonify, request
 from flask_cors import cross_origin
-from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import get_jwt_identity, jwt_required
 from sqlalchemy import inspect
 from sqlalchemy.sql.functions import user
 
@@ -58,6 +58,7 @@ def getOneIssue(issue_id):
 
 @admin.route('/issue', methods=['POST'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
+@jwt_required()
 def createNewIssue():
     current_user = jwt_user(get_jwt_identity())
     data = request.get_json()
@@ -78,8 +79,8 @@ def createNewIssue():
 
     try:
         db.session.commit()
-        audit_create("users", user.id, current_user.id)
-        return jsonify({"message": message, "id": user.id})
+        audit_create("issue", issue.id, current_user.id)
+        return jsonify({"message": message, "id": issue.id})
 
     except Exception as e:
         db.session.rollback()
@@ -88,6 +89,7 @@ def createNewIssue():
 
 @admin.route('/issue/<int:issue_id>', methods=['PUT'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
+@jwt_required()
 def updateIssueDetails(issue_id):
     current_user = jwt_user(get_jwt_identity())
     issue_to_update = Issue.query.get_or_404(issue_id)
@@ -109,7 +111,7 @@ def updateIssueDetails(issue_id):
     if len(audit_details) > 0:
         try:
             db.session.commit()
-            audit_update("issue", issue_to_update.issue_id, audit_details, current_user.id)
+            audit_update("issue", issue_to_update.id, audit_details, current_user.id)
             return jsonify({"message": message})
 
         except Exception as e:
@@ -117,8 +119,9 @@ def updateIssueDetails(issue_id):
             abort(409)
 
 
-@admin.route('/issue/note/<int:issue_id>', methods=['PUT'])
+@admin.route('/issue/note/<int:issue_id>', methods=['PUT']) #This route works only if there is already a note in the issue due to the if len(audit_details) > 0 line. If the note cell is blank, it crashes
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
+@jwt_required()
 def addNote(issue_id):
     current_user = jwt_user(get_jwt_identity())
     issue_to_update = Issue.query.get_or_404(issue_id)
@@ -133,7 +136,7 @@ def addNote(issue_id):
     if len(audit_details) > 0:
         try:
             db.session.commit()
-            audit_update("issue", issue_to_update.issue_id, audit_details, current_user.id)
+            audit_update("issue", issue_to_update.id, audit_details, current_user.id)
             return jsonify({"message": message})
 
         except Exception as e:
@@ -141,24 +144,24 @@ def addNote(issue_id):
             abort(409)
 
 
-@admin.route('/issue/close/<int:issue_id>', methods=['PUT'])
+@admin.route('/issue/close/<int:issue_id>', methods=['PUT']) #This Route changes the status of an issue to closed. It does not delete it.
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
+@jwt_required()
 def closeIssue(issue_id):
     current_user = jwt_user(get_jwt_identity())
     issue_to_update = Issue.query.get_or_404(issue_id)
     new_data = request.get_json()
 
-    if new_data == 'closed':
+    if new_data['status'] == 'closed':
         issue_to_update.status = new_data['status']
 
         audit_details = prepare_audit_details(inspect(Issue), issue_to_update, delete=False)
 
         message = "Note has been closed"
 
-    if len(audit_details) > 0:
         try:
             db.session.commit()
-            audit_update("issue", issue_to_update.issue_id, audit_details, current_user.id)
+            audit_update("issue", issue_to_update.id, audit_details, current_user.id)
             return jsonify({"message": message})
 
         except Exception as e:
@@ -166,10 +169,14 @@ def closeIssue(issue_id):
             abort(409)
 
 
-@admin.route('/issue/upload_image/<int:issue_id>', methods=['POST'])
+@admin.route('/issue/<int:issue_id>/upload_image/', methods=['POST'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
+@jwt_required()
 def uploadIssueImage(issue_id):
     pic, filename = get_uploaded_file(request)
-    image_processing(pic, 'issue', id, filename)
+    image_processing(pic, 'issue', issue_id, filename)
 
     return {"message": "Issue image has been uploaded"}
+
+
+
