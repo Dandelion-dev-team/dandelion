@@ -96,7 +96,7 @@ def ListAllSchoolInvitations(school_id):
             invited_data['project_title'] = schools.title
             output.append(invited_data)
 
-    return jsonify({'Invitations in this school': output})
+    return jsonify({'data': output})
 
 
 @admin.route('/project_partner/invitation_details/<int:project_partner_id>', methods=['GET'])

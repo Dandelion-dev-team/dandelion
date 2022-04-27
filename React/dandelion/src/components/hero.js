@@ -8,7 +8,7 @@ export const isBrowser = () => typeof window !== "undefined"
 const Hero = () => {
   const data = useStaticQuery(graphql`
     query {
-      heroImage: file(relativePath: { eq: "banner3.jpeg" }) {
+      heroImage: file(relativePath: { eq: "home-image.png" }) {
         childImageSharp {
           fluid {
             ...GatsbyImageSharpFluid

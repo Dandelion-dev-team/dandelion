@@ -66,6 +66,34 @@
       }
 
       .title {
+        .button-title{
+          display: flex;
+          flex-direction: row;
+
+          h3{
+            align-self: center;
+            margin-bottom: 0;
+          }
+          .btn-row {
+            display: flex;
+            margin-left: 5%;
+            justify-content: flex-end;
+              .submitButton {
+                background-color: #8c77ce;
+                color: white;
+                font-size: 1.6rem;
+                margin: 1.25rem 0px;
+                padding: 0.625rem;
+                width: auto;
+                border: none;
+                cursor: pointer;
+                border-radius: 10px;
+              }
+              .submitButton:hover {
+                background-color: #6d4ed2;
+              }
+          }
+        }
         .user-list {
           height: 70vh;
           overflow-y: scroll;

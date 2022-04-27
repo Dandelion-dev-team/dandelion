@@ -37,7 +37,7 @@ export default function VariableSelectedComponent(props) {
     if (e.includes(datalist[3])) { props.data.thursday = true } else { props.data.thursday = false; }
     if (e.includes(datalist[4])) { props.data.friday = true } else { props.data.friday = false; }
     if (e.includes(datalist[5])) { props.data.saturday = true } else { props.data.saturday = false; }
-    if (e.includes(datalist[6])) { props.data.sunday = true } else { props.data.sunday = false; }
+    if (e.includes(datalist[6])) { props.data.sunday = true } else { props.data.sunday = false; } 
     if (e.includes(datalist[7])) { props.data.once = true } else { props.data.once = false; }
     if (e.includes(datalist[8])) { props.data.final = true } else { props.data.final = false; }
 

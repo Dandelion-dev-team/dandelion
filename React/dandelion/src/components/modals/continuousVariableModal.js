@@ -44,7 +44,7 @@ export default function ContinuousVariableModal(props) {
   const onCreateVariable = e => {
     if (name && description && procedure && unit && upperLimit && lowerLimit) {
       let quantity_check = null;
-      if(quantity_selected != null){
+      if (quantity_selected != null) {
         quantity_check = quantity_selected.id;
       }
       let body = JSON.stringify({
@@ -177,11 +177,22 @@ export default function ContinuousVariableModal(props) {
                 /> : <h3>Could not retrieve quantities.</h3>}
               </div>
             </div>
-            {quantity_selected != null ? 
-            <div className="experimentCheck">
-                <input type="checkbox" id="experiment_id" name="topping" value="experiment_ID" onChange={onChangeCheckbox}/>
+
+            {quantity_selected ?
+              <div className="inputItem">
+                <div className="item-title">
+
+                </div>
+                <div className="item-input">
+                  <a target="_blank" href={quantity_selected.help_url}>{quantity_selected.help_url}</a>
+                </div>
+              </div>
+              : null}
+            {quantity_selected != null ?
+              <div className="experimentCheck">
+                <input type="checkbox" id="experiment_id" name="topping" value="experiment_ID" onChange={onChangeCheckbox} />
                 <h3>Is sensor quantity</h3>
-              </div> : null }
+              </div> : null}
             <div className="finish-btn">
               <input
                 type="submit"

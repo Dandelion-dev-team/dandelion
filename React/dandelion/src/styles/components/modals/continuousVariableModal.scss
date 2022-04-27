@@ -21,6 +21,11 @@
       text-align: center;
       width: 100%;
       overflow-y: auto;
+
+      a{
+        color: blue;
+      }
+
       .experimentCheck {
         display: flex;
         flex-direction: row;

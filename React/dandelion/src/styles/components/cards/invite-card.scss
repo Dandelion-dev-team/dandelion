@@ -1,0 +1,61 @@
+.inviteContainer {
+  width: 100%;
+  background-color: white;
+  margin-top: 1rem;
+  .top-divider {
+    hr {
+      height: 2px;
+      background-color: darkgray;
+      margin-left: 1.25rem;
+      margin-right: 1.25rem;
+    }
+  }
+
+  .bottom-divider {
+    hr {
+      height: 2px;
+      background-color: darkgray;
+      margin-left: 1.25rem;
+      margin-right: 1.25rem;
+    }
+  }
+  .row {
+    display: flex;
+    flex-direction: row;
+
+    .text-content {
+      h3 {
+        align-items: flex-start;
+        color: black !important;
+        margin-left: 20px;
+        font-size: 1vw !important;
+      }
+      h4 {
+        align-items: flex-start;
+        color: black;
+        margin-top: 5%;
+        margin-left: 20px;
+        font-size: 0.7vw;
+      }
+    }
+    img {
+      width: 50px;
+      height: 50px;
+      margin-left: 20%;
+      margin-top: 0.5rem;
+    }
+    .clear-alert {
+      color: black;
+      margin-top: 1.9rem;
+      margin-left: 2rem;
+      transform: scale(1.5);
+    }
+    .clear-alert:hover {
+      cursor: pointer;
+    }
+  }
+}
+.inviteContainer:hover{
+  cursor: pointer;
+  background-color: #f7f8ff;
+}

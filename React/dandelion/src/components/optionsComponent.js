@@ -289,6 +289,7 @@ export default function OptionsComponent(props) {
                     <SensorQuantity sensor_ref={quantity} />
                   ))}
                 </div>
+                <a target="_blank" href={sensor_selected}>{console.log(sensor_selected)}</a>
               </AccordionDetails>
             </Accordion>
           </div>
