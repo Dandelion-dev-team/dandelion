@@ -15,13 +15,14 @@ export default function SuperuserDashboard(props) {
   const [logged, setLogged] = useState("")
   const [projectList, setProjectList] = useState([])
   const [inviteList, setInvites] = useState([])
-
+  const [school_users, setSchoolUsers] = useState([])
   useEffect(() => {
     if (verify_superuser_storage() == true) {
       setLogged(true)
       let schoolId = localStorage.getItem("school_id")
       readRecord("/project_partner/byschool/" + schoolId, setProjectList)
       readRecord("/project_partner/" + schoolId, setInvites)
+      readRecord("/user/byschool/" + schoolId, setSchoolUsers)
     } else {
       navigate("/signin")
     }
@@ -37,6 +38,11 @@ export default function SuperuserDashboard(props) {
             <div className="students-pane">
               <div className="students-wrapper">
                 <h3>Students</h3>
+                <div className="students-list">
+                {school_users.users ? school_users.users.map(e => {
+                  return(<h3>{e.username}</h3>)
+                }) : null}
+                </div>
               </div>
             </div>
             <div className="middle-pane">

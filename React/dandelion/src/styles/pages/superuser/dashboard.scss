@@ -30,9 +30,18 @@
       padding: 20px;
 
       .students-wrapper {
+        width: 100%;
         h3 {
+          text-align: center;
           color: $primary;
           font-size: 1.6rem;
+        }
+
+        .students-list{
+          h3{
+            text-align: left;
+            color: black;
+          }
         }
       }
     }
