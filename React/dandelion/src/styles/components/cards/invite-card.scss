@@ -23,6 +23,36 @@
     display: flex;
     flex-direction: row;
 
+
+    .icon-div{
+      display: flex;
+      width: 100%;
+      height: 100%;
+      justify-content: space-around;
+      .check-icon{
+        color: black;
+        width: 20%;
+        height: 20%;
+      }
+      .check-icon:hover{
+        color: green;
+        cursor: pointer;
+      }
+      .close-icon{
+        display: flex;
+        justify-self: flex-end;
+        color: black;
+        width: 20%;
+        height: 20%;
+      }
+      .close-icon:hover{
+        cursor: pointer;
+        color: red;
+      }
+    }
+
+
+
     .text-content {
       h3 {
         align-items: flex-start;
@@ -37,6 +67,7 @@
         margin-left: 20px;
         font-size: 0.7vw;
       }
+
     }
     img {
       width: 50px;
@@ -54,8 +85,4 @@
       cursor: pointer;
     }
   }
-}
-.inviteContainer:hover{
-  cursor: pointer;
-  background-color: #f7f8ff;
 }

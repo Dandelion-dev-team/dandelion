@@ -1,6 +1,35 @@
-import * as React from "react"
+import React, { useEffect, useState } from "react"
+import { toast } from "react-toastify"
+import {readAdminRecord, updateRecord} from "../../utils/CRUD";
 
 export default function PasswordResetModal(props) {
+  const [current_pass, setCurrentPass] = useState("")
+  const [new_pass, setNewpass] = useState("")
+
+  const onSubmit = e => {
+    if(current_pass == props.password){
+      if(new_pass != null && new_pass != current_pass){
+        console.log("matching")
+        readAdminRecord("/user/" + props.username).then(data => {
+          let body = JSON.stringify({
+            username: props.username,
+            password: new_pass,
+            school_id: data.school_id,
+            is_sysadmin: data.is_sysadmin,
+            is_superuser: data.is_superuser,
+            status: "",
+            notes: "",
+          })
+          updateRecord("/user/" + data.user_id, body)
+        })
+      }else{
+        toast.error("No new password entered.")
+      }
+    }else{
+      toast.error("Old password is incorrect.")
+    }
+  }
+
   return (
     <div className="reset-modal-container">
       <div className="inner-modal">
@@ -19,7 +48,7 @@ export default function PasswordResetModal(props) {
                   <h3>Current Password:</h3>
                 </div>
                 <div className="pass-input">
-                  <input type="text" placeholder="Current Password" />
+                  <input type="password" placeholder="Current Password" value={current_pass} onChange={(e) => {setCurrentPass(e.target.value)}}/>
                 </div>
               </div>
             </div>
@@ -29,7 +58,7 @@ export default function PasswordResetModal(props) {
                   <h3>New Password:</h3>
                 </div>
                 <div className="pass-input">
-                  <input type="text" placeholder="New Password" />
+                  <input type="password" placeholder="New Password" value={new_pass} onChange={(e) => {setNewpass(e.target.value)}}/>
                 </div>
               </div>
             </div>
@@ -41,7 +70,7 @@ export default function PasswordResetModal(props) {
               className="submitButton"
               value="Submit"
               onClick={() => {
-                props.callback("prop")
+                onSubmit()
               }}
             />
           </div>

@@ -5,16 +5,6 @@ import MapModalCard from "../../components/cards/mapModalCard"
 import { readRecord } from "../../utils/CRUD"
 
 export default function MapDetailModal(props) {
-  useEffect(() => {
-    console.log(props)
-    if (props.school) {
-      readRecord(
-        "/project/" + props.school.school.school_id + "/experiment",
-        console.log
-      )
-    }
-  }, [])
-
   return (
     <div>
       {props.school.school ? (
@@ -51,7 +41,7 @@ export default function MapDetailModal(props) {
                   <h2>Project List:</h2>
                 </div>
                 <div className="cards">
-                  <MapModalCard />
+                  <MapModalCard id={props.school.school.school_id}/>
                 </div>
               </div>
             </div>

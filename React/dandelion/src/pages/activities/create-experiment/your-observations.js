@@ -9,14 +9,29 @@ export default function YourObservations(props) {
   const [experiment_details, setExperimentDetails] = useState([])
   const [combinations_selected, setCombinations] = useState([])
   const [hypotheses, setHypotheses] = useState([])
+  const [milestone_textbox, setMilestone] = useState("")
 
-  const [name, setName] = useState("")
-  const [code, setCode] = useState("")
-  const [startDate, setStartDate] = useState("")
-  const [endDate, setEndDate] = useState("")
 
   const [logged, setLogged] = useState("")
+  const [milestone_list, setMilestoneList] = useState([])
+  const [final_list, setFinalList] = useState([])
 
+  const onAdd = e => {
+    let copy = [...milestone_list];
+    let body = {
+      name: milestone_textbox,
+      description: "",
+      procedure: "",
+      unit: null,
+      upper_limit: null,
+      lower_limit: null,
+      is_sensor_quantity: false,
+      quantity_id: null,
+    }
+    setMilestone("")
+    copy.push(body)
+    setMilestoneList(copy)
+  }
   useEffect(() => {
     if (verify_superuser_storage() == true) {
       setLogged(true)
@@ -26,10 +41,6 @@ export default function YourObservations(props) {
         setResponseVariables(props.location.state.responseVariables)
         setExperimentDetails(props.location.state.experimentDetails)
         setCombinations(props.location.state.combinations)
-        setName(props.location.state.experimentDetails.name)
-        setCode(props.location.state.experimentDetails.code)
-        setStartDate(props.location.state.experimentDetails.startDate)
-        setEndDate(props.location.state.experimentDetails.endDate)
         setHypotheses(props.location.state.hypotheses)
 
         props.location.state.combinations.forEach(array => {
@@ -44,6 +55,35 @@ export default function YourObservations(props) {
       navigate("/signin")
     }
   }, [])
+
+  const onResponseChange = (variable) => {
+    let copy = [...final_list];
+    if (copy.includes(variable.response_ref)) {
+        copy = (copy.filter(item => item !== variable.response_ref))
+    } else {
+        copy.push(variable.response_ref)
+    }
+    setFinalList(copy);
+}
+
+const ResponseVariable = variable => {
+    const [checked_value, setCheckedValue] = useState(false);
+    useEffect(() => {
+        if (final_list.includes(variable.response_ref)) {
+            setCheckedValue(true);
+        }
+    }, [])
+    return (
+        <div className="variable-list-item">
+          <div className="label">
+            <h3>{variable.response_ref.name}</h3>
+          </div>
+          <div className="checkbox">
+            <input type="checkbox" checked={checked_value} onChange={() => {onResponseChange(variable)}}/>
+          </div>
+        </div>
+    )
+}
 
   if (logged) {
     return (
@@ -64,17 +104,7 @@ export default function YourObservations(props) {
                 <div className="variable-list">
                   {response_selected
                     ? response_selected.map(function (r, idx) {
-                        console.log(r)
-                        return (
-                          <div className="variable-list-item">
-                            <div className="label">
-                              <h3>{r.name}</h3>
-                            </div>
-                            <div className="checkbox">
-                              <input type="checkbox" />
-                            </div>
-                          </div>
-                        )
+                        return (<ResponseVariable response_ref={r}/>)
                       })
                     : null}
                 </div>
@@ -107,22 +137,23 @@ export default function YourObservations(props) {
                     </div>
                     <div className="input-row">
                       <div className="text-input">
-                        <input type="text" placeholder="Milestone" />
+                        <input type="text" placeholder="Milestone" value={milestone_textbox} onChange={(e) => {setMilestone(e.target.value)}}/>
                       </div>
                       <div className="add-btn">
                         <input
                           type="submit"
                           className="submitButton"
                           value="Add"
+                          onClick={() => {onAdd()}}
                         />
                       </div>
                     </div>
                   </div>
                   <div className="milestone-list">
                     <div className="list-wrapper">
-                      <h3>Guy</h3>
-                      <h3>Guy 2</h3>
-                      <h3>Guy 3</h3>
+                      {milestone_list.map(e => {
+                        return (<h3>{e.name}</h3>)
+                    })}
                     </div>
                   </div>
                 </div>
@@ -136,12 +167,10 @@ export default function YourObservations(props) {
                   </div>
                   <div className="final-list">
                     <div className="list-wrapper">
-                      <h3>Guy 2</h3>
-                      <h3>Guy 3</h3>
-                      <h3>Guy 3</h3>
-                      <h3>Guy 3</h3>
-                      <h3>Guy 3</h3>
-                      <h3>Guy 3</h3>
+                      {console.log(final_list)}
+                      {final_list.map(e => (
+                        <h3>{e.name}</h3>
+                      ))}
 
                     </div>
                   </div>

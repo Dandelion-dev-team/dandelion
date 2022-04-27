@@ -62,9 +62,9 @@ export default function SuperuserDashboard(props) {
               <div className="node-widget">
                 <h3>Invites</h3>
                 <div className="invite-list">
-                  {inviteList.data ? inviteList.data.map(invite => (
+                  {inviteList.data ? inviteList.data.length > 0 ? inviteList.data.map(invite => (
                     <InviteCard alert={invite} />
-                  )) : null}
+                  )) :  <h3>No Pending Invites.</h3> : null}
                 </div>
               </div>
             </div>

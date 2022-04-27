@@ -21,7 +21,7 @@ export default function Login(props) {
     e.preventDefault()
     // setShowModal(true)
     if (username && password) {
-      user_login(username, password);
+      user_login(username, password, setShowModal);
     }
   }
 
@@ -49,7 +49,7 @@ export default function Login(props) {
     if (render == true) {
       return (
         <div>
-          {showModal ? <PasswordResetModal /> : null}
+          {showModal ? <PasswordResetModal username={username} password={password}/> : null}
 
           <Header />
           <div className="signin">
