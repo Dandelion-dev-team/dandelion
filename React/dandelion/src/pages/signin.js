@@ -19,10 +19,10 @@ export default function Login(props) {
 
   const onSubmitClick = e => {
     e.preventDefault()
-    setShowModal(true)
-    // if (username && password) {
-    //   user_login(username, password);
-    // }
+    // setShowModal(true)
+    if (username && password) {
+      user_login(username, password);
+    }
   }
 
   const handleUsernameChange = e => {
