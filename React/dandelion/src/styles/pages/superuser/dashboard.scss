@@ -74,7 +74,6 @@
           display: flex;
           flex-direction: column;
           width: 100%;
-          justify-content: center;
           align-items: center;
           .activity {
             display: flex;
@@ -86,6 +85,10 @@
             }
             .name {
               width: 65%;
+              h3{
+                font-size: 100%;
+              }
+
             }
           }
         }
