@@ -3,8 +3,30 @@ import { navigate } from "gatsby"
 import "../../styles/App.scss"
 import SelectAddTypeModal from "../modals/selectAddTypeModal"
 import { readAdminRecord } from "../../utils/CRUD"
+import { useStaticQuery, graphql } from "gatsby"
+import Img from "gatsby-image"
 
 export default function ParticipantPane(props) {
+  const data = useStaticQuery(graphql`
+    query {
+      heroImage: file(relativePath: { eq: "home-image.png" }) {
+        childImageSharp {
+          fluid {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+
+      mobileHeroImage: file(relativePath: { eq: "Group.png" }) {
+        childImageSharp {
+          fluid {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+    }
+  `)
+
   const [show_type, setShowType] = useState("")
   const weekdays = [
     "Sunday",
@@ -190,6 +212,9 @@ export default function ParticipantPane(props) {
                         <div className="spacer" />
                         <div className="observation-column">
                           {get_response_day(variable)}
+                        </div>
+                        <div className="image">
+                          <Img fluid={data.heroImage.childImageSharp.fluid} />
                         </div>
                       </div>
                     </div>

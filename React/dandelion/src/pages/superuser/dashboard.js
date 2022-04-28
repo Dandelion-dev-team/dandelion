@@ -38,6 +38,10 @@ export default function SuperuserDashboard(props) {
             <div className="students-pane">
               <div className="students-wrapper">
                 <h3>Students</h3>
+                <div className="chart">
+
+                </div>
+                <hr className="linebreak"/>
                 <div className="students-list">
                 {school_users.users ? school_users.users.map(e => {
                   return(<h3>{e.username}</h3>)
