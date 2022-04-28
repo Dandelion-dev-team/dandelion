@@ -3,6 +3,7 @@ import { useStaticQuery, graphql } from "gatsby"
 import Img from "gatsby-image"
 import { Link, navigate } from "gatsby"
 import { Trans, useTranslation } from "gatsby-plugin-react-i18next"
+import CookieConsent, { Cookies } from "react-cookie-consent";
 export const isBrowser = () => typeof window !== "undefined"
 
 const Hero = () => {
@@ -31,6 +32,17 @@ const Hero = () => {
   } else {
     return (
       <div className="hero-blurb">
+        <CookieConsent
+          location="bottom"
+          buttonText="I understand"
+          cookieName="gdpr-cookie"
+          style={{ background: "#2B373B" }}
+          buttonStyle={{ color: "#4e503b", fontSize: "13px" }}
+          expires={150}
+        >
+          This website does not use cookies for marketing or analysis. Cookies are used to maintain the connection with the server. {" "}
+          <span style={{ fontSize: "10px" }}>Please click the button to consent to these essential cookies.</span>
+        </CookieConsent>
         <div className="inner-hero">
           <div className="images">
             <div className="feat-img">

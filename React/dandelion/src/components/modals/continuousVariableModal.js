@@ -57,6 +57,15 @@ export default function ContinuousVariableModal(props) {
         lower_limit: lowerLimit,
         is_sensor_quantity: false,
         quantity_id: quantity_check,
+        monday: false,
+        tuesday: false,
+        wednesday: false,
+        thursday: false,
+        friday: false,
+        saturday: false,
+        sunday: false,
+        once: false,
+        final: false
       })
       props.callback(body);
     } else {

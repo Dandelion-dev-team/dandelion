@@ -27,6 +27,15 @@ export default function YourObservations(props) {
       lower_limit: null,
       is_sensor_quantity: false,
       quantity_id: null,
+      monday: false,
+      tuesday: false,
+      wednesday: false,
+      thursday: false,
+      friday: false,
+      saturday: false,
+      sunday: false,
+      once: true,
+      final: false
     }
     setMilestone("")
     copy.push(body)
@@ -66,6 +75,24 @@ export default function YourObservations(props) {
     setFinalList(copy);
 }
 
+const OnContinueClick = e => {
+
+  treatment_selected.forEach(treatment_variable => {
+    
+  });
+
+  if (typeof window !== `undefined`) {
+    navigate("/activities/create-experiment/summary", {
+      state: {
+        hypotheses: hypotheses,
+        treatmentVariables: treatment_selected,
+        responseVariables: response_selected,
+        experimentDetails: experiment_details,
+        combinations: combinations_selected,
+      },
+    })
+  }
+}
 const ResponseVariable = variable => {
     const [checked_value, setCheckedValue] = useState(false);
     useEffect(() => {
@@ -183,17 +210,7 @@ const ResponseVariable = variable => {
                       className="submitButton"
                       value="Continue"
                       onClick={() => {
-                        if (typeof window !== `undefined`) {
-                          navigate("/activities/create-experiment/summary", {
-                            state: {
-                              hypotheses: hypotheses,
-                              treatmentVariables: treatment_selected,
-                              responseVariables: response_selected,
-                              experimentDetails: experiment_details,
-                              combinations: combinations_selected,
-                            },
-                          })
-                        }
+                       OnContinueClick();
                       }}
                     />
                   </div>
