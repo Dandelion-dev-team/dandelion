@@ -106,7 +106,7 @@ def getAllSuperUsers():
         user_data['school_id'] = user.school_id
         output.append(user_data)
 
-    return jsonify({'user': user_data})
+    return jsonify({'user': output})
 
 
 @admin.route('/user/byschool/<int:school_id>', methods=['GET'])
