@@ -102,7 +102,6 @@ export default function ParticipantPane(props) {
     }
   }
 
-
   useEffect(() => {
     console.log(props.dataProp)
     let user_id = localStorage.getItem("user_id")
@@ -156,51 +155,136 @@ export default function ParticipantPane(props) {
           <div className="hypotheses">
             <p>Hypotheses</p>
             <div className="info-box">
-              {props.dataProp.hypotheses ?
-
-                (
-                  props.dataProp.hypotheses.map(hypothesis => (
-                    <p>
-                      {hypothesis.hypothesis_no}. {hypothesis.description}
-                    </p>
-                  ))
-                ) : (
-                  <h3>No hypotheses found.</h3>
-                )}
+              {props.dataProp.hypotheses ? (
+                props.dataProp.hypotheses.map(hypothesis => (
+                  <p>
+                    {hypothesis.hypothesis_no}. {hypothesis.description}
+                  </p>
+                ))
+              ) : (
+                <h3>No hypotheses found.</h3>
+              )}
             </div>
             <div className="worksheet">
               <p>Observations</p>
               {props.dataProp.responseVariables ? (
-                props.dataProp.responseVariables.filter(variable => variable.once != true && variable.final != true).map(variable =>
-                (
-                  <div className="worksheet-item">
-                    <div className="item-content">
-                      <div className="name-column">
-                        <div className="name">
-                          <p>{variable.name}</p>
+                props.dataProp.responseVariables
+                  .filter(
+                    variable => variable.once != true && variable.final != true
+                  )
+                  .map(variable => (
+                    <div className="worksheet-item">
+                      <div className="item-content">
+                        <div className="name-column">
+                          <div className="name">
+                            <p>{variable.name}</p>
+                          </div>
+                          <div className="latest-observation">
+                            {response_observations.length > 0 ? (
+                              get_variable_observations(variable)
+                            ) : (
+                              <p>No Observations Have Been Made.</p>
+                            )}
+                          </div>
                         </div>
-                        <div className="latest-observation">
-                          {response_observations.length > 0 ? (
-                            get_variable_observations(variable)
-                          ) : (
-                            <p>No Observations Have Been Made.</p>
-                          )}
+                        <div className="spacer" />
+                        <div className="observation-column">
+                          {get_response_day(variable)}
                         </div>
-                      </div>
-                      <div className="spacer" />
-                      <div className="observation-column">
-                        {get_response_day(variable)}
                       </div>
                     </div>
-                  </div>
-                ))
+                  ))
               ) : (
                 <h3>No Response Variables found.</h3>
               )}
               <p>Milestones</p>
-             
-              
-              <p>Final Variables</p>
+              {props.dataProp.responseVariables ? (
+                props.dataProp.responseVariables
+                  .filter(
+                    variable => variable.once == true && variable.final != true
+                  )
+                  .map(variable => (
+                    <div className="worksheet-item">
+                      <div className="item-content">
+                        <div className="name-column">
+                          <div className="name">
+                            <p>{variable.name}</p>
+                          </div>
+                          <div className="latest-observation">
+                            {response_observations.length > 0 ? (
+                              get_variable_observations(variable)
+                            ) : (
+                              <p>No Observations Have Been Made.</p>
+                            )}
+                          </div>
+                        </div>
+                        <div className="spacer" />
+                        <div className="observation-column">
+                          <div className="btn-row">
+                            <div className="submit-btn">
+                              <input
+                                type="submit"
+                                className="submitButton"
+                                value="Add Milestone"
+                                onClick={() => {
+                                  navigate("/participants/enter-single", {
+                                    state: props.dataProp,
+                                  })
+                                }}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+              ) : (
+                <h3>No Response Variables found.</h3>
+              )}
+              <p>Post-Harvest</p>
+              {props.dataProp.responseVariables ? (
+                props.dataProp.responseVariables
+                  .filter(
+                    variable => variable.once != true && variable.final == true
+                  )
+                  .map(variable => (
+                    <div className="worksheet-item">
+                      <div className="item-content">
+                        <div className="name-column">
+                          <div className="name">
+                            <p>{variable.name}</p>
+                          </div>
+                          <div className="latest-observation">
+                            {response_observations.length > 0 ? (
+                              get_variable_observations(variable)
+                            ) : (
+                              <p>No Observations Have Been Made.</p>
+                            )}
+                          </div>
+                        </div>
+                        <div className="spacer" />
+                        <div className="observation-column">
+                          <div className="btn-row">
+                            <div className="submit-btn">
+                              <input
+                                type="submit"
+                                className="submitButton"
+                                value="Add Post-Harvest"
+                                onClick={() => {
+                                  navigate("/participants/enter-single", {
+                                    state: props.dataProp,
+                                  })
+                                }}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+              ) : (
+                <h3>No Response Variables found.</h3>
+              )}
             </div>
           </div>
         </div>

@@ -42,31 +42,34 @@ export default function AddStudentModal(props) {
     <div className="add-student-modal">
       <div className="inner-panel">
         <div className="panel-content">
-          <h2>Create Student</h2>
-
-          <div className="label-textbox">
-            <h3>Username:</h3>
-            <input
-              type="text"
-              value={entered_username}
-              onChange={handleUsernameChange}
-            />
+          <div className="title">
+            <h2>Create Student</h2>
           </div>
-          <div className="label-textbox">
-            <h3>Password:</h3>
-            <input
-              type="text"
-              value={entered_password}
-              onChange={handlePasswordChange}
-            />
-          </div>
-          <div className="label-textbox">
-            <h3>Notes:</h3>
-            <input
-              type="text"
-              value={entered_notes}
-              onChange={handleNotesChange}
-            />
+          <div className="input-row">
+            <div className="label-textbox">
+              <h3>Username:</h3>
+              <input
+                type="text"
+                value={entered_username}
+                onChange={handleUsernameChange}
+              />
+            </div>
+            <div className="label-textbox">
+              <h3>Password:</h3>
+              <input
+                type="text"
+                value={entered_password}
+                onChange={handlePasswordChange}
+              />
+            </div>
+            <div className="label-textbox">
+              <h3>Notes:</h3>
+              <input
+                type="text"
+                value={entered_notes}
+                onChange={handleNotesChange}
+              />
+            </div>
           </div>
 
           {missing_info ? (
@@ -76,22 +79,26 @@ export default function AddStudentModal(props) {
           ) : null}
 
           <div className="btn-row">
-            <input
-              type="submit"
-              className="submitButton"
-              value="Create User"
-              onClick={() => {
-                createUser()
-              }}
-            ></input>
-            <input
-              type="submit"
-              className="submitButton"
-              value="Close"
-              onClick={() => {
-                props.closeModal()
-              }}
-            ></input>
+            <div className="btn-container">
+              <input
+                type="submit"
+                className="submitButton"
+                value="Create User"
+                onClick={() => {
+                  createUser()
+                }}
+              />
+            </div>
+            <div className="btn-container">
+              <input
+                type="submit"
+                className="submitButton"
+                value="Close"
+                onClick={() => {
+                  props.closeModal()
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>

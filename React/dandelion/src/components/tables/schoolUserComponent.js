@@ -10,6 +10,7 @@ export default function SchoolUserComponent(props) {
   const [users, setUsers] = useState()
   const [show_modal, setShowModal] = useState(false)
   const [show_edit_modal, setShowEditModal] = useState(false)
+  const [editingUser, setEditingUser] = useState()
 
   useEffect(() => {
     let school_id = localStorage.getItem("school_id")
@@ -20,10 +21,15 @@ export default function SchoolUserComponent(props) {
     props.parentCallback(user)
   }
 
+  const onEditClick = e => {
+    setShowEditModal(true)
+    setEditingUser(e)
+  }
+
   return (
     <div className="school-comp-container">
       {show_modal ? <AddStudentModal closeModal={setShowModal} /> : null}
-      {show_edit_modal ? <EditUserModal closeModal={setShowEditModal} /> : null}
+      {show_edit_modal ? <EditUserModal closeModal={setShowEditModal} user={editingUser} /> : null}
 
       <div className="schoolTable">
         <table className="schoolList">
@@ -51,7 +57,7 @@ export default function SchoolUserComponent(props) {
                       <div className="edit-btn">
                         <button
                           onClick={() => {
-                            setShowEditModal(true)
+                            onEditClick(user)
                           }}
                           className="editButton"
                         >Edit

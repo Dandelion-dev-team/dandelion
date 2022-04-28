@@ -11,9 +11,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export default function SchoolUserMaintenance(props) {
   const [userList, setUsers] = useState("")
-  const [editing_user, setEditingUser] = useState("")
+  const [viewedUser, setViewedUser] = useState("")
   const [logged, setLogged] = useState("");
-
 
   useEffect(() => {
     if (verify_superuser_storage() == true) {
@@ -25,7 +24,7 @@ export default function SchoolUserMaintenance(props) {
   }, [])
 
   const handleCallback = childData => {
-    setEditingUser(childData)
+    setViewedUser(childData)
   }
 
   if (typeof window !== `undefined` && logged) {
@@ -40,7 +39,7 @@ export default function SchoolUserMaintenance(props) {
               <SchoolUserComponent parentCallback={handleCallback} />
             </div>
             <div className="school-pane">
-              <SchoolUserPane dataProp={editing_user} />
+              <SchoolUserPane dataProp={viewedUser} />
             </div>
           </div>
         </div>

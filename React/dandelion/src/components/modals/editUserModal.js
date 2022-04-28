@@ -6,9 +6,13 @@ export default function EditUserModal(props) {
   const [password, setPassword] = useState("")
   const [notes, setNotes] = useState("")
 
-  const onSubmit = e => {
-      
-  }
+
+
+  useEffect(() => {
+    console.log(props.user)
+    setUsername(props.user.username)
+    setNotes(props.user.notes)
+  }, [])
 
   return (
     <div className="edit-student-modal">
@@ -20,7 +24,7 @@ export default function EditUserModal(props) {
             <h3>Username:</h3>
             <input
               type="text"
-            //   value={entered_username}
+              value={username}
             //   onChange={handleUsernameChange}
             />
           </div>
@@ -28,7 +32,6 @@ export default function EditUserModal(props) {
             <h3>Password:</h3>
             <input
               type="text"
-            //   value={entered_password}
             //   onChange={handlePasswordChange}
             />
           </div>
@@ -36,7 +39,7 @@ export default function EditUserModal(props) {
             <h3>Notes:</h3>
             <input
               type="text"
-            //   value={entered_notes}
+              value={notes}
             //   onChange={handleNotesChange}
             />
           </div>
