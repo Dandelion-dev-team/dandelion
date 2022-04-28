@@ -156,20 +156,23 @@ export default function ParticipantPane(props) {
           <div className="hypotheses">
             <p>Hypotheses</p>
             <div className="info-box">
-              {props.dataProp.hypotheses ? (
-                props.dataProp.hypotheses.map(hypothesis => (
-                  <p>
-                    {hypothesis.hypothesis_no}. {hypothesis.description}
-                  </p>
-                ))
-              ) : (
-                <h3>No hypotheses found.</h3>
-              )}
+              {props.dataProp.hypotheses ?
+
+                (
+                  props.dataProp.hypotheses.map(hypothesis => (
+                    <p>
+                      {hypothesis.hypothesis_no}. {hypothesis.description}
+                    </p>
+                  ))
+                ) : (
+                  <h3>No hypotheses found.</h3>
+                )}
             </div>
             <div className="worksheet">
               <p>Observations</p>
               {props.dataProp.responseVariables ? (
-                props.dataProp.responseVariables.map(variable => (
+                props.dataProp.responseVariables.filter(variable => variable.once != true && variable.final != true).map(variable =>
+                (
                   <div className="worksheet-item">
                     <div className="item-content">
                       <div className="name-column">
