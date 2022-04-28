@@ -6,18 +6,26 @@ import { readAdminRecord } from "../../utils/CRUD"
 
 export default function ParticipantPane(props) {
   const [show_type, setShowType] = useState("")
-  const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+  const weekdays = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ]
   const [response_observations, setObservations] = useState([])
-  const [experiment_finished, setExperimentFinished] = useState(false);
-
+  const [milestones, setMilestones] = useState([])
+  const [experiment_finished, setExperimentFinished] = useState(false)
 
   const get_response_day = e => {
     let days = ""
-    var today = new Date().getDay();
-    let current_day_int = [];
-    let show_button = false;
+    var today = new Date().getDay()
+    let current_day_int = []
+    let show_button = false
     if (e.monday == true) {
-      days = days + "Monday ";
+      days = days + "Monday "
       current_day_int.push(1)
     }
     if (e.tuesday == true) {
@@ -35,7 +43,6 @@ export default function ParticipantPane(props) {
     if (e.friday == true) {
       days = days + "Friday "
       current_day_int.push(5)
-
     }
     if (e.saturday == true) {
       days = days + "Saturday "
@@ -51,7 +58,7 @@ export default function ParticipantPane(props) {
     if (e.final == true) {
       days = days + "Final "
       if (experiment_finished == true) {
-        show_button = true;
+        show_button = true
       }
     }
 
@@ -59,55 +66,58 @@ export default function ParticipantPane(props) {
       console.log("There is an observation required today.")
     }
 
-    let days_until = [];
+    let days_until = []
     current_day_int.forEach(day => {
-      let day_int = day - today;
+      let day_int = day - today
       if (day_int < 0) {
-        day_int = day_int + 7;
+        day_int = day_int + 7
       }
-      days_until.push(day_int);
-    });
+      days_until.push(day_int)
+    })
 
     let min = Math.min(...days_until)
     if (min == Infinity) {
       min = props.dataProp.end_date
     } else {
-      min = min + ' days until.'
+      min = min + " days until."
     }
     return (
       <div className="days-until">
-        <div className="day">
-          {days}
-        </div>
+        <div className="day">{days}</div>
         <div className="days-remaining">
           <p>{min}</p>
         </div>
-      </div>)
+      </div>
+    )
   }
 
   const get_variable_observations = e => {
-    let filtered = response_observations.filter(item => item.response_variable_id == e.id);
+    let filtered = response_observations.filter(
+      item => item.response_variable_id == e.id
+    )
 
     if (filtered.length > 0) {
-      return (<p>{filtered[filtered.length - 1].value}</p>)
+      return <p>{filtered[filtered.length - 1].value}</p>
     } else {
     }
   }
 
+
   useEffect(() => {
-    let user_id = localStorage.getItem("user_id");
-    let today = new Date();
-    let end_date = new Date(props.dataProp.end_date);
+    console.log(props.dataProp)
+    let user_id = localStorage.getItem("user_id")
+    let today = new Date()
+    let end_date = new Date(props.dataProp.end_date)
     if (today < end_date) {
-      setExperimentFinished(false);
+      setExperimentFinished(false)
     } else {
-      setExperimentFinished(true);
+      setExperimentFinished(true)
     }
-    readAdminRecord('/observation/byuser/' + user_id).then(data => {
-      let observations = data.users;
-      setObservations(observations);
+    readAdminRecord("/observation/byuser/" + user_id).then(data => {
+      let observations = data.users
+      setObservations(observations)
     })
-  }, []);
+  }, [])
 
   return (
     <div className="participant-panel">
@@ -124,8 +134,7 @@ export default function ParticipantPane(props) {
                     className="submitButton"
                     value="Add Observations"
                     onClick={() => {
-                      navigate("/participants/enter-single",
-                      {
+                      navigate("/participants/enter-single", {
                         state: props.dataProp,
                       })
                     }}
@@ -158,28 +167,7 @@ export default function ParticipantPane(props) {
               )}
             </div>
             <div className="worksheet">
-              {/* <div className="worksheet-item">
-                <div className="name-column">
-                  <div className="name">
-                    <p>hello</p>
-                  </div>
-                  <div className="spacer" />
-                  <div className="complete-button">
-                    
-                    <div className="days-until">
-                      <p>Tuesday</p>
-                      <p>6 Days until</p>
-                    </div>
-                    <div className="btn">
-                      <p></p>
-                    </div>
-                  </div>
-                </div>
-                <div className="latest-observation">
-                  <p></p>
-                  </div>
-              </div> */}
-
+              <p>Observations</p>
               {props.dataProp.responseVariables ? (
                 props.dataProp.responseVariables.map(variable => (
                   <div className="worksheet-item">
@@ -189,7 +177,11 @@ export default function ParticipantPane(props) {
                           <p>{variable.name}</p>
                         </div>
                         <div className="latest-observation">
-                          {response_observations.length > 0 ? get_variable_observations(variable) : (<p>No Observations Have Been Made.</p>)}
+                          {response_observations.length > 0 ? (
+                            get_variable_observations(variable)
+                          ) : (
+                            <p>No Observations Have Been Made.</p>
+                          )}
                         </div>
                       </div>
                       <div className="spacer" />
@@ -198,18 +190,14 @@ export default function ParticipantPane(props) {
                       </div>
                     </div>
                   </div>
-
-                  // <div className="worksheet-item">
-                  //   <div className="desc">
-                  //     <h3>{variable.name}</h3>
-                  //     <h3>{variable.tutorial}</h3>
-                  //     {get_response_day(variable)}
-                  //   </div>
-
                 ))
               ) : (
                 <h3>No Response Variables found.</h3>
               )}
+              <p>Milestones</p>
+             
+              
+              <p>Final Variables</p>
             </div>
           </div>
         </div>

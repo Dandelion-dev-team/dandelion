@@ -31,39 +31,37 @@ const Hero = () => {
   } else {
     return (
       <div className="hero-blurb">
-        <div className="container">
-          <div className="inner-hero">
-            <div className="images">
-              <div className="feat-img">
-                <div className="desktopImage">
-                  <Img fluid={data.heroImage.childImageSharp.fluid} />
-                </div>
-                <div className="mobileImage">
-                  <Img fluid={data.mobileHeroImage.childImageSharp.fluid} />
-                </div>
+        <div className="inner-hero">
+          <div className="images">
+            <div className="feat-img">
+              <div className="desktopImage">
+                <Img fluid={data.heroImage.childImageSharp.fluid} />
+              </div>
+              <div className="mobileImage">
+                <Img fluid={data.mobileHeroImage.childImageSharp.fluid} />
               </div>
             </div>
-            <div className="content">
-              <h3>
-                <Trans>The Dandelion Schools' Growing Initiative</Trans>
-              </h3>
-              <p>
-                <Trans>
-                  500 schools. 100 growing cubes. The largest community-led
-                  growing experiment ever undertaken in Scotland.
-                </Trans>
-              </p>
-              <div className="btn-row">
-                {/*localStorage.getItem("logged") ? null : null*/}
-                <button
-                  className="button"
-                  onClick={() => {
-                    navigate("/signin")
-                  }}
-                >
-                  {t("Log In")}
-                </button>
-              </div>
+          </div>
+          <div className="content">
+            <h3>
+              <Trans>The Dandelion Schools' Growing Initiative</Trans>
+            </h3>
+            <p>
+              <Trans>
+                500 schools. 100 growing cubes. The largest community-led
+                growing experiment ever undertaken in Scotland.
+              </Trans>
+            </p>
+            <div className="btn-row">
+              {/*localStorage.getItem("logged") ? null : null*/}
+              <button
+                className="button"
+                onClick={() => {
+                  navigate("/signin")
+                }}
+              >
+                {t("Log In")}
+              </button>
             </div>
           </div>
         </div>

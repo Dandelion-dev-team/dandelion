@@ -23,6 +23,8 @@ export default function SchoolUserComponent(props) {
   return (
     <div className="school-comp-container">
       {show_modal ? <AddStudentModal closeModal={setShowModal} /> : null}
+      {show_edit_modal ? <EditUserModal closeModal={setShowEditModal} /> : null}
+
       <div className="schoolTable">
         <table className="schoolList">
           <thead>
@@ -49,7 +51,7 @@ export default function SchoolUserComponent(props) {
                       <div className="edit-btn">
                         <button
                           onClick={() => {
-                            setShowModal(true)
+                            setShowEditModal(true)
                           }}
                           className="editButton"
                         >Edit

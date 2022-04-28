@@ -75,50 +75,55 @@ export default function EnterHypotheses(props) {
           <div className="hypotheses-content">
             <div className="hypotheses-row">
               <div className="list">
-                {hypothesesList.length > 0
-                  ? hypothesesList.map(hypothesis => (
-                      <HypothesisCard hypothesisItem={hypothesis} />
-                    ))
-                  : null}
-                <div className="input-row">
-                  <div className="title">
-                    <h3>{hypotheses_number}. Hypothesis</h3>
+                <div className="card-list">
+                  {hypothesesList.length > 0
+                    ? hypothesesList.map(hypothesis => (
+                        <HypothesisCard hypothesisItem={hypothesis} />
+                      ))
+                    : null}
+                </div>
+
+                <div className="input-area">
+                  <div className="input-row">
+                    <div className="title">
+                      <h3>{hypotheses_number}. Hypothesis</h3>
+                    </div>
+                    <div className="input">
+                      <input
+                        type="text"
+                        placeholder="Hypothesis title"
+                        name="descBox"
+                        onChange={handleHypothesisTextboxChange}
+                        value={hypothesis_text_box}
+                      />
+                    </div>
                   </div>
-                  <div className="input">
+                  <div className="input-row">
+                    <div className="title">
+                      <h3>Description</h3>
+                    </div>
+                    <div className="desc-input">
+                      <textarea
+                        type="text"
+                        placeholder="Description"
+                        name="descBox"
+                        onChange={handleHypothesisDescChange}
+                        value={hypothesis_desc_box}
+                      />
+                    </div>
+                  </div>
+                  <div className="add-btn">
                     <input
-                      type="text"
-                      placeholder="Hypothesis title"
-                      name="descBox"
-                      onChange={handleHypothesisTextboxChange}
-                      value={hypothesis_text_box}
-                    />
+                      type="submit"
+                      className="submitButton"
+                      value="Add Hypothesis"
+                      onClick={() => {
+                        {
+                          AddHypothesis()
+                        }
+                      }}
+                    ></input>
                   </div>
-                </div>
-                <div className="input-row">
-                  <div className="title">
-                    <h3>Description</h3>
-                  </div>
-                  <div className="desc-input">
-                    <textarea
-                      type="text"
-                      placeholder="Description"
-                      name="descBox"
-                      onChange={handleHypothesisDescChange}
-                      value={hypothesis_desc_box}
-                    />
-                  </div>
-                </div>
-                <div className="add-btn">
-                  <input
-                    type="submit"
-                    className="submitButton"
-                    value="Add Hypothesis"
-                    onClick={() => {
-                      {
-                        AddHypothesis()
-                      }
-                    }}
-                  ></input>
                 </div>
               </div>
               <div className="cont-btn">
@@ -157,15 +162,18 @@ export default function EnterHypotheses(props) {
                         typeof window !== `undefined` &&
                         hypothesesList.length > 0
                       ) {
-                        navigate("/activities/create-experiment/your-observations", {
-                          state: {
-                            hypotheses: hypothesesList,
-                            treatmentVariables: treatment_variables,
-                            responseVariables: response_variables,
-                            experimentDetails: experiment_details,
-                            combinations: combinations_selected,
-                          },
-                        })
+                        navigate(
+                          "/activities/create-experiment/your-observations",
+                          {
+                            state: {
+                              hypotheses: hypothesesList,
+                              treatmentVariables: treatment_variables,
+                              responseVariables: response_variables,
+                              experimentDetails: experiment_details,
+                              combinations: combinations_selected,
+                            },
+                          }
+                        )
                       }
                     }}
                   />
