@@ -257,7 +257,7 @@ const ResponseVariable = variable => {
         </div>
         <div className="variables">
           <div className="title">
-            <h3>Variables</h3>
+            {/* <h3>Variables</h3> */}
           </div>
           <div className="variable-pickers">
             <div className="treatment-picker">
@@ -297,9 +297,11 @@ const ResponseVariable = variable => {
         </div>
         <div className="sensors">
           <div className="title">
-            <h3>Sensors</h3>
+            {/* <h3>Sensors</h3> */}
           </div>
-          <div className="accordion">
+          <div className="sensor-accordion">
+            <div className="label">Sensor:</div>
+            <div className="accordion">
             <Accordion>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
@@ -318,6 +320,8 @@ const ResponseVariable = variable => {
               </AccordionDetails>
             </Accordion>
           </div>
+          </div>
+          
         </div>
         <div className="checkboxes">
           <div className="average-checkbox">
