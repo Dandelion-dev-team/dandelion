@@ -19,7 +19,7 @@ export default function VariableCard(props) {
                     </h3> : null
                 ) : (
                     <div className="levels-list">
-                        {props.mappedValue.levels.map(variable => <h3>{variable.name}{'\u00A0'}</h3>)}
+                    {props.mappedValue.levels.map(variable => <h3>{variable.name}{'\u00A0'}</h3>)}
                     </div>
                 )}
             </div>

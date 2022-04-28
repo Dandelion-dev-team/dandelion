@@ -13,6 +13,7 @@ export default function SchoolUserMaintenance(props) {
   const [userList, setUsers] = useState("")
   const [viewedUser, setViewedUser] = useState("")
   const [logged, setLogged] = useState("");
+  const [experiment_list, setExperiments] = useState([])
 
   useEffect(() => {
     if (verify_superuser_storage() == true) {
@@ -25,6 +26,8 @@ export default function SchoolUserMaintenance(props) {
 
   const handleCallback = childData => {
     setViewedUser(childData)
+    readRecord("/experiment_participant/" + childData.user_id, setExperiments)
+
   }
 
   if (typeof window !== `undefined` && logged) {
@@ -39,7 +42,7 @@ export default function SchoolUserMaintenance(props) {
               <SchoolUserComponent parentCallback={handleCallback} />
             </div>
             <div className="school-pane">
-              <SchoolUserPane dataProp={viewedUser} />
+              <SchoolUserPane dataProp={viewedUser} experiment_list={experiment_list}/>
             </div>
           </div>
         </div>
