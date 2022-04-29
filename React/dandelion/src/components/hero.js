@@ -60,8 +60,7 @@ const Hero = () => {
             </h3>
             <p>
               <Trans>
-                500 schools. 100 growing cubes. The largest community-led
-                growing experiment ever undertaken in Scotland.
+              464 schools, 114 Grow Cubes, tonnes of tatties – welcome to the biggest growing experiment Scotland’s ever seen.
               </Trans>
             </p>
             <div className="btn-row">
