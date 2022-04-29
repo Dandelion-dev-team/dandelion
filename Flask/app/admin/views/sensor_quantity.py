@@ -7,6 +7,7 @@ from app.admin import admin
 from app.models import SensorQuantity
 from app import db
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update, audit_delete
+from app.utils.authorisation import auth_check
 from app.utils.functions import jwt_user
 
 
@@ -15,6 +16,7 @@ from app.utils.functions import jwt_user
 @jwt_required()
 def add_sensor_quantity():
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     data = request.get_json()
     sensor_quantity = SensorQuantity(
         sensor_id = data['sensor_id'],
@@ -39,7 +41,10 @@ def add_sensor_quantity():
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def get_one_sensor_quantity(id):
-    sensor_quantity = SensorQuantity.query.get_or_404(id)
+    current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user, id)
+    sensor_quantity = Sensor_quantity.query.get_or_404(id)
+
 
     sensor_quantity_data = {}
     sensor_quantity_data['sensor_quantity_id'] = sensor_quantity.id
@@ -54,7 +59,8 @@ def get_one_sensor_quantity(id):
 @jwt_required()
 def Update_sensory_quantity(id):
     current_user = jwt_user(get_jwt_identity())
-    sensor_quantity_to_update = SensorQuantity.query.get_or_404(id)
+    authorised = auth_check(request.path, request.method, current_user, id)
+    sensor_quantity_to_update = Sensor_quantity.query.get_or_404(id)
     new_data = request.get_json()
 
     sensor_quantity_to_update.sensor_id = new_data["sensor_id"]
@@ -80,7 +86,9 @@ def Update_sensory_quantity(id):
 @jwt_required()
 def delete_sensor_quantity(id):
     current_user = jwt_user(get_jwt_identity())
-    sensor_quantity_to_delete = SensorQuantity.query.filter_by(id=id).first()
+    authorised = auth_check(request.path, request.method, current_user, id)
+    sensor_quantity_to_delete = Sensor_quantity.query.filter_by(id=id).first()
+
     if not sensor_quantity_to_delete:
         return jsonify({"message" : "No Sensor Quantity found"})
 

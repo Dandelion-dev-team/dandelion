@@ -7,6 +7,7 @@ from app.admin.views.school import getOneSchool
 from app.models import User, ExperimentParticipant, Experiment, Project, School, ProjectPartner
 from flask_cors import cross_origin
 from app import db
+from app.utils.authorisation import auth_check
 from app.utils.functions import jwt_user
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update, audit_delete
 
@@ -15,6 +16,8 @@ from app.utils.auditing import audit_create, prepare_audit_details, audit_update
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def getAllUsers():
+    current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     users = User.query.all()
     output = []
 
@@ -34,6 +37,7 @@ def getAllUsers():
 @jwt_required()
 def createUser():
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     data = request.get_json()
     user = User(
         username=data['username'],
@@ -61,6 +65,8 @@ def createUser():
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def getOneUser(id):
+    current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user, id)
     user = User.query.get_or_404(id)
 
     user_data = {}
@@ -76,7 +82,8 @@ def getOneUser(id):
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def getUserByUsername(username):
-    # user = User.query.get_or_404(username)
+    current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user, username)
     print(username)
     user = User.query.filter(User.username == username).first()
 
@@ -94,7 +101,8 @@ def getUserByUsername(username):
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def getAllSuperUsers():
-    # user = User.query.get_or_404(username)
+    current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     users = User.query.filter(User.is_superuser == True).all()
     output = []
 
@@ -113,7 +121,8 @@ def getAllSuperUsers():
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def getUsersBySchoolID(school_id):
-    # user = User.query.get_or_404(username)
+    current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user, school_id)
     users = User.query.filter(User.school_id == school_id)
     output = []
 
@@ -133,6 +142,8 @@ def getUsersBySchoolID(school_id):
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def get_users_by_school_and_experiment(school_id, experiment_id):
+    current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user, school_id, experiment_id)
 
     users = User.query.\
         join(School).\
@@ -163,6 +174,8 @@ def get_users_by_school_and_experiment(school_id, experiment_id):
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def get_user_by_project(project_id):
+    current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user, project_id)
     users = User.query.join(ExperimentParticipant).join(Experiment).join(Project).join(School).filter(
         Project.id == project_id).all()
 
@@ -180,11 +193,12 @@ def get_user_by_project(project_id):
 
 
 
-@admin.route('/user/<int:id>', methods=['GET', 'PUT'])
+@admin.route('/user/<int:id>', methods=['PUT'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def updateUser(id):
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user, id)
     user_to_update = User.query.get_or_404(id)
     new_data = request.get_json()
 
@@ -216,6 +230,7 @@ def updateUser(id):
 @jwt_required()
 def deleteUser(id):
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user, id)
     user_to_delete = User.query.filter_by(id=id).first()
     if not user_to_delete:
         return jsonify({"message": "No user found!"})
@@ -233,12 +248,3 @@ def deleteUser(id):
     except Exception as e:
         db.session.rollback()
         abort(409)
-
-    # try:
-    #     db.session.commit()
-    #     audit_create("users", user.id, current_user.id)
-    #     return jsonify({"message": message, "id": user.id})
-    #
-    # except Exception as e:
-    #     db.session.rollback()
-    #     abort(409, e.orig.msg)
