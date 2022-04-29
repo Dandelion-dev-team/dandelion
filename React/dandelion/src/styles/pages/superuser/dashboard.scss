@@ -30,9 +30,39 @@
       padding: 20px;
 
       .students-wrapper {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         h3 {
+          text-align: center;
           color: $primary;
           font-size: 1.6rem;
+        }
+        .chart {
+          height: 35%;
+          width: 100%;
+        }
+        .linebreak {
+          display: flex;
+          width: 80%;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .students-list {
+          height: 60%;
+          align-items: center;
+          justify-content: center;
+          h3 {
+            text-align: center;
+            color: black;
+            font-size: 1.5vw;
+            font-family: "Archivo Narrow";
+            letter-spacing: 0.1mm;
+          }
         }
       }
     }
@@ -54,7 +84,7 @@
         width: 100%;
 
         .title {
-         // margin-top: 10%;
+          // margin-top: 10%;
           height: 25%;
           display: flex;
           justify-content: center;
@@ -65,7 +95,6 @@
           display: flex;
           flex-direction: column;
           width: 100%;
-          justify-content: center;
           align-items: center;
           .activity {
             display: flex;
@@ -73,14 +102,15 @@
             width: 80%;
             .img {
               width: 30%;
-
             }
             .name {
               width: 65%;
+              h3 {
+                font-size: 100%;
+              }
             }
           }
         }
-
 
         h3 {
           color: $primary;
@@ -98,8 +128,20 @@
         width: 100%;
         padding: 20px;
 
+        .invite-list {
+          width: 100%;
+          height: 100%;
+
+          h3 {
+            margin-top: 10%;
+            text-align: center;
+            color: black;
+          }
+        }
+
         h3 {
           color: $primary;
+          margin-bottom: 0;
           font-size: 1.6rem;
         }
         img {
@@ -137,7 +179,7 @@
           width: 100%;
           box-shadow: 2px 3px #d3d3d3;
           min-height: fit-content;
-          border-radius: 20px;
+          border-radius: 10px;
           margin-bottom: 1.5rem;
           background-color: $accent;
           text-decoration: none;
@@ -179,7 +221,6 @@
         width: 100%;
         height: 35%;
         max-height: 35% !important;
-        background-color: red;
 
         .superuser-calendar {
           height: 100%;

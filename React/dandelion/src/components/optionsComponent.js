@@ -25,6 +25,7 @@ export default function OptionsComponent(props) {
   const [chart_selected, setChart] = useState()
   const [treatment_selected, setSelectedTreatment] = useState([])
   const [response_selected, setSelectedResponse] = useState([])
+  const [final_list, setFinalList] = useState([])
 
   const onSensorChange = sensor => {
     setSelectedSensor(sensor.sensor_ref)
@@ -48,7 +49,7 @@ export default function OptionsComponent(props) {
         last_date: to_selected,
         schools: [],
         treatment_variables: treatment_selected,
-        response_variables: response_selected,
+        response_variables: final_list,
         milestones: true,
         sensor_quantity: null,
         average_over_replicates: true,
@@ -124,11 +125,12 @@ export default function OptionsComponent(props) {
     let copy = []
     let variables = props.dataOptions.treatment_variables
     if (currentNode._depth == 0) {
-      console.log(currentNode._depth)
       variables.forEach(treatment => {
-        treatment.children.forEach(child => {
-          child.checked = true
-        })
+        if (currentNode.label == treatment.label) {
+          treatment.children.forEach(child => {
+            child.checked = true
+          })
+        }
       })
     }
     variables.forEach(treatment => {
@@ -154,31 +156,43 @@ export default function OptionsComponent(props) {
       })
       copy.push(treatment_generated)
     })
-    console.log(copy)
     setSelectedTreatment(copy)
   }
 
-  const onChangeResponse = (currentNode, selectedNodes) => {
-    let copy = [...response_selected]
-
-    if (copy.includes(currentNode.value)) {
-      copy = copy.filter(item => item !== currentNode.value)
+  const onResponseChange = (variable) => {
+    let copy = [...final_list];
+    if (copy.includes(variable.response_ref.value)) {
+        copy = (copy.filter(item => item !== variable.response_ref.value))
     } else {
-      copy.push(currentNode.value)
-    }
-    if (currentNode._depth == 0) {
-      response_selected.forEach(response => {
-        if (currentNode.value == response.value) {
-          response.checked = true
-        }
-      })
+        copy.push(variable.response_ref.value)
     }
     console.log(copy)
-    setSelectedResponse(copy)
-  }
+    setFinalList(copy);
+}
 
-  const onAction = (node, action) => {}
-  const onNodeToggle = currentNode => {}
+const ResponseVariable = variable => {
+    const [checked_value, setCheckedValue] = useState(false);
+    useEffect(() => {
+        if (final_list.includes(variable.response_ref.value)) {
+            setCheckedValue(true);
+        }
+    }, [])
+    return (
+        <div className="variable-list-item">
+          <div className="label">
+            <h3>{variable.response_ref.label}</h3>
+          </div>
+          <div className="checkbox">
+            <input type="checkbox" checked={checked_value} onChange={() => {onResponseChange(variable)}}/>
+          </div>
+        </div>
+    )
+}
+
+
+
+  const onAction = (node, action) => { }
+  const onNodeToggle = currentNode => { }
 
   return (
     <div className="options-list">
@@ -243,7 +257,7 @@ export default function OptionsComponent(props) {
         </div>
         <div className="variables">
           <div className="title">
-            <h3>Variables</h3>
+            {/* <h3>Variables</h3> */}
           </div>
           <div className="variable-pickers">
             <div className="treatment-picker">
@@ -260,21 +274,34 @@ export default function OptionsComponent(props) {
             <div className="response-picker">
               <div className="label">Response Variables:</div>
               <div className="dropdown">
-                <DropdownTreeSelect
-                  data={props.dataOptions.response_variables}
-                  onChange={onChangeResponse}
-                  onAction={onAction}
-                  onNodeToggle={onNodeToggle}
-                />
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                  >
+                    Response Variables
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <div className="project-block">
+                      {props.dataOptions.response_variables.map(response => (
+                        <ResponseVariable response_ref={response}/>
+                      ))}
+                    </div>
+                    <a target="_blank" href={sensor_selected}>{}</a>
+                  </AccordionDetails>
+                </Accordion>
               </div>
             </div>
           </div>
         </div>
         <div className="sensors">
           <div className="title">
-            <h3>Sensors</h3>
+            {/* <h3>Sensors</h3> */}
           </div>
-          <div className="accordion">
+          <div className="sensor-accordion">
+            <div className="label">Sensor:</div>
+            <div className="accordion">
             <Accordion>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
@@ -289,24 +316,33 @@ export default function OptionsComponent(props) {
                     <SensorQuantity sensor_ref={quantity} />
                   ))}
                 </div>
+                <a target="_blank" href={sensor_selected}>{}</a>
               </AccordionDetails>
             </Accordion>
           </div>
+          </div>
+          
         </div>
-        {/* <input
-          type="checkbox"
-          id="experiment_id"
-          name="topping"
-          value="experiment_ID"
-        />{" "}
-        Average over replicates
-        <input
-          type="checkbox"
-          id="experiment_id"
-          name="topping"
-          value="experiment_ID"
-        />{" "}
-        Include milestones */}
+        <div className="checkboxes">
+          <div className="average-checkbox">
+            <input
+              type="checkbox"
+              id="experiment_id"
+              name="topping"
+              value="experiment_ID"
+            />{" "}
+            Average over replicates
+          </div>
+          <div className="milestone-checkbox">
+            <input
+              type="checkbox"
+              id="experiment_id"
+              name="topping"
+              value="experiment_ID"
+            />{" "}
+            Include milestones
+          </div>
+        </div>
         <div className="generate-btn">
           <input
             type="submit"

@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react"
 import { navigate } from "gatsby"
 import "../../styles/App.scss"
 import { readRecord } from "../../utils/CRUD"
-//import { readRecord } from "../utils/CRUD"
+
 
 export default function ProjectComponent(props) {
   const [projects, setProject] = useState(0)
+
+
   //TESTED
   useEffect(() => {
     let school_id = localStorage.getItem("school_id");
@@ -19,14 +21,13 @@ export default function ProjectComponent(props) {
   var isActive = true
   var className = isActive ? "active" : '';
 
+
   return (
     <div className="project-table">
       <table className="projectList">
         <thead>
           <tr>
             <th>Title</th>
-            {/* <th>Owner</th>
-            <th>Type</th> */}
           </tr>
         </thead>
 
@@ -41,8 +42,6 @@ export default function ProjectComponent(props) {
               }}
             >
               <td>{project.title}</td>
-              {/* <td>{project.owner.substring(0, 7)}</td>
-              <td>{project.type}</td> */}
             </tbody>
           ))
           : null}

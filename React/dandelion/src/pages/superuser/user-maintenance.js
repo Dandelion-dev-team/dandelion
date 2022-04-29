@@ -6,11 +6,10 @@ import { createRecordNavigate, readRecord } from "../../utils/CRUD"
 import "../../styles/App.scss"
 import SideNav from "../../components/navigation/superUserSideNav"
 import EditIcon from "@mui/icons-material/Edit"
-import VariableListComponent from '../../components/cards/variableListComponent';
 import { ToastContainer, toast } from 'react-toastify';
-
 import 'react-toastify/dist/ReactToastify.css';
 import VariableCard from '../../components/cards/variableCard';
+
 
 export default function UserMaintenance(props) {
     //Tested
@@ -20,6 +19,7 @@ export default function UserMaintenance(props) {
 
     const [addUserList, setAddUsers] = useState([]);
     const [removeUserList, setRemoveUsers] = useState([]);
+
 
     useEffect(() => {
         if (verify_superuser_storage() == true) {
@@ -39,12 +39,12 @@ export default function UserMaintenance(props) {
     }, [])
 
     const onUpdateClick = () => {
-        if(addUserList.length > 0){
+        if (addUserList.length > 0) {
             addUserList.forEach(element => {
                 let body = JSON.stringify({
                     status: element.status
                 })
-                createRecordNavigate("/experiment_paticipant/" +  props.location.state.experiment.id + "/" + element.id, body)
+                createRecordNavigate("/experiment_paticipant/" + props.location.state.experiment.id + "/" + element.id, body)
             });
         }
         window.location.reload(false)
@@ -73,22 +73,27 @@ export default function UserMaintenance(props) {
         }
         return (
             <div className='student-row'>
-                <input classname='checkmark' type="checkbox" checked={checked_value} onChange={() => {checkboxChange(user)}}/>
+                <input classname='checkmark' type="checkbox" checked={checked_value} onChange={() => { checkboxChange(user) }} />
                 <h3>{user.user.username}</h3>
             </div>
         )
     }
+
+
 
     if (typeof window !== `undefined` && logged && experiment) {
         return (
             <div>
                 <SideNav />
                 <div className='user-maintenance-container'>
-                    <ToastContainer/>
+                    <ToastContainer />
                     <div className='content'>
                         <div className='user-pane'>
                             <div className='title'>
-                                <h3>Management for {experiment.name}:</h3>
+                                <div className='button-title'>
+                                    <h3>{experiment.name}:</h3>
+                                </div>
+
                             </div>
                             <div className='experiment-image'>
                                 <img src={experiment.image_full} />
@@ -138,15 +143,15 @@ export default function UserMaintenance(props) {
                             </div>
                             <div className='variable-list'>
                                 <h3>Treatment Variables:</h3>
-                               {experiment.responseVariables.map(response => {
-                                   return (<VariableCard mappedValue={response}/>)
-                               })}
+                                {experiment.responseVariables.map(response => {
+                                    return (<VariableCard mappedValue={response} />)
+                                })}
                             </div>
                             <div className='variable-list'>
                                 <h3>Response Variables:</h3>
                                 {experiment.treatmentVariables.map(response => {
-                                   return (<VariableCard mappedValue={response}/>)
-                               })}
+                                    return (<VariableCard mappedValue={response} />)
+                                })}
                             </div>
                         </div>
                         <div className='user-pane'>
@@ -167,7 +172,7 @@ export default function UserMaintenance(props) {
                                             type="submit"
                                             className="submitButton"
                                             value="Finished"
-                                            onClick={() => {onUpdateClick()}}
+                                            onClick={() => { onUpdateClick() }}
                                         ></input>
                                     </div>
                                     :

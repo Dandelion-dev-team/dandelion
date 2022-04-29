@@ -75,10 +75,14 @@ export default function DiscreteVariableModal(props) {
 
   const AddLevel = e => {
     let copy = [...level_list]
-    copy.push({ name: levelName, description: levelDescription, procedure: levelProcedure })
-    setLevelName("");
-    setLevelDescription("");
-    setLevelProcedure("");
+    copy.push({
+      name: levelName,
+      description: levelDescription,
+      procedure: levelProcedure,
+    })
+    setLevelName("")
+    setLevelDescription("")
+    setLevelProcedure("")
     setLevelList(copy)
   }
 
@@ -131,13 +135,14 @@ export default function DiscreteVariableModal(props) {
                 </div>
               </div>
             </div>
-            {/* Response Card List - w/ typescript component */}
-            {/* <DiscreteCardList
-                  levelList={level_list}
+            {/* Typescript files */}
+              {/* Response Card List - w/ typescript component */}
+              {/* <DiscreteCardList
+                    levelList={level_list}
 
-                  // addLevel={AddLevel}
-                  // reorderLevels={handleLevelListChange}
-                /> */}
+                    // addLevel={AddLevel}
+                    // reorderLevels={handleLevelListChange}
+                  /> */}
             <div className="right-pane">
               <div className="level-input">
                 <div className="input-item">

@@ -16,8 +16,8 @@ export default function SideNav() {
             </div>
             <Link to="/superuser/dashboard">Dashboard</Link>
             <Link to="/superuser/activity-maintenance">Activities</Link>
-            <Link to="/superuser/help">Help</Link>
-            <Link to="/superuser/alerts">Alerts</Link>
+            {/* <Link to="/superuser/help">Help</Link> */}
+            {/* <Link to="/superuser/alerts">Alerts</Link> */}
             <Link to="/superuser/school-user-maintenance">Students</Link>
             <Link to="/superuser/settings">Settings</Link>
             <div className="news-pane">

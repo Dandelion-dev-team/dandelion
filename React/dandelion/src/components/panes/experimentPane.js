@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { navigate } from "gatsby"
 import "../../styles/App.scss"
-
+import VariableCard from "../cards/variableCard"; 
 export default function ExperimentPane(props) {
   const [treatment_variables, setTreatmentVariables] = useState([])
   const [response_variables, setResponseVariables] = useState([])
@@ -15,6 +15,28 @@ export default function ExperimentPane(props) {
     setCombinations(props.dataProp.combinations)
   }, [])
 
+  const clickUseExperiment = e =>{
+    let experiment_details = {
+      code: props.dataProp.code,
+      name: props.dataProp.name,
+      description: props.dataProp.description,
+      tutorial: props.dataProp.tutorial,
+      startDate: props.dataProp.start_date,
+      endDate: props.dataProp.end_date,
+    }
+    if (typeof window !== `undefined`) {
+      navigate("/activities/create-experiment/summary", {
+        state: {
+          treatmentVariables: props.dataProp.treatmentVariables,
+          responseVariables: props.dataProp.responseVariables,
+          experimentDetails: experiment_details,
+          combinations: props.dataProp.conditions,
+          hypotheses: props.dataProp.hypotheses,
+        },
+      })
+    }
+  }
+
   return (
     <div>
       {props.dataProp ? (
@@ -27,7 +49,7 @@ export default function ExperimentPane(props) {
             </h3>
             <h3>Created by Dandelion</h3>
           </div>
-
+        {console.log(props.dataProp)}
           <div className="experiment-img">
             <img src={props.dataProp.image_full} />
           </div>
@@ -39,22 +61,33 @@ export default function ExperimentPane(props) {
             <h3>{props.dataProp.tutorial}</h3>
           </div>
 
+          <div>
+            {props.dataProp.hypotheses.map(e => (<h3>
+              {e.hypothesis_no} - {e.description}
+            </h3>))}
+          </div>
+          <div>
+            <h3>
+              Treatment variables:
+            </h3>
+            {props.dataProp.treatmentVariables.map(e => { return <VariableCard mappedValue={e}/>})}
+          </div>
+          <div>
+            <h3>
+              Response variables:
+            </h3>
+            {props.dataProp.responseVariables.map(e => { return <VariableCard mappedValue={e}/>})}
+          </div>
+          <div>
+          </div>
+
           <div className="exp-btn-row">
             <div className="spacer" />
             <div className="continue-btn">
               <button
                 className="submitButton"
                 onClick={() => {
-                  if (typeof window !== `undefined`) {
-                    navigate("/activities/create-experiment/summary", {
-                      state: {
-                        treatmentVariables: treatment_variables,
-                        responseVariables: response_variables,
-                        experimentDetails: experiment_details,
-                        combinations: combinations,
-                      },
-                    })
-                  }
+                  clickUseExperiment()
                 }}
               >
                 Use This Experiment

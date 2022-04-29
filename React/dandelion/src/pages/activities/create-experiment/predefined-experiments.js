@@ -70,7 +70,7 @@ export default function PredefinedExperiments(props) {
                       className="submitButton"
                       onClick={() => {
                         if (typeof window !== `undefined`) {
-                          navigate("/superuser/project-maintenance/")}
+                          navigate("/superuser/activity-maintenance/")}
                       }}
                     >
                       Back

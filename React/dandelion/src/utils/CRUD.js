@@ -74,8 +74,11 @@ export function readRecord(endpoint, setter) {
         .then((jsonResponse) => {
             setter(jsonResponse)
         }).catch((error) => {
+            if(error != 404){
+                console.log(error)
+                user_logout() 
+            }
             toast.error("Database error " + error)
-            console.log(error);
         });
 }
 

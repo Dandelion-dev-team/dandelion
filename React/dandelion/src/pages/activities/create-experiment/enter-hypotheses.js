@@ -4,8 +4,8 @@ import CombinationListComponent from "../../../components/cards/combinationListC
 import "../../../styles/App.scss"
 import { verify_superuser_storage } from "../../../utils/logins"
 import HypothesisCard from "../../../components/cards/hypothesisCard"
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 export default function EnterHypotheses(props) {
   const [treatment_variables, setTreatment] = useState("")
   const [response_variables, setResponse] = useState("")
@@ -18,6 +18,7 @@ export default function EnterHypotheses(props) {
 
   const [hypothesesList, setHypothesesList] = useState([])
   const [hypotheses_number, setHypothesesNumer] = useState(0)
+
   useEffect(() => {
     if (verify_superuser_storage() == true) {
       if (props.location.state) {
@@ -63,7 +64,7 @@ export default function EnterHypotheses(props) {
   if (logged) {
     return (
       <div className="hypotheses-container">
-        <ToastContainer/>
+        <ToastContainer />
         <div className="content">
           <div className="text-content">
             <h3>Enter your Hypotheses</h3>
@@ -74,50 +75,55 @@ export default function EnterHypotheses(props) {
           <div className="hypotheses-content">
             <div className="hypotheses-row">
               <div className="list">
-                {hypothesesList.length > 0
-                  ? hypothesesList.map(hypothesis => (
-                      <HypothesisCard hypothesisItem={hypothesis} />
-                    ))
-                  : null}
-                <div className="input-row">
-                  <div className="title">
-                    <h3>{hypotheses_number}. Hypothesis</h3>
-                  </div>
-                  <div className="input">
-                    <input
-                      type="text"
-                      placeholder="Hypothesis title"
-                      name="descBox"
-                      onChange={handleHypothesisTextboxChange}
-                      value={hypothesis_text_box}
-                    />
-                  </div>
+                <div className="card-list">
+                  {hypothesesList.length > 0
+                    ? hypothesesList.map(hypothesis => (
+                        <HypothesisCard hypothesisItem={hypothesis} />
+                      ))
+                    : null}
                 </div>
-                <div className="input-row">
-                  <div className="title">
-                    <h3>Description</h3>
+
+                <div className="input-area">
+                  <div className="input-row">
+                    <div className="title">
+                      <h3>{hypotheses_number}. Hypothesis</h3>
+                    </div>
+                    <div className="input">
+                      <input
+                        type="text"
+                        placeholder="Hypothesis title"
+                        name="descBox"
+                        onChange={handleHypothesisTextboxChange}
+                        value={hypothesis_text_box}
+                      />
+                    </div>
                   </div>
-                  <div className="input">
+                  <div className="input-row">
+                    <div className="title">
+                      <h3>Description</h3>
+                    </div>
+                    <div className="desc-input">
+                      <textarea
+                        type="text"
+                        placeholder="Description"
+                        name="descBox"
+                        onChange={handleHypothesisDescChange}
+                        value={hypothesis_desc_box}
+                      />
+                    </div>
+                  </div>
+                  <div className="add-btn">
                     <input
-                      type="text"
-                      placeholder="Description"
-                      name="descBox"
-                      onChange={handleHypothesisDescChange}
-                      value={hypothesis_desc_box}
-                    />
+                      type="submit"
+                      className="submitButton"
+                      value="Add Hypothesis"
+                      onClick={() => {
+                        {
+                          AddHypothesis()
+                        }
+                      }}
+                    ></input>
                   </div>
-                </div>
-                <div className="add-btn">
-                  <input
-                    type="submit"
-                    className="submitButton"
-                    value="Add Hypothesis"
-                    onClick={() => {
-                      {
-                        AddHypothesis()
-                      }
-                    }}
-                  ></input>
                 </div>
               </div>
               <div className="cont-btn">
@@ -127,20 +133,25 @@ export default function EnterHypotheses(props) {
                     className="continue-btn"
                     value="Back"
                     onClick={() => {
-                      if (
-                        typeof window !== `undefined`) {
-                        navigate("/activities/create-experiment/select-conditions", {
-                          state: {
-                            treatmentVariables: props.location.state.treatmentVariables,
-                            responseVariables: props.location.state.responseVariables,
-                            experimentDetails: props.location.state.experimentDetails,
-                          },
-                        })
+                      if (typeof window !== `undefined`) {
+                        navigate(
+                          "/activities/create-experiment/select-conditions",
+                          {
+                            state: {
+                              treatmentVariables:
+                                props.location.state.treatmentVariables,
+                              responseVariables:
+                                props.location.state.responseVariables,
+                              experimentDetails:
+                                props.location.state.experimentDetails,
+                            },
+                          }
+                        )
                       }
                     }}
                   />
                 </div>
-                <div className="spacer" />
+                {/* <div className="spacer" /> */}
                 <div className="button">
                   <input
                     type="submit"
@@ -151,15 +162,18 @@ export default function EnterHypotheses(props) {
                         typeof window !== `undefined` &&
                         hypothesesList.length > 0
                       ) {
-                        navigate("/activities/create-experiment/summary", {
-                          state: {
-                            hypotheses: hypothesesList,
-                            treatmentVariables: treatment_variables,
-                            responseVariables: response_variables,
-                            experimentDetails: experiment_details,
-                            combinations: combinations_selected,
-                          },
-                        })
+                        navigate(
+                          "/activities/create-experiment/your-observations",
+                          {
+                            state: {
+                              hypotheses: hypothesesList,
+                              treatmentVariables: treatment_variables,
+                              responseVariables: response_variables,
+                              experimentDetails: experiment_details,
+                              combinations: combinations_selected,
+                            },
+                          }
+                        )
                       }
                     }}
                   />
