@@ -14,16 +14,16 @@ from app.utils.images import image_processing
 from app.utils.uploads import get_uploaded_file
 
 
+# This route is PUBLIC
 @admin.route('/observation', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def listObservation():
-    current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
     observation = Observation.query.all()
     return json_response(data=(row2dict(x) for x in observation))
 
 
 @admin.route('/observation/<int:id>/uploadImage', methods=['POST'])
+@jwt_required()
 def upload_observation_image(id):
     current_user = jwt_user(get_jwt_identity())
     authorised = auth_check(request.path, request.method, current_user, id)

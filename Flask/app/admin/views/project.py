@@ -17,12 +17,10 @@ from app.utils.images import image_processing
 from app.utils.uploads import get_uploaded_file, content_folder
 
 
+# This route is PUBLIC
 @admin.route('/project', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
-@jwt_required()
 def listProject():
-    current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
     project = Project.query.all()
     return json_response(data=(row2dict(x, summary=True) for x in project))
 
@@ -74,12 +72,10 @@ def add_project():
         abort(409, e.orig.msg)
 
 
+# This route is PUBLIC
 @admin.route('/project/<int:id>', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
-@jwt_required()
 def get_one_project(id):
-    current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user, id)
     project = Project.query.get_or_404(id)
 
     project_data = {}

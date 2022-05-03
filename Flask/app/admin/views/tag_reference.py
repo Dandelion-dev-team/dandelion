@@ -12,13 +12,11 @@ from app.utils.authorisation import auth_check
 from app.utils.functions import row2dict, jwt_user
 
 
+# This route is PUBLIC
 @admin.route('/tagreference', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
-@jwt_required()
 def listTagReference():
-    current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
-    tag_reference = Tag_reference.query.all()
+    tag_reference = TagReference.query.all()
 
     return json_response(data=(row2dict(x, summary=True) for x in tag_reference))
 
@@ -49,13 +47,11 @@ def add_tag_reference():
         abort(409, e.orig.msg)
 
 
+# This route is PUBLIC
 @admin.route('/tagreference/<int:id>', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
-@jwt_required()
 def getOneTag_Reference(id):
-    current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user, id)
-    tag_reference = Tag_reference.query.get_or_404(id)
+    tag_reference = TagReference.query.get_or_404(id)
 
 
     tag_reference_data = {}
@@ -70,7 +66,7 @@ def getOneTag_Reference(id):
 def updateTag_Reference(id):
     current_user = jwt_user(get_jwt_identity())
     authorised = auth_check(request.path, request.method, current_user, id)
-    tag_reference_to_update = Tag_reference.query.get_or_404(id)
+    tag_reference_to_update = TagReference.query.get_or_404(id)
 
     new_data = request.get_json()
 
@@ -97,7 +93,7 @@ def updateTag_Reference(id):
 def delete_tag_reference(id):
     current_user = jwt_user(get_jwt_identity())
     authorised = auth_check(request.path, request.method, current_user, id)
-    tag_reference_to_delete = Tag_reference.query.filter_by(id=id).first()
+    tag_reference_to_delete = TagReference.query.filter_by(id=id).first()
 
     if not tag_reference_to_delete:
         return jsonify({"message": "No Tag Reference found"})

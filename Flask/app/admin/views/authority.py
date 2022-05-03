@@ -12,12 +12,10 @@ from app.utils.authorisation import auth_check
 from app.utils.functions import row2dict, jwt_user
 
 
+# This route is PUBLIC
 @admin.route('/authority', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
-@jwt_required()
 def listAuthority():
-    current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
     authority = Authority.query.all()
     return json_response(data=(row2dict(x, summary=True) for x in authority))
 
@@ -49,12 +47,10 @@ def add_authority():
         abort(409, e.orig.msg)
 
 
+# This route is PUBLIC
 @admin.route('/authority/<int:id>', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
-@jwt_required()
 def get_one_authority(id):
-    current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user, id)
     authority = Authority.query.get_or_404(id)
 
     authority_data = {}
