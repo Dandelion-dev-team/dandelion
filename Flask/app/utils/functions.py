@@ -1,4 +1,6 @@
 import functools
+
+from app import db
 from app.models.users import User
 
 
@@ -8,7 +10,7 @@ def row2dict(row, summary=False):
         try:
             summary_columns = row.summary_columns
         except:
-            summary=False
+            summary = False
 
     d = {}
 
@@ -22,7 +24,7 @@ def row2dict(row, summary=False):
     return d
 
 
-def jwt_user (username):
+def jwt_user(username):
     return User.query.filter(User.username == username).first()
 
 
@@ -35,4 +37,10 @@ def rsetattr(obj, attr, val):
 def rgetattr(obj, attr, *args):
     def _getattr(obj, attr):
         return getattr(obj, attr, *args)
+
     return functools.reduce(_getattr, [obj] + attr.split('.'))
+
+
+def is_username_taken(username):
+    return db.session.query(db.exists().where(User.username == username)).scalar()
+
