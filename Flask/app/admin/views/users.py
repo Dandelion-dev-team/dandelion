@@ -309,7 +309,7 @@ def updateUserStatus(id):
 
     audit_details = prepare_audit_details(inspect(User), user_status_to_update, delete=False)
 
-    message = "User status has been updated from unallocated to active"
+    message = "User status has been updated from unallocated to active, now they can and should update their password"
 
     if len(audit_details) > 0:
         try:
