@@ -10,7 +10,7 @@ from app.admin.views.school import getOneSchool
 from app.models import User, ExperimentParticipant, Experiment, Project, School, ProjectPartner
 from flask_cors import cross_origin
 from app import db
-from app.utils.functions import jwt_user
+from app.utils.functions import jwt_user, is_username_taken
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update, audit_delete
 
 
@@ -68,7 +68,6 @@ def getOneUser(id):
 
     user_data = {}
     user_data['username'] = user.username
-    # user_data['password'] = user.password_hash
     user_data['school_id'] = user.school_id
     user_data['user_id'] = user.id
 
@@ -116,7 +115,6 @@ def getAllSuperUsers():
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def getUsersBySchoolID(school_id):
-    # user = User.query.get_or_404(username)
     users = User.query.filter(User.school_id == school_id)
     output = []
 
@@ -234,15 +232,6 @@ def deleteUser(id):
         db.session.rollback()
         abort(409)
 
-    # try:
-    #     db.session.commit()
-    #     audit_create("users", user.id, current_user.id)
-    #     return jsonify({"message": message, "id": user.id})
-    #
-    # except Exception as e:
-    #     db.session.rollback()
-    #     abort(409, e.orig.msg)
-
 
 @admin.route('/user/create_account/multiple', methods=['POST'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
@@ -253,21 +242,42 @@ def create_multiple_accounts():
     school_id = multiple_accounts['school_id']
     school = School.query.filter(School.id == school_id).with_entities(School.name).first()
     school_name = school.name
-    animal_list = ['Panda', 'Giraffe', 'Rabbit', 'Fox', 'Elephant', 'Hamster', 'Turtle', 'Lion', 'Bee', 'Dolphin']
+    animal_list = ['Panda', 'Giraffe', 'Rabbit', 'Fox', 'Elephant', 'Hamster', 'Turtle', 'Lion', 'Bee', 'Dolphin',
+                   'Frog', 'Penguin', 'Pony', 'Horse', 'Donkey', 'Duck', 'Kangaroo']
     accounts_number = multiple_accounts['accounts_number']
+    school_first_word = school_name.split()[0]
 
     for i in range(accounts_number):
-        # for data in multiple_accounts:
-        number = str(randint(1, 99))
         animal = random.choice(animal_list)
+        number = str(randint(10, 999))
         user = User(
-            username=str(animal + number),
-            password=str(animal + number),
+            username=str(school_first_word + animal + number),
+            password=str(school_first_word + animal + number),
             school_id=multiple_accounts['school_id'],
             is_superuser=False,
             is_sysadmin=False,
             status="unallocated"
         )
+
+        if is_username_taken(user.username):
+
+            username_exists = True
+
+            while username_exists:
+                number = int(number)
+
+                if 10 <= number < 999:
+                    number = number + 1
+                elif number == 999:
+                    number = number - 980
+                number = str(number)
+                animal = random.choice(animal_list)
+                user.username = str(school_first_word + animal + number)
+
+                if is_username_taken(user.username):
+                    username_exists = True
+                else:
+                    username_exists = False
 
         db.session.add(user)
 
@@ -281,10 +291,11 @@ def create_multiple_accounts():
 
     message = "Multiple user accounts have been created"
 
-    return {"message": message}
+    return {"message": message, "number of accounts created": accounts_number}
 
 
-@admin.route('/user/updatestatus/<int:id>', methods=['PUT']) #Updates the new user account status from unallocated to active
+@admin.route('/user/updatestatus/<int:id>',
+             methods=['PUT'])  # Updates the new user account status from unallocated to active
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def updateUserStatus(id):
