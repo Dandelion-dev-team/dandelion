@@ -1,8 +1,10 @@
+import datetime
+
 from flask import abort, jsonify, request
 from flask_cors import cross_origin
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from sqlalchemy import inspect
-from sqlalchemy.sql.functions import user
+from sqlalchemy.sql.functions import user, now
 
 from app.admin import admin
 from app.models import Issue
@@ -119,7 +121,7 @@ def updateIssueDetails(issue_id):
             abort(409)
 
 
-@admin.route('/issue/note/<int:issue_id>', methods=['PUT']) #This route works only if there is already a note in the issue due to the if len(audit_details) > 0 line. If the note cell is blank, it crashes
+@admin.route('/issue/note/<int:issue_id>', methods=['PUT'])  # This route works only if there is already a note in the issue due to the if len(audit_details) > 0 line. If the note cell is blank, it crashes
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def addNote(issue_id):
@@ -127,7 +129,16 @@ def addNote(issue_id):
     issue_to_update = Issue.query.get_or_404(issue_id)
     new_data = request.get_json()
 
-    issue_to_update.notes = new_data['notes']
+    now = datetime.datetime.now()
+
+    issue_to_update.notes = (issue_to_update.notes +
+                             "\n\n" +
+                             now.strftime("%m/%d/%Y, %H:%M:%S") +
+                             "\n" +
+                             current_user.username +
+                             # current_user.first_name + " " + current_user.last_name + # db users table only has username
+                             "\n" +
+                             new_data["notes"])
 
     audit_details = prepare_audit_details(inspect(Issue), issue_to_update, delete=False)
 
@@ -144,7 +155,8 @@ def addNote(issue_id):
             abort(409)
 
 
-@admin.route('/issue/close/<int:issue_id>', methods=['PUT']) #This Route changes the status of an issue to closed. It does not delete it.
+@admin.route('/issue/close/<int:issue_id>',
+             methods=['PUT'])  # This Route changes the status of an issue to closed. It does not delete it.
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def closeIssue(issue_id):
@@ -177,6 +189,3 @@ def uploadIssueImage(issue_id):
     image_processing(pic, 'issue', issue_id, filename)
 
     return {"message": "Issue image has been uploaded"}
-
-
-
