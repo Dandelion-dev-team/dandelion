@@ -8,14 +8,16 @@ from app.admin import admin
 from app.models import ProjectLeader, project_leader
 from app import db
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update, audit_delete
+from app.utils.authorisation import auth_check
 from app.utils.functions import row2dict, jwt_user
 
 
+# This route is PUBLIC
 @admin.route('/project_leader', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
-@jwt_required()
 def listProjectLeader():
     project_leader = ProjectLeader.query.all()
+
     return json_response(data=(row2dict(x, summary=False) for x in project_leader))
 
 
@@ -24,6 +26,7 @@ def listProjectLeader():
 @jwt_required()
 def add_project_leader():
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     data = request.get_json()
     project_leader = ProjectLeader(
         project_id = data['project_id'],
@@ -45,11 +48,12 @@ def add_project_leader():
         abort(409, e.orig.msg)
 
 
+# This route is PUBLIC
 @admin.route('/project_leader/<int:id>', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
-@jwt_required()
 def get_one_project_leader(id):
     project_leader = ProjectLeader.query.get_or_404(id)
+
 
     project_leader_data = {}
     project_leader_data['project_leader_id'] = project_leader.id
@@ -65,7 +69,9 @@ def get_one_project_leader(id):
 @jwt_required()
 def update_project_leader(id):
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user, id)
     project_leader_to_update = ProjectLeader.query.get_or_404(id)
+
     new_data = request.get_json()
 
     project_leader_to_update.project_id = new_data['project_id']
@@ -92,7 +98,9 @@ def update_project_leader(id):
 @jwt_required()
 def delete_project_leader(id):
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user, id)
     project_leader_to_delete = ProjectLeader.query.filter_by(id=id).first()
+
     if not project_leader_to_delete:
         return jsonify({"message" : "No Project found"})
 

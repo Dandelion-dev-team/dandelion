@@ -29,8 +29,8 @@ export default function CrudComponent(props) {
           </tr>
         </thead>
 
-        {users.users ? 
-        users.users.map(user => (
+        {users.user ? 
+        users.user.map(user => (
           <tbody key={user.id}>
             <td>{user.school_id}</td>
             <td>{user.username}</td>

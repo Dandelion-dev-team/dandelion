@@ -10,15 +10,19 @@ import Placeholder from "../../images/node-placeholder.png"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import { readAdminRecord, readRecord } from "../../utils/CRUD"
+import InviteCard from "../../components/cards/inviteCard"
 export default function SuperuserDashboard(props) {
   const [logged, setLogged] = useState("")
   const [projectList, setProjectList] = useState([])
-
+  const [inviteList, setInvites] = useState([])
+  const [school_users, setSchoolUsers] = useState([])
   useEffect(() => {
     if (verify_superuser_storage() == true) {
       setLogged(true)
       let schoolId = localStorage.getItem("school_id")
       readRecord("/project_partner/byschool/" + schoolId, setProjectList)
+      readRecord("/project_partner/" + schoolId, setInvites)
+      readRecord("/user/byschool/" + schoolId, setSchoolUsers)
     } else {
       navigate("/signin")
     }
@@ -34,31 +38,44 @@ export default function SuperuserDashboard(props) {
             <div className="students-pane">
               <div className="students-wrapper">
                 <h3>Students</h3>
+                <div className="chart">
+
+                </div>
+                <hr className="linebreak"/>
+                <div className="students-list">
+                {school_users.users ? school_users.users.map(e => {
+                  return(<h3>{e.username}</h3>)
+                }) : null}
+                </div>
               </div>
             </div>
             <div className="middle-pane">
               <div className="projects-widget">
                 <div className="title">
-                  <h3>Activities</h3>
+                  <h3>Your Activities</h3>
                 </div>
                 <div className="activity-list">
                   {projectList
                     ? projectList.map(project => (
-                        <div className="activity">
-                          <div className="img">
-                            <img src={project.image_thumb}/>
-                          </div>
-                          <div className="name">
-                            <h3>{project.title}</h3>
-                          </div>
+                      <div className="activity">
+                        <div className="img">
+                          <img src={project.image_thumb} />
                         </div>
-                      ))
+                        <div className="name">
+                          <h3>{project.title}</h3>
+                        </div>
+                      </div>
+                    ))
                     : null}
                 </div>
               </div>
               <div className="node-widget">
-                <h3>Node</h3>
-                <img src={Placeholder}></img>
+                <h3>Invites</h3>
+                <div className="invite-list">
+                  {inviteList.data ? inviteList.data.length > 0 ? inviteList.data.map(invite => (
+                    <InviteCard alert={invite} />
+                  )) :  <h3>No Pending Invites.</h3> : null}
+                </div>
               </div>
             </div>
             <div className="help-pane">

@@ -12,6 +12,7 @@ from app.admin import admin
 from app.models import Node
 from app import db
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update, audit_delete
+from app.utils.authorisation import auth_check
 from app.utils.functions import row2dict, jwt_user
 import pandas as pd
 from pandas import DataFrame, read_csv
@@ -23,6 +24,8 @@ from app.utils.uploads import content_folder
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def listNode():
+    current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     node = Node.query.all()
     return json_response(data=(row2dict(x, summary=True) for x in node))
 
@@ -32,6 +35,7 @@ def listNode():
 @jwt_required()
 def add_node():
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     data = request.get_json()
     node = Node(
         school_id=data['school_id'],
@@ -62,6 +66,9 @@ def add_node():
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def get_one_node(id):
+    current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user, id)
+
     node = Node.query.get_or_404(id)
 
     node_data = {}
@@ -82,6 +89,7 @@ def get_one_node(id):
 @jwt_required()
 def updateNode(id):
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user, id)
     node_to_update = Node.query.get_or_404(id)
     new_data = request.get_json()
 
@@ -113,6 +121,7 @@ def updateNode(id):
 @jwt_required()
 def delete_node(id):
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user, id)
     node_to_delete = Node.query.filter_by(id=id).first()
     if not node_to_delete:
         return jsonify({"message": "No Node found"})
@@ -132,39 +141,42 @@ def delete_node(id):
         abort(409, e.orig.msg)
 
 
-@admin.route('/node/<int:id>/uploadData', methods=['POST'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
-@jwt_required()
-def upload_data(id):
-    Node.query.get_or_404(id)  # if node id doens't exist, it returns a 404 message
-    id = str(id)
-    json_data = request.get_json()
+# @admin.route('/node/<int:id>/uploadData', methods=['POST'])
+# @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
+# @jwt_required()
+# def upload_data(id):
+#     current_user = jwt_user(get_jwt_identity())
+#     authorised = auth_check(request.path, request.method, current_user, id)
+#
+#     Node.query.get_or_404(id)  # if node id doens't exist, it returns a 404 message
+#     id = str(id)
+#     json_data = request.get_json()
+#
+#     s = json.dumps(json_data)
+#     j = json.loads(s)  # <-- Convert JSON string, s, to JSON object, j, with j = json.loads(s)
+#
+#     for cube_level in ('top', 'middle', 'bottom'):
+#
+#         new_data_df = pd.DataFrame(j[cube_level], index=[j["timestamp"]])
+#         new_data_df.index = pd.to_datetime(new_data_df.index)
+#         new_data_df.index.name = "timestamp"
+#
+#         newdir = os.path.join(content_folder("DATA_ROOT", id, "FLASK", upload=True))
+#
+#         try:
+#             df = pd.read_csv(os.path.join(newdir, cube_level + '.csv'), index_col="timestamp")
+#             df = pd.concat([df, new_data_df])
+#         except:
+#             df = new_data_df
+#         df.to_csv(os.path.join(newdir, cube_level + '.csv'))
+#
+#     message = "Node Data uploaded"
+#     return jsonify({"message" : message})
 
-    s = json.dumps(json_data)
-    j = json.loads(s)  # <-- Convert JSON string, s, to JSON object, j, with j = json.loads(s)
 
-    for cube_level in ('top', 'middle', 'bottom'):
-
-        new_data_df = pd.DataFrame(j[cube_level], index=[j["timestamp"]])
-        new_data_df.index = pd.to_datetime(new_data_df.index)
-        new_data_df.index.name = "timestamp"
-
-        newdir = os.path.join(content_folder("DATA_ROOT", id, "FLASK", upload=True))
-
-        try:
-            df = pd.read_csv(os.path.join(newdir, cube_level + '.csv'), index_col="timestamp")
-            df = pd.concat([df, new_data_df])
-        except:
-            df = new_data_df
-        df.to_csv(os.path.join(newdir, cube_level + '.csv'))
-
-    message = "Node Data uploaded"
-    return jsonify({"message" : message})
-
-
+# This route is PUBLIC
 @admin.route('/node/latest/<int:node_id>', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
-@jwt_required()
 def get_latest_data(node_id):
     Node.query.get_or_404(node_id)  # if node id doens't exist, it returns a 404 message
     str(node_id)
@@ -217,20 +229,4 @@ def get_latest_data(node_id):
             out_bottom.append(output_bottom)
 
     return jsonify({'top': output_top , 'middle' : output_middle, 'bottom' : output_bottom})
-
-
-
-
-
-
-        # if cube_level == "top":
-        #     last_row = df_to_read.iloc[-1]
-        #     output_top = last_row.to_json()
-        # elif cube_level == "middle":
-        #     last_row = df_to_read.iloc[-1]
-        #     output_middle = last_row.to_json()
-        # else:
-        #     last_row = df_to_read.iloc[-1]
-        #     output_bottom = last_row.to_json()
-
 

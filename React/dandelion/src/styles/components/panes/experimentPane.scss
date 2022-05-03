@@ -45,12 +45,14 @@
     .exp-btn-row {
       display: flex;
       flex-direction: column;
-
+      margin-top: auto;
+      align-items: flex-end;
       .spacer {
         width: 65%;
       }
       .continue-btn {
         margin-left: auto;
+        align-items: flex-end;
         .submitButton {
           background-color: $accent;
           color: $primary;

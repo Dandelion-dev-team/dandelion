@@ -1,4 +1,4 @@
-from flask import abort, jsonify
+from flask import abort, jsonify, request
 from flask_cors import cross_origin
 from flask_json import json_response
 from flask_jwt_extended import jwt_required, get_jwt_identity
@@ -8,9 +8,11 @@ from app.admin.views.level import create_level
 from app.models import Variable, Response, variable, ResponseVariable, Level
 from app import db
 from app.utils.auditing import audit_create
+from app.utils.authorisation import auth_check
 from app.utils.functions import row2dict, jwt_user
 
 
+# This route is PUBLIC
 @admin.route('/variable/<int:id>', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def getFullVariable(id):
@@ -40,8 +42,7 @@ def getFullVariable(id):
     return data
 
 
-
-
+# This route is PUBLIC
 @admin.route('/allVariables', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def listAllVariable():
@@ -79,6 +80,7 @@ def listAllVariable():
     return jsonify({'Treatment Variables': output}, {'Response Variables': output2})
 
 
+# This route is PUBLIC
 @admin.route('/discreteVariable', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def listAlldiscreteVariable():
@@ -101,7 +103,7 @@ def listAlldiscreteVariable():
 @jwt_required()
 def create_variable(variable_dict):
     current_user = jwt_user(get_jwt_identity())
-
+    authorised = auth_check(request.path, request.method, current_user)
     variable = Variable(
         name=variable_dict["name"],
         status='active',

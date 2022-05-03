@@ -25,9 +25,20 @@ def create_app(config_name):
 
     from app import models
 
-    # logging.basicConfig(filename=app.config['LOGFILE'],
-    #                     level=app.config['LOGLEVEL'],
-    #                     format='%(asctime)s %(levelname)s %(name)s %(threadName)s: %(message)s')
+    if app.config['LOGLEVEL'] == 'DEBUG':
+        level = logging.DEBUG
+    elif app.config['LOGLEVEL'] == 'INFO':
+        level = logging.INFO
+    elif app.config['LOGLEVEL'] == 'WARNING':
+        level = logging.WARNING
+    elif app.config['LOGLEVEL'] == 'ERROR':
+        level = logging.ERROR
+    else:
+        level = logging.NOTSET
+
+    logging.basicConfig(filename=app.config['LOGFILE'],
+                        level=level,
+                        format='%(asctime)s %(levelname)s %(name)s %(threadName)s: %(message)s')
 
     from .public import public as public_blueprint
     app.register_blueprint(public_blueprint, url_prefix='/api')

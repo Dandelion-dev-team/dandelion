@@ -1,30 +1,25 @@
 import React, { useEffect, useState } from "react"
 import "../../styles/App.scss"
+import { readRecord } from "../../utils/CRUD"
 
 export default function MapModalCard(props) {
   const [project, setProject] = useState(0)
 
   useEffect(() => {
-    // fetch(process.env.ROOT_URL + "/projects", {
-    //   method: "GET",
-    //   headers: new Headers({
-    //     "Cache-Control": "no-cache, no-store, must-revalidate",
-    //     Pragma: "no-cache",
-    //     Expires: 0,
-    //   }),
-    // })
-    //   .then(response => response.json())
-    //   .then(data => setProject(data))
+    console.log( "/project_partner/byschool/" + props.id)
+    readRecord(
+      "/project_partner/byschool/" + props.id, setProject
+    )
   }, [])
   
 
   return (
     <div>
       {project
-        ? project.map(project => (
+        ? project.length > 0 ? project.map(project => (
             <div className="modal-card">
               <div className="card-img">
-                <img src={project.project_image_link} />
+                <img src={project.image_full} />
               </div>
               <div className="card-details">
                 <div className="owner">
@@ -39,7 +34,7 @@ export default function MapModalCard(props) {
               </div>
             </div>
           ))
-        : null}
+       : <h3>This school is not currently a part of any projects.</h3> : null}
     </div>
   )
 }

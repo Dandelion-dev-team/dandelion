@@ -8,11 +8,13 @@ from app.admin import admin
 from app.models import Observation
 from app import db
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update, audit_delete
+from app.utils.authorisation import auth_check
 from app.utils.functions import row2dict, jwt_user
 from app.utils.images import image_processing
 from app.utils.uploads import get_uploaded_file
 
 
+# This route is PUBLIC
 @admin.route('/observation', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def listObservation():
@@ -21,7 +23,10 @@ def listObservation():
 
 
 @admin.route('/observation/<int:id>/uploadImage', methods=['POST'])
+@jwt_required()
 def upload_observation_image(id):
+    current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user, id)
     pic, filename = get_uploaded_file(request)
     image_processing(pic, 'observation', id, filename)
 
@@ -33,6 +38,7 @@ def upload_observation_image(id):
 @jwt_required()
 def addObservation():
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     data = request.get_json()
 
     observation = Observation(
@@ -64,6 +70,7 @@ def addObservation():
 @jwt_required()
 def addMultipleObservations():
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     multiple_data = request.get_json()
 
     for data in multiple_data:
@@ -94,11 +101,12 @@ def addMultipleObservations():
     return {"message": message}
 
 
-@admin.route('/observation/<int:observation_id>', methods=['GET', 'PUT'])
+@admin.route('/observation/<int:observation_id>', methods=['PUT'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def updateObservationStatus(observation_id):
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user, observation_id)
     observation_status_to_update = Observation.query.get_or_404(observation_id)
     new_data = request.get_json()
 
@@ -119,11 +127,12 @@ def updateObservationStatus(observation_id):
             abort(409)
 
 
-@admin.route('/observation/update/<int:observation_id>', methods=['GET', 'PUT'])
+@admin.route('/observation/update/<int:observation_id>', methods=['PUT'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def updateObservation(observation_id):
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user, observation_id)
     observation_to_update = Observation.query.get_or_404(observation_id)
     new_data = request.get_json()
 
@@ -149,6 +158,8 @@ def updateObservation(observation_id):
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def getObservationbyuser(user_id):
+    current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user, user_id)
     observations = Observation.query.filter(Observation.created_by == user_id)
     output = []
 
@@ -166,11 +177,13 @@ def getObservationbyuser(user_id):
 
     return jsonify({'users': output})
 
+
 @admin.route('/observation/delete/<int:observation_id>', methods=['DELETE'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def deleteObservation(observation_id):
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user, observation_id)
     observation_to_delete = Observation.query.filter_by(id=observation_id).first()
     if not observation_to_delete:
         return jsonify({"message": "No observation found!"})

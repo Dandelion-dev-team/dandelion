@@ -5,6 +5,8 @@ from flask_jwt_extended import get_jwt_identity, jwt_required
 from sqlalchemy import inspect
 from sqlalchemy.sql.functions import user
 import os
+
+from app.utils.authorisation import auth_check
 from app.utils.uploads import get_uploaded_file, content_folder
 
 from app.admin import admin
@@ -18,6 +20,8 @@ from app.utils.functions import row2dict, jwt_user
 @admin.route('/experiment_participant', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def listExperiment_participant():
+    current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     experiment_participant = ExperimentParticipant.query.all()
     return json_response(data=(row2dict(x, summary=True) for x in experiment_participant))
 
@@ -27,6 +31,7 @@ def listExperiment_participant():
 @jwt_required()
 def addExperiment_participant():
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     data = request.get_json()
 
     experiment_participant = ExperimentParticipant(
@@ -52,6 +57,8 @@ def addExperiment_participant():
 @admin.route('/experiment_participant/<int:user_id>', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def experiments_by_participant(user_id):
+    current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user, user_id)
     participating = ExperimentParticipant.query.filter(ExperimentParticipant.user_id == user_id).all()
 
     output = []
@@ -68,12 +75,12 @@ def experiments_by_participant(user_id):
     return jsonify({'data': output})
 
 
-@admin.route('/experiment_paticipant/<int:experiment_id>/<int:user_id>', methods=['POST'])
+@admin.route('/experiment_participant/<int:experiment_id>/<int:user_id>', methods=['POST'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def add_new_experiment_participant(experiment_id, user_id):
     current_user = jwt_user(get_jwt_identity())
-
+    authorised = auth_check(request.path, request.method, current_user, experiment_id, user_id)
     data = request.get_json()
     participant = ExperimentParticipant(
         user_id=user_id,
@@ -94,12 +101,13 @@ def add_new_experiment_participant(experiment_id, user_id):
         abort(409, e.orig.msg)
 
 
-@admin.route('/experiment_paticipant/updatestatus/<int:experiment_paticipant_id>', methods=['GET', 'PUT'])
+@admin.route('/experiment_participant/updatestatus/<int:experiment_participant_id>', methods=['PUT'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
-def updateExperimentParticipantStatus(experiment_paticipant_id):
+def updateExperimentParticipantStatus(experiment_participant_id):
     current_user = jwt_user(get_jwt_identity())
-    experiment_participant_to_update = ExperimentParticipant.query.get_or_404(experiment_paticipant_id)
+    authorised = auth_check(request.path, request.method, current_user, experiment_participant_id)
+    experiment_participant_to_update = ExperimentParticipant.query.get_or_404(experiment_participant_id)
     new_data = request.get_json()
 
     experiment_participant_to_update.status = new_data['status']
@@ -120,12 +128,13 @@ def updateExperimentParticipantStatus(experiment_paticipant_id):
             abort(409)
 
 
-@admin.route('/experiment_paticipant/delete/<int:experiment_paticipant_id>', methods=['DELETE'])
+@admin.route('/experiment_participant/delete/<int:experiment_participant_id>', methods=['DELETE'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
-def deleteΕxperimentPaticipant(experiment_paticipant_id):
+def deleteΕxperimentPaticipant(experiment_participant_id):
     current_user = jwt_user(get_jwt_identity())
-    experiment_participant_to_delete = ExperimentParticipant.query.filter_by(id=experiment_paticipant_id).first()
+    authorised = auth_check(request.path, request.method, current_user, experiment_participant_id)
+    experiment_participant_to_delete = ExperimentParticipant.query.filter_by(id=experiment_participant_id).first()
     if not experiment_participant_to_delete:
         return jsonify({"message": "No experiment participant found!"})
 

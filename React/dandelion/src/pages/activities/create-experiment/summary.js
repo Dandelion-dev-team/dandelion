@@ -38,7 +38,7 @@ export default function Summary(props) {
     if (verify_superuser_storage() == true) {
       setLogged(true)
       if (props.location.state) {
-        var result = []
+        console.log(props.location.state)
         setTreatmentVariables(props.location.state.treatmentVariables)
         setResponseVariables(props.location.state.responseVariables)
         setExperimentDetails(props.location.state.experimentDetails)
@@ -48,10 +48,6 @@ export default function Summary(props) {
         setStartDate(props.location.state.experimentDetails.startDate)
         setEndDate(props.location.state.experimentDetails.endDate)
         setHypotheses(props.location.state.hypotheses)
-
-        props.location.state.combinations.forEach(array => {
-          result.push(array)
-        })
 
       } else {
         if (typeof window !== `undefined`) {
