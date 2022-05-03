@@ -18,10 +18,7 @@ from app.utils.uploads import get_uploaded_file
 
 @admin.route('/school', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
-@jwt_required()
 def listSchool():
-    current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
     school = School.query.all()
     return json_response(data=(row2dict(x, summary=True) for x in school))
 
@@ -64,10 +61,7 @@ def add_school():
 
 @admin.route('/school/<int:id>', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
-@jwt_required()
 def getOneSchool(id):
-    current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user, id)
     school = School.query.get_or_404(id)
 
     school_data = {}

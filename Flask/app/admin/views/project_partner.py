@@ -16,10 +16,7 @@ from app.utils.uploads import content_folder
 
 @admin.route('/project_partner', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
-@jwt_required()
 def listProjectPartner():
-    current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
     project_partner = ProjectPartner.query.all()
     return json_response(data=(row2dict(x, summary=False) for x in project_partner))
 
@@ -79,10 +76,7 @@ def add_project_partner_by_invite(project_id, school_id):
 
 @admin.route('/project_partner/<int:school_id>', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
-@jwt_required()
 def ListAllSchoolInvitations(school_id):
-    current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user, school_id)
     invited_schools = ProjectPartner.query. \
         join(School). \
         join(Project). \

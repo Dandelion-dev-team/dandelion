@@ -14,11 +14,8 @@ from app.utils.functions import row2dict, jwt_user
 
 @admin.route('/project_leader', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
-@jwt_required()
 def listProjectLeader():
-    current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
-    project_leader = Project_leader.query.all()
+    project_leader = ProjectLeader.query.all()
 
     return json_response(data=(row2dict(x, summary=False) for x in project_leader))
 
@@ -52,11 +49,8 @@ def add_project_leader():
 
 @admin.route('/project_leader/<int:id>', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
-@jwt_required()
 def get_one_project_leader(id):
-    current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user, id)
-    project_leader = Project_leader.query.get_or_404(id)
+    project_leader = ProjectLeader.query.get_or_404(id)
 
 
     project_leader_data = {}
@@ -74,7 +68,7 @@ def get_one_project_leader(id):
 def update_project_leader(id):
     current_user = jwt_user(get_jwt_identity())
     authorised = auth_check(request.path, request.method, current_user, id)
-    project_leader_to_update = Project_leader.query.get_or_404(id)
+    project_leader_to_update = ProjectLeader.query.get_or_404(id)
 
     new_data = request.get_json()
 
@@ -103,7 +97,7 @@ def update_project_leader(id):
 def delete_project_leader(id):
     current_user = jwt_user(get_jwt_identity())
     authorised = auth_check(request.path, request.method, current_user, id)
-    project_leader_to_delete = Project_leader.query.filter_by(id=id).first()
+    project_leader_to_delete = ProjectLeader.query.filter_by(id=id).first()
 
     if not project_leader_to_delete:
         return jsonify({"message" : "No Project found"})

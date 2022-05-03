@@ -176,11 +176,7 @@ def upload_data(id):
 
 @admin.route('/node/latest/<int:node_id>', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
-@jwt_required()
 def get_latest_data(node_id):
-    current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user, node_id)
-
     Node.query.get_or_404(node_id)  # if node id doens't exist, it returns a 404 message
     str(node_id)
 

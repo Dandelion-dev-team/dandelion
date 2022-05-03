@@ -14,10 +14,7 @@ from app.utils.functions import row2dict, jwt_user
 
 @admin.route('/sensor', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
-@jwt_required()
 def listSensor():
-    current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
     sensor = Sensor.query.all()
     return json_response(data=(row2dict(x, summary=False) for x in sensor))
 
@@ -53,10 +50,7 @@ def add_sensor():
 
 @admin.route('/sensor/<int:id>', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
-@jwt_required()
 def get_one_sensor(id):
-    current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user, id)
     sensor = Sensor.query.get_or_404(id)
 
     sensor_data = {}
