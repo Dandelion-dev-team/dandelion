@@ -55,7 +55,7 @@ def getOneIssue(issue_id):
     issue_data['priority'] = issue.priority
     issue_data['status'] = issue.status
 
-    return jsonify({'isssue': issue_data})
+    return jsonify({'issue': issue_data})
 
 
 @admin.route('/issue', methods=['POST'])
