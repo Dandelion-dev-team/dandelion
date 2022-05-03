@@ -16,6 +16,8 @@ from app.utils.uploads import content_folder
 
 from app.utils.uploads import get_uploaded_file
 
+
+# This route is PUBLIC
 @admin.route('/school', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def listSchool():
@@ -59,6 +61,7 @@ def add_school():
         abort(409, e.orig.msg)
 
 
+# This route is PUBLIC
 @admin.route('/school/<int:id>', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def getOneSchool(id):
@@ -81,11 +84,6 @@ def getOneSchool(id):
     school_data['image_thumb'] = os.path.join(content_folder('school', id, 'image'), 'thumb.png')
 
     return {'school': school_data}
-
-
-
-
-
 
 
 @admin.route('/school/<int:id>', methods=['PUT'])
@@ -151,6 +149,8 @@ def delete_school(id):
 
 
 @admin.route('/school/<int:id>/uploadImage', methods=['POST'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
+@jwt_required()
 def upload_school_image(id):
     current_user = jwt_user(get_jwt_identity())
     authorised = auth_check(request.path, request.method, current_user, id)

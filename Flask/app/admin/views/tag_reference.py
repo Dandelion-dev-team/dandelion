@@ -12,6 +12,7 @@ from app.utils.authorisation import auth_check
 from app.utils.functions import row2dict, jwt_user
 
 
+# This route is PUBLIC
 @admin.route('/tagreference', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def listTagReference():
@@ -46,12 +47,10 @@ def add_tag_reference():
         abort(409, e.orig.msg)
 
 
+# This route is PUBLIC
 @admin.route('/tagreference/<int:id>', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
-@jwt_required()
 def getOneTag_Reference(id):
-    current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user, id)
     tag_reference = TagReference.query.get_or_404(id)
 
 

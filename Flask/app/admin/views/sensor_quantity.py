@@ -37,6 +37,7 @@ def add_sensor_quantity():
         abort(409, e.orig.msg)
 
 
+# This route is PUBLIC
 @admin.route('/sensorQuantity/<int:id>', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def get_one_sensor_quantity(id):

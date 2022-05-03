@@ -17,6 +17,7 @@ from app.utils.images import image_processing
 from app.utils.uploads import get_uploaded_file, content_folder
 
 
+# This route is PUBLIC
 @admin.route('/project', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def listProject():
@@ -71,6 +72,7 @@ def add_project():
         abort(409, e.orig.msg)
 
 
+# This route is PUBLIC
 @admin.route('/project/<int:id>', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def get_one_project(id):

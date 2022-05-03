@@ -12,6 +12,7 @@ from app.utils.authorisation import auth_check
 from app.utils.functions import row2dict, jwt_user
 
 
+# This route is PUBLIC
 @admin.route('/sensor', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def listSensor():
@@ -48,6 +49,7 @@ def add_sensor():
         abort(409, e.orig.msg)
 
 
+# This route is PUBLIC
 @admin.route('/sensor/<int:id>', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def get_one_sensor(id):

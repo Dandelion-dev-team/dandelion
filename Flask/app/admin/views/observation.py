@@ -14,6 +14,7 @@ from app.utils.images import image_processing
 from app.utils.uploads import get_uploaded_file
 
 
+# This route is PUBLIC
 @admin.route('/observation', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def listObservation():

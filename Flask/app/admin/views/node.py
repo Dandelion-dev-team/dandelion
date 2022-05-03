@@ -174,6 +174,7 @@ def delete_node(id):
 #     return jsonify({"message" : message})
 
 
+# This route is PUBLIC
 @admin.route('/node/latest/<int:node_id>', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def get_latest_data(node_id):

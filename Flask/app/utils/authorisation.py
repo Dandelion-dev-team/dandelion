@@ -96,7 +96,7 @@ def auth_check(route, method, current_user=None, id_1=None, id_2=None):
         {"route": "/api/session", "method": "GET", "auth_level": "sysadmin"},
         {"route": "/api/tagreference", "method": "GET", "auth_level": "public"},
         {"route": "/api/tagreference", "method": "POST", "auth_level": "experiment_participant"},
-        {"route": "/api/tagreference/" + id_1, "method": "GET", "auth_level": "experiment_participant"},
+        {"route": "/api/tagreference/" + id_1, "method": "GET", "auth_level": "public"},
         {"route": "/api/tagreference/" + id_1, "method": "PUT", "auth_level": "superuser"},
         {"route": "/api/tagreference/" + id_1, "method": "DELETE", "auth_level": "superuser"},
         {"route": "/api/user", "method": "GET", "auth_level": "school_user"},

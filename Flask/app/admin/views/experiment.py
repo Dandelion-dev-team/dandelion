@@ -20,6 +20,7 @@ from app.utils.images import image_processing
 from app.utils.uploads import get_uploaded_file, content_folder
 
 
+# This route is PUBLIC
 @admin.route('/experiment', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def listExperiment():
@@ -27,6 +28,7 @@ def listExperiment():
     return json_response(data=(row2dict(x, summary=True) for x in experiment))
 
 
+# This route is PUBLIC
 @admin.route('/project/<int:id>/experiment', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def listExperimentForProject(id):
@@ -34,6 +36,7 @@ def listExperimentForProject(id):
     return json_response(data=(row2dict(x, summary=True) for x in project.experiments))
 
 
+# This route is PUBLIC
 @admin.route('/experiment/<int:id>', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def get_one_experiment(id):
@@ -212,7 +215,7 @@ def add_experiment():
     return {"id": experiment.id}
 
 
-@admin.route('/experiment/<int:id>/uploadImage', methods=['GET', 'PUT'])
+@admin.route('/experiment/<int:id>/uploadImage', methods=['PUT'])
 @cross_origin(origin='http://127.0.0.1:8000/')
 @jwt_required()
 def upload_experiment_image(id):

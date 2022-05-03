@@ -12,6 +12,7 @@ from app.utils.authorisation import auth_check
 from app.utils.functions import row2dict, jwt_user
 
 
+# This route is PUBLIC
 @admin.route('/variable/<int:id>', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def getFullVariable(id):
@@ -41,8 +42,7 @@ def getFullVariable(id):
     return data
 
 
-
-
+# This route is PUBLIC
 @admin.route('/allVariables', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def listAllVariable():
@@ -80,6 +80,7 @@ def listAllVariable():
     return jsonify({'Treatment Variables': output}, {'Response Variables': output2})
 
 
+# This route is PUBLIC
 @admin.route('/discreteVariable', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def listAlldiscreteVariable():
