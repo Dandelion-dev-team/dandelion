@@ -70,7 +70,8 @@
 
   .btn-row {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-around;
+    margin-left: auto;
     .add-btn {
       .submitButton {
         background-color: $accent;
@@ -85,6 +86,21 @@
       }
       .submitButton:hover {
         background-color: #d4d926;
+      }
+
+      #single {
+        background-color: #8c77ce;
+        color: white;
+      }
+      #single:hover {
+        background-color: #6d4ed2;
+      }
+      #multiple {
+        background-color: #fd0000;
+        color: white;
+      }
+      #multiple:hover {
+        background-color: #db1717;
       }
     }
   }

@@ -52,7 +52,6 @@ export default function MapPage(props) {
     });
 
     if (own_school != null && update_render == true) {
-
       if (own_school.school.latitude !== null && own_school.school.longitude !== null) {
         setStartingLat(own_school.school.latitude)
         setStartingLng(own_school.school.longitude)

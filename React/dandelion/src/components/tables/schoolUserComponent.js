@@ -4,12 +4,14 @@ import { deleteRecord, readRecord } from "../../utils/CRUD"
 import "../../styles/App.scss"
 import AddStudentModal from "../modals/addStudentModal"
 import EditUserModal from "../modals/editUserModal"
-import EditIcon from '@mui/icons-material/Edit'
+import EditIcon from "@mui/icons-material/Edit"
+import AddMultipleUsersModal from "../modals/addMultipleUsersModal"
 
 export default function SchoolUserComponent(props) {
   const [users, setUsers] = useState()
   const [show_modal, setShowModal] = useState(false)
   const [show_edit_modal, setShowEditModal] = useState(false)
+  const [show_multiple_modal, setShowMultipleModal] = useState(false)
   const [editingUser, setEditingUser] = useState()
 
   useEffect(() => {
@@ -29,7 +31,10 @@ export default function SchoolUserComponent(props) {
   return (
     <div className="school-comp-container">
       {show_modal ? <AddStudentModal closeModal={setShowModal} /> : null}
-      {show_edit_modal ? <EditUserModal closeModal={setShowEditModal} user={editingUser} /> : null}
+      {show_edit_modal ? (
+        <EditUserModal closeModal={setShowEditModal} user={editingUser} />
+      ) : null}
+      {show_multiple_modal ? <AddMultipleUsersModal closeModal={setShowMultipleModal} /> : null}
 
       <div className="schoolTable">
         <table className="schoolList">
@@ -48,9 +53,7 @@ export default function SchoolUserComponent(props) {
                   }}
                 >
                   <td>
-                    <div className="username">
-                      {user.username}
-                    </div>
+                    <div className="username">{user.username}</div>
                   </td>
                   <td>
                     <div className="btn-container">
@@ -60,7 +63,8 @@ export default function SchoolUserComponent(props) {
                             onEditClick(user)
                           }}
                           className="editButton"
-                        >Edit
+                        >
+                          Edit
                         </button>
                       </div>
                     </div>
@@ -71,14 +75,24 @@ export default function SchoolUserComponent(props) {
         </table>
       </div>
       <div className="btn-row">
-        <div className="add-btn">
+        <div className="add-btn" id="single">
           <button
             onClick={() => {
               setShowModal(true)
             }}
             className="submitButton"
           >
-            Add User
+            Add A User
+          </button>
+        </div>
+        <div className="add-btn" id="multiple">
+          <button
+            onClick={() => {
+             setShowMultipleModal(true)
+            }}
+            className="submitButton"
+          >
+            Add Users
           </button>
         </div>
       </div>

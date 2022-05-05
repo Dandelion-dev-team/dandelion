@@ -95,7 +95,7 @@ export default function Summary(props) {
                   </div>
                   <div className="exp-item">
                     <div className="item-title">
-                      <h3>Desc:</h3>
+                      <h3>Description:</h3>
                     </div>
                     <div className="item-content">
                       <h3>{experiment_details.description}</h3>
