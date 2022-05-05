@@ -1,22 +1,22 @@
 #pragma once
 
 #include <Arduino.h>
+#include <ArduinoJson.h>
 #include <map>
 #include <math.h>
 #include <Utils.h>
 
 class SensorModule
 {
-public:
-    virtual void initialise(); //used by the sensor subclasses of this base class
-    void initialiseSet1();
-    void initialiseSet2();
-    void initialiseSet3();
+    protected:
+        uint8_t cubeLevel = 0;                      // Used to differentiate between sensors that are read as a group (pH, substrate temperature)
 
-    virtual float getReadings(); //virtual as it must be implemented by all derived classes
-    float getReadings(int); //used by BME280 sensor
-    void getReadingsSet1();
-    void getReadingsSet2();
-    void getReadingsSet3();
-    
+    public:
+        std::map<String, float> readings;           // Map for storing readings and the name of measurement type
+        bool initialisationSuccessful;              // Boolean flag that is checked when taking readings
+
+        virtual void initialise(uint8_t = 0);       // used by the sensor subclasses of this base class
+        void getReadings();                         // virtual as it must be implemented by all derived classes
+
+        void addReadingsToJSON(char *);             // Adds the readings to the appropriate cube level in the JSON data structure
 };
