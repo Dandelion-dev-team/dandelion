@@ -1,9 +1,15 @@
 #include "SensorModule.h"
+<<<<<<< Updated upstream
 #include <TSL2591.h>
 #include <BME280.h>
 #include <DS18B20.h>
 #include <TDSMeter.h>
 #include <PHSensor.h>
+=======
+
+extern Utils utils;
+extern DynamicJsonDocument data;
+>>>>>>> Stashed changes
 
 extern Utils utils;
 
@@ -13,6 +19,7 @@ extern Utils utils;
 * appropriate method in the DataTransformation class.
 */
 
+<<<<<<< Updated upstream
 //Derived sensor sub-class instances
 TSL2591 luminositySensor;
 BME280 multiPurposeSensor;
@@ -101,3 +108,14 @@ void SensorModule::getReadingsSet3()
 //     */
 //     dataTransformation.serialise(readings);
 // }
+=======
+void SensorModule::initialise(uint8_t) {}
+void SensorModule::getReadings() {}
+
+void SensorModule::addReadingsToJSON(char *cubeLevel) {
+    for (auto const &reading : readings)
+    {
+        data[cubeLevel][reading.first] = reading.second;
+    }
+}
+>>>>>>> Stashed changes

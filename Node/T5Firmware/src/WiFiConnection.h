@@ -8,7 +8,10 @@
 #include <ctime>
 #include <Utils.h>
 #include <sstream>
+<<<<<<< Updated upstream
 #include <ESP32Time.h>
+=======
+>>>>>>> Stashed changes
 
 class WiFiConnection
 {

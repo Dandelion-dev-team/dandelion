@@ -1,16 +1,94 @@
 #include <MicroSDCardOperations.h>
 
+<<<<<<< Updated upstream
+=======
+extern SPIClass SPISD;
+>>>>>>> Stashed changes
 extern Utils utils;
 extern Display ui;
 extern Preferences preferences;
 extern String ssid;
 extern String pwd;
 
-#define SDCARD_CS 13
-#define SDCARD_MOSI 15
-#define SDCARD_MISO 2
-#define SDCARD_CLK 14
+// perform the actual update from a given stream
+void performUpdate(Stream &updateSource, size_t updateSize)
+{
+    if (Update.begin(updateSize))
+    {
+        ui.displayMessage("Updating");
+        ui.displayMessage("Please wait...", 2);
 
+        size_t written = Update.writeStream(updateSource);
+        if (written == updateSize)
+        {
+            Serial.println("Written : " + String(written) + " successfully");
+        }
+        else
+        {
+            Serial.println("Written only : " + String(written) + "/" + String(updateSize) + ". Retry?");
+        }
+        if (Update.end())
+        {
+            Serial.println("OTA done!");
+            if (Update.isFinished())
+            {
+                ui.displayMessage("Update successful");
+                ui.displayMessage("Rebooting...", 2);
+            }
+            else
+            {
+                ui.displayMessage("Update not finished");
+                ui.displayMessage("Something went wrong!", 2);
+            }
+        }
+        else
+        {
+            const char *message = "Error";
+            ui.displayMessage(String(Update.getError()).c_str());
+        }
+    }
+    else
+    {
+        Serial.println("Not enough space to begin OTA");
+    }
+}
+
+<<<<<<< Updated upstream
+=======
+// check for valid dandelion.bin and perform update if available
+void MicroSDCardOperations::updateFromSD()
+{
+    File updateBin = SD.open("/dandelion.bin");
+    if (updateBin)
+    {
+        if (updateBin.isDirectory())
+        {
+            ui.displayMessage("dandelion.bin invalid", true);
+            updateBin.close();
+        }
+        else 
+        {
+            size_t updateSize = updateBin.size();
+
+            if (updateSize > 0)
+            {
+                performUpdate(updateBin, updateSize);
+            }
+            else
+            {
+                Serial.println("dandelion.bin is empty");
+            }
+
+            updateBin.close();
+
+            // when finished remove the binary from sd card to indicate end of the process
+            SD.remove("/dandelion.bin");
+            ESP.restart();
+        }
+    }
+}
+
+>>>>>>> Stashed changes
 void MicroSDCardOperations::storeJsonOnFile(const String jsonString, const char* fileName)
 {
     /*This method is called from either the sendDataToServer() or sendUnsentReadings() methods in the 
@@ -19,19 +97,19 @@ void MicroSDCardOperations::storeJsonOnFile(const String jsonString, const char*
     * written to the file.
     */
     delay(500);
-    SD.begin(SDCARD_CS, SDCARD_MOSI, SDCARD_MISO, SDCARD_CLK);
+    SD.begin(SDCARD_CS, SPISD);
     File file = SD.open(fileName, FILE_WRITE);
 
     if(file)
     {
         file.println(jsonString);
         file.close();
-        Serial.print("Readings stored successfully in "); //for testing purposes only.
-        Serial.println(fileName); //for testing purposes only.
+        utils.debug("Readings stored successfully in ", false);
+        utils.debug(fileName);
     }
     else
     {
-        Serial.println("Error printing to SD card");
+        ui.displayMessage("Error writing to SD card", 1, true);
     }
 }
 
@@ -46,9 +124,14 @@ std::vector<String> MicroSDCardOperations::getUnsentReadings()
     * there are no more unsent readings that require to be sent.
     */
     delay(500);
+<<<<<<< Updated upstream
     SD.begin(SDCARD_CS, SDCARD_MOSI, SDCARD_MISO, SDCARD_CLK);
     std::vector<String> unsent = {};
     uint16_t unsent_count = 0;
+=======
+    SD.begin(SDCARD_CS, SPISD);
+    std::vector<String> unsent = {};
+>>>>>>> Stashed changes
     if (SD.exists("unsent.txt"))
     {
         File file = SD.open("unsent.txt");
@@ -67,7 +150,11 @@ std::vector<String> MicroSDCardOperations::getUnsentReadings()
 
 void MicroSDCardOperations::deleteUnsentFile() {
     SD.remove("unsent.txt");
+<<<<<<< Updated upstream
     Serial.println("unsent.txt deleted");
+=======
+    utils.debug("unsent.txt deleted");
+>>>>>>> Stashed changes
 }
 
 DynamicJsonDocument MicroSDCardOperations::getConfigData()
@@ -81,10 +168,17 @@ DynamicJsonDocument MicroSDCardOperations::getConfigData()
     DynamicJsonDocument configData(400); // the Json doc that will be passed back to main
 
     delay(500);
+<<<<<<< Updated upstream
     SD.begin(SDCARD_CS, SDCARD_MOSI, SDCARD_MISO, SDCARD_CLK);
     if (SD.exists("config.txt"))
     {
         File file = SD.open("config.txt");
+=======
+    SD.begin(SDCARD_CS, SPISD);
+    if (SD.exists("/config.txt"))
+    {
+        File file = SD.open("/config.txt");
+>>>>>>> Stashed changes
         String data; // used to store the String read in from the config file on MicroSD card
         String buffer; // used to store one line at a time fromm the file
         data = "";
@@ -97,11 +191,19 @@ DynamicJsonDocument MicroSDCardOperations::getConfigData()
         file.close();
         deserializeJson(configData, data);
 
+<<<<<<< Updated upstream
         if (insecureWifiDetails(configData))
         {
             configData = storeWifiDetailsInEeprom(configData);
             writeConfig(configData);
         }
+=======
+        // if (insecureWifiDetails(configData))
+        // {
+        //     configData = storeWifiDetailsInEeprom(configData);
+        //     writeConfig(configData);
+        // }
+>>>>>>> Stashed changes
 
         // Store the actual wifi credentials in the configData for operational use
         configData = getWifiDetailsFromEeprom(configData);
@@ -110,6 +212,10 @@ DynamicJsonDocument MicroSDCardOperations::getConfigData()
     else {
         configData["wifi"]["ssid"] = "Your SSID here";
         configData["wifi"]["password"] = "Your WiFi password here";
+<<<<<<< Updated upstream
+=======
+        configData["wifi"]["mac"] = WiFi.macAddress();
+>>>>>>> Stashed changes
         configData["id"] = 0;
         configData["server"]["address"] = "dandelion.sruc.ac.uk";
         configData["server"]["port"] = "80";
@@ -132,11 +238,19 @@ DynamicJsonDocument MicroSDCardOperations::getConfigData()
 
 void MicroSDCardOperations::writeConfig(DynamicJsonDocument data) {
 
+<<<<<<< Updated upstream
     if (SD.exists("config.txt")) {
         utils.debug("Removing old config");
         SD.remove("config.txt");
     }
     File file = SD.open("config.txt", FILE_WRITE);
+=======
+    if (SD.exists("/config.txt")) {
+        utils.debug("Removing old config");
+        SD.remove("/config.txt");
+    }
+    File file = SD.open("/config.txt", FILE_WRITE);
+>>>>>>> Stashed changes
     serializeJsonPretty(data, file);
     file.close();
 }
@@ -146,9 +260,12 @@ boolean MicroSDCardOperations::insecureWifiDetails(DynamicJsonDocument data)
     const char *config_ssid = data["wifi"]["ssid"];
     const char *config_pwd = data["wifi"]["password"];
 
+<<<<<<< Updated upstream
     Serial.println(config_ssid);
     Serial.println(config_pwd);
 
+=======
+>>>>>>> Stashed changes
     if (!strcmp(config_ssid, "Your SSID here") or !strcmp(config_pwd, "Your WiFi password here"))
     {
         ui.displayMessage("Please configure wifi", 1, true);

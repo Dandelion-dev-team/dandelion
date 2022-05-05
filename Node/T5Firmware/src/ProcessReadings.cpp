@@ -75,9 +75,12 @@ bool ProcessReadings::sendToServer(String data)
 
     }
 }
+<<<<<<< Updated upstream
 
 // if Connect to wifi
 //  send unsent
 //  send new
 // else
 //  save new to unsent
+=======
+>>>>>>> Stashed changes

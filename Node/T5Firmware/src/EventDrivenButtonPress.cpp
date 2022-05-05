@@ -1,7 +1,11 @@
 #include <EventDrivenButtonPress.h>
 #include <definitions.h>
 
+<<<<<<< Updated upstream
 volatile int buttonCount = 0;
+=======
+extern uint8_t buttonCount;
+>>>>>>> Stashed changes
 volatile unsigned long last_millis;
 
 void catchButton();
@@ -21,35 +25,4 @@ void catchButton()
         buttonCount++;
         last_millis = millis();
     }
-}
-
-void print_wakeup_reason()
-{
-  esp_sleep_wakeup_cause_t wakeup_reason;
-  uint64_t wakeup_cause;
-  Display display; //used to update display to trigger User Interaction state.
-
-  wakeup_reason = esp_sleep_get_wakeup_cause();
-  switch (wakeup_reason)
-  {
-  case 2:
-    Serial.println("Wakeup caused by external signal using RTC_IO");
-    break;
-  case 3:
-    Serial.println("Wakeup caused by external signal using RTC_CNTL");
-    break;
-  case 4:
-    Serial.println("Wakeup caused by timer");
-    break;
-  case 5:
-    Serial.println("Wakeup caused by touchpad");
-    break;
-  case 6:
-    Serial.println("Wakeup caused by ULP program");
-    break;
-  default:
-    Serial.println("Wakeup was not caused by deep sleep, entering user interaction mode");
-    display.enterUserInteractionMode(); //enter UI state.
-    break;
-  }
 }
