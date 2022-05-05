@@ -149,6 +149,7 @@ def delete_project(id):
 
 
 @admin.route('/project/<int:id>/uploadImage', methods=['POST'])
+@jwt_required()
 def upload_project_image(id):
     current_user = jwt_user(get_jwt_identity())
     authorised = auth_check(request.path, request.method, current_user, id)

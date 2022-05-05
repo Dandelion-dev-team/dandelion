@@ -19,6 +19,7 @@ from app.utils.functions import row2dict, jwt_user
 
 @admin.route('/experiment_participant', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
+@jwt_required()
 def listExperiment_participant():
     current_user = jwt_user(get_jwt_identity())
     authorised = auth_check(request.path, request.method, current_user)
@@ -56,6 +57,7 @@ def addExperiment_participant():
 
 @admin.route('/experiment_participant/<int:user_id>', methods=['GET'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
+@jwt_required()
 def experiments_by_participant(user_id):
     current_user = jwt_user(get_jwt_identity())
     authorised = auth_check(request.path, request.method, current_user, user_id)
