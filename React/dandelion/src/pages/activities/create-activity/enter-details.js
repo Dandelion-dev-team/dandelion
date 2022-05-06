@@ -186,7 +186,7 @@ export default function EnterActivityDetails(props) {
                 value="Back"
                 onClick={() => {
                   if (typeof window !== `undefined`) {
-                    navigate("/superuser/project-maintenance/")
+                    navigate("/superuser/activity-maintenance/")
                   }
                 }}
               ></input>

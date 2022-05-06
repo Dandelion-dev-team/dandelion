@@ -4,11 +4,11 @@ import { AgGridReact } from "ag-grid-react"
 import BarChartIcon from "@mui/icons-material/BarChart"
 import BackupTableIcon from "@mui/icons-material/BackupTable"
 import { readAdminRecord, readRecord } from "../utils/CRUD"
-import { Line, Bar } from "react-chartjs-2";
-import { Chart as ChartJS } from 'chart.js/auto'
+import { Line, Bar } from "react-chartjs-2"
+import { Chart as ChartJS } from "chart.js/auto"
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 import "../styles/App.scss"
 import "ag-grid-community/dist/styles/ag-grid.css"
 import "ag-grid-community/dist/styles/ag-theme-alpine.css"
@@ -18,54 +18,60 @@ import OptionsComponent from "../components/optionsComponent"
 export default function Data() {
   const [colour_index, setColourIndex] = useState(["#E3C3CA", "#e6e6e6"])
   const [tab_state, setTabState] = useState(0)
-  const [data_options, setDataOptions] = useState();
-  const [show_data_options, setShowOptions] = useState(false);
-  const [table_data, setTableData] = useState([]);
-  const [columnDefs, setColumns] = useState();
-  const [chart_data, setChartData] = useState();
+  const [data_options, setDataOptions] = useState()
+  const [show_data_options, setShowOptions] = useState(false)
+  const [table_data, setTableData] = useState([])
+  const [columnDefs, setColumns] = useState()
+  const [chart_data, setChartData] = useState()
 
-  const [chart_type, setChartType] = useState("");
+  const [chart_type, setChartType] = useState("")
   //INITIAL DATA
 
   const options = {
     scales: {
-        y: {
-            beginAtZero: true
-        }
-    }
-}
+      y: {
+        beginAtZero: true,
+      },
+    },
+  }
 
   const getRandomInt = max => {
-    return Math.floor(Math.random() * max);
+    return Math.floor(Math.random() * max)
   }
   const generateChart = e => {
-    let labels = [];
+    let labels = []
     e.index.forEach(date => {
-      let converted_date = new Date(date).toDateString();
+      let converted_date = new Date(date).toDateString()
       labels.push(converted_date)
-    });
+    })
 
-    let lines = [];
+    let lines = []
     e.columns.forEach((column, column_index) => {
       let rows = ""
       column.forEach(data => {
-        rows = rows + data + " ";
+        rows = rows + data + " "
       })
-      let line_data = [];
+      let line_data = []
       e.data.forEach((data_item, index) => {
-        data_item.forEach(((item, idx) => {
+        data_item.forEach((item, idx) => {
           if (idx == column_index) {
             line_data.push(item)
           }
-        }))
+        })
       })
-      let r = getRandomInt(255);
-      let g = getRandomInt(255);
-      let b = getRandomInt(255);
+      let r = getRandomInt(255)
+      let g = getRandomInt(255)
+      let b = getRandomInt(255)
 
-      let colour = "rgba(" + (r) + "," + (g) + "," + (b) + ")";
-      lines.push({ label: rows, data: line_data, fill: false, borderColor: colour, backgroundColor: colour, });
-    });
+      let colour = "rgba(" + r + "," + g + "," + b + ")"
+      lines.push({
+        label: rows,
+        data: line_data,
+        fill: false,
+        borderColor: colour,
+        backgroundColor: colour,
+      })
+    })
     setChartData({
       labels: labels,
       datasets: lines,
@@ -73,34 +79,34 @@ export default function Data() {
   }
 
   const generateColumns = e => {
-    console.log(e);
-    let columns = [];
+    console.log(e)
+    let columns = []
     columns.push({ field: "Observation" })
     e.columns.forEach(column => {
       let rows = ""
       column.forEach(data => {
-        rows = rows + data + " ";
+        rows = rows + data + " "
       })
-      columns.push({ field: rows });
-    });
+      columns.push({ field: rows })
+    })
 
-    let column_data = [];
+    let column_data = []
     e.data.forEach((data_item, index) => {
       let row_data = {}
-      data_item.forEach(((item, idx) => {
+      data_item.forEach((item, idx) => {
         if (idx == 0) {
-          let date = new Date(e.index[index]);
+          let date = new Date(e.index[index])
           row_data = { ...row_data, Observation: date.toDateString() }
         } else {
-          let column_name = columns[idx].field;
+          let column_name = columns[idx].field
           row_data = { ...row_data, [column_name]: item }
         }
-      }))
+      })
       column_data.push(row_data)
     })
     setTableData(column_data)
     setColumns(columns)
-    generateChart(e);
+    generateChart(e)
   }
 
   const changeTab = e => {
@@ -114,14 +120,14 @@ export default function Data() {
   }
 
   const fetchOptions = e => {
-    readAdminRecord("/data_options/" + e).then((response) => {
-      setDataOptions(response.data);
-      setShowOptions(true);
+    readAdminRecord("/data_options/" + e).then(response => {
+      setDataOptions(response.data)
+      setShowOptions(true)
     })
   }
 
   const tableReturn = e => {
-    generateColumns(e.data);
+    generateColumns(e.data)
     setChartType(e.chart.label)
   }
 
@@ -132,7 +138,14 @@ export default function Data() {
         <ToastContainer />
         <div className="data-container">
           <div className="data-content">
-            {show_data_options ? <OptionsComponent dataOptions={data_options} setTable={tableReturn} /> : <FilterComponent fetchOptions={fetchOptions} />}
+            {show_data_options ? (
+              <OptionsComponent
+                dataOptions={data_options}
+                setTable={tableReturn}
+              />
+            ) : (
+              <FilterComponent fetchOptions={fetchOptions} />
+            )}
             <div className="spacer" />
             <div className="data-pane">
               <div className="tabs">
@@ -172,11 +185,11 @@ export default function Data() {
                           columnDefs={columnDefs}
                         ></AgGridReact>
                       ) : null
-                    ) : (
-                      chart_type == "line" ? <Line data={chart_data} options={options}/>
-                        : chart_type == "bar" ? <Bar data={chart_data} options={options}/>
-                        : null
-                    )}
+                    ) : chart_type == "line" ? (
+                      <Line data={chart_data} options={options} />
+                    ) : chart_type == "bar" ? (
+                      <Bar data={chart_data} options={options} />
+                    ) : null}
                   </div>
                 </div>
               </div>

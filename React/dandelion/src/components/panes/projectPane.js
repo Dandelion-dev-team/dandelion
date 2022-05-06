@@ -3,12 +3,15 @@ import React, { useEffect, useState } from "react"
 import "../../styles/App.scss"
 import { createRecord, readRecord } from "../../utils/CRUD"
 import ExperimentCard from "../cards/experimentCard"
-import InviteModal from '../../components/modals/inviteModal';
-import SchoolModal from '../../components/modals/inviteSchoolModal';
+import InviteModal from "../../components/modals/inviteModal"
+import SchoolModal from "../../components/modals/inviteSchoolModal"
+import EditActivityModal from "../modals/editActivityModal"
 
 export default function ProjectPane(props) {
-  const [showDisclaimer, setDisclaimer] = useState(false);
-  const [showAddModal, setAddModal] = useState(false);
+  const [showDisclaimer, setDisclaimer] = useState(false)
+  const [showAddModal, setAddModal] = useState(false)
+  const [showEditModal, setShowEditModal] = useState(false)
+
   //Tested
   useEffect(() => {
     //readRecord("/project/" + props.dataProp.Project.project_id + "/experiment", setExperiments)
@@ -20,17 +23,16 @@ export default function ProjectPane(props) {
     })
   }
 
-
   const nextModal = e => {
     setDisclaimer(false)
     setAddModal(true)
   }
 
   const addSchool = e => {
-    setAddModal(false);
-    console.log(e);
+    setAddModal(false)
+    console.log(e)
     //createRecord('/project_partner/<int:project_id>/<int:school_id>')
-    createRecord('/project_partner/' + props.project.project_id + '/' + e, null)
+    createRecord("/project_partner/" + props.project.project_id + "/" + e, null)
   }
 
   return (
@@ -39,6 +41,8 @@ export default function ProjectPane(props) {
         <div className="project-panel-content">
           {showDisclaimer ? <InviteModal callback={nextModal} /> : null}
           {showAddModal ? <SchoolModal callback={addSchool} /> : null}
+          {showEditModal ? <EditActivityModal project={props.project}/> : null}
+
           <div className="project-title">
             <h3>{props.project.title} </h3>
             <h3>
@@ -52,11 +56,11 @@ export default function ProjectPane(props) {
             <div className="experiment-row">
               {props.experiments
                 ? props.experiments.data.map(experiment => (
-                  <ExperimentCard
-                    callback={cardClickCallback}
-                    dataProp={experiment}
-                  />
-                ))
+                    <ExperimentCard
+                      callback={cardClickCallback}
+                      dataProp={experiment}
+                    />
+                  ))
                 : null}
             </div>
           </div>
@@ -79,8 +83,22 @@ export default function ProjectPane(props) {
             >
               Create Experiment
             </button>
-            {/* <button className="submitButton">Edit Project</button> */}
-            <button className="submitButton" id="inv" onClick={() => {setDisclaimer(true)}}>
+            <button
+              className="submitButton"
+              id="edit"
+              onClick={() => {
+                setShowEditModal(true)
+              }}
+            >
+              Edit Project
+            </button>
+            <button
+              className="submitButton"
+              id="inv"
+              onClick={() => {
+                setDisclaimer(true)
+              }}
+            >
               Invite School
             </button>
             <button className="submitButton" id="comp">

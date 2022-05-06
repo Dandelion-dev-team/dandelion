@@ -1,57 +1,56 @@
 import React, { useEffect, useState, useRef } from "react"
 import { navigate } from "gatsby"
-import CombinationListComponent from "../../../components/cards/combinationListCard";
+import CombinationListComponent from "../../../components/cards/combinationListCard"
 import "../../../styles/App.scss"
-import { verify_superuser_storage } from "../../../utils/logins";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { verify_superuser_storage } from "../../../utils/logins"
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 export default function SelectCombinations(props) {
-  const [treatment_variables, setTreatment] = useState("");
-  const [response_variables, setResponse] = useState("");
+  const [treatment_variables, setTreatment] = useState("")
+  const [response_variables, setResponse] = useState("")
 
-  const [combination_list, setCombinationList] = useState("");
-  const [combination_selected, setCombinationSelected] = useState([]);
+  const [combination_list, setCombinationList] = useState("")
+  const [combination_selected, setCombinationSelected] = useState([])
   const [experiment_details, setExperimentDetails] = useState("")
-  const [logged, setLogged] = useState("");
+  const [logged, setLogged] = useState("")
 
   useEffect(() => {
-    var variables = [];
+    var variables = []
     if (verify_superuser_storage() == true) {
       if (props.location.state) {
-        setExperimentDetails(props.location.state.experimentDetails);
-        setTreatment(props.location.state.treatmentVariables);
-        setResponse(props.location.state.responseVariables);
+        setExperimentDetails(props.location.state.experimentDetails)
+        setTreatment(props.location.state.treatmentVariables)
+        setResponse(props.location.state.responseVariables)
 
-        let treatments = props.location.state.treatmentVariables;
+        let treatments = props.location.state.treatmentVariables
         if (props) {
-          treatments.forEach(treatment => variables.push(treatment.levels));
+          treatments.forEach(treatment => variables.push(treatment.levels))
         }
-        let combinations = allPossibleCases(variables);
-        setCombinationList(combinations);
+        let combinations = allPossibleCases(variables)
+        setCombinationList(combinations)
       } else {
         if (typeof window !== `undefined`) {
-          navigate(
-            "/activities/create-experiment/enter-details")
+          navigate("/activities/create-experiment/enter-details")
         }
       }
-      setLogged(true);
+      setLogged(true)
     } else {
-      navigate("/signin");
+      navigate("/signin")
     }
-  }, []);
+  }, [])
 
   function allPossibleCases(arr) {
     if (arr.length == 1) {
-      return arr[0];
+      return arr[0]
     } else {
-      var result = [];
-      var allCasesOfRest = allPossibleCases(arr.slice(1));
+      var result = []
+      var allCasesOfRest = allPossibleCases(arr.slice(1))
       for (var i = 0; i < allCasesOfRest.length; i++) {
         for (var j = 0; j < arr[0].length; j++) {
-          result.push([[(arr[0][j])], [(allCasesOfRest[i])]]);
+          result.push([[arr[0][j]], [allCasesOfRest[i]]])
         }
       }
-      return result;
+      return result
     }
   }
 
@@ -71,12 +70,23 @@ export default function SelectCombinations(props) {
         <div className="content">
           <div className="text-content">
             <h3>Select your Conditions</h3>
-            <p>Here you select the conditions for your experiment - for example, you may not require each combination of treatment variable to be represented in the experiment.</p>
+            <p>
+              Here you select the conditions for your experiment - for example,
+              you may not require each combination of treatment variable to be
+              represented in the experiment.
+            </p>
           </div>
           <div className="condition-content">
             <h3>{combination_list.length} conditions generated</h3>
             <div className="condition-list">
-              {combination_list ? combination_list.map(variable => (<CombinationListComponent condition={variable} checkCallback={checkboxCallback} />)) : null}
+              {combination_list
+                ? combination_list.map(variable => (
+                    <CombinationListComponent
+                      condition={variable}
+                      checkCallback={checkboxCallback}
+                    />
+                  ))
+                : null}
             </div>
             <div className="btn-row">
               <input
@@ -85,35 +95,46 @@ export default function SelectCombinations(props) {
                 value="Back"
                 onClick={() => {
                   if (typeof window !== `undefined`) {
-                    navigate("/activities/create-experiment/response-variables",
+                    navigate(
+                      "/activities/create-experiment/response-variables",
                       {
                         state: {
-                          experimentDetails: props.location.state.experimentDetails,
-                          treatmentVariables: props.location.state.treatmentVariables,
+                          experimentDetails:
+                            props.location.state.experimentDetails,
+                          treatmentVariables:
+                            props.location.state.treatmentVariables,
                         },
-                      })
+                      }
+                    )
                   }
                 }}
               ></input>
-              {combination_selected.length > 0 ?
+              {combination_selected.length > 0 ? (
                 <input
                   type="submit"
                   className="continue-btn"
                   value="Continue"
                   onClick={() => {
                     if (typeof window !== `undefined`) {
-                      navigate("/activities/create-experiment/enter-hypotheses",
+                      navigate(
+                        "/activities/create-experiment/enter-hypotheses",
                         {
-                          state: { treatmentVariables: treatment_variables, responseVariables: response_variables, experimentDetails: experiment_details, combinations: combination_selected },
-                        })
+                          state: {
+                            treatmentVariables: treatment_variables,
+                            responseVariables: response_variables,
+                            experimentDetails: experiment_details,
+                            combinations: combination_selected,
+                          },
+                        }
+                      )
                     }
                   }}
                 ></input>
-                : null}
+              ) : null}
             </div>
           </div>
         </div>
       </div>
     )
-  } else return null;
+  } else return null
 }
