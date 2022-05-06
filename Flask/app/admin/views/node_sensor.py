@@ -16,7 +16,7 @@ from app.utils.functions import row2dict, jwt_user
 def listNode_sensor():
     current_user = jwt_user(get_jwt_identity())
     authorised = auth_check(request.path, request.method, current_user)
-    node_sensor = Node_sensor.query.all()
+    node_sensor = NodeSensor.query.all()
 
     return json_response(data=(row2dict(x, summary=True) for x in node_sensor))
 
