@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import { toast } from "react-toastify"
 import { createRecord } from "../../utils/CRUD"
 
 export default function AddMultipleUsersModal(props) {
@@ -7,14 +8,15 @@ export default function AddMultipleUsersModal(props) {
 
   const createUsers = number => {
     let school = localStorage.getItem("school_id")
-    if (school && enteredNumber) {
+    let account_number = parseInt(enteredNumber)
+    if (school && account_number) {
       let body = JSON.stringify({
-        school_id: school.id,
-        accounts_number: enteredNumber,
+        school_id: school,
+        accounts_number: account_number,
       })
       createRecord("/user/create_account/multiple", body)
     } else {
-      setMissingInfo(true)
+      toast.error("Information incorrect.")
     }
   }
 
@@ -49,7 +51,6 @@ export default function AddMultipleUsersModal(props) {
               <h3>Missing Information</h3>
             </div>
           ) : null}
-
 
           <div className="finish-row">
             <div className="add-btn">
