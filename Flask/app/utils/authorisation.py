@@ -24,7 +24,6 @@ def auth_check(route, method, current_user=None, id_1=None, id_2=None):
         {"route": "/api/experiment_participant/add", "method": "POST", "auth_level": "superuser"},
         {"route": "/api/experiment_participant/" + id_1, "method": "GET", "auth_level": "superuser"},
         {"route": "/api/experiment_participant/" + id_1 + "/" + id_2, "method": "POST", "auth_level": "superuser"},
-        # todo this line has two id values
         {"route": "/api/experiment_participant/updatestatus/" + id_1, "method": "PUT",
          "auth_level": "superuser"},
         {"route": "/api/experiment_participant/delete/" + id_1, "method": "DELETE",
@@ -36,6 +35,7 @@ def auth_check(route, method, current_user=None, id_1=None, id_2=None):
         {"route": "/api/node/" + id_1, "method": "PUT", "auth_level": "superuser"},
         {"route": "/api/node/" + id_1, "method": "DELETE", "auth_level": "superuser"},
         {"route": "/api/node/" + id_1 + "/uploaddata", "method": "POST", "auth_level": "superuser"},
+        {"route": "/api/node/register/" + id_1, "method": "POST", "auth_level": "superuser"},
         {"route": "/api/node/latest/" + id_1, "method": "GET", "auth_level": "public"},
         {"route": "/api/node_sensor", "method": "GET", "auth_level": "superuser"},
         {"route": "/api/node_alert", "method": "GET", "auth_level": "superuser"},
