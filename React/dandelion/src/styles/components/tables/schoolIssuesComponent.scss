@@ -1,0 +1,29 @@
+.school-issues-table {
+  width: 100%;
+
+  .issuesList {
+    margin-top: 10%;
+    width: 100%;
+    tbody {
+        td {
+          padding-left: 10%;
+        }
+
+      .active {
+        background-color: #d2d6f4;
+      }
+
+      &:hover {
+        background-color: #d2d6f4;
+        cursor: pointer;
+      }
+    }
+    thead {
+        tr {
+          th {
+            padding-left: 10%;
+          }
+        }
+      }
+  }
+}
