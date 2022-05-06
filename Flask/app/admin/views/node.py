@@ -275,7 +275,7 @@ def register_node(school_id):
     for sensors in sensors:
         code = sensors.code
         sensor_id = sensors.id
-        if code == "SHTC3" or code == "BMP280" or code == "BH1750": #The 7 sensors in db sensor table should be one of those 7 codes
+        if code == "SHTC3" or code == "BH1750": #The 7 sensors in db sensor table should be one of those 7 codes
             node_sensor = NodeSensor(
                 node_id=node.id,
                 sensor_id=sensor_id,
