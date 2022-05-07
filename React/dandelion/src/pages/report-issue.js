@@ -1,11 +1,18 @@
 import React, { useEffect, useState, useRef } from "react"
 import "../styles/App.scss"
 import { ToastContainer, toast } from "react-toastify"
-import { updateRecord, uploadExperimentImage } from "../utils/CRUD"
+import {
+  createRecord,
+  createRecordNavigate,
+  readRecord,
+  updateRecord,
+  uploadExperimentImage,
+} from "../utils/CRUD"
 import EditIcon from "@mui/icons-material/Edit"
 import Header from "../components/navigation/header"
 import SchoolIssuesComponent from "../components/tables/schoolIssuesComponent"
 import AllIssuesComponent from "../components/tables/allIssuesComponent"
+import Select from "react-select"
 
 export default function ReportIssue(props) {
   const [colour_index, setColourIndex] = useState(["#E3C3CA", "#e6e6e6"])
@@ -15,7 +22,11 @@ export default function ReportIssue(props) {
   const [issueSymptoms, setIssueSymptoms] = useState("")
   const [issueSteps, setIssueSteps] = useState("")
   const [issueNotes, setIssueNotes] = useState("")
-
+  const [issue_type, setIssueType] = useState("")
+  const [issue_priority, setIssuePriority] = useState("")
+  const [clickedIssue, setClickedIssue] = useState()
+  const [image, setImage] = useState()
+  const [displayImage, setDisplayImage] = useState()
   const changeTab = e => {
     if (e == 0) {
       setTabState(0)
@@ -26,11 +37,57 @@ export default function ReportIssue(props) {
     }
   }
 
+  const issue_type_list = [
+    { value: "bug", label: "Bug" },
+    { value: "request", label: "Request" },
+    { value: "other", label: "Other" },
+  ]
+
+  const issues_priority_list = [
+    { value: "urgent", label: "Urgent" },
+    { value: "high", label: "High" },
+    { value: "low", label: "Low" },
+  ]
+
   const handleImageChange = async e => {
-    uploadExperimentImage(
-      "/project/" + props.project.id + "/uploadImage",
-      e.target.files[0]
-    ).then(window.location.reload(false))
+    setImage(e.target.files[0])
+    setDisplayImage(URL.createObjectURL(e.target.files[0]))
+  }
+
+  const handleIssueCallback = e => {
+    console.log(e)
+    readRecord("/issue/" + e, setClickedIssue)
+  }
+
+  const submitIssue = e => {
+    let user_id = localStorage.getItem("user_id")
+    let date = new Date()
+    let useDate =
+      date.getFullYear() +
+      "-" +
+      (date.getMonth() + 1) +
+      "-" +
+      (date.getDay() + 1)
+    let body = JSON.stringify({
+      user_id: parseInt(user_id),
+      name: issueName,
+      reported_date: useDate,
+      symptoms: issueSymptoms,
+      steps_to_reproduce: issueSteps,
+      notes: issueNotes,
+      type: issue_type.value,
+      priority: issue_priority.value,
+      status: "open",
+    })
+    console.log(JSON.parse(body))
+
+    if (!image) {
+      createRecord("/project", body)
+    } else {
+      createRecordNavigate("/issue", body).then(response =>
+        uploadExperimentImage("/issue/" + response.id + "/uploadImage", image)
+      )
+    }
   }
 
   return (
@@ -61,6 +118,33 @@ export default function ReportIssue(props) {
                       />
                     </div>
                   </div>
+                  <div className="desc-item">
+                    <div className="item-title">
+                      <h3>Issue Type:</h3>
+                    </div>
+                    <div className="item-input">
+                      <Select
+                        value={issue_type}
+                        options={issue_type_list}
+                        onChange={setIssueType}
+                        placeholder={"Select type."}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="desc-item">
+                    <div className="item-title">
+                      <h3>Issue Priority:</h3>
+                    </div>
+                    <div className="item-input">
+                      <Select
+                        value={issue_priority}
+                        options={issues_priority_list}
+                        onChange={setIssuePriority}
+                        placeholder={"Select how important this issue is."}
+                      />
+                    </div>
+                  </div>
 
                   <div className="desc-item">
                     <div className="item-title">
@@ -82,7 +166,7 @@ export default function ReportIssue(props) {
                     </div>
                     <div className="item-input">
                       <textarea
-                        placeholder="Description"
+                        placeholder="The steps you took to encounter this error."
                         onChange={e => {
                           setIssueSteps(e.target.value)
                         }}
@@ -96,7 +180,7 @@ export default function ReportIssue(props) {
                     </div>
                     <div className="item-input">
                       <textarea
-                        placeholder="Description"
+                        placeholder="Any other details about the issue."
                         onChange={e => {
                           setIssueNotes(e.target.value)
                         }}
@@ -106,13 +190,15 @@ export default function ReportIssue(props) {
                   </div>
                   <div className="info-item">
                     <div className="item-title">
-                      <h3>Activity Image:</h3>
+                      <h3>Issue Image:</h3>
                     </div>
                     <div className="item-input">
                       <div className="school-image">
-                        {/* <img src={props.project.image_full} /> */}
-
-                        <img src="https://images.unsplash.com/photo-1638913662529-1d2f1eb5b526?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" />
+                        {displayImage ? (
+                          <img src={displayImage} />
+                        ) : (
+                          <img src="https://images.unsplash.com/photo-1638913662529-1d2f1eb5b526?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" />
+                        )}
                         <label className="edit-circle">
                           <input
                             type="file"
@@ -124,6 +210,16 @@ export default function ReportIssue(props) {
                         </label>
                       </div>
                     </div>
+                  </div>
+                  <div className="btn-row">
+                    <input
+                      type="submit"
+                      className="update-btn"
+                      value="Submit Issue"
+                      onClick={() => {
+                        submitIssue()
+                      }}
+                    />
                   </div>
                 </div>
               </div>
@@ -137,63 +233,78 @@ export default function ReportIssue(props) {
                     changeTab(0)
                   }}
                 >
-                  <h3>Hello</h3>
+                  <h3>Open Issues</h3>
                 </div>
                 <div
                   className="tab"
-                  style={{ backgroundColor: colour_index[0] }}
+                  style={{ backgroundColor: colour_index[1] }}
                   onClick={() => {
                     changeTab(1)
                   }}
                 >
-                  <h3>world</h3>
+                  <h3>All Issues</h3>
                 </div>
               </div>
               <div className="list-content">
                 {tab_state == 0 ? (
-                  <SchoolIssuesComponent />
+                  <SchoolIssuesComponent issueCallback={handleIssueCallback} />
                 ) : (
-                  <AllIssuesComponent />
+                  <AllIssuesComponent issueCallback={handleIssueCallback}/>
                 )}
               </div>
             </div>
           </div>
           <div className="right-pane">
             <div className="issue-panel">
-              <div className="issue-panel-content">
-                <div className="title">
-                  <h2>Example Issue</h2>
-                  <h3>17/04/2024</h3>
-                </div>
-                <div className="issue-img">
-                  <img src="https://townsquare.media/site/295/files/2017/10/rhino.jpg"/>
-                </div>
-                <div className="symptoms">
-                  <p>Symptoms</p>
-                  <div className="info-box">
-                    <p>The website is very very sic.</p>
+              {clickedIssue ? (
+                <div className="issue-panel-content">
+                  <div className="title">
+                    <h2>{clickedIssue.issue.name} - {clickedIssue.issue.priority}</h2>
+                    <h2>{clickedIssue.issue.type}</h2>
+                    <h3>
+                      Reported on:{" "}
+                      {new Date(
+                        clickedIssue.issue.reported_date
+                      ).toDateString()}
+                    </h3>
                   </div>
-                </div>
-                <div className="steps">
-                  <p>Steps to reproduce:</p>
-                  <div className="info-box">
-                    <p>Kick in the door, wave in the 44.</p>
+                  <div className="issue-img">
+                    <img src={clickedIssue.issue.image_full} />
                   </div>
-                </div>
-                <div className="notes">
-                  <div className="title-btn-row">
-                    <div className="title">
-                      <h3>Notes</h3>
-                    </div>
-                    <div className="btn">
-                      <h3>Button</h3>
+                  <div className="symptoms">
+                    <p>Symptoms</p>
+                    <div className="info-box">
+                      <p>{clickedIssue.issue.symptoms}</p>
                     </div>
                   </div>
-                  <div className="info-box">
-                    <p>I think she's reached the end</p>
+                  <div className="steps">
+                    <p>Steps to reproduce:</p>
+                    <div className="info-box">
+                      <p>{clickedIssue.issue.steps_to_reproduce}</p>
+                    </div>
+                  </div>
+                  <div className="notes">
+                    <div className="title-btn-row">
+                      <div className="title">
+                        <h3>Notes</h3>
+                      </div>
+                      <div className="btn-row">
+                        <input
+                          type="submit"
+                          className="update-btn"
+                          value="Add a Note"
+                          onClick={() => {
+                            submitIssue()
+                          }}
+                        />
+                      </div>
+                    </div>
+                    <div className="info-box">
+                      <p>{clickedIssue.issue.notes}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              ) : null}
             </div>
           </div>
         </div>

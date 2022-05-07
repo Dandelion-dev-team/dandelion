@@ -1,24 +1,43 @@
 import React, { useEffect, useState } from "react"
 import "../../styles/App.scss"
+import { readRecord } from "../../utils/CRUD"
 
 export default function SchoolIssuesComponent(props) {
-    return (
-        <div className="school-issues-table">
-            <table className="issuesList">
-                <thead>
-                    <tr>
-                        <th>Your School</th>
-                    </tr>
-                </thead>
+  const [issues, setIssues] = useState([])
+  //TESTED
+  useEffect(() => {
+    readRecord("/issue", setIssues)
+  }, [])
 
+  const clickedCallback = issue => {
+    props.issueCallback(issue)
+  }
+  return (
+    <div className="school-issues-table">
+      <table className="issuesList">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Reported Date</th>
+          </tr>
+        </thead>
 
-                <tbody>
-                    <td>Issue 1</td>
+        {issues.issues
+          ? issues.issues
+              .filter(issue => issue.status == "open")
+              .map(issue => (
+                <tbody
+                  key={issue.id}
+                  onClick={() => {
+                    clickedCallback(issue.id)
+                  }}
+                >
+                  <td>{issue.name}</td>
+                  <td>{issue.reported_date}</td>
                 </tbody>
-                <tbody>
-                    <td>Issue 2</td>
-                </tbody>
-            </table>
-        </div>
-    )
+              ))
+          : null}
+      </table>
+    </div>
+  )
 }
