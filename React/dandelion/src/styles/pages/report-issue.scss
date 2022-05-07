@@ -42,6 +42,8 @@
           background-color: white;
           padding: 2.5rem;
           overflow-y: auto;
+          border-top-left-radius: 20px;
+          border-bottom-left-radius: 20px;
 
           .create-form {
             overflow-y: scroll;
@@ -160,7 +162,6 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-
         .tabs {
           height: 6%;
           width: 50%;
@@ -174,6 +175,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
+
+           
           }
         }
         .list-content {
@@ -183,6 +186,8 @@
           border-top-right-radius: 20px;
           display: flex;
           justify-content: center;
+          border-bottom-right-radius: 20px;
+
         }
       }
     }
