@@ -47,6 +47,22 @@
 
           .create-form {
             overflow-y: scroll;
+            .btn-row {
+              height: 20%;
+              .update-btn {
+                background-color: $accent;
+                color: $primary;
+                font-size: 1.25rem;
+                margin: 1.25rem 0px;
+                padding: 10px;
+                padding-left: 20px;
+                padding-right: 20px;
+                border: none;
+                cursor: pointer;
+                border-radius: 10px;
+              }
+            }
+          
             .info-item {
               text-align: left;
               display: flex;
@@ -256,6 +272,20 @@
               display: flex;
               flex-direction: row;
               justify-content: space-between;
+              .btn-row {
+                height: 20%;
+                .update-btn {
+                  background-color: $accent;
+                  color: $primary;
+                  font-size: 1.25rem;
+                  padding: 10px;
+                  padding-left: 20px;
+                  padding-right: 20px;
+                  border: none;
+                  cursor: pointer;
+                  border-radius: 10px;
+                }
+              }
               .title {
                 width: 30%;
               }
