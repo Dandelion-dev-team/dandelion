@@ -13,6 +13,7 @@ import Header from "../components/navigation/header"
 import SchoolIssuesComponent from "../components/tables/schoolIssuesComponent"
 import AllIssuesComponent from "../components/tables/allIssuesComponent"
 import Select from "react-select"
+import AddNoteModal from "../components/modals/addNoteModal"
 
 export default function ReportIssue(props) {
   const [colour_index, setColourIndex] = useState(["#E3C3CA", "#e6e6e6"])
@@ -27,6 +28,9 @@ export default function ReportIssue(props) {
   const [clickedIssue, setClickedIssue] = useState()
   const [image, setImage] = useState()
   const [displayImage, setDisplayImage] = useState()
+
+  const [show_modal, setShowModal] = useState(false)
+
   const changeTab = e => {
     if (e == 0) {
       setTabState(0)
@@ -94,6 +98,8 @@ export default function ReportIssue(props) {
     <div>
       <Header />
       <div className="issue-container">
+        {show_modal ? <AddNoteModal closeModal={setShowModal} /> : null}
+
         <ToastContainer />
         <div className="issue-content">
           <div className="left-pane">
@@ -249,7 +255,7 @@ export default function ReportIssue(props) {
                 {tab_state == 0 ? (
                   <SchoolIssuesComponent issueCallback={handleIssueCallback} />
                 ) : (
-                  <AllIssuesComponent issueCallback={handleIssueCallback}/>
+                  <AllIssuesComponent issueCallback={handleIssueCallback} />
                 )}
               </div>
             </div>
@@ -259,7 +265,9 @@ export default function ReportIssue(props) {
               {clickedIssue ? (
                 <div className="issue-panel-content">
                   <div className="title">
-                    <h2>{clickedIssue.issue.name} - {clickedIssue.issue.priority}</h2>
+                    <h2>
+                      {clickedIssue.issue.name} - {clickedIssue.issue.priority}
+                    </h2>
                     <h2>{clickedIssue.issue.type}</h2>
                     <h3>
                       Reported on:{" "}
@@ -294,7 +302,7 @@ export default function ReportIssue(props) {
                           className="update-btn"
                           value="Add a Note"
                           onClick={() => {
-                            submitIssue()
+                            setShowModal(true)
                           }}
                         />
                       </div>
