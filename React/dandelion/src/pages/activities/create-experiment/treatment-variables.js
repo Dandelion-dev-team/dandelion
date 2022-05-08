@@ -50,32 +50,18 @@ export default function TreatmentVariables(props) {
   }
 
   const handleDetailCallback = index => {
-    // fetch(process.env.ROOT_URL + "/treatmentVariableFull/" + index, {
-    //   method: "GET",
-    //   headers: new Headers({
-    //     "Cache-Control": "no-cache, no-store, must-revalidate",
-    //     Pragma: "no-cache",
-    //     Expires: 0,
-    //   }),
-    // })
-    //   .then(response => response.json())
-    //   .then(data => setDetailVariable(data))
-    //   .then(setModalEditing(false))
-    //   .then(setShowDetails(true))
-  }
-  const handleEditCallback = index => {
-    // fetch(process.env.ROOT_URL + "/treatmentVariableFull/" + index, {
-    //   method: "GET",
-    //   headers: new Headers({
-    //     "Cache-Control": "no-cache, no-store, must-revalidate",
-    //     Pragma: "no-cache",
-    //     Expires: 0,
-    //   }),
-    // })
-    //   .then(response => response.json())
-    //   .then(data => setDetailVariable(data))
-    //   .then(setModalEditing(true))
-    //   .then(setShowDetails(true))
+    fetch(process.env.API_URL + "/variable/" + index, {
+      method: "GET",
+      headers: new Headers({
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        Pragma: "no-cache",
+        Expires: 0,
+      }),
+    })
+      .then(response => response.json())
+      .then(data => setDetailVariable(data))
+      .then(setModalEditing(false))
+      .then(setShowDetails(true))
   }
 
   useEffect(() => {
@@ -176,7 +162,6 @@ export default function TreatmentVariables(props) {
                   {selected_list
                     ? selected_list.map(variable => (
                       <TreatmentSelectedComponent
-                        editCallback={handleEditCallback}
                         data={variable}
                       />
                     ))
