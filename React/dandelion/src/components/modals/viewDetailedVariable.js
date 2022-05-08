@@ -51,32 +51,8 @@ export default function ViewDetailedVariable(props) {
         <div className="panel-content">
           <div className="name-edit-row">
             <h3>{props.variable.name}</h3>
-            <EditIcon
-              className="edit-icon"
-              onClick={() => {
-                handleEditing()
-              }}
-            />
           </div>
           <h3>{props.variable.type}</h3>
-          <div className="item-row">
-            <div className="item-title">
-              <h3>Description: </h3>
-            </div>
-            <div className="item-text">
-              {editing ? (
-                <textarea
-                  type="text"
-                  className="text-box"
-                  name="usernameBox"
-                  value={description}
-                  onChange={handleDescChange}
-                />
-              ) : (
-                <h3>{props.variable.description}</h3>
-              )}
-            </div>
-          </div>
           <div className="item-row">
             <div className="item-title">
               <h3>Tutorial Text: </h3>
