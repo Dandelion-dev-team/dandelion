@@ -59,6 +59,9 @@
                 cursor: pointer;
                 border-radius: 10px;
               }
+              .update-btn:hover{
+                background-color: #d4d926;
+              }
             }
           
             .info-item {
@@ -155,6 +158,10 @@
                   max-width: 100%;
                   margin: auto;
                   resize: none;
+                }
+
+                input{
+                  width: 100%;
                 }
 
                 h3 {

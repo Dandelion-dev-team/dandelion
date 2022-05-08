@@ -45,7 +45,6 @@ def add_node():
         next_communication_date=data['next_communication_date'],
         health_status=data['health_status'],
         status=data['status']
-
     )
 
     db.session.add(node)
@@ -83,6 +82,28 @@ def get_one_node(id):
 
     return jsonify({'Node': node_data})
 
+
+
+@admin.route('/node/byschool/<int:id>', methods=['GET'])
+@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
+@jwt_required()
+def get_node_by_school(id):
+    current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user, id)
+
+    node = Node.query.filter(Node.school_id == id).first()
+
+    node_data = {}
+    node_data['node_id'] = node.id
+    node_data['school_id'] = node.school_id
+    node_data['growcube_code'] = node.growcube_code
+    node_data['mac_address'] = node.mac_address
+    node_data['last_communication_date'] = node.last_communication_date
+    node_data['next_communication_date'] = node.next_communication_date
+    node_data['health_status'] = node.health_status
+    node_data['status'] = node.status
+
+    return jsonify({'Node': node_data})
 
 @admin.route('/node/<int:id>', methods=['PUT'])
 @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
