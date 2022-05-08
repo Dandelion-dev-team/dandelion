@@ -68,7 +68,7 @@ export default function TreatmentVariables(props) {
     if (verify_superuser_storage() == true) {
       if (props.location.state) {
         setExperimentDetails(props.location.state)
-        readRecord("/discreteVariable", setVariables)
+        readRecord("/allVariables", setVariables)
       } else {
         if (typeof window !== `undefined`) {
           navigate(
@@ -111,9 +111,8 @@ export default function TreatmentVariables(props) {
                  
                 </div>
                 <div className="treatment-list">
-                  {variable_list.data ?
-                    (
-                      variable_list.data.filter(variable => variable.name.toUpperCase().includes(search_value.toUpperCase())).map(filtered_variable => (
+                {variable_list.length > 1 ? (
+                    variable_list[0].treatment.filter(variable => variable.name.toUpperCase().includes(search_value.toUpperCase())).map(filtered_variable => (
                         <VariableListComponent
                           mappedValue={filtered_variable}
                           detailCallback={handleDetailCallback}
