@@ -109,25 +109,30 @@ export default function MapPage(props) {
                           key={idx}
                           icon={customIcon}
                         >
-                          <div className="popup">
-                            <Popup>
-                              <u>{school.name}</u>
-                              <br /> {school.address_line_1}
-                              <br /> {school.town}
-                              <br /> {school.postcode}
-                              <br />
-                              <br />{" "}
-                              <input
-                                value="See More"
-                                type="submit"
-                                className="submitButton"
-                                onClick={() => {
-                                  handleDetailCallback(school.id)
-                                  setSlideModal(true)
-                                }}
-                              ></input>
-                            </Popup>
-                          </div>
+                          <Popup div className="popup" >
+                            <u>{school.name}</u>
+                            <br /> {school.address_line_1}
+                            <br /> {school.town}
+                            <br /> {school.postcode}
+                            <br />
+                            <br />{" "}
+                            <input
+                              value="See More"
+                              type="submit"
+                              style={{ 
+                                background:"#f8f448",
+                                color: "#2E5641",
+                                padding: "15px",
+                                border: "none",
+                                cursor: "pointer",
+                                borderRadius: "10px"}}
+                              className="submitButton"
+                              onClick={() => {
+                                handleDetailCallback(school.id)
+                                setSlideModal(true)
+                              }}
+                            ></input>
+                          </Popup>
                         </Marker>
                       ) : null
                     })
