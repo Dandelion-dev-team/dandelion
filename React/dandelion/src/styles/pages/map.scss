@@ -24,7 +24,9 @@
       height: 100%;
       width: 100%;
     }
-
+    .leaflet-popup-content-wrapper{
+      background: rebeccapurple !important;
+    }
     .popup {
       .submitButton {
         background-color: $accent;

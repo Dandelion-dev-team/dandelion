@@ -99,7 +99,7 @@ export default function MapPage(props) {
                           key={idx}
                           icon={customIcon}
                         >
-                          <Popup div className="popup">
+                          <Popup div className="popup" >
                             <u>{school.name}</u>
                             <br /> {school.address_line_1}
                             <br /> {school.town}
@@ -109,6 +109,13 @@ export default function MapPage(props) {
                             <input
                               value="See More"
                               type="submit"
+                              style={{ 
+                                background:"#f8f448",
+                                color: "#2E5641",
+                                padding: "15px",
+                                border: "none",
+                                cursor: "pointer",
+                                borderRadius: "10px"}}
                               className="submitButton"
                               onClick={() => {
                                 handleDetailCallback(school.id)
