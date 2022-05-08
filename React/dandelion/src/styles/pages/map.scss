@@ -25,21 +25,49 @@
       width: 100%;
     }
 
-    .popup {
-      .submitButton {
-        background-color: $accent;
-        color: $primary;
-        font-size: 1.6rem;
-        margin: 1.25rem 0px;
-        padding: 15px;
-        border: none;
-        cursor: pointer;
-        border-radius: 10px;
-      }
-      .submitButton:hover {
-        background-color: #d4d926;
+    .leaflet-container {
+      .leaflet-popup {
+        position: absolute;
+        text-align: center;
+        margin-bottom: 20px;
+        .leaflet-popup-content-wrapper,
+        .leaflet-popup-tip {
+          background: red;
+        }
       }
     }
+
+    .leaflet-container {
+      .leaflet-pane {
+        .leaflet-map-pane {
+          .leaflet-popup-pane {
+            .leaflet-popup {
+              .leaflet-popup-content-wrapper {
+                background: red;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // .popup {
+    //   .leaflet-popup-content-wrapper {
+    //     background-color: red;
+    //   }
+    //   .submitButton {
+    //     background-color: $accent;
+    //     color: $primary;
+    //     font-size: 1.6rem;
+    //     margin: 1.25rem 0px;
+    //     padding: 15px;
+    //     border: none;
+    //     cursor: pointer;
+    //     border-radius: 10px;
+    //   }
+    //   .submitButton:hover {
+    //     background-color: #d4d926;
+    //   }
+    // }
   }
 }
-

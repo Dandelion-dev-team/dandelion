@@ -122,14 +122,7 @@ export default function TreatmentVariables(props) {
                     value={search_value}
                     onChange={handleSearchValueChange}
                   />
-                  <div className="tune-margin">
-                    <TuneIcon
-                      onClick={() => {
-                        console.log("clicked tune")
-                      }}
-                      className="tune-icon"
-                    />
-                  </div>
+                 
                 </div>
                 <div className="treatment-list">
                   {variable_list.data ?

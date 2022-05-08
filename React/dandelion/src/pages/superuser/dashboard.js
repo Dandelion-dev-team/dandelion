@@ -70,8 +70,7 @@ export default function SuperuserDashboard(props) {
                     ? projectList.map(project => (
                         <div className="activity">
                           <div className="img">
-                            {/* <img src={project.image_thumb} /> */}
-                            <img src="https://vz.cnwimg.com/thumb-1200x/wp-content/uploads/2009/11/Chuck-Liddell-picture-e1560178403562.jpg" />
+                            <img src={project.image_thumb} />
                           </div>
                           <div className="name">
                             <h3>{project.title}</h3>
