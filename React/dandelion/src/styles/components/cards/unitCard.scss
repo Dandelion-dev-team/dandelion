@@ -1,56 +1,55 @@
-.unit-card{
+.unit-card {
+  display: flex;
+  width: 100%;
+  height: 10vh;
+  background-color: white;
+  border-radius: 20px;
+  //margin-top: .5rem;
+  margin-bottom: 1rem;
+
+  .color-selector {
+    width: 20% !important;
+    position: fixed !important;
+    margin-left: 25%;
+    margin-top: 4%;
+  }
+
+  .card-content {
     display: flex;
-    width: 100%;
-    height: 10vh;
-    background-color: white;
-    border-radius: 20px;
-    //margin-top: .5rem;
-    margin-bottom: 1rem;
-
-    .color-selector{
-        height: 120%;
-        margin-top: 10vh;
-        z-index: 99;
-        margin-left: 20%;
+    width: 90%;
+    flex-direction: row;
+    margin-left: 1vw;
+    align-items: center;
+    .checkbox {
+      margin-left: 2rem;
+      width: 2vw;
+      height: 2vw;
     }
 
-    .card-content{
-        display: flex;
-        width: 90%;
-        flex-direction: row;
+    .text-content {
+      width: 70%;
+      h3 {
         margin-left: 1vw;
-        align-items: center;
-        .checkbox {
-            margin-left: 2rem;
-            width: 2vw;
-            height: 2vw;
-        }
-
-        .text-content{
-            width: 90%;
-            h3{
-                margin-left: 1vw;
-                color: $primary;
-                font-size: 1.5vw;
-                margin-bottom: 0;
-            }
-        }
-        .colour-picker{
-            position: fixed;
-            margin-left: 25%;
-            display: flex;
-            width: 50px;
-            height: 50px;
-            color: black;
-
-            .icon{
-                width: 100%;
-                height: 100%;
-            }
-        }
+        color: $primary;
+        font-size: 1.5vw;
+        margin-bottom: 0;
+      }
     }
+    .colour-picker {
+      //position: fixed;
+      display: flex;
+      width: 15%;
+      height: 100%;
+      color: black;
+
+      .icon {
+        width: 75%;
+        height: 75%;
+      }
+    }
+  }
 }
 
-#active{
-    background-color: $accent;
+#active {
+  background-color: $accent;
 }
