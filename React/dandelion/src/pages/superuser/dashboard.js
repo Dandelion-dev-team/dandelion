@@ -38,14 +38,25 @@ export default function SuperuserDashboard(props) {
             <div className="students-pane">
               <div className="students-wrapper">
                 <h3>Students</h3>
-                <div className="chart">
-
-                </div>
-                <hr className="linebreak"/>
+                <div className="chart"></div>
+                <hr className="linebreak" />
                 <div className="students-list">
-                {school_users.users ? school_users.users.map(e => {
-                  return(<h3>{e.username}</h3>)
-                }) : null}
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Student ID</th>
+                        <th>Username</th>
+                      </tr>
+                    </thead>
+                    {school_users.users
+                      ? school_users.users.map(friend => (
+                          <tbody key={friend.user_id}>
+                            <td>{friend.user_id}</td>
+                            <td>{friend.username}</td>
+                          </tbody>
+                        ))
+                      : null}
+                  </table>
                 </div>
               </div>
             </div>
@@ -57,25 +68,31 @@ export default function SuperuserDashboard(props) {
                 <div className="activity-list">
                   {projectList
                     ? projectList.map(project => (
-                      <div className="activity">
-                        <div className="img">
-                          {/* <img src={project.image_thumb} /> */}
-                          <img src="https://vz.cnwimg.com/thumb-1200x/wp-content/uploads/2009/11/Chuck-Liddell-picture-e1560178403562.jpg"/>
+                        <div className="activity">
+                          <div className="img">
+                            {/* <img src={project.image_thumb} /> */}
+                            <img src="https://vz.cnwimg.com/thumb-1200x/wp-content/uploads/2009/11/Chuck-Liddell-picture-e1560178403562.jpg" />
+                          </div>
+                          <div className="name">
+                            <h3>{project.title}</h3>
+                          </div>
                         </div>
-                        <div className="name">
-                          <h3>{project.title}</h3>
-                        </div>
-                      </div>
-                    ))
+                      ))
                     : null}
                 </div>
               </div>
               <div className="node-widget">
                 <h3>Invites</h3>
                 <div className="invite-list">
-                  {inviteList.data ? inviteList.data.length > 0 ? inviteList.data.map(invite => (
-                    <InviteCard alert={invite} />
-                  )) :  <h3>No Pending Invites.</h3> : null}
+                  {inviteList.data ? (
+                    inviteList.data.length > 0 ? (
+                      inviteList.data.map(invite => (
+                        <InviteCard alert={invite} />
+                      ))
+                    ) : (
+                      <h3>No Pending Invites.</h3>
+                    )
+                  ) : null}
                 </div>
               </div>
             </div>
