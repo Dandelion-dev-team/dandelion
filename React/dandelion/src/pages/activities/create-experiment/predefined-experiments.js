@@ -52,12 +52,6 @@ export default function PredefinedExperiments(props) {
                       onChange={handleSearchValueChange}
                     />
                     <div className="tune-margin">
-                      <TuneIcon
-                        onClick={() => {
-                          //console.log("clicked tune")
-                        }}
-                        className="tune-icon"
-                      />
                     </div>
                   </div>
                 </div>
