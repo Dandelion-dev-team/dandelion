@@ -108,8 +108,7 @@ export default function TreatmentVariables(props) {
                     value={search_value}
                     onChange={handleSearchValueChange}
                   />
-                  <div className="tune-margin">
-                  </div>
+                 
                 </div>
                 <div className="treatment-list">
                   {variable_list.data ?
