@@ -60,7 +60,7 @@ export default function SuperuserDashboard(props) {
                       <div className="activity">
                         <div className="img">
                           {/* <img src={project.image_thumb} /> */}
-                          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Chuck_Liddell_2010_%28cropped%29.jpg/1200px-Chuck_Liddell_2010_%28cropped%29.jpg"/>
+                          <img src="https://vz.cnwimg.com/thumb-1200x/wp-content/uploads/2009/11/Chuck-Liddell-picture-e1560178403562.jpg"/>
                         </div>
                         <div className="name">
                           <h3>{project.title}</h3>
@@ -84,15 +84,15 @@ export default function SuperuserDashboard(props) {
               <div className="list">
                 <a
                   className="dandelion-link-item"
-                  href="https://dandelion.scot/"
+                  // href="https://dandelion.scot/"
                   target={"_blank"}
                 >
                   <div className="item-title">
-                    <h3>Project Overview</h3>
+                    <h3>Coming Soon</h3>
                     <LinkIcon className="link-icon" />
                   </div>
                 </a>
-                <a
+                {/* <a
                   className="dandelion-link-item"
                   href="https://dandelion.scot/"
                   target={"_blank"}
@@ -121,7 +121,7 @@ export default function SuperuserDashboard(props) {
                     <h3>Dandelion Project Plan</h3>
                     <LinkIcon className="link-icon" />
                   </div>
-                </a>
+                </a> */}
               </div>
               <div className="calendar">
                 {/* <div className="superuser-calendar">
