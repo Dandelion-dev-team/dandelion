@@ -6,8 +6,8 @@ import UnitCard from "../../../components/cards/unitCard"
 import UnitHelpModal from "../../../components/modals/unitHelpModal"
 import UnitItem from "../../../components/unitItem"
 import { verify_superuser_storage } from "../../../utils/logins"
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 import {
   createRecord,
@@ -205,14 +205,13 @@ export default function ConfigureUnits(props) {
     navigate("/superuser/activity-maintenance")
   }
 
-
   if (typeof window !== `undefined` && logged) {
     return (
       <div>
         {modal_shown ? <UnitHelpModal callback={closeModal} /> : null}
 
         <div className="configure-container">
-          <ToastContainer/>
+          <ToastContainer />
           <div className="content">
             <div className="condition-list">
               {combination_list

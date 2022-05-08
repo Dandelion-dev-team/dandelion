@@ -61,7 +61,7 @@ export default function UnitCard(props) {
           <PaletteIcon className="icon" style={{ color: colour }} />
         </div>
       </div>
-      {show_picker ? <GithubPicker onChangeComplete={handleChangeComplete} className="color-selector" /> : null}
+      {show_picker ? <GithubPicker onChangeComplete={handleChangeComplete}  className="color-selector" /> : null}
     </div>
   )
 }

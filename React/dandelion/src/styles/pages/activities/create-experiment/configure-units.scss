@@ -49,8 +49,8 @@
           width: 50%;
           height: 100%;
           color: black;
-          
-          textarea{
+
+          textarea {
             resize: none;
           }
           h3 {
@@ -80,10 +80,9 @@
           }
         }
       }
-  
-      .active{
-        border: 5px solid $accent;
 
+      .active {
+        border: 5px solid $accent;
       }
     }
 
@@ -101,8 +100,7 @@
           border-top-left-radius: 5px;
           border-bottom-left-radius: 5px;
           background-color: white;
-          height: 3.5rem;
-          width: 8.5rem;
+          height: 7.5%;
           margin-bottom: 1rem;
           display: flex;
           align-items: center;
@@ -110,7 +108,7 @@
           h3 {
             color: $primary;
             margin-bottom: 0;
-            font-size: 1.2rem;
+            font-size: 1.2vw;
             margin-left: 0.5rem;
           }
         }
@@ -140,7 +138,7 @@
           background-color: white;
           display: flex;
           height: 80vh;
-          width: 80vh;
+          width: 100%;
           border-bottom-left-radius: 20px;
           border-bottom-right-radius: 20px;
           border-top-right-radius: 20px;
@@ -166,11 +164,11 @@
                 display: grid;
                 grid-template-columns: repeat(1, 1fr);
                 grid-gap: 5px;
-  
+
                 .number {
                   border-radius: 5px;
                   display: flex;
-  
+
                   justify-content: center;
                   align-items: center;
                   h3 {
@@ -184,8 +182,6 @@
                 height: 5%;
               }
             }
-
-            
 
             .right-pane {
               width: 95%;
@@ -217,6 +213,7 @@
                 .square-grid {
                   background-color: white;
                   width: 100%;
+                  max-height: 100%;
                   display: grid;
                   grid-template-columns: repeat(5, 1fr);
                   grid-gap: 5px;
@@ -245,7 +242,7 @@
           .submitButton {
             background-color: $accent;
             color: $primary;
-            font-size: 1.6rem;
+            font-size: 1.2vw;
             margin: 1.25rem 0px;
             padding: 15px;
             border: none;
@@ -282,6 +279,6 @@
   }
 }
 
-#active{
+#active {
   border: 5px solid $accent;
 }

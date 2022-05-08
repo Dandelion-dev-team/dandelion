@@ -21,10 +21,11 @@
       flex-direction: row;
       width: 100%;
       overflow-y: auto;
-      .input-row {
+      justify-content: space-between;
+      .left-pane {
         display: flex;
         flex-direction: column;
-        width: 60%;
+        width: 55%;
         overflow-y: auto;
 
         .experimentCheck {
@@ -157,7 +158,7 @@
             .submitButton {
               background-color: $accent;
               color: $primary;
-              font-size: 1.2rem;
+              font-size: 1.2vw;
               margin: 1.25rem 0px;
               padding: 0.5rem;
               width: 50%;
@@ -199,7 +200,7 @@
             .submitButton {
               background-color: $accent;
               color: $primary;
-              font-size: 1.6rem;
+              font-size: 1.2vw;
               margin: 1.25rem 0px;
               padding: 15px;
               border: none;
@@ -217,7 +218,7 @@
             .submitButton {
               background-color: $accent;
               color: $primary;
-              font-size: 1.6rem;
+              font-size: 1.2vw;
               margin: 1.25rem 0px;
               padding: 15px;
               border: none;

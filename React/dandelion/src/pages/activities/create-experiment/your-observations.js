@@ -136,7 +136,9 @@ const ResponseVariable = variable => {
                     : null}
                 </div>
                 <div className="recording-date">
-                  <div className="date-label">Respnse Day:</div>
+                  <div className="date-label">
+                    <h3>Response Day:</h3>
+                    </div>
                   <div className="date-input">
                     <select>
                       <option value="Monday">Monday</option>

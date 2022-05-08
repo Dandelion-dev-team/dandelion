@@ -26,100 +26,107 @@
         color: blue;
       }
 
-      .experimentCheck {
-        display: flex;
-        flex-direction: row;
-        margin-left: 30%;
-        margin-top: 2vh;
-        h3{
-          color: black;
-          line-height: 50%;
-          margin-left: 1rem;
-        }
-      }
-      .experimentCheck {
-        display: flex;
-        flex-direction: row;
-        margin-left: 30%;
-        h3{
-          color: black;
-          line-height: 50%;
-          margin-left: 1rem;
-        }
-      }
-
-      .inputItem {
-        text-align: left;
-        display: flex;
-        flex-direction: row;
-        justify-items: left;
-        width: 100%;
-        height: auto;
-        margin-top: 3vh;
-
-        .item-title {
-          width: 30%;
-          height: 100%;
-          h3 {
-            display: inline;
-            font-size: 1.5vw;
+      .input-form {
+        height: 80%;
+        overflow-y: scroll;
+        .experimentCheck {
+          display: flex;
+          flex-direction: row;
+          margin-left: 30%;
+          margin-top: 2vh;
+          h3{
+            color: black;
+            line-height: 50%;
+            margin-left: 1rem;
           }
         }
-
-        .item-input {
-          width: 50%;
-          height: 100%;
-          color: black;
-          h3 {
-            display: inline;
-            font-size: 1vw;
+        .experimentCheck {
+          display: flex;
+          flex-direction: row;
+          margin-left: 30%;
+          h3{
+            color: black;
+            line-height: 50%;
+            margin-left: 1rem;
           }
         }
-
-        .desc-title {
-          width: 30%;
-          height: 100%;
-          margin-top: 4vh;
-          h3 {
-            display: inline;
-            font-size: 1.5vw;
-          }
-        }
-
-        .desc-input {
-          width: 50%;
-          height: 100%;
-          margin-top: 1.5vh;
-          margin-bottom: 1.5vh;
-
-          textarea {
-            min-height: 100%;
-            max-height: 100%;
-            min-width: 100%;
-            max-width: 100%;
-            margin: auto;
-            resize: none;
-          }
-
-          input {
+  
+        .inputItem {
+          text-align: left;
+          display: flex;
+          flex-direction: row;
+          justify-items: left;
+          width: 100%;
+          height: auto;
+          margin-top: 3vh;
+  
+          .item-title {
+            width: 30%;
             height: 100%;
-            width: 100%;
+            h3 {
+              display: inline;
+              font-size: 1.5vw;
+            }
+          }
+  
+          .item-input {
+            width: 50%;
+            height: 100%;
+            color: black;
+            h3 {
+              display: inline;
+              font-size: 1vw;
+            }
+          }
+  
+          .desc-title {
+            width: 30%;
+            height: 100%;
+            margin-top: 4vh;
+            h3 {
+              display: inline;
+              font-size: 1.5vw;
+            }
+          }
+  
+          .desc-input {
+            width: 50%;
+            height: 100%;
+            margin-top: 1.5vh;
+            margin-bottom: 1.5vh;
+  
+            textarea {
+              min-height: 100%;
+              max-height: 100%;
+              min-width: 100%;
+              max-width: 100%;
+              margin: auto;
+              resize: none;
+            }
+  
+            input {
+              height: 100%;
+              width: 100%;
+            }
+          }
+  
+          h3 {
+            font-size: 1.6rem;
+            color: $primary;
+            margin-bottom: 0px;
+            padding-bottom: 0px;
           }
         }
-
-        h3 {
-          font-size: 1.6rem;
-          color: $primary;
-          margin-bottom: 0px;
-          padding-bottom: 0px;
-        }
+        
       }
       
-    }
+
+      
     .finish-btn {
         display: flex;
         align-self: center;
         margin-top: 2rem;
+        height: 20%;
         .submitButton {
           background-color: $accent;
           color: $primary;
@@ -134,5 +141,6 @@
           background-color: #d4d926;
         }
       }
+    }
   }
 }

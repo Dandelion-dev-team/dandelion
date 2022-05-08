@@ -21,15 +21,15 @@ export default function TreatmentVariables(props) {
   const [experiment_details, setExperimentDetails] = useState("")
   const [discrete_modal_shown, setDiscreteModalShown] = useState("")
   const [selected_list, updateSelectedList] = useState([])
-  const [logged, setLogged] = useState("");
+  const [logged, setLogged] = useState("")
 
   const handleSearchValueChange = e => {
     changeSearch(e.target.value)
   }
 
   const modalCallback = e => {
-    setShowDetails(false);
-    setDiscreteModalShown(false);
+    setShowDetails(false)
+    setDiscreteModalShown(false)
 
     if (e) {
       updateSelectedList(arr => [...arr, JSON.parse(e)])
@@ -43,9 +43,13 @@ export default function TreatmentVariables(props) {
   const checkboxCallback = e => {
     let val = e.data
     if (e.value == true) {
-      readAdminRecord("/variable/" + val.id).then(data => updateSelectedList(arr => [...arr, data]))
+      readAdminRecord("/variable/" + val.id).then(data =>
+        updateSelectedList(arr => [...arr, data])
+      )
     } else {
-      updateSelectedList(selected_list.filter(item => item.variable_id != val.id))
+      updateSelectedList(
+        selected_list.filter(item => item.variable_id != val.id)
+      )
     }
   }
 
@@ -71,8 +75,7 @@ export default function TreatmentVariables(props) {
         readRecord("/allVariables", setVariables)
       } else {
         if (typeof window !== `undefined`) {
-          navigate(
-            "/activities/create-experiment/enter-details")
+          navigate("/activities/create-experiment/enter-details")
         }
       }
     } else {
@@ -82,7 +85,9 @@ export default function TreatmentVariables(props) {
 
   return (
     <div>
-      {discrete_modal_shown ? <DiscreteVariableModal callback={modalCallback} /> : null}
+      {discrete_modal_shown ? (
+        <DiscreteVariableModal callback={modalCallback} />
+      ) : null}
 
       {show_details ? (
         <ViewDetailedVariable
@@ -100,7 +105,7 @@ export default function TreatmentVariables(props) {
                 <div className="title">
                   <h3>Add Treatment Variables</h3>
                 </div>
-                <div className="search-tune-row">
+                <div className="search-row">
                   <input
                     type="text"
                     className="search-box"
@@ -108,7 +113,6 @@ export default function TreatmentVariables(props) {
                     value={search_value}
                     onChange={handleSearchValueChange}
                   />
-                 
                 </div>
                 <div className="treatment-list">
                 {variable_list.length > 1 ? (
@@ -119,10 +123,9 @@ export default function TreatmentVariables(props) {
                           checkCallback={checkboxCallback}
                         />
                       ))
-                    )
-                    : (
-                      <h3>No Treatment Variables Found.</h3>
-                    )}
+                  ) : (
+                    <h3>No Treatment Variables Found.</h3>
+                  )}
                 </div>
                 <div className="pagination">
                   <input
@@ -131,19 +134,21 @@ export default function TreatmentVariables(props) {
                     value="Back"
                     onClick={() => {
                       if (typeof window !== `undefined`) {
-                        navigate("/activities/create-experiment/enter-details/",
+                        navigate(
+                          "/activities/create-experiment/enter-details/",
                           {
-                            state: { 
-                                project_id:  props.location.state.project_id,
-                                name: props.location.state.name,
-                                code: props.location.state.code,
-                                description: props.location.state.description,
-                                tutorial: props.location.state.tutorial,
-                                image:  props.location.state.image,
-                                startDate: props.location.state.startDate,
-                                endDate: props.location.state.endDate,
+                            state: {
+                              project_id: props.location.state.project_id,
+                              name: props.location.state.name,
+                              code: props.location.state.code,
+                              description: props.location.state.description,
+                              tutorial: props.location.state.tutorial,
+                              image: props.location.state.image,
+                              startDate: props.location.state.startDate,
+                              endDate: props.location.state.endDate,
                             },
-                          })
+                          }
+                        )
                       }
                     }}
                   ></input>
