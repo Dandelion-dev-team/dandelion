@@ -8,7 +8,8 @@ export default function ExperimentCard(props) {
            props.callback(props.dataProp);
           }}>
             <div className="card-img">
-                <img src={props.dataProp.experiment_image_link}/>
+                {/* <img src={props.dataProp.experiment_image_link}/> */}
+                <img src='https://upload.wikimedia.org/wikipedia/commons/2/2b/FIDE_World_FR_Chess_Championship_2019_-_Magnus_Carlsen.jpg'/>
             </div>
             <div className="title-description">
                 <h2>{props.dataProp.title}</h2>
