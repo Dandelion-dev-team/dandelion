@@ -127,6 +127,9 @@ export function uploadExperimentImage(endpoint, image) {
     credentials: "include",
     mode: "cors",
     body: formData,
+    headers: new Headers({
+      "X-CSRF-TOKEN": cookies.get("csrf_access_token"),
+    }),
   })
     .then(response => {
       if (response.status == 200) {

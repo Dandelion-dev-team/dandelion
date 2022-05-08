@@ -81,6 +81,26 @@
           color: $primary;
           font-size: 1.2rem;
         }
+        .btn-row {
+          height: 100%;
+          display: flex;
+          align-items: center;
+          .update-btn {
+            background-color: $accent;
+            color: $primary;
+            font-size: 1.25rem;
+            margin: 1.25rem 0px;
+            padding: 10px;
+            padding-left: 20px;
+            padding-right: 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+          }
+          .update-btn:hover {
+            background-color: #d4d926;
+          }
+        }
       }
       .spacer {
         display: flex;
@@ -126,9 +146,7 @@
             cursor: pointer;
             border-radius: 10px;
           }
-          .back-button:hover {
-            background-color: #d4d926;
-          }
+
         }
       }
     }
