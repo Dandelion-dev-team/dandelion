@@ -112,6 +112,7 @@ def auth_check(route, method, current_user=None, id_1=None, id_2=None):
         {"route": "/api/user", "method": "POST", "auth_level": "superuser"},
         {"route": "/api/user/" + id_1, "method": "GET", "auth_level": "school_user"},
         {"route": "/api/user/" + id_1, "method": "GET", "auth_level": "school_user"},
+        {"route": "/api/user/reset/" + id_1, "method": "PUT", "auth_level": "school_user"},
         {"route": "/api/user/getsuperusers", "method": "GET", "auth_level": "sysadmin"},
         {"route": "/api/user/byschool/" + id_1, "method": "GET", "auth_level": "superuser"},
         {"route": "/api/user/byschoolandexperiment/" + id_1 + "/" + id_2, "method": "GET",

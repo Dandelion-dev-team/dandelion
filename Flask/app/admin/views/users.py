@@ -213,6 +213,31 @@ def updateUser(id):
             abort(409)
 
 
+@admin.route('/user/reset/<int:id>', methods=['PUT'])
+@jwt_required()
+def passwordReset(id):
+    current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user, id)
+    user_to_update = User.query.get_or_404(id)
+    new_data = request.get_json()
+
+    user_to_update.password = new_data['password']
+
+    audit_details = prepare_audit_details(inspect(User), user_to_update, delete=False)
+
+    message = "Password has been updated"
+
+    if len(audit_details) > 0:
+        try:
+            db.session.commit()
+            audit_update("users", user_to_update.id, audit_details, current_user.id)
+            return jsonify({"message": message})
+
+        except Exception as e:
+            db.session.rollback()
+            abort(409)
+
+
 @admin.route('/user/access/<int:id>', methods=['PUT'])
 def updatePassword(id):
     user_to_update = User.query.get_or_404(id)
