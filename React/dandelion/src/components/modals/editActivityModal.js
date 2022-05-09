@@ -25,7 +25,7 @@ export default function EditActivityModal(props) {
 
   const handleImageChange = async e => {
     uploadExperimentImage(
-      "/project/" + props.project.id + "/uploadImage",
+      "/project/" + props.project.project_id + "/uploadImage",
       e.target.files[0]
     ).then(window.location.reload(false))
   }

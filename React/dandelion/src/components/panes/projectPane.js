@@ -90,7 +90,7 @@ export default function ProjectPane(props) {
                 setShowEditModal(true)
               }}
             >
-              Edit Project
+              Edit Activity
             </button>
             <button
               className="submitButton"
