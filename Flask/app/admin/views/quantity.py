@@ -1,5 +1,4 @@
 from flask import request, jsonify, abort
-from flask_cors import cross_origin
 from flask_json import json_response
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import inspect
@@ -13,14 +12,12 @@ from app.utils.functions import row2dict, jwt_user
 
 # This route is PUBLIC
 @admin.route('/quantity', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def listQuantity():
     quantity = Quantity.query.all()
     return json_response(data=(row2dict(x, summary=False) for x in quantity))
 
 
 @admin.route('/quantity', methods=['POST'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def add_quantity():
     current_user = jwt_user(get_jwt_identity())
@@ -49,7 +46,6 @@ def add_quantity():
 
 # This route is PUBLIC
 @admin.route('/quantity/<int:id>', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def getOneQuantity(id):
     quantity = Quantity.query.get_or_404(id)
 
@@ -63,7 +59,6 @@ def getOneQuantity(id):
 
 
 @admin.route('/quantity/<int:id>', methods=['PUT'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def updateQuantity(id):
     current_user = jwt_user(get_jwt_identity())
@@ -91,7 +86,6 @@ def updateQuantity(id):
 
 
 @admin.route('/quantity/<int:id>', methods=['DELETE'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def delete_quantity(id):
     current_user = jwt_user(get_jwt_identity())

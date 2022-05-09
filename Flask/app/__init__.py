@@ -85,6 +85,10 @@ def create_app(config_name):
 
     jwt = JWTManager(app)
     json = FlaskJSON(app)
-    cors = CORS(app)
+    cors = CORS(app, resources={r"/api/*": {"origins": ["http://localhost:8000",
+                                                        "http://localhost:443",
+                                                        "http://127.0.0.1:8000",
+                                                        "http://127.0.0.1:wq:443"]}},
+                supports_credentials=True)
 
     return app

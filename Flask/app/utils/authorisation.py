@@ -17,6 +17,7 @@ def auth_check(route, method, current_user=None, id_1=None, id_2=None):
         {"route": "/api/experiment/" + id_1, "method": "GET", "auth_level": "public"},
         {"route": "/api/project/" + id_1 + "/experiment", "method": "GET", "auth_level": "public"},
         {"route": "/api/experiment/" + id_1, "method": "GET", "auth_level": "public"},
+        {"route": "/api/experiment/filtered" + id_1, "method": "GET", "auth_level": "public"},
         {"route": "/api/experiment", "method": "POST", "auth_level": "superuser"},
         {"route": "/api/experiment/" + id_1 + "/uploadimage", "method": "PUT", "auth_level": "superuser"},
         {"route": "/api/experiment/" + id_1, "method": "PUT", "auth_level": "superuser"},

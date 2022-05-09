@@ -4,7 +4,6 @@ from flask import abort, request
 from flask_json import json_response
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import inspect
-from flask_cors import cross_origin
 from app.admin import admin
 from app.models import School
 from app import db
@@ -19,13 +18,11 @@ from app.utils.uploads import get_uploaded_file
 
 # This route is PUBLIC
 @admin.route('/school', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def listSchool():
     school = School.query.all()
     return json_response(data=(row2dict(x, summary=True) for x in school))
 
 @admin.route('/school', methods=['POST'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def add_school():
     current_user = jwt_user(get_jwt_identity())
@@ -63,7 +60,6 @@ def add_school():
 
 # This route is PUBLIC
 @admin.route('/school/<int:id>', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def getOneSchool(id):
     school = School.query.get_or_404(id)
 
@@ -87,7 +83,6 @@ def getOneSchool(id):
 
 
 @admin.route('/school/<int:id>', methods=['PUT'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def updateSchool(id):
     current_user = jwt_user(get_jwt_identity())
@@ -124,7 +119,6 @@ def updateSchool(id):
 
 
 @admin.route('/school/<int:id>', methods=['DELETE'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def delete_school(id):
     current_user = jwt_user(get_jwt_identity())
@@ -149,7 +143,6 @@ def delete_school(id):
 
 
 @admin.route('/school/<int:id>/uploadImage', methods=['POST'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def upload_school_image(id):
     current_user = jwt_user(get_jwt_identity())

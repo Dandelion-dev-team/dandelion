@@ -1,7 +1,6 @@
 from flask import abort, make_response, redirect
 from app.auth import auth
 from app.models import User
-from flask_cors import cross_origin
 
 from flask import request
 from flask_jwt_extended import create_access_token, jwt_required, set_access_cookies, unset_jwt_cookies, \
@@ -10,7 +9,6 @@ import datetime
 
 
 @auth.route('/user/login', methods=['POST'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def login():
     auth = request.authorization
 

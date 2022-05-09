@@ -1,5 +1,4 @@
 from flask import abort, request, jsonify
-from flask_cors import cross_origin
 from flask_json import json_response
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import inspect
@@ -14,7 +13,6 @@ from app.utils.functions import row2dict, jwt_user
 
 # This route is PUBLIC
 @admin.route('/tagreference', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def listTagReference():
     tag_reference = TagReference.query.all()
 
@@ -22,7 +20,6 @@ def listTagReference():
 
 
 @admin.route('/tagreference', methods=['POST'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def add_tag_reference():
     current_user = jwt_user(get_jwt_identity())
@@ -49,7 +46,6 @@ def add_tag_reference():
 
 # This route is PUBLIC
 @admin.route('/tagreference/<int:id>', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def getOneTag_Reference(id):
     tag_reference = TagReference.query.get_or_404(id)
 
@@ -61,7 +57,6 @@ def getOneTag_Reference(id):
     return jsonify({'Tag Reference': tag_reference_data})
 
 @admin.route('/tagreference/<int:id>', methods=['PUT'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def updateTag_Reference(id):
     current_user = jwt_user(get_jwt_identity())
@@ -88,7 +83,6 @@ def updateTag_Reference(id):
             abort(409)
 
 @admin.route('/tagreference/<int:id>', methods=['DELETE'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def delete_tag_reference(id):
     current_user = jwt_user(get_jwt_identity())

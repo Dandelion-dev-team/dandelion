@@ -1,7 +1,6 @@
 import os
 
 from flask import abort, request
-from flask_cors import cross_origin
 from flask_json import json_response
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import inspect
@@ -19,14 +18,12 @@ from app.utils.uploads import get_uploaded_file, content_folder
 
 # This route is PUBLIC
 @admin.route('/project', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def listProject():
     project = Project.query.all()
     return json_response(data=(row2dict(x, summary=True) for x in project))
 
 
 @admin.route('/project', methods=['POST'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def add_project():
     current_user = jwt_user(get_jwt_identity())
@@ -74,7 +71,6 @@ def add_project():
 
 # This route is PUBLIC
 @admin.route('/project/<int:id>', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def get_one_project(id):
     project = Project.query.get_or_404(id)
 
@@ -92,7 +88,6 @@ def get_one_project(id):
     return {'Project': project_data}
 
 @admin.route('/project/<int:id>', methods=['PUT'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def update_project(id):
     current_user = jwt_user(get_jwt_identity())
@@ -124,7 +119,6 @@ def update_project(id):
 
 
 @admin.route('/project/<int:id>', methods=['DELETE'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def delete_project(id):
     current_user = jwt_user(get_jwt_identity())

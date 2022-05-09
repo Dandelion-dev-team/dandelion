@@ -8,7 +8,6 @@ from sqlalchemy import inspect, and_
 from app.admin import admin
 from app.admin.views.school import getOneSchool
 from app.models import User, ExperimentParticipant, Experiment, Project, School, ProjectPartner
-from flask_cors import cross_origin
 from app import db
 from app.utils.functions import jwt_user, is_username_taken
 from app.utils.authorisation import auth_check
@@ -16,7 +15,6 @@ from app.utils.auditing import audit_create, prepare_audit_details, audit_update
 
 
 @admin.route('/user', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def getAllUsers():
     current_user = jwt_user(get_jwt_identity())
@@ -36,7 +34,6 @@ def getAllUsers():
 
 
 @admin.route('/user', methods=['POST'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def createUser():
     current_user = jwt_user(get_jwt_identity())
@@ -65,7 +62,6 @@ def createUser():
 
 
 @admin.route('/user/<int:id>', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def getOneUser(id):
     current_user = jwt_user(get_jwt_identity())
@@ -81,11 +77,7 @@ def getOneUser(id):
 
 
 @admin.route('/user/<string:username>', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
-@jwt_required()
 def getUserByUsername(username):
-    current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user, username)
     print(username)
     user = User.query.filter(User.username == username).first()
 
@@ -100,11 +92,10 @@ def getUserByUsername(username):
 
 
 @admin.route('/user/getsuperusers', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def getAllSuperUsers():
-    current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user)
+    # current_user = jwt_user(get_jwt_identity())
+    # authorised = auth_check(request.path, request.method, current_user)
     users = User.query.filter(User.is_superuser == True).all()
     output = []
 
@@ -120,7 +111,6 @@ def getAllSuperUsers():
 
 
 @admin.route('/user/byschool/<int:school_id>', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def getUsersBySchoolID(school_id):
     current_user = jwt_user(get_jwt_identity())
@@ -141,7 +131,6 @@ def getUsersBySchoolID(school_id):
 
 
 @admin.route('/user/byschoolandexperiment/<int:school_id>/<int:experiment_id>', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def get_users_by_school_and_experiment(school_id, experiment_id):
     current_user = jwt_user(get_jwt_identity())
@@ -174,7 +163,6 @@ def get_users_by_school_and_experiment(school_id, experiment_id):
 
 
 @admin.route('/user/byproject/<int:project_id>', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def get_user_by_project(project_id):
     current_user = jwt_user(get_jwt_identity())
@@ -195,7 +183,6 @@ def get_user_by_project(project_id):
 
 
 @admin.route('/user/<int:id>', methods=['PUT'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def updateUser(id):
     current_user = jwt_user(get_jwt_identity())
@@ -226,8 +213,28 @@ def updateUser(id):
             abort(409)
 
 
+@admin.route('/user/access/<int:id>', methods=['PUT'])
+def updatePassword(id):
+    user_to_update = User.query.get_or_404(id)
+    new_data = request.get_json()
+    user_to_update.password = new_data['password']
+
+    audit_details = prepare_audit_details(inspect(User), user_to_update, delete=False)
+
+    message = "Password updated"
+
+    if len(audit_details) > 0:
+        try:
+            db.session.commit()
+            audit_update("users", user_to_update.id, audit_details, id)
+            return jsonify({"message": message})
+
+        except Exception as e:
+            db.session.rollback()
+            abort(409)
+
+
 @admin.route('/user/<int:id>', methods=['DELETE'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def deleteUser(id):
     current_user = jwt_user(get_jwt_identity())
@@ -252,7 +259,6 @@ def deleteUser(id):
 
 
 @admin.route('/user/create_account/multiple', methods=['POST'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def create_multiple_accounts():
     current_user = jwt_user(get_jwt_identity())
@@ -314,7 +320,6 @@ def create_multiple_accounts():
 
 @admin.route('/user/updatestatus/<int:id>',
              methods=['PUT'])  # Updates the new user account status from unallocated to active
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def updateUserStatus(id):
     current_user = jwt_user(get_jwt_identity())
