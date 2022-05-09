@@ -1,5 +1,4 @@
 from flask import abort, request, jsonify
-from flask_cors import cross_origin
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import inspect
 
@@ -12,7 +11,6 @@ from app.utils.functions import jwt_user
 
 
 @admin.route('/sensorQuantity', methods=['POST'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def add_sensor_quantity():
     current_user = jwt_user(get_jwt_identity())
@@ -39,7 +37,6 @@ def add_sensor_quantity():
 
 # This route is PUBLIC
 @admin.route('/sensorQuantity/<int:id>', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def get_one_sensor_quantity(id):
     sensor_quantity = SensorQuantity.query.get_or_404(id)
 
@@ -53,7 +50,6 @@ def get_one_sensor_quantity(id):
 
 
 @admin.route('/sensorQuantity/<int:id>', methods=['PUT'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def Update_sensory_quantity(id):
     current_user = jwt_user(get_jwt_identity())
@@ -80,7 +76,6 @@ def Update_sensory_quantity(id):
 
 
 @admin.route('/sensorQuantity/<int:id>', methods=['DELETE'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def delete_sensor_quantity(id):
     current_user = jwt_user(get_jwt_identity())

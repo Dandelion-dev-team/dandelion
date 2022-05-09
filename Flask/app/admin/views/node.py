@@ -2,7 +2,6 @@ import json
 import os
 
 from flask import abort, request, jsonify, current_app
-from flask_cors import cross_origin
 from flask_json import json_response
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import inspect
@@ -21,7 +20,6 @@ from app.utils.uploads import content_folder
 
 
 @admin.route('/node', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def listNode():
     current_user = jwt_user(get_jwt_identity())
@@ -31,7 +29,6 @@ def listNode():
 
 
 @admin.route('/node', methods=['POST'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def add_node():
     current_user = jwt_user(get_jwt_identity())
@@ -62,7 +59,6 @@ def add_node():
 
 
 @admin.route('/node/<int:id>', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def get_one_node(id):
     current_user = jwt_user(get_jwt_identity())
@@ -85,7 +81,6 @@ def get_one_node(id):
 
 
 @admin.route('/node/byschool/<int:id>', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def get_node_by_school(id):
     current_user = jwt_user(get_jwt_identity())
@@ -106,7 +101,6 @@ def get_node_by_school(id):
     return jsonify({'Node': node_data})
 
 @admin.route('/node/<int:id>', methods=['PUT'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def updateNode(id):
     current_user = jwt_user(get_jwt_identity())
@@ -138,7 +132,6 @@ def updateNode(id):
 
 
 @admin.route('/node/<int:id>', methods=['DELETE'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def delete_node(id):
     current_user = jwt_user(get_jwt_identity())
@@ -163,7 +156,6 @@ def delete_node(id):
 
 
 # @admin.route('/node/<int:id>/uploadData', methods=['POST'])
-# @cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 # @jwt_required()
 # def upload_data(id):
 #     current_user = jwt_user(get_jwt_identity())
@@ -197,7 +189,6 @@ def delete_node(id):
 
 # This route is PUBLIC
 @admin.route('/node/latest/<int:node_id>', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def get_latest_data(node_id):
     Node.query.get_or_404(node_id)  # if node id doens't exist, it returns a 404 message
     str(node_id)
@@ -255,7 +246,6 @@ def get_latest_data(node_id):
 
 
 @admin.route('/node/register/<school_id>', methods=['POST'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def register_node(school_id):
     current_user = jwt_user(get_jwt_identity())

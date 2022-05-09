@@ -1,7 +1,6 @@
 import os
 
 from flask import abort, request, jsonify
-from flask_cors import cross_origin
 from flask_json import json_response
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import inspect
@@ -17,14 +16,12 @@ from app.utils.uploads import content_folder
 
 # This route is PUBLIC
 @admin.route('/project_partner', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def listProjectPartner():
     project_partner = ProjectPartner.query.all()
     return json_response(data=(row2dict(x, summary=False) for x in project_partner))
 
 
 @admin.route('/project_partner', methods=['POST'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def add_project_partner():
     current_user = jwt_user(get_jwt_identity())
@@ -52,7 +49,6 @@ def add_project_partner():
 
 
 @admin.route('/project_partner/<int:project_id>/<int:school_id>', methods=['POST'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def add_project_partner_by_invite(project_id, school_id):
     current_user = jwt_user(get_jwt_identity())
@@ -78,7 +74,6 @@ def add_project_partner_by_invite(project_id, school_id):
 
 # This route is PUBLIC
 @admin.route('/project_partner/<int:school_id>', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def ListAllSchoolInvitations(school_id):
     invited_schools = ProjectPartner.query. \
         join(School). \
@@ -104,7 +99,6 @@ def ListAllSchoolInvitations(school_id):
 
 
 @admin.route('/project_partner/invitation_details/<int:project_partner_id>', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def get_invitation_details(project_partner_id):
     current_user = jwt_user(get_jwt_identity())
@@ -148,7 +142,6 @@ def get_invitation_details(project_partner_id):
 
 # This route is PUBLIC
 @admin.route('/project_partner/<int:id>', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def get_one_project_partner(id):
     project_partner = ProjectPartner.query.get_or_404(id)
 
@@ -164,7 +157,6 @@ def get_one_project_partner(id):
 
 # This route is PUBLIC
 @admin.route('/project_partner/byschool/<int:school_id>', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def get_project_by_partner(school_id):
     project_partners = ProjectPartner.query.filter(ProjectPartner.school_id == school_id).all()
 
@@ -188,7 +180,6 @@ def get_project_by_partner(school_id):
 
 
 @admin.route('/project_partner/<int:id>', methods=['PUT'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def update_project_partner(id):
     current_user = jwt_user(get_jwt_identity())
@@ -217,7 +208,6 @@ def update_project_partner(id):
 
 
 @admin.route('/project_partner/update_invitation/<int:project_partner_id>', methods=['PUT'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def update_project_partner_status(project_partner_id):
     current_user = jwt_user(get_jwt_identity())
@@ -247,7 +237,6 @@ def update_project_partner_status(project_partner_id):
 
 
 @admin.route('/project_partner/<int:id>', methods=['DELETE'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def delete_project_partner(id):
     current_user = jwt_user(get_jwt_identity())
