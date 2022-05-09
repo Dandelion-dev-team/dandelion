@@ -33,7 +33,7 @@ export default function EditActivityModal(props) {
   const updateClicked = e => {
     if (projectName && projectDescription && startDate && endDate) {
       let body = JSON.stringify({
-        id: props.project.id,
+        id: props.project.project_id,
         title: projectName,
         description: projectDescription,
         project_text: props.project.project_text,
@@ -42,7 +42,7 @@ export default function EditActivityModal(props) {
         end_date: endDate,
         status: "active",
       })
-      updateRecord("project/" + props.project.id, body)
+      updateRecord("project/" + props.project.project_id, body)
     } else {
       toast.error("Need more information.")
     }
