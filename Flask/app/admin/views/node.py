@@ -246,7 +246,6 @@ def get_latest_data(node_id):
 
 
 @admin.route('/node/register/<school_id>', methods=['POST'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def register_node(school_id):
     current_user = jwt_user(get_jwt_identity())
