@@ -24,11 +24,11 @@
       height: 90vh;
 
       h3 {
-        font-size: 4rem;
+        font-size: 3.5vw;
       }
 
       p {
-        font-size: 1.6rem;
+        font-size: 1.75vw;
         line-height: 2rem;
       }
     }
@@ -110,7 +110,7 @@
               .submitButton {
                 background-color: $accent;
                 color: $primary;
-                font-size: 1.6rem;
+                font-size: 1.2vw;
                 margin: 1.25rem 0px;
                 padding: 0.625rem;
                 width: 13rem;
@@ -138,7 +138,7 @@
             .continue-btn {
               background-color: $accent;
               color: $primary;
-              font-size: 1.6rem;
+              font-size: 1.2vw;
               margin: 1.25rem 0px;
               padding: 1.25rem;
               border: none;

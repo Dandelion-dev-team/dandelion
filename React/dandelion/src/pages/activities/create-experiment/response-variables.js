@@ -16,7 +16,7 @@ import { readAdminRecord, readRecord } from "../../../utils/CRUD"
 
 export default function ResponseVariables(props) {
   const [search_value, changeSearch] = useState("")
-  const [variable_list, setVariables] = useState("")
+  const [variable_list, setVariables] = useState([])
   const [show_details, setShowDetails] = useState("")
   const [full_detail_variable, setDetailVariable] = useState("")
   const [modal_editing, setModalEditing] = useState()
@@ -150,17 +150,11 @@ export default function ResponseVariables(props) {
                       onChange={handleSearchValueChange}
                     />
                     <div className="tune-margin">
-                      <TuneIcon
-                        onClick={() => {
-                          //console.log("clicked tune");
-                        }}
-                        className="tune-icon"
-                      />
                     </div>
                   </div>
                   <div className="treatment-list">
-                    {variable_list.data ? (
-                      variable_list.data
+                    {variable_list.length > 1 ? (
+                      variable_list[1].response
                         .filter(variable =>
                           variable.name
                             .toUpperCase()

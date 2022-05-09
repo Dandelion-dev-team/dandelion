@@ -159,9 +159,7 @@ export default function EnterHypotheses(props) {
                     value="Continue"
                     onClick={() => {
                       if (
-                        typeof window !== `undefined` &&
-                        hypothesesList.length > 0
-                      ) {
+                        typeof window !== `undefined`) {
                         navigate(
                           "/activities/create-experiment/your-observations",
                           {

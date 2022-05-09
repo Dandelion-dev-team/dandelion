@@ -8,8 +8,8 @@
   }
 
   .schoolTable {
-    height: auto;
-    margin-top: 1.5rem;
+    height: 70vh;
+    margin-top: 7.5%;
     overflow-y: scroll;
     overflow-x: hidden;
 
@@ -73,13 +73,14 @@
     justify-content: space-around;
     margin-left: auto;
     .add-btn {
+      width: 40%;
       .submitButton {
         background-color: $accent;
         color: $primary;
-        font-size: 1.6rem;
+        font-size: 2vw;
         margin: 1.25rem 0px;
         padding: 0.625rem;
-        width: 13rem;
+        width: 100%;
         border: none;
         cursor: pointer;
         border-radius: 10px;

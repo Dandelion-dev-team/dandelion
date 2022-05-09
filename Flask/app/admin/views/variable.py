@@ -60,6 +60,9 @@ def listAllVariable():
 
     for response_variable in response_variable_demo:
         response_variable_data = {}
+        response_val = Variable.query.get_or_404(response_variable.variable_id)
+
+        response_variable_data['name'] = response_val.name
         response_variable_data['id'] = response_variable.id
         response_variable_data['experiment_id'] = response_variable.experiment_id
         response_variable_data['variable_id'] = response_variable.variable_id
@@ -74,7 +77,7 @@ def listAllVariable():
         response_variable_data['final'] = response_variable.final
         output2.append(response_variable_data)
 
-    return jsonify({'Treatment Variables': output}, {'Response Variables': output2})
+    return jsonify({'treatment': output}, {'response': output2})
 
 
 # This route is PUBLIC

@@ -43,7 +43,7 @@ export default function ProjectPane(props) {
           {showAddModal ? <SchoolModal callback={addSchool} /> : null}
           {showEditModal ? <EditActivityModal project={props.project}/> : null}
 
-          <div className="project-title">
+          <div className="project-details">
             <h3>{props.project.title} </h3>
             <h3>
               {new Date(props.project.start_date).toDateString()} -{" "}
@@ -90,7 +90,7 @@ export default function ProjectPane(props) {
                 setShowEditModal(true)
               }}
             >
-              Edit Project
+              Edit Activity
             </button>
             <button
               className="submitButton"

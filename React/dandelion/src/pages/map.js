@@ -6,7 +6,7 @@ import MapDetailModal from "../components/modals/mapDetailModal"
 import { CSSTransition } from "react-transition-group"
 import icon from "../images/marker.png"
 import { ToastContainer } from "react-toastify"
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css"
 
 export default function MapPage(props) {
   const [schoolList, setSchools] = useState([])
@@ -39,20 +39,29 @@ export default function MapPage(props) {
   }
 
   if (typeof window !== "undefined") {
-    const { MapContainer } = require("../../node_modules/react-leaflet/esm/MapContainer.js") // import it outside the function
-    const { TileLayer, } = require("../../node_modules/react-leaflet/cjs/TileLayer.js")
+    const {
+      MapContainer,
+    } = require("../../node_modules/react-leaflet/esm/MapContainer.js") // import it outside the function
+    const {
+      TileLayer,
+    } = require("../../node_modules/react-leaflet/cjs/TileLayer.js")
     const { Marker } = require("../../node_modules/react-leaflet/cjs/Marker.js")
     const { Popup } = require("../../node_modules/react-leaflet/cjs/Popup.js")
-    const { Icon } = require("../../node_modules/leaflet/src/layer/marker/Icon.js")
+    const {
+      Icon,
+    } = require("../../node_modules/leaflet/src/layer/marker/Icon.js")
 
     let customIcon = new Icon({
       iconUrl: icon,
       iconSize: [36, 36],
       iconAnchor: [18, 18],
-    });
+    })
 
     if (own_school != null && update_render == true) {
-      if (own_school.school.latitude !== null && own_school.school.longitude !== null) {
+      if (
+        own_school.school.latitude !== null &&
+        own_school.school.longitude !== null
+      ) {
         setStartingLat(own_school.school.latitude)
         setStartingLng(own_school.school.longitude)
         setZoom(13)
@@ -84,7 +93,8 @@ export default function MapPage(props) {
               <MapContainer
                 center={[starting_lat, starting_lng]}
                 zoom={starting_zoom}
-                style={{ height: "85vh", width: "100vw" }}>
+                style={{ height: "85vh", width: "100vw" }}
+              >
                 <TileLayer
                   attribution='&copy; <a href="http://osm.org/copyright%22%3EOpenStreetMap</a> contributors'
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -92,14 +102,14 @@ export default function MapPage(props) {
 
                 {schoolList.data
                   ? schoolList.data.map((school, idx) => {
-                    return (
-                      (school.latitude !== "None") && (school.longitude !== "None") ?
+                      return school.latitude !== "None" &&
+                        school.longitude !== "None" ? (
                         <Marker
                           position={[school.latitude, school.longitude]}
                           key={idx}
                           icon={customIcon}
                         >
-                          <Popup div className="popup">
+                          <Popup div className="popup" >
                             <u>{school.name}</u>
                             <br /> {school.address_line_1}
                             <br /> {school.town}
@@ -109,6 +119,13 @@ export default function MapPage(props) {
                             <input
                               value="See More"
                               type="submit"
+                              style={{ 
+                                background:"#f8f448",
+                                color: "#2E5641",
+                                padding: "15px",
+                                border: "none",
+                                cursor: "pointer",
+                                borderRadius: "10px"}}
                               className="submitButton"
                               onClick={() => {
                                 handleDetailCallback(school.id)
@@ -117,9 +134,8 @@ export default function MapPage(props) {
                             ></input>
                           </Popup>
                         </Marker>
-                        : null
-                    )
-                  })
+                      ) : null
+                    })
                   : null}
               </MapContainer>
             </div>

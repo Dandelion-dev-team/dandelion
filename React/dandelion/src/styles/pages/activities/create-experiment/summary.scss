@@ -108,6 +108,7 @@
         border-bottom-right-radius: 20px;
         display: flex;
         flex-direction: column;
+        overflow-y: scroll;
 
         .user-pane-wrapper {
           margin-left: 2rem;
@@ -162,7 +163,7 @@
             .submitButton {
               background-color: $accent;
               color: $primary;
-              font-size: 1.6rem;
+              font-size: 1.2vw;
               float: right;
               margin: 1.25rem 0px;
               padding: 15px;
@@ -180,7 +181,7 @@
             .backButton {
               background-color: $accent;
               color: $primary;
-              font-size: 1.6rem;
+              font-size: 1.2vw;
               margin: 1.25rem 0px;
               padding: 15px;
               border: none;

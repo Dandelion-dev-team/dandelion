@@ -91,7 +91,7 @@ export default function DiscreteVariableModal(props) {
       <div className="discrete-modal-container">
         <div className="modal-wrapper">
           <div className="modal-content">
-            <div className="input-row">
+            <div className="left-pane">
               <div className="inputItem">
                 <div className="item-title">
                   <h3>Name:</h3>
