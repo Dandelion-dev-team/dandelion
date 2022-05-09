@@ -43,7 +43,7 @@ export default function Header() {
             </Link>
             <a
               target="_blank"
-              href="https://dandelion.scot/blog/programmes/dandelion-school-growing-initiative"
+              href="https://dandelion.scot/schools/growing-cubes/"
               onClick={closeMobileMenu}
             >
               About
