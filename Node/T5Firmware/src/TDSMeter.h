@@ -4,6 +4,6 @@
 class TDSMeter : public SensorModule
 {
 public:
-    void initialise();
-    float getReadings();
+    void initialise(uint8_t);
+    void getReadings(float);
 };

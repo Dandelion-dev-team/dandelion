@@ -1,11 +1,7 @@
 #include <EventDrivenButtonPress.h>
 #include <definitions.h>
 
-<<<<<<< Updated upstream
-volatile int buttonCount = 0;
-=======
 extern uint8_t buttonCount;
->>>>>>> Stashed changes
 volatile unsigned long last_millis;
 
 void catchButton();

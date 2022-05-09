@@ -10,13 +10,18 @@ void PHSensor::initialise(uint8_t datapin)
     initialisationSuccessful = true;
 }
 
-void PHSensor::getReadings()
+void PHSensor::getReadings(float temperature)
 {
     if (initialisationSuccessful) {
-        // phValue = ph.readPH(voltage,phTemperature);  // temperature compensation requires substrate temperature from DS18B20
+        
+        float voltage = analogRead(cubeLevel) / ESPADC * ESPVOLTAGE;    // Return raw voltage for now & convert in post-processing
+        readings["pH"] = ph.readPH(voltage, temperature);               // convert voltage to pH with temperature compensation
 
-        readings["pH"] = analogRead(cubeLevel) / ESPADC * ESPVOLTAGE; // Return raw voltage for now & convert in post-processing
-
+        // Apply calibration here. This is a placeholder.
+        float slope = -0.7;
+        float offset = 14.65;
+        readings["pH"] = (readings["pH"] * slope) + offset;
+        
         // ph.calibration(voltage,phTemperature);           // calibration process by Serial CMD
     }
     else {

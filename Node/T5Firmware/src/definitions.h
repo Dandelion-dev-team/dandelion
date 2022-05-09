@@ -9,16 +9,10 @@
 #define SET_3 33
 #define SCL 22
 #define SDA 21
-<<<<<<< Updated upstream
-#define DATA1 36
-#define DATA2 19
-#define ANALOGUE 32
-=======
 #define DATA1 19        // Used to be 36
 #define ANALOGUE1 32    // Used to be ANALOGUE
 #define ANALOGUE2 34    // Used to be SPARE / DUMMY
 #define ANALOGUE3 36    // Used to be DATA2 19
->>>>>>> Stashed changes
 #define BUTTONPIN 39
 #define BLOCKSIZE 16
 #define MAXMESSAGESIZE 1024
@@ -29,9 +23,6 @@
 #define VOFFSET 14
 #define INVALID -999
 #define INVALID_STR "-999"
-<<<<<<< Updated upstream
-
-=======
 #define SEALEVELPRESSURE_HPA 1013.25
 #define VREF 1.1               // analog reference voltage(Volt) of the ADC. 1.1V by design: https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/adc.html#adc-calibration
 #define SCOUNT 30              // sum of sample point
@@ -46,6 +37,5 @@
 #define FTP_USER "dan"
 #define FTP_PASSWORD "delion"
 #define VERSION 0.9
->>>>>>> Stashed changes
 
 extern const char *KEY;

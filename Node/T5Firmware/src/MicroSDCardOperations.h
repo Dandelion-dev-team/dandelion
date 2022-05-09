@@ -1,13 +1,6 @@
 #pragma once
 #include <SD.h>
-// #include <FS.h>
 #include <ArduinoJson.h>
-<<<<<<< Updated upstream
-#include <WiFiConnection.h>
-#include <Preferences.h>
-#include <Utils.h>
-#include <vector>
-=======
 #include <WiFi.h>
 #include <Display.h>
 #include <Preferences.h>
@@ -15,7 +8,6 @@
 #include <vector>
 #include "definitions.h"
 #include "Update.h"
->>>>>>> Stashed changes
 
 class MicroSDCardOperations
 {
@@ -29,10 +21,7 @@ public:
     DynamicJsonDocument setWifiDetails(DynamicJsonDocument, const char *, const char *);
     DynamicJsonDocument storeWifiDetailsInEeprom(DynamicJsonDocument);
     DynamicJsonDocument getWifiDetailsFromEeprom(DynamicJsonDocument);
-<<<<<<< Updated upstream
-=======
     void updateFromSD();
->>>>>>> Stashed changes
     void putConfig(String, const char *);
     void putConfig(String, const int);
     void putConfig(String, const float);

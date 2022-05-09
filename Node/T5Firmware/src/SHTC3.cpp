@@ -1,7 +1,5 @@
 #include <SHTC3.h>
 
-// SHTSensor shtc3(SHTSensor::SHTC3);
-
 void SHTC3::initialise()
 {
     initialisationSuccessful = init();

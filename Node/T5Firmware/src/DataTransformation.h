@@ -10,9 +10,5 @@
 class DataTransformation
 {
 public:
-<<<<<<< Updated upstream
-    DynamicJsonDocument serialise(std::map<String, float> readings);
-=======
->>>>>>> Stashed changes
     uint16_t encrypt(unsigned char *, unsigned char[]);
 };

@@ -9,5 +9,5 @@
 class ProcessReadings
 {
 public:
-    bool sendToServer(String);
+    bool sendToServer();
 };

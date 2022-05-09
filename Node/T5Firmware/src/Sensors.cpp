@@ -3,17 +3,16 @@
 extern Utils utils;
 extern DynamicJsonDocument data;
 extern WiFiConnection wiFiConnection;
-extern String timeNow;
 extern Display ui;
 
 void initialise_pins();
 using namespace std;
 unsigned long select(int...);
 void addReadingsToJson(uint8_t, SensorModule);
-void postProcess();
 
-    char *levels[] = {"top", "middle", "bottom"};
+char *levels[] = {"top", "middle", "bottom"};
 unsigned long powerOnTimestamp = 0;
+float temperatureBuffer;
 OneWire onewire(DATA1);
 
 GY30_BH1750 gy30;   // I2C - top level only
@@ -37,9 +36,26 @@ void Sensors::readData()
 
   ui.displayMessage("Reading sensors...");
 
+  // Read substrate temperature first so that it is available for adjusting the EC and pH readings
+  // powerOnTimestamp = select(4, TOP, MIDDLE, BOTTOM, SET_2);
+  powerOnTimestamp = select(2, TOP, SET_2);
+
+  onewire.begin(DATA1);
+  ds18b20.begin();
+
+  delay(100);
+  ds18b20.requestTemperatures();
+  data["top"]["substrate temperature"] = ds18b20.getTempCByIndex(0);
+  utils.debug("Substrate temperature: ", false);
+  utils.debug(ds18b20.getTempCByIndex(0));
+
+  // data["middle"]["substrate temperature"] = ds18b20.getTempCByIndex(1);
+  // data["bottom"]["substrate temperature"] = ds18b20.getTempCByIndex(2);
+
   powerOnTimestamp = select(2, TOP, SET_1);
 
-  Wire.begin(21, 22);
+  Wire.begin(SDA, SCL);
+  delay(1000);
 
   // Pressure
   // bmp.initialise();
@@ -58,7 +74,7 @@ void Sensors::readData()
 
   // Electrical conductivity
   ec.initialise(TOP);
-  ec.getReadings();
+  ec.getReadings(data["top"]["substrate temperature"]);
   ec.addReadingsToJSON("top");
 
   powerOnTimestamp = select(2, TOP, SET_2);
@@ -96,23 +112,11 @@ void Sensors::readData()
   // moisture.getReadings();
   // moisture.addReadingsToJSON("bottom");
 
-  // powerOnTimestamp = select(4, TOP, MIDDLE, BOTTOM, SET_2);
-  powerOnTimestamp = select(2, TOP, SET_2);
-
-  onewire.begin(DATA1); 
-  ds18b20.begin();
-
-  delay(100);
-  ds18b20.requestTemperatures();
-  data["top"]["substrate temperature"] = ds18b20.getTempCByIndex(0);
-  // data["middle"]["substrate temperature"] = ds18b20.getTempCByIndex(1);
-  // data["bottom"]["substrate temperature"] = ds18b20.getTempCByIndex(2);
-
   // powerOnTimestamp = select(4, TOP, MIDDLE, BOTTOM, SET_3);
   powerOnTimestamp = select(2, TOP, SET_3);
 
   phTop.initialise(ANALOGUE1);
-  phTop.getReadings();
+  phTop.getReadings(data["top"]["substrate temperature"]);
   phTop.addReadingsToJSON("top");
 
   // phMiddle.initialise(ANALOGUE2);
@@ -123,36 +127,10 @@ void Sensors::readData()
   // phBottom.getReadings();
   // phBottom.addReadingsToJSON("bottom");
 
-  postProcess();
 
   ui.displayMessage("");
 
 }
-
-void postProcess() {
-
-  // EC
-
-  // for (uint8_t  i=0; i<3; i++) {
-  //   // temperature compensation formula: fFinalResult(25^C) = fFinalResult(current)/(1.0+0.02*(fTP-25.0));
-  //   float compensationCoefficient = 1.0 + 0.02 * (data[levels[i]]["substrate temperature"] - 25.0);
-  //   float compensationVolatge = data[levels[i]]["electrical conductivity"] / compensationCoefficient; // temperature compensation
-  // }
-  // // convert voltage value to tds value
-  // tdsValue = (133.42 * compensationVolatge * compensationVolatge * compensationVolatge - 255.86 * compensationVolatge * compensationVolatge + 857.39 * compensationVolatge) * 0.5;
-
-  // temperature compensation formula: fFinalResult(25^C) = fFinalResult(current)/(1.0+0.02*(fTP-25.0));
-  float compensationCoefficient = 1.0 + 0.02 * (float(data["top"]["substrate temperature"]) - 25.0);
-  data["top"]["electrical conductivity"] = float(data["top"]["electrical conductivity"]) / compensationCoefficient; // temperature compensation
-
-  // convert voltage value to tds value
-  // tdsValue = (133.42 * compensationVolatge * compensationVolatge * compensationVolatge - 255.86 * compensationVolatge * compensationVolatge + 857.39 * compensationVolatge) * 0.5;
-
-  // pH
-
-
-}
-
 
 void initialise_pins() {
   digitalWrite(TOP, LOW);
@@ -161,9 +139,6 @@ void initialise_pins() {
   digitalWrite(SET_1, LOW);
   digitalWrite(SET_2, LOW);
   digitalWrite(SET_3, LOW);
-
-  // Try to set time from a server - not the best place for this but it means it gets called several times
-  timeNow = wiFiConnection.getTime();
 }
 
 unsigned long select(int num, ...) {

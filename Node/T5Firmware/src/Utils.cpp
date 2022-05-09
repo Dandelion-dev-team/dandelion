@@ -1,10 +1,29 @@
 #include <Utils.h>
+#include <esp_adc_cal.h>
 
-<<<<<<< Updated upstream
-=======
 extern Preferences preferences;
+extern Display ui;
 
->>>>>>> Stashed changes
+
+using std::cin;
+using std::cout;
+using std::endl;
+using std::string;
+
+char *to_string(float num)
+{
+    std::stringstream sstream;
+
+    sstream << num;
+    string num_str = sstream.str();
+    // auto *ptr = sstream.str().c_str(); // RESULTS in dangling pointer
+    if (num_str.empty())
+        return INVALID_STR;
+    else
+        return (char *)num_str.c_str();
+
+}
+
 void Utils::debug(String message, bool newline)
 {
     /* This method checks the DEBUG setting and prints the message to the Serial monitor if true
@@ -14,6 +33,38 @@ void Utils::debug(String message, bool newline)
             Serial.println(message);
         else
             Serial.print(message);
+    }
+}
+
+void Utils::debug(int i, bool newline)
+{
+    /* This method checks the DEBUG setting and prints the integer as a string to the Serial monitor if true
+     */
+    if (DEBUG)
+    {
+        char buffer[10];
+        itoa(i, buffer, 10);
+
+        if (newline)
+            Serial.println(buffer);
+        else
+            Serial.print(buffer);
+    }
+}
+
+void Utils::debug(float f, bool newline)
+{
+    /* This method checks the DEBUG setting and prints the integer as a string to the Serial monitor if true
+     */
+    if (DEBUG)
+    {
+        char buffer[10];
+        strcpy(buffer, to_string(f));
+
+        if (newline)
+            Serial.println(buffer);
+        else
+            Serial.print(buffer);
     }
 }
 
@@ -64,17 +115,37 @@ uint8_t Utils::get_mode()
 }
 
 float Utils::get_battery_percent() {
+    // ToDo: This needs a lot of checking...
     digitalWrite(14, HIGH);
     delay(1);
     float measurement = (float)analogRead(34);
+    // uint32_t mv;
+    // esp_adc_cal_characteristics_t adc_chars;
+    // esp_adc_cal_value_t val_type = esp_adc_cal_characterize((adc_unit_t)ADC_UNIT_1,
+    //                                                         (adc_atten_t)ADC_ATTEN_DB_2_5,
+    //                                                         (adc_bits_width_t)ADC_WIDTH_BIT_12,
+    //                                                         1100, &adc_chars);
+    // esp_adc_cal_get_voltage((adc_channel_t)ADC1_GPIO34_CHANNEL, &adc_chars, &mv);
     digitalWrite(14, LOW);
 
-    float battery_voltage = (measurement / 4095.0) * 7.26;
-    float battery_percent = map(battery_voltage, 2.55, 3.7, 0, 100);
+    char buffer[20];
+
+    // float battery_voltage = 3.3 / 1000 * mv;
+    float battery_voltage = (measurement / 4095.0) * 4.45;
+    float battery_percent = map(battery_voltage, 3.0, 4.0, 0, 100);
+
+
+    // strcpy(buffer, "Voltage: ");
+    // strcat(buffer, to_string(battery_voltage));
+    // ui.displayMessage(buffer);
+
+    Serial.print("Battery voltage: ");
+    Serial.println(battery_voltage);
+    Serial.print("Battery percent: ");
+    Serial.println(battery_percent);
+
     return battery_percent;
 }
-<<<<<<< Updated upstream
-=======
 
 int Utils::getMedianNum(int bArray[], int iFilterLen)
 {
@@ -226,4 +297,3 @@ String Utils::urldecode(String str)
 
     return encodedString;
 }
->>>>>>> Stashed changes

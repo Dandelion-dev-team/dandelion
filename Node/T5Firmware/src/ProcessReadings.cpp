@@ -6,8 +6,9 @@ extern DataTransformation dataTransformation;
 extern WiFiConnection wiFiConnection;
 extern Display ui;
 extern Preferences preferences;
+extern DynamicJsonDocument data;
 
-bool ProcessReadings::sendToServer(String data)
+bool ProcessReadings::sendToServer()
 {
     /*This method is called from the WifiConnection class before the latest readings are attempted to be sent to the server.
      * The method checks if the unsent.txt file exists, and if so, reads in all the data from it. Each JSON string is read in
@@ -21,8 +22,7 @@ bool ProcessReadings::sendToServer(String data)
     unsigned char message[MAXMESSAGESIZE];
     uint16_t msgLength = 0;
     std::vector<String> unsent = cardOperation.getUnsentReadings();
-    unsigned char bytearray[data.length() + 1]; 
-    data.getBytes(bytearray, data.length() + 1);
+    String jsonString = "";
 
     for (uint8_t j=0; j<unsent.size(); j++) {
         Serial.println(unsent[j]);
@@ -32,14 +32,21 @@ bool ProcessReadings::sendToServer(String data)
 
     if (wiFiConnection.connectToWiFi())
     {
+        data["timestamp"] = wiFiConnection.getTime();
+        data["mac"] = WiFi.macAddress();
+        data["battery"] = utils.get_battery_percent();
+
+        serializeJson(data, jsonString); // convert from JSON to character array.
+
+        unsigned char bytearray[jsonString.length() + 1];
+        jsonString.getBytes(bytearray, jsonString.length() + 1);
+
         for (uint16_t i = 0; i < unsent.size(); i++)
         {
             msgLength = dataTransformation.encrypt((unsigned char *)unsent[i].c_str(), message);
             if (wiFiConnection.sendData(message, msgLength))
             {
-                utils.debug("Sent: ", false);
-                utils.debug(unsent[i]);
-                cardOperation.storeJsonOnFile(unsent[i], "readings.txt");
+                cardOperation.storeJsonOnFile(unsent[i], "/readings.txt");
             }
             else {
                 Serial.println("Error while sending cached readings");
@@ -55,10 +62,8 @@ bool ProcessReadings::sendToServer(String data)
 
         if (wiFiConnection.sendData(message, msgLength))
         {
-            utils.debug("Sent: ", false);
-            utils.debug(data);
             // call appropriate MicroSDCardOperation method to store in READINGS.
-            cardOperation.storeJsonOnFile(data, "readings.txt");
+            cardOperation.storeJsonOnFile(jsonString, "/readings.txt");
         }
         else
         {
@@ -67,20 +72,8 @@ bool ProcessReadings::sendToServer(String data)
              * a call to the appropriate MicroSDCardOperation method for storing JSON on file is made, passing in the file name
              * as an argument along with the JSON String.
              */
-            cardOperation.storeJsonOnFile(data, "unsent.txt");
+            cardOperation.storeJsonOnFile(jsonString, "/unsent.txt");
             return false;
         }
     }
-    else {
-
-    }
 }
-<<<<<<< Updated upstream
-
-// if Connect to wifi
-//  send unsent
-//  send new
-// else
-//  save new to unsent
-=======
->>>>>>> Stashed changes

@@ -7,5 +7,5 @@ class PHSensor : public SensorModule
 {
 public:
     void initialise(uint8_t);
-    void getReadings();
+    void getReadings(float);
 };
