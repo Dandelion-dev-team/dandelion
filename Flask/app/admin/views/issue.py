@@ -1,5 +1,5 @@
 import datetime
-
+import os
 from flask import abort, jsonify, request
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from sqlalchemy import inspect
@@ -11,7 +11,7 @@ from app import db
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update
 from app.utils.functions import jwt_user
 from app.utils.images import image_processing
-from app.utils.uploads import get_uploaded_file
+from app.utils.uploads import get_uploaded_file, content_folder
 
 
 @admin.route('/issue', methods=['GET'])
@@ -47,6 +47,8 @@ def getOneIssue(issue_id):
     issue_data['reported_date'] = issue.reported_date
     issue_data['symptoms'] = issue.symptoms
     issue_data['steps_to_reproduce'] = issue.steps_to_reproduce
+    issue_data['image_full'] = os.path.join(content_folder('issue', id, 'image'), 'full.png')
+
     issue_data['notes'] = issue.notes
     issue_data['type'] = issue.type
     issue_data['priority'] = issue.priority

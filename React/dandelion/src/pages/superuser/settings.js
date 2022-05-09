@@ -12,6 +12,7 @@ import { navigate } from "gatsby"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import EditIcon from "@mui/icons-material/Edit"
+import RegisterNodeModal from "../../components/modals/registerNodeModal"
 
 export default function SuperuserSettings() {
   const [fetchedSchool, setSchool] = useState("")
@@ -23,10 +24,14 @@ export default function SuperuserSettings() {
   const [schoolEmail, setSchoolEmail] = useState("")
   const [schoolPhone, setSchoolPhone] = useState("")
 
+  const [showRegisterModal, setRegisterModal] = useState(false)
+  const [school_node, setSchoolNode] = useState()
+
   useEffect(() => {
     if (verify_superuser_storage() == true) {
       let school_id = localStorage.getItem("school_id")
       readRecord("/school/" + school_id, setSchool)
+      readRecord("/node/byschool/" + school_id, setSchoolNode)
       setLogged(true)
     } else {
       navigate("/signin")
@@ -83,6 +88,7 @@ export default function SuperuserSettings() {
     return (
       <div>
         <SideNav />
+        {showRegisterModal ? <RegisterNodeModal /> : null}
         <div className="settings-container">
           <ToastContainer />
           <div className="title">
@@ -107,6 +113,18 @@ export default function SuperuserSettings() {
               <div className="spacer" />
               <div className="node-settings">
                 <h3>Node Settings</h3>
+                {school_node ? <h3>Node Registered</h3> : (
+                  <div className="btn-row">
+                    <input
+                      type="submit"
+                      className="update-btn"
+                      value="Register a Node"
+                      onClick={() => {
+                        setRegisterModal(true)
+                      }}
+                    />
+                  </div>
+                )}
               </div>
             </div>
             <div className="details-pane">
@@ -204,6 +222,7 @@ export default function SuperuserSettings() {
                   {fetchedSchool ? (
                     <h3>Phone: {fetchedSchool.school.telephone}</h3>
                   ) : null}
+
                   <div className="btn-update-delete">
                     <input
                       type="submit"

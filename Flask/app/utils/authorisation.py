@@ -31,6 +31,7 @@ def auth_check(route, method, current_user=None, id_1=None, id_2=None):
          "auth_level": "superuser"},
         {"route": "/api/hypothesis", "method": "GET", "auth_level": "public"},
         {"route": "/api/node", "method": "GET", "auth_level": "superuser"},
+        {"route": "/api/node/byschool/" + id_1, "method": "GET", "auth_level": "superuser"},
         {"route": "/api/node", "method": "POST", "auth_level": "superuser"},
         {"route": "/api/node/" + id_1, "method": "GET", "auth_level": "superuser"},
         {"route": "/api/node/" + id_1, "method": "PUT", "auth_level": "superuser"},

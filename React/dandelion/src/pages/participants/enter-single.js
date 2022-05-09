@@ -224,7 +224,7 @@ export default function EnterObservations(props) {
                       }}
                     ></input>
                   </div>
-                  <div className="spacer"></div>
+                  <div className="spacer"/>
                 </div>
               </div>
             </div>

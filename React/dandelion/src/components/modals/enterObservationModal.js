@@ -29,6 +29,7 @@ export default function EnterObservationModal(props) {
       }
     })
   }
+  
   return (
     <div className="modal-container">
       {console.log(props)}
@@ -84,7 +85,7 @@ export default function EnterObservationModal(props) {
               </div>
             )
           })}
-          
+
           <div className="btn-row">
             <div className="submit-btn">
               <input
