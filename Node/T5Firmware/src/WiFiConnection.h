@@ -6,11 +6,15 @@
 #include <MicroSDCardOperations.h>
 #include <Display.h>
 #include <ctime>
+#include <Utils.h>
+#include <sstream>
 
 class WiFiConnection
 {
 public:
     void sendDataToServer(DynamicJsonDocument&);
-    void sendUnsentReadings(DynamicJsonDocument&);
-    void connectToWiFi();
+    bool sendData(uint8_t *, uint16_t);
+    // void sendUnsentReadings(DynamicJsonDocument &);
+    bool connectToWiFi();
+    String getTime();
 };

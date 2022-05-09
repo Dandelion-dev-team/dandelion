@@ -1,0 +1,27 @@
+{
+  "wifi": {
+    "ssid": "Your SSID here",
+    "password": "Your WiFi password here"
+  },
+  "id": 0,
+  "server": {
+    "address": "dandelion.sruc.ac.uk",
+    "port": "80"
+  },
+  "ph": {
+    "slope": 1,
+    "offset": 0
+  },
+  "ec": {
+    "slope": 1,
+    "offset": 0
+  },
+  "moisture": {
+    "slope": 1,
+    "offset": 0
+  },
+  "water": {
+    "slope": 1,
+    "offset": 0
+  }
+}
