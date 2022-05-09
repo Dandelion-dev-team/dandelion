@@ -148,7 +148,7 @@ export function uploadExperimentImage(endpoint, image) {
 
 export function updateRecord(endpoint, body) {
   const cookies = new Cookies()
-  fetch(process.env.API_URL + endpoint, {
+  return fetch(process.env.API_URL + endpoint, {
     method: "PUT",
     credentials: "include",
     mode: "cors",
@@ -160,9 +160,13 @@ export function updateRecord(endpoint, body) {
       "X-CSRF-TOKEN": cookies.get("csrf_access_token"),
     }),
     body: body,
+  }).then(response => {
+    if (response.status !== 200) {
+      toast.error("Failed to update.")
+    } else {
+      window.location.reload(false)
+    }
   })
-    .then(window.location.reload(false))
-    .catch(toast.error("Failed to update."))
 }
 
 export function deleteRecord(endpoint) {

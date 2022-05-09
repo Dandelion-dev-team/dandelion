@@ -1,7 +1,6 @@
 import datetime
 import os
 from flask import abort, jsonify, request
-from flask_cors import cross_origin
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from sqlalchemy import inspect
 from sqlalchemy.sql.functions import user, now
@@ -10,13 +9,13 @@ from app.admin import admin
 from app.models import Issue
 from app import db
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update
+from app.utils.authorisation import auth_check
 from app.utils.functions import jwt_user
 from app.utils.images import image_processing
 from app.utils.uploads import get_uploaded_file, content_folder
 
 
 @admin.route('/issue', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def getAllIssues():
     issues = Issue.query.all()
     output = []
@@ -39,7 +38,6 @@ def getAllIssues():
 
 
 @admin.route('/issue/<int:issue_id>', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def getOneIssue(issue_id):
     issue = Issue.query.get_or_404(issue_id)
 
@@ -61,10 +59,10 @@ def getOneIssue(issue_id):
 
 
 @admin.route('/issue', methods=['POST'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def createNewIssue():
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     data = request.get_json()
     issue = Issue(
         user_id=data['user_id'],
@@ -92,10 +90,10 @@ def createNewIssue():
 
 
 @admin.route('/issue/<int:issue_id>', methods=['PUT'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def updateIssueDetails(issue_id):
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     issue_to_update = Issue.query.get_or_404(issue_id)
     new_data = request.get_json()
 
@@ -124,10 +122,10 @@ def updateIssueDetails(issue_id):
 
 
 @admin.route('/issue/note/<int:issue_id>', methods=['PUT'])  # This route works only if there is already a note in the issue due to the if len(audit_details) > 0 line. If the note cell is blank, it crashes
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def addNote(issue_id):
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     issue_to_update = Issue.query.get_or_404(issue_id)
     new_data = request.get_json()
 
@@ -159,10 +157,10 @@ def addNote(issue_id):
 
 @admin.route('/issue/close/<int:issue_id>',
              methods=['PUT'])  # This Route changes the status of an issue to closed. It does not delete it.
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def closeIssue(issue_id):
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     issue_to_update = Issue.query.get_or_404(issue_id)
     new_data = request.get_json()
 
@@ -184,9 +182,10 @@ def closeIssue(issue_id):
 
 
 @admin.route('/issue/<int:issue_id>/upload_image/', methods=['POST'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def uploadIssueImage(issue_id):
+    current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     pic, filename = get_uploaded_file(request)
     image_processing(pic, 'issue', issue_id, filename)
 

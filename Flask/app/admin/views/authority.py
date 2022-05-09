@@ -2,7 +2,6 @@ from flask import request, jsonify, abort
 from flask_json import json_response
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import inspect
-from flask_cors import cross_origin
 
 from app.admin import admin
 from app.models import Authority
@@ -14,14 +13,12 @@ from app.utils.functions import row2dict, jwt_user
 
 # This route is PUBLIC
 @admin.route('/authority', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def listAuthority():
     authority = Authority.query.all()
     return json_response(data=(row2dict(x, summary=True) for x in authority))
 
 
 @admin.route('/authority', methods=['POST'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def add_authority():
     current_user = jwt_user(get_jwt_identity())
@@ -49,7 +46,6 @@ def add_authority():
 
 # This route is PUBLIC
 @admin.route('/authority/<int:id>', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def get_one_authority(id):
     authority = Authority.query.get_or_404(id)
 
@@ -63,7 +59,6 @@ def get_one_authority(id):
 
 
 @admin.route('/authority/<int:id>', methods=['PUT'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def updateAuthority(id):
     current_user = jwt_user(get_jwt_identity())
@@ -93,7 +88,6 @@ def updateAuthority(id):
 
 
 @admin.route('/authority/<int:id>', methods=['DELETE'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def delete_authority(id):
     current_user = jwt_user(get_jwt_identity())
