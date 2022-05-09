@@ -222,19 +222,16 @@ def passwordReset(id):
 
     user_to_update.password = new_data['password']
 
-    audit_details = prepare_audit_details(inspect(User), user_to_update, delete=False)
+    audit_details = [{
+        'column_name': 'password',
+        'old_value': 'hidden'
+    }]
 
     message = "Password has been updated"
 
-    if len(audit_details) > 0:
-        try:
-            db.session.commit()
-            audit_update("users", user_to_update.id, audit_details, current_user.id)
-            return jsonify({"message": message})
-
-        except Exception as e:
-            db.session.rollback()
-            abort(409)
+    db.session.commit()
+    audit_update("users", user_to_update.id, audit_details, current_user.id)
+    return jsonify({"message": message})
 
 
 @admin.route('/user/access/<int:id>', methods=['PUT'])
