@@ -23,12 +23,12 @@
       height: 90vh;
 
       h3 {
-        font-size: 4rem;
+        font-size: 4vw;
       }
 
       p {
         font-size: 1.6rem;
-        line-height: 2rem;
+        line-height: 2vw;
       }
     }
 
@@ -37,9 +37,11 @@
       height: 100%;
       display: flex;
       align-items: center;
+      overflow-y: auto;
+
       .experiment-pane {
         width: 100%;
-        height: 80%;
+        height: 90%;
         background-color: white;
         border-radius: 20px;
         display: flex;
@@ -48,6 +50,7 @@
         justify-content: center;
         text-align: center;
         padding: 2.5rem;
+        overflow-y: scroll;
 
         .inputItem {
           text-align: left;

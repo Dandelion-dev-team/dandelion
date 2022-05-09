@@ -52,12 +52,6 @@ export default function PredefinedExperiments(props) {
                       onChange={handleSearchValueChange}
                     />
                     <div className="tune-margin">
-                      <TuneIcon
-                        onClick={() => {
-                          //console.log("clicked tune")
-                        }}
-                        className="tune-icon"
-                      />
                     </div>
                   </div>
                 </div>
@@ -70,7 +64,7 @@ export default function PredefinedExperiments(props) {
                       className="submitButton"
                       onClick={() => {
                         if (typeof window !== `undefined`) {
-                          navigate("/superuser/project-maintenance/")}
+                          navigate("/superuser/activity-maintenance/")}
                       }}
                     >
                       Back

@@ -7,159 +7,150 @@
   align-items: center;
   height: 100vh;
   .content {
-      background-color: white;
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    height: 87vh;
+    border-radius: 20px;
+    .title {
+      display: flex;
       justify-content: center;
-      align-items: center;
-      width: 90%;
-      height: 87vh;
-      border-radius: 20px;
-      .title {
-          display: flex;
-          justify-content: center;
-          h3{
-              font-size: 2vw;
-          }
+      h3 {
+        font-size: 2vw;
       }
-      .content-wrapper {
-          display: flex;
-          justify-content: center;
+    }
+    .content-wrapper {
+      display: flex;
+      justify-content: center;
+      height: 100%;
+
+      .treatment-pane {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        z-index: 7;
+        color: black;
+
+        .treatment-content {
+          margin: 3rem;
+          width: 85%;
+          height: 80%;
+          .pagination {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            .back-btn {
+              background-color: $accent;
+              color: $primary;
+              font-size: 1.6rem;
+              margin: 1.25rem 0px;
+              padding: 15px;
+              padding-left: 50px;
+              padding-right: 50px;
+              border: none;
+              cursor: pointer;
+              border-radius: 10px;
+            }
+            .back-btn:hover {
+              background-color: #d4d926;
+            }
+          }
+          .treatment-list {
+            overflow-y: auto;
+            height: 75%;
+          }
+          .treatment-list::-webkit-scrollbar {
+            display: none; /* for Chrome, Safari, and Opera */
+          }
+          .search-row {
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: row;
+            .search-box {
+              width: 15rem;
+              height: 3rem;
+            }
+           
+          }
+        }
+      }
+      .treatment-selected-pane {
+        width: 50%;
+        height: 87vh;
+        display: flex;
+        flex-direction: column;
+        background-color: #f7f8ff;
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+        .btn-row {
+          align-items: flex-start;
+          .add-new-btn {
+            background-color: $accent;
+            color: $primary;
+            font-size: 1.6rem;
+            margin: 1.25rem 0px;
+            padding: 0.625rem;
+            width: 13vw;
+            height: 7vh;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+          }
+          .add-new-btn:hover {
+            background-color: #d4d926;
+          }
+          .continue-btn {
+            background-color: $accent;
+            color: $primary;
+            font-size: 1.6rem;
+            margin: 1.25rem 0px;
+            padding: 0.625rem;
+            width: 13vw;
+            margin-left: 30%;
+            height: 7vh;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+          }
+          .continue-btn:hover {
+            background-color: #d4d926;
+          }
+          .disabled-btn {
+            background-color: #d3d3d3;
+            color: black;
+            font-size: 1.6rem;
+            margin: 1.25rem 0px;
+            padding: 0.625rem;
+            width: 13vw;
+            margin-left: 30%;
+            height: 7vh;
+            border: none;
+            border-radius: 10px;
+          }
+        }
+
+        .treatment-selected-content {
+          margin: 3rem;
           height: 100%;
+          .title {
+            display: flex;
+            justify-content: center;
 
-          .treatment-pane {
-              width: 50%;
-              display: flex;
-              flex-direction: column;
-              z-index: 7;
+            h3 {
               color: black;
-
-              .treatment-content {
-                  margin: 3rem;
-                  width: 85%;
-                  height: 90%;
-                  .pagination{
-                      display: flex;
-                      flex-direction: row;
-                      align-items: center;
-                      .back-btn {
-                        background-color: $accent;
-                        color: $primary;
-                        font-size: 1.6rem;
-                        margin: 1.25rem 0px;
-                        padding: 15px;
-                        padding-left: 50px;
-                        padding-right: 50px;
-                        border: none;
-                        cursor: pointer;
-                        border-radius: 10px;
-                      }
-                      .back-btn:hover {
-                        background-color: #d4d926;
-                      }
-                  }
-                  .treatment-list{
-                      overflow-y: auto;
-                      height: 75%;
-                  }
-                  .treatment-list::-webkit-scrollbar {
-                      display: none; /* for Chrome, Safari, and Opera */
-                    }
-                  .search-tune-row{
-                      margin-top: 1rem;
-                      display: flex;
-                      flex-direction: row;
-                      .search-box {
-                          width: 15rem;
-                          height: 3rem;
-                      }
-                      .tune-margin{
-                          .tune-icon{
-                              width: 3rem;
-                              height: 3rem;
-                              margin-left: 2rem;
-                          }
-                          .tune-icon:hover{
-                              cursor: pointer;
-                          }
-                      }
-                  }
-              }
+            }
           }
-          .treatment-selected-pane {
-              width: 50%;
-              height: 87vh;
-              display: flex;
-              flex-direction: column;
-              background-color: #f7f8ff;
-              border-top-right-radius: 20px;
-              border-bottom-right-radius: 20px;
-              .btn-row {
-                  align-items: flex-start;
-                  .add-new-btn {
-                    background-color: $accent;
-                    color: $primary;
-                    font-size: 1.6rem;
-                    margin: 1.25rem 0px;
-                    padding: 0.625rem;
-                    width: 13vw;
-                    height: 7vh;
-                    border: none;
-                    cursor: pointer;
-                    border-radius: 10px;
-                  }
-                  .add-new-btn:hover {
-                    background-color: #d4d926;
-                  }
-                  .continue-btn {
-                      background-color: $accent;
-                      color: $primary;
-                      font-size: 1.6rem;
-                      margin: 1.25rem 0px;
-                      padding: 0.625rem;
-                      width: 13vw;
-                      margin-left: 30%;
-                      height: 7vh;
-                      border: none;
-                      cursor: pointer;
-                      border-radius: 10px;
-                    }
-                    .continue-btn:hover {
-                      background-color: #d4d926;
-                    }
-                    .disabled-btn {
-                        background-color: #d3d3d3;
-                        color: black;
-                        font-size: 1.6rem;
-                        margin: 1.25rem 0px;
-                        padding: 0.625rem;
-                        width: 13vw;
-                        margin-left: 30%;
-                        height: 7vh;
-                        border: none;
-                        border-radius: 10px;
-                      }
-                }
-
-              .treatment-selected-content {
-                  margin: 3rem;
-                  height: 100%;
-                  .title {
-                      display: flex;
-                      justify-content: center;
-
-                      h3{
-                          color: black;
-                      }
-                  }
-                  .selected-list{
-                      display: flex;
-                      color: black;
-                      overflow-y: auto;
-                      height: 80%;
-                      align-items: center;
-                      flex-direction: column;
-                  }
-              }
+          .selected-list {
+            display: flex;
+            color: black;
+            overflow-y: auto;
+            height: 80%;
+            align-items: center;
+            flex-direction: column;
           }
+        }
       }
+    }
   }
 }

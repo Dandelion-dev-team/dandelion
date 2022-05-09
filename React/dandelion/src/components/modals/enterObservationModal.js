@@ -15,26 +15,30 @@ export default function EnterObservationModal(props) {
   }
 
   const onSave = e => {
-    let obs;
-    props.props.map((condition => {
+    let obs
+    props.props.map(condition => {
       if (condition.levels.length > 0) {
-        obs = observation.id;
+        obs = observation.id
       } else {
-        obs = observation;
+        obs = observation
       }
       if (observation || comment) {
         props.saveObservation({ observation: parseInt(obs), comment: comment })
       } else {
         toast.error("More data needed.")
       }
-    }))
+    })
   }
+  
   return (
     <div className="modal-container">
       {console.log(props)}
       <div className="inner-content">
         <div className="panel-content">
-          {props.props.map((condition => {
+          <div className="title">
+            <h3>Enter Observations</h3>
+          </div>
+          {props.props.map(condition => {
             return (
               <div>
                 {console.log}
@@ -45,23 +49,23 @@ export default function EnterObservationModal(props) {
                     </div>
                     <div className="item-input">
                       {condition.levels.length > 0 ? (
-                    <Select
-                      name="authority_id_picker"
-                      options={condition.levels}
-                      value={observation}
-                      onChange={setObservation}
-                      getOptionLabel={level => level.name}
-                      getOptionValue={level => level.id}
-                    />
-                  ) : (
-                    <input
-                      type="text"
-                      value={observation}
-                      placeholder=""
-                      name="nameBox"
-                       onChange={handleLengthChange}
-                    />
-                  )}
+                        <Select
+                          name="authority_id_picker"
+                          options={condition.levels}
+                          value={observation}
+                          onChange={setObservation}
+                          getOptionLabel={level => level.name}
+                          getOptionValue={level => level.id}
+                        />
+                      ) : (
+                        <input
+                          type="text"
+                          value={observation}
+                          placeholder=""
+                          name="nameBox"
+                          onChange={handleLengthChange}
+                        />
+                      )}
                     </div>
                   </div>
                   <div className="inputItem">
@@ -80,7 +84,8 @@ export default function EnterObservationModal(props) {
                 </div>
               </div>
             )
-          }))}
+          })}
+
           <div className="btn-row">
             <div className="submit-btn">
               <input
@@ -89,7 +94,6 @@ export default function EnterObservationModal(props) {
                 value="Save"
                 onClick={() => {
                   onSave()
-
                 }}
               />
             </div>

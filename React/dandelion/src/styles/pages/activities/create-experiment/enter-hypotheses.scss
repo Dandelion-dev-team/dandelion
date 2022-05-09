@@ -24,18 +24,18 @@
       height: 90vh;
 
       h3 {
-        font-size: 4rem;
+        font-size: 3.5vw;
       }
 
       p {
-        font-size: 1.6rem;
+        font-size: 1.75vw;
         line-height: 2rem;
       }
     }
     .hypotheses-content {
       display: flex;
       width: 60%;
-      height: 70vh;
+      height: 80vh;
       flex-direction: column;
       justify-content: center;
       align-items: center;
@@ -57,65 +57,88 @@
           display: flex;
           flex-direction: column;
 
-          .input-row {
-            text-align: left;
-            display: flex;
-            flex-direction: row;
-            justify-items: left;
+          .card-list {
+            height: 45%;
             width: 100%;
-            height: auto;
-            margin-top: 3vh;
-            .title {
-              width: 50%;
-              height: 100%;
-              h3 {
-                display: inline;
-                font-size: 1.5vw;
-              }
-            }
-            .input {
-              width: 50%;
-              height: 100%;
-              h3 {
-                display: inline;
-                font-size: 1vw;
-              }
-            }
+            overflow-y: scroll;
           }
-          .add-btn {
-            .submitButton {
-              background-color: $accent;
-              color: $primary;
-              font-size: 1.6rem;
-              margin: 1.25rem 0px;
-              padding: 0.625rem;
-              width: 13rem;
-              border: none;
-              cursor: pointer;
-              border-radius: 10px;
+
+          .input-area {
+            height: 45%;
+            width: 100%;
+            .input-row {
+              text-align: left;
+              display: flex;
+              flex-direction: row;
+              justify-items: left;
+              width: 100%;
+              height: auto;
+              margin-top: 3vh;
+              .title {
+                width: 50%;
+                height: 100%;
+                h3 {
+                  display: inline;
+                  font-size: 1.5vw;
+                }
+              }
+              .input {
+                width: 50%;
+                height: 100%;
+                h3 {
+                  display: inline;
+                  font-size: 1vw;
+                }
+              }
+              .desc-input {
+                width: 50%;
+                height: 100%;
+                margin-top: 1.5vh;
+                margin-bottom: 1.5vh;
+
+                textarea {
+                  min-height: 100%;
+                  max-height: 100%;
+                  min-width: 75%;
+                  max-width: 75%;
+                  margin: auto;
+                  resize: none;
+                }
+              }
             }
-            .submitButton:hover {
-              background-color: #d4d926;
+            .add-btn {
+              .submitButton {
+                background-color: $accent;
+                color: $primary;
+                font-size: 1.2vw;
+                margin: 1.25rem 0px;
+                padding: 0.625rem;
+                width: 13rem;
+                border: none;
+                cursor: pointer;
+                border-radius: 10px;
+              }
+              .submitButton:hover {
+                background-color: #d4d926;
+              }
             }
           }
         }
 
         .cont-btn {
-          height: 10%;
           margin-top: auto;
           width: 100%;
           flex-direction: row;
           display: flex;
           justify-content: space-between;
           .spacer {
-            width: 10%;
+            width: 80%;
           }
           .button {
-            margin-left: auto;
             .continue-btn {
               background-color: $accent;
               color: $primary;
-              font-size: 1.6rem;
+              font-size: 1.2vw;
               margin: 1.25rem 0px;
               padding: 1.25rem;
               border: none;

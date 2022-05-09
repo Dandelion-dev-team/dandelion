@@ -15,12 +15,13 @@ export function user_logout() {
 
         localStorage.setItem("logged", "false"); //set to false rather than NULL as if you check for null it will be set before localstorage.getItem retrieves
         navigate("/")
+        window.location.reload(false)
     }
 }
 
-export function user_login(username, password) {
+export function user_login(username, password, setModal) {
     let credentials = base64.encode(username + ":" + password);
-    fetch(process.env.API_URL + "/user/login", {
+    return fetch(process.env.API_URL + "/user/login", {
         method: "POST",
         credentials: "include",
         mode: 'cors',
@@ -30,39 +31,52 @@ export function user_login(username, password) {
             'Accept': 'application/json',
             'Cache-Control': 'no-cache',
         }),
-    }).then(response => {
-        if (response.status == 200) {
-            localStorage.setItem("logged", true);
-            fetch(process.env.API_URL + "/user/" + username, {
-                method: "GET",
-                credentials: "include",
-                mode: 'cors',
-                headers: new Headers({
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'Cache-Control': 'no-cache',
-                }),
-            }).then(response => {
-                if (response.status == 200) {
-                    return response.json();
-                }
-            }).then(data => {
-                localStorage.setItem("is_superuser", data.is_superuser);
-                localStorage.setItem("is_sysadmin", data.is_sysadmin);
-                localStorage.setItem("school_id", data.school_id);
-                localStorage.setItem("user_id", data.user_id);
-                if (data.is_sysadmin == true) {
-                    navigate("/sysadmin/dashboard/")
-                }
-                else if (data.is_superuser == true) {
-                    navigate("/superuser/dashboard/")
-                }
-                else {
-                    navigate("/dashboard")
-                }
-            })
+    }).then((response) => {
+        if (response.status >= 200 && response.status <= 299) {
+            if (username == password) {
+                setModal(true);
+            } else {
+                localStorage.setItem("logged", true)
+                fetch(process.env.API_URL + "/user/" + username, {
+                    method: "GET",
+                    credentials: "include",
+                    mode: 'cors',
+                    headers: new Headers({
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'Cache-Control': 'no-cache',
+                    }),
+                }).then(response => {
+                    if (response.status == 200) {
+                        return response.json();
+                    }
+                }).then(data => {
+                    localStorage.setItem("is_superuser", data.is_superuser);
+                    localStorage.setItem("is_sysadmin", data.is_sysadmin);
+                    localStorage.setItem("school_id", data.school_id);
+                    localStorage.setItem("user_id", data.user_id);
+                    if (data.is_sysadmin == true) {
+                        navigate("/sysadmin/dashboard/")
+                    }
+                    else if (data.is_superuser == true) {
+                        navigate("/superuser/dashboard/")
+                    }
+                    else {
+                        navigate("/dashboard")
+                    }
+                })
+            }
         }
-    }).catch(toast.error("Incorrect sign in details."))
+        else {
+            throw Error(response.statusText);
+        }
+    })
+        .then((jsonResponse) => {
+            return jsonResponse;
+        }).catch((error) => {
+            toast.error("Incorrect login details.")
+            console.log(error);
+        });
 }
 
 export function retrieve_user() {

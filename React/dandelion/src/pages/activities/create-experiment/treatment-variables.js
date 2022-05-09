@@ -21,15 +21,15 @@ export default function TreatmentVariables(props) {
   const [experiment_details, setExperimentDetails] = useState("")
   const [discrete_modal_shown, setDiscreteModalShown] = useState("")
   const [selected_list, updateSelectedList] = useState([])
-  const [logged, setLogged] = useState("");
+  const [logged, setLogged] = useState("")
 
   const handleSearchValueChange = e => {
     changeSearch(e.target.value)
   }
 
   const modalCallback = e => {
-    setShowDetails(false);
-    setDiscreteModalShown(false);
+    setShowDetails(false)
+    setDiscreteModalShown(false)
 
     if (e) {
       updateSelectedList(arr => [...arr, JSON.parse(e)])
@@ -43,50 +43,39 @@ export default function TreatmentVariables(props) {
   const checkboxCallback = e => {
     let val = e.data
     if (e.value == true) {
-      readAdminRecord("/variable/" + val.id).then(data => updateSelectedList(arr => [...arr, data]))
+      readAdminRecord("/variable/" + val.id).then(data =>
+        updateSelectedList(arr => [...arr, data])
+      )
     } else {
-      updateSelectedList(selected_list.filter(item => item.variable_id != val.id))
+      updateSelectedList(
+        selected_list.filter(item => item.variable_id != val.id)
+      )
     }
   }
 
   const handleDetailCallback = index => {
-    // fetch(process.env.ROOT_URL + "/treatmentVariableFull/" + index, {
-    //   method: "GET",
-    //   headers: new Headers({
-    //     "Cache-Control": "no-cache, no-store, must-revalidate",
-    //     Pragma: "no-cache",
-    //     Expires: 0,
-    //   }),
-    // })
-    //   .then(response => response.json())
-    //   .then(data => setDetailVariable(data))
-    //   .then(setModalEditing(false))
-    //   .then(setShowDetails(true))
-  }
-  const handleEditCallback = index => {
-    // fetch(process.env.ROOT_URL + "/treatmentVariableFull/" + index, {
-    //   method: "GET",
-    //   headers: new Headers({
-    //     "Cache-Control": "no-cache, no-store, must-revalidate",
-    //     Pragma: "no-cache",
-    //     Expires: 0,
-    //   }),
-    // })
-    //   .then(response => response.json())
-    //   .then(data => setDetailVariable(data))
-    //   .then(setModalEditing(true))
-    //   .then(setShowDetails(true))
+    fetch(process.env.API_URL + "/variable/" + index, {
+      method: "GET",
+      headers: new Headers({
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        Pragma: "no-cache",
+        Expires: 0,
+      }),
+    })
+      .then(response => response.json())
+      .then(data => setDetailVariable(data))
+      .then(setModalEditing(false))
+      .then(setShowDetails(true))
   }
 
   useEffect(() => {
     if (verify_superuser_storage() == true) {
       if (props.location.state) {
         setExperimentDetails(props.location.state)
-        readRecord("/discreteVariable", setVariables)
+        readRecord("/allVariables", setVariables)
       } else {
         if (typeof window !== `undefined`) {
-          navigate(
-            "/activities/create-experiment/enter-details")
+          navigate("/activities/create-experiment/enter-details")
         }
       }
     } else {
@@ -96,7 +85,9 @@ export default function TreatmentVariables(props) {
 
   return (
     <div>
-      {discrete_modal_shown ? <DiscreteVariableModal callback={modalCallback} /> : null}
+      {discrete_modal_shown ? (
+        <DiscreteVariableModal callback={modalCallback} />
+      ) : null}
 
       {show_details ? (
         <ViewDetailedVariable
@@ -114,7 +105,7 @@ export default function TreatmentVariables(props) {
                 <div className="title">
                   <h3>Add Treatment Variables</h3>
                 </div>
-                <div className="search-tune-row">
+                <div className="search-row">
                   <input
                     type="text"
                     className="search-box"
@@ -122,29 +113,19 @@ export default function TreatmentVariables(props) {
                     value={search_value}
                     onChange={handleSearchValueChange}
                   />
-                  <div className="tune-margin">
-                    <TuneIcon
-                      onClick={() => {
-                        console.log("clicked tune")
-                      }}
-                      className="tune-icon"
-                    />
-                  </div>
                 </div>
                 <div className="treatment-list">
-                  {variable_list.data ?
-                    (
-                      variable_list.data.filter(variable => variable.name.toUpperCase().includes(search_value.toUpperCase())).map(filtered_variable => (
+                {variable_list.length > 1 ? (
+                    variable_list[0].treatment.filter(variable => variable.name.toUpperCase().includes(search_value.toUpperCase())).map(filtered_variable => (
                         <VariableListComponent
                           mappedValue={filtered_variable}
                           detailCallback={handleDetailCallback}
                           checkCallback={checkboxCallback}
                         />
                       ))
-                    )
-                    : (
-                      <h3>No Treatment Variables Found.</h3>
-                    )}
+                  ) : (
+                    <h3>No Treatment Variables Found.</h3>
+                  )}
                 </div>
                 <div className="pagination">
                   <input
@@ -153,19 +134,21 @@ export default function TreatmentVariables(props) {
                     value="Back"
                     onClick={() => {
                       if (typeof window !== `undefined`) {
-                        navigate("/activities/create-experiment/enter-details/",
+                        navigate(
+                          "/activities/create-experiment/enter-details/",
                           {
-                            state: { 
-                                project_id:  props.location.state.project_id,
-                                name: props.location.state.name,
-                                code: props.location.state.code,
-                                description: props.location.state.description,
-                                tutorial: props.location.state.tutorial,
-                                image:  props.location.state.image,
-                                startDate: props.location.state.startDate,
-                                endDate: props.location.state.endDate,
+                            state: {
+                              project_id: props.location.state.project_id,
+                              name: props.location.state.name,
+                              code: props.location.state.code,
+                              description: props.location.state.description,
+                              tutorial: props.location.state.tutorial,
+                              image: props.location.state.image,
+                              startDate: props.location.state.startDate,
+                              endDate: props.location.state.endDate,
                             },
-                          })
+                          }
+                        )
                       }
                     }}
                   ></input>
@@ -182,7 +165,6 @@ export default function TreatmentVariables(props) {
                   {selected_list
                     ? selected_list.map(variable => (
                       <TreatmentSelectedComponent
-                        editCallback={handleEditCallback}
                         data={variable}
                       />
                     ))

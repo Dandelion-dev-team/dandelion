@@ -1,10 +1,17 @@
 import { navigate } from "gatsby"
 import React, { useEffect, useState } from "react"
 import "../../styles/App.scss"
-import { readRecord } from "../../utils/CRUD"
+import { createRecord, readRecord } from "../../utils/CRUD"
 import ExperimentCard from "../cards/experimentCard"
+import InviteModal from "../../components/modals/inviteModal"
+import SchoolModal from "../../components/modals/inviteSchoolModal"
+import EditActivityModal from "../modals/editActivityModal"
 
 export default function ProjectPane(props) {
+  const [showDisclaimer, setDisclaimer] = useState(false)
+  const [showAddModal, setAddModal] = useState(false)
+  const [showEditModal, setShowEditModal] = useState(false)
+
   //Tested
   useEffect(() => {
     //readRecord("/project/" + props.dataProp.Project.project_id + "/experiment", setExperiments)
@@ -15,11 +22,28 @@ export default function ProjectPane(props) {
       state: { experiment: childData },
     })
   }
+
+  const nextModal = e => {
+    setDisclaimer(false)
+    setAddModal(true)
+  }
+
+  const addSchool = e => {
+    setAddModal(false)
+    console.log(e)
+    //createRecord('/project_partner/<int:project_id>/<int:school_id>')
+    createRecord("/project_partner/" + props.project.project_id + "/" + e, null)
+  }
+
   return (
     <div>
       {props.project ? (
         <div className="project-panel-content">
-          <div className="project-title">
+          {showDisclaimer ? <InviteModal callback={nextModal} /> : null}
+          {showAddModal ? <SchoolModal callback={addSchool} /> : null}
+          {showEditModal ? <EditActivityModal project={props.project}/> : null}
+
+          <div className="project-details">
             <h3>{props.project.title} </h3>
             <h3>
               {new Date(props.project.start_date).toDateString()} -{" "}
@@ -59,8 +83,22 @@ export default function ProjectPane(props) {
             >
               Create Experiment
             </button>
-            {/* <button className="submitButton">Edit Project</button> */}
-            <button className="submitButton" id="inv">
+            <button
+              className="submitButton"
+              id="edit"
+              onClick={() => {
+                setShowEditModal(true)
+              }}
+            >
+              Edit Activity
+            </button>
+            <button
+              className="submitButton"
+              id="inv"
+              onClick={() => {
+                setDisclaimer(true)
+              }}
+            >
               Invite School
             </button>
             <button className="submitButton" id="comp">

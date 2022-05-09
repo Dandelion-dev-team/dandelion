@@ -11,12 +11,12 @@ import DiscreteVariableModal from "../../../components/modals/discreteVariableMo
 import ContinuousVariableModal from "../../../components/modals/continuousVariableModal"
 import { verify_superuser_storage } from "../../../utils/logins"
 import { ToastContainer } from "react-toastify"
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css"
 import { readAdminRecord, readRecord } from "../../../utils/CRUD"
 
 export default function ResponseVariables(props) {
   const [search_value, changeSearch] = useState("")
-  const [variable_list, setVariables] = useState("")
+  const [variable_list, setVariables] = useState([])
   const [show_details, setShowDetails] = useState("")
   const [full_detail_variable, setDetailVariable] = useState("")
   const [modal_editing, setModalEditing] = useState()
@@ -30,7 +30,6 @@ export default function ResponseVariables(props) {
   const [show_discrete, setShowDiscrete] = useState("")
 
   const [logged, setLogged] = useState("")
-  const [response_dates_valid, setValidResponseDates] = useState(false);
   const handleSearchValueChange = e => {
     changeSearch(e.target.value)
   }
@@ -54,10 +53,6 @@ export default function ResponseVariables(props) {
   const contCallback = e => {
     setShowContinuous(true)
     setShowChoice(false)
-  }
-
-  const checkResponseDatesRerender = e => {
-    setValidResponseDates(true);
   }
 
   const checkboxCallback = e => {
@@ -138,7 +133,7 @@ export default function ResponseVariables(props) {
         ) : null}
 
         <div className="treatment-container">
-          <ToastContainer/>
+          <ToastContainer />
           <div className="content">
             <div className="content-wrapper">
               <div className="treatment-pane">
@@ -155,17 +150,11 @@ export default function ResponseVariables(props) {
                       onChange={handleSearchValueChange}
                     />
                     <div className="tune-margin">
-                      <TuneIcon
-                        onClick={() => {
-                          //console.log("clicked tune");
-                        }}
-                        className="tune-icon"
-                      />
                     </div>
                   </div>
                   <div className="treatment-list">
-                    {variable_list.data ? (
-                      variable_list.data
+                    {variable_list.length > 1 ? (
+                      variable_list[1].response
                         .filter(variable =>
                           variable.name
                             .toUpperCase()
@@ -183,29 +172,45 @@ export default function ResponseVariables(props) {
                     )}
                   </div>
                   <div className="pagination">
-                  <input
-                    type="submit"
-                    className="back-btn"
-                    value="Back"
-                    onClick={() => {
-                      if (typeof window !== `undefined`) {
-                        navigate("/activities/create-experiment/treatment-variables/", {
-                          state: { 
-                              project_id:  props.location.state.experimentDetails.project_id,
-                              name: props.location.state.experimentDetails.name,
-                              code: props.location.state.experimentDetails.code,
-                              description: props.location.state.experimentDetails.description,
-                              tutorial: props.location.state.experimentDetails.tutorial,
-                              image:  props.location.state.experimentDetails.image,
-                              startDate: props.location.state.experimentDetails.startDate,
-                              endDate: props.location.state.experimentDetails.endDate,
-                          },
-                        })
-                      }
-                    }}
-                  ></input>
-                  <PaginationComponent pageIndex={3} numPages={4} />
-                </div>
+                    <input
+                      type="submit"
+                      className="back-btn"
+                      value="Back"
+                      onClick={() => {
+                        if (typeof window !== `undefined`) {
+                          navigate(
+                            "/activities/create-experiment/treatment-variables/",
+                            {
+                              state: {
+                                project_id:
+                                  props.location.state.experimentDetails
+                                    .project_id,
+                                name: props.location.state.experimentDetails
+                                  .name,
+                                code: props.location.state.experimentDetails
+                                  .code,
+                                description:
+                                  props.location.state.experimentDetails
+                                    .description,
+                                tutorial:
+                                  props.location.state.experimentDetails
+                                    .tutorial,
+                                image:
+                                  props.location.state.experimentDetails.image,
+                                startDate:
+                                  props.location.state.experimentDetails
+                                    .startDate,
+                                endDate:
+                                  props.location.state.experimentDetails
+                                    .endDate,
+                              },
+                            }
+                          )
+                        }
+                      }}
+                    ></input>
+                    <PaginationComponent pageIndex={3} numPages={4} />
+                  </div>
                 </div>
               </div>
               <div className="treatment-selected-pane">
@@ -216,12 +221,11 @@ export default function ResponseVariables(props) {
                   <div className="selected-list">
                     {selected_list
                       ? selected_list.map(variable => (
-                        <ResponseSelectedComponent
-                          editCallback={handleEditCallback}
-                          data={variable}
-                          rerenderCallback={checkResponseDatesRerender}
-                        />
-                      ))
+                          <ResponseSelectedComponent
+                            editCallback={handleEditCallback}
+                            data={variable}
+                          />
+                        ))
                       : null}
                   </div>
                   <div className="btn-row">
@@ -234,33 +238,25 @@ export default function ResponseVariables(props) {
                       }}
                     ></input>
                     {selected_list.length > 0 ? (
-                      response_dates_valid == true ?
-                        <input
-                          type="submit"
-                          className="continue-btn"
-                          value="Continue"
-                          onClick={() => {
-                            if (typeof window !== `undefined`) {
-                              navigate(
-                                "/activities/create-experiment/select-conditions",
-                                {
-                                  state: {
-                                    treatmentVariables: treatment_variables_list,
-                                    responseVariables: selected_list,
-                                    experimentDetails: experiment_details,
-                                  },
-                                }
-                              )
-                            }
-                          }}
-                        ></input>
-                        :
-                        <input
-                          type="submit"
-                          className="disabled-btn"
-                          value="Continue"
-                          disabled={true}
-                        ></input>
+                      <input
+                        type="submit"
+                        className="continue-btn"
+                        value="Continue"
+                        onClick={() => {
+                          if (typeof window !== `undefined`) {
+                            navigate(
+                              "/activities/create-experiment/select-conditions",
+                              {
+                                state: {
+                                  treatmentVariables: treatment_variables_list,
+                                  responseVariables: selected_list,
+                                  experimentDetails: experiment_details,
+                                },
+                              }
+                            )
+                          }
+                        }}
+                      ></input>
                     ) : null}
                   </div>
                 </div>

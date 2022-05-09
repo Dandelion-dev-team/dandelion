@@ -2,13 +2,9 @@ import React, { useState, useEffect } from "react"
 import { navigate } from "gatsby"
 import CloseIcon from "@mui/icons-material/Close"
 import MapModalCard from "../../components/cards/mapModalCard"
+import { readRecord } from "../../utils/CRUD"
 
 export default function MapDetailModal(props) {
-
-  useEffect(() => {
-    //  console.log(props.dataProp.name)
-  }, [])
-
   return (
     <div>
       {props.school.school ? (
@@ -29,11 +25,13 @@ export default function MapDetailModal(props) {
                     </button>{" "}
                   </div>
                 </div>
-                <h3>{props.school.school.address_line_1}, {props.school.school.town}, {props.school.school.postcode}</h3>
+                <h3>
+                  {props.school.school.address_line_1},{" "}
+                  {props.school.school.town}, {props.school.school.postcode}
+                </h3>
                 <h3>{props.school.school.telephone}</h3>
                 <div className="school-image">
-                  {/* TODO - UPDATE IMAGE LINK*/}
-                  <img src="https://www.amle.org/wp-content/uploads/2021/02/784784p888EDNmain820Davis-article-pic1.jpg" />
+                  <img src={props.school.school.image_full} />
                 </div>
               </div>
               <hr />
@@ -43,7 +41,7 @@ export default function MapDetailModal(props) {
                   <h2>Project List:</h2>
                 </div>
                 <div className="cards">
-                  <MapModalCard />
+                  <MapModalCard id={props.school.school.school_id}/>
                 </div>
               </div>
             </div>

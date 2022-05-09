@@ -4,7 +4,7 @@
   width: 100%;
   height: 90%;
   overflow-y: scroll;
-  .project-title {
+  .project-details {
     height: 100%;
     width: 70%;
     padding-top: 1.25rem;
@@ -34,6 +34,7 @@
     width: 100%;
     align-items: center;
     margin-top: auto;
+    justify-content: flex-end;
 
     .submitButton {
       background-color: $accent;
@@ -51,25 +52,33 @@
     }
 
     #inv {
-      background-color: $orange-accent;
+      background-color: #8c77ce;
       color: white;
     }
     #inv:hover {
-      background-color: #fa5b2b;
+      background-color: #6d4ed2;
+    }
+    #edit {
+      background-color: #eac2cb;
+      color: white;
+    }
+    #edit:hover {
+      background-color: #ff9fb4;
+      color: white;
     }
     #comp {
       background-color: #fd0000;
       color: white;
     }
     #comp:hover {
-      background-color: #b80000;
+      background-color: #db1717;
     }
     #exp {
-      background-color: #59d71e;
+      background-color: #37a449;
       color: white;
     }
     #exp:hover {
-      background-color: #50c719;
+      background-color: #3a8c14;
     }
   }
 }

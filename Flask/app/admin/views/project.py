@@ -1,7 +1,6 @@
 import os
 
 from flask import abort, request
-from flask_cors import cross_origin
 from flask_json import json_response
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import inspect
@@ -11,28 +10,30 @@ from app.admin import admin
 from app.models import Project, ProjectPartner
 from app import db
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update, audit_delete
+from app.utils.authorisation import auth_check
 from app.utils.functions import row2dict, jwt_user
 from app.utils.images import image_processing
 from app.utils.uploads import get_uploaded_file, content_folder
 
 
+# This route is PUBLIC
 @admin.route('/project', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
-@jwt_required()
 def listProject():
     project = Project.query.all()
     return json_response(data=(row2dict(x, summary=True) for x in project))
 
 
 @admin.route('/project', methods=['POST'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def add_project():
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
+
     data = request.get_json()
     project = Project(
         title = data['title'],
         description = data['description'],
+        project_image_link=data['project_image_link'],
         project_text = data['project_text'],
         start_date = parser.parse(data['start_date']),
         end_date = parser.parse(data['end_date']),
@@ -51,10 +52,10 @@ def add_project():
         abort(409, e.orig.msg)
 
     project_partner = ProjectPartner(
-        school_id = current_user.school.id,
-        project_id = project.id,
-        is_lead_partner = True,
-        status = 'active'
+        school_id=current_user.school.id,
+        project_id=project.id,
+        is_lead_partner=True,
+        status='active'
     )
 
     db.session.add(project_partner)
@@ -68,9 +69,8 @@ def add_project():
         abort(409, e.orig.msg)
 
 
+# This route is PUBLIC
 @admin.route('/project/<int:id>', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
-@jwt_required()
 def get_one_project(id):
     project = Project.query.get_or_404(id)
 
@@ -88,10 +88,10 @@ def get_one_project(id):
     return {'Project': project_data}
 
 @admin.route('/project/<int:id>', methods=['PUT'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def update_project(id):
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user, id)
     project_to_update = Project.query.get_or_404(id)
     new_data = request.get_json()
 
@@ -99,8 +99,8 @@ def update_project(id):
     project_to_update.description = new_data['description']
     project_to_update.project_text = new_data['project_text']
     project_to_update.project_image_link = new_data['project_image_link']
-    project_to_update.start_date = new_data['start_date']
-    project_to_update.end_date = new_data['end_date']
+    project_to_update.start_date = parser.parse(new_data['start_date'])
+    project_to_update.end_date = parser.parse(new_data['end_date'])
     project_to_update.status = new_data['status']
 
     audit_details = prepare_audit_details(inspect(Project), project_to_update, delete=False)
@@ -119,15 +119,15 @@ def update_project(id):
 
 
 @admin.route('/project/<int:id>', methods=['DELETE'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def delete_project(id):
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user, id)
     project_to_delete = Project.query.filter_by(id=id).first()
     if not project_to_delete:
-        return {"message" : "No Project found"}
+        return {"message": "No Project found"}
 
-    audit_details = prepare_audit_details(inspect(Project), project_to_delete, delete = True)
+    audit_details = prepare_audit_details(inspect(Project), project_to_delete, delete=True)
     db.session.delete(project_to_delete)
     return_status = 200
     message = "The Project has been deleted"
@@ -135,16 +135,18 @@ def delete_project(id):
     try:
         db.session.commit()
         audit_delete("authority", project_to_delete.id, audit_details, current_user.id)
-        return {"message" : message, "id": project_to_delete.id}
+        return {"message": message, "id": project_to_delete.id}
 
     except Exception as e:
         db.session.rollback()
-        abort(409,e.orig.msg)
+        abort(409, e.orig.msg)
 
 
 @admin.route('/project/<int:id>/uploadImage', methods=['POST'])
+@jwt_required()
 def upload_project_image(id):
-
+    current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user, id)
     pic, filename = get_uploaded_file(request)
     image_processing(pic, 'project', id, filename)
 

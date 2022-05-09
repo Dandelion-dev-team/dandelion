@@ -2,7 +2,6 @@ import os
 
 from dateutil import parser
 from flask import abort, request, jsonify
-from flask_cors import cross_origin
 from flask_json import json_response
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import and_, inspect
@@ -14,27 +13,38 @@ from app.models import Experiment, Condition, ConditionLevel, Level, Variable, P
     ProjectPartner
 from app import db
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update
+from app.utils.authorisation import auth_check
 from app.utils.functions import row2dict, jwt_user
 from app.utils.images import image_processing
 from app.utils.uploads import get_uploaded_file, content_folder
 
 
+# This route is PUBLIC
 @admin.route('/experiment', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def listExperiment():
     experiment = Experiment.query.all()
     return json_response(data=(row2dict(x, summary=True) for x in experiment))
 
+# This route is PUBLIC
+@admin.route('/experiment/filtered', methods=['GET'])
+def listExperimentFiltered():
+    experiment = Experiment.query \
+        .join(ProjectPartner) \
+        .filter(ProjectPartner.is_lead_partner == True) \
+        .all()
+    return json_response(data=(row2dict(x, summary=True) for x in experiment))
 
+
+
+# This route is PUBLIC
 @admin.route('/project/<int:id>/experiment', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def listExperimentForProject(id):
     project = Project.query.get_or_404(id)
     return json_response(data=(row2dict(x, summary=True) for x in project.experiments))
 
 
+# This route is PUBLIC
 @admin.route('/experiment/<int:id>', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def get_one_experiment(id):
     experiment = Experiment.query.get_or_404(id)
 
@@ -115,25 +125,25 @@ def get_one_experiment(id):
 
 
 @admin.route('/experiment', methods=['POST'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def add_experiment():
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     data = request.get_json()
     project_partner = ProjectPartner.query.filter(and_(ProjectPartner.project_id == data["project_id"],
                                                        ProjectPartner.school_id == current_user.school_id)).first()
 
     experiment = Experiment(
-        project_id = data["project_id"],
-        project_partner_id = project_partner.id,
-        title = data["title"],
-        description = data["description"],
-        start_date = parser.parse(data["start_date"]),
-        end_date = parser.parse(data["end_date"]),
-        parent_id = data["parent_id"],
-        code = data["code"],
-        text = data["text"],
-        status = "active"
+        project_id=data["project_id"],
+        project_partner_id=project_partner.id,
+        title=data["title"],
+        description=data["description"],
+        start_date=parser.parse(data["start_date"]),
+        end_date=parser.parse(data["end_date"]),
+        parent_id=data["parent_id"],
+        code=data["code"],
+        text=data["text"],
+        status="active"
     )
 
     db.session.add(experiment)
@@ -149,11 +159,11 @@ def add_experiment():
     if "hypotheses" in data.keys():
         for h in data["hypotheses"]:
             hypothesis = Hypothesis(
-                experiment_id = experiment.id,
-                hypothesis_no = h["hypothesis_no"],
-                description = h["description"],
-                status = 'active',
-                text = h["text"]
+                experiment_id=experiment.id,
+                hypothesis_no=h["hypothesis_no"],
+                description=h["description"],
+                status='active',
+                text=h["text"]
             )
 
             db.session.add(hypothesis)
@@ -182,17 +192,18 @@ def add_experiment():
             variable_id = variable.id
 
         response_variable = ResponseVariable(
-            experiment_id = experiment.id,
-            variable_id = variable_id,
-            monday = rv["monday"],
-            tuesday = rv["tuesday"],
-            wednesday = rv["wednesday"],
-            thursday = rv["thursday"],
-            friday = rv["friday"],
-            saturday = rv["saturday"],
-            sunday = rv["sunday"],
-            once = rv["once"],
-            final = rv["final"]
+            experiment_id=experiment.id,
+            variable_id=variable.id,
+            monday=rv["monday"],
+            tuesday=rv["tuesday"],
+            wednesday=rv["wednesday"],
+            thursday=rv["thursday"],
+            friday=rv["friday"],
+            saturday=rv["saturday"],
+            sunday=rv["sunday"],
+            once=rv["once"],
+            final=rv["final"]
+
         )
 
         db.session.add(response_variable)
@@ -209,21 +220,22 @@ def add_experiment():
     return {"id": experiment.id}
 
 
-@admin.route('/experiment/<int:id>/uploadImage', methods=['GET', 'PUT'])
-@cross_origin(origin='http://127.0.0.1:8000/')
+@admin.route('/experiment/<int:id>/uploadImage', methods=['PUT'])
+@jwt_required()
 def upload_experiment_image(id):
-
+    current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user, id)
     pic, filename = get_uploaded_file(request)
     image_processing(pic, 'experiment', id, filename)
 
     return {"message": "Experiment image has been uploaded"}
 
 
-@admin.route('/experiment/<int:experiment_id>', methods=['GET', 'PUT'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
+@admin.route('/experiment/<int:experiment_id>', methods=['PUT'])
 @jwt_required()
 def updateExperiment(experiment_id):
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user, experiment_id)
     experiment_to_update = Experiment.query.get_or_404(experiment_id)
     new_experiment_data = request.get_json()
 
@@ -245,4 +257,3 @@ def updateExperiment(experiment_id):
         except Exception as e:
             db.session.rollback()
             abort(409)
-

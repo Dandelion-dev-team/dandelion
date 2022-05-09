@@ -8,13 +8,21 @@
   }
 
   .schoolTable {
-    height: auto;
-    margin-top: 1.5rem;
+    height: 70vh;
+    margin-top: 7.5%;
     overflow-y: scroll;
     overflow-x: hidden;
 
     .schoolList {
       margin-left: 2rem;
+
+      thead {
+        tr {
+          th {
+            text-align: center;
+          }
+        }
+      }
 
       tbody {
         .active {
@@ -24,6 +32,33 @@
         &:hover {
           background-color: #f7f8ff;
           cursor: pointer;
+        }
+
+        .username {
+          text-align: center;
+        }
+
+        .btn-container {
+          display: flex;
+          justify-content: center;
+          .edit-btn {
+            display: flex;
+            align-items: center;
+            .editButton {
+              background-color: $accent;
+              color: $primary;
+              font-size: 100%;
+              margin: 13% 0px;
+              width: 7.5vw;
+              height: 50%;
+              border: none;
+              cursor: pointer;
+              border-radius: 10px;
+            }
+            .submitButton:hover {
+              background-color: #d4d926;
+            }
+          }
         }
       }
     }
@@ -35,21 +70,38 @@
 
   .btn-row {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-around;
+    margin-left: auto;
     .add-btn {
+      width: 40%;
       .submitButton {
         background-color: $accent;
         color: $primary;
-        font-size: 1.6rem;
+        font-size: 2vw;
         margin: 1.25rem 0px;
         padding: 0.625rem;
-        width: 13rem;
+        width: 100%;
         border: none;
         cursor: pointer;
         border-radius: 10px;
       }
       .submitButton:hover {
         background-color: #d4d926;
+      }
+
+      #single {
+        background-color: #8c77ce;
+        color: white;
+      }
+      #single:hover {
+        background-color: #6d4ed2;
+      }
+      #multiple {
+        background-color: #fd0000;
+        color: white;
+      }
+      #multiple:hover {
+        background-color: #db1717;
       }
     }
   }

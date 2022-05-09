@@ -13,9 +13,8 @@ export default function ExperimentDashboard(props) {
   const [project_user_list, setUsersOnProject] = useState(null)
 
   const handleCallback = childData => {
-    readAdminRecord("/experiment/" + childData.experiment_id).then(data => {
+      readAdminRecord("/experiment/" + childData.experiment_id).then(data => {
       setSelectedExperiment(data)
-      readRecord("/user/byproject/" + data.project_id, setUsersOnProject)
       readRecord("/user/byproject/" + data.project_id, setUsersOnProject)
     })
   }

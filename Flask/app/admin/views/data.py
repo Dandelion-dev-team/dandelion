@@ -3,7 +3,6 @@ import os
 
 import pandas as pd
 from flask import request, current_app
-from flask_cors import cross_origin
 from sqlalchemy import or_, and_, inspect
 from sqlalchemy.orm import aliased
 
@@ -17,7 +16,6 @@ logger = logging.getLogger()
 
 
 @admin.route('/data', methods=['POST'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def get_data():
     request_data = request.get_json()
     experiment = Experiment.query.get_or_404(request_data['experiment_id'])
@@ -66,7 +64,6 @@ def get_data():
 
 
 @admin.route('/data_options/<int:experiment_id>', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def get_data_selection_options(experiment_id):
     experiment = Experiment.query.get_or_404(experiment_id)
 
@@ -119,12 +116,14 @@ def get_data_selection_options(experiment_id):
         ],
         "treatment_variables": [
             {
-                "variable_id": tv.id,
-                "variable_name": tv.name,
-                "levels": [
+                "value": tv.id,
+                "label": tv.name,
+                "checked": False,
+                "children": [
                     {
-                        "level_id": level.id,
-                        "level_name": level.name,
+                        "value": level.id,
+                        "checked": False,
+                        "label": level.name,
                         "level_sequence": level.sequence
                     } for level in tv.levels
                 ]
@@ -132,14 +131,16 @@ def get_data_selection_options(experiment_id):
         ],
         "response_variables": [
             {
-                "variable_id": rv.variable.id,
-                "variable_name": rv.variable.name,
+                "value": rv.variable.id,
+                "checked": False,
+                "label": rv.variable.name,
                 "variable_timing": "once" if rv.once else "final" if rv.final else "repeated",
                 "variable_type": "continuous" if rv.variable.quantity_id else "discrete" if len(rv.variable.levels) > 0 else "qualitative",
-                "levels": [
+                "children": [
                     {
-                        "level_id": level.id,
-                        "level_name": level.name,
+                        "checked": False,
+                        "value": level.id,
+                        "label": level.name,
                         "level_sequence": level.sequence
                     } for level in rv.variable.levels
                 ]

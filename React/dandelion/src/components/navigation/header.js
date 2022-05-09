@@ -41,9 +41,14 @@ export default function Header() {
             <Link to="/map" onClick={closeMobileMenu}>
               Map
             </Link>
-            <a target="_blank" href="https://dandelion.scot/blog/programmes/dandelion-school-growing-initiative" onClick={closeMobileMenu}>
+            <a
+              target="_blank"
+              href="https://dandelion.scot/blog/programmes/dandelion-school-growing-initiative"
+              onClick={closeMobileMenu}
+            >
               About
             </a>
+
             {logged ? (
               <Link to="/" onClick={() => user_logout()}>
                 Logout
@@ -51,6 +56,9 @@ export default function Header() {
             ) : (
               <Link to="/signin">Sign In</Link>
             )}
+            {/* <Link to="/data" onClick={closeMobileMenu}>
+              Report Issue
+            </Link> */}
           </nav>
         </div>
         <div className="mobile-menu" onClick={handleClick}>

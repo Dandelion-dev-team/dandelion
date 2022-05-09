@@ -5,6 +5,11 @@ import Header from "../components/navigation/header"
 import Tile from "../components/tile"
 import school from "../images/school_tile.png"
 import map from "../images/map.png"
+import tomatoes from "../images/tomatoes.png"
+import beetface from "../images/beet-face.png"
+import forkstack from "../images/fork-stack.png"
+import potato from "../images/prized-potato.png"
+
 import about from "../images/about_icon.png"
 import chart from "../images/chart.png"
 import add_data from "../images/add data.png"
@@ -56,40 +61,41 @@ export default function Dashboard() {
                   tile_image={map}
                   tile_color="#e3c3ca"
                   link="/map"
-                ></Tile>
+                />
                 <Tile
-                  name="School"
-                  tile_image={school}
+                  name="Bug Tracker"
+                  tile_image={beetface}
                   tile_color="#58a140"
-                  link="/data"
-                ></Tile>
-                <Tile
+                  link="/report-issue"
+                />
+                {/* <Tile
                   name="About"
                   tile_image={about}
                   tile_color="#7c6fb6"
                   link="https://dandelion.scot/blog/programmes/dandelion-school-growing-initiative"
-                ></Tile>
+                ></Tile> */}
                 <Tile
                   name="Experiments"
-                  tile_image={about}
-                  tile_color="#FFFF"
+                  tile_image={tomatoes}
+                  tile_color="#8c77ce"
                   link="/participants/experiment-dashboard"
-                ></Tile>
+                />
+
+                {is_superuser || is_sysadmin ? (
+                  <Tile
+                    name="SuperUser"
+                    tile_image={potato}
+                    tile_color="#f7f369"
+                    link="/superuser/dashboard"
+                  />
+                ) : null}
                 {is_sysadmin ? (
                   <Tile
                     name="SysAdmin"
                     tile_image={add_data}
                     tile_color="#fe693c"
                     link="/sysadmin/auth-maintenance"
-                  ></Tile>
-                ) : null}
-                {is_superuser || is_sysadmin ? (
-                  <Tile
-                    name="SuperUser"
-                    tile_image={chart}
-                    tile_color="#f7f369"
-                    link="/superuser/dashboard"
-                  ></Tile>
+                  />
                 ) : null}
               </div>
             </div>

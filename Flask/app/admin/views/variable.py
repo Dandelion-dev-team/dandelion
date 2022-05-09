@@ -1,5 +1,4 @@
-from flask import abort, jsonify
-from flask_cors import cross_origin
+from flask import abort, jsonify, request
 from flask_json import json_response
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
@@ -8,11 +7,12 @@ from app.admin.views.level import create_level
 from app.models import Variable, Response, variable, ResponseVariable, Level
 from app import db
 from app.utils.auditing import audit_create
+from app.utils.authorisation import auth_check
 from app.utils.functions import row2dict, jwt_user
 
 
+# This route is PUBLIC
 @admin.route('/variable/<int:id>', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def getFullVariable(id):
     variable = Variable.query.get_or_404(id)
 
@@ -40,10 +40,8 @@ def getFullVariable(id):
     return data
 
 
-
-
+# This route is PUBLIC
 @admin.route('/allVariables', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def listAllVariable():
     response_variable_demo = ResponseVariable.query.all()
     treatment_variable = Variable.query.all()
@@ -62,6 +60,9 @@ def listAllVariable():
 
     for response_variable in response_variable_demo:
         response_variable_data = {}
+        response_val = Variable.query.get_or_404(response_variable.variable_id)
+
+        response_variable_data['name'] = response_val.name
         response_variable_data['id'] = response_variable.id
         response_variable_data['experiment_id'] = response_variable.experiment_id
         response_variable_data['variable_id'] = response_variable.variable_id
@@ -76,11 +77,11 @@ def listAllVariable():
         response_variable_data['final'] = response_variable.final
         output2.append(response_variable_data)
 
-    return jsonify({'Treatment Variables': output}, {'Response Variables': output2})
+    return jsonify({'treatment': output}, {'response': output2})
 
 
+# This route is PUBLIC
 @admin.route('/discreteVariable', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def listAlldiscreteVariable():
     treatment_variable = Variable.query.all()
     output = []
@@ -101,7 +102,7 @@ def listAlldiscreteVariable():
 @jwt_required()
 def create_variable(variable_dict):
     current_user = jwt_user(get_jwt_identity())
-
+    authorised = auth_check(request.path, request.method, current_user)
     variable = Variable(
         name=variable_dict["name"],
         status='active',

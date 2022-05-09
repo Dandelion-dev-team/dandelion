@@ -48,6 +48,7 @@ export default function EnterActivityDetails(props) {
     let body = JSON.stringify({
       title: name,
       description: description,
+      project_image_link: null,
       project_text: tutorial,
       start_date: startDate,
       end_date: endDate,
@@ -163,6 +164,7 @@ export default function EnterActivityDetails(props) {
                     <h3>End Date:</h3>
                   </div>
                   <div className="item-input">
+                  {console.log(startDate)}
                     <input
                       type="date"
                       min={startDate}
@@ -184,7 +186,7 @@ export default function EnterActivityDetails(props) {
                 value="Back"
                 onClick={() => {
                   if (typeof window !== `undefined`) {
-                    navigate("/superuser/project-maintenance/")
+                    navigate("/superuser/activity-maintenance/")
                   }
                 }}
               ></input>

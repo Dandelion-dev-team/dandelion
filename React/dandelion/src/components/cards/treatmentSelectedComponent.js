@@ -28,7 +28,7 @@ export default function VariableSelectedComponent(props) {
         </div>
       </div>
       <div className="spacer"/>
-      <div className="button-content">
+      {/* <div className="button-content">
         <input
           value="Edit"
           type="submit"
@@ -37,7 +37,7 @@ export default function VariableSelectedComponent(props) {
             props.editCallback(props.data.id)
           }}
         ></input>
-      </div>
+      </div> */}
     </div>
   )
 }
