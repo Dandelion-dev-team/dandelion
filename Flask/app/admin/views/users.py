@@ -238,6 +238,7 @@ def passwordReset(id):
 
 
 @admin.route('/user/access/<int:id>', methods=['PUT'])
+@jwt_required()
 def updatePassword(id):
     user_to_update = User.query.get_or_404(id)
     new_data = request.get_json()
@@ -247,15 +248,14 @@ def updatePassword(id):
 
     message = "Password updated"
 
-    if len(audit_details) > 0:
-        try:
-            db.session.commit()
-            audit_update("users", user_to_update.id, audit_details, id)
-            return jsonify({"message": message})
+    try:
+        db.session.commit()
+        audit_update("users", user_to_update.id, audit_details, id)
+        return jsonify({"message": message})
 
-        except Exception as e:
-            db.session.rollback()
-            abort(409)
+    except Exception as e:
+        db.session.rollback()
+        abort(409)
 
 
 @admin.route('/user/<int:id>', methods=['DELETE'])
