@@ -3,7 +3,6 @@ import os
 
 import pandas as pd
 from flask import request, current_app
-from flask_cors import cross_origin
 from sqlalchemy import or_, and_, inspect
 from sqlalchemy.orm import aliased
 
@@ -15,7 +14,6 @@ from app.utils.uploads import content_folder
 
 
 @admin.route('/data', methods=['POST'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def get_data():
     request_data = request.get_json()
     experiment = Experiment.query.get_or_404(request_data['experiment_id'])
@@ -64,7 +62,6 @@ def get_data():
 
 
 @admin.route('/data_options/<int:experiment_id>', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def get_data_selection_options(experiment_id):
     experiment = Experiment.query.get_or_404(experiment_id)
 

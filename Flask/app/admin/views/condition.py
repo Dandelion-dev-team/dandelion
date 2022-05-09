@@ -1,5 +1,4 @@
 from flask import abort, request
-from flask_cors import cross_origin
 from flask_json import json_response
 from flask_jwt_extended import get_jwt_identity
 
@@ -14,7 +13,6 @@ from app.utils.functions import row2dict, jwt_user
 
 # This route is PUBLIC
 @admin.route('/condition', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def listCondition():
 	condition = Condition.query.all()
 	return json_response(data=(row2dict(x) for x in condition))

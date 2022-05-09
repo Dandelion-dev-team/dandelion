@@ -1,5 +1,4 @@
 from flask import abort, request, jsonify
-from flask_cors import cross_origin
 from flask_json import json_response
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from sqlalchemy import inspect
@@ -18,7 +17,7 @@ from app.utils.functions import row2dict, jwt_user
 
 
 @admin.route('/experiment_participant', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
+@jwt_required()
 def listExperiment_participant():
     current_user = jwt_user(get_jwt_identity())
     authorised = auth_check(request.path, request.method, current_user)
@@ -27,7 +26,6 @@ def listExperiment_participant():
 
 
 @admin.route('/experiment_participant/add', methods=['POST'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def addExperiment_participant():
     current_user = jwt_user(get_jwt_identity())
@@ -55,7 +53,6 @@ def addExperiment_participant():
 
 
 @admin.route('/experiment_participant/<int:user_id>', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def experiments_by_participant(user_id):
     current_user = jwt_user(get_jwt_identity())
@@ -77,7 +74,6 @@ def experiments_by_participant(user_id):
 
 
 @admin.route('/experiment_participant/<int:experiment_id>/<int:user_id>', methods=['POST'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def add_new_experiment_participant(experiment_id, user_id):
     current_user = jwt_user(get_jwt_identity())
@@ -103,7 +99,6 @@ def add_new_experiment_participant(experiment_id, user_id):
 
 
 @admin.route('/experiment_participant/updatestatus/<int:experiment_participant_id>', methods=['PUT'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def updateExperimentParticipantStatus(experiment_participant_id):
     current_user = jwt_user(get_jwt_identity())
@@ -130,7 +125,6 @@ def updateExperimentParticipantStatus(experiment_participant_id):
 
 
 @admin.route('/experiment_participant/delete/<int:experiment_participant_id>', methods=['DELETE'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def deleteΕxperimentPaticipant(experiment_participant_id):
     current_user = jwt_user(get_jwt_identity())

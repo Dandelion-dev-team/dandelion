@@ -2,7 +2,6 @@ import os
 
 from dateutil import parser
 from flask import abort, request, jsonify
-from flask_cors import cross_origin
 from flask_json import json_response
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import and_, inspect
@@ -22,15 +21,23 @@ from app.utils.uploads import get_uploaded_file, content_folder
 
 # This route is PUBLIC
 @admin.route('/experiment', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def listExperiment():
     experiment = Experiment.query.all()
     return json_response(data=(row2dict(x, summary=True) for x in experiment))
 
+# This route is PUBLIC
+@admin.route('/experiment/filtered', methods=['GET'])
+def listExperimentFiltered():
+    experiment = Experiment.query \
+        .join(ProjectPartner) \
+        .filter(ProjectPartner.is_lead_partner == True) \
+        .all()
+    return json_response(data=(row2dict(x, summary=True) for x in experiment))
+
+
 
 # This route is PUBLIC
 @admin.route('/project/<int:id>/experiment', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def listExperimentForProject(id):
     project = Project.query.get_or_404(id)
     return json_response(data=(row2dict(x, summary=True) for x in project.experiments))
@@ -38,7 +45,6 @@ def listExperimentForProject(id):
 
 # This route is PUBLIC
 @admin.route('/experiment/<int:id>', methods=['GET'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def get_one_experiment(id):
     experiment = Experiment.query.get_or_404(id)
 
@@ -119,7 +125,6 @@ def get_one_experiment(id):
 
 
 @admin.route('/experiment', methods=['POST'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def add_experiment():
     current_user = jwt_user(get_jwt_identity())
@@ -216,7 +221,6 @@ def add_experiment():
 
 
 @admin.route('/experiment/<int:id>/uploadImage', methods=['PUT'])
-@cross_origin(origin='http://127.0.0.1:8000/')
 @jwt_required()
 def upload_experiment_image(id):
     current_user = jwt_user(get_jwt_identity())
@@ -228,7 +232,6 @@ def upload_experiment_image(id):
 
 
 @admin.route('/experiment/<int:experiment_id>', methods=['PUT'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 @jwt_required()
 def updateExperiment(experiment_id):
     current_user = jwt_user(get_jwt_identity())
