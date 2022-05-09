@@ -9,6 +9,7 @@ from app.admin import admin
 from app.models import Issue
 from app import db
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update
+from app.utils.authorisation import auth_check
 from app.utils.functions import jwt_user
 from app.utils.images import image_processing
 from app.utils.uploads import get_uploaded_file, content_folder
@@ -61,6 +62,7 @@ def getOneIssue(issue_id):
 @jwt_required()
 def createNewIssue():
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     data = request.get_json()
     issue = Issue(
         user_id=data['user_id'],
@@ -91,6 +93,7 @@ def createNewIssue():
 @jwt_required()
 def updateIssueDetails(issue_id):
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     issue_to_update = Issue.query.get_or_404(issue_id)
     new_data = request.get_json()
 
@@ -122,6 +125,7 @@ def updateIssueDetails(issue_id):
 @jwt_required()
 def addNote(issue_id):
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     issue_to_update = Issue.query.get_or_404(issue_id)
     new_data = request.get_json()
 
@@ -156,6 +160,7 @@ def addNote(issue_id):
 @jwt_required()
 def closeIssue(issue_id):
     current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     issue_to_update = Issue.query.get_or_404(issue_id)
     new_data = request.get_json()
 
@@ -179,6 +184,8 @@ def closeIssue(issue_id):
 @admin.route('/issue/<int:issue_id>/upload_image/', methods=['POST'])
 @jwt_required()
 def uploadIssueImage(issue_id):
+    current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
     pic, filename = get_uploaded_file(request)
     image_processing(pic, 'issue', issue_id, filename)
 
