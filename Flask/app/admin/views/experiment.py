@@ -25,6 +25,7 @@ def listExperiment():
     experiment = Experiment.query.all()
     return json_response(data=(row2dict(x, summary=True) for x in experiment))
 
+
 # This route is PUBLIC
 @admin.route('/experiment/filtered', methods=['GET'])
 def listExperimentFiltered():
@@ -33,7 +34,6 @@ def listExperimentFiltered():
         .filter(ProjectPartner.is_lead_partner == True) \
         .all()
     return json_response(data=(row2dict(x, summary=True) for x in experiment))
-
 
 
 # This route is PUBLIC
@@ -178,31 +178,60 @@ def add_experiment():
     # This array holds the data about treatment variables for later use
     treatment_variables = []
     for tv in data["treatmentVariables"]:
-        try:
-            variable = Variable.query.get_or_404(tv["id"])
-        except:
+        if "variable_id" in tv:
+            variable = Variable.query.get(tv["variable_id"])
+        else:
             variable = create_variable(tv)
         treatment_variables.append(variable)
 
     for rv in data["responseVariables"]:
-        try:
-            variable_id = rv["id"]
-        except:
+        if "variable_id" in rv:
+            variable_id = rv["variable_id"]
+        else:
             variable = create_variable(rv)
             variable_id = variable.id
 
+        monday = 0
+        tuesday = 0
+        wednesday = 0
+        thursday = 0
+        friday = 0
+        saturday = 0
+        sunday = 0
+        once = 0
+        final = 0
+
+        if "monday" in rv:
+            monday = 1
+        if "tuesday" in rv:
+            tuesday = 1
+        if "wednesday" in rv:
+            wednesday = 1
+        if "thursday" in rv:
+            thursday = 1
+        if "friday" in rv:
+            friday = 1
+        if "saturday" in rv:
+            saturday = 1
+        if "sunday" in rv:
+            sunday = 1
+        if "once" in rv:
+            once = 1
+        if "final" in rv:
+            final = 1
+
         response_variable = ResponseVariable(
             experiment_id=experiment.id,
-            variable_id=variable.id,
-            monday=rv["monday"],
-            tuesday=rv["tuesday"],
-            wednesday=rv["wednesday"],
-            thursday=rv["thursday"],
-            friday=rv["friday"],
-            saturday=rv["saturday"],
-            sunday=rv["sunday"],
-            once=rv["once"],
-            final=rv["final"]
+            variable_id=variable_id,
+            monday=monday,
+            tuesday=tuesday,
+            wednesday=wednesday,
+            thursday=thursday,
+            friday=friday,
+            saturday=saturday,
+            sunday=sunday,
+            once=once,
+            final=final
 
         )
 
@@ -220,7 +249,7 @@ def add_experiment():
     return {"id": experiment.id}
 
 
-@admin.route('/experiment/<int:id>/uploadImage', methods=['PUT'])
+@admin.route('/experiment/<int:id>/uploadImage', methods=['PUT', 'POST'])
 @jwt_required()
 def upload_experiment_image(id):
     current_user = jwt_user(get_jwt_identity())

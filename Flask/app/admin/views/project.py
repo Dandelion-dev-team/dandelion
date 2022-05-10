@@ -142,7 +142,7 @@ def delete_project(id):
         abort(409, e.orig.msg)
 
 
-@admin.route('/project/<int:id>/uploadImage', methods=['POST'])
+@admin.route('/project/<int:id>/uploadImage', methods=['PUT', 'POST'])
 @jwt_required()
 def upload_project_image(id):
     current_user = jwt_user(get_jwt_identity())

@@ -103,12 +103,18 @@ def listAlldiscreteVariable():
 def create_variable(variable_dict):
     current_user = jwt_user(get_jwt_identity())
     authorised = auth_check(request.path, request.method, current_user)
+
+    if "quantity_id" in variable_dict:
+        quantity_id = variable_dict["quantity_id"]
+    else:
+        quantity_id =None
+
     variable = Variable(
         name=variable_dict["name"],
         status='active',
         is_sensor_quantity=variable_dict["is_sensor_quantity"],
         procedure=variable_dict["procedure"],
-        quantity_id=variable_dict["quantity_id"]
+        quantity_id=quantity_id
     )
 
     db.session.add(variable)
