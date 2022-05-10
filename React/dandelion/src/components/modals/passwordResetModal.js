@@ -12,15 +12,9 @@ export default function PasswordResetModal(props) {
         console.log("matching")
         readAdminRecord("/user/" + props.username).then(data => {
           let body = JSON.stringify({
-            username: props.username,
             password: new_pass,
-            school_id: data.school_id,
-            is_sysadmin: data.is_sysadmin,
-            is_superuser: data.is_superuser,
-            status: "",
-            notes: "",
           })
-          updateRecord("/user/" + data.user_id, body)
+          updateRecord("/user/access/" + data.user_id, body)
         })
       }else{
         toast.error("No new password entered.")

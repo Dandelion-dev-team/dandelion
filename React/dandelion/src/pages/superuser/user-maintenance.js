@@ -52,7 +52,7 @@ export default function UserMaintenance(props) {
           status: element.status,
         })
         createRecordNavigate(
-          "/experiment_paticipant/" +
+          "/experiment_participant/" +
             props.location.state.experiment.id +
             "/" +
             element.id,
