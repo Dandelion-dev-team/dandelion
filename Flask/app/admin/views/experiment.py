@@ -3,8 +3,8 @@ import os
 from dateutil import parser
 from flask import abort, request, jsonify
 from flask_json import json_response
-from flask_jwt_extended import jwt_required, get_jwt_identity
-from sqlalchemy import and_, inspect
+from flask_jwt_extended import jwt_required, get_jwt_identity, verify_jwt_in_request
+from sqlalchemy import and_, inspect, or_
 
 from app.admin import admin
 from app.admin.views.condition import create_condition
@@ -22,17 +22,42 @@ from app.utils.uploads import get_uploaded_file, content_folder
 # This route is PUBLIC
 @admin.route('/experiment', methods=['GET'])
 def listExperiment():
-    experiment = Experiment.query.all()
+    if verify_jwt_in_request(optional=True):
+        current_user = jwt_user(get_jwt_identity())
+        experiment = Experiment. \
+            query. \
+            join (ProjectPartner). \
+            filter(or_(Experiment.status == 'active',
+                       ProjectPartner.school_id == current_user.school_id)). \
+            all()
+    else:
+        experiment = Experiment. \
+            query. \
+            filter(Experiment.status == 'active'). \
+            all()
+
     return json_response(data=(row2dict(x, summary=True) for x in experiment))
 
 
 # This route is PUBLIC
 @admin.route('/experiment/filtered', methods=['GET'])
 def listExperimentFiltered():
-    experiment = Experiment.query \
-        .join(ProjectPartner) \
-        .filter(ProjectPartner.is_lead_partner == True) \
-        .all()
+    if verify_jwt_in_request(optional=True):
+        current_user = jwt_user(get_jwt_identity())
+        experiment = Experiment \
+            .query \
+            .join (ProjectPartner) \
+            .filter(ProjectPartner.is_lead_partner == True) \
+            .filter(or_(Experiment.status == 'active',
+                        ProjectPartner.school_id == current_user.school_id)) \
+            .all()
+    else:
+        experiment = Experiment.query \
+            .join(ProjectPartner) \
+            .filter(ProjectPartner.is_lead_partner == True) \
+            .filter(Experiment.status == 'active') \
+            .all()
+
     return json_response(data=(row2dict(x, summary=True) for x in experiment))
 
 
