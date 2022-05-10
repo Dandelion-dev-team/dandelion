@@ -26,10 +26,10 @@ const NotFoundPage = () => {
                   <h2>404</h2>
                 </div>
                 <div className="text-link-block">
-                  <h3>We're sorry, but that page was not found.</h3>
+                  {/* <h3>We're sorry, but that page was not found.</h3>
                   <h4 onClick={() => {
                     navigate("/")
-                  }}>Go back to home page.</h4>
+                  }}>Go back to home page.</h4> */}
                 </div>
               </div>
               <div className="right-items">
