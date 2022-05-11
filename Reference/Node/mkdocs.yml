@@ -1,0 +1,39 @@
+site_name: Dandelion node reference
+theme:
+  name: material
+  palette:
+    scheme: dandelion
+  scheme: preference
+  features:
+    - navigation.tabs
+#  favicon: img/material/teach.svg
+#  icon:
+#    logo: material/teach
+  plugins:
+    - search
+
+nav:
+  - Dandelion:
+      - "http://dandelion.scot"
+  - Home:
+    - Introduction: 'index.md'
+    - Installation: 'install.md'
+    - Configuration: 'config.md'
+    - Registration: 'register.md'
+    - Sensors: 'sensors/index.md'
+    - Downloads: 'downloads.md'
+  - Sensors:
+      - Introduction: 'sensors/index.md'
+      - SHTC3: 'sensors/shtc3.md'
+      - BH1750: 'sensors/bh1750.md'
+
+markdown_extensions:
+  - pymdownx.highlight:
+      use_pygments: true
+      linenums: true
+  - attr_list
+  - tables
+
+extra_css:
+  - dandelion.css
+
