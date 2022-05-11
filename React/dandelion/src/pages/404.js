@@ -13,7 +13,7 @@ const NotFoundPage = () => {
     return;
   } else {
     return (
-      <div>
+      <div className="page-container">
         <Header />
         <div className="notfound-container">
           <div className="notfound-content">
