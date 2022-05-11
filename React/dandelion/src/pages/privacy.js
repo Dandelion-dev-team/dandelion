@@ -8,15 +8,15 @@ import gif from '../images/404.gif';
 import "../styles/App.scss"
 export const isBrowser = () => typeof window !== "undefined"
 
-const NotFoundPage = () => {
+const PrivacyPage = () => {
   if (!isBrowser) {
     return;
   } else {
     return (
       <div>
         <Header />
-        <div className="notfound-container">
-          <div className="notfound-content">
+        <div className="privacy-container">
+          <div className="privacy-content">
             <div className="banner-image">
               <img src={image}></img>
             </div>
@@ -26,10 +26,7 @@ const NotFoundPage = () => {
                   <h2>404</h2>
                 </div>
                 <div className="text-link-block">
-                  {/* <h3>We're sorry, but that page was not found.</h3>
-                  <h4 onClick={() => {
-                    navigate("/")
-                  }}>Go back to home page.</h4> */}
+                 
                 </div>
               </div>
               <div className="right-items">
@@ -43,4 +40,4 @@ const NotFoundPage = () => {
   }
 }
 
-export default NotFoundPage
+export default PrivacyPage
