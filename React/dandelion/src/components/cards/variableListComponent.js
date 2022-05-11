@@ -34,7 +34,7 @@ export default function VariableListComponent(props) {
                     value="Details"
                     type="submit"
                     className="submitButton"
-                    onClick={() => { props.detailCallback(props.mappedValue.id) }}>
+                    onClick={() => { props.detailCallback(props.mappedValue.variable_id) }}>
                 </input>
             </div>
         </div>

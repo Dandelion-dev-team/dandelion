@@ -50,7 +50,7 @@ def listAllVariable():
 
     for variable in treatment_variable:
         treatment_variable_data = {}
-        treatment_variable_data['id'] = variable.id
+        treatment_variable_data['variable_id'] = variable.id
         treatment_variable_data['name'] = variable.name
         treatment_variable_data['status'] = variable.status
         treatment_variable_data['is_sensor_quantity'] = variable.is_sensor_quantity
@@ -63,7 +63,7 @@ def listAllVariable():
         response_val = Variable.query.get_or_404(response_variable.variable_id)
 
         response_variable_data['name'] = response_val.name
-        response_variable_data['id'] = response_variable.id
+        response_variable_data['response_id'] = response_variable.id
         response_variable_data['experiment_id'] = response_variable.experiment_id
         response_variable_data['variable_id'] = response_variable.variable_id
         response_variable_data['monday'] = response_variable.monday

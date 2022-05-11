@@ -24,16 +24,37 @@ export default function ExperimentPane(props) {
       startDate: props.dataProp.start_date,
       endDate: props.dataProp.end_date,
     }
+    var variables = []
+    let treatments = props.dataProp.treatmentVariables
+    if (props) {
+      treatments.forEach(treatment => variables.push(treatment.levels))
+    }
+    let combinations = allPossibleCases(variables)
     if (typeof window !== `undefined`) {
       navigate("/activities/create-experiment/summary", {
         state: {
           treatmentVariables: props.dataProp.treatmentVariables,
           responseVariables: props.dataProp.responseVariables,
           experimentDetails: experiment_details,
-          combinations: props.dataProp.conditions,
+          combinations: combinations,
           hypotheses: props.dataProp.hypotheses,
         },
       })
+    }
+  }
+
+  function allPossibleCases(arr) {
+    if (arr.length == 1) {
+      return arr[0]
+    } else {
+      var result = []
+      var allCasesOfRest = allPossibleCases(arr.slice(1))
+      for (var i = 0; i < allCasesOfRest.length; i++) {
+        for (var j = 0; j < arr[0].length; j++) {
+          result.push([[arr[0][j]], [allCasesOfRest[i]]])
+        }
+      }
+      return result
     }
   }
 

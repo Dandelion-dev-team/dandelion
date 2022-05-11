@@ -133,6 +133,7 @@ def get_one_experiment(id):
             "levels": sorted([{
                 "id": l.id,
                 "sequence": l.sequence,
+                "treatment_name": treatment_variable.name,
                 "name": l.name
             } for l in treatment_variable.levels], key=lambda l: l["sequence"])
         })
