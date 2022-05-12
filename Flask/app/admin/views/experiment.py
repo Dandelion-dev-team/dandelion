@@ -3,8 +3,8 @@ import os
 from dateutil import parser
 from flask import abort, request, jsonify
 from flask_json import json_response
-from flask_jwt_extended import jwt_required, get_jwt_identity
-from sqlalchemy import and_, inspect
+from flask_jwt_extended import jwt_required, get_jwt_identity, verify_jwt_in_request
+from sqlalchemy import and_, inspect, or_
 
 from app.admin import admin
 from app.admin.views.condition import create_condition
@@ -22,18 +22,43 @@ from app.utils.uploads import get_uploaded_file, content_folder
 # This route is PUBLIC
 @admin.route('/experiment', methods=['GET'])
 def listExperiment():
-    experiment = Experiment.query.all()
+    if verify_jwt_in_request(optional=True):
+        current_user = jwt_user(get_jwt_identity())
+        experiment = Experiment. \
+            query. \
+            join (ProjectPartner). \
+            filter(or_(Experiment.status == 'active',
+                       ProjectPartner.school_id == current_user.school_id)). \
+            all()
+    else:
+        experiment = Experiment. \
+            query. \
+            filter(Experiment.status == 'active'). \
+            all()
+
     return json_response(data=(row2dict(x, summary=True) for x in experiment))
+
 
 # This route is PUBLIC
 @admin.route('/experiment/filtered', methods=['GET'])
 def listExperimentFiltered():
-    experiment = Experiment.query \
-        .join(ProjectPartner) \
-        .filter(ProjectPartner.is_lead_partner == True) \
-        .all()
-    return json_response(data=(row2dict(x, summary=True) for x in experiment))
+    if verify_jwt_in_request(optional=True):
+        current_user = jwt_user(get_jwt_identity())
+        experiment = Experiment \
+            .query \
+            .join (ProjectPartner) \
+            .filter(ProjectPartner.is_lead_partner == True) \
+            .filter(or_(Experiment.status == 'active',
+                        ProjectPartner.school_id == current_user.school_id)) \
+            .all()
+    else:
+        experiment = Experiment.query \
+            .join(ProjectPartner) \
+            .filter(ProjectPartner.is_lead_partner == True) \
+            .filter(Experiment.status == 'active') \
+            .all()
 
+    return json_response(data=(row2dict(x, summary=True) for x in experiment))
 
 
 # This route is PUBLIC
@@ -108,6 +133,7 @@ def get_one_experiment(id):
             "levels": sorted([{
                 "id": l.id,
                 "sequence": l.sequence,
+                "treatment_name": treatment_variable.name,
                 "name": l.name
             } for l in treatment_variable.levels], key=lambda l: l["sequence"])
         })
@@ -178,32 +204,60 @@ def add_experiment():
     # This array holds the data about treatment variables for later use
     treatment_variables = []
     for tv in data["treatmentVariables"]:
-        try:
-            variable = Variable.query.get_or_404(tv["id"])
-        except:
+        if "variable_id" in tv:
+            variable = Variable.query.get(tv["variable_id"])
+        else:
             variable = create_variable(tv)
         treatment_variables.append(variable)
 
     for rv in data["responseVariables"]:
-        try:
-            variable_id = rv["id"]
-        except:
+        if "variable_id" in rv:
+            variable_id = rv["variable_id"]
+        else:
             variable = create_variable(rv)
             variable_id = variable.id
 
+        monday = 0
+        tuesday = 0
+        wednesday = 0
+        thursday = 0
+        friday = 0
+        saturday = 0
+        sunday = 0
+        once = 0
+        final = 0
+
+        if "monday" in rv:
+            monday = rv["monday"]
+        if "tuesday" in rv:
+            tuesday = rv["tuesday"]
+        if "wednesday" in rv:
+            wednesday = rv["wednesday"]
+        if "thursday" in rv:
+            thursday = rv["thursday"]
+        if "friday" in rv:
+            friday = rv["friday"]
+        if "saturday" in rv:
+            saturday = rv["saturday"]
+        if "sunday" in rv:
+            sunday = rv["sunday"]
+        if "once" in rv:
+            once = rv["once"]
+        if "final" in rv:
+            final = rv["final"]
+
         response_variable = ResponseVariable(
             experiment_id=experiment.id,
-            variable_id=variable.id,
-            monday=rv["monday"],
-            tuesday=rv["tuesday"],
-            wednesday=rv["wednesday"],
-            thursday=rv["thursday"],
-            friday=rv["friday"],
-            saturday=rv["saturday"],
-            sunday=rv["sunday"],
-            once=rv["once"],
-            final=rv["final"]
-
+            variable_id=variable_id,
+            monday=monday,
+            tuesday=tuesday,
+            wednesday=wednesday,
+            thursday=thursday,
+            friday=friday,
+            saturday=saturday,
+            sunday=sunday,
+            once=once,
+            final=final
         )
 
         db.session.add(response_variable)
@@ -220,7 +274,7 @@ def add_experiment():
     return {"id": experiment.id}
 
 
-@admin.route('/experiment/<int:id>/uploadImage', methods=['PUT'])
+@admin.route('/experiment/<int:id>/uploadImage', methods=['PUT', 'POST'])
 @jwt_required()
 def upload_experiment_image(id):
     current_user = jwt_user(get_jwt_identity())

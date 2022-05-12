@@ -52,9 +52,9 @@ export default function ContinuousVariableModal(props) {
         name: name,
         description: description,
         procedure: procedure,
-        unit: unit,
-        upper_limit: upperLimit,
-        lower_limit: lowerLimit,
+        // unit: unit,
+        // upper_limit: upperLimit,
+        // lower_limit: lowerLimit,
         is_sensor_quantity: false,
         quantity_id: quantity_check,
         monday: false,
@@ -128,7 +128,7 @@ export default function ContinuousVariableModal(props) {
                 />
               </div>
             </div>
-            <div className="inputItem">
+            {/* <div className="inputItem">
               <div className="item-title">
                 <h3>Unit:</h3>
               </div>
@@ -169,7 +169,7 @@ export default function ContinuousVariableModal(props) {
                   onChange={handleLowerLimitChange}
                 />
               </div>
-            </div>
+            </div> */}
             <div className="inputItem">
               <div className="item-title">
                 <h3>Quantity relation:</h3>

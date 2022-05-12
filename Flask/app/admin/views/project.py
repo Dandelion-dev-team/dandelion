@@ -2,8 +2,8 @@ import os
 
 from flask import abort, request
 from flask_json import json_response
-from flask_jwt_extended import jwt_required, get_jwt_identity
-from sqlalchemy import inspect
+from flask_jwt_extended import jwt_required, get_jwt_identity, verify_jwt_in_request
+from sqlalchemy import inspect, or_
 from dateutil import parser
 
 from app.admin import admin
@@ -19,7 +19,20 @@ from app.utils.uploads import get_uploaded_file, content_folder
 # This route is PUBLIC
 @admin.route('/project', methods=['GET'])
 def listProject():
-    project = Project.query.all()
+    if verify_jwt_in_request(optional=True):
+        current_user = jwt_user(get_jwt_identity())
+        project = Project. \
+            query. \
+            join (ProjectPartner). \
+            filter(or_(Project.status == 'active',
+                       ProjectPartner.school_id == current_user.school_id)). \
+            all()
+    else:
+        project = Project. \
+            query. \
+            filter(Project.status == 'active'). \
+            all()
+
     return json_response(data=(row2dict(x, summary=True) for x in project))
 
 
@@ -142,7 +155,7 @@ def delete_project(id):
         abort(409, e.orig.msg)
 
 
-@admin.route('/project/<int:id>/uploadImage', methods=['POST'])
+@admin.route('/project/<int:id>/uploadImage', methods=['PUT', 'POST'])
 @jwt_required()
 def upload_project_image(id):
     current_user = jwt_user(get_jwt_identity())
