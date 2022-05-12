@@ -113,7 +113,7 @@ export default function SuperuserSettings() {
               <div className="spacer" />
               <div className="node-settings">
                 <h3>Node Settings</h3>
-                {school_node.Node !== null ? <h3>Node Registered</h3> : (
+                {school_node ? school_node.Node !== null ? <h3>Node Registered</h3> : (
                   <div className="btn-row">
                     <input
                       type="submit"
@@ -124,7 +124,8 @@ export default function SuperuserSettings() {
                       }}
                     />
                   </div>
-                )}
+                ) : null}
+
               </div>
             </div>
             <div className="details-pane">
