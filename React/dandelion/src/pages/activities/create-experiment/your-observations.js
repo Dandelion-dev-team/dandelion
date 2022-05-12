@@ -141,6 +141,7 @@ const ResponseVariable = variable => {
                     </div>
                   <div className="date-input">
                     <select>
+                    <option value="" disabled selected>Select...</option>
                       <option value="Monday">Monday</option>
                       <option value="Tuesday">Tuesday</option>
                       <option value="Wednesday">Wednesday</option>
