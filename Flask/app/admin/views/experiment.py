@@ -228,23 +228,23 @@ def add_experiment():
         final = 0
 
         if "monday" in rv:
-            monday = 1
+            monday = rv["monday"]
         if "tuesday" in rv:
-            tuesday = 1
+            tuesday = rv["tuesday"]
         if "wednesday" in rv:
-            wednesday = 1
+            wednesday = rv["wednesday"]
         if "thursday" in rv:
-            thursday = 1
+            thursday = rv["thursday"]
         if "friday" in rv:
-            friday = 1
+            friday = rv["friday"]
         if "saturday" in rv:
-            saturday = 1
+            saturday = rv["saturday"]
         if "sunday" in rv:
-            sunday = 1
+            sunday = rv["sunday"]
         if "once" in rv:
-            once = 1
+            once = rv["once"]
         if "final" in rv:
-            final = 1
+            final = rv["final"]
 
         response_variable = ResponseVariable(
             experiment_id=experiment.id,
@@ -258,7 +258,6 @@ def add_experiment():
             sunday=sunday,
             once=once,
             final=final
-
         )
 
         db.session.add(response_variable)

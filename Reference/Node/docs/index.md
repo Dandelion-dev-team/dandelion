@@ -17,7 +17,7 @@ In that scenario, everything becomes a node.
 
 Your IoT node is based on a microprocessor called a LilyGo T5 which is essentially
 a small computer. Unlike your laptop, it does not have an operating system like
-Windows, MacOS or Linux. Instead, it has only a single program call its *firmware*
+Windows, MacOS or Linux. Instead, it has only a single program called *firmware*
 with a specific purpose which runs continuously. Its job is to take readings from 
 the attached sensors and send the information back to the Dandelion app over the 
 Internet. It does this by connecting to an available wifi access point.

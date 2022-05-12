@@ -6,7 +6,7 @@ for upgrading your node is described below the table
 
 Firmware version | Release date | File | Notes
 -----------------|--------------|------|------
-0.9 | 10 May 2022  | [Download](downloads/v0.9.bin) | [Notes](v0.9.md)
+0.9 | 10 May 2022  | [Download](downloads/v0.9.bin) | [Notes](downloads/v0.9.md)
 
 ## Upgrading
 
@@ -30,7 +30,7 @@ Follow the steps below:
 The node automatically checks to see if a file called `dandelion.bin` is available.
 If so, it replaces the current firmware and the node automatically restarts. 
 
-**NB*: When transferring the file to the node, please check that the transfer is
+**NB**: When transferring the file to the node, please check that the transfer is
 complete by comparing the size of the file on the node with the size the copy on
 the computer. If the sizes are different, try the transfer again. If you try to 
 upgrade the node with a file that is only partially transferred and error will be
