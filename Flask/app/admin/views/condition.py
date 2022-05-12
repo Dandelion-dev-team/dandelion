@@ -19,10 +19,15 @@ def listCondition():
 
 
 def create_condition(experiment, data, variable_list, user):
+
+	colour = None
+	if "colour" in data:
+		colour = data["colour"]
+
 	condition = Condition(
 		experiment_id = experiment.id,
 		code = data["code"],
-		colour = data["colour"],
+		colour = colour,
 		description = data["description"],
 		status = 'active',
 		text = data["text"]

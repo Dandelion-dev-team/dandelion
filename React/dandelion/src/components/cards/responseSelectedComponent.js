@@ -10,18 +10,19 @@ export default function VariableSelectedComponent(props) {
           <h3>{props.data.name}</h3>
         </div>
         <div className="sub-text">
-          {props.data.type == "Continuous" ? (
+          {props.data.levels ? (
             <h3>
               Unit: {props.data.unit}, {props.data.lower_limit} -{" "}
               {props.data.upper_limit}
             </h3>
           ) : (
-            props.data.levels.map(variable => <h3>{variable.name}, &nbsp;</h3>)
+            // props.data.levels.map(variable => <h3>{variable.name}, &nbsp;</h3>)
+            null
           )}
         </div>
       </div>
 
-      <div className="button-content">
+      {/* <div className="button-content">
         <input
           value="Edit"
           type="submit"
@@ -30,7 +31,7 @@ export default function VariableSelectedComponent(props) {
             props.editCallback(props.data.id)
           }}
         />
-      </div>
+      </div> */}
     </div>
   )
 }

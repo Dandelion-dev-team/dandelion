@@ -65,28 +65,18 @@ export default function ResponseVariables(props) {
   }
 
   const handleDetailCallback = index => {
-    // fetch(process.env.ROOT_URL + "/responseVariableFull/" + index, {
-    //     method: "GET",
-    //     headers: new Headers({
-    //         "Cache-Control": "no-cache, no-store, must-revalidate",
-    //         Pragma: "no-cache",
-    //         Expires: 0,
-    //     }),
-    // })
-    //     .then(response => response.json())
-    //     .then(data => setDetailVariable(data)).then(setModalEditing(false)).then(setShowDetails(true));
-  }
-  const handleEditCallback = index => {
-    // fetch(process.env.ROOT_URL + "/responseVariableFull/" + index, {
-    //     method: "GET",
-    //     headers: new Headers({
-    //         "Cache-Control": "no-cache, no-store, must-revalidate",
-    //         Pragma: "no-cache",
-    //         Expires: 0,
-    //     }),
-    // })
-    //     .then(response => response.json())
-    //     .then(data => setDetailVariable(data)).then(setModalEditing(true)).then(setShowDetails(true));
+    fetch(process.env.API_URL + "/variable/" + index, {
+      method: "GET",
+      headers: new Headers({
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        Pragma: "no-cache",
+        Expires: 0,
+      }),
+    })
+      .then(response => response.json())
+      .then(data => setDetailVariable(data))
+      .then(setModalEditing(false))
+      .then(setShowDetails(true))
   }
 
   useEffect(() => {
@@ -132,6 +122,14 @@ export default function ResponseVariables(props) {
           />
         ) : null}
 
+        {show_details ? (
+          <ViewDetailedVariable
+            callback={closeModal}
+            variable={full_detail_variable}
+            startEditing={modal_editing}
+          />
+        ) : null}
+
         <div className="treatment-container">
           <ToastContainer />
           <div className="content">
@@ -149,8 +147,7 @@ export default function ResponseVariables(props) {
                       value={search_value}
                       onChange={handleSearchValueChange}
                     />
-                    <div className="tune-margin">
-                    </div>
+                    <div className="tune-margin"></div>
                   </div>
                   <div className="treatment-list">
                     {variable_list.length > 1 ? (
@@ -221,10 +218,7 @@ export default function ResponseVariables(props) {
                   <div className="selected-list">
                     {selected_list
                       ? selected_list.map(variable => (
-                          <ResponseSelectedComponent
-                            editCallback={handleEditCallback}
-                            data={variable}
-                          />
+                          <ResponseSelectedComponent data={variable} />
                         ))
                       : null}
                   </div>

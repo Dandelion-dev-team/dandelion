@@ -88,17 +88,20 @@ def get_node_by_school(id):
 
     node = Node.query.filter(Node.school_id == id).first()
 
-    node_data = {}
-    node_data['node_id'] = node.id
-    node_data['school_id'] = node.school_id
-    node_data['growcube_code'] = node.growcube_code
-    node_data['mac_address'] = node.mac_address
-    node_data['last_communication_date'] = node.last_communication_date
-    node_data['next_communication_date'] = node.next_communication_date
-    node_data['health_status'] = node.health_status
-    node_data['status'] = node.status
+    if node:
+        node_data = {}
+        node_data['node_id'] = node.id
+        node_data['school_id'] = node.school_id
+        node_data['growcube_code'] = node.growcube_code
+        node_data['mac_address'] = node.mac_address
+        node_data['last_communication_date'] = node.last_communication_date
+        node_data['next_communication_date'] = node.next_communication_date
+        node_data['health_status'] = node.health_status
+        node_data['status'] = node.status
 
-    return jsonify({'Node': node_data})
+        return jsonify({'Node': node_data})
+
+    return jsonify({'Node': None})
 
 @admin.route('/node/<int:id>', methods=['PUT'])
 @jwt_required()

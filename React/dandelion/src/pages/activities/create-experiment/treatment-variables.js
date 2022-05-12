@@ -43,12 +43,12 @@ export default function TreatmentVariables(props) {
   const checkboxCallback = e => {
     let val = e.data
     if (e.value == true) {
-      readAdminRecord("/variable/" + val.id).then(data =>
+      readAdminRecord("/variable/" + val.variable_id).then(data =>
         updateSelectedList(arr => [...arr, data])
       )
     } else {
       updateSelectedList(
-        selected_list.filter(item => item.variable_id != val.id)
+        selected_list.filter(item => item.variable_id != val.variable_id)
       )
     }
   }

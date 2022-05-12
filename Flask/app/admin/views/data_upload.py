@@ -1,5 +1,6 @@
 import json
 import os
+from datetime import datetime
 
 import pandas as pd
 from flask import request, current_app
@@ -14,51 +15,47 @@ from typing import IO
 from app import db
 from app.admin import admin
 from app.models import Observation, Experiment, School, Variable, SensorQuantity, ProjectPartner, Condition, Unit, \
-	Level, ConditionLevel, ResponseVariable
+	Level, ConditionLevel, ResponseVariable, Node
 from app.utils.uploads import content_folder
 import logging
 
 logger = logging.getLogger()
 
-
 @admin.route('/uploadData', methods=['POST'])
-@cross_origin(origin='http://127.0.0.1:8000/', supports_credentials='true')
 def upload_data():
-	# ToDo: Make generic - decrypt
 	b64text = request.data
-	logger.error(b64text)
-
 	ciphertext = base64.decodebytes(b64text)
-
 	plaintext = decrypt(ciphertext, current_app.config["AES_KEY"])
-	logger.error(plaintext)
+	data = json.loads(plaintext)
 
-	json_data = json.loads(plaintext)
-	logger.error(json_data['message'])
+	node = Node.query.filter(Node.mac_address == data["mac"]).first()
+	if node:
+		try:
+			timestamp = datetime.strptime(data["timestamp"], "%Y-%m-%dT%H:%M:%S")
+		except:
+			# Assume send time is close enough to receive time
+			# This branch handles incorrect formats as well as missing data
+			timestamp = datetime.now()
 
-	# id = 1
-	# json_data = request.get_json()
-	#
-	# s = json.dumps(json_data)
-	# j = json.loads(s)  # <-- Convert JSON string, s, to JSON object, j, with j = json.loads(s)
-	#
-	# for cube_level in ('top', 'middle', 'bottom'):
-	#
-	#     new_data_df = pd.DataFrame(j[cube_level], index=[j["timestamp"]])
-	#     new_data_df.index = pd.to_datetime(new_data_df.index)
-	#     new_data_df.index.name = "timestamp"
-	#
-	#     newdir = os.path.join(content_folder("DATA_ROOT", id, "FLASK", upload=True))
-	#
-	#     try:
-	#         df = pd.read_csv(os.path.join(newdir, cube_level + '.csv'), index_col="timestamp")
-	#         df = pd.concat([df, new_data_df])
-	#     except:
-	#         df = new_data_df
-	#     df.to_csv(os.path.join(newdir, cube_level + '.csv'))
-	#
+		for cube_level in ('top', 'middle', 'bottom'):
+			if cube_level in data:
+				new_data_df = pd.DataFrame(data[cube_level], index=[timestamp])
+				new_data_df.index = pd.to_datetime(new_data_df.index)
+				new_data_df.index.name = "timestamp"
 
-	logger.error("Node data detected")
+				folder = content_folder("node", node.id, "data", upload=True)
+				try:
+					df = pd.read_csv(os.path.join(folder, cube_level + '.csv'), index_col="timestamp")
+					df = pd.concat([df, new_data_df])
+				except:
+					df = new_data_df
+				df.to_csv(os.path.join(folder, cube_level + '.csv'), float_format='%.2f')
+	else:
+		folder = content_folder("node", 0, "data", upload=True)
+		file = open(os.path.join(folder, "data.txt"), "a")
+		file.write(plaintext.decode())
+		file.write("\n")
+		file.close()
 
 	message = "Node Data uploaded"
 	return {"message": message}
