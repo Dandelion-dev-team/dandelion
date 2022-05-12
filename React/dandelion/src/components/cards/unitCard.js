@@ -44,13 +44,13 @@ export default function UnitCard(props) {
   return (
     <div id={props.is_active ? "active" : ""} className="unit-card" onClick={() => { props.onDragItem({ item: props.combination, colour: colour, code: gen_code, index:props.index }); handleClick()}}>
       <div className="card-content">
-        <input
+        {/* <input
           type="checkbox"
           id="experiment_id"
           className="checkbox"
           disabled="disabled"
           checked={checked}
-        />
+        /> */}
         <div className="text-content">
           {Array.isArray(props.combination) ? props.combination.map(variable => <h3>{variable[0].name} ({variable[0].treatment_name})</h3>)
             :
