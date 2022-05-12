@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import "../../styles/App.scss"
-import { GithubPicker } from 'react-color';
+import { CirclePicker } from 'react-color';
 import PaletteIcon from '@mui/icons-material/Palette';
 import Draggable from "react-draggable";
 
@@ -57,11 +57,11 @@ export default function UnitCard(props) {
             <h3>{props.combination.name} ({props.combination.treatment_name})</h3>
           }
         </div>
-        <div onClick={() => { setShowPicker(!show_picker) }} className="colour-picker">
-          <PaletteIcon className="icon" style={{ color: colour }} />
+        <div>
+        <CirclePicker colors={["#f44336", "#e91e63", "#9c27b0", "#673ab7", "#3f51b5", "#2196f3", "#03a9f4", "#00bcd4", "#009688", "#4caf50", "#8bc34a", "#cddc39"]} onChangeComplete={handleChangeComplete}  className="color-selector" />
         </div>
       </div>
-      {show_picker ? <GithubPicker onChangeComplete={handleChangeComplete}  className="color-selector" /> : null}
+      {/* {show_picker ? <GithubPicker onChangeComplete={handleChangeComplete}  className="color-selector" /> : null} */}
     </div>
   )
 }

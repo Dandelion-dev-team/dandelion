@@ -1,17 +1,18 @@
 .unit-card {
   display: flex;
   width: 100%;
-  height: 10vh;
+  min-height: 10vh;
   background-color: white;
   border-radius: 20px;
   //margin-top: .5rem;
   margin-bottom: 1rem;
+  padding: 40px 0px;
 
   .color-selector {
-    width: 20% !important;
-    position: fixed !important;
-    margin-left: 25%;
-    margin-top: 4%;
+    // width: 20% !important;
+    // position: fixed !important;
+    // margin-left: 25%;
+    // margin-top: 4%;
   }
 
   .card-content {
