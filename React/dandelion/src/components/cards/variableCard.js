@@ -14,8 +14,8 @@ export default function VariableCard(props) {
             <div className="second-third">
                 {props.mappedValue.levels.length <= 0 ? (
                     props.mappedValue.unit ? <h3>
-                        Unit: {props.mappedValue.unit}, {props.mappedValue.lower_limit} - {" "}
-                        {props.mappedValue.upper_limit}
+                        Unit: {props.mappedValue.unit} ({props.mappedValue.lower_limit} - {" "}
+                        {props.mappedValue.upper_limit})
                     </h3> : null
                 ) : (
                     <div className="levels-list">
