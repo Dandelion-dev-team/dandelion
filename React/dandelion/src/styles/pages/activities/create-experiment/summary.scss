@@ -122,6 +122,10 @@
 
           .info-items-wrapper {
             margin-top: 4rem;
+
+            @include media("<=small-desktop") {
+              margin-top: 0px;
+            }
             .info-item {
               text-align: left;
               display: flex;
