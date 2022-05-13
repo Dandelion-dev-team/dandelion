@@ -1,12 +1,12 @@
 .unit-card {
   display: flex;
   width: 100%;
-  min-height: 10vh;
+  //min-height: 10vh;
   background-color: white;
   border-radius: 20px;
   //margin-top: .5rem;
   margin-bottom: 1rem;
-  padding: 40px 0px;
+  padding: 20px 0px;
 
   .color-selector {
     // width: 20% !important;
@@ -28,7 +28,7 @@
     }
 
     .text-content {
-      width: 70%;
+      width: 55%;
       h3 {
         margin-left: 1vw;
         color: $primary;
@@ -37,9 +37,8 @@
       }
     }
     .colour-picker {
-      //position: fixed;
       display: flex;
-      width: 15%;
+      width: 35%;
       height: 100%;
       color: black;
 

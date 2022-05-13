@@ -26,7 +26,7 @@
       width: 33%;
       height: 90vh;
       border-radius: 20px;
-      overflow-y: auto;
+      overflow-y: scroll;
 
       .inputItem {
         text-align: left;
@@ -86,10 +86,6 @@
         border: 5px solid $accent;
       }
     }
-    .condition-list::-webkit-scrollbar {
-      display: none; /* for Chrome, Safari, and Opera */
-      width: 0%;
-    }
 
     .grid-container {
       display: flex;
@@ -142,12 +138,10 @@
         .grid {
           background-color: white;
           display: flex;
-          height: 80vh;
           width: 100%;
           border-bottom-left-radius: 20px;
           border-bottom-right-radius: 20px;
           border-top-right-radius: 20px;
-
           .label-wrapper {
             width: 100%;
             height: 100%;
@@ -217,8 +211,7 @@
 
                 .square-grid {
                   background-color: white;
-                  width: 100%;
-                  max-height: 100%;
+                  margin: 10px 0px;
                   display: grid;
                   grid-template-columns: repeat(5, 1fr);
                   grid-gap: 5px;
