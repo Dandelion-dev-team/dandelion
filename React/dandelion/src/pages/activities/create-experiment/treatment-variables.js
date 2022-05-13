@@ -100,10 +100,10 @@ export default function TreatmentVariables(props) {
         <ToastContainer />
         <div className="content">
           <div className="content-wrapper">
-            <div className="treatment-pane">
-              <div className="treatment-content">
-                <div className="title">
-                  <h3>Add Treatment Variables</h3>
+            <div className="treatment-list">
+              <div className="list-header">
+                <div className="header-text">
+                  <h3>Treatment Variables</h3>
                 </div>
                 <div className="search-row">
                   <input
@@ -114,9 +114,17 @@ export default function TreatmentVariables(props) {
                     onChange={handleSearchValueChange}
                   />
                 </div>
-                <div className="treatment-list">
-                {variable_list.length > 1 ? (
-                    variable_list[0].treatment.filter(variable => variable.name.toUpperCase().includes(search_value.toUpperCase())).map(filtered_variable => (
+              </div>
+              <div className="list-content">
+                <div className="treat-list">
+                  {variable_list.length > 1 ? (
+                    variable_list[0].treatment
+                      .filter(variable =>
+                        variable.name
+                          .toUpperCase()
+                          .includes(search_value.toUpperCase())
+                      )
+                      .map(filtered_variable => (
                         <VariableListComponent
                           mappedValue={filtered_variable}
                           detailCallback={handleDetailCallback}
@@ -127,7 +135,7 @@ export default function TreatmentVariables(props) {
                     <h3>No Treatment Variables Found.</h3>
                   )}
                 </div>
-                <div className="pagination">
+                <div className="btn-row">
                   <input
                     type="submit"
                     className="back-btn"
@@ -151,23 +159,21 @@ export default function TreatmentVariables(props) {
                         )
                       }
                     }}
-                  ></input>
+                  />
                   <PaginationComponent pageIndex={2} numPages={4} />
                 </div>
               </div>
             </div>
-            <div className="treatment-selected-pane">
-              <div className="treatment-selected-content">
+            <div className="selected-pane">
+              <div className="selected-content">
                 <div className="title">
                   <h3>Your Treatment Variables</h3>
                 </div>
                 <div className="selected-list">
                   {selected_list
                     ? selected_list.map(variable => (
-                      <TreatmentSelectedComponent
-                        data={variable}
-                      />
-                    ))
+                        <TreatmentSelectedComponent data={variable} />
+                      ))
                     : null}
                 </div>
                 <div className="btn-row">
@@ -178,7 +184,7 @@ export default function TreatmentVariables(props) {
                     onClick={() => {
                       setDiscreteModalShown(true)
                     }}
-                  ></input>
+                  />
                   {selected_list.length > 0 ? (
                     <input
                       type="submit"
@@ -197,7 +203,7 @@ export default function TreatmentVariables(props) {
                           )
                         }
                       }}
-                    ></input>
+                    />
                   ) : null}
                 </div>
               </div>

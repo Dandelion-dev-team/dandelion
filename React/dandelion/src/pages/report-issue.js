@@ -14,6 +14,8 @@ import SchoolIssuesComponent from "../components/tables/schoolIssuesComponent"
 import AllIssuesComponent from "../components/tables/allIssuesComponent"
 import Select from "react-select"
 import AddNoteModal from "../components/modals/addNoteModal"
+import AssignmentIcon from "@mui/icons-material/Assignment"
+import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn"
 
 export default function ReportIssue(props) {
   const [colour_index, setColourIndex] = useState(["#E3C3CA", "#e6e6e6"])
@@ -239,7 +241,8 @@ export default function ReportIssue(props) {
                     changeTab(0)
                   }}
                 >
-                  <h3>Open Issues</h3>
+                 <AssignmentIcon className="edit-icon" />
+
                 </div>
                 <div
                   className="tab"
@@ -248,7 +251,8 @@ export default function ReportIssue(props) {
                     changeTab(1)
                   }}
                 >
-                  <h3>All Issues</h3>
+                 <AssignmentTurnedInIcon className="edit-icon" />
+
                 </div>
               </div>
               <div className="list-content">

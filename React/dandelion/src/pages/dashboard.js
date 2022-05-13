@@ -4,15 +4,17 @@ import "../styles/App.scss"
 import Header from "../components/navigation/header"
 import Tile from "../components/tile"
 import school from "../images/school_tile.png"
-import map from "../images/map.png"
+import map from "../images/superuser-map.png"
 import tomatoes from "../images/tomatoes.png"
 import beetface from "../images/beet-face.png"
 import forkstack from "../images/fork-stack.png"
 import potato from "../images/prized-potato.png"
-
 import about from "../images/about_icon.png"
 import chart from "../images/chart.png"
 import add_data from "../images/add data.png"
+import sysadmin from "../images/sysadmin-icon.png"
+import superuser from "../images/superuser-icon.png"
+
 import {
   verify_superuser_storage,
   verify_sysadmin_storage,
@@ -66,6 +68,7 @@ export default function Dashboard() {
                   name="Bug Tracker"
                   tile_image={beetface}
                   tile_color="#58a140"
+                  
                   link="/report-issue"
                 />
                 {/* <Tile
@@ -84,16 +87,17 @@ export default function Dashboard() {
                 {is_superuser || is_sysadmin ? (
                   <Tile
                     name="SuperUser"
-                    tile_image={potato}
-                    tile_color="#f7f369"
+                    tile_image={superuser}
+                    tile_color="#fe693c"
+                    
                     link="/superuser/dashboard"
                   />
                 ) : null}
                 {is_sysadmin ? (
                   <Tile
                     name="SysAdmin"
-                    tile_image={add_data}
-                    tile_color="#fe693c"
+                    tile_image={sysadmin}
+                    tile_color="#58a140"
                     link="/sysadmin/auth-maintenance"
                   />
                 ) : null}

@@ -1,0 +1,83 @@
+.privacy-container {
+  background: #2e5641;
+  color: $white;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  .privacy-content {
+    background-color: white;
+    margin-top: 8.5%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
+    .banner-image {
+      width: 100%;
+      height: 55vh;
+      overflow-y: hidden;
+
+      img {
+        width: 100%;
+        object-fit: fill;
+      }
+    }
+    .text-block {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      margin-top: 3.3%;
+      .text-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 45%;
+
+        @include media("<=tablet") {
+          width: 80%;
+        }
+
+        .privacy-heading {
+          h3 {
+            text-align: left;
+            font-size: 57.6px;
+            font-weight: 600;
+            color: $primary;
+          }
+          p {
+            text-align: left;
+            color: $primary;
+            font-size: 20px;
+            font-weight: 500;
+            color: $primary;
+          }
+        }
+        .privacy-item {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+          font-weight: 400;
+          color: $primary;
+          .privacy-header {
+            text-align: left;
+            h3 {
+              font-size: 4.5vw;
+              font-weight: 700;
+            }
+          }
+          .privacy-text {
+            text-align: left;
+
+            p {
+              font-size: 20px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

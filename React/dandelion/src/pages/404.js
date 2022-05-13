@@ -13,7 +13,7 @@ const NotFoundPage = () => {
     return;
   } else {
     return (
-      <div>
+      <div className="page-container">
         <Header />
         <div className="notfound-container">
           <div className="notfound-content">
@@ -33,7 +33,7 @@ const NotFoundPage = () => {
                 </div>
               </div>
               <div className="right-items">
-                <img src={gif}></img>
+                {/* <img src={gif}></img> */}
               </div>
             </div>
           </div>
