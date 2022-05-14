@@ -6,7 +6,7 @@ class Condition(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     experiment_id = db.Column(db.Integer, db.ForeignKey('experiment.id'), nullable=False)
-    code = db.Column(db.String(10), nullable=False)
+    code = db.Column(db.String(20), nullable=False)
     description = db.Column(db.String(500))
     text = db.Column(db.String(5000))
     colour = db.Column(db.String(7))

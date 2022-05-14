@@ -6,7 +6,7 @@ class Unit(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     condition_id = db.Column(db.Integer, db.ForeignKey('condition.id'), nullable=False)
-    code = db.Column(db.String(10))
+    code = db.Column(db.String(20))
     node_id = db.Column(db.Integer, db.ForeignKey('node.id'), nullable=True)
     cube_level = db.Column(db.String(10), db.CheckConstraint("cube_level in ('top', 'middle', 'bottom')"))
     replicate_no = db.Column(db.Integer)
