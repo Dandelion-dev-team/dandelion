@@ -87,7 +87,8 @@ def get_one_experiment(id):
         "hypotheses": [],
         "treatmentVariables": [],
         "responseVariables": [{
-            "variable_id": response_variable.id,
+            "id": response_variable.id,
+            "variable_id": response_variable.variable.id,
             "name": response_variable.variable.name,
             "unit": response_variable.variable.quantity.unit if response_variable.variable.quantity else None,
             "upper_limit": response_variable.variable.quantity.upper_limit if response_variable.variable.quantity else None,
@@ -246,6 +247,7 @@ def add_experiment():
         if "final" in rv:
             final = rv["final"]
 
+        print(experiment)
         response_variable = ResponseVariable(
             experiment_id=experiment.id,
             variable_id=variable_id,
