@@ -5,8 +5,8 @@ import ExperimentPane from "../../../components/panes/experimentPane"
 import "../../../styles/App.scss"
 import TuneIcon from "@mui/icons-material/Tune"
 import { verify_superuser_storage } from "../../../utils/logins"
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 import { readAdminRecord, readRecord } from "../../../utils/CRUD"
 
 export default function PredefinedExperiments(props) {
@@ -14,28 +14,30 @@ export default function PredefinedExperiments(props) {
 
   const [selected_experiment, setSelectedExperiment] = useState("")
   const [modal_shown, setModalShown] = useState("")
-  const [logged, setLogged] = useState("");
+  const [logged, setLogged] = useState("")
 
   const handleSearchValueChange = e => {
     changeSearch(e.target.value)
   }
 
   const handleCallback = childData => {
-    readAdminRecord("/experiment/" + childData.id).then(data => setSelectedExperiment(data));
+    readAdminRecord("/experiment/" + childData.id).then(data =>
+      setSelectedExperiment(data)
+    )
   }
 
   useEffect(() => {
     if (verify_superuser_storage() == true) {
-      setLogged(true);
+      setLogged(true)
     } else {
-      navigate("/signin");
+      navigate("/signin")
     }
   }, [])
   if (logged) {
     return (
       <div>
         <div className="exp-container">
-          <ToastContainer/>
+          <ToastContainer />
           <div className="content">
             <div className="content-wrapper">
               <div className="exp-list">
@@ -51,8 +53,7 @@ export default function PredefinedExperiments(props) {
                       value={search_value}
                       onChange={handleSearchValueChange}
                     />
-                    <div className="tune-margin">
-                    </div>
+                    <div className="tune-margin"></div>
                   </div>
                 </div>
                 <div className="list-content">
@@ -64,7 +65,8 @@ export default function PredefinedExperiments(props) {
                       className="submitButton"
                       onClick={() => {
                         if (typeof window !== `undefined`) {
-                          navigate("/superuser/activity-maintenance/")}
+                          navigate("/superuser/activity-maintenance/")
+                        }
                       }}
                     >
                       Back
@@ -74,15 +76,21 @@ export default function PredefinedExperiments(props) {
                       className="submitButton"
                       onClick={() => {
                         if (typeof window !== `undefined`) {
-                          navigate("/activities/create-experiment/enter-details",
-                          {
-                            state: {project_id: props.location.state.project_id, start_date: props.location.state.start_date, end_date: props.location.state.end_date},
-                          })
+                          navigate(
+                            "/activities/create-experiment/enter-details",
+                            {
+                              state: {
+                                project_id: props.location.state.project_id,
+                                start_date: props.location.state.start_date,
+                                end_date: props.location.state.end_date,
+                              },
+                            }
+                          )
                         }
                       }}
                     >
                       Create Own Experiment
-                    </button>                
+                    </button>
                   </div>
                 </div>
               </div>
@@ -96,5 +104,5 @@ export default function PredefinedExperiments(props) {
         </div>
       </div>
     )
-  } else return null;
+  } else return null
 }

@@ -1,14 +1,14 @@
 .project-panel-content {
   display: flex;
   flex-direction: row;
-  width: 100%;
+  width: 95%;
   height: 90%;
   overflow-y: scroll;
+  justify-content: space-around;
   .project-details {
     height: 100%;
-    width: 70%;
-    padding-top: 1.25rem;
-    padding-left: 1.25rem;
+    width: 60%;
+
     h3 {
       font-size: 1.2rem;
     }
@@ -31,9 +31,9 @@
   .btn-row {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 30%;
     align-items: center;
-    margin-top: auto;
+    margin-top: 95%;
     justify-content: flex-end;
 
     .submitButton {
@@ -42,7 +42,7 @@
       font-size: 1.2rem;
       margin: 0.625rem 0px;
       padding: 0.625rem;
-      width: 10rem;
+      width: 100%;
       border: none;
       cursor: pointer;
       border-radius: 10px;

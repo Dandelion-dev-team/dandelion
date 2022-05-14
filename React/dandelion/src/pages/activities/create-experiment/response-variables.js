@@ -134,12 +134,12 @@ export default function ResponseVariables(props) {
           <ToastContainer />
           <div className="content">
             <div className="content-wrapper">
-              <div className="treatment-pane">
-                <div className="treatment-content">
-                  <div className="title">
+              <div className="treatment-list">
+                <div className="list-header">
+                  <div className="header-text">
                     <h3>Add Response Variables</h3>
                   </div>
-                  <div className="search-tune-row">
+                  <div className="search-row">
                     <input
                       type="text"
                       className="search-box"
@@ -147,9 +147,10 @@ export default function ResponseVariables(props) {
                       value={search_value}
                       onChange={handleSearchValueChange}
                     />
-                    <div className="tune-margin"></div>
                   </div>
-                  <div className="treatment-list">
+                </div>
+                <div className="list-content">
+                  <div className="treat-list">
                     {variable_list.length > 1 ? (
                       variable_list[1].response
                         .filter(variable =>
@@ -168,7 +169,7 @@ export default function ResponseVariables(props) {
                       <h3>No Response Variables Found.</h3>
                     )}
                   </div>
-                  <div className="pagination">
+                  <div className="btn-row">
                     <input
                       type="submit"
                       className="back-btn"
@@ -205,57 +206,57 @@ export default function ResponseVariables(props) {
                           )
                         }
                       }}
-                    ></input>
+                    />
                     <PaginationComponent pageIndex={3} numPages={4} />
                   </div>
                 </div>
-              </div>
-              <div className="treatment-selected-pane">
-                <div className="treatment-selected-content">
-                  <div className="title">
-                    <h3>Your Response Variables</h3>
-                  </div>
-                  <div className="selected-list">
-                    {selected_list
-                      ? selected_list.map(variable => (
-                          <ResponseSelectedComponent data={variable} />
-                        ))
-                      : null}
-                  </div>
-                  <div className="btn-row">
+            </div>
+            <div className="selected-pane">
+              <div className="selected-content">
+                <div className="title">
+                  <h3>Your Response Variables</h3>
+                </div>
+                <div className="selected-list">
+                  {selected_list
+                    ? selected_list.map(variable => (
+                        <ResponseSelectedComponent data={variable} />
+                      ))
+                    : null}
+                </div>
+                <div className="btn-row">
+                  <input
+                    type="submit"
+                    className="add-new-btn"
+                    value="Add new variable"
+                    onClick={() => {
+                      setShowChoice(true)
+                    }}
+                  ></input>
+                  {selected_list.length > 0 ? (
                     <input
                       type="submit"
-                      className="add-new-btn"
-                      value="Add new variable"
+                      className="continue-btn"
+                      value="Continue"
                       onClick={() => {
-                        setShowChoice(true)
+                        if (typeof window !== `undefined`) {
+                          navigate(
+                            "/activities/create-experiment/select-conditions",
+                            {
+                              state: {
+                                treatmentVariables: treatment_variables_list,
+                                responseVariables: selected_list,
+                                experimentDetails: experiment_details,
+                              },
+                            }
+                          )
+                        }
                       }}
                     ></input>
-                    {selected_list.length > 0 ? (
-                      <input
-                        type="submit"
-                        className="continue-btn"
-                        value="Continue"
-                        onClick={() => {
-                          if (typeof window !== `undefined`) {
-                            navigate(
-                              "/activities/create-experiment/select-conditions",
-                              {
-                                state: {
-                                  treatmentVariables: treatment_variables_list,
-                                  responseVariables: selected_list,
-                                  experimentDetails: experiment_details,
-                                },
-                              }
-                            )
-                          }
-                        }}
-                      ></input>
-                    ) : null}
-                  </div>
+                  ) : null}
                 </div>
               </div>
             </div>
+          </div>
           </div>
         </div>
       </div>

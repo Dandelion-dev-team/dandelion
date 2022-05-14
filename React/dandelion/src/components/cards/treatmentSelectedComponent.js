@@ -27,17 +27,7 @@ export default function VariableSelectedComponent(props) {
           )}
         </div>
       </div>
-      <div className="spacer"/>
-      {/* <div className="button-content">
-        <input
-          value="Edit"
-          type="submit"
-          className="submitButton"
-          onClick={() => {
-            props.editCallback(props.data.id)
-          }}
-        ></input>
-      </div> */}
+
     </div>
   )
 }

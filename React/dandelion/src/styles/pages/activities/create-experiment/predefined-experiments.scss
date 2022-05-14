@@ -67,7 +67,7 @@
         .list-content {
           margin-left: 3rem;
           .experiment-list {
-            height: 65vh;
+            height: 60vh;
             display: flex;
             flex-direction: column;
             overflow-y: scroll;
@@ -78,6 +78,7 @@
             display: flex;
             margin-left: auto;
             height: 10%;
+            margin-top: 5%;
             .spacer {
               width: 40%;
             }

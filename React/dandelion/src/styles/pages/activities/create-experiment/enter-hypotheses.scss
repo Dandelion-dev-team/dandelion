@@ -57,6 +57,10 @@
           display: flex;
           flex-direction: column;
 
+          @include media("<=small-desktop") {
+            margin-bottom: 10%;
+          }
+
           .card-list {
             height: 45%;
             width: 100%;
@@ -131,6 +135,10 @@
           flex-direction: row;
           display: flex;
           justify-content: space-between;
+
+          @include media("<=small-desktop") {
+            height: 15%;
+          }
           .spacer {
             width: 80%;
           }

@@ -42,7 +42,7 @@ export default function EditActivityModal(props) {
         end_date: endDate,
         status: "active",
       })
-      updateRecord("project/" + props.project.project_id, body)
+      updateRecord("/project/" + props.project.project_id, body)
     } else {
       toast.error("Need more information.")
     }

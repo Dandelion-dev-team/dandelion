@@ -89,7 +89,7 @@ export default function Login(props) {
                           className="submitButton"
                           value="Log In"
                           onClick={onSubmitClick}
-                        ></input>
+                        />
                       </div>
                     </form>
                   ) : (

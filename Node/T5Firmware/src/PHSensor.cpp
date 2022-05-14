@@ -1,29 +1,30 @@
 #include <PHSensor.h>
 
-#define PH_PIN 32
-float voltage,phValue,phTemperature = 25;
-DFRobot_PH ph;
+DFRobot_ESP_PH ph;
 
-void PHSensor::initialise()
+void PHSensor::initialise(uint8_t datapin)
 {
+    cubeLevel = datapin;
     EEPROM.begin(32); // needed to permit storage of calibration value in eeprom
-    ph.begin();  
-    Serial.println("defo being initialised");
+    ph.begin();
+    initialisationSuccessful = true;
 }
 
-float PHSensor::getReadings()
+void PHSensor::getReadings(float temperature)
 {
-    static unsigned long timepoint = millis();
-    if(millis()-timepoint>1000U){                  //time interval: 1s
-        timepoint = millis();
-        //temperature = readTemperature();         // read your temperature sensor to execute temperature compensation
-        voltage = analogRead(PH_PIN)/1024.0*5000;  // read the voltage
-        phValue = ph.readPH(voltage,phTemperature);  // convert voltage to pH with temperature compensation
-        Serial.print("temperature:");
-        Serial.print(phTemperature,1);
-        Serial.print("^C  pH:");
-        Serial.println(phValue,2);
-        return phValue;
+    if (initialisationSuccessful) {
+        
+        float voltage = analogRead(cubeLevel) / ESPADC * ESPVOLTAGE;    // Return raw voltage for now & convert in post-processing
+        readings["pH"] = ph.readPH(voltage, temperature);               // convert voltage to pH with temperature compensation
+
+        // Apply calibration here. This is a placeholder.
+        float slope = -0.7;
+        float offset = 14.65;
+        readings["pH"] = (readings["pH"] * slope) + offset;
+        
+        // ph.calibration(voltage,phTemperature);           // calibration process by Serial CMD
     }
-    ph.calibration(voltage,phTemperature);           // calibration process by Serail CMD
+    else {
+        readings["pH"] = INVALID;
+    }
 }

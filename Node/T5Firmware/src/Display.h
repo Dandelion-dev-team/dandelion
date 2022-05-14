@@ -6,6 +6,8 @@
 #include <GxDEPG0213BN/GxDEPG0213BN.h>
 #include <GxIO/GxIO_SPI/GxIO_SPI.h>
 #include <GxIO/GxIO.h>
+#include <definitions.h>
+#include <Utils.h>
 
 //Fonts
 #include <Fonts/FreeMonoBold9pt7b.h>
@@ -17,13 +19,21 @@
 #include <DandelionLogo.h>
 #include <WiFiConnectedIcon.h>
 #include <WiFiDisconnectedIcon.h>
+#include <Battery0.h>
+#include <Battery30.h>
+#include <Battery60.h>
+#include <Battery100.h>
+#include <BatteryCharging.h>
 
 class Display
 {
 public:
     void setupDisplay();
-    void enterUserInteractionMode();
-    void updateWiFiIcon(bool);
+    void update_display();
+    void displayLogo();
+    void displayBattery(float);
+    void displayWiFiIcon(bool);
+    void displayMessage(const char *, uint8_t = 1, bool = false);
 };
 
 
