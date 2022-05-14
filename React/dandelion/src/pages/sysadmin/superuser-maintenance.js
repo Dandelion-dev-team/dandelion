@@ -93,7 +93,6 @@ export default function SuperuserMaintenance(props) {
     setName("")
     setPassword("")
     setEditing(false)
-
     let password_edited = editing_user.password
     if (password !== "") {
       password_edited = password
@@ -106,13 +105,12 @@ export default function SuperuserMaintenance(props) {
     }
 
     let body = JSON.stringify({
-      id: editing_user.id,
       school_id: editing_user.school_id,
       username: entered_username,
       password: password_edited,
-      is_sysadmin: sys_admin_checkbox,
-      is_superuser: superuser_checkbox,
-      status: is_active_val,
+      is_sysadmin: false,
+      is_superuser: true,
+      status: "active",
       notes: notes,
     });
 

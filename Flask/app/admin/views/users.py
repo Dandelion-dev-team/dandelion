@@ -101,6 +101,7 @@ def getAllSuperUsers():
 
     for user in users:
         user_data = {}
+        user_data['id'] = user.id
         user_data['username'] = user.username
         user_data['is_superuser'] = user.is_superuser
         user_data['status'] = user.status

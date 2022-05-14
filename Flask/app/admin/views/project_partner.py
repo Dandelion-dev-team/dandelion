@@ -221,15 +221,15 @@ def update_project_partner_status(project_partner_id):
     if new_status == 'accepted' or new_status == 'declined':
         audit_details = prepare_audit_details(inspect(ProjectPartner), project_partner_status_to_update, delete=False)
         message = "Project partner status has been updated"
-        if len(audit_details) > 0:
-            try:
-                db.session.commit()
-                audit_update("project_partner", project_partner_status_to_update.id, audit_details, current_user.id)
-                return {"message": message}
+        #if len(audit_details) > 0:
+        try:
+            db.session.commit()
+            audit_update("project_partner", project_partner_status_to_update.id, audit_details, current_user.id)
+            return {"message": message}
 
-            except Exception as e:
-                db.session.rollback()
-                abort(409)
+        except Exception as e:
+            db.session.rollback()
+            abort(409)
     else:
         message = "Status value wrong. It should be either 'accepted' or 'declined'"
 

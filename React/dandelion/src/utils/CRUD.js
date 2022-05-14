@@ -27,9 +27,20 @@ export function createRecord(endpoint, body) {
       "X-CSRF-TOKEN": cookies.get("csrf_access_token"),
     }),
     body: body,
+  }).then(response => {
+    if (response.status >= 200 && response.status <= 299) {
+      window.location.reload(false)
+    } else {
+      throw Error(response.status)
+    }
   })
-    .then(window.location.reload(false))
-    .catch(toast.error("Database Error"))
+  .catch(error => {
+    if (error == 403) {
+      console.log(error)
+      user_logout()
+    }
+    toast.error("Could not create record.")
+  })
 }
 
 
@@ -48,12 +59,20 @@ export function createRecordNavigate(endpoint, body) {
       "X-CSRF-TOKEN": cookies.get("csrf_access_token"),
     }),
     body: body,
-  }).then(response => {
-    if (response.status !== 200) {
-      toast.error("Could not create record.")
-    } else {
+  })
+  .then(response => {
+    if (response.status >= 200 && response.status <= 299) {
       return response.json()
+    } else {
+      throw Error(response.status)
     }
+  })
+  .catch(error => {
+    if (error == 403) {
+      console.log(error)
+      user_logout()
+    }
+    toast.error("Could not create record.")
   })
 }
 
