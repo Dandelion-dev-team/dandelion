@@ -62,7 +62,7 @@ def get_one_experiment(id):
         "hypotheses": [],
         "treatmentVariables": [],
         "responseVariables": [{
-            "id": response_variable.id,
+            "variable_id": response_variable.id,
             "name": response_variable.variable.name,
             "unit": response_variable.variable.quantity.unit if response_variable.variable.quantity else None,
             "upper_limit": response_variable.variable.quantity.upper_limit if response_variable.variable.quantity else None,
@@ -103,7 +103,7 @@ def get_one_experiment(id):
 
     for treatment_variable in {cl.level.variable for c in experiment.conditions for cl in c.levels}:
         data["treatmentVariables"].append({
-            "id": treatment_variable.id,
+            "variable_id": treatment_variable.id,
             "name": treatment_variable.name,
             "levels": sorted([{
                 "id": l.id,

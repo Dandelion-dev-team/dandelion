@@ -196,12 +196,14 @@ export default function ConfigureUnits(props) {
       responseVariables: response_variables,
       conditions: constructed_conditions,
     })
-    createRecordNavigate("/experiment", body).then(response =>
-      uploadExperimentImage(
-        "/experiment/" + response.id + "/uploadImage",
-        experiment_details.image
-      )
-    )
+    createRecordNavigate("/experiment", body).then(response => {
+      if (experiment_details.image) {
+        uploadExperimentImage(
+          "/experiment/" + response.id + "/uploadImage",
+          experiment_details.image
+        )
+      }
+    })
     navigate("/superuser/activity-maintenance")
   }
 
