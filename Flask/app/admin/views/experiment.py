@@ -247,7 +247,6 @@ def add_experiment():
         if "final" in rv:
             final = rv["final"]
 
-        print(experiment)
         response_variable = ResponseVariable(
             experiment_id=experiment.id,
             variable_id=variable_id,
