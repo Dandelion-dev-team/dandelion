@@ -12,20 +12,20 @@
     .title {
       .title-btn-row {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: center;
         width: 100%;
         justify-content: space-between;
         h2 {
-          font-size: 1.4rem;
+          font-size: 1.4vw;
           font-weight: 800;
           letter-spacing: 0.5px;
+          margin: 0px;
         }
 
         .btn-row {
           display: flex;
           flex-direction: row;
-          height: 50%;
 
           .submit-btn {
             height: 100%;

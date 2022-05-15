@@ -148,6 +148,8 @@ export default function ParticipantPane(props) {
           <div className="title">
             <div className="title-btn-row">
               <h2>{props.dataProp.name}</h2>
+              {get_response_day(props.dataProp.responseVariables[2])}
+              <h3></h3>
               <div className="btn-row">
                 <div className="submit-btn">
                   <input
