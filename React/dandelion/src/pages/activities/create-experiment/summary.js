@@ -2,8 +2,8 @@ import React, { useEffect, useState, useRef } from "react"
 import { navigate } from "gatsby"
 import "../../../styles/App.scss"
 import { verify_superuser_storage } from "../../../utils/logins"
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 export default function Summary(props) {
   const [treatment_selected, setTreatmentVariables] = useState([])
   const [response_selected, setResponseVariables] = useState([])
@@ -48,7 +48,6 @@ export default function Summary(props) {
         setStartDate(props.location.state.experimentDetails.startDate)
         setEndDate(props.location.state.experimentDetails.endDate)
         setHypotheses(props.location.state.hypotheses)
-
       } else {
         if (typeof window !== `undefined`) {
           navigate("/activities/create-experiment/enter-details")
@@ -63,7 +62,7 @@ export default function Summary(props) {
     return (
       <div>
         <div className="summary-container">
-          <ToastContainer/>
+          <ToastContainer />
           <div className="title">
             <h3>Your Experiment</h3>
           </div>
@@ -75,30 +74,67 @@ export default function Summary(props) {
                     <h2>{experiment_details.name}</h2>
                     <h3>Dandelion School</h3>
                   </div>
-                  <div className="exp-item">
+                  {/* <div className="exp-item">
                     <div className="item-title">
                       <h3>Conditions:</h3>
                     </div>
                     <div className="condition-list">
                       {combinations_selected
                         ? combinations_selected.map(function (d, idx) {
-                          if (Array.isArray(d)) {
-                            d.forEach(element => {
-                              return <h3>{element[0].treatment_name} ({element[0].name})</h3>
-                            })
-                          } else {
-                            return <h3>{d.treatment_name} ({d.name})</h3>
-                        }
-                        })
+                            if (Array.isArray(d)) {
+                              d.forEach(element => {
+                                return (
+                                  <h3>
+                                    {element[0].treatment_name} (
+                                    {element[0].name})
+                                  </h3>
+                                )
+                              })
+                            } else {
+                              return (
+                                <h3>
+                                  {d.treatment_name} ({d.name})
+                                </h3>
+                              )
+                            }
+                          })
                         : null}
                     </div>
-                  </div>
+                  </div> */}
                   <div className="exp-item">
                     <div className="item-title">
                       <h3>Description:</h3>
                     </div>
                     <div className="item-content">
                       <h3>{experiment_details.description}</h3>
+                    </div>
+                  </div>
+                  <div className="exp-item">
+                    <div className="item-title">
+                      <h3>Treatment Variables:</h3>
+                    </div>
+                    <div className="item-content">
+                      <div className="item-list">
+                        {treatment_selected
+                          ? treatment_selected.map(function (d, idx) {
+                              return <h3>{d.name}</h3>
+                            })
+                          : null}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="exp-item">
+                    <div className="item-title">
+                      <h3>Response Variables:</h3>
+                    </div>
+                    <div className="item-content">
+                      <div className="item-list">
+                        {response_selected
+                          ? response_selected.map(function (d, idx) {
+                              return <h3>{d.name}</h3>
+                            })
+                          : null}
+                      </div>
                     </div>
                   </div>
                   <div className="exp-item">
@@ -114,11 +150,15 @@ export default function Summary(props) {
                       <h3>Hypotheses:</h3>
                     </div>
                     <div className="item-content">
-                      <div className="hypotheses">
+                      <div className="item-list">
                         {hypotheses
                           ? hypotheses.map(function (d, idx) {
-                            return <h3>{d.hypothesis_no} - {d.description}</h3>
-                          })
+                              return (
+                                <h3>
+                                  {d.name} - {d.description}
+                                </h3>
+                              )
+                            })
                           : null}
                       </div>
                     </div>
@@ -188,8 +228,8 @@ export default function Summary(props) {
                   </div>
                 </div>
                 <div className="btn-container">
-                <div className="spacer"/>
-                <div className="back-btn">
+                  <div className="spacer" />
+                  <div className="back-btn">
                     <input
                       type="submit"
                       className="backButton"
@@ -200,9 +240,12 @@ export default function Summary(props) {
                             "/activities/create-experiment/enter-hypotheses",
                             {
                               state: {
-                                treatmentVariables: props.location.state.treatmentVariables,
-                                responseVariables: props.location.state.responseVariables,
-                                experimentDetails: props.location.state.experimentDetails,
+                                treatmentVariables:
+                                  props.location.state.treatmentVariables,
+                                responseVariables:
+                                  props.location.state.responseVariables,
+                                experimentDetails:
+                                  props.location.state.experimentDetails,
                                 combinations: props.location.state.combinations,
                               },
                             }

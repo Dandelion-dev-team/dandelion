@@ -4,13 +4,21 @@
   position: relative;
   display: flex;
   justify-content: space-around;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   height: 100vh;
   overflow-y: auto;
+  .left-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 92.5%;
+  }
   .title {
     display: flex;
     align-items: center;
+    justify-content: center;
     h3 {
       font-size: 3vw;
     }
@@ -22,6 +30,7 @@
     width: 80%;
     height: 65vh;
     border-radius: 20px;
+    justify-content: center;
     .content-wrapper {
       display: flex;
       color: black;
@@ -41,6 +50,7 @@
             text-align: left;
             justify-items: left;
             align-items: flex-start;
+
             h3 {
               display: inline;
               font-size: 1.25vw;
@@ -97,7 +107,6 @@
             }
             .date-input {
               width: 45%;
-
             }
           }
         }
@@ -256,11 +265,10 @@
           }
           .btn-column {
             display: flex;
-            
+
             .spacer {
               width: 65%;
               height: 80%;
-
             }
 
             .continue-button {
@@ -283,6 +291,24 @@
           }
         }
       }
+    }
+  }
+
+  .info-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 2.5%;
+    height: 90vh;
+    border-radius: 20px;
+    .help-icon {
+      width: 3rem;
+      height: 3rem;
+    }
+    .help-icon:hover {
+      cursor: pointer;
+      color: $contrast;
     }
   }
 }

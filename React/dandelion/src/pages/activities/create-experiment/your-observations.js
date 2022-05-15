@@ -2,6 +2,8 @@ import React, { useEffect, useState, useRef } from "react"
 import { navigate } from "gatsby"
 import "../../../styles/App.scss"
 import { verify_superuser_storage } from "../../../utils/logins"
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline"
+
 
 export default function YourObservations(props) {
   const [treatment_selected, setTreatmentVariables] = useState([])
@@ -115,6 +117,7 @@ const ResponseVariable = variable => {
   if (logged) {
     return (
       <div className="your-observations-container">
+        <div className="left-container">
         <div className="title">
           <h3>Your Observations</h3>
         </div>
@@ -222,6 +225,17 @@ const ResponseVariable = variable => {
             </div>
           </div>
         </div>
+        </div>
+       
+        
+        <div className="info-button">
+              <HelpOutlineIcon
+                className="help-icon"
+                onClick={() => {
+                  //setModalShown(true)
+                }}
+              />
+            </div>
       </div>
     )
   } else return null
