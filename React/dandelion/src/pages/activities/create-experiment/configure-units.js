@@ -205,7 +205,7 @@ export default function ConfigureUnits(props) {
         )
       }
     })
-    //navigate("/superuser/activity-maintenance")
+    navigate("/superuser/activity-maintenance")
   }
 
   if (typeof window !== `undefined` && logged) {
