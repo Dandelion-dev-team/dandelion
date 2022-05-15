@@ -196,7 +196,6 @@ export default function ConfigureUnits(props) {
       responseVariables: response_variables,
       conditions: constructed_conditions,
     })
-    console.log(JSON.parse(body))
     createRecordNavigate("/experiment", body).then(response => {
       if (experiment_details.image) {
         uploadExperimentImage(

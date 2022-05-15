@@ -71,7 +71,6 @@ export default function ExperimentPane(props) {
             </h3>
             <h3>Created by Dandelion</h3>
           </div>
-        {console.log(props.dataProp)}
           <div className="experiment-img">
             <img src={props.dataProp.image_full} />
           </div>

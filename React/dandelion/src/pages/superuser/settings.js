@@ -62,7 +62,6 @@ export default function SuperuserSettings() {
       schoolEmail &&
       schoolPhone
     ) {
-      console.log(fetchedSchool.school)
       let body = JSON.stringify({
         id: fetchedSchool.school.school_id,
         authority_id: fetchedSchool.school.authority_id,

@@ -9,7 +9,6 @@ export default function PasswordResetModal(props) {
   const onSubmit = e => {
     if(current_pass == props.password){
       if(new_pass != null && new_pass != current_pass){
-        console.log("matching")
         readAdminRecord("/user/" + props.username).then(data => {
           let body = JSON.stringify({
             password: new_pass,

@@ -47,7 +47,6 @@ export default function SuperuserDashboard(props) {
         setAllocated(allocated_num)
         setActive(active_num);
         setOther(other)
-        console.log("allocated::", allocated_num, "active::", active_num, "other::", other)
       })
     } else {
       navigate("/signin")

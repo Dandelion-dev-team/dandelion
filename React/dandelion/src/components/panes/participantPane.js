@@ -125,7 +125,6 @@ export default function ParticipantPane(props) {
   }
 
   useEffect(() => {
-    console.log(props.dataProp)
     let user_id = localStorage.getItem("user_id")
     let today = new Date()
     let end_date = new Date(props.dataProp.end_date)
