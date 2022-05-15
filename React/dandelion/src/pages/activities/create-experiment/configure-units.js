@@ -184,9 +184,9 @@ export default function ConfigureUnits(props) {
     let body = JSON.stringify({
       project_id: experiment_details.project_id,
       code: experiment_details.code,
-      description: "test",
-      tutorial: "",
-      text: "",
+      description: experiment_details.description,
+      tutorial: experiment_details.tutorial,
+      text: experiment_details.tutorial,
       start_date: start_date,
       end_date: end_date,
       title: experiment_details.name,

@@ -3,15 +3,19 @@ import { navigate } from "gatsby"
 import "../../styles/App.scss"
 import ObservationItem from "../../components/cards/observationCard"
 import { verify_superuser_storage } from "../../utils/logins"
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { createRecord, createRecordNavigate, uploadExperimentImage } from "../../utils/CRUD"
+import { ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+import {
+  createRecord,
+  createRecordNavigate,
+  uploadExperimentImage,
+} from "../../utils/CRUD"
 import EnterObservationModal from "../../components/modals/enterObservationModal"
 
 export default function EnterObservations(props) {
   const [modal_shown, setModalShown] = useState(false)
   const [treatment_variables, setTreatment] = useState("")
-  const [response_variables, setResponse] = useState("")
+  const [filtered_response, setFiltered] = useState([])
   const [combination_list, setCombinationList] = useState("")
   const [experiment_details, setExperimentDetails] = useState("")
   const [colour_index, setColourIndex] = useState(["#FFFF", "#FFFF", "#FFFF"])
@@ -35,6 +39,18 @@ export default function EnterObservations(props) {
 
   useEffect(() => {
     setItem("top")
+    const filtered_variables = props.location.state.responseVariables.filter(
+      variable =>
+        variable.monday == true ||
+        variable.tuesday == true ||
+        variable.wednesday == true ||
+        variable.thursday == true ||
+        variable.friday == true ||
+        variable.saturday == true ||
+        variable.sunday == true
+    )
+    setFiltered(filtered_variables);
+
     if (verify_superuser_storage() == true) {
       let conditions = props.location.state.conditions
       let copy = [...matrix]
@@ -42,7 +58,6 @@ export default function EnterObservations(props) {
         condition.units.forEach(unit => {
           let row = grid_letters.indexOf(unit.row)
           let column = unit.column
-
           let position = (column - 1) * 5 + row
           let level = 0
           if ((unit.cube_level = "top")) {
@@ -63,7 +78,7 @@ export default function EnterObservations(props) {
         })
       })
       setLogged(true)
-      setModalShown(false);
+      setModalShown(false)
     } else {
       navigate("/signin")
     }
@@ -100,28 +115,34 @@ export default function EnterObservations(props) {
   }
 
   const setGridData = e => {
-    console.log(e.gridData);
-    if(e.gridData.code !== "" && e.gridData.colour !== "#C4C4C4"){
+    console.log("grid::",e.gridData)
+    if (e.gridData.code !== "" && e.gridData.colour !== "#C4C4C4") {
       setModalShown(true)
     }
   }
 
   const saveObservation = e => {
+    console.log(e);
     closeModal()
   }
   const submitExperiment = prop => {
     console.log("oog")
-    navigate("/participants/experiment-dashboard");
+    navigate("/participants/experiment-dashboard")
   }
 
   if (typeof window !== `undefined` && logged) {
     return (
       <div>
-         {modal_shown ? <EnterObservationModal props={props.location.state.responseVariables} saveObservation={saveObservation} closeModal={closeModal} />
-          : null}
+        {modal_shown ? (
+          <EnterObservationModal
+            props={filtered_response}
+            saveObservation={saveObservation}
+            closeModal={closeModal}
+          />
+        ) : null}
         <div className="configure-container">
-          <ToastContainer position="top-center"/>
-          <div className="content">            
+          <ToastContainer position="top-center" />
+          <div className="content">
             <div className="grid-container">
               <div className="level-row">
                 <div
@@ -224,7 +245,7 @@ export default function EnterObservations(props) {
                       }}
                     ></input>
                   </div>
-                  <div className="spacer"/>
+                  <div className="spacer" />
                 </div>
               </div>
             </div>
