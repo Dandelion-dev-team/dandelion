@@ -86,6 +86,20 @@
         border: 5px solid $accent;
       }
     }
+    .condition-list::-webkit-scrollbar {
+      width: 7.5px;
+    }
+    .condition-list::-webkit-scrollbar-track {
+      background: #ebe7e7;
+      border-radius: 10px;
+    }
+     
+    .condition-list::-webkit-scrollbar-thumb {
+      background: #eac2cb;
+      border-radius: 10px;
+  
+    }
+  
 
     .grid-container {
       display: flex;

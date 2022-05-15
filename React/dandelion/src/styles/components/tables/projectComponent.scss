@@ -62,6 +62,20 @@
       }
     }
   }
+  .projectList::-webkit-scrollbar {
+    width: 7.5px;
+  }
+  .projectList::-webkit-scrollbar-track {
+    background: #ebe7e7;
+    border-radius: 10px;
+  }
+   
+  .projectList::-webkit-scrollbar-thumb {
+    background: #eac2cb;
+    border-radius: 10px;
+
+  }
+
 
   .add-btn {
     width: 100%;

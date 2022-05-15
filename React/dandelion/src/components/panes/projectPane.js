@@ -41,7 +41,7 @@ export default function ProjectPane(props) {
         <div className="project-panel-content">
           {showDisclaimer ? <InviteModal callback={nextModal} /> : null}
           {showAddModal ? <SchoolModal callback={addSchool} /> : null}
-          {showEditModal ? <EditActivityModal project={props.project}/> : null}
+          {showEditModal ? <EditActivityModal project={props.project} /> : null}
 
           <div className="project-details">
             <h3>{props.project.title} </h3>
@@ -54,6 +54,7 @@ export default function ProjectPane(props) {
               <img src={props.project.image_full} />
             </div>
             <div className="experiment-row">
+              <div className="experiments">
               {props.experiments
                 ? props.experiments.data.map(experiment => (
                     <ExperimentCard
@@ -62,48 +63,50 @@ export default function ProjectPane(props) {
                     />
                   ))
                 : null}
+                </div>
+              
+              <div className="btn-row">
+                <button
+                  className="submitButton"
+                  id="exp"
+                  onClick={() => {
+                    navigate(
+                      "/activities/create-experiment/predefined-experiments",
+                      {
+                        state: {
+                          project_id: props.project.project_id,
+                          start_date: props.project.start_date,
+                          end_date: props.project.end_date,
+                        },
+                      }
+                    )
+                  }}
+                >
+                  Create Experiment
+                </button>
+                <button
+                  className="submitButton"
+                  id="edit"
+                  onClick={() => {
+                    setShowEditModal(true)
+                  }}
+                >
+                  Edit Activity
+                </button>
+                <button
+                  className="submitButton"
+                  id="inv"
+                  onClick={() => {
+                    setDisclaimer(true)
+                  }}
+                >
+                  Invite School
+                </button>
+                <button className="submitButton" id="comp">
+                  Project Complete
+                </button>
+              </div>
             </div>
-          </div>
-          <div className="btn-row">
-            <button
-              className="submitButton"
-              id="exp"
-              onClick={() => {
-                navigate(
-                  "/activities/create-experiment/predefined-experiments",
-                  {
-                    state: {
-                      project_id: props.project.project_id,
-                      start_date: props.project.start_date,
-                      end_date: props.project.end_date,
-                    },
-                  }
-                )
-              }}
-            >
-              Create Experiment
-            </button>
-            <button
-              className="submitButton"
-              id="edit"
-              onClick={() => {
-                setShowEditModal(true)
-              }}
-            >
-              Edit Activity
-            </button>
-            <button
-              className="submitButton"
-              id="inv"
-              onClick={() => {
-                setDisclaimer(true)
-              }}
-            >
-              Invite School
-            </button>
-            <button className="submitButton" id="comp">
-              Project Complete
-            </button>
           </div>
         </div>
       ) : null}

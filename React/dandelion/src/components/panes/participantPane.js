@@ -105,7 +105,9 @@ export default function ParticipantPane(props) {
     }
     return (
       <div className="days-until">
-        <div className="day">{days}</div>
+        <div className="day">
+          <p>{days}</p>
+        </div>
         <div className="days-remaining">
           <p>{min}</p>
         </div>
@@ -140,12 +142,6 @@ export default function ParticipantPane(props) {
     })
   }, [])
 
-  const add_observation = e => {
-    navigate("/participants/enter-single", {
-      state: props.dataProp,
-    })
-  }
-
   return (
     <div className="participant-panel">
       {show_type ? <SelectAddTypeModal props={props.dataProp} /> : null}
@@ -154,8 +150,6 @@ export default function ParticipantPane(props) {
           <div className="title">
             <div className="title-btn-row">
               <h2>{props.dataProp.name}</h2>
-              {get_response_day(props.dataProp.responseVariables[2])}
-              <h3></h3>
               <div className="btn-row">
                 <div className="submit-btn">
                   <input
@@ -163,10 +157,13 @@ export default function ParticipantPane(props) {
                     className="submitButton"
                     value="Add Observations"
                     onClick={() => {
-                      add_observation();
+                      navigate("/participants/enter-single", {
+                        state: props.dataProp,
+                      })
                     }}
                   />
                 </div>
+                {get_response_day(props.dataProp.responseVariables[2])}
               </div>
             </div>
             <h3>

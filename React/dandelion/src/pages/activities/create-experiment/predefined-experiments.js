@@ -96,7 +96,10 @@ export default function PredefinedExperiments(props) {
               </div>
               <div className="details-pane">
                 {selected_experiment ? (
-                  <ExperimentPane dataProp={selected_experiment} project_id={props.location.state.project_id}/>
+                  <ExperimentPane
+                    dataProp={selected_experiment}
+                    project_id={props.location.state.project_id}
+                  />
                 ) : null}
               </div>
             </div>

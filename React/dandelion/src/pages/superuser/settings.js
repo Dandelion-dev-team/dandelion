@@ -205,9 +205,7 @@ export default function SuperuserSettings() {
                 </div>
               ) : (
                 <div className="details">
-                  {fetchedSchool ? (
-                    <h3>Authority ID: {fetchedSchool.school.authority_id}</h3>
-                  ) : null}
+                
                   {fetchedSchool ? (
                     <h3>Name: {fetchedSchool.school.name}</h3>
                   ) : null}

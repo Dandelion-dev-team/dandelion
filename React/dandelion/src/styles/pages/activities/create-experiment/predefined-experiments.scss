@@ -72,6 +72,20 @@
             flex-direction: column;
             overflow-y: scroll;
           }
+          .experiment-list::-webkit-scrollbar {
+            width: 7.5px;
+          }
+          .experiment-list::-webkit-scrollbar-track {
+            background: #ebe7e7;
+            border-radius: 10px;
+          }
+           
+          .experiment-list::-webkit-scrollbar-thumb {
+            background: #eac2cb;
+            border-radius: 10px;
+        
+          }
+        
 
           .use-own-btn {
             width: 100%;
@@ -108,8 +122,19 @@
       }
 
       .details-pane::-webkit-scrollbar {
-        display: none; /* for Chrome, Safari, and Opera */
+        width: 7.5px;
       }
+      .details-pane::-webkit-scrollbar-track {
+        background: #ebe7e7;
+        border-radius: 10px;
+      }
+       
+      .details-pane::-webkit-scrollbar-thumb {
+        background: #eac2cb;
+        border-radius: 10px;
+    
+      }
+    
     }
   }
 }

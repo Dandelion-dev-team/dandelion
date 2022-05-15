@@ -99,6 +99,20 @@
           }
         }
       }
+      .exp-pane::-webkit-scrollbar {
+        width: 7.5px;
+      }
+      .exp-pane::-webkit-scrollbar-track {
+        background: #ebe7e7;
+        border-radius: 10px;
+      }
+       
+      .exp-pane::-webkit-scrollbar-thumb {
+        background: #eac2cb;
+        border-radius: 10px;
+    
+      }
+    
 
       .user-pane {
         width: 50%;

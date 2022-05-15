@@ -200,7 +200,8 @@
               background-color: white;
               border-radius: 20px;
               margin-right: auto;
-
+              height: 75%;
+              overflow-y: scroll;
               .list-wrapper {
                 width: 95%;
                 height: 95%;
@@ -212,6 +213,20 @@
                 }
               }
             }
+            .milestone-list::-webkit-scrollbar {
+              width: 7.5px;
+            }
+            .milestone-list::-webkit-scrollbar-track {
+              background: #ebe7e7;
+              border-radius: 10px;
+            }
+             
+            .milestone-list::-webkit-scrollbar-thumb {
+              background: #eac2cb;
+              border-radius: 10px;
+          
+            }
+          
           }
 
           .final {
@@ -250,6 +265,7 @@
               margin-right: auto;
               display: block;
               overflow-y: scroll;
+              height: 75%;
 
               .list-wrapper {
                 width: 95%;
@@ -262,6 +278,20 @@
                 }
               }
             }
+            .final-list::-webkit-scrollbar {
+              width: 7.5px;
+            }
+            .final-list::-webkit-scrollbar-track {
+              background: #ebe7e7;
+              border-radius: 10px;
+            }
+             
+            .final-list::-webkit-scrollbar-thumb {
+              background: #eac2cb;
+              border-radius: 10px;
+          
+            }
+          
           }
           .btn-column {
             display: flex;
