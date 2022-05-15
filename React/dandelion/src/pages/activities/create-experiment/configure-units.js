@@ -199,10 +199,10 @@ export default function ConfigureUnits(props) {
     console.log(JSON.parse(body))
     createRecordNavigate("/experiment", body).then(response => {
       if (experiment_details.image) {
-        // uploadExperimentImage(
-        //   "/experiment/" + response.id + "/uploadImage",
-        //   experiment_details.image
-        // )
+        uploadExperimentImage(
+          "/experiment/" + response.id + "/uploadImage",
+          experiment_details.image
+        )
       }
     })
     //navigate("/superuser/activity-maintenance")

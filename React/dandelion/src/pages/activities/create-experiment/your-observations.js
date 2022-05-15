@@ -3,7 +3,8 @@ import { navigate } from "gatsby"
 import "../../../styles/App.scss"
 import { verify_superuser_storage } from "../../../utils/logins"
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline"
-
+import { ToastContainer, toast } from "react-toastify"
+import Select from "react-select"
 
 export default function YourObservations(props) {
   const [treatment_selected, setTreatmentVariables] = useState([])
@@ -13,13 +14,24 @@ export default function YourObservations(props) {
   const [hypotheses, setHypotheses] = useState([])
   const [milestone_textbox, setMilestone] = useState("")
 
+  const [day_selected, setDay] = useState("")
 
   const [logged, setLogged] = useState("")
   const [milestone_list, setMilestoneList] = useState([])
   const [final_list, setFinalList] = useState([])
 
+  const day_list = [
+    { value: "monday", label: "Monday" },
+    { value: "tuesday", label: "Tuesday" },
+    { value: "wednesday", label: "Wednesday" },
+    { value: "thursday", label: "Thursday" },
+    { value: "friday", label: "Friday" },
+    { value: "saturday", label: "Saturday" },
+    { value: "sunday", label: "Sunday" },
+  ]
+
   const onAdd = e => {
-    let copy = [...milestone_list];
+    let copy = [...milestone_list]
     let body = {
       name: milestone_textbox,
       description: "",
@@ -37,7 +49,7 @@ export default function YourObservations(props) {
       saturday: false,
       sunday: false,
       once: true,
-      final: false
+      final: false,
     }
     setMilestone("")
     copy.push(body)
@@ -67,57 +79,103 @@ export default function YourObservations(props) {
     }
   }, [])
 
-  const onResponseChange = (variable) => {
-    let copy = [...final_list];
+  const onResponseChange = variable => {
+    let copy = [...final_list]
     if (copy.includes(variable.response_ref)) {
-        copy = (copy.filter(item => item !== variable.response_ref))
+      copy = copy.filter(item => item !== variable.response_ref)
     } else {
-        copy.push(variable.response_ref)
+      copy.push(variable.response_ref)
     }
-    setFinalList(copy);
-}
-
-const OnContinueClick = e => {
-
-  treatment_selected.forEach(treatment_variable => {
-    
-  });
-
-  if (typeof window !== `undefined`) {
-    navigate("/activities/create-experiment/summary", {
-      state: {
-        hypotheses: hypotheses,
-        treatmentVariables: treatment_selected,
-        responseVariables: response_selected,
-        experimentDetails: experiment_details,
-        combinations: combinations_selected,
-      },
-    })
+    setFinalList(copy)
   }
-}
-const ResponseVariable = variable => {
-    const [checked_value, setCheckedValue] = useState(false);
-    useEffect(() => {
-        if (final_list.includes(variable.response_ref)) {
-            setCheckedValue(true);
+
+  const OnContinueClick = e => {
+    console.log(day_selected)
+    let concat_array = []
+    if (day_selected) {
+      response_selected.forEach(response_variable => {
+        response_variable.monday = false;
+        response_variable.tuesday = false;
+        response_variable.wednesday = false;
+        response_variable.thursday = false;
+        response_variable.friday = false;
+        response_variable.saturday = false;
+        response_variable.sunday = false;
+        response_variable.final = false;
+        response_variable.once = false;
+        if (final_list.includes(response_variable)) {
+          response_variable.final = true;
+        } else {
+          if (day_selected.value == "monday") {
+            response_variable.monday = true;
+          }
+          if (day_selected.value == "tuesday") {
+            response_variable.tuesday = true;
+          }
+          if (day_selected.value == "wednesday") {
+            response_variable.wednesday = true;
+          }
+          if (day_selected.value == "thursday") {
+            response_variable.thursday = true;
+          }
+          if (day_selected.value == "friday") {
+            response_variable.friday = true;
+          }
+          if (day_selected.value == "saturday") {
+            response_variable.saturday = true;
+          }
+          if (day_selected.value == "sunday") {
+            response_variable.sunday = true;
+          }
         }
+      })
+      console.log(milestone_list);
+      concat_array = response_selected.concat(milestone_list)
+    } else {
+      toast.error("No day selected.")
+    }
+    if (typeof window !== `undefined`) {
+      navigate("/activities/create-experiment/summary", {
+        state: {
+          hypotheses: hypotheses,
+          treatmentVariables: treatment_selected,
+          responseVariables: concat_array,
+          experimentDetails: experiment_details,
+          combinations: combinations_selected,
+        },
+      })
+    }
+  }
+  const ResponseVariable = variable => {
+    const [checked_value, setCheckedValue] = useState(false)
+    useEffect(() => {
+      if (final_list.includes(variable.response_ref)) {
+        setCheckedValue(true)
+      }
     }, [])
     return (
-        <div className="variable-list-item">
-          <div className="label">
-            <h3>{variable.response_ref.name}</h3>
-          </div>
-          <div className="checkbox">
-            <input type="checkbox" checked={checked_value} onChange={() => {onResponseChange(variable)}}/>
-          </div>
+      <div className="variable-list-item">
+        <div className="label">
+          <h3>{variable.response_ref.name}</h3>
         </div>
+        <div className="checkbox">
+          <input
+            type="checkbox"
+            checked={checked_value}
+            onChange={() => {
+              onResponseChange(variable)
+            }}
+          />
+        </div>
+      </div>
     )
-}
+  }
 
   if (logged) {
     return (
       <div className="your-observations-container">
         <div className="left-container">
+        <ToastContainer />
         <div className="title">
           <h3>Your Observations</h3>
         </div>
@@ -134,25 +192,21 @@ const ResponseVariable = variable => {
                 <div className="variable-list">
                   {response_selected
                     ? response_selected.map(function (r, idx) {
-                        return (<ResponseVariable response_ref={r}/>)
+                        return <ResponseVariable response_ref={r} />
                       })
                     : null}
                 </div>
                 <div className="recording-date">
                   <div className="date-label">
                     <h3>Response Day:</h3>
-                    </div>
+                  </div>
                   <div className="date-input">
-                    <select>
-                    <option value="" disabled selected>Select...</option>
-                      <option value="Monday">Monday</option>
-                      <option value="Tuesday">Tuesday</option>
-                      <option value="Wednesday">Wednesday</option>
-                      <option value="Thursday">Thursday</option>
-                      <option value="Friday">Friday</option>
-                      <option value="Saturday">Saturday</option>
-                      <option value="Sunday">Sunday</option>
-                    </select>
+                    <Select
+                      value={day_selected}
+                      options={day_list}
+                      onChange={setDay}
+                      placeholder={"Select day."}
+                    />
                   </div>
                 </div>
               </div>
@@ -170,14 +224,23 @@ const ResponseVariable = variable => {
                     </div>
                     <div className="input-row">
                       <div className="text-input">
-                        <input type="text" placeholder="Milestone" value={milestone_textbox} onChange={(e) => {setMilestone(e.target.value)}}/>
+                        <input
+                          type="text"
+                          placeholder="Milestone"
+                          value={milestone_textbox}
+                          onChange={e => {
+                            setMilestone(e.target.value)
+                          }}
+                        />
                       </div>
                       <div className="add-btn">
                         <input
                           type="submit"
                           className="submitButton"
                           value="Add"
-                          onClick={() => {onAdd()}}
+                          onClick={() => {
+                            onAdd()
+                          }}
                         />
                       </div>
                     </div>
@@ -185,8 +248,8 @@ const ResponseVariable = variable => {
                   <div className="milestone-list">
                     <div className="list-wrapper">
                       {milestone_list.map(e => {
-                        return (<h3>{e.name}</h3>)
-                    })}
+                        return <h3>{e.name}</h3>
+                      })}
                     </div>
                   </div>
                 </div>
@@ -200,11 +263,9 @@ const ResponseVariable = variable => {
                   </div>
                   <div className="final-list">
                     <div className="list-wrapper">
-                      {console.log(final_list)}
                       {final_list.map(e => (
                         <h3>{e.name}</h3>
                       ))}
-
                     </div>
                   </div>
                 </div>
@@ -216,7 +277,7 @@ const ResponseVariable = variable => {
                       className="submitButton"
                       value="Continue"
                       onClick={() => {
-                       OnContinueClick();
+                        OnContinueClick()
                       }}
                     />
                   </div>
