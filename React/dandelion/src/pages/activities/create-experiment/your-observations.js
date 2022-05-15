@@ -94,42 +94,42 @@ export default function YourObservations(props) {
     let concat_array = []
     if (day_selected) {
       response_selected.forEach(response_variable => {
-        response_variable.monday = false;
-        response_variable.tuesday = false;
-        response_variable.wednesday = false;
-        response_variable.thursday = false;
-        response_variable.friday = false;
-        response_variable.saturday = false;
-        response_variable.sunday = false;
-        response_variable.final = false;
-        response_variable.once = false;
+        response_variable.monday = false
+        response_variable.tuesday = false
+        response_variable.wednesday = false
+        response_variable.thursday = false
+        response_variable.friday = false
+        response_variable.saturday = false
+        response_variable.sunday = false
+        response_variable.final = false
+        response_variable.once = false
         if (final_list.includes(response_variable)) {
-          response_variable.final = true;
+          response_variable.final = true
         } else {
           if (day_selected.value == "monday") {
-            response_variable.monday = true;
+            response_variable.monday = true
           }
           if (day_selected.value == "tuesday") {
-            response_variable.tuesday = true;
+            response_variable.tuesday = true
           }
           if (day_selected.value == "wednesday") {
-            response_variable.wednesday = true;
+            response_variable.wednesday = true
           }
           if (day_selected.value == "thursday") {
-            response_variable.thursday = true;
+            response_variable.thursday = true
           }
           if (day_selected.value == "friday") {
-            response_variable.friday = true;
+            response_variable.friday = true
           }
           if (day_selected.value == "saturday") {
-            response_variable.saturday = true;
+            response_variable.saturday = true
           }
           if (day_selected.value == "sunday") {
-            response_variable.sunday = true;
+            response_variable.sunday = true
           }
         }
       })
-      console.log(milestone_list);
+      console.log(milestone_list)
       concat_array = response_selected.concat(milestone_list)
     } else {
       toast.error("No day selected.")
@@ -175,128 +175,138 @@ export default function YourObservations(props) {
     return (
       <div className="your-observations-container">
         <div className="left-container">
-        <ToastContainer />
-        <div className="title">
-          <h3>Your Observations</h3>
-        </div>
-        <div className="content">
-          <div className="content-wrapper">
-            <div className="response-pane">
-              <div className="response-pane-wrapper">
-                <div className="title">
-                  <h2>Your Response Variables</h2>
-                  <h3>
-                    Select the variables that are to be recorded post-harvest.
-                  </h3>
-                </div>
-                <div className="variable-list">
-                  {response_selected
-                    ? response_selected.map(function (r, idx) {
-                        return <ResponseVariable response_ref={r} />
-                      })
-                    : null}
-                </div>
-                <div className="recording-date">
-                  <div className="date-label">
-                    <h3>Response Day:</h3>
+          <ToastContainer />
+          <div className="title">
+            <h3>Your Observations</h3>
+          </div>
+          <div className="content">
+            <div className="content-wrapper">
+              <div className="response-pane">
+                <div className="response-pane-wrapper">
+                  <div className="title">
+                    <h2>Your Response Variables</h2>
+                    <h3>
+                      Select the variables that are to be recorded post-harvest.
+                    </h3>
                   </div>
-                  <div className="date-input">
-                    <Select
-                      value={day_selected}
-                      options={day_list}
-                      onChange={setDay}
-                      placeholder={"Select day."}
-                    />
+                  <div className="variable-list">
+                    {response_selected
+                      ? response_selected.map(function (r, idx) {
+                          return <ResponseVariable response_ref={r} />
+                        })
+                      : null}
+                  </div>
+                  <div className="recording-date">
+                    <div className="date-label">
+                      <h3>Response Day:</h3>
+                    </div>
+                    <div className="date-input">
+                      <Select
+                        value={day_selected}
+                        options={day_list}
+                        onChange={setDay}
+                        placeholder={"Select day."}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="confirmation-pane">
-              <div className="confirmation-pane-wrapper">
-                <div className="milestones">
-                  <div className="add-milestone">
-                    <div className="title">
-                      <h2>Milestones</h2>
-                      <h3>
-                        A milestone is an event that occurs once in a project's
-                        duration i.e. leaves appearing.
-                      </h3>
+              <div className="confirmation-pane">
+                <div className="confirmation-pane-wrapper">
+                  <div className="milestones">
+                    <div className="add-milestone">
+                      <div className="title">
+                        <h2>Milestones</h2>
+                        <h3>
+                          A milestone is an event that occurs once in a
+                          project's duration i.e. leaves appearing.
+                        </h3>
+                      </div>
+                      <div className="input-row">
+                        <div className="text-input">
+                          <input
+                            type="text"
+                            placeholder="Milestone"
+                            value={milestone_textbox}
+                            onChange={e => {
+                              setMilestone(e.target.value)
+                            }}
+                          />
+                        </div>
+                        <div className="add-btn">
+                          <input
+                            type="submit"
+                            className="submitButton"
+                            value="Add"
+                            onClick={() => {
+                              onAdd()
+                            }}
+                          />
+                        </div>
+                      </div>
                     </div>
-                    <div className="input-row">
-                      <div className="text-input">
+                    <div className="milestone-list">
+                      <div className="list-wrapper">
+                        {milestone_list.map(e => {
+                          return <h3>{e.name}</h3>
+                        })}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="final">
+                    <div className="add-final">
+                      <div className="title">
+                        <h2>Post-Harvest</h2>
+                        <h3>Observations you wish to capture post-harvest.</h3>
+                      </div>
+                    </div>
+                    <div className="final-list">
+                      <div className="list-wrapper">
+                        {final_list.map(e => (
+                          <h3>{e.name}</h3>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="btn-column">
+                    <div className="spacer" />
+                    <div className="continue-button">
+                      {milestone_textbox.length > 0 ? (
                         <input
-                          type="text"
-                          placeholder="Milestone"
-                          value={milestone_textbox}
-                          onChange={e => {
-                            setMilestone(e.target.value)
+                          type="submit"
+                          className="submitButton-disabled"
+                          value="Continue"
+                          onClick={() => {
+                            OnContinueClick()
                           }}
                         />
-                      </div>
-                      <div className="add-btn">
+                      ) : (
                         <input
                           type="submit"
                           className="submitButton"
-                          value="Add"
+                          value="Continue"
                           onClick={() => {
-                            onAdd()
+                            OnContinueClick()
                           }}
                         />
-                      </div>
+                      )}
                     </div>
-                  </div>
-                  <div className="milestone-list">
-                    <div className="list-wrapper">
-                      {milestone_list.map(e => {
-                        return <h3>{e.name}</h3>
-                      })}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="final">
-                  <div className="add-final">
-                    <div className="title">
-                      <h2>Post-Harvest</h2>
-                      <h3>Observations you wish to capture post-harvest.</h3>
-                    </div>
-                  </div>
-                  <div className="final-list">
-                    <div className="list-wrapper">
-                      {final_list.map(e => (
-                        <h3>{e.name}</h3>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-                <div className="btn-column">
-                  <div className="spacer" />
-                  <div className="continue-button">
-                    <input
-                      type="submit"
-                      className="submitButton"
-                      value="Continue"
-                      onClick={() => {
-                        OnContinueClick()
-                      }}
-                    />
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        </div>
-       
-        
+
         <div className="info-button">
-              <HelpOutlineIcon
-                className="help-icon"
-                onClick={() => {
-                  //setModalShown(true)
-                }}
-              />
-            </div>
+          <HelpOutlineIcon
+            className="help-icon"
+            onClick={() => {
+              //setModalShown(true)
+            }}
+          />
+        </div>
       </div>
     )
   } else return null

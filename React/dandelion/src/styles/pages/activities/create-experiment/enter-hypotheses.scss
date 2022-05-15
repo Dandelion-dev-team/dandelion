@@ -143,6 +143,16 @@
             width: 80%;
           }
           .button {
+            .continue-btn-disabled {
+              background-color: #a9a9a9;
+              color: $primary;
+              font-size: 1.2vw;
+              margin: 1.25rem 0px;
+              padding: 1.25rem;
+              border: none;
+              cursor: pointer;
+              border-radius: 10px;
+            }
             .continue-btn {
               background-color: $accent;
               color: $primary;
