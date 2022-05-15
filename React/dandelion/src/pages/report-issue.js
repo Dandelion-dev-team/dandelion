@@ -61,7 +61,6 @@ export default function ReportIssue(props) {
   }
 
   const handleIssueCallback = e => {
-    console.log(e)
     readRecord("/issue/" + e, setClickedIssue)
   }
 

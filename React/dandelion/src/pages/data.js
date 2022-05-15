@@ -79,7 +79,6 @@ export default function Data() {
   }
 
   const generateColumns = e => {
-    console.log(e)
     let columns = []
     columns.push({ field: "Observation" })
     e.columns.forEach(column => {

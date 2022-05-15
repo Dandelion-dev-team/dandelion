@@ -25,7 +25,6 @@ export default function SchoolUserPane(props) {
               <h3>{props.dataProp.notes}</h3>
             </div>
             <div className="experiments-container">
-              {console.log(props.experiment_list)}
               {props.experiment_list.data ? props.experiment_list.data.map(e => (
                 <ExperimentCard dataProp={e}/>
               )) : null}

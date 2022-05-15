@@ -80,7 +80,6 @@ export default function ResponseVariables(props) {
   }
 
   useEffect(() => {
-    console.log(props.location.state)
     if (verify_superuser_storage() == true) {
       setLogged(true)
       if (props.location.state) {

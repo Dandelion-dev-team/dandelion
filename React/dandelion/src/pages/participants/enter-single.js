@@ -13,31 +13,23 @@ import {
 import EnterObservationModal from "../../components/modals/enterObservationModal"
 
 export default function EnterObservations(props) {
+  const [observation_list, setObservations] = useState([])
   const [modal_shown, setModalShown] = useState(false)
-  const [treatment_variables, setTreatment] = useState("")
   const [filtered_response, setFiltered] = useState([])
-  const [combination_list, setCombinationList] = useState("")
-  const [experiment_details, setExperimentDetails] = useState("")
   const [colour_index, setColourIndex] = useState(["#FFFF", "#FFFF", "#FFFF"])
-  const [row_index] = ["A", "B", "C", "D", "E"]
   let grid_values = { colour: "#C4C4C4", code: "" }
   const [current_grid, setCurrentGrid] = useState(0)
-
   const [matrix, setMatrix] = useState(
     Array.from({ length: 3 }, () =>
       Array.from({ length: 25 }, () => grid_values)
     )
   )
-  const [dragged_item, setCurrentDraggedItem] = useState()
   const [logged, setLogged] = useState("")
-  const [observation_modal_shown, setObservationModalShown] = useState("")
-
-  let a = new Array(32)
+  const [currentUnit, setCurrentUnit] = useState();
   const grid_letters = ["A", "B", "C", "D", "E"]
 
-  const [active_class, setActiveClass] = useState([a])
-
   useEffect(() => {
+    if(props.location.state){
     setItem("top")
     const filtered_variables = props.location.state.responseVariables.filter(
       variable =>
@@ -72,7 +64,7 @@ export default function EnterObservations(props) {
             copy[level][position] = {
               colour: condition.colour,
               code: unit.code,
-              item: condition,
+              unit: unit
             }
           }
         })
@@ -82,6 +74,7 @@ export default function EnterObservations(props) {
     } else {
       navigate("/signin")
     }
+  } else {navigate("/participants/experiment-dashboard")}
   }, [])
 
   const closeModal = prop => {
@@ -115,18 +108,34 @@ export default function EnterObservations(props) {
   }
 
   const setGridData = e => {
-    console.log("grid::",e.gridData)
+    setCurrentUnit(e.gridData.unit);
     if (e.gridData.code !== "" && e.gridData.colour !== "#C4C4C4") {
       setModalShown(true)
     }
   }
 
   const saveObservation = e => {
-    console.log(e);
+    let copy = [...observation_list];
+    let concat = copy.concat(e);
+    setObservations(concat);
     closeModal()
   }
   const submitExperiment = prop => {
-    console.log("oog")
+    let date = new Date();
+    let timestamp = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+    let student_id = localStorage.getItem("user_id");
+    observation_list.forEach(observation => {
+      let body = JSON.stringify({
+        timestamp: timestamp,
+        value: observation.value,
+        created_by: student_id,
+        status: "valid",
+        comment: observation.comment,
+        unit_id: observation.unit_id,
+        response_variable_id: observation.variable_id,
+      })
+      createRecordNavigate("/observation", body)
+    });
     navigate("/participants/experiment-dashboard")
   }
 
@@ -135,6 +144,7 @@ export default function EnterObservations(props) {
       <div>
         {modal_shown ? (
           <EnterObservationModal
+            unit={currentUnit}
             props={filtered_response}
             saveObservation={saveObservation}
             closeModal={closeModal}

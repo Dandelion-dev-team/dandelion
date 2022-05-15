@@ -90,7 +90,6 @@ export default function YourObservations(props) {
   }
 
   const OnContinueClick = e => {
-    console.log(day_selected)
     let concat_array = []
     if (day_selected) {
       response_selected.forEach(response_variable => {
@@ -129,7 +128,6 @@ export default function YourObservations(props) {
           }
         }
       })
-      console.log(milestone_list)
       concat_array = response_selected.concat(milestone_list)
     } else {
       toast.error("No day selected.")
