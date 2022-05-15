@@ -140,6 +140,12 @@ export default function ParticipantPane(props) {
     })
   }, [])
 
+  const add_observation = e => {
+    navigate("/participants/enter-single", {
+      state: props.dataProp,
+    })
+  }
+
   return (
     <div className="participant-panel">
       {show_type ? <SelectAddTypeModal props={props.dataProp} /> : null}
@@ -157,9 +163,7 @@ export default function ParticipantPane(props) {
                     className="submitButton"
                     value="Add Observations"
                     onClick={() => {
-                      navigate("/participants/enter-single", {
-                        state: props.dataProp,
-                      })
+                      add_observation();
                     }}
                   />
                 </div>

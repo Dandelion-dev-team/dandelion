@@ -273,6 +273,16 @@
 
             .continue-button {
               margin-right: auto;
+              .submitButton-disabled {
+                background-color: #a9a9a9;
+                color: $primary;
+                font-size: 1.2vw;
+                float: right;
+                margin: 1.25rem 0px;
+                padding: 15px;
+                border: none;
+                border-radius: 10px;
+              }
               .submitButton {
                 background-color: $accent;
                 color: $primary;
