@@ -4,6 +4,9 @@
   height: 100vh;
   position: relative;
   overflow-y: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   @include media("<=tablet") {
     height: 100%;
@@ -15,10 +18,11 @@
     width: 100%;
   }
 
-  .hero-section {
+  .inner-sign-in {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 85%;
 
     @include media("<=tablet") {
       flex-direction: column;
@@ -63,10 +67,10 @@
         }
 
         h3 {
-          font-size: 4rem;
+          font-size: 6vw;
 
           @include media("<=tablet") {
-            font-size: 6rem;
+            font-size: 6vw;
           }
 
           @include media("<=phone") {
@@ -75,13 +79,13 @@
         }
 
         p {
-          font-size: 1.6rem;
+          font-size: 2vw;
           line-height: 2rem;
           font-weight: 400;
           margin: 40px 0 24px;
 
           @include media("<=tablet") {
-            font-size: 2rem;
+            font-size: 2vw;
           }
 
           @include media("<=phone") {
@@ -93,9 +97,11 @@
 
     .signin-form {
       width: 33%;
+      height: 100vh;
 
       @media (max-width: 1440px) {
         width: 40%;
+        height: 40vh;
       }
 
       @include media("<=tablet") {

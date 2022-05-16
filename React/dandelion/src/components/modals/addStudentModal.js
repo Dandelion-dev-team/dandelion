@@ -1,6 +1,7 @@
 import { navigate } from "gatsby"
 import React, { useEffect, useState } from "react"
 import { createRecord } from "../../utils/CRUD"
+import CloseIcon from '@mui/icons-material/Close';
 
 export default function AddStudentModal(props) {
   const [entered_username, setUsername] = useState("")
@@ -29,14 +30,18 @@ export default function AddStudentModal(props) {
     setUsername(e.target.value)
   }
 
-
   const handleNotesChange = e => {
     setNotes(e.target.value)
   }
 
+
+
   return (
     <div className="add-student-modal">
       <div className="inner-panel">
+        <div className="close-btn">
+          <CloseIcon className="btn" onClick/>
+        </div>
         <div className="panel-content">
           <div className="title">
             <h2>Create Student</h2>
