@@ -40,6 +40,7 @@ export default function ParticipantPane(props) {
   const [response_observations, setObservations] = useState([])
   const [milestones, setMilestones] = useState([])
   const [experiment_finished, setExperimentFinished] = useState(false)
+  const [filtered, setFiltered] = useState([])
 
   const get_response_day = e => {
     let days = ""
@@ -133,6 +134,17 @@ export default function ParticipantPane(props) {
   }
 
   useEffect(() => {
+    const filtered_variables = props.dataProp.responseVariables.filter(
+      variable =>
+        variable.monday == true ||
+        variable.tuesday == true ||
+        variable.wednesday == true ||
+        variable.thursday == true ||
+        variable.friday == true ||
+        variable.saturday == true ||
+        variable.sunday == true
+    )
+    setFiltered(filtered_variables);
     let user_id = localStorage.getItem("user_id")
     let today = new Date()
     let end_date = new Date(props.dataProp.end_date)
@@ -169,8 +181,7 @@ export default function ParticipantPane(props) {
                   />
                 </div>
               </div>
-              {get_response_day(props.dataProp.responseVariables[2])}
-
+              {filtered.length > 0 ? get_response_day(filtered[0]) : null}
             </div>
             <h3>
               {new Date(props.dataProp.start_date).toDateString()} -{" "}
