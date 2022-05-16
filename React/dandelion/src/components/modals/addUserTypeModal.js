@@ -2,19 +2,20 @@ import { navigate } from "gatsby"
 import * as React from "react"
 import "../../styles/App.scss"
 
-export default function VariableTypeModal(props) {
+export default function AddUserTypeModal(props) {
   return (
     <div>
-      <div className="type-modal-container">
+      <div className="user-type-modal-container">
         <div className="modal-wrapper">
           <div className="modal-content">
-            <h3>Is your variable discrete or continuous?</h3>
+            <h3>Are you adding one or multiple users?</h3>
             <p>
-              A continuous variable is one which takes its value from
-              measurement. A discrete variable is one which obtains its value
-              from counting. An example of a discrete variable could be
-              temperature, while an example of a continuous variable could be
-              stalk length.
+              You can choose to add one user or add multiple users at once.
+              Adding multiple users is useful if, for example, you wish to add
+              an entire class at once. Usernames will be automated. Adding one
+              user will give you control over their username. Please note that
+              on a user's first log-in, their password will be the same as their
+              username.
             </p>
             <div className="type-btns">
               <div className="spacer" />
@@ -23,9 +24,9 @@ export default function VariableTypeModal(props) {
                   <input
                     type="submit"
                     className="submitButton"
-                    value="Continuous"
+                    value="Add One"
                     onClick={() => {
-                      props.contCallback()
+                      props.singleCallback()
                     }}
                   ></input>
                 </div>
@@ -33,9 +34,9 @@ export default function VariableTypeModal(props) {
                   <input
                     type="submit"
                     className="submitButton"
-                    value="Discrete"
+                    value="Add Multiple"
                     onClick={() => {
-                      props.discreteCallback()
+                      props.multipleCallback()
                     }}
                   ></input>
                 </div>

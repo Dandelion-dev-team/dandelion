@@ -12,20 +12,39 @@
     .title {
       .title-btn-row {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: center;
         width: 100%;
         justify-content: space-between;
         h2 {
-          font-size: 1.4rem;
+          font-size: 1.4vw;
           font-weight: 800;
           letter-spacing: 0.5px;
+          margin: 0px;
         }
 
         .btn-row {
           display: flex;
           flex-direction: row;
-          height: 50%;
+          width: 65%;
+          justify-content: space-between;
+
+          .days-until {
+            display: flex;
+            flex-direction: column;
+            height: 35%;
+            .day {
+              p {
+                margin-bottom: 0px;
+                padding-bottom: 0px;
+                font-size: 1.6vw;
+              }
+            }
+            .days-remaining {
+              font-weight: 400;
+              font-size: 1.2vw;
+            }
+          }
 
           .submit-btn {
             height: 100%;
@@ -37,10 +56,9 @@
             .submitButton {
               background-color: $accent;
               color: $primary;
-              font-size: 1.2rem;
-              margin: 0.625rem 0px;
-              padding: 0.625rem;
-              width: 10rem;
+              font-size: 1.2vw;
+              margin: 10% 0px;
+              padding: 1.2vw;
               border: none;
               cursor: pointer;
               border-radius: 10px;
@@ -129,10 +147,14 @@
               display: flex;
               flex-direction: column;
               height: 35%;
+              font-size: .8rem;
+
+             
               .day {
                 p {
                   margin-bottom: 0px;
                   padding-bottom: 0px;
+                  font-size: 1.2rem;
                 }
               }
               .days-remaining {

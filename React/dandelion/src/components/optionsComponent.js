@@ -166,7 +166,6 @@ export default function OptionsComponent(props) {
     } else {
         copy.push(variable.response_ref.value)
     }
-    console.log(copy)
     setFinalList(copy);
 }
 

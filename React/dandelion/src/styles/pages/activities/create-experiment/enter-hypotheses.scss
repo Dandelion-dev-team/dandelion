@@ -47,7 +47,7 @@
         flex-direction: column;
         justify-content: space-around;
         width: 90%;
-        height: 85%;
+        height: 90%;
         h3 {
           color: black;
         }
@@ -62,13 +62,27 @@
           }
 
           .card-list {
-            height: 45%;
+            height: 40%;
             width: 100%;
             overflow-y: scroll;
           }
+          .card-list::-webkit-scrollbar {
+            width: 7.5px;
+          }
+          .card-list::-webkit-scrollbar-track {
+            background: #ebe7e7;
+            border-radius: 10px;
+          }
+           
+          .card-list::-webkit-scrollbar-thumb {
+            background: #eac2cb;
+            border-radius: 10px;
+        
+          }
+        
 
           .input-area {
-            height: 45%;
+            height: 40%;
             width: 100%;
             .input-row {
               text-align: left;
@@ -135,6 +149,7 @@
           flex-direction: row;
           display: flex;
           justify-content: space-between;
+          height: auto;
 
           @include media("<=small-desktop") {
             height: 15%;
@@ -143,12 +158,22 @@
             width: 80%;
           }
           .button {
+            .continue-btn-disabled {
+              background-color: #a9a9a9;
+              color: $primary;
+              font-size: 1.2vw;
+              margin: 1.25rem 0px;
+              padding: 1.2vw;
+              border: none;
+              cursor: pointer;
+              border-radius: 10px;
+            }
             .continue-btn {
               background-color: $accent;
               color: $primary;
               font-size: 1.2vw;
               margin: 1.25rem 0px;
-              padding: 1.25rem;
+              padding: 1.2vw;
               border: none;
               cursor: pointer;
               border-radius: 10px;

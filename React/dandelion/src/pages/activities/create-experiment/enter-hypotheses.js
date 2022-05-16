@@ -153,28 +153,36 @@ export default function EnterHypotheses(props) {
                 </div>
                 {/* <div className="spacer" /> */}
                 <div className="button">
-                  <input
-                    type="submit"
-                    className="continue-btn"
-                    value="Continue"
-                    onClick={() => {
-                      if (
-                        typeof window !== `undefined`) {
-                        navigate(
-                          "/activities/create-experiment/your-observations",
-                          {
-                            state: {
-                              hypotheses: hypothesesList,
-                              treatmentVariables: treatment_variables,
-                              responseVariables: response_variables,
-                              experimentDetails: experiment_details,
-                              combinations: combinations_selected,
-                            },
-                          }
-                        )
-                      }
-                    }}
-                  />
+                  {hypothesis_text_box.length > 0 ? (
+                    <input
+                      type="submit"
+                      className="continue-btn-disabled"
+                      value="Continue"
+                      disabled
+                    />
+                  ) : (
+                    <input
+                      type="submit"
+                      className="continue-btn"
+                      value="Continue"
+                      onClick={() => {
+                        if (typeof window !== `undefined`) {
+                          navigate(
+                            "/activities/create-experiment/your-observations",
+                            {
+                              state: {
+                                hypotheses: hypothesesList,
+                                treatmentVariables: treatment_variables,
+                                responseVariables: response_variables,
+                                experimentDetails: experiment_details,
+                                combinations: combinations_selected,
+                              },
+                            }
+                          )
+                        }
+                      }}
+                    />
+                  )}
                 </div>
               </div>
             </div>

@@ -4,13 +4,21 @@
   position: relative;
   display: flex;
   justify-content: space-around;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   height: 100vh;
   overflow-y: auto;
+  .left-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 92.5%;
+  }
   .title {
     display: flex;
     align-items: center;
+    justify-content: center;
     h3 {
       font-size: 3vw;
     }
@@ -22,6 +30,7 @@
     width: 80%;
     height: 65vh;
     border-radius: 20px;
+    justify-content: center;
     .content-wrapper {
       display: flex;
       color: black;
@@ -41,6 +50,7 @@
             text-align: left;
             justify-items: left;
             align-items: flex-start;
+
             h3 {
               display: inline;
               font-size: 1.25vw;
@@ -97,7 +107,6 @@
             }
             .date-input {
               width: 45%;
-
             }
           }
         }
@@ -191,7 +200,8 @@
               background-color: white;
               border-radius: 20px;
               margin-right: auto;
-
+              height: 75%;
+              overflow-y: scroll;
               .list-wrapper {
                 width: 95%;
                 height: 95%;
@@ -203,6 +213,20 @@
                 }
               }
             }
+            .milestone-list::-webkit-scrollbar {
+              width: 7.5px;
+            }
+            .milestone-list::-webkit-scrollbar-track {
+              background: #ebe7e7;
+              border-radius: 10px;
+            }
+             
+            .milestone-list::-webkit-scrollbar-thumb {
+              background: #eac2cb;
+              border-radius: 10px;
+          
+            }
+          
           }
 
           .final {
@@ -241,6 +265,7 @@
               margin-right: auto;
               display: block;
               overflow-y: scroll;
+              height: 75%;
 
               .list-wrapper {
                 width: 95%;
@@ -253,18 +278,41 @@
                 }
               }
             }
+            .final-list::-webkit-scrollbar {
+              width: 7.5px;
+            }
+            .final-list::-webkit-scrollbar-track {
+              background: #ebe7e7;
+              border-radius: 10px;
+            }
+             
+            .final-list::-webkit-scrollbar-thumb {
+              background: #eac2cb;
+              border-radius: 10px;
+          
+            }
+          
           }
           .btn-column {
             display: flex;
-            
+
             .spacer {
               width: 65%;
               height: 80%;
-
             }
 
             .continue-button {
               margin-right: auto;
+              .submitButton-disabled {
+                background-color: #a9a9a9;
+                color: $primary;
+                font-size: 1.2vw;
+                float: right;
+                margin: 1.25rem 0px;
+                padding: 15px;
+                border: none;
+                border-radius: 10px;
+              }
               .submitButton {
                 background-color: $accent;
                 color: $primary;
@@ -283,6 +331,24 @@
           }
         }
       }
+    }
+  }
+
+  .info-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 2.5%;
+    height: 90vh;
+    border-radius: 20px;
+    .help-icon {
+      width: 3rem;
+      height: 3rem;
+    }
+    .help-icon:hover {
+      cursor: pointer;
+      color: $contrast;
     }
   }
 }

@@ -62,25 +62,26 @@
           overflow-x: hidden;
           overflow-y: scroll;
 
-            thead{
-              color:black;
-            }
-            tbody {
+          thead {
+            color: black;
+          }
+          tbody {
+            height: 10%;
+            color: black;
+
+            td {
               height: 10%;
-              color: black;
-
-              td{
-                height: 10%;
-              }
-              .active {
-                background-color: #f7f8ff;
-              }
-
-              &:hover {
-                background-color: #f7f8ff;
-                cursor: pointer;
-              }
             }
+            .active {
+              background-color: #f7f8ff;
+            }
+
+            &:hover {
+              background-color: #f7f8ff;
+              cursor: pointer;
+            }
+          }
+
           .friendList::-webkit-scrollbar {
             display: none; /* for Chrome, Safari, and Opera */
             width: 0%;
@@ -96,6 +97,18 @@
             font-family: "Archivo Narrow";
             letter-spacing: 0.1mm;
           }
+        }
+        .students-list::-webkit-scrollbar {
+          width: 7.5px;
+        }
+        .students-list::-webkit-scrollbar-track {
+          background: #ebe7e7;
+          border-radius: 10px;
+        }
+
+        .students-list::-webkit-scrollbar-thumb {
+          background: #eac2cb;
+          border-radius: 10px;
         }
       }
     }
@@ -134,10 +147,10 @@
           overflow-y: scroll;
           .activity {
             display: flex;
-            width: 100%;
+            width: 85%;
             height: 40%;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
             .img {
               width: 30%;
               height: 100%;
@@ -147,6 +160,7 @@
                 border-radius: 50%;
                 max-height: 100%;
                 max-width: 100%;
+                margin-bottom: 0px;
               }
             }
             .name {
@@ -156,11 +170,25 @@
               h3 {
                 font-size: 1.25vw;
                 //text-align: center;
-                margin-bottom: 0px;
+               margin-bottom: 0px;
               }
             }
           }
         }
+        .activity-list::-webkit-scrollbar {
+          width: 7.5px;
+        }
+        .activity-list::-webkit-scrollbar-track {
+          background: #ebe7e7;
+          border-radius: 10px;
+        }
+         
+        .activity-list::-webkit-scrollbar-thumb {
+          background: #eac2cb;
+          border-radius: 10px;
+      
+        }
+      
 
         h3 {
           color: $primary;

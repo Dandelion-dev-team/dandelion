@@ -2,10 +2,10 @@ import React, { useEffect, useState, useRef } from "react"
 import { navigate } from "gatsby"
 import "../../../styles/App.scss"
 import BackupIcon from "@mui/icons-material/Backup"
-import CheckIcon from '@mui/icons-material/Check';
-import { verify_superuser_storage } from "../../../utils/logins";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import CheckIcon from "@mui/icons-material/Check"
+import { verify_superuser_storage } from "../../../utils/logins"
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 export default function EnterDetails(props) {
   const [name, setName] = useState("")
   const [code, setCode] = useState("")
@@ -15,21 +15,35 @@ export default function EnterDetails(props) {
   const [startDate, setStartDate] = useState("")
   const [endDate, setEndDate] = useState("")
 
-  const [logged, setLogged] = useState("");
+  const [logged, setLogged] = useState("")
 
   useEffect(() => {
-    if (props.location.state.name) { setName(props.location.state.name); }
-    if (props.location.state.code) { setCode(props.location.state.code); }
-    if (props.location.state.description) { setDescription(props.location.state.description); }
-    if (props.location.state.tutorial) { setTutorial(props.location.state.tutorial); }
-    if (props.location.state.image) { setImage(props.location.state.image); }
-    if (props.location.state.startDate) { setStartDate(props.location.state.startDate); }
-    if (props.location.state.endDate) { setEndDate(props.location.state.endDate); }
+    if (props.location.state.name) {
+      setName(props.location.state.name)
+    }
+    if (props.location.state.code) {
+      setCode(props.location.state.code)
+    }
+    if (props.location.state.description) {
+      setDescription(props.location.state.description)
+    }
+    if (props.location.state.tutorial) {
+      setTutorial(props.location.state.tutorial)
+    }
+    if (props.location.state.image) {
+      setImage(props.location.state.image)
+    }
+    if (props.location.state.startDate) {
+      setStartDate(props.location.state.startDate)
+    }
+    if (props.location.state.endDate) {
+      setEndDate(props.location.state.endDate)
+    }
 
     if (verify_superuser_storage() == true) {
-      setLogged(true);
+      setLogged(true)
     } else {
-      navigate("/signin");
+      navigate("/signin")
     }
   }, [])
 
@@ -62,7 +76,7 @@ export default function EnterDetails(props) {
   }
 
   const handleNav = e => {
-    let project_id = props.location.state.project_id;
+    let project_id = props.location.state.project_id
     if (
       name &&
       code &&
@@ -121,6 +135,7 @@ export default function EnterDetails(props) {
                   <div className="item-input">
                     <input
                       type="text"
+                      maxLength={4}
                       value={code}
                       placeholder="Experiment Code"
                       name="codeBox"
@@ -133,7 +148,12 @@ export default function EnterDetails(props) {
                     <h3>Description:</h3>
                   </div>
                   <div className="desc-input">
-                    <textarea value={description} placeholder="Description" name="descBox" onChange={handleDescChange} />
+                    <textarea
+                      value={description}
+                      placeholder="Description"
+                      name="descBox"
+                      onChange={handleDescChange}
+                    />
                   </div>
                 </div>
                 <div className="inputItem">
@@ -155,8 +175,17 @@ export default function EnterDetails(props) {
                   </div>
                   <div className="img-btn">
                     <label className="image-upload-btn">
-                      <input type="file" accept=".jpg,.png" onChange={handleImageChange} hidden />
-                      {image ? <CheckIcon className="imageIcon" /> : <BackupIcon className="imageIcon" />}
+                      <input
+                        type="file"
+                        accept=".jpg,.png"
+                        onChange={handleImageChange}
+                        hidden
+                      />
+                      {image ? (
+                        <CheckIcon className="imageIcon" />
+                      ) : (
+                        <BackupIcon className="imageIcon" />
+                      )}
                     </label>
                     <div className="spacer" />
                     <div className="file-name">
@@ -197,20 +226,24 @@ export default function EnterDetails(props) {
             </div>
           </div>
           <div className="btn-container">
+            <div className="spacer"/>
+            <div className="btn-row">
             <div className="continue-btn">
               <input
                 type="submit"
-                className="back-button"
+                className="submitButton"
                 value="Back"
                 onClick={() => {
                   if (typeof window !== `undefined`) {
-                    navigate("/activities/create-experiment/predefined-experiments/",
+                    navigate(
+                      "/activities/create-experiment/predefined-experiments/",
                       {
                         state: { project_id: props.location.state.project_id },
-                      })
+                      }
+                    )
                   }
                 }}
-              ></input>
+              />
             </div>
             <div className="continue-btn">
               <input
@@ -219,14 +252,14 @@ export default function EnterDetails(props) {
                 value="Finished"
                 onClick={() => {
                   handleNav()
-
                 }}
-              ></input>
+             />
             </div>
-            <div className="spacer"/>
+            </div>
+            
           </div>
         </div>
       </div>
     )
-  } else return null;
+  } else return null
 }

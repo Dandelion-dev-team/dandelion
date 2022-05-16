@@ -18,6 +18,17 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+    flex-direction: column;
+
+    .close-btn {
+      height: 10%;
+      width: 95%;
+      display: flex;
+      justify-content: flex-end;
+      .btn {
+
+      }
+    }
 
     .panel-content {
       display: flex;
@@ -82,7 +93,7 @@
         flex-direction: row;
         height: 20%;
         justify-content: space-around; 
-        width: 80%;
+        width: 100%;
 
         .btn-container {
           width: 45%;

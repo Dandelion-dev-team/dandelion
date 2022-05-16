@@ -15,6 +15,7 @@
 
     .schoolList {
       margin-left: 2rem;
+      width: 80%;
 
       thead {
         tr {
@@ -25,6 +26,8 @@
       }
 
       tbody {
+        overflow-y: scroll;
+        height: 90%;
         .active {
           background-color: #f7f8ff;
         }
@@ -61,11 +64,21 @@
           }
         }
       }
+
     }
   }
-
   .schoolTable::-webkit-scrollbar {
-    display: none; /* for Chrome, Safari, and Opera */
+    width: 7.5px;
+  }
+  .schoolTable::-webkit-scrollbar-track {
+    background: #ebe7e7;
+    border-radius: 10px;
+  }
+   
+  .schoolTable::-webkit-scrollbar-thumb {
+    background: #eac2cb;
+    border-radius: 10px;
+
   }
 
   .btn-row {

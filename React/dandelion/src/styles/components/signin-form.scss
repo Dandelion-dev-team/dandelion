@@ -7,7 +7,7 @@ form {
   max-width: 100%;
   padding: 1.25rem 3.75rem;
   border-radius: 25px;
-  height: 31.25rem;
+  height: 60vh;
 
   @include media("<=phone") {
     width: 100%;

@@ -40,6 +40,7 @@ export default function ParticipantPane(props) {
   const [response_observations, setObservations] = useState([])
   const [milestones, setMilestones] = useState([])
   const [experiment_finished, setExperimentFinished] = useState(false)
+  const [filtered, setFiltered] = useState([])
 
   const get_response_day = e => {
     let days = ""
@@ -100,15 +101,23 @@ export default function ParticipantPane(props) {
     let min = Math.min(...days_until)
     if (min == Infinity) {
       min = props.dataProp.end_date
-    } else {
-      min = min + " days until."
+    } 
+    else if (min == 1) {
+      min = min + " day until"
+
+    }
+    else {
+      min = min + " days until"
     }
     return (
       <div className="days-until">
-        <div className="day">{days}</div>
+        <p>Your response day is {days} - it is {min} you need to enter observations.</p>
+        {/* <div className="day">
+          <p>{days}</p>
+        </div>
         <div className="days-remaining">
           <p>{min}</p>
-        </div>
+        </div> */}
       </div>
     )
   }
@@ -125,7 +134,17 @@ export default function ParticipantPane(props) {
   }
 
   useEffect(() => {
-    console.log(props.dataProp)
+    const filtered_variables = props.dataProp.responseVariables.filter(
+      variable =>
+        variable.monday == true ||
+        variable.tuesday == true ||
+        variable.wednesday == true ||
+        variable.thursday == true ||
+        variable.friday == true ||
+        variable.saturday == true ||
+        variable.sunday == true
+    )
+    setFiltered(filtered_variables);
     let user_id = localStorage.getItem("user_id")
     let today = new Date()
     let end_date = new Date(props.dataProp.end_date)
@@ -162,14 +181,13 @@ export default function ParticipantPane(props) {
                   />
                 </div>
               </div>
+              {filtered.length > 0 ? get_response_day(filtered[0]) : null}
             </div>
             <h3>
               {new Date(props.dataProp.start_date).toDateString()} -{" "}
               {new Date(props.dataProp.end_date).toDateString()}{" "}
             </h3>
-            <h3>
-              {/* Observation frequency: {participant_details.observation_freq} */}
-            </h3>
+           
           </div>
           <div className="description">
             <h3>{props.dataProp.description}</h3>

@@ -6,7 +6,6 @@ import "react-toastify/dist/ReactToastify.css"
 
 function handleErrors(response) {
   console.log("called")
-  console.log(response)
   if (response.status !== 200) {
     console.log("Error")
     toast.error("Database Error " + response.status)

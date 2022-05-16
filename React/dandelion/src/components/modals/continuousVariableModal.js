@@ -38,14 +38,14 @@ export default function ContinuousVariableModal(props) {
   }
 
   const onChangeCheckbox = e => {
-    setIsSensorQuantity(!is_sensor_selected);
+    setIsSensorQuantity(!is_sensor_selected)
   }
 
   const onCreateVariable = e => {
     if (name && description && procedure && unit && upperLimit && lowerLimit) {
-      let quantity_check = null;
+      let quantity_check = null
       if (quantity_selected != null) {
-        quantity_check = quantity_selected.id;
+        quantity_check = quantity_selected.id
       }
       let body = JSON.stringify({
         type: "Continuous",
@@ -65,9 +65,9 @@ export default function ContinuousVariableModal(props) {
         saturday: false,
         sunday: false,
         once: false,
-        final: false
+        final: false,
       })
-      props.callback(body);
+      props.callback(body)
     } else {
       toast.error("Not enough information.")
     }
@@ -79,6 +79,29 @@ export default function ContinuousVariableModal(props) {
 
   const onChangeQuantity = e => {
     setSelectedQuantity(e)
+  }
+
+  const customStyles = {
+    control: (base, state) => ({
+      ...base,
+      borderRadius: state.isFocused ? "3px 3px 0 0" : 3,
+      boxShadow: state.isFocused ? null : null,
+      color: 'black'
+    }),
+    menu: base => ({
+      ...base,
+      background: "#eee",
+      borderRadius: 0,
+      marginTop: 0,
+      color: 'black'
+
+    }),
+    menuList: base => ({
+      ...base,
+      padding: 0,
+      color: 'black'
+
+    }),
   }
 
   return (
@@ -128,80 +151,51 @@ export default function ContinuousVariableModal(props) {
                 />
               </div>
             </div>
-            {/* <div className="inputItem">
-              <div className="item-title">
-                <h3>Unit:</h3>
-              </div>
-              <div className="item-input">
-                <input
-                  type="text"
-                  placeholder="Unit"
-                  name="codeBox"
-                  value={unit}
-                  onChange={handleUnitChange}
-                />
-              </div>
-            </div>
-            <div className="inputItem">
-              <div className="item-title">
-                <h3>Upper Limit:</h3>
-              </div>
-              <div className="item-input">
-                <input
-                  type="text"
-                  placeholder="Upper Limit"
-                  name="codeBox"
-                  value={upperLimit}
-                  onChange={handleUpperLimitChange}
-                />
-              </div>
-            </div>
-            <div className="inputItem">
-              <div className="item-title">
-                <h3>Lower Limit:</h3>
-              </div>
-              <div className="item-input">
-                <input
-                  type="text"
-                  placeholder="Lower Limit"
-                  name="codeBox"
-                  value={lowerLimit}
-                  onChange={handleLowerLimitChange}
-                />
-              </div>
-            </div> */}
+
             <div className="inputItem">
               <div className="item-title">
                 <h3>Quantity relation:</h3>
               </div>
               <div className="item-input">
-                {quantitiy_list ? <Select
-                  name="authority_id_picker"
-                  options={quantitiy_list.data}
-                  value={quantity_selected}
-                  defaultValue={"No Quantity Relation"}
-                  onChange={onChangeQuantity}
-                  getOptionLabel={quantitiy_list => quantitiy_list.name}
-                  getOptionValue={quantitiy_list => quantitiy_list.id} // It should be unique value in the options. E.g. ID
-                /> : <h3>Could not retrieve quantities.</h3>}
+                {quantitiy_list ? (
+                  <Select
+                    styles={customStyles}
+                    name="authority_id_picker"
+                    options={quantitiy_list.data}
+                    value={quantity_selected}
+                    defaultValue={"No Quantity Relation"}
+                    onChange={onChangeQuantity}
+                    getOptionLabel={quantitiy_list => quantitiy_list.name}
+                    getOptionValue={quantitiy_list => quantitiy_list.id} // It should be unique value in the options. E.g. ID
+                  />
+                ) : (
+                  <h3>Could not retrieve quantities.</h3>
+                )}
               </div>
             </div>
 
-            {quantity_selected ?
+            {quantity_selected ? (
               <div className="inputItem">
-                <div className="item-title">
-
-                </div>
+                <div className="item-title"></div>
                 <div className="item-input">
-                  <a target="_blank" href={quantity_selected.help_url}>{quantity_selected.help_url}</a>
+                  <a target="_blank" href={quantity_selected.help_url}>
+                    {quantity_selected.help_url}
+                  </a>
                 </div>
               </div>
-              : null}
-            {quantity_selected != null ?
+            ) : null}
+            {quantity_selected != null ? (
               <div className="experimentCheck">
-                <input type="checkbox" id="experiment_id" name="topping" value="experiment_ID" onChange={onChangeCheckbox} />
+                <input
+                  type="checkbox"
+                  id="experiment_id"
+                  name="topping"
+                  value="experiment_ID"
+                  onChange={onChangeCheckbox}
+                />
                 <h3>Is sensor quantity</h3>
-              </div> : null}
+              </div>
+            ) : null}
             <div className="finish-btn">
               <input
                 type="submit"

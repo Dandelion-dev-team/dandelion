@@ -54,8 +54,7 @@ export default function Login(props) {
           <Header />
           <div className="signin">
             <ToastContainer />
-            <div className="container">
-              <div className="hero-section">
+              <div className="inner-sign-in">
                 <div className="heading">
                   <div className="headline">
                     <h3>Sign In</h3>
@@ -99,7 +98,6 @@ export default function Login(props) {
               </div>
             </div>
           </div>
-        </div>
       )
     } else return null
   }

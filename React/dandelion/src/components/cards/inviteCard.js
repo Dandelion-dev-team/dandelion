@@ -40,7 +40,6 @@ export default function Alert(props) {
         <hr />
       </div>
       <div className="row">
-        {console.log(props.alert)}
         <div className="text-content">
           <h3>{props.alert.project_title}</h3>
           <h4>{props.alert.inviting_school_name}</h4>

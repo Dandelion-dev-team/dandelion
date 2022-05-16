@@ -9,7 +9,6 @@ export default function EditUserModal(props) {
 
 
   useEffect(() => {
-    console.log(props.user)
     setUsername(props.user.username)
     setNotes(props.user.notes)
   }, [])

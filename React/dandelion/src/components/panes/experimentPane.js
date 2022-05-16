@@ -71,7 +71,6 @@ export default function ExperimentPane(props) {
             </h3>
             <h3>Created by Dandelion</h3>
           </div>
-        {console.log(props.dataProp)}
           <div className="experiment-img">
             <img src={props.dataProp.image_full} />
           </div>
@@ -83,18 +82,18 @@ export default function ExperimentPane(props) {
             <h3>{props.dataProp.tutorial}</h3>
           </div>
 
-          <div>
+          <div className="experiment-desc">
             {props.dataProp.hypotheses.map(e => (<h3>
               {e.hypothesis_no} - {e.description}
             </h3>))}
           </div>
-          <div>
+          <div className="experiment-desc">
             <h3>
               Treatment variables:
             </h3>
             {props.dataProp.treatmentVariables.map(e => { return <VariableCard mappedValue={e}/>})}
           </div>
-          <div>
+          <div className="experiment-desc">
             <h3>
               Response variables:
             </h3>

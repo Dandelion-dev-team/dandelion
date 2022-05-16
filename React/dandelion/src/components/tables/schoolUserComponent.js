@@ -6,12 +6,14 @@ import AddStudentModal from "../modals/addStudentModal"
 import EditUserModal from "../modals/editUserModal"
 import EditIcon from "@mui/icons-material/Edit"
 import AddMultipleUsersModal from "../modals/addMultipleUsersModal"
+import AddUserTypeModal from "../modals/addUserTypeModal"
 
 export default function SchoolUserComponent(props) {
   const [users, setUsers] = useState()
-  const [show_modal, setShowModal] = useState(false)
+  const [show_single_modal, setShowSingleModal] = useState(false)
   const [show_edit_modal, setShowEditModal] = useState(false)
   const [show_multiple_modal, setShowMultipleModal] = useState(false)
+  const [show_type_modal, setShowTypeModal] = useState(false)
   const [editingUser, setEditingUser] = useState()
 
   useEffect(() => {
@@ -28,13 +30,31 @@ export default function SchoolUserComponent(props) {
     setEditingUser(e)
   }
 
+  const singleCallback = e => {
+    setShowSingleModal(true)
+    setShowTypeModal(false)
+  }
+
+  const multipleCallback = e => {
+    setShowMultipleModal(true)
+    setShowTypeModal(false)
+  }
+
   return (
     <div className="school-comp-container">
-      {show_modal ? <AddStudentModal closeModal={setShowModal} /> : null}
+       {show_type_modal ? (
+          <AddUserTypeModal
+            singleCallback={singleCallback}
+            multipleCallback={multipleCallback}
+          />
+        ) : null}
       {show_edit_modal ? (
         <EditUserModal closeModal={setShowEditModal} user={editingUser} />
       ) : null}
-      {show_multiple_modal ? <AddMultipleUsersModal closeModal={setShowMultipleModal} /> : null}
+      {show_single_modal ? <AddStudentModal closeModal={setShowSingleModal} /> : null}
+      {show_multiple_modal ? (
+        <AddMultipleUsersModal closeModal={setShowMultipleModal} />
+      ) : null}
 
       <div className="schoolTable">
         <table className="schoolList">
@@ -78,17 +98,7 @@ export default function SchoolUserComponent(props) {
         <div className="add-btn" id="single">
           <button
             onClick={() => {
-              setShowModal(true)
-            }}
-            className="submitButton"
-          >
-            Add A User
-          </button>
-        </div>
-        <div className="add-btn" id="multiple">
-          <button
-            onClick={() => {
-             setShowMultipleModal(true)
+              setShowTypeModal(true)
             }}
             className="submitButton"
           >

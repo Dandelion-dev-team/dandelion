@@ -21,7 +21,6 @@ export default function SelectCombinations(props) {
         setExperimentDetails(props.location.state.experimentDetails)
         setTreatment(props.location.state.treatmentVariables)
         setResponse(props.location.state.responseVariables)
-        console.log(props.location.state.treatmentVariables)
 
         let treatments = props.location.state.treatmentVariables
         if (props) {

@@ -164,7 +164,6 @@ export default function EnterActivityDetails(props) {
                     <h3>End Date:</h3>
                   </div>
                   <div className="item-input">
-                  {console.log(startDate)}
                     <input
                       type="date"
                       min={startDate}

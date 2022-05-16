@@ -6,7 +6,6 @@ export default function MapModalCard(props) {
   const [project, setProject] = useState(0)
 
   useEffect(() => {
-    console.log( "/project_partner/byschool/" + props.id)
     readRecord(
       "/project_partner/byschool/" + props.id, setProject
     )
