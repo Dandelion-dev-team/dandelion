@@ -147,10 +147,14 @@
               display: flex;
               flex-direction: column;
               height: 35%;
+              font-size: .8rem;
+
+             
               .day {
                 p {
                   margin-bottom: 0px;
                   padding-bottom: 0px;
+                  font-size: 1.2rem;
                 }
               }
               .days-remaining {

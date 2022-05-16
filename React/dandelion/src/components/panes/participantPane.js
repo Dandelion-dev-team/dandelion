@@ -100,17 +100,23 @@ export default function ParticipantPane(props) {
     let min = Math.min(...days_until)
     if (min == Infinity) {
       min = props.dataProp.end_date
-    } else {
-      min = min + " days until."
+    } 
+    else if (min == 1) {
+      min = min + " day until"
+
+    }
+    else {
+      min = min + " days until"
     }
     return (
       <div className="days-until">
-        <div className="day">
+        <p>Your response day is {days} - it is {min} you need to enter observations.</p>
+        {/* <div className="day">
           <p>{days}</p>
         </div>
         <div className="days-remaining">
           <p>{min}</p>
-        </div>
+        </div> */}
       </div>
     )
   }
@@ -162,16 +168,15 @@ export default function ParticipantPane(props) {
                     }}
                   />
                 </div>
-                {get_response_day(props.dataProp.responseVariables[2])}
               </div>
+              {get_response_day(props.dataProp.responseVariables[2])}
+
             </div>
             <h3>
               {new Date(props.dataProp.start_date).toDateString()} -{" "}
               {new Date(props.dataProp.end_date).toDateString()}{" "}
             </h3>
-            <h3>
-              {/* Observation frequency: {participant_details.observation_freq} */}
-            </h3>
+           
           </div>
           <div className="description">
             <h3>{props.dataProp.description}</h3>

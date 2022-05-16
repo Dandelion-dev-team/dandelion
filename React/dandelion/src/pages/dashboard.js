@@ -48,7 +48,7 @@ export default function Dashboard() {
         <Header />
         <div className="dashboard">
           <ToastContainer />
-          <div className="container">
+          <div className="dash-container">
             <div className="inner-dashboard">
               <div className="content">
                 <h3>Dashboard</h3>

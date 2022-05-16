@@ -4,51 +4,61 @@
   position: relative;
   color: $white;
   //height: 1920px;
-  .inner-dashboard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .dash-container {
     display: flex;
-    justify-content: space-between;
+    width: 85%;
     align-items: center;
-    height: 100vh;
-    @include media("<=phone") {
-      justify-content: center;
-    }
-    .content {
-      width: 33%;
-
-      @include media("<=phone") {
-        height: 0%;
-        width: 0%;
-        display: none;
-      }
-
-      h3 {
-        font-weight: 700;
-        text-transform: uppercase;
-        font-size: 2.6rem;
-        letter-spacing: 2.5px;
-        margin: 0;
-      }
-      p {
-        font-size: 1.6rem;
-        line-height: 2rem;
-        font-weight: 400;
-        margin: 40px 0 24px;
-      }
-    }
-    .tiles {
-      justify-content: center;
+    justify-content: center;
+    .inner-dashboard {
+      display: flex;
+      justify-content: space-between;
       align-items: center;
-      height: auto;
-      overflow: hidden;
-      width: 28%;
-      gap: 1rem;
-      display: grid;
-      grid-template-columns: 45% 45%;
-
+      height: 100vh;
       @include media("<=phone") {
-        height: 80%;
-        width: 90%;
+        justify-content: center;
+      }
+      .content {
+        width: 33%;
+  
+        @include media("<=phone") {
+          height: 0%;
+          width: 0%;
+          display: none;
+        }
+  
+        h3 {
+          font-weight: 700;
+          text-transform: uppercase;
+          font-size: 4vw;
+          letter-spacing: 2.5px;
+          margin: 0;
+        }
+        p {
+          font-size: 2.2vw;
+          line-height: 2rem;
+          font-weight: 400;
+          margin: 40px 0 24px;
+        }
+      }
+      .tiles {
+        justify-content: center;
+        align-items: center;
+        height: auto;
+        overflow: hidden;
+        width: 28%;
+        gap: 1rem;
+        display: grid;
+        grid-template-columns: 45% 45%;
+  
+        @include media("<=phone") {
+          height: 80%;
+          width: 90%;
+        }
       }
     }
   }
+  
 }
