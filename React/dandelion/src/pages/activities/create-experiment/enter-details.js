@@ -135,6 +135,7 @@ export default function EnterDetails(props) {
                   <div className="item-input">
                     <input
                       type="text"
+                      maxLength={4}
                       value={code}
                       placeholder="Experiment Code"
                       name="codeBox"
