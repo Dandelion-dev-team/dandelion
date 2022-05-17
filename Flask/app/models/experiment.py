@@ -30,6 +30,7 @@ class Experiment(db.Model):
         return [("id", "id"),
                 ("title", "title"),
                 ("description", "description"),
+                ("parent_id", "parent_id"),
                 ("owner_id", "project_partner.school.id"),
                 ("owner_name", "project_partner.school.name")]
 

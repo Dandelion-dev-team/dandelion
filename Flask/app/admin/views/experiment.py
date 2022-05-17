@@ -170,7 +170,7 @@ def add_experiment():
         parent_id=data["parent_id"],
         code=data["code"],
         text=data["text"],
-        status=data["status"]
+        status="active"
     )
 
     db.session.add(experiment)

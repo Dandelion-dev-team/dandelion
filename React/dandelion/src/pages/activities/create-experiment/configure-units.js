@@ -182,12 +182,7 @@ export default function ConfigureUnits(props) {
         condition_levels: condition_levels,
       })
     })
-
-    let status = "active"
-
-    if (experiment_details.parent_id != null) {
-      status = "duplicate"
-    }
+    
     let body = JSON.stringify({
       project_id: experiment_details.project_id,
       code: experiment_details.code,
@@ -202,7 +197,6 @@ export default function ConfigureUnits(props) {
       treatmentVariables: treatment_variables,
       responseVariables: response_variables,
       conditions: constructed_conditions,
-      status: status,
     })
     createRecordNavigate("/experiment", body).then(response => {
       if (experiment_details.image) {
