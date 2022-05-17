@@ -40,6 +40,7 @@ export default function ConfigureUnits(props) {
 
   useEffect(() => {
     setItem("top")
+    console.log(props.location.state)
     if (verify_superuser_storage() == true) {
       setLogged(true)
       if (props.location.state) {
@@ -181,6 +182,11 @@ export default function ConfigureUnits(props) {
       })
     })
 
+    let status = "active";
+
+    if(experiment_details.parent_id != null){
+      status = "duplicate";
+    }
     let body = JSON.stringify({
       project_id: experiment_details.project_id,
       code: experiment_details.code,
@@ -190,11 +196,12 @@ export default function ConfigureUnits(props) {
       start_date: start_date,
       end_date: end_date,
       title: experiment_details.name,
-      parent_id: null,
+      parent_id: experiment_details.parent_id,
       hypotheses: props.location.state.hypotheses,
       treatmentVariables: treatment_variables,
       responseVariables: response_variables,
       conditions: constructed_conditions,
+      status: status,
     })
     createRecordNavigate("/experiment", body).then(response => {
       if (experiment_details.image) {

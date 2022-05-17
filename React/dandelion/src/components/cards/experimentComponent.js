@@ -6,7 +6,7 @@ export default function ExperimentComponent(props) {
   const [experiments, setExperiment] = useState([])
   //TESTED
   useEffect(() => {
-    readRecord("/experiment", setExperiment);
+    readRecord("/experiment/filtered", setExperiment);
   }, [])
 
   const cardClickCallback = experiment => {
