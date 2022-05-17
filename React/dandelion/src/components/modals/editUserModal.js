@@ -1,17 +1,40 @@
 import React, { useEffect, useState } from "react"
-import { editRecord } from "../../utils/CRUD"
+import { toast } from "react-toastify"
+import { updateRecord } from "../../utils/CRUD"
 
 export default function EditUserModal(props) {
   const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
   const [notes, setNotes] = useState("")
-
-
 
   useEffect(() => {
     setUsername(props.user.username)
     setNotes(props.user.notes)
+    console.log(props.user)
   }, [])
+
+  const updateClicked = e => {
+    if (username && notes) {
+      let body = JSON.stringify({
+        id: props.user.user_id,
+        school_id: props.user.school_id,
+        username: username,
+        status: props.user.status,
+        notes: notes,
+      })
+      updateRecord("/user/" + props.user.user_id, body)
+    } else if (username) {
+      let body = JSON.stringify({
+        id: props.user.user_id,
+        school_id: props.user.school_id,
+        username: username,
+        status: props.user.status,
+        notes: props.user.notes,
+      })
+      updateRecord("/user/" + props.user.user_id, body)
+    } else {
+      toast.error("Need more information.")
+    }
+  }
 
   return (
     <div className="edit-student-modal">
@@ -24,22 +47,20 @@ export default function EditUserModal(props) {
             <input
               type="text"
               value={username}
-            //   onChange={handleUsernameChange}
+              onChange={e => {
+                setUsername(e.target.value)
+              }}
             />
           </div>
-          <div className="label-textbox">
-            <h3>Password:</h3>
-            <input
-              type="text"
-            //   onChange={handlePasswordChange}
-            />
-          </div>
+
           <div className="label-textbox">
             <h3>Notes:</h3>
             <input
               type="text"
               value={notes}
-            //   onChange={handleNotesChange}
+              onChange={e => {
+                setNotes(e.target.value)
+              }}
             />
           </div>
 
@@ -49,7 +70,7 @@ export default function EditUserModal(props) {
               className="submitButton"
               value="Update User"
               onClick={() => {
-                // createUser()
+                updateClicked()
               }}
             ></input>
             <input

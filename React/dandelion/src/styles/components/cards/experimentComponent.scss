@@ -42,8 +42,7 @@
     }
   }
 }
-.preset-card:hover{
+.preset-card:hover {
   cursor: pointer;
-  border: 1px solid black;
-
+  border: 3px solid $contrast;
 }
