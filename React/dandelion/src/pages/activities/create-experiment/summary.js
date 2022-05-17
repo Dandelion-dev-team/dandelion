@@ -189,8 +189,8 @@ export default function Summary(props) {
                       <div className="item-title">
                         <h3>Name:</h3>
                       </div>
-                      <div className="item-input">
-                        <input
+                      <div className="desc-input">
+                        <textarea
                           type="text"
                           placeholder="Experiment Name"
                           value={name}
@@ -198,6 +198,15 @@ export default function Summary(props) {
                           onChange={handleNameChange}
                         />
                       </div>
+                      {/* <div className="desc-input">
+                        <input
+                          type="text"
+                          placeholder="Experiment Name"
+                          value={name}
+                          name="descBox"
+                          onChange={handleNameChange}
+                        />
+                      </div> */}
                     </div>
                     <div className="info-item">
                       <div className="item-title">

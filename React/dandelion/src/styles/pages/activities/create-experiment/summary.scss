@@ -100,7 +100,7 @@
         }
       }
       .exp-pane::-webkit-scrollbar {
-        width: 7.5px;
+        width: 10px;
       }
       .exp-pane::-webkit-scrollbar-track {
         background: #ebe7e7;
@@ -135,7 +135,6 @@
           }
 
           .info-items-wrapper {
-            margin-top: 4rem;
 
             @include media("<=small-desktop") {
               margin-top: 0px;
@@ -163,6 +162,21 @@
                 h3 {
                   display: inline;
                   font-size: 1vw;
+                }
+              }
+              .desc-input {
+                width: 50%;
+                height: 100%;
+                max-height: 100%;
+                margin-top: 1.5vh;
+                margin-bottom: 1.5vh;
+                textarea {
+                  min-height: 100%;
+                  max-height: 100%;
+                  min-width: 100%;
+                  max-width: 100%;
+                  margin: auto;
+                  resize: none;
                 }
               }
             }

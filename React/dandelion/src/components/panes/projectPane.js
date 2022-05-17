@@ -81,6 +81,7 @@ export default function ProjectPane(props) {
                     <ExperimentCard
                       callback={cardClickCallback}
                       dataProp={experiment}
+                      id="activity-card"
                     />
                   ))
                 : null}

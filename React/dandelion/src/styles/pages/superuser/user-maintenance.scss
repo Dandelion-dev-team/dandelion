@@ -34,14 +34,17 @@
     justify-content: space-between;
     width: 97%;
     height: 90vh;
-    border-radius: 20px;
+
 
     .user-pane {
       width: 49%;
       background-color: #f7f8ff;
       align-items: stretch;
       height: 93vh;
-      border-radius: 20px;
+      border-top-left-radius: 20px;
+      border-bottom-left-radius: 20px;
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
       overflow-y: scroll;
       padding: 2%;
       position: relative;
@@ -155,9 +158,15 @@
 
         .title {
           width: 40%;
+          h3 {
+            font-size: 2vw;
+          }
         }
         .description {
           width: 60%;
+          h3 {
+            font-size: 1.6vw;
+          }
         }
       }
 
@@ -168,12 +177,24 @@
         flex-direction: column;
         h3 {
           color: black;
+          font-size: 2vw;
         }
       }
     }
     .user-pane::-webkit-scrollbar {
-      display: none; /* for Chrome, Safari, and Opera */
+      width: 10px;
     }
+    .user-pane::-webkit-scrollbar-track {
+      background: #ebe7e7;
+      border-radius: 10px;
+    }
+     
+    .user-pane::-webkit-scrollbar-thumb {
+      background: #eac2cb;
+      border-radius: 10px;
+  
+    }
+
 
     img {
       width: 20%;

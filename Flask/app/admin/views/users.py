@@ -192,10 +192,8 @@ def updateUser(id):
     new_data = request.get_json()
 
     user_to_update.username = new_data['username']
-    user_to_update.password = new_data['password']
     user_to_update.school_id = new_data['school_id']
-    user_to_update.is_sysadmin = new_data['is_sysadmin']
-    user_to_update.is_superuser = new_data['is_superuser']
+
     user_to_update.status = new_data['status']
     user_to_update.notes = new_data['notes']
 
