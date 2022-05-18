@@ -33,29 +33,76 @@ def listNode():
 def add_node():
     current_user = jwt_user(get_jwt_identity())
     authorised = auth_check(request.path, request.method, current_user)
+    sensors = Sensor.query.all()
+
     data = request.get_json()
+
+    if db.session.query(db.exists().where(Node.mac_address == data['mac_address'])).scalar():
+        message = "ERROR: Node mac address already exists in database"
+        abort(409, message)
+
     node = Node(
         school_id=data['school_id'],
         growcube_code=data['growcube_code'],
         mac_address=data['mac_address'],
-        last_communication_date=data['last_communication_date'],
-        next_communication_date=data['next_communication_date'],
-        health_status=data['health_status'],
-        status=data['status']
+        last_communication_date=None,
+        next_communication_date=None,
+        health_status=None,
+        status='active'
     )
 
     db.session.add(node)
-    return_status = 200
-    message = "New node has been registered"
 
     try:
         db.session.commit()
         audit_create("node", node.id, current_user.id)
-        return jsonify({"message": message, "id": node.id})
 
     except Exception as e:
         db.session.rollback()
         abort(409, e.orig.msg)
+
+    for sensor in sensors:
+        code = sensor.code
+        sensor_id = sensor.id
+        if code == "SHTC3" or code == "BH1750": # These two sensors are only present in the top level
+            node_sensor = NodeSensor(
+                node_id=node.id,
+                sensor_id=sensor_id,
+                status="active",
+                cube_level="top"
+            )
+
+            db.session.add(node_sensor)
+
+            try:
+                db.session.commit()
+                audit_create("node_sensor", node_sensor.id, current_user.id)
+
+            except Exception as e:
+                db.session.rollback()
+                abort(409, e.orig.msg)
+
+        elif code == "SEN0244" or code == "DS18B20" or code == "SEN0161" or code == "SEN0193":
+            for cube_level in ("top", "middle", "bottom"):
+                node_sensor = NodeSensor(
+                    node_id=node.id,
+                    sensor_id=sensor_id,
+                    status="active",
+                    cube_level=cube_level
+                )
+
+                db.session.add(node_sensor)
+
+                try:
+                    db.session.commit()
+                    audit_create("node_sensor", node_sensor.id, current_user.id)
+
+                except Exception as e:
+                    db.session.rollback()
+                    abort(409, e.orig.msg)
+
+    message = "Node has been registered"
+    return jsonify({"message" : message})
 
 
 @admin.route('/node/<int:id>', methods=['GET'])
@@ -158,38 +205,6 @@ def delete_node(id):
         abort(409, e.orig.msg)
 
 
-# @admin.route('/node/<int:id>/uploadData', methods=['POST'])
-# @jwt_required()
-# def upload_data(id):
-#     current_user = jwt_user(get_jwt_identity())
-#     authorised = auth_check(request.path, request.method, current_user, id)
-#
-#     Node.query.get_or_404(id)  # if node id doens't exist, it returns a 404 message
-#     id = str(id)
-#     json_data = request.get_json()
-#
-#     s = json.dumps(json_data)
-#     j = json.loads(s)  # <-- Convert JSON string, s, to JSON object, j, with j = json.loads(s)
-#
-#     for cube_level in ('top', 'middle', 'bottom'):
-#
-#         new_data_df = pd.DataFrame(j[cube_level], index=[j["timestamp"]])
-#         new_data_df.index = pd.to_datetime(new_data_df.index)
-#         new_data_df.index.name = "timestamp"
-#
-#         newdir = os.path.join(content_folder("DATA_ROOT", id, "FLASK", upload=True))
-#
-#         try:
-#             df = pd.read_csv(os.path.join(newdir, cube_level + '.csv'), index_col="timestamp")
-#             df = pd.concat([df, new_data_df])
-#         except:
-#             df = new_data_df
-#         df.to_csv(os.path.join(newdir, cube_level + '.csv'))
-#
-#     message = "Node Data uploaded"
-#     return jsonify({"message" : message})
-
-
 # This route is PUBLIC
 @admin.route('/node/latest/<int:node_id>', methods=['GET'])
 def get_latest_data(node_id):
@@ -246,89 +261,3 @@ def get_latest_data(node_id):
             out_bottom.append(output_bottom)
 
     return jsonify({'top': output_top, 'middle': output_middle, 'bottom': output_bottom})
-
-
-@admin.route('/node/register/<school_id>', methods=['POST'])
-@jwt_required()
-def register_node(school_id):
-    current_user = jwt_user(get_jwt_identity())
-    authorised = auth_check(request.path, request.method, current_user, school_id)
-    sensors = Sensor.query.all()
-
-    data = request.get_json()
-
-    mac_address = data['mac_address']
-
-    if db.session.query(db.exists().where(Node.mac_address == mac_address)).scalar():
-        message = "ERROR: Node mac address already exists in database"
-        abort(409, message)
-
-    node = Node(
-        school_id=school_id,
-        growcube_code=None,
-        mac_address=data['mac_address'],
-        last_communication_date=None,
-        next_communication_date=None,
-        health_status=None,
-        status='active'
-
-    )
-
-    db.session.add(node)
-    return_status = 200
-    message = "This school's node has been registered"
-
-    try:
-        db.session.commit()
-        audit_create("node", node.id, current_user.id)
-
-    except Exception as e:
-        db.session.rollback()
-        abort(409, e.orig.msg)
-
-    for sensors in sensors:
-        code = sensors.code
-        sensor_id = sensors.id
-        if code == "SHTC3" or code == "BH1750": #The 7 sensors in db sensor table should be one of those 7 codes
-            node_sensor = NodeSensor(
-                node_id=node.id,
-                sensor_id=sensor_id,
-                status="active",
-                cube_level="top"
-            )
-
-            db.session.add(node_sensor)
-            return_status = 200
-            message = "Node sensor has been registered"
-
-            try:
-                db.session.commit()
-                audit_create("node_sensor", node_sensor.id, current_user.id)
-
-            except Exception as e:
-                db.session.rollback()
-                abort(409, e.orig.msg)
-
-        elif code == "SEN0244" or code == "DS18B20" or code == "SEN0161" or code == "SEN0193":
-            for cube_level in ("top", "middle", "bottom"):
-                node_sensor = NodeSensor(
-                    node_id=node.id,
-                    sensor_id=sensor_id,
-                    status="active",
-                    cube_level=cube_level
-                )
-
-                db.session.add(node_sensor)
-                return_status = 200
-                message = "Node sensor has been registered"
-
-                try:
-                    db.session.commit()
-                    audit_create("node_sensor", node_sensor.id, current_user.id)
-
-                except Exception as e:
-                    db.session.rollback()
-                    abort(409, e.orig.msg)
-
-    message = "Node has been registered"
-    return jsonify({"message" : message})

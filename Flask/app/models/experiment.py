@@ -12,7 +12,7 @@ class Experiment(db.Model):
     project_id = db.Column(db.Integer, db.ForeignKey('project.id'), nullable=False)
     project_partner_id = db.Column(db.Integer, db.ForeignKey('project_partner.id'), nullable=False)
     parent_id = db.Column(db.Integer, db.ForeignKey('experiment.id'), nullable=True)
-    code = db.Column(db.String(10), nullable=False)
+    code = db.Column(db.String(20), nullable=False)
     title = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(500), nullable=False)
     experiment_image_link = db.Column(db.String(300))
