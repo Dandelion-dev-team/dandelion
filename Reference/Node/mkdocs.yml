@@ -6,9 +6,9 @@ theme:
   scheme: preference
   features:
     - navigation.tabs
-#  favicon: img/material/teach.svg
+  favicon: img/favicon.png
 #  icon:
-#    logo: material/teach
+  logo: img/favicon.png
   plugins:
     - search
 
@@ -26,6 +26,7 @@ nav:
       - Introduction: 'sensors/index.md'
       - SHTC3: 'sensors/shtc3.md'
       - BH1750: 'sensors/bh1750.md'
+      - pH sensor: 'sensors/ph.md'
 
 markdown_extensions:
   - pymdownx.highlight:

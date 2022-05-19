@@ -1,18 +1,23 @@
 # Configuration
 
 The node relies on a wifi connection to transfer the sensor data back to the
-Dandelion app. You will need to use the node's configuration mode to enter your
-wifi connection details.
+Dandelion app. The figure below shows the chain of connections that is needed.
 
-> ### Configuration mode
-> 
-> In this state, the node creates its own wifi network that is not connected
-> to the Internet. You can connect to this network from a laptop or mobile 
-> phone to interact with the node. The *IP address* is needed to identify the
-> node device once you are connected to its network. It is like the name of
-> the device.
+![Normal operation mode](img/normal.png#centred)
 
-The T5 unit has a control button, a resst button and an on/off switch as shown
+To connect to the local wifi network, the T5 needs the network name and the
+password. You will need to use the node's configuration mode to enter these 
+details. Configuration mode is illustrated in the figure below.
+
+![Configuration mode](img/config.png#centred)
+
+In this state, the node creates its own wifi network that is not connected
+to the Internet. You can connect to this network from a laptop or mobile 
+phone to interact with the node as described below.
+
+## Getting into configuration mode
+
+The T5 unit has a control button, a reset button and an on/off switch as shown
 below.
 
 ![T5 controls](img/controls.png#centred)
@@ -29,6 +34,8 @@ The node will display a message shown below along with an IP address.
 
 ![Configuration mode](img/config_mode.png#centred)
 
+## Connecting to the node
+
 The node will advertise a wifi network called *Dandelion*. Connect to that network
 from your laptop or phone. The default password for the Dandelion network is
 *123456789*. Once connected, open a web browser and type in the IP address 
@@ -39,9 +46,10 @@ displayed on the node. This will take you to the page shown below.
 Here, you can see the version of the code running on the node as well as its
 MAC address. The MAC address identifies the node when it is 
 connected to a network and is often needed by computer technicians to allow
-a device to connect.
+a device to connect. You will need the MAC address to register your node with
+the Dandelion app.
 
-In addition, there are several setting that you can change:
+In addition, there are several settings that you can change:
 
 Setting | Explanation
 --------|------------

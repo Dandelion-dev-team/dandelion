@@ -99,7 +99,7 @@
           }
         }
         .students-list::-webkit-scrollbar {
-          width: 7.5px;
+          width: 10px;
         }
         .students-list::-webkit-scrollbar-track {
           background: #ebe7e7;
@@ -147,10 +147,10 @@
           overflow-y: scroll;
           .activity {
             display: flex;
-            width: 100%;
+            width: 85%;
             height: 40%;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
             .img {
               width: 30%;
               height: 100%;
@@ -160,6 +160,7 @@
                 border-radius: 50%;
                 max-height: 100%;
                 max-width: 100%;
+                margin-bottom: 0px;
               }
             }
             .name {
@@ -169,11 +170,25 @@
               h3 {
                 font-size: 1.25vw;
                 //text-align: center;
-                margin-bottom: 0px;
+               margin-bottom: 0px;
               }
             }
           }
         }
+        .activity-list::-webkit-scrollbar {
+          width: 10px;
+        }
+        .activity-list::-webkit-scrollbar-track {
+          background: #ebe7e7;
+          border-radius: 10px;
+        }
+         
+        .activity-list::-webkit-scrollbar-thumb {
+          background: #eac2cb;
+          border-radius: 10px;
+      
+        }
+      
 
         h3 {
           color: $primary;

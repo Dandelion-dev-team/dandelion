@@ -73,7 +73,7 @@
             overflow-y: scroll;
           }
           .experiment-list::-webkit-scrollbar {
-            width: 7.5px;
+            width: 10px;
           }
           .experiment-list::-webkit-scrollbar-track {
             background: #ebe7e7;
@@ -116,13 +116,13 @@
         width: 50%;
         background-color: #f7f8ff;
         height: 87vh;
-        border-top-right-radius: 20px;
-        border-bottom-right-radius: 20px;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
         overflow-y: scroll;
       }
 
       .details-pane::-webkit-scrollbar {
-        width: 7.5px;
+        width: 10px;
       }
       .details-pane::-webkit-scrollbar-track {
         background: #ebe7e7;

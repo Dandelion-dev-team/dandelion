@@ -5,6 +5,8 @@
 # The script runs an instance of the gunicorn application server on port 9000. 
 # The port is an arbitrary choice - it is different from the default 5000 for security
 #
+# The --capture-output switch ensures that Flask log output is routed to the error log file
+#
 # The file goes into /etc/systemd/system/
 
 [Unit]
@@ -16,7 +18,7 @@ WorkingDirectory=/usr/local/apps/dandelion/Flask
 Environment=PATH=/usr/local/anaconda3/envs/dandelion/bin:/usr/local/anaconda3/condabin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 Environment=FLASK_APP=run.py
 Environment=FLASK_ENV=production
-ExecStart=/bin/bash -c 'gunicorn --error-log /tmp/dandelion.log -b 127.0.0.1:9000 run:app'
+ExecStart=/bin/bash -c 'gunicorn --capture-output --error-log /tmp/dandelion.log -b 127.0.0.1:9000 run:app'
 Restart=always
 RestartSec=5
 KillSignal=SIGQUIT

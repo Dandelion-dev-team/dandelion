@@ -38,6 +38,9 @@ export default function ConfigureUnits(props) {
 
   useEffect(() => {
     setItem("top")
+    let copy = new Array(props.location.state.combinations.length)
+    copy[0] = false
+    setActiveClass(copy)
     if (verify_superuser_storage() == true) {
       setLogged(true)
       if (props.location.state) {
@@ -66,7 +69,6 @@ export default function ConfigureUnits(props) {
 
   const setItem = prop => {
     setColourIndex(["#FFFF", "#FFFF", "#FFFF"])
-
     if (prop == "top") {
       let copy = [...matrix]
       copy[0][24] = { colour: "#FFFF", code: "SENSOR" }
@@ -183,7 +185,7 @@ export default function ConfigureUnits(props) {
         condition_levels: condition_levels,
       })
     })
-
+    
     let body = JSON.stringify({
       project_id: experiment_details.project_id,
       code: experiment_details.code,
@@ -193,7 +195,7 @@ export default function ConfigureUnits(props) {
       start_date: start_date,
       end_date: end_date,
       title: experiment_details.name,
-      parent_id: null,
+      parent_id: experiment_details.parent_id,
       hypotheses: props.location.state.hypotheses,
       treatmentVariables: treatment_variables,
       responseVariables: response_variables,
@@ -220,18 +222,16 @@ export default function ConfigureUnits(props) {
           <div className="content">
             <div className="condition-list">
               {combination_list
-                ? combination_list.map(function (d, idx) {
-                    return (
-                      <UnitCard
-                        index={idx}
-                        key={idx}
-                        base_code={experiment_details.code}
-                        combination={d}
-                        onDragItem={setDraggedItem}
-                        is_active={active_class[idx]}
-                      />
-                    )
-                  })
+                ? combination_list.map((d, idx) => (
+                    <UnitCard
+                      index={idx}
+                      key={idx}
+                      base_code={experiment_details.code}
+                      combination={d}
+                      onDragItem={setDraggedItem}
+                      is_active={active_class[idx]}
+                    />
+                  ))
                 : null}
             </div>
             <div className="grid-container">

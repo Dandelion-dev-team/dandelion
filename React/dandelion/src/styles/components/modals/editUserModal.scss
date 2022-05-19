@@ -53,11 +53,13 @@
         display: flex;
         flex-direction: row;
         width: 100%;
+        margin-top: 5%;
+        align-items: center;
         h3 {
           width: 30%;
           text-align: left;
           color: $primary;
-          font-size: 2vw;
+          font-size: 1.6vw;
           margin-left: 0;
         }
         input {
@@ -70,14 +72,15 @@
       .btn-row {
         display: flex;
         flex-direction: row;
-        margin-top: 30%;
-        justify-content: flex-start;
+        margin-top: 15%;
+        width: 100%;
+        justify-content: space-around;
         .submitButton {
           width: 10vw;
           height: 8vh;
           background-color: $accent;
           color: $primary;
-          font-size: 1.6rem;
+          font-size: 1.2vw;
           margin-right: 1rem;
           padding: 15px;
           border: none;

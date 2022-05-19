@@ -111,7 +111,7 @@ export default function ParticipantPane(props) {
     }
     return (
       <div className="days-until">
-        <p>Your response day is {days} - it is {min} you need to enter observations.</p>
+        <p>Your response day is {days} - there are {min} you need to enter observations.</p>
         {/* <div className="day">
           <p>{days}</p>
         </div>

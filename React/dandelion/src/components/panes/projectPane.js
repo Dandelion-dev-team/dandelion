@@ -52,7 +52,6 @@ export default function ProjectPane(props) {
 
   const addSchool = e => {
     setAddModal(false)
-    //createRecord('/project_partner/<int:project_id>/<int:school_id>')
     createRecord("/project_partner/" + props.project.project_id + "/" + e, null)
   }
 
@@ -81,6 +80,7 @@ export default function ProjectPane(props) {
                     <ExperimentCard
                       callback={cardClickCallback}
                       dataProp={experiment}
+                      id="activity-card"
                     />
                   ))
                 : null}
@@ -91,16 +91,7 @@ export default function ProjectPane(props) {
                   className="submitButton"
                   id="exp"
                   onClick={() => {
-                    navigate(
-                      "/activities/create-experiment/predefined-experiments",
-                      {
-                        state: {
-                          project_id: props.project.project_id,
-                          start_date: props.project.start_date,
-                          end_date: props.project.end_date,
-                        },
-                      }
-                    )
+                    create_experiment_click()
                   }}
                 >
                   Create Experiment

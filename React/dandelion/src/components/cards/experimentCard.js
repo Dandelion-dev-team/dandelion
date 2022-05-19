@@ -14,12 +14,6 @@ export default function ExperimentCard(props) {
                 <h2>{props.dataProp.title}</h2>
                 <h4>{props.dataProp.description}</h4>
             </div>
-            {/* <div className="center">
-                <div class="vl" />
-            </div>
-            <div className="description">
-                <h2>{props.dataProp.description}</h2>
-            </div> */}
         </div>
     )
 }
