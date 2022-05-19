@@ -38,13 +38,10 @@ export default function ConfigureUnits(props) {
 
   useEffect(() => {
     setItem("top")
-    let copy = new Array(props.location.state.combinations.length)
-    copy[0] = false
-    setActiveClass(copy)
     if (verify_superuser_storage() == true) {
       setLogged(true)
       if (props.location.state) {
-        let copy = new Array(props.location.state.combinations.length)
+        let copy = []
         props.location.state.combinations.forEach(combo => {
           copy.push(false)
         });
