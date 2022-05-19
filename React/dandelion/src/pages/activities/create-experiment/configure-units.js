@@ -32,20 +32,20 @@ export default function ConfigureUnits(props) {
   )
   const [dragged_item, setCurrentDraggedItem] = useState()
   const [logged, setLogged] = useState("")
-
-  let a = new Array(props.location.state.combinations.length)
   const grid_letters = ["A", "B", "C", "D", "E"]
 
-  const [active_class, setActiveClass] = useState([a])
+  const [active_class, setActiveClass] = useState([])
 
   useEffect(() => {
     setItem("top")
-    let copy = new Array(props.location.state.combinations.length)
-    copy[0] = false
-    setActiveClass(copy)
     if (verify_superuser_storage() == true) {
       setLogged(true)
       if (props.location.state) {
+        let copy = []
+        props.location.state.combinations.forEach(combo => {
+          copy.push(false)
+        });
+        setActiveClass(copy)
         setTreatment(props.location.state.treatmentVariables)
         setResponse(props.location.state.responseVariables)
         setExperimentDetails(props.location.state.experimentDetails)
