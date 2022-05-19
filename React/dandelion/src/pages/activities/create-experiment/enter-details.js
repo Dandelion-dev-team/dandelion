@@ -97,6 +97,7 @@ export default function EnterDetails(props) {
             image: image,
             startDate: startDate,
             endDate: endDate,
+            parent_id: null,
           },
         })
       }

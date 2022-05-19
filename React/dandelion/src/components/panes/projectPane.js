@@ -52,7 +52,6 @@ export default function ProjectPane(props) {
 
   const addSchool = e => {
     setAddModal(false)
-    //createRecord('/project_partner/<int:project_id>/<int:school_id>')
     createRecord("/project_partner/" + props.project.project_id + "/" + e, null)
   }
 

@@ -24,6 +24,7 @@ export default function ExperimentPane(props) {
       startDate: props.dataProp.start_date,
       endDate: props.dataProp.end_date,
       project_id: props.project_id,
+      parent_id: props.dataProp.experiment_id
     }
     var variables = []
     let treatments = props.dataProp.treatmentVariables
