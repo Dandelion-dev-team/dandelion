@@ -34,12 +34,15 @@ The node will display a message shown below along with an IP address.
 
 ![Configuration mode](img/config_mode.png#centred)
 
+
 ## Connecting to the node
 
 The node will advertise a wifi network called *Dandelion*. Connect to that network
 from your laptop or phone. The default password for the Dandelion network is
 *123456789*. Once connected, open a web browser and type in the IP address 
 displayed on the node. This will take you to the page shown below.
+
+
 
 ![Configuration page](img/config_page.png#centred)
 

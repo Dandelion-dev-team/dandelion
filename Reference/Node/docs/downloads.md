@@ -1,11 +1,12 @@
 # Downloads
 
-The tablebelow shows the version of the node firmware that are currently
+The table below shows the versions of the node firmware that are currently
 available. New versions will be added as they are released. The procedure
 for upgrading your node is described below the table
 
 Firmware version | Release date | File | Notes
 -----------------|--------------|------|------
+0.91 | 19 May 2022  | [Download](downloads/v0.91.bin) | [Notes](downloads/v0.91.md)
 0.9 | 10 May 2022  | [Download](downloads/v0.9.bin) | [Notes](downloads/v0.9.md)
 
 ## Upgrading
@@ -22,13 +23,16 @@ Follow the steps below:
 1. Download the firmware you wish to install to a computer with wifi capability
 2. Change the name of the downloaded file to `dandelion.bin`
 3. Put the node into [configuration mode](config.md)
-4. Connect to the node's wifi network from the computer where the downloaded file is stored
-5. Use your file transfer application to connect to the node using the P address shown on the display
+4. Connect to the node's wifi network from the computer where the downloaded file 
+is stored
+5. Use your file transfer application to connect to the node using the IP address 
+shown on the display
 6. Copy the file into the folder called `SD` on the node
-7. Restart the node by pressing the reset button (or by switching off and back on again)
+7. Restart the node by pressing the reset button (or by switching off and back on 
+again)
 
 The node automatically checks to see if a file called `dandelion.bin` is available.
-If so, it replaces the current firmware and the node automatically restarts. 
+If so, it replaces the current firmware and restarts automatically. 
 
 **NB**: When transferring the file to the node, please check that the transfer is
 complete by comparing the size of the file on the node with the size the copy on
