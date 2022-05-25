@@ -82,7 +82,6 @@ export default function EnterDetails(props) {
       code &&
       description &&
       tutorial &&
-      image &&
       startDate &&
       endDate
     ) {

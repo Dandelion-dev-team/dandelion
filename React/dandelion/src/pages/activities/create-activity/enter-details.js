@@ -15,7 +15,7 @@ export default function EnterActivityDetails(props) {
   const [name, setName] = useState("")
   const [description, setDescription] = useState("")
   const [tutorial, setTutorial] = useState("")
-  const [image, setImage] = useState("")
+  const [image, setImage] = useState(null)
   const [startDate, setStartDate] = useState("")
   const [endDate, setEndDate] = useState("")
   const [logged, setLogged] = useState("")
@@ -55,12 +55,26 @@ export default function EnterActivityDetails(props) {
       status: "active",
     })
 
-    createRecordNavigate("/project", body).then(response => uploadExperimentImage("/project/" + response.id + "/uploadImage", image).then(navigate("/superuser/activity-maintenance",
-      {
-        state: {
-          show_modal: true
-        },
-      })));
+    createRecordNavigate("/project", body).then(response => {
+      if (image != null) {
+        uploadExperimentImage(
+          "/project/" + response.id + "/uploadImage",
+          image
+        ).then(
+          navigate("/superuser/activity-maintenance", {
+            state: {
+              show_modal: true,
+            },
+          })
+        )
+      } else {
+        navigate("/superuser/activity-maintenance", {
+          state: {
+            show_modal: true,
+          },
+        })
+      }
+    })
   }
 
   useEffect(() => {
@@ -202,7 +216,7 @@ export default function EnterActivityDetails(props) {
                 }}
               ></input>
             </div>
-            <div className="spacer"/>
+            <div className="spacer" />
           </div>
         </div>
       </div>
