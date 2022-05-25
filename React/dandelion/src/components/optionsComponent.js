@@ -18,8 +18,8 @@ export default function OptionsComponent(props) {
   const [chart_types, setChartTypes] = useState([])
   const [sensor_selected, setSelectedSensor] = useState()
 
-  const [min_date, setMinDate] = useState("2022-05-01")
-  const [max_date, setMaxDate] = useState("2022-05-21")
+  const [min_date, setMinDate] = useState("")
+  const [max_date, setMaxDate] = useState("")
   const [from_selected, setFrom] = useState()
   const [to_selected, setTo] = useState()
   const [chart_selected, setChart] = useState()
@@ -84,8 +84,6 @@ export default function OptionsComponent(props) {
   const SensorQuantity = sensor => {
     const [checked_value, setCheckedValue] = useState(false)
     useEffect(() => {
-      //let minDate = new Date(props.dataOptions.data_min_date);
-      //setMinDate(minDate.getFullYear() + "-" + (minDate.getMonth() + 1) + "-" + (minDate.getDay() + 1))
       if (sensor_selected != null) {
         if (
           sensor_selected.sensor_quantity_id ==
@@ -114,6 +112,12 @@ export default function OptionsComponent(props) {
   }
 
   useEffect(() => {
+    console.log(props.dataOptions)
+    let minDate = new Date(props.dataOptions.data_min_date);
+    setMinDate(minDate.getFullYear() + "-" + (minDate.getMonth() + 1) + "-" + (minDate.getDay() + 1))
+
+    let max_date = new Date(props.dataOptions.data_max_data);
+    setMaxDate(max_date.getFullYear() + "-" + (max_date.getMonth() + 1) + "-" + (max_date.getDay() + 1))
     if (chart_types.length == 0) {
       props.dataOptions.chart_types.forEach(function (element, idx) {
         setChartTypes(arr => [...arr, { label: element, value: idx }])
@@ -295,9 +299,6 @@ const ResponseVariable = variable => {
           </div>
         </div>
         <div className="sensors">
-          <div className="title">
-            {/* <h3>Sensors</h3> */}
-          </div>
           <div className="sensor-accordion">
             <div className="label">Sensor:</div>
             <div className="accordion">

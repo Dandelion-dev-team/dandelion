@@ -137,6 +137,14 @@
             .input-box {
               width: 50%;
               height: 100%;
+              textarea {
+                min-height: 100%;
+                max-height: 100%;
+                min-width: 100%;
+                max-width: 100%;
+                margin: auto;
+                resize: none;
+              }
               h3 {
                 display: inline;
                 font-size: 1vw;

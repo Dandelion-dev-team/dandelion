@@ -28,6 +28,7 @@ export default function SelectCombinations(props) {
         }
         let combinations = allPossibleCases(variables)
         setCombinationList(combinations)
+        setCombinationSelected(combinations)
       } else {
         if (typeof window !== `undefined`) {
           navigate("/activities/create-experiment/enter-details")
@@ -77,13 +78,14 @@ export default function SelectCombinations(props) {
             </p>
           </div>
           <div className="condition-content">
-            <h3>{combination_list.length} conditions generated</h3>
+            <h3>{combination_selected.length} conditions selected</h3>
             <div className="condition-list">
               {combination_list
                 ? combination_list.map(variable => (
                     <CombinationListComponent
                       condition={variable}
                       checkCallback={checkboxCallback}
+                      selected={combination_selected}
                     />
                   ))
                 : null}

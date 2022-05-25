@@ -28,8 +28,6 @@
     height: 90%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
     z-index: 7;
     background-color: white;
     overflow-y: scroll;
@@ -41,12 +39,10 @@
       margin-top: 2.5%;
       margin-bottom: 2.5%;
       flex-direction: row;
-      justify-content: space-between;
-
       z-index: 15;
       .label {
-        width: 3%;
         display: flex;
+        width: 30%;
         align-items: center;
         h3 {
           margin-bottom: 0;
@@ -54,6 +50,8 @@
         }
       }
       .dropdown {
+        display: flex;
+        align-items: center;
         width: 60%;
         .project-block {
           display: flex;
@@ -103,7 +101,6 @@
       }
       .date-pickers {
         width: 90%;
-        height: 80%;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -113,9 +110,8 @@
           display: flex;
           flex-direction: row;
           width: 100%;
-          justify-content: space-between;
           .label {
-            width: 3%;
+            width: 30%;
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -132,9 +128,8 @@
           display: flex;
           flex-direction: row;
           width: 100%;
-          justify-content: space-between;
           .label {
-            width: 3%;
+            width: 30%;
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -167,7 +162,6 @@
       }
       .variable-pickers {
         width: 90%;
-        height: 80%;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -176,9 +170,9 @@
           display: flex;
           flex-direction: row;
           width: 100%;
-          justify-content: space-between;
+          margin-bottom: 5%;
           .label {
-            width: 3%;
+            width: 30%;
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -195,10 +189,10 @@
         .response-picker {
           display: flex;
           flex-direction: row;
+          margin-bottom: 5%;
           width: 100%;
-          justify-content: space-between;
           .label {
-            width: 3%;
+            width: 30%;
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -216,16 +210,12 @@
     }
 
     .sensors {
-      height: 20%;
       width: 90%;
       flex-direction: column;
-      justify-content: space-around;
-      margin-top: 10%;
       .title {
         display: flex;
         width: 90%;
         flex-direction: column;
-        justify-content: space-around;
         h3 {
           font-size: 125%;
         }
@@ -234,9 +224,8 @@
         display: flex;
         flex-direction: row;
         width: 100%;
-        justify-content: space-between;
         .label {
-          width: 3%;
+          width: 26.5%;
           display: flex;
           flex-direction: row;
           align-items: center;
@@ -247,7 +236,6 @@
         }
         .accordion {
           width: 60%;
-          height: 50%;
           .project-block {
             flex-direction: row;
             justify-content: space-around;
@@ -271,6 +259,11 @@
       height: 10%;
       display: flex;
       flex-direction: column;
+      margin-top: 5%;
+
+      .average-checkbox{
+        margin-bottom: 5px;
+      }
     }
 
     .generate-btn {

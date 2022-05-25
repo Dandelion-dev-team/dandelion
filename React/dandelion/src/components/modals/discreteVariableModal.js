@@ -164,7 +164,7 @@ export default function DiscreteVariableModal(props) {
                     <h3>Description:</h3>
                   </div>
                   <div className="input-box">
-                    <input
+                    <textarea
                       type="text"
                       placeholder="Level Description"
                       name="descBox"
@@ -178,7 +178,7 @@ export default function DiscreteVariableModal(props) {
                     <h3>Procedure:</h3>
                   </div>
                   <div className="input-box">
-                    <input
+                    <textarea
                       type="text"
                       placeholder="Level Procedure"
                       name="descBox"
