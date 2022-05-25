@@ -39,7 +39,7 @@ export default function FilterComponent(props) {
   useEffect(() => {
     readRecord("/tagreference", setTags)
     readRecord("/school", setSchools)
-    readRecord("/project", setProjects)
+    readRecord("/project/all", setProjects)
   }, [])
   const Tag = tag => {
     return (

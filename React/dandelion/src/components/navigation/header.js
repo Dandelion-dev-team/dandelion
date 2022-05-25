@@ -48,7 +48,13 @@ export default function Header() {
             >
               About
             </a>
-
+            <a
+              target="_blank"
+              href="https://dandelion.sruc.ac.uk/reference"
+              onClick={closeMobileMenu}
+            >
+              FAQ
+            </a>
             {logged ? (
               <Link to="/" onClick={() => user_logout()}>
                 Logout

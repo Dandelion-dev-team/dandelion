@@ -35,6 +35,11 @@ def listProject():
 
     return json_response(data=(row2dict(x, summary=True) for x in project))
 
+@admin.route('/project/all', methods=['GET'])
+def allProjects():
+    project = Project.query.filter(Project.status == 'active').all()
+    return json_response(data=(row2dict(x, summary=True) for x in project))
+
 
 @admin.route('/project', methods=['POST'])
 @jwt_required()
