@@ -87,7 +87,7 @@ export default function ReportIssue(props) {
     console.log(JSON.parse(body))
 
     if (!image) {
-      createRecord("/project", body)
+      createRecord("/issue", body)
     } else {
       createRecordNavigate("/issue", body).then(response =>
         uploadExperimentImage("/issue/" + response.id + "/uploadImage", image)

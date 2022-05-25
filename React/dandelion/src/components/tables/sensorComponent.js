@@ -26,7 +26,6 @@ export default function SensorComponent(props) {
                 <th>Description</th>
                 <th>URL</th>
                 <th>Datasheet</th>
-                <th>Quantity List</th>
                 <th>Edit</th>
                 <th>Delete</th>
               </tr>
@@ -39,12 +38,6 @@ export default function SensorComponent(props) {
                 <td id="desc-id">{sensor.description}</td>
                 <td><a href={sensor.url} target="_blank">Url</a></td>
                 <td><a href={sensor.datasheet_link} target="_blank">Datasheet</a></td>
-                <td>
-                {
-                sensor.quantities.map(quantity =>(
-                    <h5>{quantity.name}</h5>
-                ))}
-                </td>
 
                 <td>
                   <div className="submit-btn">

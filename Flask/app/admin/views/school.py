@@ -22,6 +22,7 @@ def listSchool():
     school = School.query.all()
     return json_response(data=(row2dict(x, summary=True) for x in school))
 
+
 @admin.route('/school', methods=['POST'])
 @jwt_required()
 def add_school():

@@ -95,7 +95,7 @@ export default function SuperuserMaintenance(props) {
   useEffect(() => {
     if (verify_sysadmin_storage() == true) {
       setLogged(true)
-      readRecord("/sensorQuantity", setQuantityList);
+      readRecord("/sensor", console.log);
     } else {
       navigate("/signin")
     }
