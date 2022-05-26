@@ -6,6 +6,7 @@ import {
   readRecord,
   updateRecord,
   uploadExperimentImage,
+  readAdminRecord,
 } from "../../utils/CRUD"
 import { verify_superuser_storage } from "../../utils/logins"
 import { navigate } from "gatsby"
@@ -26,11 +27,16 @@ export default function SuperuserSettings() {
 
   const [showRegisterModal, setRegisterModal] = useState(false)
   const [school_node, setSchoolNode] = useState()
+  const [authority, setAuthority] = useState()
 
   useEffect(() => {
     if (verify_superuser_storage() == true) {
       let school_id = localStorage.getItem("school_id")
-      readRecord("/school/" + school_id, setSchool)
+      readAdminRecord("/school/" + school_id).then(response => {
+        setSchool(response)
+        console.log(response)
+        readRecord("/authority/" + response.school.authority_id, setAuthority)
+      })
       readRecord("/node/byschool/" + school_id, setSchoolNode)
       setLogged(true)
     } else {
@@ -112,19 +118,22 @@ export default function SuperuserSettings() {
               <div className="spacer" />
               <div className="node-settings">
                 <h3>Node Settings</h3>
-                {school_node ? school_node.Node !== null ? <h3>Node Registered</h3> : (
-                  <div className="btn-row">
-                    <input
-                      type="submit"
-                      className="update-btn"
-                      value="Register a Node"
-                      onClick={() => {
-                        setRegisterModal(true)
-                      }}
-                    />
-                  </div>
+                {school_node ? (
+                  school_node.Node !== null ? (
+                    <h3>Node Registered</h3>
+                  ) : (
+                    <div className="btn-row">
+                      <input
+                        type="submit"
+                        className="update-btn"
+                        value="Register a Node"
+                        onClick={() => {
+                          setRegisterModal(true)
+                        }}
+                      />
+                    </div>
+                  )
                 ) : null}
-
               </div>
             </div>
             <div className="details-pane">
@@ -204,9 +213,12 @@ export default function SuperuserSettings() {
                 </div>
               ) : (
                 <div className="details">
-                
                   {fetchedSchool ? (
                     <h3>Name: {fetchedSchool.school.name}</h3>
+                  ) : null}
+
+                  {authority ? (
+                    <h3>Authority: {authority.Authority.name}</h3>
                   ) : null}
                   {fetchedSchool ? (
                     <h3>Address: {fetchedSchool.school.address_line_1}</h3>

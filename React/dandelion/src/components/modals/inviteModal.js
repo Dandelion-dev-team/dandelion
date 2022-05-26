@@ -8,7 +8,7 @@ export default function activityCreatedModal(props) {
         <div className="panel-content">
           <h2>Invite A School To Your Activity</h2>
           <p>
-            As part of running an activity. Sometimes you may want to collaborate with another school on an activity so you can share results and compare your observations across multiple schools. 
+            As part of running an activity, you may want to collaborate with another school on an activity so you can share results and compare your observations across multiple schools. 
           </p>
           <p>
             The other school will not be able to create experiments or edit the activity information - they will have their own copy of it with the ability to upload their own data.

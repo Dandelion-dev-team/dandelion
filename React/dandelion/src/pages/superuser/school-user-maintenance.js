@@ -29,6 +29,8 @@ export default function SchoolUserMaintenance(props) {
     readRecord("/experiment_participant/" + childData.user_id, setExperiments)
   }
 
+  
+
   if (typeof window !== `undefined` && logged) {
     return (
       <div>

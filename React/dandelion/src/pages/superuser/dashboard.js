@@ -153,51 +153,72 @@ export default function SuperuserDashboard(props) {
               <div className="list">
                 <a
                   className="dandelion-link-item"
-                  // href="https://dandelion.scot/"
+                  href="https://www.youtube.com/watch?v=X8YSLDsjnGY"
                   target={"_blank"}
                 >
                   <div className="item-title">
-                    <h3>Coming Soon</h3>
-                    <LinkIcon className="link-icon" />
-                  </div>
-                </a>
-                {/* <a
-                  className="dandelion-link-item"
-                  href="https://dandelion.scot/"
-                  target={"_blank"}
-                >
-                  <div className="item-title">
-                    <h3>Node FAQ</h3>
+                    <h3>How to Add an Activity</h3>
                     <LinkIcon className="link-icon" />
                   </div>
                 </a>
                 <a
                   className="dandelion-link-item"
-                  href="https://dandelion.scot/"
+                  href="https://www.youtube.com/watch?v=bb_yvVKhvLk"
                   target={"_blank"}
                 >
                   <div className="item-title">
-                    <h3>Node upkeep</h3>
+                    <h3>How to Create Users</h3>
                     <LinkIcon className="link-icon" />
                   </div>
                 </a>
                 <a
                   className="dandelion-link-item"
-                  href="https://dandelion.scot/"
+                  href="https://www.youtube.com/watch?v=kBfT-m71M34"
                   target={"_blank"}
                 >
                   <div className="item-title">
-                    <h3>Dandelion Project Plan</h3>
+                    <h3>Add Users to Experiment.</h3>
                     <LinkIcon className="link-icon" />
                   </div>
-                </a> */}
+                </a>
+                <a
+                  className="dandelion-link-item"
+                  href="https://www.youtube.com/watch?v=Ni3apsUPlsg&t=1s"
+                  target={"_blank"}
+                >
+                  <div className="item-title">
+                    <h3>Experiment 1: Thigmomorphogenesis</h3>
+                    <LinkIcon className="link-icon" />
+                  </div>
+                </a>
+                <a
+                  className="dandelion-link-item"
+                  href="https://www.youtube.com/watch?v=hls6dXk5p1A"
+                  target={"_blank"}
+                >
+                  <div className="item-title">
+                    <h3>Node configuration</h3>
+                    <LinkIcon className="link-icon" />
+                  </div>
+                </a>
+                <a
+                  className="dandelion-link-item"
+                  href="https://www.youtube.com/watch?v=C3MIP-iOylU"
+                  target={"_blank"}
+                >
+                  <div className="item-title">
+                    <h3>Build a GrowCube - Start to Finish</h3>
+                    <LinkIcon className="link-icon" />
+                  </div>
+                </a>
+
               </div>
-              <div className="calendar">
-                {/* <div className="superuser-calendar">
+              {/* <div className="calendar">
+                <div className="superuser-calendar">
                   <Calendar />
 
-                </div> */}
-              </div>
+                </div>
+              </div> */}
             </div>
           </div>
         </div>

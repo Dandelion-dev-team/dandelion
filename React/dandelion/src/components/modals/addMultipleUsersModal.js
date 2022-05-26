@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { toast } from "react-toastify"
 import { createRecord } from "../../utils/CRUD"
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close"
 
 export default function AddMultipleUsersModal(props) {
   const [enteredNumber, setEnteredNumber] = useState("")
@@ -21,12 +21,16 @@ export default function AddMultipleUsersModal(props) {
     }
   }
 
-
   return (
     <div className="add-multiple-students-modal">
       <div className="inner-panel">
-      <div className="close-btn">
-          <CloseIcon className="btn" />
+        <div className="close-btn">
+          <CloseIcon
+            className="btn"
+            onClick={() => {
+              props.closeModal()
+            }}
+          />
         </div>
         <div className="panel-content">
           <div className="title">

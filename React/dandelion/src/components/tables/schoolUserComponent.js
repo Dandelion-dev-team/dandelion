@@ -42,16 +42,18 @@ export default function SchoolUserComponent(props) {
 
   return (
     <div className="school-comp-container">
-       {show_type_modal ? (
-          <AddUserTypeModal
-            singleCallback={singleCallback}
-            multipleCallback={multipleCallback}
-          />
-        ) : null}
+      {show_type_modal ? (
+        <AddUserTypeModal
+          singleCallback={singleCallback}
+          multipleCallback={multipleCallback}
+        />
+      ) : null}
       {show_edit_modal ? (
         <EditUserModal closeModal={setShowEditModal} user={editingUser} />
       ) : null}
-      {show_single_modal ? <AddStudentModal closeModal={setShowSingleModal} /> : null}
+      {show_single_modal ? (
+        <AddStudentModal closeModal={setShowSingleModal} />
+      ) : null}
       {show_multiple_modal ? (
         <AddMultipleUsersModal closeModal={setShowMultipleModal} />
       ) : null}
