@@ -122,12 +122,12 @@ export default function DiscreteVariableModal(props) {
               </div>
               <div className="inputItem">
                 <div className="desc-title">
-                  <h3>Measurement Procedure:</h3>
+                  <h3>Treatment Procedure:</h3>
                 </div>
                 <div className="desc-input">
                   <textarea
                     type="text"
-                    placeholder="Measurement Procedure"
+                    placeholder="Treatment Procedure"
                     name="descBox"
                     value={procedure}
                     onChange={handleProcedureChange}

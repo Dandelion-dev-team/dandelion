@@ -84,6 +84,7 @@ export default function UserMaintenance(props) {
         }
       }
     }
+    
     return (
       <div className="student-row">
         <input
@@ -106,7 +107,7 @@ export default function UserMaintenance(props) {
         <div className="user-maintenance-container">
           <ToastContainer />
           <div className="content">
-            <div className="user-pane">
+            <div className="left-pane">
               <div className="title">
                 <div className="button-title">
                   <h3>{experiment.name}:</h3>
@@ -171,7 +172,7 @@ export default function UserMaintenance(props) {
                 })}
               </div>
             </div>
-            <div className="user-pane">
+            <div className="right-pane">
               <div className="title">
                 <h3>Select users for experiment:</h3>
                 <div className="user-list">

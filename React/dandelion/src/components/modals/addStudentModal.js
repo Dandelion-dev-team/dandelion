@@ -1,7 +1,7 @@
 import { navigate } from "gatsby"
 import React, { useEffect, useState } from "react"
 import { createRecord } from "../../utils/CRUD"
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close"
 
 export default function AddStudentModal(props) {
   const [entered_username, setUsername] = useState("")
@@ -34,13 +34,16 @@ export default function AddStudentModal(props) {
     setNotes(e.target.value)
   }
 
-
-
   return (
     <div className="add-student-modal">
       <div className="inner-panel">
         <div className="close-btn">
-          <CloseIcon className="btn" onClick/>
+          <CloseIcon
+            className="btn"
+            onClick={() => {
+              props.closeModal()
+            }}
+          />
         </div>
         <div className="panel-content">
           <div className="title">
@@ -55,7 +58,7 @@ export default function AddStudentModal(props) {
                 onChange={handleUsernameChange}
               />
             </div>
-            
+
             <div className="label-textbox">
               <h3>Notes:</h3>
               <input

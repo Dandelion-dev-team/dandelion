@@ -13,7 +13,6 @@ export default function SysSideNav() {
               <img src={logo} />
             </Link>
           </div>
-          <Link to="/sysadmin/dashboard">Dashboard</Link>
           <Link to="/sysadmin/auth-maintenance">Authority</Link>
           <Link to="/sysadmin/node-maintenance">Node</Link>
           <Link to="/sysadmin/quantity-maintenance">Quantity</Link>

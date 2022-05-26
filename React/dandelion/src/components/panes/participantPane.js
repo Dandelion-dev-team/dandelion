@@ -101,17 +101,17 @@ export default function ParticipantPane(props) {
     let min = Math.min(...days_until)
     if (min == Infinity) {
       min = props.dataProp.end_date
-    } 
-    else if (min == 1) {
+    } else if (min == 1) {
       min = min + " day until"
-
-    }
-    else {
+    } else {
       min = min + " days until"
     }
     return (
       <div className="days-until">
-        <p>Your response day is {days} - there are {min} you need to enter observations.</p>
+        <p>
+          Your response day is {days} - there are {min} you need to enter
+          observations.
+        </p>
         {/* <div className="day">
           <p>{days}</p>
         </div>
@@ -144,7 +144,7 @@ export default function ParticipantPane(props) {
         variable.saturday == true ||
         variable.sunday == true
     )
-    setFiltered(filtered_variables);
+    setFiltered(filtered_variables)
     let user_id = localStorage.getItem("user_id")
     let today = new Date()
     let end_date = new Date(props.dataProp.end_date)
@@ -164,7 +164,7 @@ export default function ParticipantPane(props) {
       {show_type ? <SelectAddTypeModal props={props.dataProp} /> : null}
       {props.dataProp ? (
         <div className="participant-pane-content">
-          <div className="title">
+          {/* <div className="title">
             <div className="title-btn-row">
               <h2>{props.dataProp.name}</h2>
               <div className="btn-row">
@@ -187,11 +187,32 @@ export default function ParticipantPane(props) {
               {new Date(props.dataProp.start_date).toDateString()} -{" "}
               {new Date(props.dataProp.end_date).toDateString()}{" "}
             </h3>
-           
+          </div> */}
+          <div className="experiment-desc">
+            <h2>{props.dataProp.name}</h2>
+            <div className="info-box">
+              <p>{props.dataProp.description}</p>
+              <p>
+                {new Date(props.dataProp.start_date).toDateString()} -{" "}
+                {new Date(props.dataProp.end_date).toDateString()}{" "}
+              </p>
+              <div className="submit-btn">
+                  <input
+                    type="submit"
+                    className="submitButton"
+                    value="Add Observations"
+                    onClick={() => {
+                      navigate("/participants/enter-single", {
+                        state: props.dataProp,
+                      })
+                    }}
+                  />
+                </div>
+                {filtered.length > 0 ? get_response_day(filtered[0]) : null}
+
+            </div>
           </div>
-          <div className="description">
-            <h3>{props.dataProp.description}</h3>
-          </div>
+         
           <div className="hypotheses">
             <p>Hypotheses</p>
             <div className="info-box">
