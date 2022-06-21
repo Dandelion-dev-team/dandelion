@@ -4,63 +4,52 @@ extern Utils utils;
 extern DynamicJsonDocument data;
 extern WiFiConnection wiFiConnection;
 extern Display ui;
+extern MicroSDCardOperations cardOperation;
+extern char messageBuffer[256];
 
-void initialise_pins();
 using namespace std;
-unsigned long select(int...);
-void addReadingsToJson(uint8_t, SensorModule);
 
+uint8_t progressTotal = 0;
+uint8_t progressDone = 0;
 char *levels[] = {"top", "middle", "bottom"};
 unsigned long powerOnTimestamp = 0;
 float temperatureBuffer;
-OneWire onewire(DATA1);
+// OneWire onewire(DATA1);
+uint8_t i = 0;
 
 GY30_BH1750 gy30;   // I2C - top level only
 SHTC3 shtc3;        // I2C - top level only
-// BMP280 bmp;         // I2C - top level only
-TDSMeter ec;        // Electrical conductivity - level is reset internally when intitialised
-Moisture moisture;  // Electrical conductivity - level is reset internally when intitialised
-PHSensor phTop;     // pH sensors are defined for each level separately
+TDSMeter ecTop;
+TDSMeter ecMiddle;
+TDSMeter ecBottom;
+// PHSensor phTop;
 // PHSensor phMiddle;
 // PHSensor phBottom;
 
-DallasTemperature ds18b20(&onewire); // Only sensor not derived from the SensorModule class
+DS18B20Group ds18b20;
 
 void Sensors::readData()
 {
-  /*In this method, we will go through each of the Levels and sensor Sets within the Grow Cube. When a 
-  * level is selected, we call the initialise() method to first turn off power to every level and set,
-  * and then turn on power to only the level and set that has been selected. After the last
-  * level and set have had their readings taken, the SensorModule class handles the rest of the process from this point.
-  */
-
   ui.displayMessage("Reading sensors...");
 
+  progressTotal = 200; // Expected number of seconds to read all sensors
+  progressDone = 0;
+  ui.progress(progressDone,progressTotal);
+
   // Read substrate temperature first so that it is available for adjusting the EC and pH readings
-  // powerOnTimestamp = select(4, TOP, MIDDLE, BOTTOM, SET_2);
-  powerOnTimestamp = select(2, TOP, SET_2);
+  powerOnTimestamp = utils.select(SET_2);
 
-  onewire.begin(DATA1);
-  ds18b20.begin();
+  ds18b20.initialise();
+  ds18b20.getReadings();
+  ds18b20.addReadingsToJSON();
 
-  delay(100);
-  ds18b20.requestTemperatures();
-  data["top"]["substrate temperature"] = ds18b20.getTempCByIndex(0);
-  utils.debug("Substrate temperature: ", false);
-  utils.debug(ds18b20.getTempCByIndex(0));
+  powerOnTimestamp = utils.select(SET_1);
 
-  // data["middle"]["substrate temperature"] = ds18b20.getTempCByIndex(1);
-  // data["bottom"]["substrate temperature"] = ds18b20.getTempCByIndex(2);
-
-  powerOnTimestamp = select(2, TOP, SET_1);
+  progressDone += 1;
+  ui.progress(progressDone, progressTotal);
 
   Wire.begin(SDA, SCL);
   delay(1000);
-
-  // Pressure
-  // bmp.initialise();
-  // bmp.getReadings();
-  // bmp.addReadingsToJSON("top");
 
   // Lux
   gy30.initialise();
@@ -72,90 +61,52 @@ void Sensors::readData()
   shtc3.getReadings();
   shtc3.addReadingsToJSON("top");
 
-  // Electrical conductivity
-  ec.initialise(TOP);
-  ec.getReadings(data["top"]["substrate temperature"]);
-  ec.addReadingsToJSON("top");
+  progressDone += 2;
+  ui.progress(progressDone, progressTotal);
 
-  powerOnTimestamp = select(2, TOP, SET_2);
+  // EC
+  ecTop.initialise(ANALOGUE1);
+  ecTop.getReadings(data["top"]["substrate temperature"]);
+  ecTop.addReadingsToJSON("top");
 
-  // Moisture
-  moisture.initialise(TOP);
-  moisture.getReadings();
-  moisture.addReadingsToJSON("top");
+  ecMiddle.initialise(ANALOGUE2);
+  ecMiddle.getReadings(data["middle"]["substrate temperature"]);
+  ecMiddle.addReadingsToJSON("middle");
 
-  // powerOnTimestamp = select(2, MIDDLE, SET_1);
+  ecBottom.initialise(ANALOGUE3);
+  ecBottom.getReadings(data["bottom"]["substrate temperature"]);
+  ecBottom.addReadingsToJSON("bottom");
 
-  // // Electrical conductivity
-  // ec.initialise(MIDDLE);
-  // ec.getReadings();
-  // ec.addReadingsToJSON("middle");
+  // powerOnTimestamp = select(SET_3);
 
-  // powerOnTimestamp = select(2, MIDDLE, SET_2);
+  // // Wait 2 min for pH sensors to stabilise
+  // while (millis() - powerOnTimestamp < 120000)
+  // {
+  //   progressDone += 10;
+  //   ui.progress(progressDone, progressTotal);
+  //   delay(10000);
+  // }
 
-  // // Moisture
-  // moisture.initialise(MIDDLE);
-  // moisture.getReadings();
-  // moisture.addReadingsToJSON("middle");
-
-  // powerOnTimestamp = select(2, BOTTOM, SET_1);
-
-  // // Electrical conductivity
-  // ec.initialise(BOTTOM);
-  // ec.getReadings();
-  // ec.addReadingsToJSON("bottom");
-
-  // powerOnTimestamp = select(2, BOTTOM, SET_2);
-
-  // // Moisture
-  // moisture.initialise(BOTTOM);
-  // moisture.getReadings();
-  // moisture.addReadingsToJSON("bottom");
-
-  // powerOnTimestamp = select(4, TOP, MIDDLE, BOTTOM, SET_3);
-  powerOnTimestamp = select(2, TOP, SET_3);
-
-  phTop.initialise(ANALOGUE1);
-  phTop.getReadings(data["top"]["substrate temperature"]);
-  phTop.addReadingsToJSON("top");
+  // phTop.initialise(ANALOGUE1);
+  // phTop.getReadings(data["top"]["substrate temperature"]);
+  // phTop.addReadingsToJSON("top");
 
   // phMiddle.initialise(ANALOGUE2);
-  // phMiddle.getReadings();
-  // phMiddle.addReadingsToJSON("middle"");
+  // phMiddle.getReadings(data["middle"]["substrate temperature"]);
+  // phMiddle.addReadingsToJSON("middle");
 
   // phBottom.initialise(ANALOGUE3);
-  // phBottom.getReadings();
+  // phBottom.getReadings(data["bottom"]["substrate temperature"]);
   // phBottom.addReadingsToJSON("bottom");
 
+  // Save power by disabling sensors
+  utils.initialise_pins();
 
+  char jsonBuffer[MAXMESSAGESIZE];
+  // serializeJsonPretty(data, jsonBuffer);
+  serializeJson(data, jsonBuffer);
+  Serial.println(jsonBuffer);
+
+  ui.displayMessage("", 2);
   ui.displayMessage("");
-
-}
-
-void initialise_pins() {
-  digitalWrite(TOP, LOW);
-  digitalWrite(MIDDLE, LOW);
-  digitalWrite(BOTTOM, LOW);
-  digitalWrite(SET_1, LOW);
-  digitalWrite(SET_2, LOW);
-  digitalWrite(SET_3, LOW);
-}
-
-unsigned long select(int num, ...) {
-  va_list valist;
-  uint8_t this_pin;
-  initialise_pins();
-  char message_buffer[20];
-
-  va_start(valist, num); // initialize valist for num number of arguments
-  for (uint8_t i = 0; i < num; i++)
-  {
-    this_pin = va_arg(valist, int);
-    sprintf(message_buffer, "Setting pin %d\n", this_pin);
-    utils.debug(message_buffer, false);
-    digitalWrite(this_pin, HIGH);
-  }
-  va_end(valist); // clean memory reserved for valist
-
-  return millis();
 }

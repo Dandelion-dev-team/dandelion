@@ -5,19 +5,17 @@
 #include <map>
 #include <math.h>
 #include <Utils.h>
+#include "GenericSensor.h"
 
-class SensorModule
+class SensorGroup
 {
-    protected:
-        uint8_t cubeLevel = 0;                      // Used to differentiate between sensors that are read as a group (pH, substrate temperature)
-
     public:
-        std::map<String, float> readings;           // Map for storing readings and the name of measurement type
+        std::map<uint8_t, GenericSensor> sensors;   // Map of the sensors in the group. The key is the natural ordering of the sensors (see for example the way DS18B20 priobes are recognised)
+        
         bool initialisationSuccessful;              // Boolean flag that is checked when taking readings
 
         virtual void initialise(uint8_t = 0);       // used by the sensor subclasses of this base class
         void getReadings();                         // virtual as it must be implemented by all derived classes
 
-        void addReadingsToJSON(char *);             // Adds the readings to the appropriate cube level in the JSON data structure
-
+        void addReadingsToJSON();                   // Adds the readings to the JSON data structure
 };

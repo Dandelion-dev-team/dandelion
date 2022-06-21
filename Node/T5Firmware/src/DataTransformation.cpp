@@ -1,24 +1,15 @@
 #include <DataTransformation.h>
 
 extern Utils utils;
+extern MicroSDCardOperations cardOperation;
 
 WiFiConnection wiFiOperation;
 
-uint8_t pad_pkcs7(char *msg, char *padded)
+uint16_t pad_pkcs7(char *msg, char *padded)
 {
     uint16_t input_len = strlen(msg);
-    Serial.print("message length:");
-    Serial.println(input_len);
-
     uint8_t padchar = BLOCKSIZE - (input_len % BLOCKSIZE);
     uint16_t padlength = input_len + padchar;
-
-    Serial.print("msg: ");
-    Serial.println(msg);
-    Serial.print("message length:");
-    Serial.println(input_len);
-    Serial.print("padding length:");
-    Serial.println(padchar);
 
     if (padlength <= MAXMESSAGESIZE)
     {
@@ -34,7 +25,7 @@ uint8_t pad_pkcs7(char *msg, char *padded)
     }
     else
     {
-        Serial.println("Padding: MAXMESSAGESIZE exceeded");
+        cardOperation.log("Padding: MAXMESSAGESIZE exceeded");
         return 0;
     }
 }
@@ -50,40 +41,32 @@ void gen_iv(uint8_t *iv, size_t size)
 
 uint16_t DataTransformation::encrypt(unsigned char input[], unsigned char msg[])
 {
-    unsigned char buffer[MAXMESSAGESIZE];
-    // unsigned char input[MAXMESSAGESIZE]; // used to store converted JSON object in.
+    unsigned char padded[MAXMESSAGESIZE];
     uint8_t initial_iv[BLOCKSIZE] = {0x61, 0x62, 0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x6a, 0x6b, 0x6c, 0x6d, 0x6e, 0x6f, 0x70};
     uint8_t iv[BLOCKSIZE] = {0x61, 0x62, 0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x6a, 0x6b, 0x6c, 0x6d, 0x6e, 0x6f, 0x70};
-    size_t input_length = 0;
-    size_t base64_length = 0;
+    size_t bufferLength = 0;
+    size_t base64Length = 0;
     String b64text;
 
-
-    // serializeJson(json_data, input);     // convert from JSON to character array.
-
-    uint16_t padlength = pad_pkcs7((char *)input, (char *)buffer);
-
-    utils.debug("padlength = ", false);
-    utils.debug(String(padlength));
+    uint16_t padlength = pad_pkcs7((char *)input, (char *)padded);
 
     if (padlength > 0)
     {
+        bufferLength = padlength + BLOCKSIZE;
+        unsigned char buffer[bufferLength];
+
         gen_iv(initial_iv, BLOCKSIZE);
         memcpy(iv, initial_iv, BLOCKSIZE);
 
-        AES128.runEnc((uint8_t *)KEY, BLOCKSIZE, buffer, padlength, iv);
+        AES128.runEnc((uint8_t *)KEY, BLOCKSIZE, padded, padlength, iv);
 
-        memcpy(input, initial_iv, BLOCKSIZE);
-        memcpy(&input[BLOCKSIZE], buffer, padlength);
+        memcpy(buffer, initial_iv, BLOCKSIZE);
+        memcpy(&buffer[BLOCKSIZE], padded, padlength);
 
-        input_length = padlength + BLOCKSIZE;
-
-        mbedtls_base64_encode(NULL, 0, &base64_length, input, input_length);
-        unsigned char b64_cipher[base64_length];
-        mbedtls_base64_encode(b64_cipher, base64_length, &base64_length, input, input_length);
-        b64_cipher[base64_length] = '\0';
-        memcpy(msg, b64_cipher, base64_length + 1);
+        mbedtls_base64_encode(NULL, 0, &base64Length, buffer, bufferLength); // Just finding the value of base64Length
+        mbedtls_base64_encode(msg, base64Length, &base64Length, buffer, bufferLength);
+        msg[base64Length] = '\0';
     }
 
-    return (uint16_t)base64_length;
+    return (uint16_t)base64Length;
 }

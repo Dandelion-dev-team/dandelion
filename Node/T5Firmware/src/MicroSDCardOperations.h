@@ -12,7 +12,7 @@
 class MicroSDCardOperations
 {
 public:
-    void storeJsonOnFile(const String, const char*);
+    void appendToFile(const String, const char*);
     std::vector<String> getUnsentReadings();
     void deleteUnsentFile();
     DynamicJsonDocument getConfigData();
@@ -30,4 +30,5 @@ public:
     void putConfig(String, String, const int);
     void putConfig(String, String, const float);
     void putConfig(String, String, const bool);
+    void log(const char *, const char * = "");
 };

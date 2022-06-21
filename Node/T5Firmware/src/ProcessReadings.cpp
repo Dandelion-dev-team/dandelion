@@ -5,75 +5,78 @@ extern MicroSDCardOperations cardOperation;
 extern DataTransformation dataTransformation;
 extern WiFiConnection wiFiConnection;
 extern Display ui;
-extern Preferences preferences;
 extern DynamicJsonDocument data;
+extern String timeNow;
 
 bool ProcessReadings::sendToServer()
 {
-    /*This method is called from the WifiConnection class before the latest readings are attempted to be sent to the server.
-     * The method checks if the unsent.txt file exists, and if so, reads in all the data from it. Each JSON string is read in
-     * from the file, deserialised back into to a DynamicJsonDocument, and then sent to the appropriate method in the WifiConnection class so it can be sent.
-     * The reason they are formatted back to a true JSON object again is to ensure the integrity.
-     * If just sending the String straight from file, the closing curly brace is missing due to the way in which each individual
-     * Json string is read in. At the end of the method, after all the unsent readings have been dealt with, the file is deleted since
-     * there are no more unsent readings that require to be sent.
-     */
-
-    unsigned char message[MAXMESSAGESIZE];
+    unsigned char *message = new unsigned char[MAXMESSAGESIZE]();
     uint16_t msgLength = 0;
     std::vector<String> unsent = cardOperation.getUnsentReadings();
     String jsonString = "";
 
-    for (uint8_t j=0; j<unsent.size(); j++) {
-        Serial.println(unsent[j]);
-    }
+    // for (uint8_t j=0; j<unsent.size(); j++) {
+    //     Serial.println(unsent[j]);
+    // }
 
-    // cardOperation.storeJsonOnFile(bytearray, "unsent.txt");  // TESTING
-
-    if (wiFiConnection.connectToWiFi())
+    if (wiFiConnection.connect())
     {
-        data["timestamp"] = wiFiConnection.getTime();
+        wiFiConnection.getTime();
+        data["timestamp"] = timeNow;
         data["mac"] = WiFi.macAddress();
-        data["battery"] = utils.get_battery_percent();
+        // data["battery"] = utils.get_battery_percent();
+        data["battery"] = INVALID;
 
+        cardOperation.log("Serialising JSON");
         serializeJson(data, jsonString); // convert from JSON to character array.
 
         unsigned char bytearray[jsonString.length() + 1];
         jsonString.getBytes(bytearray, jsonString.length() + 1);
 
-        for (uint16_t i = 0; i < unsent.size(); i++)
-        {
-            msgLength = dataTransformation.encrypt((unsigned char *)unsent[i].c_str(), message);
-            if (wiFiConnection.sendData(message, msgLength))
+        if (unsent.size() > 0) {
+            for (uint16_t i = 0; i < unsent.size(); i++)
             {
-                cardOperation.storeJsonOnFile(unsent[i], "/readings.txt");
+                msgLength = dataTransformation.encrypt((unsigned char *)unsent[i].c_str(), message);
+                if (wiFiConnection.sendData(message, msgLength))
+                {
+                    cardOperation.appendToFile(unsent[i], "/readings.txt");
+                }
+                else {
+                    cardOperation.log("Error while sending cached readings");
+                    wiFiConnection.disconnect();
+                    delete message;
+                    return false;
+                }
             }
-            else {
-                Serial.println("Error while sending cached readings");
-                return false;
-            }
+            cardOperation.deleteUnsentFile();
         }
 
-        cardOperation.deleteUnsentFile();
-
         msgLength = dataTransformation.encrypt(bytearray, message);
-        Serial.print("msgLength: ");
-        Serial.println(msgLength);
+
+        char *buffer = new char[256]();
+        itoa(msgLength, buffer, 10);
+        cardOperation.log("Message length = ", buffer);
+        delete buffer;
 
         if (wiFiConnection.sendData(message, msgLength))
         {
-            // call appropriate MicroSDCardOperation method to store in READINGS.
-            cardOperation.storeJsonOnFile(jsonString, "/readings.txt");
+            cardOperation.appendToFile(jsonString, "/readings.txt");
+            cardOperation.log("Data written to readings.txt");
+            wiFiConnection.disconnect();
+            delete message;
+            return true;
         }
         else
         {
-            Serial.println("Error while sending new readings");
-            /*There has been a problem connecting to Wi-Fi. The readings will be stored in the unsent.txt file, so
-             * a call to the appropriate MicroSDCardOperation method for storing JSON on file is made, passing in the file name
-             * as an argument along with the JSON String.
-             */
-            cardOperation.storeJsonOnFile(jsonString, "/unsent.txt");
-            return false;
+            cardOperation.appendToFile(jsonString, "/unsent.txt");
+            cardOperation.log("Data written to unsent.txt");
+            wiFiConnection.disconnect();
+            delete message;
         }
     }
+    else
+    {
+        cardOperation.appendToFile(jsonString, "/unsent.txt");
+    }
+    return false;
 }

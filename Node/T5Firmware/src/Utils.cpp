@@ -1,16 +1,29 @@
 #include <Utils.h>
-#include <esp_adc_cal.h>
 
 extern Preferences preferences;
 extern Display ui;
-
 
 using std::cin;
 using std::cout;
 using std::endl;
 using std::string;
 
-char *to_string(float num)
+void Utils::initialise_pins()
+{
+    digitalWrite(SET_1, LOW);
+    digitalWrite(SET_2, LOW);
+    digitalWrite(SET_3, LOW);
+}
+
+unsigned long Utils::select(uint8_t pin)
+{
+    initialise_pins();
+    digitalWrite(pin, HIGH);
+
+    return millis();
+}
+
+char *Utils::to_string(float num)
 {
     std::stringstream sstream;
 
@@ -24,48 +37,10 @@ char *to_string(float num)
 
 }
 
-void Utils::debug(String message, bool newline)
+char *Utils::to_string(int num)
 {
-    /* This method checks the DEBUG setting and prints the message to the Serial monitor if true
-    */
-    if (DEBUG) {
-        if (newline)
-            Serial.println(message);
-        else
-            Serial.print(message);
-    }
-}
-
-void Utils::debug(int i, bool newline)
-{
-    /* This method checks the DEBUG setting and prints the integer as a string to the Serial monitor if true
-     */
-    if (DEBUG)
-    {
-        char buffer[10];
-        itoa(i, buffer, 10);
-
-        if (newline)
-            Serial.println(buffer);
-        else
-            Serial.print(buffer);
-    }
-}
-
-void Utils::debug(float f, bool newline)
-{
-    /* This method checks the DEBUG setting and prints the integer as a string to the Serial monitor if true
-     */
-    if (DEBUG)
-    {
-        char buffer[10];
-        strcpy(buffer, to_string(f));
-
-        if (newline)
-            Serial.println(buffer);
-        else
-            Serial.print(buffer);
-    }
+    float floatValue = num;
+    return to_string(floatValue);
 }
 
 void Utils::leftPad(std::string &str, size_t paddedLength, const char ch = '.')
@@ -89,63 +64,78 @@ void Utils::printHex(uint8_t *text, size_t size)
     }
 }
 
-uint8_t Utils::get_mode()
+void Utils::reset_adc()
 {
-    switch (esp_sleep_get_wakeup_cause())
+    esp_adc_cal_characteristics_t adc_chars;
+    esp_adc_cal_value_t val_type = esp_adc_cal_characterize((adc_unit_t)ADC_UNIT_1,
+                                                            (adc_atten_t)ADC_ATTEN_DB_2_5,
+                                                            (adc_bits_width_t)ADC_WIDTH_BIT_12,
+                                                            1100, &adc_chars);
+
+    val_type = esp_adc_cal_characterize((adc_unit_t)ADC_UNIT_2,
+                                        (adc_atten_t)ADC_ATTEN_DB_2_5,
+                                        (adc_bits_width_t)ADC_WIDTH_BIT_12,
+                                        1100, &adc_chars);
+    // Characterize ADC at particular atten
+    // esp_adc_cal_characteristics_t *adc_chars = calloc(1, sizeof(esp_adc_cal_characteristics_t));
+    // esp_adc_cal_value_t val_type = esp_adc_cal_characterize(unit, atten, ADC_WIDTH_BIT_12, DEFAULT_VREF, adc_chars);
+    // Check type of calibration value used to characterize ADC
+    Serial.print("ADC Vref type: ");
+    if (val_type == ESP_ADC_CAL_VAL_EFUSE_VREF)
     {
-    case 2:
-        Serial.println("Wakeup caused by external signal using RTC_IO");
-        return SENSORMODE;
-    case 3:
-        Serial.println("Wakeup caused by external signal using RTC_CNTL");
-        return SENSORMODE;
-    case 4:
-        Serial.println("Wakeup caused by timer");
-        return SENSORMODE;
-    case 5:
-        Serial.println("Wakeup caused by touchpad");
-        return SENSORMODE;
-    case 6:
-        Serial.println("Wakeup caused by ULP program");
-        return SENSORMODE;
-    default:
-        Serial.println("Wakeup was not caused by deep sleep, entering user interaction mode");
-        return UIMODE;
+        Serial.println("eFuse Vref");
     }
+    else if (val_type == ESP_ADC_CAL_VAL_EFUSE_TP)
+    {
+        Serial.println("Two Point");
+    }
+    else
+    {
+        Serial.println("Default");
+    }
+
+    uint8_t block[32];
+    memcpy(block, (void *)EFUSE_BLK0_RDATA0_REG, sizeof(block));
+    Serial.println((char *)block);
 }
+    
+// float Utils::get_battery_percent()
+// {
+//     // ToDo: This needs a lot of checking...
+//     // Set ADC characteristics required to measure battery level on pin 14 - EXTERNALLY!!
+//     float readings = 0;
+//     Serial.print("Setting ADC charactersitics");
+//     esp_adc_cal_characteristics_t adc_chars;
+//     esp_adc_cal_value_t val_type = esp_adc_cal_characterize((adc_unit_t)ADC_UNIT_1,
+//                                                             (adc_atten_t)ADC_ATTEN_DB_2_5,
+//                                                             (adc_bits_width_t)ADC_WIDTH_BIT_12,
+//                                                             1100, &adc_chars);
+//     pinMode(14, OUTPUT);
 
-float Utils::get_battery_percent() {
-    // ToDo: This needs a lot of checking...
-    digitalWrite(14, HIGH);
-    delay(1);
-    float measurement = (float)analogRead(34);
-    // uint32_t mv;
-    // esp_adc_cal_characteristics_t adc_chars;
-    // esp_adc_cal_value_t val_type = esp_adc_cal_characterize((adc_unit_t)ADC_UNIT_1,
-    //                                                         (adc_atten_t)ADC_ATTEN_DB_2_5,
-    //                                                         (adc_bits_width_t)ADC_WIDTH_BIT_12,
-    //                                                         1100, &adc_chars);
-    // esp_adc_cal_get_voltage((adc_channel_t)ADC1_GPIO34_CHANNEL, &adc_chars, &mv);
-    digitalWrite(14, LOW);
+//     digitalWrite(14, HIGH);
+//     delay(1);
+//     for (int i = 0; i < 10; i++)
+//     {
+//         readings += (float)analogRead(34);
+//         delay(50);
+//     }
+//     // float measurement = (float)analogRead(34);
 
-    char buffer[20];
+//     digitalWrite(14, LOW);
+//     reset_adc();
 
-    // float battery_voltage = 3.3 / 1000 * mv;
-    float battery_voltage = (measurement / 4095.0) * 4.45;
-    float battery_percent = map(battery_voltage, 3.0, 4.0, 0, 100);
+//     // float battery_voltage = 3.3 / 1000 * mv;
+//     float battery_voltage = readings / 10 / 4095.0 * 7.26;
+//     float battery_percent = map(battery_voltage, 3.0, 4.0, 0, 100);
 
+//     Serial.print("Battery voltage: ");
+//     Serial.println(battery_voltage);
+//     Serial.print("Battery percent: ");
+//     Serial.println(battery_percent);
 
-    // strcpy(buffer, "Voltage: ");
-    // strcat(buffer, to_string(battery_voltage));
-    // ui.displayMessage(buffer);
-
-    Serial.print("Battery voltage: ");
-    Serial.println(battery_voltage);
-    Serial.print("Battery percent: ");
-    Serial.println(battery_percent);
-
-    return battery_percent;
-}
+//     // return battery_percent;
+//     return battery_voltage;
+// }
 
 int Utils::getMedianNum(int bArray[], int iFilterLen)
 {
@@ -172,7 +162,7 @@ int Utils::getMedianNum(int bArray[], int iFilterLen)
     return bTemp;
 }
 
-String Utils::getSystemTime() 
+String Utils::getSystemTime()
 {
     struct timeval tv;
     char timestamp[20];
@@ -218,6 +208,13 @@ void Utils::saveToPreferences(char *key, String value)
     preferences.end();
 }
 
+void Utils::saveToPreferences(char *key, int value)
+{
+    preferences.begin("dandelion", false); // Use "dandelion" namespace
+    preferences.putInt(key, value);
+    preferences.end();
+}
+
 void Utils::saveToPreferences(char *key, float value)
 {
     preferences.begin("dandelion", false);
@@ -233,6 +230,11 @@ String Utils::getFromPreferences(char *key)
     value = preferences.getString(key, "NOT SET");
     preferences.end();
 
+    Serial.print("Using ");
+    Serial.print(key);
+    Serial.print(" value: ");
+    Serial.println(value);
+
     return value;
 }
 
@@ -244,7 +246,35 @@ float Utils::getFromPreferences(char *key, float defaultValue)
     value = preferences.getFloat(key, defaultValue);
     preferences.end();
 
+    Serial.print("Using ");
+    Serial.print(key);
+    Serial.print(" value: ");
+    Serial.println(value);
+
     return value;
+}
+
+int Utils::getFromPreferences(char *key, int defaultValue)
+{
+    int value;
+
+    preferences.begin("dandelion", false);
+    value = preferences.getInt(key, defaultValue);
+    preferences.end();
+
+    Serial.print("Using ");
+    Serial.print(key);
+    Serial.print(" value: ");
+    Serial.println(value);
+
+    return value;
+}
+
+void Utils::removeFromPreferences(char *key)
+{
+    preferences.begin("dandelion", false);
+    preferences.remove(key);
+    preferences.end();
 }
 
 unsigned char h2int(char c)
@@ -297,3 +327,101 @@ String Utils::urldecode(String str)
 
     return encodedString;
 }
+
+float Utils::mean(std::vector<float> values)
+{
+    return std::accumulate(values.begin(), values.end(), 0.0) / values.size();
+}
+
+float Utils::mean(std::vector<int> values)
+{
+    std::vector<float> floatValues(values.begin(), values.end());
+    return mean(floatValues);
+}
+
+float Utils::variance(std::vector<float> values)
+{
+    float meanValue = mean(values);
+    float sumSquares = 0;
+
+    for (uint8_t i = 0; i < values.size(); i++)
+    {
+        float deviation = values[i] - meanValue;
+        sumSquares += (deviation * deviation);
+    }
+
+    return sumSquares / float(values.size());
+}
+
+float Utils::variance(std::vector<int> values)
+{
+    std::vector<float> floatValues(values.begin(), values.end());
+    return variance(floatValues);
+}
+
+std::tuple<float, float> Utils::analogReadStats(uint8_t pin)
+{
+    std::vector<int> values;
+
+    // every 40 milliseconds, read the analog value from the ADC until SCOUNT readings have been made
+    for (uint8_t i = 0; i < SCOUNT; i++)
+    {
+        values.push_back(analogRead(pin));
+        pinMode(pin, INPUT_PULLDOWN);
+        delay(40);
+    }
+
+    return std::make_tuple(
+        std::accumulate(values.begin(), values.end(), 0.0) / values.size(),
+        variance(values));
+}
+
+float Utils::roundf(float value, uint8_t prec)
+{
+    float pow_10 = pow(10.0f, (float)prec);
+    return round(value * pow_10) / pow_10;
+}
+
+// Next three functions from https://github.com/chegewara/esp32-AWSFreeRTOS-wifi-provisioning-demo/blob/master/lib/third_party/mcu_vendor/espressif/esp-idf/components/esp_adc_cal/esp_adc_cal.c
+// Required for reading VREF value from eFuse
+// static bool check_efuse_vref()
+// {
+//     // Check if Vref is burned in eFuse
+//     return (REG_GET_FIELD(VREF_REG, EFUSE_RD_ADC_VREF) != 0) ? true : false;
+// }
+
+// static inline int decode_bits(uint32_t bits, uint32_t mask, bool is_twos_compl)
+// {
+//     int ret;
+//     if (bits & (~(mask >> 1) & mask))
+//     { // Check sign bit (MSB of mask)
+//         // Negative
+//         if (is_twos_compl)
+//         {
+//             ret = -(((~bits) + 1) & (mask >> 1)); // 2's complement
+//         }
+//         else
+//         {
+//             ret = -(bits & (mask >> 1)); // Sign-magnitude
+//         }
+//     }
+//     else
+//     {
+//         // Positive
+//         ret = bits & (mask >> 1);
+//     }
+//     return ret;
+// }
+
+// uint32_t Utils::read_efuse_vref()
+// {
+//     if (check_efuse_vref()) {
+//         // eFuse stores deviation from ideal reference voltage
+//         uint32_t ret = VREF_OFFSET; // Ideal vref
+//         uint32_t bits = REG_GET_FIELD(VREF_REG, EFUSE_ADC_VREF);
+//         ret += decode_bits(bits, VREF_MASK, VREF_FORMAT) * VREF_STEP_SIZE;
+//         return ret; // ADC Vref in mV
+//     }
+
+//     return VREF_OFFSET;
+// }

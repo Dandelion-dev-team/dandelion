@@ -4,6 +4,7 @@
 #include <WiFiClient.h>
 #include <Display.h>
 #include <Preferences.h>
+#include <MicroSDCardOperations.h>
 
 class HttpServer
 {

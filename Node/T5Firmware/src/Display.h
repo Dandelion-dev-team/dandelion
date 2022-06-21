@@ -8,6 +8,7 @@
 #include <GxIO/GxIO.h>
 #include <definitions.h>
 #include <Utils.h>
+#include <Button2.h>
 
 //Fonts
 #include <Fonts/FreeMonoBold9pt7b.h>
@@ -34,6 +35,9 @@ public:
     void displayBattery(float);
     void displayWiFiIcon(bool);
     void displayMessage(const char *, uint8_t = 1, bool = false);
+    void progress(uint8_t, uint8_t);
+    void menu(const char* [], uint8_t, uint8_t);
+    void clearScreen();
+    void calibratePH();
+    void proceed(const char *, const char *, uint16_t);
 };
-
-

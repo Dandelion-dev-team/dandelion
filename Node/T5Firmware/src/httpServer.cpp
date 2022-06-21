@@ -4,6 +4,7 @@ extern WiFiServer server;
 extern Display ui;
 extern Preferences preferences;
 extern Utils utils;
+extern MicroSDCardOperations cardOperation;
 
 // Variable to store the HTTP request
 String requestText;
@@ -114,7 +115,8 @@ void HttpServer::status(WiFiClient client)
     detailsForm(client, "Wifi network", "ssid", ssid);
     detailsForm(client, "Wifi password", "pwd", pwd);
     detailsForm(client, "Date and time", "nowTime", nowTime);
-    // client.println("</table></div><br><div><h2>Calibrations</h2>");
+    client.println("</table></div>");
+    // client.println("<br><div><h2>Calibrations</h2>");
     // client.println("<form name=\"calibrations\" method=\"GET\" action=\"saveCalibrations\"><table>");
     // client.println("<tr><th>Sensor</th><th>Cube level</th><th>Slope</th><th>Offset</th></tr>");
     // calibration(client, "Elecrical conductivity", "Top", "ects", "ecto", ects, ecto);
@@ -152,7 +154,7 @@ void saveFromRequest(String queryString, char *key)
 
     value = queryString.substring(queryString.indexOf("=") + 1);
     value = utils.urldecode(value);
-
+    cardOperation.log("CONFIG: Saved ", key);
     utils.saveToPreferences(key, value);
 }
 
@@ -194,8 +196,8 @@ void HttpServer::handle()
                     {
                         queryString = getQueryString(requestText);
 
-                        utils.debug("Query string:");
-                        utils.debug(queryString.c_str());
+                        Serial.print("Query string: ");
+                        Serial.println(queryString.c_str());
 
                         if (queryString.indexOf("npwd=") == 0)
                             saveFromRequest(queryString, "npwd");

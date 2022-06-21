@@ -8,6 +8,7 @@
 #include <ctime>
 #include <Utils.h>
 #include <sstream>
+#include <esp_wifi.h>
 
 class WiFiConnection
 {
@@ -15,6 +16,7 @@ public:
     void sendDataToServer(DynamicJsonDocument&);
     bool sendData(uint8_t *, uint16_t);
     // void sendUnsentReadings(DynamicJsonDocument &);
-    bool connectToWiFi();
-    String getTime();
+    bool connect();
+    void getTime();
+    void disconnect();
 };

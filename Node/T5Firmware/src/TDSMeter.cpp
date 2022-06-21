@@ -3,30 +3,49 @@
 extern Utils utils;
 extern unsigned long powerOnTimestamp;
 
-void TDSMeter::initialise(uint8_t level)
+void TDSMeter::initialise(uint8_t datapin)
 {
-  cubeLevel = level;
+  cubeLevel = datapin;
   initialisationSuccessful = true;
+}
+
+float TDSMeter::slope()
+{
+  if (cubeLevel == ANALOGUE1) 
+    return utils.getFromPreferences("ects", (float)ECTS);
+  else if (cubeLevel == ANALOGUE2)
+    return utils.getFromPreferences("ecms", (float)ECMS);
+  else if (cubeLevel == ANALOGUE3)
+    return utils.getFromPreferences("ecbs", (float)ECBS);
+  else
+    return 1;
+}
+
+float TDSMeter::offset()
+{
+  if (cubeLevel == ANALOGUE1)
+    return utils.getFromPreferences("ecto", (float)ECTO);
+  else if (cubeLevel == ANALOGUE2)
+    return utils.getFromPreferences("ecmo", (float)ECMO);
+  else if (cubeLevel == ANALOGUE3)
+    return utils.getFromPreferences("ecbo", (float)ECBO);
+  else
+    return 0;
 }
 
 void TDSMeter::getReadings(float temperature)
 {
   if (initialisationSuccessful) {
-    while (millis() - powerOnTimestamp < 180000) {
-      utils.debug(".", false);
-      delay(10000); // Wait 3 min for sensor to stabilise
-    }
-    utils.debug("");
-
     int analogBuffer[SCOUNT]; // store the analog value in the array, read from ADC
     int analogBufferTemp[SCOUNT];
     int analogBufferIndex = 0, copyIndex = 0;
     float voltage;
 
-    for (int i = 0; i < 20; i++)
+    for (int i = 0; i < SCOUNT; i++)
     {
       // every 40 milliseconds,read the analog value from the ADC
-      analogBuffer[analogBufferIndex] = analogRead(ANALOGUE1); // read the analog value and store into the buffer
+      analogBuffer[analogBufferIndex] = analogRead(cubeLevel); // read the analog value and store into the buffer
+      pinMode(cubeLevel, INPUT_PULLDOWN); // analogueRead() disables the internal pulldown. This reinstates it ready for next time
       analogBufferIndex++;
       if (analogBufferIndex == SCOUNT)
         analogBufferIndex = 0;
@@ -47,10 +66,23 @@ void TDSMeter::getReadings(float temperature)
 
     float ec = voltage / compensationCoefficient; // temperature compensation
 
-    // Apply calibration here - this is a placeholder
-    float slope = 20.42;
+    Serial.print("EC ");
+    Serial.print(cubeLevel);
+    Serial.print(" value ");
+    Serial.println(ec);
 
-    readings["electrical conductivity"] = ec * slope;
+    // Apply calibration from preferences
+    float thisSlope = slope();
+    float thisOffset = offset();
+    
+    Serial.print(" slope ");
+    Serial.print(thisSlope);
+    Serial.print(" offset ");
+    Serial.println(thisOffset);
+
+    readings["electrical conductivity"] = ec * thisSlope + thisOffset;
+    Serial.print(" result ");
+    Serial.println(readings["electrical conductivity"]);
 
     readings["total dissolved solids"] = (133.42 * ec * ec * ec - 255.86 * ec * ec + 857.39 * ec) * 0.5; // convert voltage value to tds value
   }
