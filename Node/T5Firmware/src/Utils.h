@@ -44,5 +44,6 @@ public:
     float variance(std::vector<int> values);
     std::tuple<float, float> analogReadStats(uint8_t);
     float roundf(float, uint8_t);
+    void polyRegression(const std::vector<float> &, const std::vector<float> &, std::vector<float> &, uint8_t = 1);
     // static uint32_t read_efuse_vref();
 };

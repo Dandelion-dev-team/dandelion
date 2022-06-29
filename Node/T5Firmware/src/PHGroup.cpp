@@ -33,31 +33,6 @@ float getOffset(uint8_t level)
         return 0;
 }
 
-float readPH(uint8_t level)
-{
-    float voltage = 0;
-    float var = 0;
-
-    std::tie(voltage, var) = utils.analogReadStats(ANALOGUEPINS[level]);
-    voltage = voltage * (float)ESPVOLTAGE / ESPADC;
-
-    // Apply calibration
-    float thisPH = voltage * getSlope(level) + getOffset(level);
-
-    Serial.print(LEVELNAMES[level]);
-    Serial.print(",");
-    Serial.print(voltage);
-    Serial.print(",");
-    Serial.print(thisPH);
-    Serial.print(",");
-    Serial.print(var);
-    Serial.print(", ");
-
-    return thisPH;
-}
-
-
-
 bool settled(float gradientHistory[3][MAXLOOKBACK], uint8_t index)
 {
     float maxGradient = 0;
@@ -124,7 +99,7 @@ void readUntilSettled()
             maxGradient = abs(gradientHistory[BOTTOM][lookbackIndex]);
 
         Serial.println(maxGradient);
-        
+
         rCount += 1;
     }
 }
@@ -185,8 +160,8 @@ void PHGroup::calibrate()
         }
 
         ui.proceed("Place sensors in pH4", "then press the button", 300);
-        ui.displayMessage("Calibrating");
-        ui.displayMessage("Please wait...", 2);
+        ui.displayText("Calibrating", ui.boxes[1]);
+        ui.displayText("Please be patient...", ui.boxes[2]);
 
         readUntilSettled();
 
@@ -196,8 +171,8 @@ void PHGroup::calibrate()
 
         ui.clearScreen();
         ui.proceed("Place sensors in pH7", "then press the button", 300);
-        ui.displayMessage("Calibrating");
-        ui.displayMessage("Please wait...", 2);
+        ui.displayText("Calibrating", ui.boxes[1]);
+        ui.displayText("Please be patient...", ui.boxes[2]);
 
         readUntilSettled();
 
@@ -206,7 +181,7 @@ void PHGroup::calibrate()
         values[BOTTOM][1] = readings[BOTTOM][lookbackIndex];
 
         ui.clearScreen();
-        ui.displayMessage("Calculating and saving", 1);
+        ui.displayText("Calculating and saving", ui.boxes[1]);
         delay(2000);
 
         std::tie(slope, offset) = calculateCalibrationValues(values[TOP][0], values[TOP][1]);
@@ -225,8 +200,8 @@ void PHGroup::calibrate()
     }
     else
     {
-        ui.displayMessage("Sensors not found!", 1, true);
-        ui.displayMessage("Aborting...", 2);
+        ui.displayText("Sensors not found!", ui.boxes[1], true);
+        ui.displayText("Aborting...", ui.boxes[2]);
         ESP.restart();
     }
 }

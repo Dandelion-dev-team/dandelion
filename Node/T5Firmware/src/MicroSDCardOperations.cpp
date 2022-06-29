@@ -46,7 +46,7 @@ void MicroSDCardOperations::log(const char *message, const char *extra)
     }
     else
     {
-        ui.displayMessage("Log write error", true);
+        ui.displayText("Log write error", ui.boxes[1], true);
     }
 } 
 
@@ -54,32 +54,32 @@ void performUpdate(Stream &updateSource, size_t updateSize)
 {
     if (Update.begin(updateSize))
     {
-        ui.displayMessage("Updating");
-        ui.displayMessage("Please wait...", 2);
+        ui.displayText("Updating", ui.boxes[1]);
+        ui.displayText("Please wait...", ui.boxes[2]);
 
         size_t written = Update.writeStream(updateSource);
         if (written != updateSize)
         {
-            ui.displayMessage("Upgrade incomplete", 1, true);
-            ui.displayMessage("Please try again", 2);
+            ui.displayText("Upgrade incomplete", ui.boxes[1], true);
+            ui.displayText("Please try again", ui.boxes[2]);
         }
         if (Update.end())
         {
             if (Update.isFinished())
             {
-                ui.displayMessage("Update successful");
-                ui.displayMessage("Rebooting...", 2);
+                ui.displayText("Update successful", ui.boxes[1]);
+                ui.displayText("Rebooting...", ui.boxes[2]);
             }
             else
             {
-                ui.displayMessage("Update failed");
-                ui.displayMessage("Please try again", 2);
+                ui.displayText("Update failed", ui.boxes[1]);
+                ui.displayText("Please try again", ui.boxes[2]);
             }
         }
         else
         {
-            ui.displayMessage("", 2);
-            ui.displayMessage(String(Update.getError()).c_str());
+            ui.displayText("", ui.boxes[2]);
+            ui.displayText(String(Update.getError()).c_str(), ui.boxes[1]);
         }
     }
     else
@@ -96,7 +96,7 @@ void MicroSDCardOperations::updateFromSD()
     {
         if (updateBin.isDirectory())
         {
-            ui.displayMessage("dandelion.bin invalid", true);
+            ui.displayText("dandelion.bin invalid", ui.boxes[1], true);
             updateBin.close();
         }
         else 
@@ -139,7 +139,7 @@ void MicroSDCardOperations::appendToFile(const String stringToAdd, const char* f
     }
     else
     {
-        ui.displayMessage("Error writing to SD card", 1, true);
+        ui.displayText("Error writing to SD card", ui.boxes[1], true);
     }
 }
 

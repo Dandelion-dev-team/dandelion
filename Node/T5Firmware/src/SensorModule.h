@@ -9,7 +9,7 @@
 class SensorModule
 {
     protected:
-        uint8_t cubeLevel = 0;                      // Used to differentiate between sensors that are read as a group (pH, substrate temperature)
+        uint8_t cubeLevel = TOP;                      // Used to differentiate between sensors that are read as a group (pH, substrate temperature)
 
     public:
         std::map<String, float> readings;           // Map for storing readings and the name of measurement type

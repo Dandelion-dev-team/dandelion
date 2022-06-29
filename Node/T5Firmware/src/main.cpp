@@ -96,7 +96,7 @@ void setup()
   // char buffer[20];
   // strcpy(buffer, "Voltage: ");
   // strcat(buffer, utils.to_string(battery));
-  // ui.displayMessage(buffer);
+  // ui.displaytext(buffer, ui.boxes[1]);
 
   // Check button presses here. Wifi operations add spurious data
   if (buttonCount >= 6)
@@ -108,7 +108,7 @@ void setup()
   delay(100);
   if (!SD.begin(SD_CS, SPISD))
   {
-    ui.displayMessage("SD card error", true);
+    ui.displayText("SD card error", ui.boxes[1], true);
   }
 
   // Get the next log sequence value and store the new one
@@ -127,7 +127,7 @@ void setup()
   cardOperation.updateFromSD();
 
   // User prompt
-  ui.menu(MAINMENU, 3, selectedOption);
+  ui.menu(MAINMENU, 4, selectedOption);
   ui.clearScreen();
 
   switch (menuAction)
@@ -150,7 +150,8 @@ void setup()
       // ds18b20.initialise();
       // ds18b20.getReadings();
 
-      ui.displayMessage("Reading pH sensors...");
+      ui.displayText("Reading pH sensors", ui.boxes[1]);
+      ui.displayText("Please be patient...", ui.boxes[2]);
       ph.getReadings();
       ph.addReadingsToJSON();
       ui.proceed("Switch off pH sensors", "then press the button", 60);
@@ -174,6 +175,11 @@ void setup()
       mode = CONFIGMODE;
       break;
     }
+    case CALIBRATE_EC:
+    {
+      selectedOption = 0;
+      sensors.calibrateEC();
+    }
   }
 
   ui.clearScreen();
@@ -186,9 +192,9 @@ void setup()
     cardOperation.log("Sending data to server");
     process.sendToServer();
 
-    ui.displayMessage("");
+    ui.clearScreen();
     ui.update_display();
-    ui.displayMessage("Sleeping", 2);
+    ui.displayText("Sleeping", ui.boxes[2]);
     cardOperation.log("Going to sleep");
 
     // TODO: add wake time to display
@@ -220,8 +226,8 @@ void setup()
     WiFi.softAP(apSsid, apPassword.c_str());
     delay(250);
     IPAddress IP = WiFi.softAPIP();
-    ui.displayMessage("Configuration mode");
-    ui.displayMessage(IP.toString().c_str(), 2);
+    ui.displayText("Configuration mode", ui.boxes[1]);
+    ui.displayText(IP.toString().c_str(), ui.boxes[2]);
 
     server.begin();
 

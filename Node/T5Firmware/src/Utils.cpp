@@ -226,14 +226,13 @@ String Utils::getFromPreferences(char *key)
 {
     String value;
 
-    preferences.begin("dandelion", false);
-    value = preferences.getString(key, "NOT SET");
-    preferences.end();
+    preferences.begin("dandelion", true);
 
-    Serial.print("Using ");
-    Serial.print(key);
-    Serial.print(" value: ");
-    Serial.println(value);
+    if (preferences.isKey(key))
+        value = preferences.getString(key);
+    else
+        value = "NOT SET";
+    preferences.end();
 
     return value;
 }
@@ -242,8 +241,12 @@ float Utils::getFromPreferences(char *key, float defaultValue)
 {
     float value;
 
-    preferences.begin("dandelion", false);
-    value = preferences.getFloat(key, defaultValue);
+    preferences.begin("dandelion", true);
+    if (preferences.isKey(key))
+        value = preferences.getFloat(key);
+    else
+        value = defaultValue;
+
     preferences.end();
 
     Serial.print("Using ");
@@ -258,8 +261,12 @@ int Utils::getFromPreferences(char *key, int defaultValue)
 {
     int value;
 
-    preferences.begin("dandelion", false);
-    value = preferences.getInt(key, defaultValue);
+    preferences.begin("dandelion", true);
+    if (preferences.isKey(key))
+        value = preferences.getInt(key);
+    else
+        value = defaultValue;
+
     preferences.end();
 
     Serial.print("Using ");
@@ -380,6 +387,89 @@ float Utils::roundf(float value, uint8_t prec)
 {
     float pow_10 = pow(10.0f, (float)prec);
     return round(value * pow_10) / pow_10;
+}
+
+void Utils::polyRegression(const std::vector<float> &x, const std::vector<float> &y, std::vector<float> &coeffs, uint8_t scale)
+{
+    Serial.print("X: ");
+    Serial.print(x[0]);
+    Serial.print(", ");
+    Serial.print(x[1]);
+    Serial.print(", ");
+    Serial.println(x[2]);
+    Serial.print("Y: ");
+    Serial.print(y[0]);
+    Serial.print(", ");
+    Serial.print(y[1]);
+    Serial.print(", ");
+    Serial.println(y[2]);
+    Serial.print("Scale: ");
+    Serial.println(scale);
+
+    int n = x.size();
+    std::vector<float> xscaled;
+    for (uint8_t i = 0; i < x.size(); i++)
+    {
+        xscaled.push_back(x[i] / scale);
+    }
+
+    double xm = 0;
+    double ym = 0;
+    double x2m = 0;
+    double x3m = 0;
+    double x4m = 0;
+    double xym = 0;
+    double x2ym = 0;
+
+    for (uint8_t i = 0; i < n; i++)
+    {
+        double x2_temp = xscaled[i] * xscaled[i];
+
+        xm = xm + xscaled[i] / n;
+        ym = ym + y[i] / n;
+        x2m = x2m + x2_temp / n;
+        x3m = x3m + x2_temp * xscaled[i] / n;
+        x4m = x4m + x2_temp * x2_temp / n;
+        xym = xym + xscaled[i] * y[i] / n;
+        x2ym = x2ym + x2_temp * y[i] / n;
+    }
+
+    double aug_matrix[3][4] = {
+        {1, xm, x2m, ym},
+        {xm, x2m, x3m, xym},
+        {x2m, x3m, x4m, x2ym}};
+
+    // R2 = R2 - xm * R1
+    // R3 = R3 - x2m * R1
+
+    for (uint8_t i = 0; i < 4; i++)
+    {
+        aug_matrix[1][i] = aug_matrix[1][i] - aug_matrix[0][i] * xm;
+        aug_matrix[2][i] = aug_matrix[2][i] - aug_matrix[0][i] * x2m;
+    }
+
+    // R3 = R3 - R2 * R3[2] / R2[2]
+
+    double factor = aug_matrix[2][1] / aug_matrix[1][1];
+
+    for (uint8_t i = 0; i < 4; i++)
+    {
+        aug_matrix[2][i] = aug_matrix[2][i] - aug_matrix[1][i] * factor;
+    }
+
+    coeffs[2] = aug_matrix[2][3] / aug_matrix[2][2];
+    coeffs[1] = (aug_matrix[1][3] - aug_matrix[1][2] * coeffs[2]) / aug_matrix[1][1];
+    coeffs[0] = (aug_matrix[0][3] - aug_matrix[0][2] * coeffs[2] - aug_matrix[0][1] * coeffs[1]);
+
+    coeffs[2] = coeffs[2] / scale / scale;
+    coeffs[1] = coeffs[1] / scale;
+
+    Serial.print("C0: ");
+    Serial.println(coeffs[0], 4);
+    Serial.print("C1: ");
+    Serial.println(coeffs[1], 4);
+    Serial.print("C2: ");
+    Serial.println(coeffs[2], 4);
 }
 
 // Next three functions from https://github.com/chegewara/esp32-AWSFreeRTOS-wifi-provisioning-demo/blob/master/lib/third_party/mcu_vendor/espressif/esp-idf/components/esp_adc_cal/esp_adc_cal.c

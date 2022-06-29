@@ -57,56 +57,73 @@ void readOnlyDetails(WiFiClient client, char *text, String value)
     client.println("</td><td></tr>");
 }
 
-void calibration(WiFiClient client, char *text, char *cubeLevel, char *slope, char *offset, float slopeValue, float offsetValue)
+void linearCalibration(WiFiClient client, char *cubeLevel, float slopeValue, float offsetValue)
 {
     client.print("<tr><td>");
-    client.print(text);
-    client.print("</td><td>");
     client.print(cubeLevel);
     client.println("</td><td>");
-    client.print("<input name=\"");
-    client.print(slope);
-    client.print("\" type=\"text\" size=6 onChange=\"pink(this)\" value=");
-    client.print(slopeValue);
-    client.println("/></td><td>");
-    client.print("<input name=\"");
-    client.print(offset);
-    client.print("\" type=\"text\" onChange=\"pink(this)\" size=6 value=");
-    client.print(offsetValue);
-    client.println("/></td></tr>");
+    client.print(slopeValue, 4);
+    client.println("</td><td>");
+    client.print(offsetValue, 4);
+    client.println("</td></tr>");
+}
+
+void polyCalibration(WiFiClient client, char *cubeLevel, float c0, float c1, float c2)
+{
+    client.print("<tr><td>");
+    client.print(cubeLevel);
+    client.println("</td><td>");
+    client.print(c0, 6);
+    client.println("</td><td>");
+    client.print(c1, 6);
+    client.println("</td><td>");
+    client.print(c2, 6);
+    client.println("</td></tr>");
+}
+
+void probeSeq(WiFiClient client, char *cubeLevel, uint8_t seq)
+{
+    client.print("<tr><td>");
+    client.print(cubeLevel);
+    client.println("</td><td>");
+    client.print(seq);
+    client.println("</td></tr>");
 }
 
 void HttpServer::status(WiFiClient client)
 {
-    preferences.begin("dandelion", false);
     // Node details
-    String npwd = preferences.getString("npwd", "NOT SET");
-    String ssid = preferences.getString("ssid", "NOT SET");
-    String pwd = preferences.getString("pwd", "NOT SET");
-    String version = preferences.getString("version", "NOT SET");
+    String npwd = utils.getFromPreferences("npwd");
+    String ssid = utils.getFromPreferences("ssid");
+    String pwd = utils.getFromPreferences("pwd");
+    String version = String(VERSION).c_str();
     String mac  = WiFi.macAddress();
     String nowTime = utils.getSystemTime();
 
     // Calibrations
-    // float ects = preferences.getFloat("ects", 1.0);
-    // float ecto = preferences.getFloat("ecto", 0.0);
-    // float ecms = preferences.getFloat("ecms", 1.0);
-    // float ecmo = preferences.getFloat("ecmo", 0.0);
-    // float ecbs = preferences.getFloat("ecbs", 1.0);
-    // float ecbo = preferences.getFloat("ecbo", 0.0);
-    // float phts = preferences.getFloat("phts", 1.0);
-    // float phto = preferences.getFloat("phto", 0.0);
-    // float phms = preferences.getFloat("phms", 1.0);
-    // float phmo = preferences.getFloat("phmo", 0.0);
-    // float phbs = preferences.getFloat("phbs", 1.0);
-    // float phbo = preferences.getFloat("phbo", 0.0);
-    // float mts = preferences.getFloat("mts", 1.0);
-    // float mto = preferences.getFloat("mto", 0.0);
-    // float mms = preferences.getFloat("mms", 1.0);
-    // float mmo = preferences.getFloat("mmo", 0.0);
-    // float mbs = preferences.getFloat("mbs", 1.0);
-    // float mbo = preferences.getFloat("mbo", 0.0);
-    preferences.end();
+    float echc = utils.getFromPreferences("echc", (float)ECHC);
+    float echx = utils.getFromPreferences("echx", (float)ECHX);
+    float echx2 = utils.getFromPreferences("echx2", (float)ECHX2);
+    float ectc = utils.getFromPreferences("ectc", (float)ECTC);
+    float ectx = utils.getFromPreferences("ectx", (float)ECTX);
+    float ectx2 = utils.getFromPreferences("ectx2", (float)ECTX2);
+    float ecmc = utils.getFromPreferences("ecmc", (float)ECMC);
+    float ecmx = utils.getFromPreferences("ecmx", (float)ECMX);
+    float ecmx2 = utils.getFromPreferences("ecmx2", (float)ECMX2);
+    float ecbc = utils.getFromPreferences("ecbc", (float)ECBC);
+    float ecbx = utils.getFromPreferences("ecbx", (float)ECBX);
+    float ecbx2 = utils.getFromPreferences("ecbx2", (float)ECBX2);
+
+    float phts = utils.getFromPreferences("phts", (float)PHTS);
+    float phto = utils.getFromPreferences("phto", (float)PHTO);
+    float phms = utils.getFromPreferences("phms", (float)PHMS);
+    float phmo = utils.getFromPreferences("phmo", (float)PHMO);
+    float phbs = utils.getFromPreferences("phbs", (float)PHBS);
+    float phbo = utils.getFromPreferences("phbo", (float)PHBO);
+
+    uint8_t sttseq = utils.getFromPreferences("sttseq", (uint8_t)99);
+    uint8_t stmseq = utils.getFromPreferences("stmseq", (uint8_t)99);
+    uint8_t stbseq = utils.getFromPreferences("stbseq", (uint8_t)99);
 
     client.println("<div><h2>Details</h2><table>");
     readOnlyDetails(client, "Software version", version);
@@ -116,19 +133,28 @@ void HttpServer::status(WiFiClient client)
     detailsForm(client, "Wifi password", "pwd", pwd);
     detailsForm(client, "Date and time", "nowTime", nowTime);
     client.println("</table></div>");
-    // client.println("<br><div><h2>Calibrations</h2>");
-    // client.println("<form name=\"calibrations\" method=\"GET\" action=\"saveCalibrations\"><table>");
-    // client.println("<tr><th>Sensor</th><th>Cube level</th><th>Slope</th><th>Offset</th></tr>");
-    // calibration(client, "Elecrical conductivity", "Top", "ects", "ecto", ects, ecto);
-    // calibration(client, "Elecrical conductivity", "Middle", "ecms", "ecmo", ecms, ecmo);
-    // calibration(client, "Elecrical conductivity", "Bottom", "ecbs", "ecbo", ecbs, ecbo);
-    // calibration(client, "pH", "Top", "phts", "phto", phts, phto);
-    // calibration(client, "pH", "Middle", "phms", "phmo", phms, phmo);
-    // calibration(client, "pH", "Bottom", "phbs", "phbo", phbs, phbo);
-    // calibration(client, "Moisture", "Top", "mts", "mto", mts, mto);
-    // calibration(client, "Moisture", "Middle", "mms", "mmo", mms, mmo);
-    // calibration(client, "Moisture", "Bottom", "mbs", "mbo", mbs, mbo);
-    // client.println("</table><input type=\"submit\" value=\"Save\"></form></div>");
+    
+    client.println("<br><div><h2>pH calibrations</h2>");
+    client.println("<table><tr><th>Cube level</th><th>Slope</th><th>Offset</th></tr>");
+    linearCalibration(client, "Top", phts, phto);
+    linearCalibration(client, "Middle", phms, phmo);
+    linearCalibration(client, "Bottom", phbs, phbo);
+    client.println("</table></div>");
+
+    client.println("<br><div><h2>EC calibrations</h2>");
+    client.println("<table><tr><th>Cube level</th><th>C0</th><th>C1</th><th>C2</th></tr>");
+    polyCalibration(client, "Top (high)", echc, echx, echx2);
+    polyCalibration(client, "Top", ectc, ectx, ectx2);
+    polyCalibration(client, "Middle", ecmc, ecmx, ecmx2);
+    polyCalibration(client, "Bottom", ecbc, ecbx, ecbx2);
+    client.println("</table></div>");
+
+    client.println("<br><div><h2>Temperature probes</h2>");
+    client.println("<table><tr><th>Cube level</th><th>Sequence</th></tr>");
+    probeSeq(client, "Top", sttseq);
+    probeSeq(client, "Middle", stmseq);
+    probeSeq(client, "Bottom", stbseq);
+    client.println("</table></div>");
 }
 
 void foot(WiFiClient client) 
@@ -168,7 +194,7 @@ void setTimeFromRequest(String queryString)
     utils.setSystemTime(utils.stringToDatetime(timeString));
 
     String timeNow = utils.getSystemTime();
-    ui.displayMessage(timeNow.c_str());
+    ui.displayText(timeNow.c_str(), ui.boxes[1]);
 }
 
 void HttpServer::handle()

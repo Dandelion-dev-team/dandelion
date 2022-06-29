@@ -18,11 +18,12 @@
 
 #include <GY30_BH1750.h>
 #include <SHTC3.h>
-#include <TDSMeter.h>
+#include <EC.h>
 #include <PHGroup.h>
 
 class Sensors
 {
 public:
     void readData();
+    void calibrateEC();     // This is not the ideal place for this function, but EC sensors are defined individually. Calibration needs to be carried out as a group.
 };

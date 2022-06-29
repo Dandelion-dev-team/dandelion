@@ -4,6 +4,8 @@ extern float battery;
 extern uint8_t selectedOption;
 extern uint8_t lastClickType;
 extern uint8_t menuAction;
+extern Utils utils;
+extern char messageBuffer[256];
 
 GxIO_Class io(SPI,  EPD_CS, EPD_DC,  EPD_RSET);
 GxEPD_Class  display(io, EPD_RSET, EPD_BUSY);
@@ -17,19 +19,20 @@ int16_t main_screen[4] = {0, 30, 249, 92};
 int16_t wifi_box[4] = {0, 0, 30, 22};
 int16_t battery_box[4] = {225, 0, 24, 24};
 int16_t logo_box[4] = {90, 0, 50, 22};
-int16_t message_box_1[4] = {2, 60, 246, 22};
-int16_t message_box_2[4] = {2, 80, 246, 22};
 int16_t char_box[4] = {2, 80, 11, 22};
 
-int16_t option_box_0[4] = {2, 40, 246, 22};
-int16_t option_box_1[4] = {2, 60, 246, 22};
-int16_t option_box_2[4] = {2, 80, 246, 22};
-int16_t option_box_3[4] = {2, 100, 246, 22};
-int16_t *boxes[4] = {
-    option_box_0,
-    option_box_1,
-    option_box_2,
-    option_box_3};
+int16_t digit_0[4] = {2, 60, 30, 30};
+int16_t digit_1[4] = {34, 60, 30, 30};
+int16_t digit_2[4] = {66, 60, 30, 30};
+int16_t digit_3[4] = {98, 60, 30, 30};
+int16_t save_box[4] = {150, 60, 60, 30};
+int16_t *digits[5] = {
+    digit_0,
+    digit_1,
+    digit_2,
+    digit_3,
+    save_box
+};
 
 unsigned long timeoutStart;
 
@@ -38,7 +41,7 @@ void update_area(int16_t box[4])
     display.updateWindow(box[0], box[1], box[2], box[3], true);
 }
 
-void clear_area(int16_t box[4])
+void clearArea(int16_t box[4])
 {
     display.fillRect(box[0], box[1], box[2], box[3], GxEPD_WHITE);
     update_area(box);
@@ -52,7 +55,7 @@ void Display::setupDisplay()
     display.fillScreen(GxEPD_WHITE);
     display.setTextColor(GxEPD_BLACK);
     display.update();
-    clear_area(screen);
+    clearArea(screen);
     displayLogo();
     displayWiFiIcon(false);
     // displayBattery(battery);
@@ -64,7 +67,7 @@ void Display::update_display() {
 
 void bitmapBox(const uint8_t bitmap[], int16_t box[])
 {
-    clear_area(box);
+    clearArea(box);
     display.drawBitmap(box[0], box[1], bitmap, box[2], box[3], GxEPD_BLACK);
     display.updateWindow(box[0], box[1], box[2], box[3], true);
 }
@@ -76,12 +79,12 @@ void Display::displayLogo()
 
 void Display::displayWiFiIcon(bool connected)
 {
-    clear_area(wifi_box);
-    if (connected) // set icon on e-paper display to WiFiConnectedIcon.
+    clearArea(wifi_box);
+    if (connected)
     {
         bitmapBox(WiFiConnectedIcon, wifi_box);
     }
-    else // set icon on e-paper display to WiFiDisconnectedIcon.
+    else
     {
         bitmapBox(WiFiDisconnectedIcon, wifi_box);
     }
@@ -114,66 +117,7 @@ void outline(int16_t box[])
     display.updateWindow(box[0], box[1], box[2], box[3], true);
 }
 
-void displayText(const char *message, int16_t box[4], bool draw_box)
-{
-    clear_area(box);
-    if (draw_box)
-        outline(box);
-    display.setCursor(box[0] + PADDING, box[1] + VOFFSET);
-    display.print(message);
-    display.updateWindow(box[0], box[1], box[2], box[3], true);
-}
-
-void Display::displayMessage(const char *message, uint8_t line, bool draw_box)
-{
-    display.setTextColor(GxEPD_BLACK);
-    display.setFont(&FreeMonoBold9pt7b);
-    if (line == 1)
-        displayText(message, message_box_1, draw_box);
-    else
-        displayText(message, message_box_2, draw_box);
-
-    Serial.println(message);
-}
-
-void Display::progress(uint8_t done, uint8_t total)
-{
-    char_box[0] = round(20 / float(total) * float(done)) * 11; // Set horzontalposition of the character
-    displayText("=", char_box, false);
-}
-
-void buttonHandler(Button2 &btn)
-{
-    switch (btn.getClickType())
-    {
-    case SINGLE_CLICK:
-        lastClickType = SINGLE_CLICK;
-        Serial.println("Single click");
-        break;
-
-    case DOUBLE_CLICK:
-        lastClickType = DOUBLE_CLICK;
-        Serial.println("Double click");
-        break;
-
-    case TRIPLE_CLICK:
-        lastClickType = TRIPLE_CLICK;
-        Serial.println("Triple click");
-        break;
-
-    case LONG_CLICK:
-        lastClickType = LONG_CLICK;
-        Serial.println("Long click");
-        break;
-    }
-}
-
-void Display::clearScreen()
-{
-    clear_area(main_screen);
-}
-
-void displayOption(const char *text, int16_t box[4], bool selected)
+void Display::displayText(const char *message, int16_t box[4], bool draw_box, bool selected, bool largePad, const GFXfont *font)
 {
     uint16_t background = GxEPD_WHITE;
     uint16_t textColour = GxEPD_BLACK;
@@ -183,12 +127,46 @@ void displayOption(const char *text, int16_t box[4], bool selected)
         background = GxEPD_BLACK;
         textColour = GxEPD_WHITE;
     }
+
     display.fillRect(box[0], box[1], box[2], box[3], background);
     display.setTextColor(textColour);
+    display.setFont(font);
 
-    display.setCursor(box[0] + PADDING, box[1] + VOFFSET);
-    display.print(text);
+    if (draw_box)
+        outline(box);
+    if (largePad)
+        display.setCursor(box[0] + LARGE_PADDING, box[1] + LARGE_VOFFSET);
+    else
+        display.setCursor(box[0] + PADDING, box[1] + VOFFSET);
+    display.print(message);
     display.updateWindow(box[0], box[1], box[2], box[3], true);
+}
+
+void buttonHandler(Button2 &btn)
+{
+    switch (btn.getClickType())
+    {
+    case SINGLE_CLICK:
+        lastClickType = SINGLE_CLICK;
+        break;
+
+    case DOUBLE_CLICK:
+        lastClickType = DOUBLE_CLICK;
+        break;
+
+    case TRIPLE_CLICK:
+        lastClickType = TRIPLE_CLICK;
+        break;
+
+    case LONG_CLICK:
+        lastClickType = LONG_CLICK;
+        break;
+    }
+}
+
+void Display::clearScreen()
+{
+    clearArea(main_screen);
 }
 
 void Display::menu(const char* options[], uint8_t size, uint8_t selected)
@@ -205,19 +183,17 @@ void Display::menu(const char* options[], uint8_t size, uint8_t selected)
 
     timeoutStart = millis();
 
-    display.setFont(&FreeMonoBold9pt7b);
-
-    for (uint8_t i=0; i<size;  i++) 
-        displayOption(options[i], boxes[i], (i == selected));
+    for (uint8_t i=0; i<size;  i++)
+        displayText(options[i], boxes[i], false, (i == selected));
 
     // Wait up to 30s for user input
     while (millis() - timeoutStart < 30000) {
         button.loop();
 
         if (lastClickType == SINGLE_CLICK) {
-            displayOption(options[selectedOption], boxes[selectedOption], false);
+            displayText(options[selectedOption], boxes[selectedOption], false, false);
             selectedOption = (selectedOption + 1) % size;
-            displayOption(options[selectedOption], boxes[selectedOption], true);
+            displayText(options[selectedOption], boxes[selectedOption], false, true);
             lastClickType = 0;
         }
 
@@ -242,8 +218,8 @@ void Display::proceed(const char *message1, const char *message2, uint16_t timeo
 
     timeoutStart = millis();
 
-    displayMessage(message1, 1);
-    displayMessage(message2, 2);
+    displayText(message1, boxes[1]);
+    displayText(message2, boxes[2]);
 
     // Wait up to timeout s for user input
     while (millis() - timeoutStart < timeout * 1000)
@@ -256,9 +232,107 @@ void Display::proceed(const char *message1, const char *message2, uint16_t timeo
         }
     }
 
+    displayText("Timed out", boxes[1]);
+    displayText("Aborting...", boxes[2]);
 
-    displayMessage("Timed out", 1);
-    displayMessage("Aborting...", 2);
     delay(2000);
     ESP.restart();
+}
+
+void Display::numericOptions(uint8_t selected)
+{
+    messageBuffer[1] = '\0';
+    char_box[1] = 100;
+    char_box[2] = 22;
+
+    displayText("0 1 2 3 4 5 6 7 8 9", boxes[3]);
+
+    char_box[0] = 2 + selected * 22;
+    messageBuffer[0] = 48 + selected;
+    displayText(messageBuffer, char_box, false, true);
+}
+
+int16_t Display::numericInput(const char *message, uint16_t timeout, uint8_t selectedDigit)
+{
+    lastClickType = 0;
+
+    uint8_t values[5] = {0, 0, 0, 0, 0};
+    bool settingDigit = false;
+    uint8_t currentOption = 0, currentDigit = selectedDigit;
+    char singleChar[2];
+    singleChar[1] = '\0';
+
+    Button2 button;
+    button.begin(BUTTONPIN);
+    button.setLongClickTime(1000);
+    button.setClickHandler(buttonHandler);
+    button.setDoubleClickHandler(buttonHandler);
+    button.setTripleClickHandler(buttonHandler);
+    button.setLongClickHandler(buttonHandler);
+
+    timeoutStart = millis();
+
+    displayText(message, boxes[0]);
+
+    for (uint8_t i = 0; i < 5; i++)
+    {
+        if (i <= 3) {
+            singleChar[0] = values[i] + 48;
+            displayText(singleChar, digits[i], true, (selectedDigit == i), true, &FreeMonoBold12pt7b);
+        }
+        else
+            displayText("Save", digits[i], true, (selectedDigit == i), true);
+    }
+
+    // Wait up to timeout s for user input
+    while (millis() - timeoutStart < timeout * 1000)
+    {
+        button.loop();
+
+        if (lastClickType == SINGLE_CLICK)
+        {
+            if (settingDigit) {
+                currentOption = (currentOption + 1) % 10;
+                numericOptions(currentOption);
+            }
+            else {
+                if (currentDigit <= 3) {
+                    singleChar[0] = values[currentDigit] + 48;
+                    displayText(singleChar, digits[currentDigit], true, false, true, &FreeMonoBold12pt7b);
+                }
+                else
+                    displayText("Save", digits[currentDigit], true, false, true);
+
+                currentDigit = (currentDigit + 1) % 5;
+                if (currentDigit <= 3) {
+                    singleChar[0] = values[currentDigit] + 48;
+                    displayText(singleChar, digits[currentDigit], true, true, true, &FreeMonoBold12pt7b);
+                }
+                else
+                    displayText("Save", digits[currentDigit], true, true, true);
+            }
+        }
+
+        if (lastClickType == LONG_CLICK)
+        {
+            if (settingDigit) {
+                values[currentDigit] = currentOption;
+                singleChar[0] = currentOption + 48;
+                displayText(singleChar, digits[currentDigit], true, true, true, &FreeMonoBold12pt7b);
+                clearArea(message_box_3);
+                settingDigit = false;
+            }
+            else {
+                if (currentDigit <= 3) {
+                    numericOptions(values[currentDigit]);
+                    currentOption = values[currentDigit];
+                    settingDigit = true;
+                }
+                else {
+                    return values[0] * 1000 + values[1] * 100 + values[2] * 10 + values[3];
+                }
+            }
+        }
+        lastClickType = 0;
+    }
 }

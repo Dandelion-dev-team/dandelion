@@ -6,6 +6,8 @@
 #include <Preferences.h>
 #include <MicroSDCardOperations.h>
 
+extern Utils utils;
+
 class HttpServer
 {
 public:

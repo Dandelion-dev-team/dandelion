@@ -29,15 +29,28 @@
 class Display
 {
 public:
+    int16_t message_box_0[4] = {2, 40, 246, 22};
+    int16_t message_box_1[4] = {2, 60, 246, 22};
+    int16_t message_box_2[4] = {2, 80, 246, 22};
+    int16_t message_box_3[4] = {2, 100, 246, 22};
+
+    int16_t *boxes[4] = {
+        message_box_0,
+        message_box_1,
+        message_box_2,
+        message_box_3};
+
     void setupDisplay();
     void update_display();
     void displayLogo();
     void displayBattery(float);
     void displayWiFiIcon(bool);
-    void displayMessage(const char *, uint8_t = 1, bool = false);
-    void progress(uint8_t, uint8_t);
+    // void displayMessage(const char *, uint8_t = 1, bool = false);
+    void displayText(const char *, int16_t [4], bool = false, bool = false, bool = false, const GFXfont * = &FreeMonoBold9pt7b);
     void menu(const char* [], uint8_t, uint8_t);
     void clearScreen();
     void calibratePH();
     void proceed(const char *, const char *, uint16_t);
+    int16_t numericInput(const char *, uint16_t, uint8_t = 0);
+    void numericOptions(uint8_t selected = 0);
 };

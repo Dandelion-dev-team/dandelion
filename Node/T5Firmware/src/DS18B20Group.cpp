@@ -43,6 +43,7 @@ void DS18B20Group::getReadings()
 
     if (initialisationSuccessful)
     {
+        cardOperation.log("Reading DB18B20 temperature probes");
         for (uint8_t i = 0; i < 3; i++)
         {
             dallas.requestTemperatures();
@@ -119,7 +120,7 @@ uint8_t identify(DallasTemperature dallas, bool identified[3], unsigned long bas
 
 void DS18B20Group::calibrate()
 {
-    ui.displayMessage("Finding temp probes", 1);
+    ui.displayText("Finding temp probes", ui.boxes[1]);
 
     DallasTemperature dallas(&onewire);
     float temperatureReading;
@@ -150,67 +151,67 @@ void DS18B20Group::calibrate()
     if (count > 0) {
         strcpy(messageBuffer, utils.to_string(count));
         strcat(messageBuffer, " probes found");
-        ui.displayMessage(messageBuffer, 2);
+        ui.displayText(messageBuffer, ui.boxes[2]);
         delay(2000);
         baseline /= count;
     }
     else {
-        ui.displayMessage("No probes found", 2, true);
+        ui.displayText("No probes found", ui.boxes[2], true);
         delay(2000);
         return;
     }
 
-    ui.displayMessage("Hold top probe...", 2);
+    ui.displayText("Hold top probe...", ui.boxes[2]);
     timeoutStart = millis();
     hotProbe = identify(dallas, identified, baseline);
     identified[hotProbe] = true;
     Serial.print("Top hotProbe is ");
     Serial.println(hotProbe);
     if (hotProbe == TIMEOUT) {
-        ui.displayMessage("No top probe!", 2, true);
+        ui.displayText("No top probe!", ui.boxes[2], true);
         utils.removeFromPreferences("sttseq");
     }
     else
     {
-        ui.displayMessage("Identified!", 2);
+        ui.displayText("Identified!", ui.boxes[2]);
         utils.saveToPreferences("sttseq", hotProbe);
     }
     delay(2000);
     
-    ui.displayMessage("Hold middle probe...", 2);
+    ui.displayText("Hold middle probe...", ui.boxes[2]);
     timeoutStart = millis();
     hotProbe = identify(dallas, identified, baseline);
     identified[hotProbe] = true;
     Serial.print("Middle hotProbe is ");
     Serial.println(hotProbe);
     if (hotProbe == TIMEOUT) {
-        ui.displayMessage("No middle probe!", 2, true);
+        ui.displayText("No middle probe!", ui.boxes[2], true);
         utils.removeFromPreferences("stmseq");
     }
     else
     {
-    ui.displayMessage("Identified!", 2);
+    ui.displayText("Identified!", ui.boxes[2]);
     utils.saveToPreferences("stmseq", hotProbe);
     }
     delay(2000);
 
-    ui.displayMessage("Hold bottom probe...", 2);
+    ui.displayText("Hold bottom probe...", ui.boxes[2]);
     timeoutStart = millis();
     hotProbe = identify(dallas, identified, baseline);
     identified[hotProbe] = true;
     Serial.print("Bottom hotProbe is ");
     Serial.println(hotProbe);
     if (hotProbe == TIMEOUT) {
-        ui.displayMessage("No bottom probe!", 2, true);
+        ui.displayText("No bottom probe!", ui.boxes[2], true);
         utils.removeFromPreferences("stbseq");
     }
     else
     {
-        ui.displayMessage("Identified!", 2);
+        ui.displayText("Identified!", ui.boxes[2]);
         utils.saveToPreferences("stbseq", hotProbe);
     }
 
-    ui.displayMessage("Finished", 1);
-    ui.displayMessage("Rebooting...", 2);
+    ui.displayText("Finished", ui.boxes[1]);
+    ui.displayText("Rebooting...", ui.boxes[2]);
     ESP.restart();
 }

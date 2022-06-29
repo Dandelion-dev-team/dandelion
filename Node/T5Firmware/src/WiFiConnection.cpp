@@ -14,7 +14,7 @@ bool WiFiConnection::connect()
     String pwd = utils.getFromPreferences("pwd");
 
     if (ssid == "NOT SET" or pwd == "NOT SET") {
-        ui.displayMessage("Wifi is not configured");
+        ui.displayText("Wifi is not configured", ui.boxes[1]);
         return false;
     }
     else {

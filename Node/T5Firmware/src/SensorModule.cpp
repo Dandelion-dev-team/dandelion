@@ -8,9 +8,9 @@ extern DynamicJsonDocument data;
 void SensorModule::initialise(uint8_t) {}
 void SensorModule::getReadings() {}
 
-void SensorModule::addReadingsToJSON(char *cubeLevel) {
+void SensorModule::addReadingsToJSON(char *cubeLevelName) {
     for (auto const &reading : readings)
     {
-        data[cubeLevel][reading.first] = reading.second;
+        data[cubeLevelName][reading.first] = reading.second;
     }
 }
