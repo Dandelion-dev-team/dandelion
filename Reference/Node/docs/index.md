@@ -1,12 +1,33 @@
+---
+hide:
+  - toc
+---
+
 # Dandelion IoT node reference
+
+!!! info inline end "Changes in v1.0"
+
+    * Ability to calibrate EC sensors
+
 
 ### Welcome to the user guide for your IoT node.
 
 These pages cover the important things you need to know about setting up
-and using your Dandelion IoT node. As new questions arise, the content will be
-updated to address your needs. If you would like to request an addition or
-amendment to these pages, please contact 
+and using your Dandelion IoT node. The content will be updated as new versions 
+of the software are released. These notes will always refer to the current
+version which you can find on the *Downloads* page.
+
+If you would like to request an addition or amendment to these pages, please contact 
 Brian Davison [b.davison@napier.ac.uk](mailto:b.davison@napier.ac.uk)
+
+??? info inline end "Changes in v0.92"
+
+    * Support for all three GrowCube layers
+    * Removal of [moisture sensors](sensors/top.md)
+    * Introduction of [sensor selection switch](sensors/lower.md)
+    * New way to get into [config mode](config.md#getting-into-configuration-mode)
+    * [pH sensor](sensors/ph.md#taking-ph-readings) calibration and readings
+    * [Temperature probe identification](sensors/ds18b20.md#identifying-your-temperature-probes)
 
 ## What's a *node*?
 
@@ -28,9 +49,26 @@ Internet. It does this by connecting to an available wifi access point.
 
 There are three things you need to do to get your node up and running:
 
-1. [Install](install.md) it in your GrowCube
-2. [Configure](config.md) it to connect to your local wifi network
-3. [Register](register.md) your node using the Dandelion app so that it is associated with your school
+1. [Configure](config.md) it to connect to your local wifi network
+2. [Register](register.md) your node using the Dandelion app so that it is associated with your school
+3. [Install](install.md) it in your GrowCube
+
+??? question "Can I get started with just the top-level sensors?"
+
+    Yes you can. Your node will collect data from the top level of the GrowCube
+    and you will be able to add the sensors for the other two levels later.
+
+??? question "Can I register my node without connecting it to wifi?"
+
+    Yes you can. Registration is done through the Dandelion app using a device such as a 
+    phone or laptop. The piece of information that you need is the MAC address of your node.
+    You can find this by putting the node into [configuration mode](config.md) and 
+    connecting to it using a web browser.
+
+The links above take you to written instructions for each stage, and the video below covers them
+all in one go.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/hls6dXk5p1A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Overview of operation
 
@@ -60,3 +98,15 @@ For example, if the battery runs out an image will still be displayed.
 E-paper displays can be subject to 'ghost' images and other random effects. If
 you notice any strange marks on the image, please ignore them. They should have
 no effect on the operation of the node.
+
+## Power supply
+
+The node is powered by a 3.7v lithium polymer (LiPo) battery, and so it does 
+not need to be connected to a mains supply. From time to time, the battery will
+need to be recharged. To do this, connect the T5 unit to a power source using
+the micro USB connector. The power source could be a USB mains adapter or a
+computer. You should charge your battery for a couple of hours when you first
+receive it. Please note that access to the USB connector is very tight. You may
+need to pop open the enclosure to insert the changing cable. Alternatively, you
+could trim the excess plastic down the sides of the cable connector so that it
+fits easily.

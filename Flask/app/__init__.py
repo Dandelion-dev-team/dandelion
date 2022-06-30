@@ -12,6 +12,7 @@ import logging
 from config import app_config
 
 db = SQLAlchemy()
+logger = logging.getLogger()
 
 
 def create_app(config_name):

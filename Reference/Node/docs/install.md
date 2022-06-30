@@ -1,27 +1,30 @@
 # Installation
 
-The T5 microprocessor is attached to a set of sensors via a grey ribbon cable.
-The sensor are housed in a black enclosure which has several probes emerging.
-Currently, only one set of sensors has been included; eventually there will be
-three, one for each level in the GrowCube.
+The T5 microcontroller collects the data from all three sets of sensors vi a grey
+ribbon cable. The sensor units are daisy-chained together by connecting the lower
+sensor unit to the one above. To do this, plug the black connector of the lower
+sensor unit into the grey connector on the cable of the one above as shown below.
+This is most easily done after positioning the sensor units in the GrowCube.
 
-Installation simply involves placing the sensors in the top level of the 
-GrowCube and the T5 on the top. We recommend that you secure the T5 enclosure
-with some double-sided tape to prevent it slipping on the top of the GrowCube
-or being accidentally knocked off.
+[![Daisy chaining the sensor units](img/daisy_chain.png#centred)](img/daisy_chain.png)
 
-The sensor enclosure should be placed in the near right-hand corner of the
-top level tray as shown below. The ribbon cable should fit easily through the 
-gap at the top of the doors.
+The connectors are designed so that they can only be connected in one way. If you want
+to double-check, you will find that the red edges of the cables line up - i.e. the red
+edge is continuous from the T5 to the bottom layer.
+
+Installation simply involves placing each sensor unit in the front-right corner of the
+appropriate layer of the GrowCube as shown below and the T5 on the top. We recommend that 
+you secure the T5 enclosure with some double-sided tape to prevent it slipping on the top 
+of the GrowCube or being accidentally knocked off.
 
 ![Tray layout](img/tray_layout.png#centred)
 
-The node is powered by a 3.7v lithium polymer (LiPo) battery, and so it does 
-not need to be connected to a mains supply. From time to time, the battery will
-need to be recharged. To do this, connect the T5 unit to a power source using
-the micro USB connector. The power source could be a USB mains adapter or a
-computer. You should charge your battery for a couple of hours when you first
-receive it. Please note that access to the USB connector is very tight. You may
-need to pop open the enclosure to insert the changing cable. Alternatively, you
-could trim the excess plastic down the sides of the cable connector so that it
-fits easily.
+The ribbon cable should fit easily through the gap at the top of the doors. The image
+below shows the sensor units in place with their cables tucked out of the way down the
+sides of the trays (yes - our bottom tray is currently missing...).
+
+[![Sensor units installed in the GrowCube](img/installed_in_growcube.png#centred)](img/installed_in_growcube.png)
+
+
+
+

@@ -15,6 +15,22 @@ In this state, the node creates its own wifi network that is not connected
 to the Internet. You can connect to this network from a laptop or mobile 
 phone to interact with the node as described below.
 
+??? info "Alternative wifi connections"
+
+    If you cannot connect to your school's wifi network for some reason,
+    you have a couple of other options. 
+
+    One is simply to create a wifi hotspot
+    on a mobile phone. This is a limited solution because it will only work
+    while the phone is nearby, switched on and has data available. 
+
+    A second option is to purchase a mobile wifi (mifi) unit that provides an 
+    independent wifi connection via a mobile phone network. They are available 
+    from most mobile operators and are very cheap to run. The node generates 
+    around 1kB of data every hour which amounts to less than 1MB per month. The 
+    [Broadband Compared](https://www.broadbandcompared.co.uk/guides/what-is-mifi-and-how-does-it-work) 
+    website provides more information about mifi. 
+
 ## Getting into configuration mode
 
 The T5 unit has a control button, a reset button and an on/off switch as shown
@@ -25,12 +41,19 @@ below.
 The node is off when the on/off switch is closest to the two buttons. To switch
 the node on, slide the on/off switch away from the buttons.
 
-To enter configuration mode, 
+There are two ways to put your node into configuration mode. When it first starts up, a menu
+is displayed where you can choose the `Config mode` option as shown below. To move from one
+menu item to the next, press the control button. To select the highlighted menu item, press
+the control button and hold it down for at least 1 second.
+
+[![Config menu option](img/menu_config.png#centred)](img/menu_config.png)
+
+The second method is as follows: 
 
 1. Press and release the reset button
-2. When the Dandelion log appears, press the control button three times at roughly one second intervals
+2. When the Dandelion logo appears, press the control button three times at roughly one second intervals
 
-The node will display a message shown below along with an IP address.
+Once in configuration mode, the node will display the message shown below along with an IP address.
 
 ![Configuration mode](img/config_mode.png#centred)
 
@@ -49,17 +72,17 @@ displayed on the node. This will take you to the page shown below.
 Here, you can see the version of the code running on the node as well as its
 MAC address. The MAC address identifies the node when it is 
 connected to a network and is often needed by computer technicians to allow
-a device to connect. You will need the MAC address to register your node with
+a device to connect. **NB**. You will need the MAC address to register your node with
 the Dandelion app.
 
 In addition, there are several settings that you can change:
 
-Setting | Explanation
---------|------------
-Node password | The password for the node's own wifi network
-Wifi network | The name of the wifi network that the node should connect to send its data
-Wifi password | The password for the network above
-Date and time | See below
+| Setting        | Explanation|
+|----------------|------------|
+| Node password  | The password for the node's own wifi network|
+| Wifi network   | The name of the wifi network that the node should connect to send its data|
+| Wifi password  | The password for the network above|
+|  Date and time | See below|
 
 > ### Note about the date and time
 >
@@ -71,5 +94,5 @@ Date and time | See below
 Each setting has to be saved individually. Change the value and click the 
 appropriate *Save* button.
 
-Once you have made the changes you want, press the reset button to restart the
+Once you have made the changes you want, press the reset button to reboot the
 node to start normal operations. 
