@@ -17,16 +17,21 @@ nav:
       - "http://dandelion.scot"
   - Home:
     - Introduction: 'index.md'
-    - Installation: 'install.md'
     - Configuration: 'config.md'
     - Registration: 'register.md'
+    - Installation: 'install.md'
     - Sensors: 'sensors/index.md'
     - Downloads: 'downloads.md'
   - Sensors:
       - Introduction: 'sensors/index.md'
-      - SHTC3: 'sensors/shtc3.md'
-      - BH1750: 'sensors/bh1750.md'
-      - pH sensor: 'sensors/ph.md'
+      - Top layer: 'sensors/top.md'
+      - Lower layers: 'sensors/lower.md'
+      - Calibration: 'sensors/calibration.md'
+      - Temperature/humidity: 'sensors/shtc3.md'
+      - Light intensity: 'sensors/bh1750.md'
+      - Substrate temperature: 'sensors/ds18b20.md'
+      - pH: 'sensors/ph.md'
+      - Electrical conductivity: 'sensors/ec.md'
 
 markdown_extensions:
   - pymdownx.highlight:
@@ -34,7 +39,15 @@ markdown_extensions:
       linenums: true
   - attr_list
   - tables
+  - admonition
+  - pymdownx.details
+  - pymdownx.arithmatex:
+      generic: true
 
 extra_css:
   - dandelion.css
 
+extra_javascript:
+  - static/mathjax.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js

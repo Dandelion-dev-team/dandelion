@@ -27,9 +27,9 @@ const NotFoundPage = () => {
                 </div>
                 <div className="text-link-block">
                   <h3>We're sorry, but that page was not found.</h3>
-                  <h4 onClick={() => {
+                  <p onClick={() => {
                     navigate("/")
-                  }}>Go back to home page.</h4>
+                  }}>Go back to home page.</p>
                 </div>
               </div>
               <div className="right-items">
