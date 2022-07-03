@@ -1,0 +1,92 @@
+.common-container {
+  background: #2e5641;
+  color: $white;
+  position: relative;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: baseline;
+  height: 100vh;
+  overflow-y: auto;
+  padding-top: 150px;
+}
+
+.common-content-panel {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: flex-start;
+  justify-content: flex-start;
+  z-index: 7;
+  background-color: white;
+  color: black;
+  border-radius: 20px;
+  height: 100%;
+  padding: 40px;
+  margin: 0 10vw 0 10vw;
+}
+
+.dandelion {
+  p {
+    font-size: 1.5rem;
+    //color:$black;
+  }
+
+  h2 {
+    align-items: flex-start;
+    //color: $black;
+    margin-bottom: 1rem;
+    font-size: 3rem;
+  }
+
+  h3 {
+    align-items: flex-start;
+    //color: $black;
+    margin-bottom: 1.5vh;
+    font-size: 2.5rem;
+  }
+
+  h4 {
+    align-items: flex-start;
+    //color: $black;
+    font-size: 2rem;
+  }
+
+  a {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 1.5rem;
+    color: $black;
+
+    &:hover {
+      color: $dandelion-green;
+    }
+}
+
+}
+
+.white {
+  color: $white;
+}
+
+.right {
+  text-align: right;
+}
+
+.bottom-divider {
+  width: 100%;
+  hr {
+    height: 2px;
+    width: 100%;
+    background-color: darkgray;
+  }
+}
+
+.content-container {
+  flex: 1;
+}
+
+.content-main {
+  flex-grow: 1;
+  overflow-y: auto;
+}
