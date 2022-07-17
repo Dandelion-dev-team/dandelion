@@ -43,4 +43,18 @@ In overview, the installation process is
 
 # Licence
 
+<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
 <img src="https://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.png" style="width: 10rem;">
+</a>
+
+Creative Commons BY-NC-SA: This license allows reusers to distribute, remix, adapt, and build upon the material in any medium or format for noncommercial purposes only, and only so long as attribution is given to the creator. If you remix, adapt, or build upon the material, you must license the modified material under identical terms. 
+
+### Creators
+
+B. Davison,
+A. Campbell,
+A. McCluskey,
+P. Siokas,
+B. Risdon,
+H. Rudman,
+E. Keepax
