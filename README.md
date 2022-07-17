@@ -40,3 +40,7 @@ In overview, the installation process is
 * Initialise the database
 * Install node.js
 * Install required node packages
+
+# Licence
+
+![CC-BY-NC-SA](https://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.png)
