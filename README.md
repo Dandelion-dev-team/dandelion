@@ -43,4 +43,4 @@ In overview, the installation process is
 
 # Licence
 
-![CC-BY-NC-SA](https://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.png)
+<img src="https://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.png" style="width: 10rem;">
