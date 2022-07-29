@@ -3,40 +3,42 @@
   background: #2e5641;
   height: 100vh;
   position: relative;
-  overflow-y: hidden;
+  //overflow-y: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
 
   @include media("<=tablet") {
-    height: 100%;
-    width: 100%;
+      flex-direction: column;
+      justify-content: space-around;
+      height: 100%;
+      margin-top: 125px;
   }
 
   @include media("<=phone") {
     
   }
 
-  .inner-sign-in {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 85%;
-
-    @include media("<=tablet") {
-      flex-direction: column;
-      justify-content: space-around;
-      height: 100%;
-      margin-top: 125px;
-    }
-
-    @include media("<=phone") {
-     
-    }
+  //.inner-sign-in {
+  //  display: flex;
+  //  justify-content: space-between;
+  //  align-items: center;
+  //  width: 85%;
+  //
+  //  @include media("<=tablet") {
+  //    flex-direction: column;
+  //    justify-content: space-around;
+  //    height: 100%;
+  //    margin-top: 125px;
+  //  }
+  //
+  //  @include media("<=phone") {
+  //
+  //  }
 
     .heading {
-      width: 50%;
-      height: 100vh;
+      width: 33%;
+      //height: 100vh;
       position: relative;
       display: flex;
       align-items: center;
@@ -63,32 +65,6 @@
          
         }
 
-        h3 {
-          font-size: 6vw;
-
-          @include media("<=tablet") {
-            font-size: 6vw;
-          }
-
-          @include media("<=phone") {
-            font-size: 2rem;
-          }
-        }
-
-        p {
-          font-size: 2vw;
-          line-height: 2rem;
-          font-weight: 400;
-          margin: 40px 0 24px;
-
-          @include media("<=tablet") {
-            font-size: 2vw;
-          }
-
-          @include media("<=phone") {
-            font-size: 1.1rem;
-          }
-        }
       }
     }
 
@@ -107,5 +83,4 @@
         
       }
     }
-  }
 }

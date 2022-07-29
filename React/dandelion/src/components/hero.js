@@ -31,7 +31,7 @@ const Hero = () => {
     return
   } else {
     return (
-      <div className="hero-blurb">
+      <div className="hero page-container">
         <CookieConsent
           location="bottom"
           buttonText="I understand"

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import Header from "../components/navigation/header"
+import Footer from "../components/navigation/footer"
 import "../styles/App.scss"
 import { navigate } from "gatsby"
 import { user_login } from "../utils/logins"
@@ -48,16 +49,15 @@ export default function Login(props) {
   } else {
     if (render == true) {
       return (
-        <div>
+        <div className="dandelion">
           {showModal ? <PasswordResetModal username={username} password={password}/> : null}
 
+          <ToastContainer />
           <Header />
-          <div className="signin">
-            <ToastContainer />
-              <div className="inner-sign-in">
+          <div className="signin page-container">
                 <div className="heading">
                   <div className="headline">
-                    <h3>Sign In</h3>
+                    <h1>Sign In</h1>
                     <p>Sign in using the details your school has provided.</p>
                   </div>
                 </div>
@@ -85,7 +85,7 @@ export default function Login(props) {
                       <div className="submit-btn">
                         <input
                           type="submit"
-                          className="submitButton"
+                          className="button"
                           value="Log In"
                           onClick={onSubmitClick}
                         />
@@ -95,8 +95,8 @@ export default function Login(props) {
                     navigate("/superuser/dashboard")
                   )}
                 </div>
-              </div>
             </div>
+          <Footer />
           </div>
       )
     } else return null

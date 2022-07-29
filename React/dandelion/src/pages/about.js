@@ -41,23 +41,4 @@ const About = () => {
   )
 }
 
-// <div className="about">
-// <div className="container">
-//   <div className="hero-section">
-//     <div className="heading">
-//       <h3>
-//         <Trans>The Dandelion School Growing Initiative</Trans>
-//       </h3>
-//       <p>
-//         <Trans>
-//         500 schools. 200 growing cubes. The largest community-led growing experiment ever undertaken in Scotland.
-//         </Trans>
-
-//       </p>
-//     </div>
-//     <div className="content"></div>
-//   </div>
-// </div>
-// </div>
-
 export default About

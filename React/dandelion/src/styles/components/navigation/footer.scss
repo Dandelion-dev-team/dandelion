@@ -1,0 +1,54 @@
+footer {
+  width: 100%;
+  max-width: 100%;
+  //position: fixed;
+  //bottom: 0;
+  z-index: 10;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  background-color: $primary;
+
+  .inner-footer {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-evenly;
+    width: 90%;
+
+    img {
+      margin-bottom: 0;
+      height: 2rem;
+    }
+
+    p {
+      margin-bottom: 0;
+    }
+
+    a {
+      div {
+        display: inline-block;
+        width: 4.5rem;
+        vertical-align: bottom;
+      }
+    }
+
+    @include media("<=desktop") {
+      width: 85%;
+      min-width: 85%;
+    }
+
+    @include media("<=tablet") {
+      width: 90%;
+      min-width: 90%;
+    }
+
+      @include media("<=tablet") {
+        display: flex;
+        width: 100%;
+        //flex-direction: column;
+        grid-gap: 0px;
+        z-index: 20;
+        justify-content: space-evenly;
+      }
+    }
+}

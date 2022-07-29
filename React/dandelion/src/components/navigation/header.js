@@ -51,15 +51,6 @@ export default function Header() {
             <Link to="/help" onClick={closeMobileMenu}>
               Help
             </Link>
-            {/*
-            <a
-              target="_blank"
-              href="https://dandelion.sruc.ac.uk/reference"
-              onClick={closeMobileMenu}
-            >
-              FAQ
-            </a>
-            */}
             {logged ? (
               <Link to="/" onClick={() => user_logout()}>
                 Logout
@@ -67,9 +58,6 @@ export default function Header() {
             ) : (
               <Link to="/signin">Sign In</Link>
             )}
-            {/* <Link to="/data" onClick={closeMobileMenu}>
-              Report Issue
-            </Link> */}
           </nav>
         </div>
         <div className="mobile-menu" onClick={handleClick}>
