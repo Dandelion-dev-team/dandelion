@@ -69,7 +69,7 @@ def create_app(config_name):
     @app.errorhandler(405)
     def method_not_allowed(error):
         return make_response(
-            jsonify({'error': 'The server supports the method received, but the target resource does not.'}), 405)
+            jsonify({'error': 'Invalid request type.'}), 405)
 
     @app.errorhandler(409)
     def conflict(e):
@@ -77,7 +77,7 @@ def create_app(config_name):
             type=e.name,
             title="Database Error",
             status=e.code,
-            message=e.description,
+            error=e.description,
         ), 409)
 
     @app.errorhandler(500)

@@ -104,6 +104,7 @@ export default function SuperuserMaintenance(props) {
     return (
       <div>
         <SysSideNav />
+        <ToastContainer />
         <div className="sensor-maintenance-container">
           <div className="sensor-content">
             <div className="content-wrapper">

@@ -19,6 +19,7 @@ export default function SuperuserDashboard(props) {
     return (
       <div>
         <SideNav />
+        <ToastContainer />
         <div className="dashboard-container">
           <div className="content">
             <div className="students-pane">

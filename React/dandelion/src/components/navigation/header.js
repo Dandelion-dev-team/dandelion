@@ -24,11 +24,11 @@ export default function Header() {
       <div className="inner-header">
         <div className="logo">
           {logged ? (
-            <Link to="/dashboard" exact>
+            <Link to="/dashboard">
               <img src={logo} />
             </Link>
           ) : (
-            <Link to="/" exact>
+            <Link to="/">
               <img src={logo} />
             </Link>
           )}
@@ -52,7 +52,7 @@ export default function Header() {
               Help
             </Link>
             {logged ? (
-              <Link to="/" onClick={() => user_logout()}>
+              <Link to="#" onClick={() => user_logout()}>
                 Logout
               </Link>
             ) : (

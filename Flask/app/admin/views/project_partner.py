@@ -10,6 +10,7 @@ from app.models import ProjectPartner, School, project_partner, Project
 from app import db
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update, audit_delete
 from app.utils.authorisation import auth_check
+from app.utils.error_messages import abort_db
 from app.utils.functions import row2dict, jwt_user
 from app.utils.uploads import content_folder
 
@@ -45,7 +46,7 @@ def add_project_partner():
 
     except Exception as e:
         db.session.rollback()
-        abort(409, e.orig.msg)
+        abort_db(e)
 
 
 @admin.route('/project_partner/<int:project_id>/<int:school_id>', methods=['POST'])
@@ -69,7 +70,7 @@ def add_project_partner_by_invite(project_id, school_id):
 
     except Exception as e:
         db.session.rollback()
-        abort(409, e.orig.msg)
+        abort_db(e)
 
 
 # This route is PUBLIC
@@ -204,7 +205,7 @@ def update_project_partner(id):
 
         except Exception as e:
             db.session.rollback()
-            abort(409)
+            abort_db(e)
 
 
 @admin.route('/project_partner/update_invitation/<int:project_partner_id>', methods=['PUT'])
@@ -229,7 +230,7 @@ def update_project_partner_status(project_partner_id):
 
         except Exception as e:
             db.session.rollback()
-            abort(409)
+            abort_db(e)
     else:
         message = "Status value wrong. It should be either 'accepted' or 'declined'"
 
@@ -257,4 +258,4 @@ def delete_project_partner(id):
 
     except Exception as e:
         db.session.rollback()
-        abort(409, e.orig.msg)
+        abort_db(e)

@@ -8,6 +8,7 @@ from app.admin.views.unit import create_unit
 from app.models import Condition
 from app import db
 from app.utils.authorisation import auth_check
+from app.utils.error_messages import abort_db
 from app.utils.functions import row2dict, jwt_user
 
 
@@ -39,7 +40,7 @@ def create_condition(experiment, data, variable_list, user):
 
 	except Exception as e:
 		db.session.rollback()
-		abort(409, e.orig.msg)
+		abort_db(e)
 
 	for cl in data["condition_levels"]:
 		level = get_level_from_cache(cl["variable_name"], cl["level_name"], variable_list)

@@ -11,7 +11,7 @@ class Quantity(db.Model):
     upper_limit = db.Column(db.DECIMAL)
     help_url = db.Column(db.String(500))
 
-    variables = db.relationship("Variable", backref="quantity")
+    variables = db.relationship("Variable", backref="quantity", passive_deletes=True)
 
     def __repr__(self):
         return '{}'.format(self.name)

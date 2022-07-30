@@ -2,6 +2,7 @@ import React from "react"
 import {graphql, Link, useStaticQuery} from "gatsby"
 import licence from "../../images/by-nc-sa.svg"
 import Img from "gatsby-image";
+import logo from "../../images/logo.svg";
 
 export default function Footer() {
   const data = useStaticQuery(graphql`
@@ -18,21 +19,15 @@ export default function Footer() {
   return (
     <footer>
       <div className="inner-footer">
-        <a
-          target="_blank"
-          href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
-        >
+        <Link to="https://creativecommons.org/licenses/by-nc-sa/4.0/" exact="true">
           <img src={licence} />
-        </a>
-          <p className="smallprint">
-            We are on&nbsp;
-            <a
-                target="_blank"
-                href="https://github.com/Dandelion-dev-team/dandelion"
-            >
-              <Img fluid={data.githubImage.childImageSharp.fluid} />
-            </a>
-          </p>
+        </Link>
+        <span className="smallprint">
+          We are on&nbsp;
+          <Link to="https://github.com/Dandelion-dev-team/dandelion" exact="true">
+            <Img fluid={data.githubImage.childImageSharp.fluid} />
+          </Link>
+        </span>
       </div>
     </footer>
   )

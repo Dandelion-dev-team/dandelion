@@ -163,6 +163,7 @@ export default function SuperuserMaintenance(props) {
     return (
       <div>
         <SysSideNav />
+        <ToastContainer />
         <div className="school-maintenance-container">
           <div className="school-content">
             <div className="content-wrapper">

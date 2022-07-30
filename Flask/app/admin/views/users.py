@@ -9,6 +9,7 @@ from app.admin import admin
 from app.admin.views.school import getOneSchool
 from app.models import User, ExperimentParticipant, Experiment, Project, School, ProjectPartner
 from app import db
+from app.utils.error_messages import abort_db
 from app.utils.functions import jwt_user, is_username_taken
 from app.utils.authorisation import auth_check
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update, audit_delete
@@ -58,7 +59,7 @@ def createUser():
 
     except Exception as e:
         db.session.rollback()
-        abort(409, e.orig.msg)
+        abort_db(e)
 
 
 @admin.route('/user/<int:id>', methods=['GET'])
@@ -78,8 +79,15 @@ def getOneUser(id):
 
 @admin.route('/user/<string:username>', methods=['GET'])
 def getUserByUsername(username):
+
+    if not username:
+        abort(400, "No username provided")
+
     print(username)
     user = User.query.filter(User.username == username).first()
+
+    if not user:
+        abort(400, "User not found")
 
     user_data = {}
     user_data['user_id'] = user.id
@@ -208,7 +216,7 @@ def updateUser(id):
 
     except Exception as e:
         db.session.rollback()
-        abort(409)
+        abort_db(e)
 
 
 @admin.route('/user/reset/<int:id>', methods=['PUT'])
@@ -251,7 +259,7 @@ def updatePassword(id):
 
     except Exception as e:
         db.session.rollback()
-        abort(409)
+        abort_db(e)
 
 
 @admin.route('/user/<int:id>', methods=['DELETE'])
@@ -275,7 +283,7 @@ def deleteUser(id):
 
     except Exception as e:
         db.session.rollback()
-        abort(409)
+        abort_db(e)
 
 
 @admin.route('/user/create_account/multiple', methods=['POST'])
@@ -331,7 +339,7 @@ def create_multiple_accounts():
 
         except Exception as e:
             db.session.rollback()
-            abort(409, e.orig.msg)
+            abort_db(e)
 
     message = "Multiple user accounts have been created"
 
@@ -362,4 +370,4 @@ def updateUserStatus(id):
 
         except Exception as e:
             db.session.rollback()
-            abort(409)
+            abort_db(e)

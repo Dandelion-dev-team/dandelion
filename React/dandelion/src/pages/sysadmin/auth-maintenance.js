@@ -95,6 +95,7 @@ export default function AuthMaintenance(props) {
       <div>
         <div>
         <SysSideNav />
+        <ToastContainer />
         <div className="auth-maintenance-container">
           <div className="auth-content">
             <div className="content-wrapper">

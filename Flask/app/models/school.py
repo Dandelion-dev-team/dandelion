@@ -19,7 +19,7 @@ class School(db.Model):
     status = db.Column(db.String(20), nullable=False)
     users = db.relationship("User", backref="school")
     nodes = db.relationship("Node", backref="school")
-    project_partners = db.relationship("ProjectPartner", backref="school")
+    project_partners = db.relationship("ProjectPartner", backref="school", passive_deletes=True)
 
     @property
     def summary_columns(self):

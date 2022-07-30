@@ -8,6 +8,7 @@ from app.models import Variable, Response, variable, ResponseVariable, Level
 from app import db
 from app.utils.auditing import audit_create
 from app.utils.authorisation import auth_check
+from app.utils.error_messages import abort_db
 from app.utils.functions import row2dict, jwt_user
 
 
@@ -124,7 +125,7 @@ def create_variable(variable_dict):
 
     except Exception as e:
         db.session.rollback()
-        abort(409, e.orig.msg)
+        abort_db(e)
 
     if "levels" in variable_dict.keys():
         for l in variable_dict["levels"]:

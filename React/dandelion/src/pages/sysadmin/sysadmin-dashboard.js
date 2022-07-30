@@ -19,6 +19,7 @@ export default function SysadminDashboard(props) {
     return (
       <div>
         <SysSideNav />
+        <ToastContainer />
         <div className="sys-dashboard-container">
           <div className="content">
             <h3>Sysadmin Dashboard</h3>

@@ -14,6 +14,7 @@ from app.models import Experiment, Condition, ConditionLevel, Level, Variable, P
 from app import db
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update
 from app.utils.authorisation import auth_check
+from app.utils.error_messages import abort_db
 from app.utils.functions import row2dict, jwt_user
 from app.utils.images import image_processing
 from app.utils.uploads import get_uploaded_file, content_folder
@@ -181,7 +182,7 @@ def add_experiment():
 
     except Exception as e:
         db.session.rollback()
-        abort(409, e.orig.msg)
+        abort_db(e)
 
     if "hypotheses" in data.keys():
         for h in data["hypotheses"]:
@@ -200,7 +201,7 @@ def add_experiment():
 
             except Exception as e:
                 db.session.rollback()
-                abort(409, e.orig.msg)
+                abort_db(e)
 
     # This array holds the data about treatment variables for later use
     treatment_variables = []
@@ -267,7 +268,7 @@ def add_experiment():
 
         except Exception as e:
             db.session.rollback()
-            abort(409, str(e))
+            abort_db(e)
 
     for c in data["conditions"]:
         create_condition(experiment, c, treatment_variables, current_user)
@@ -311,4 +312,4 @@ def updateExperiment(experiment_id):
 
         except Exception as e:
             db.session.rollback()
-            abort(409)
+            abort_db(e)

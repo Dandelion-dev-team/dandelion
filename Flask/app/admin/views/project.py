@@ -11,6 +11,7 @@ from app.models import Project, ProjectPartner
 from app import db
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update, audit_delete
 from app.utils.authorisation import auth_check
+from app.utils.error_messages import abort_db
 from app.utils.functions import row2dict, jwt_user
 from app.utils.images import image_processing
 from app.utils.uploads import get_uploaded_file, content_folder
@@ -67,7 +68,7 @@ def add_project():
 
     except Exception as e:
         db.session.rollback()
-        abort(409, e.orig.msg)
+        abort_db(e)
 
     project_partner = ProjectPartner(
         school_id=current_user.school.id,
@@ -84,7 +85,7 @@ def add_project():
 
     except Exception as e:
         db.session.rollback()
-        abort(409, e.orig.msg)
+        abort_db(e)
 
 
 # This route is PUBLIC
@@ -133,7 +134,7 @@ def update_project(id):
 
         except Exception as e:
             db.session.rollback()
-            abort(409)
+            abort_db(e)
 
 
 @admin.route('/project/<int:id>', methods=['DELETE'])
@@ -157,7 +158,7 @@ def delete_project(id):
 
     except Exception as e:
         db.session.rollback()
-        abort(409, e.orig.msg)
+        abort_db(e)
 
 
 @admin.route('/project/<int:id>/uploadImage', methods=['PUT', 'POST'])

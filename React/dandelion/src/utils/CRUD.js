@@ -14,6 +14,10 @@ function handleErrors(response) {
 }
 export function createRecord(endpoint, body) {
   const cookies = new Cookies()
+  var dummy = cookies.getAll()
+  for (var c in dummy) {
+    console.log(c.toString());
+  }
   fetch(process.env.API_URL + endpoint, {
     method: "POST",
     credentials: "include",
@@ -21,16 +25,22 @@ export function createRecord(endpoint, body) {
     headers: new Headers({
       "Content-Type": "application/json",
       "Cache-Control": "no-cache, no-store, must-revalidate",
+      "X-CSRF-TOKEN": cookies.get("csrf_access_token"),
       Pragma: "no-cache",
       Expires: 0,
-      "X-CSRF-TOKEN": cookies.get("csrf_access_token"),
     }),
     body: body,
   }).then(response => {
     if (response.status >= 200 && response.status <= 299) {
       window.location.reload(false)
     } else {
-      throw Error(response.status)
+      return response.json().then((body) => {
+          if ('error' in body)
+              throw new Error(body.error)
+          else
+              throw new Error("Could not create record")
+      })
+      // throw Error(response.status)
     }
   })
   .catch(error => {
@@ -38,11 +48,11 @@ export function createRecord(endpoint, body) {
       console.log(error)
       user_logout()
     }
-    toast.error("Could not create record.")
+    var messageArray = error.toString().split(":")
+    toast.error(messageArray[messageArray.length - 1])
+    // toast.error("Could not create record.")
   })
 }
-
-
 
 export function createRecordNavigate(endpoint, body) {
   const cookies = new Cookies()
@@ -53,9 +63,9 @@ export function createRecordNavigate(endpoint, body) {
     headers: new Headers({
       "Content-Type": "application/json",
       "Cache-Control": "no-cache, no-store, must-revalidate",
+      "X-CSRF-TOKEN": cookies.get("csrf_access_token"),
       Pragma: "no-cache",
       Expires: 0,
-      "X-CSRF-TOKEN": cookies.get("csrf_access_token"),
     }),
     body: body,
   })
@@ -63,7 +73,13 @@ export function createRecordNavigate(endpoint, body) {
     if (response.status >= 200 && response.status <= 299) {
       return response.json()
     } else {
-      throw Error(response.status)
+      return response.json().then((body) => {
+          if ('error' in body)
+              throw new Error(body.error)
+          else
+              throw new Error("Could not create record")
+      })
+      // throw Error(response.status)
     }
   })
   .catch(error => {
@@ -71,7 +87,9 @@ export function createRecordNavigate(endpoint, body) {
       console.log(error)
       user_logout()
     }
-    toast.error("Could not create record.")
+    var messageArray = error.toString().split(":")
+    toast.error(messageArray[messageArray.length - 1])
+    // toast.error("Could not create record.")
   })
 }
 
@@ -90,7 +108,12 @@ export function readRecord(endpoint, setter) {
       if (response.status >= 200 && response.status <= 299) {
         return response.json()
       } else {
-        throw Error(response.status)
+        return response.json().then((body) => {
+            if ('error' in body)
+                throw new Error(body.error)
+            else
+                throw new Error("Error reading from database")
+        })
       }
     })
     .then(jsonResponse => {
@@ -101,7 +124,9 @@ export function readRecord(endpoint, setter) {
         console.log(error)
         user_logout()
       }
-      toast.error("Database error " + error)
+      var messageArray = error.toString().split(":")
+      toast.error(messageArray[messageArray.length - 1])
+      // toast.error("Database error " + error)
     })
 }
 
@@ -122,15 +147,23 @@ export function readAdminRecord(endpoint) {
       } else if (response.status == 401) {
         user_logout()
       } else {
-        throw Error(response.statusText)
+        return response.json().then((body) => {
+            if ('error' in body)
+                throw new Error(body.error)
+            else
+                throw new Error("Could not read admin record")
+        })
+        // throw Error(response.statusText)
       }
     })
     .then(jsonResponse => {
       return jsonResponse
     })
     .catch(error => {
-      toast.error("Database failure.")
-      console.log(error)
+      var messageArray = error.toString().split(":")
+      toast.error(messageArray[messageArray.length - 1])
+      // toast.error("Database failure.")
+      // console.log(error)
     })
 }
 
@@ -153,14 +186,22 @@ export function uploadExperimentImage(endpoint, image) {
       if (response.status == 200) {
         return response.json()
       } else {
-        throw Error(response.statusText)
+        return response.json().then((body) => {
+            if ('error' in body)
+                throw new Error(body.error)
+            else
+                throw new Error("Could not upload image")
+        })
+        // throw Error(response.statusText)
       }
     })
     .then(jsonResponse => {
       return jsonResponse
     })
     .catch(error => {
-      toast.error("Failed to upload image. Error " + error)
+      var messageArray = error.toString().split(":")
+      toast.error(messageArray[messageArray.length - 1])
+      // toast.error("Failed to upload image. Error " + error)
     })
 }
 
@@ -179,11 +220,22 @@ export function updateRecord(endpoint, body) {
     }),
     body: body,
   }).then(response => {
-    if (response.status !== 200) {
-      toast.error("Failed to update.")
-    } else {
+    if (response.status == 200) {
       window.location.reload(false)
     }
+    else {
+        return response.json().then((body) => {
+            if ('error' in body)
+                throw new Error(body.error)
+            else
+                throw new Error("Could not update record")
+        })
+      // toast.error("Failed to update.")
+    }
+  })
+  .catch(error => {
+    var messageArray = error.toString().split(":")
+    toast.error(messageArray[messageArray.length - 1])
   })
 }
 
@@ -198,6 +250,23 @@ export function deleteRecord(endpoint) {
       "X-CSRF-TOKEN": cookies.get("csrf_access_token"),
     }),
   })
-    .then(window.location.reload(false))
-    .catch(toast.error("Failed to delete."))
+  .then(response => {
+    if (response.status == 200) {
+      window.location.reload(false)
+    }
+    else {
+      return response.json().then((body) => {
+        console.log(body)
+        if ('error' in body)
+          throw new Error(body.error)
+        else
+          throw new Error("Could not delete record")
+      })
+    }})
+    .catch(error => {
+      var messageArray = error.toString().split(":")
+      toast.error(messageArray[messageArray.length - 1])
+      // toast.error("Failed to delete.")
+    })
 }
+

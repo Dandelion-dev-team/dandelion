@@ -9,6 +9,7 @@ from app import db
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update, audit_delete
 from app.utils.authorisation import auth_check
 from app.utils.functions import row2dict, jwt_user
+from app.utils.error_messages import abort_db
 
 
 # This route is PUBLIC
@@ -21,6 +22,7 @@ def listAuthority():
 @admin.route('/authority', methods=['POST'])
 @jwt_required()
 def add_authority():
+    dummy = request
     current_user = jwt_user(get_jwt_identity())
     authorised = auth_check(request.path, request.method, current_user)
     data = request.get_json()
@@ -41,7 +43,7 @@ def add_authority():
 
     except Exception as e:
         db.session.rollback()
-        abort(409, e.orig.msg)
+        abort_db(e)
 
 
 # This route is PUBLIC
@@ -82,9 +84,9 @@ def updateAuthority(id):
 
         except Exception as e:
             db.session.rollback()
-            abort(409)
+            abort_db(e)
     else:
-        return({'message': 'Authority record was not changed'})
+        return({'error': 'Authority record was not changed'})
 
 
 @admin.route('/authority/<int:id>', methods=['DELETE'])
@@ -94,7 +96,7 @@ def delete_authority(id):
     authorised = auth_check(request.path, request.method, current_user, id)
     authority_to_delete = Authority.query.filter_by(id=id).first()
     if not authority_to_delete:
-        return jsonify({"message" : "No Authority found"})
+        return jsonify({"error" : "No Authority found"})
 
     audit_details = prepare_audit_details(inspect(Authority), authority_to_delete, delete = True)
     db.session.delete(authority_to_delete)
@@ -107,4 +109,4 @@ def delete_authority(id):
 
     except Exception as e:
         db.session.rollback()
-        abort(409,e.orig.msg)
+        abort_db(e)

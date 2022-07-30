@@ -24,10 +24,11 @@ export default function AuthComponent(props) {
             <th>Delete</th>
           </tr>
         </thead>
+            <tbody key={auths.id}>
 
         {auths
           ? auths.data.map(auth => (
-            <tbody key={auths.id}>
+              <tr>
               <td>{auth.id}</td>
               <td>{auth.name}</td>
               <td>
@@ -52,9 +53,10 @@ export default function AuthComponent(props) {
                   }}
                 ></input>
               </td>
-            </tbody>
+                </tr>
           ))
           : null}
+            </tbody>
       </table>
     </div>
   )

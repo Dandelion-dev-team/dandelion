@@ -11,8 +11,8 @@ class Variable(db.Model):
     procedure = db.Column(db.String(5000))
     status = db.Column(db.VARCHAR(20))
 
-    levels = db.relationship("Level", backref="variable")
-    response_variables = db.relationship("ResponseVariable", backref="variable")
+    levels = db.relationship("Level", backref="variable", passive_deletes=True)
+    response_variables = db.relationship("ResponseVariable", backref="variable", passive_deletes=True)
 
     @property
     def summary_columns(self):

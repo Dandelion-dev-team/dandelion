@@ -9,8 +9,8 @@ class Sensor(db.Model):
     description = db.Column(db.String(500))
     URL = db.Column(db.String(500))
     datasheet_link = db.Column(db.String(500))
-    sensor_quantities = db.relationship("SensorQuantity", backref="sensor")
-    node_sensors = db.relationship("NodeSensor", backref="sensor")
+    sensor_quantities = db.relationship("SensorQuantity", backref="sensor", passive_deletes=True)
+    node_sensors = db.relationship("NodeSensor", backref="sensor", passive_deletes=True)
 
 
     def __repr__(self):

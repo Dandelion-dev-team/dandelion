@@ -14,7 +14,9 @@ export function user_logout() {
         localStorage.removeItem("user_id")
 
         localStorage.setItem("logged", "false"); //set to false rather than NULL as if you check for null it will be set before localstorage.getItem retrieves
+        console.log("user_logout nav to /")
         navigate("/")
+        console.log("user_logout reload")
         window.location.reload(false)
     }
 }
@@ -68,14 +70,19 @@ export function user_login(username, password, setModal) {
             }
         }
         else {
-            throw Error(response.statusText);
+            return response.json().then((body) => {
+                if ('error' in body)
+                    throw new Error(body.error)
+                else
+                    throw new Error("Invalid login details")
+            })
         }
     })
         .then((jsonResponse) => {
             return jsonResponse;
         }).catch((error) => {
-            toast.error("Incorrect login details.")
-            console.log(error);
+            var messageArray = error.toString().split(":")
+            toast.error(messageArray[messageArray.length - 1])
         });
 }
 

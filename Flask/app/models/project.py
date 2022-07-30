@@ -13,7 +13,7 @@ class Project(db.Model):
     end_date = db.Column(db.Date, nullable=False)
     status = db.Column(db.VARCHAR(20), nullable=False)
 
-    experiments = db.relationship("Experiment", backref='project')
+    experiments = db.relationship("Experiment", backref='project', passive_deletes=True)
 
     @property
     def summary_columns(self):

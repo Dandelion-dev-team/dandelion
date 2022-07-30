@@ -77,6 +77,7 @@ export default function TagMaintenance(props) {
     return (
       <div>
         <SysSideNav />
+        <ToastContainer />
         <div className="tag-maintenance-container">
           <div className="tag-content">
             <div className="content-wrapper">

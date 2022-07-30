@@ -97,6 +97,7 @@ export default function NodeMaintenance(props) {
     return (
       <div>
         <SysSideNav />
+        <ToastContainer />
         <div className="node-maintenance-container">
           <div className="node-content">
             <div className="content-wrapper">

@@ -12,6 +12,7 @@ from app.models import Node, NodeSensor, Sensor, sensor
 from app import db
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update, audit_delete
 from app.utils.authorisation import auth_check
+from app.utils.error_messages import abort_db
 from app.utils.functions import row2dict, jwt_user
 import pandas as pd
 from pandas import DataFrame, read_csv
@@ -38,7 +39,7 @@ def add_node():
     data = request.get_json()
 
     if db.session.query(db.exists().where(Node.mac_address == data['mac_address'])).scalar():
-        message = "ERROR: Node mac address already exists in database"
+        message = "Node mac address already exists in database"
         abort(409, message)
 
     node = Node(
@@ -59,7 +60,7 @@ def add_node():
 
     except Exception as e:
         db.session.rollback()
-        abort(409, e.orig.msg)
+        abort_db(e)
 
     for sensor in sensors:
         code = sensor.code
@@ -80,7 +81,7 @@ def add_node():
 
             except Exception as e:
                 db.session.rollback()
-                abort(409, e.orig.msg)
+                abort_db(e)
 
         elif code == "SEN0244" or code == "DS18B20" or code == "SEN0161" or code == "SEN0193":
             for cube_level in ("top", "middle", "bottom"):
@@ -99,7 +100,7 @@ def add_node():
 
                 except Exception as e:
                     db.session.rollback()
-                    abort(409, e.orig.msg)
+                    abort_db(e)
 
     message = "Node has been registered"
     return jsonify({"message" : message})
@@ -178,7 +179,7 @@ def updateNode(id):
 
         except Exception as e:
             db.session.rollback()
-            abort(409)
+            abort_db(e)
 
 
 @admin.route('/node/<int:id>', methods=['DELETE'])
@@ -202,7 +203,7 @@ def delete_node(id):
 
     except Exception as e:
         db.session.rollback()
-        abort(409, e.orig.msg)
+        abort_db(e)
 
 
 # This route is PUBLIC

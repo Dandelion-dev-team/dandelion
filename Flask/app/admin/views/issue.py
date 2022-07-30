@@ -10,6 +10,7 @@ from app.models import Issue
 from app import db
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update
 from app.utils.authorisation import auth_check
+from app.utils.error_messages import abort_db
 from app.utils.functions import jwt_user
 from app.utils.images import image_processing
 from app.utils.uploads import get_uploaded_file, content_folder
@@ -86,7 +87,7 @@ def createNewIssue():
 
     except Exception as e:
         db.session.rollback()
-        abort(409, e.orig.msg)
+        abort_db(e)
 
 
 @admin.route('/issue/<int:issue_id>', methods=['PUT'])
@@ -118,7 +119,7 @@ def updateIssueDetails(issue_id):
 
         except Exception as e:
             db.session.rollback()
-            abort(409)
+            abort_db(e)
 
 
 @admin.route('/issue/note/<int:issue_id>', methods=['PUT'])  # This route works only if there is already a note in the issue due to the if len(audit_details) > 0 line. If the note cell is blank, it crashes
@@ -152,7 +153,7 @@ def addNote(issue_id):
 
         except Exception as e:
             db.session.rollback()
-            abort(409)
+            abort_db(e)
 
 
 @admin.route('/issue/close/<int:issue_id>',
@@ -178,7 +179,7 @@ def closeIssue(issue_id):
 
         except Exception as e:
             db.session.rollback()
-            abort(409)
+            abort_db(e)
 
 
 @admin.route('/issue/<int:issue_id>/upload_image/', methods=['POST'])

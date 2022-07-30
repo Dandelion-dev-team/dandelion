@@ -7,6 +7,7 @@ from app.models import SensorQuantity
 from app import db
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update, audit_delete
 from app.utils.authorisation import auth_check
+from app.utils.error_messages import abort_db
 from app.utils.functions import jwt_user
 
 
@@ -32,7 +33,7 @@ def add_sensor_quantity():
 
     except Exception as e:
         db.session.rollback()
-        abort(409, e.orig.msg)
+        abort_db(e)
 
 
 # This route is PUBLIC
@@ -72,7 +73,7 @@ def Update_sensory_quantity(id):
 
         except Exception as e:
             db.session.rollback()
-            abort(409)
+            abort_db(e)
 
 
 @admin.route('/sensorQuantity/<int:id>', methods=['DELETE'])
@@ -97,4 +98,4 @@ def delete_sensor_quantity(id):
 
     except Exception as e:
         db.session.rollback()
-        abort(409,e.orig.msg)
+        abort_db(e)

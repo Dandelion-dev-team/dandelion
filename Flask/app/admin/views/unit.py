@@ -1,6 +1,7 @@
 from flask import abort
 from app.models import Unit
 from app import db
+from app.utils.error_messages import abort_db
 
 
 def create_unit(condition, data, user):
@@ -21,7 +22,7 @@ def create_unit(condition, data, user):
 
 	except Exception as e:
 		db.session.rollback()
-		abort(409, e.orig.msg)
+		abort_db(e)
 
 	return True
 

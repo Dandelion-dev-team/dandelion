@@ -9,6 +9,7 @@ from app.models import School
 from app import db
 from app.utils.auditing import audit_create, audit_update, prepare_audit_details, audit_delete
 from app.utils.authorisation import auth_check
+from app.utils.error_messages import abort_db
 from app.utils.functions import row2dict, jwt_user
 from app.utils.images import image_processing
 from app.utils.uploads import content_folder
@@ -56,7 +57,7 @@ def add_school():
 
     except Exception as e:
         db.session.rollback()
-        abort(409, e.orig.msg)
+        abort_db(e)
 
 
 # This route is PUBLIC
@@ -116,7 +117,7 @@ def updateSchool(id):
 
         except Exception as e:
             db.session.rollback()
-            abort(409)
+            abort_db(e)
 
 
 @admin.route('/school/<int:id>', methods=['DELETE'])
@@ -140,7 +141,7 @@ def delete_school(id):
 
     except Exception as e:
         db.session.rollback()
-        abort(409, e.orig.msg)
+        abort_db(e)
 
 
 @admin.route('/school/<int:id>/uploadImage', methods=['POST'])

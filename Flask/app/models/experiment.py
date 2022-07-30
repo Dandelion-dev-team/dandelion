@@ -20,10 +20,10 @@ class Experiment(db.Model):
     start_date = db.Column(db.Date, nullable=False)
     end_date = db.Column(db.Date, nullable=False)
     status = db.Column(db.VARCHAR(20), nullable=False)
-    hypotheses = db.relationship("Hypothesis", backref="experiment")
-    conditions = db.relationship("Condition", backref="experiment")
-    response_variables = db.relationship("ResponseVariable", backref="experiment")
-    children = db.relationship("Experiment", backref=backref('parent', remote_side=[id]))
+    hypotheses = db.relationship("Hypothesis", backref="experiment", passive_deletes=True)
+    conditions = db.relationship("Condition", backref="experiment", passive_deletes=True)
+    response_variables = db.relationship("ResponseVariable", backref="experiment", passive_deletes=True)
+    children = db.relationship("Experiment", backref=backref('parent', remote_side=[id]), passive_deletes=True)
 
     @property
     def summary_columns(self):

@@ -6,6 +6,7 @@ from sqlalchemy.sql.functions import user
 import os
 
 from app.utils.authorisation import auth_check
+from app.utils.error_messages import abort_db
 from app.utils.uploads import get_uploaded_file, content_folder
 
 from app.admin import admin
@@ -49,7 +50,7 @@ def addExperiment_participant():
 
     except Exception as e:
         db.session.rollback()
-        abort(409, e.orig.msg)
+        abort_db(e)
 
 
 @admin.route('/experiment_participant/<int:user_id>', methods=['GET'])
@@ -95,7 +96,7 @@ def add_new_experiment_participant(experiment_id, user_id):
 
     except Exception as e:
         db.session.rollback()
-        abort(409, e.orig.msg)
+        abort_db(e)
 
 
 @admin.route('/experiment_participant/updatestatus/<int:experiment_participant_id>', methods=['PUT'])
@@ -121,7 +122,7 @@ def updateExperimentParticipantStatus(experiment_participant_id):
 
         except Exception as e:
             db.session.rollback()
-            abort(409)
+            abort_db(e)
 
 
 @admin.route('/experiment_participant/delete/<int:experiment_participant_id>', methods=['DELETE'])
@@ -145,4 +146,4 @@ def deleteΕxperimentPaticipant(experiment_participant_id):
 
     except Exception as e:
         db.session.rollback()
-        abort(409)
+        abort_db(e)
