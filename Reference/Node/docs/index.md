@@ -17,9 +17,6 @@ and using your Dandelion IoT node. The content will be updated as new versions
 of the software are released. These notes will always refer to the current
 version which you can find on the *Downloads* page.
 
-If you would like to request an addition or amendment to these pages, please contact 
-Brian Davison [b.davison@napier.ac.uk](mailto:b.davison@napier.ac.uk)
-
 ??? info inline end "Changes in v0.92"
 
     * Support for all three GrowCube layers
@@ -28,6 +25,9 @@ Brian Davison [b.davison@napier.ac.uk](mailto:b.davison@napier.ac.uk)
     * New way to get into [config mode](config.md#getting-into-configuration-mode)
     * [pH sensor](sensors/ph.md#taking-ph-readings) calibration and readings
     * [Temperature probe identification](sensors/ds18b20.md#identifying-your-temperature-probes)
+
+If you would like to request an addition or amendment to these pages, please contact 
+Brian Davison [b.davison@napier.ac.uk](mailto:b.davison@napier.ac.uk)
 
 ## What's a *node*?
 
