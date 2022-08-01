@@ -151,6 +151,15 @@ export default function SuperuserDashboard(props) {
             <div className="help-pane">
               <h3>Help</h3>
               <div className="list">
+                <Link
+                  to="/glossary"
+                  className="dandelion-link-item"
+                >
+                  <div className="item-title">
+                    <h3>Glossary</h3>
+                    <LinkIcon className="link-icon" />
+                  </div>
+                </Link>
                 <a
                   className="dandelion-link-item"
                   href="https://www.youtube.com/watch?v=X8YSLDsjnGY"
