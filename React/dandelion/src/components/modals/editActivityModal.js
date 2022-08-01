@@ -5,6 +5,8 @@ import { updateRecord, uploadExperimentImage } from "../../utils/CRUD"
 import { ToastContainer, toast } from "react-toastify"
 
 import { Projection } from "leaflet"
+import CloseIcon from "@mui/icons-material/Close";
+import {Button, Modal} from "react-bootstrap";
 
 // const handleImageChange = async e => {
 //     uploadExperimentImage("/school/" + fetchedSchool.school.school_id + "/uploadImage", e.target.files[0]).then(window.location.reload(false))
@@ -49,105 +51,217 @@ export default function EditActivityModal(props) {
   }
 
   return (
-    <div>
-      <div className="edit-activity-modal">
-        <div className="modal-wrapper">
-          <div className="modal-content">
-            <h2>Edit Project Name</h2>
-            <div className="update-content">
-              <div className="info-item">
-                <div className="item-title">
-                  <h3>Name:</h3>
-                </div>
-                <div className="item-input">
-                  <input
-                    type="text"
-                    placeholder="Name"
-                    name="descBox"
-                    value={projectName}
-                    onChange={e => {
-                      setProjectName(e.target.value)
-                    }}
-                  />
-                </div>
-              </div>
-              <div className="desc-item">
-                <div className="item-title">
-                  <h3>Description:</h3>
-                </div>
-                <div className="item-input">
-                  <textarea
-                    placeholder="Description"
-                    onChange={e => {
-                      setProjectDescription(e.target.value)
-                    }}
-                    value={projectDescription}
-                  />
-                </div>
-              </div>
-              <div className="info-item">
-                <div className="item-title">
-                  <h3>Start Date:</h3>
-                </div>
-                <div className="item-input">
-                  <input
-                    type="date"
-                    value={startDate}
-                    onChange={e => {
-                      setStartDate(e.target.value)
-                    }}
-                  />
-                </div>
-              </div>
-              <div className="info-item">
-                <div className="item-title">
-                  <h3>End Date:</h3>
-                </div>
-                <div className="item-input">
-                  <input
-                    type="date"
-                    value={endDate}
-                    onChange={e => {
-                      setEndDate(e.target.value)
-                    }}
-                  />
-                </div>
-              </div>
-              <div className="info-item">
-                <div className="item-title">
-                  <h3>Activity Image:</h3>
-                </div>
-                <div className="item-input">
-                  <div className="school-image">
-                    {/* <img src={props.project.image_full} /> */}
+    // <div>
+    //   <div className="edit-activity-modal">
+    //     <div className="modal-wrapper">
+    //       <div className="close-btn">
+    //         <CloseIcon
+    //           className="btn"
+    //           onClick={() => {
+    //             props.closeModal()
+    //           }}
+    //         />
+    //       </div>
+    //       <div className="modal-content">
+    //         <h2>Edit Project Name</h2>
+    //         <div className="update-content">
+    //           <div className="info-item">
+    //             <div className="item-title">
+    //               <h3>Name:</h3>
+    //             </div>
+    //             <div className="item-input">
+    //               <input
+    //                 type="text"
+    //                 placeholder="Name"
+    //                 name="descBox"
+    //                 value={projectName}
+    //                 onChange={e => {
+    //                   setProjectName(e.target.value)
+    //                 }}
+    //               />
+    //             </div>
+    //           </div>
+    //           <div className="desc-item">
+    //             <div className="item-title">
+    //               <h3>Description:</h3>
+    //             </div>
+    //             <div className="item-input">
+    //               <textarea
+    //                 placeholder="Description"
+    //                 onChange={e => {
+    //                   setProjectDescription(e.target.value)
+    //                 }}
+    //                 value={projectDescription}
+    //               />
+    //             </div>
+    //           </div>
+    //           <div className="info-item">
+    //             <div className="item-title">
+    //               <h3>Start Date:</h3>
+    //             </div>
+    //             <div className="item-input">
+    //               <input
+    //                 type="date"
+    //                 value={startDate}
+    //                 onChange={e => {
+    //                   setStartDate(e.target.value)
+    //                 }}
+    //               />
+    //             </div>
+    //           </div>
+    //           <div className="info-item">
+    //             <div className="item-title">
+    //               <h3>End Date:</h3>
+    //             </div>
+    //             <div className="item-input">
+    //               <input
+    //                 type="date"
+    //                 value={endDate}
+    //                 onChange={e => {
+    //                   setEndDate(e.target.value)
+    //                 }}
+    //               />
+    //             </div>
+    //           </div>
+    //           <div className="info-item">
+    //             <div className="item-title">
+    //               <h3>Activity Image:</h3>
+    //             </div>
+    //             <div className="item-input">
+    //               <div className="school-image">
+    //                 {/* <img src={props.project.image_full} /> */}
+    //
+    //                 <img src="https://images.unsplash.com/photo-1638913662529-1d2f1eb5b526?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" />
+    //                 <label className="edit-circle">
+    //                   <input
+    //                     type="file"
+    //                     accept=".jpg,.png"
+    //                     onChange={handleImageChange}
+    //                     hidden
+    //                   />
+    //                   <EditIcon className="edit-icon" />
+    //                 </label>
+    //               </div>
+    //             </div>
+    //           </div>
+    //         </div>
+    //         <div className="btn-row">
+    //           <input
+    //             type="submit"
+    //             className="update-btn"
+    //             value="Update"
+    //             onClick={() => {
+    //               updateClicked()
+    //             }}
+    //           />
+    //         </div>
+    //       </div>
+    //     </div>
+    //   </div>
+    // </div>
 
-                    <img src="https://images.unsplash.com/photo-1638913662529-1d2f1eb5b526?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" />
-                    <label className="edit-circle">
+    <Modal
+        show={props.show}
+        dialogClassName="dandelion-modal"
+        centered
+        size="lg"
+    >
+        <Modal.Header closeButton onClick={() => props.setShow(false)}>
+            <Modal.Title><h2>Edit Activity</h2></Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="scrollable-modal">
+            <div className="scrollable-container">
+                <div className="scrollable-content">
+                  <div className="labelled-field">
+                    <div className="label">
+                      Name:
+                    </div>
+                    <div className="item-input">
                       <input
-                        type="file"
-                        accept=".jpg,.png"
-                        onChange={handleImageChange}
-                        hidden
+                        type="text"
+                        placeholder="Name"
+                        name="descBox"
+                        value={projectName}
+                        onChange={e => {
+                          setProjectName(e.target.value)
+                        }}
                       />
-                      <EditIcon className="edit-icon" />
-                    </label>
+                    </div>
+                  </div>
+                  <div className="none">
+                    <div className="label">
+                      Description:
+                    </div>
+                    <div className="item-input">
+                      <textarea
+                        placeholder="Description"
+                        onChange={e => {
+                          setProjectDescription(e.target.value)
+                        }}
+                        value={projectDescription}
+                      />
+                    </div>
+                  </div>
+                  <div className="labelled-field">
+                    <div className="label">
+                      Start Date:
+                    </div>
+                    <div className="item-input">
+                      <input
+                        type="date"
+                        value={startDate}
+                        onChange={e => {
+                          setStartDate(e.target.value)
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <div className="labelled-field">
+                    <div className="label">
+                      End Date:
+                    </div>
+                    <div className="item-input">
+                      <input
+                        type="date"
+                        value={endDate}
+                        onChange={e => {
+                          setEndDate(e.target.value)
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <div className="none">
+                    <div className="label">
+                      Activity Image:
+                    </div>
+                    <div className="item-input">
+                      <div className="school-image">
+                        {/* <img src={props.project.image_full} /> */}
+
+                        <img src="https://images.unsplash.com/photo-1638913662529-1d2f1eb5b526?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" />
+                        <label className="edit-circle">
+                          <input
+                            type="file"
+                            accept=".jpg,.png"
+                            onChange={handleImageChange}
+                            hidden
+                          />
+                          <EditIcon className="edit-icon" />
+                        </label>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div className="btn-row">
-              <input
-                type="submit"
-                className="update-btn"
-                value="Update"
-                onClick={() => {
-                  updateClicked()
-                }}
-              />
             </div>
           </div>
-        </div>
-      </div>
-    </div>
+        </Modal.Body>
+        <Modal.Footer>
+            <div className="dandelion-button-group">
+                <Button className="dandelion-button" onClick={() => props.setShow(false)}>Cancel</Button>
+                <Button className="dandelion-button" onClick={() => updateClicked()}>Save</Button>
+            </div>
+        </Modal.Footer>
+    </Modal>
   )
 }

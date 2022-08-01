@@ -29,22 +29,24 @@ export default function ProjectComponent(props) {
           </tr>
         </thead>
 
-        {projects
-          ? projects.map(project => (
-            <tbody
-              key={projects.id}
-              className={className}
-              onClick={() => {
-                editAuth(project)
-                isActive = true
-              }}
-            >
-              <td>{project.title}</td>
-              {/* <td>{project.owner.substring(0, 7)}</td>
-              <td>{project.type}</td> */}
-            </tbody>
-          ))
-          : null}
+        <tbody className={className}>
+            {projects
+              ? projects.map(project => (
+                <tr
+                  key={projects.id}
+                  onClick={() => {
+                    editAuth(project)
+                    isActive = true
+                  }}
+                >
+                      <td>{project.title}</td>
+                      {/* <td>{project.owner.substring(0, 7)}</td>
+                      <td>{project.type}</td> */}
+                  </tr>
+              ))
+              : null
+            }
+        </tbody>
       </table>
       <div className="add-btn">
         <button

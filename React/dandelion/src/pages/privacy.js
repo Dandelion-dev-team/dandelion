@@ -1,7 +1,6 @@
 import * as React from "react"
 import Header from "../components/navigation/header"
 import { useStaticQuery, graphql, navigate } from "gatsby"
-import Layout from "../components/layout"
 import image from "../images/banner3.jpeg"
 import gif from "../images/404.gif"
 

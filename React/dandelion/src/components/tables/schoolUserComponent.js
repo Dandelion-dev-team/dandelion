@@ -1,12 +1,12 @@
-import { Link } from "gatsby"
 import React, { useEffect, useState } from "react"
-import { deleteRecord, readRecord } from "../../utils/CRUD"
+import { readRecord } from "../../utils/CRUD"
 import "../../styles/App.scss"
 import AddStudentModal from "../modals/addStudentModal"
 import EditUserModal from "../modals/editUserModal"
-import EditIcon from "@mui/icons-material/Edit"
 import AddMultipleUsersModal from "../modals/addMultipleUsersModal"
 import AddUserTypeModal from "../modals/addUserTypeModal"
+
+import {Button} from "react-bootstrap"
 
 export default function SchoolUserComponent(props) {
   const [users, setUsers] = useState()
@@ -26,8 +26,8 @@ export default function SchoolUserComponent(props) {
   }
 
   const onEditClick = e => {
-    setShowEditModal(true)
     setEditingUser(e)
+    setShowEditModal(true)
   }
 
   const singleCallback = e => {
@@ -41,73 +41,83 @@ export default function SchoolUserComponent(props) {
   }
 
   return (
-    <div className="school-comp-container">
-      {show_type_modal ? (
-        <AddUserTypeModal
-          singleCallback={singleCallback}
-          multipleCallback={multipleCallback}
-        />
-      ) : null}
-      {show_edit_modal ? (
-        <EditUserModal closeModal={setShowEditModal} user={editingUser} />
-      ) : null}
-      {show_single_modal ? (
-        <AddStudentModal closeModal={setShowSingleModal} />
-      ) : null}
-      {show_multiple_modal ? (
-        <AddMultipleUsersModal closeModal={setShowMultipleModal} />
-      ) : null}
 
-      <div className="schoolTable">
+    <div className="school-comp-container dandelion-component scrollable-container">
+      <div className="scrollable-header">
+        <h2>
+          User accounts for your school
+        </h2>
+        <p>Username</p>
+      </div>
+      <div className="dandelion-table scrollable-content">
         <table className="schoolList">
-          <thead>
-            <tr>
-              <th>Username</th>
-              <th>Edit</th>
-            </tr>
-          </thead>
-          {users
-            ? users.users.map(user => (
-                <tbody
-                  key={user.id}
-                  onClick={() => {
-                    editUser(user)
-                  }}
-                >
-                  <td>
-                    <div className="username">{user.username}</div>
-                  </td>
-                  <td>
-                    <div className="btn-container">
-                      <div className="edit-btn">
+          {/*<thead>*/}
+          {/*  <tr>*/}
+          {/*    <th>Username</th>*/}
+          {/*    <th></th>*/}
+          {/*  </tr>*/}
+          {/*</thead>*/}
+          <tbody>
+            {users
+              ? users.users.map(user => (
+                  <tr
+                    key={user.id}
+                    onClick={() => {
+                      editUser(user)
+                    }}
+                  >
+                    <td>
+                      <div className="username">{user.username}</div>
+                    </td>
+                    <td>
+                      <div className="btn-container">
                         <button
                           onClick={() => {
                             onEditClick(user)
                           }}
-                          className="editButton"
+                          className="dandelion-button"
                         >
                           Edit
                         </button>
                       </div>
-                    </div>
-                  </td>
-                </tbody>
-              ))
-            : null}
+                    </td>
+                  </tr>
+                ))
+              : null
+            }
+          </tbody>
         </table>
       </div>
-      <div className="btn-row">
-        <div className="add-btn" id="single">
-          <button
-            onClick={() => {
-              setShowTypeModal(true)
-            }}
-            className="submitButton"
-          >
-            Add Users
-          </button>
+      <div className="btn-row scrollable-footer">
+        <div className="btn-container" id="single">
+          <Button className="dandelion-button large-button" onClick={() => setShowTypeModal(true)} centered>
+            Add users
+          </Button>
         </div>
       </div>
+
+    <AddUserTypeModal
+      show={show_type_modal}
+      setShow={setShowTypeModal}
+      singleCallback={singleCallback}
+      multipleCallback={multipleCallback}
+    />
+
+    <AddStudentModal
+      show={show_single_modal}
+      setShow={setShowSingleModal}
+    />
+
+    <AddMultipleUsersModal
+      show={show_multiple_modal}
+      setShow={setShowMultipleModal}
+    />
+
+    <EditUserModal
+        show={show_edit_modal}
+        setShow={setShowEditModal}
+        user={editingUser}
+    />
     </div>
   )
 }

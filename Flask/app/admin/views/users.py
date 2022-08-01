@@ -46,6 +46,7 @@ def createUser():
         school_id=data['school_id'],
         is_superuser=data['is_superuser'],
         is_sysadmin=data['is_sysadmin'],
+        notes=data['notes'],
         status=data['status']
     )
     db.session.add(user)

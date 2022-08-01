@@ -48,8 +48,8 @@ export default function ProjectMaintenance(props) {
       <>
         {modal_shown ? <ActivityCreatedModal callback={modalCallback} /> : null}
         <SideNav />
+        <ToastContainer />
         <div className="project-container">
-          <ToastContainer />
           <div className="project-content">
             <div className="content-wrapper">
               <div className="table">

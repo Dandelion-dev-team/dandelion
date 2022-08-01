@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { toast } from "react-toastify"
 import { createRecord } from "../../utils/CRUD"
 import CloseIcon from "@mui/icons-material/Close"
+import {Button, Modal} from "react-bootstrap";
 
 export default function AddMultipleUsersModal(props) {
   const [enteredNumber, setEnteredNumber] = useState("")
@@ -22,25 +23,19 @@ export default function AddMultipleUsersModal(props) {
   }
 
   return (
-    <div className="add-multiple-students-modal">
-      <div className="inner-panel">
-        <div className="close-btn">
-          <CloseIcon
-            className="btn"
-            onClick={() => {
-              props.closeModal()
-            }}
-          />
-        </div>
-        <div className="panel-content">
-          <div className="title">
-            <h2>Add Users</h2>
-            <p>Enter the amount of users you wish to create.</p>
-          </div>
+    <Modal
+        show={props.show}
+        dialogClassName="dandelion-modal"
+        centered
+    >
+        <Modal.Header closeButton onClick={() => props.setShow(false)}>
+            <Modal.Title><h2>Add Users</h2></Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
           <div className="enter-row">
             <div className="enter-container">
               <div className="title">
-                <h3>Number:</h3>
+                <h3>Enter the number of accounts you would like to create:</h3>
               </div>
               <div className="item-input">
                 <input
@@ -54,27 +49,13 @@ export default function AddMultipleUsersModal(props) {
               </div>
             </div>
           </div>
-
-          {missing_info ? (
-            <div className="missing-info">
-              <h3>Missing Information</h3>
+        </Modal.Body>
+        <Modal.Footer>
+            <div className="dandelion-button-group">
+                <Button className="dandelion-button" onClick={() => props.setShow(false)}>Cancel</Button>
+                <Button className="dandelion-button" onClick={() => createUsers()}>Create accounts</Button>
             </div>
-          ) : null}
-
-          <div className="finish-row">
-            <div className="add-btn">
-              <input
-                type="submit"
-                className="add-btn"
-                value="Update"
-                onClick={() => {
-                  createUsers()
-                }}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+        </Modal.Footer>
+    </Modal>
   )
 }

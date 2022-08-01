@@ -1,18 +1,19 @@
 import React, { useEffect, useState, useRef } from "react"
-import "../../styles/App.scss"
-import SideNav from "../../components/navigation/superUserSideNav"
-import { Link, navigate } from "gatsby"
-import { verify_superuser_storage } from "../../utils/logins"
 import LinkIcon from "@mui/icons-material/Link"
-import Calendar from "react-calendar"
-import "react-calendar/dist/Calendar.css"
-import Placeholder from "../../images/node-placeholder.png"
 import { ToastContainer, toast } from "react-toastify"
-import "react-toastify/dist/ReactToastify.css"
-import { readAdminRecord, readRecord } from "../../utils/CRUD"
-import InviteCard from "../../components/cards/inviteCard"
+import { Link, navigate } from "gatsby"
+import Calendar from "react-calendar"
+import SideNav from "../../components/navigation/superUserSideNav"
+import Placeholder from "../../images/node-placeholder.png"
 import { Doughnut } from "react-chartjs-2"
 import { Chart as ChartJS } from "chart.js/auto"
+import { readAdminRecord, readRecord } from "../../utils/CRUD"
+import { verify_superuser_storage } from "../../utils/logins"
+
+import "../../styles/App.scss"
+import "react-calendar/dist/Calendar.css"
+import "react-toastify/dist/ReactToastify.css"
+import InviteCard from "../../components/cards/inviteCard"
 
 export default function SuperuserDashboard(props) {
   const [logged, setLogged] = useState("")
@@ -83,8 +84,9 @@ export default function SuperuserDashboard(props) {
     return (
       <div>
         <SideNav />
+        <ToastContainer />
+        <div className="dandelion">
         <div className="dashboard-container">
-          <ToastContainer />
           <div className="content">
             <div className="students-pane">
               <div className="students-wrapper">
@@ -230,6 +232,7 @@ export default function SuperuserDashboard(props) {
               </div> */}
             </div>
           </div>
+        </div>
         </div>
       </div>
     )

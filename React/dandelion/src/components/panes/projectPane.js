@@ -61,7 +61,7 @@ export default function ProjectPane(props) {
         <div className="project-panel-content">
           {showDisclaimer ? <InviteModal callback={nextModal} /> : null}
           {showAddModal ? <SchoolModal callback={addSchool} /> : null}
-          {showEditModal ? <EditActivityModal project={props.project}/> : null}
+          {/*{showEditModal ? <EditActivityModal project={props.project}/> : null}*/}
           {show_no_node ? <NoNodeModal callback={closeNoNode}/> : null}
           <div className="project-details">
             <h3>{props.project.title} </h3>
@@ -122,6 +122,13 @@ export default function ProjectPane(props) {
           </div>
         </div>
       ) : null}
+
+      <EditActivityModal
+          show={showEditModal}
+          setShow={setShowEditModal}
+          project={props.project}
+      />
+
     </div>
   )
 }

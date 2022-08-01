@@ -18,6 +18,11 @@ elements contained within a DIV with the class name of `dandelion`. Once all
 pages and components have been modified to conform to the new approach, the 
 reference to the class name `dandelion` can be removed.
 
+## Gatsby defaults
+
+Gatsby stores site-wide style in `/components/layout.css`. These will be applied by
+default and will take precedence over local styles.
+
 ## Conventions
 
 In the structures that follow, the following conventions are observed: 

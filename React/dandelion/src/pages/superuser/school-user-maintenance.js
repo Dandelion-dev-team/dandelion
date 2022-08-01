@@ -35,8 +35,8 @@ export default function SchoolUserMaintenance(props) {
     return (
       <div>
         <SideNav />
+        <ToastContainer />
         <div className="school-user-container">
-          <ToastContainer />
           <div className="school-content">
             <div className="table-wrapper">
               <div className="table">

@@ -1,16 +1,23 @@
 import React, { useEffect, useState } from "react"
 import { toast } from "react-toastify"
 import { updateRecord } from "../../utils/CRUD"
+import {Button, Modal} from "react-bootstrap";
 
 export default function EditUserModal(props) {
   const [username, setUsername] = useState("")
   const [notes, setNotes] = useState("")
 
   useEffect(() => {
-    setUsername(props.user.username)
-    setNotes(props.user.notes)
-    console.log(props.user)
-  }, [])
+      if (props.user) {
+        setUsername(props.user.username)
+        setNotes(props.user.notes)
+        console.log(props.user)
+      }
+      else {
+        setUsername(null)
+        setNotes(null)
+      }
+  }, [props.user])
 
   const updateClicked = e => {
     if (username && notes) {
@@ -37,11 +44,15 @@ export default function EditUserModal(props) {
   }
 
   return (
-    <div className="edit-student-modal">
-      <div className="inner-panel">
-        <div className="panel-content">
-          <h2>Edit Student</h2>
-
+    <Modal
+        show={props.show}
+        dialogClassName="dandelion-modal"
+        centered
+    >
+        <Modal.Header closeButton onClick={() => props.setShow(false)}>
+            <Modal.Title><h2>Edit Student</h2></Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
           <div className="label-textbox">
             <h3>Username:</h3>
             <input
@@ -55,35 +66,20 @@ export default function EditUserModal(props) {
 
           <div className="label-textbox">
             <h3>Notes:</h3>
-            <input
-              type="text"
+            <textarea
               value={notes}
               onChange={e => {
                 setNotes(e.target.value)
               }}
             />
           </div>
-
-          <div className="btn-row">
-            <input
-              type="submit"
-              className="submitButton"
-              value="Update User"
-              onClick={() => {
-                updateClicked()
-              }}
-            ></input>
-            <input
-              type="submit"
-              className="submitButton"
-              value="Close"
-              onClick={() => {
-                props.closeModal()
-              }}
-            ></input>
-          </div>
-        </div>
-      </div>
-    </div>
+        </Modal.Body>
+        <Modal.Footer>
+            <div className="dandelion-button-group">
+                <Button className="dandelion-button" onClick={() => props.setShow(false)}>Cancel</Button>
+                <Button className="dandelion-button" onClick={() => updateClicked()}>Save</Button>
+            </div>
+        </Modal.Footer>
+    </Modal>
   )
 }

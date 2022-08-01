@@ -1,4 +1,4 @@
-//HTML structure
+// For documentation see styles/README
 
 .dandelion {
   width: 100vw;
@@ -106,30 +106,105 @@
     &:hover {
       color: $dandelion-green;
     }
+  }
 }
 
-  .button {
-    background-color: $accent;
-    color: $primary;
-    border-radius: 8px;
-    border-style: none;
-    cursor: pointer;
-    font-size: 1.5rem;
-    font-weight: 500;
-    line-height: 20px;
-    padding: 0.625rem 2rem;
-    touch-action: manipulation;
+.dandelion-component {
+  h2 {
+    margin: 2rem;
+  }
 
-    @include media("<=tablet") {
-      height: 100%;
-      font-size: 150%;
+  p {
+    margin: 0 2rem;
+  }
+}
+
+//  .button {
+//    background-color: $accent;
+//    color: $primary;
+//    border-radius: 8px;
+//    border-style: none;
+//    cursor: pointer;
+//    font-size: 1.5rem;
+//    font-weight: 500;
+//    line-height: 20px;
+//    padding: 0.625rem 2rem;
+//    touch-action: manipulation;
+//
+//    @include media("<=tablet") {
+//      height: 100%;
+//      font-size: 150%;
+//    }
+//  }
+//  .button:hover,
+//  .button:focus {
+//    background-color: #d4d926;
+//  }
+//}
+
+// Tables
+
+.dandelion-table {
+  table {
+    //margin-top: 1.5rem;
+    //margin-left: 2rem;
+
+    thead {
+        font-weight: bold;
+    }
+
+    tr:hover {
+      background-color: #f7f8ff;
+      cursor: pointer;
     }
   }
-  .button:hover,
-  .button:focus {
+}
+
+// Buttons
+
+.dandelion-button {
+  font-family: "Archivo Narrow", "Helvetica Neue", sans-serif;
+  background-color: $accent;
+  color: $primary;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  padding: .2rem 2rem;
+
+  &:hover {
+    color: $primary;
     background-color: #d4d926;
   }
+
+  &:focus {
+    background-color: $accent;
+    color: $primary;
+  }
+
 }
+
+.dandelion-button-group {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+
+  button {
+    display: flex;
+  }
+}
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+}
+
+.large-button {
+  font-size: 140%;
+}
+
 
 // HTML variations
 
@@ -152,6 +227,78 @@
     width: 100%;
     background-color: lightgrey;
   }
+}
+
+// Forms
+
+.labelled-field {
+  display: flex;
+  flex-direction: row;
+  margin: 1rem 0.2rem;
+  align-items: baseline;
+
+  .label {
+    margin: 0 2rem 0 0;
+  }
+}
+
+.label {
+    font-width: bold;
+    font-size: 1.2rem;
+}
+
+.edit-circle {
+  width: 70px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin-left: 10%;
+  display: flex;
+  height: 70px;
+  background-color: $accent;
+  border-radius: 35px;
+  justify-content: center;
+  align-items: center;
+
+  .edit-icon {
+    color: black;
+    width: 70%;
+    height: 70%;
+  }
+}
+
+
+// Panels
+
+// scrollable container requires that the parent element has the properties:
+//     display: flex
+//     flex_direction: column
+
+.scrollable-modal {
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.scrollable-container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-height: 1%;
+}
+
+.scrollable-header {
+
+}
+
+.scrollable-content {
+  flex-grow: 1;
+  overflow: auto;
+  padding-left: 2rem;
+}
+
+.scrollable-footer {
+  margin: auto;
 }
 
 .panel {
@@ -203,7 +350,29 @@
   }
 }
 
-.content-container {
-  flex: 1;
+// Other customisations
+
+.label-textbox {
+  margin-top: 2rem;
 }
 
+textarea {
+  width: 100%;
+  height: 8rem;
+}
+
+.dandelion-modal {
+  .modal-content {
+    border-radius: 20px;
+  }
+  .modal-title h2 {
+    padding-top: 1.5rem;
+  }
+  .modal-header {
+    align-items: start;
+    border-bottom: none;
+  }
+  .modal-footer {
+    border-top: none;
+  }
+}
