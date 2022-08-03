@@ -13,16 +13,17 @@ header {
     align-items: center;
     justify-content: space-between;
     width: 90%;
+    margin: 0 auto;
 
-    @include media("<=desktop") {
-      width: 85%;
-      min-width: 85%;
-    }
+    //@include media("<=desktop") {
+    //  width: 85%;
+    //  min-width: 85%;
+    //}
 
-    @include media("<=tablet") {
-      width: 90%;
-      min-width: 90%;
-    }
+    //@include media("<=tablet") {
+    //  width: 90%;
+    //  min-width: 90%;
+    //}
 
     .logo {
       img {

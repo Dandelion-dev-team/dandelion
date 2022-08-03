@@ -38,7 +38,62 @@
     @include media("<=phone") {
 
     }
+  }
 
+  form {
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin: 0 auto;
+    max-width: 100%;
+    padding: 1.25rem 3.75rem;
+    border-radius: 25px;
+    height: 60vh;
+
+    @include media("<=tablet") {
+      width: 100%;
+      height: 575px;
+      padding: 20px 20px;
+      background: none;
+    }
+
+    input:not([type="submit"]) {
+      border: none;
+      outline: 0;
+      font-size: 1.3rem;
+      //border-bottom: 1.5px solid #000;
+      box-sizing: border-box;
+      padding-bottom: 0.625rem;
+      width: 100%;
+      position: relative;
+      bottom: 1.25rem;
+
+      @include media("<=tablet") {
+        background: rgba(0, 0, 0, 0);
+        border: none;
+        outline: none;
+        color: #fff;
+        //border-bottom: 1.5px solid #fff;
+        padding: 5px;
+      }
+    }
+    input:focus {
+      border-color: $contrast;
+    }
+    label {
+      display: block;
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: $primary;
+      margin-bottom: 0.625rem  ;
+      margin-top: 0.625rem  ;
+
+      @include media("<=tablet") {
+        color: #fff;
+        margin: 0px;;
+      }
+    }
   }
 
   p {
@@ -58,8 +113,9 @@
     }
   }
 
-  p.smallprint {
+  .smallprint {
     font-size: 1rem;
+    color: $white;
   }
 
   h1 {
@@ -118,29 +174,6 @@
     margin: 0 2rem;
   }
 }
-
-//  .button {
-//    background-color: $accent;
-//    color: $primary;
-//    border-radius: 8px;
-//    border-style: none;
-//    cursor: pointer;
-//    font-size: 1.5rem;
-//    font-weight: 500;
-//    line-height: 20px;
-//    padding: 0.625rem 2rem;
-//    touch-action: manipulation;
-//
-//    @include media("<=tablet") {
-//      height: 100%;
-//      font-size: 150%;
-//    }
-//  }
-//  .button:hover,
-//  .button:focus {
-//    background-color: #d4d926;
-//  }
-//}
 
 // Tables
 

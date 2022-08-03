@@ -69,10 +69,10 @@ const Hero = () => {
                     the biggest growing experiment Scotland’s ever seen.
                   </Trans>
                 </p>
-                <div className="btn-row">
+                <div className="btn-container">
                   {/*localStorage.getItem("logged") ? null : null*/}
                   <button
-                    className="button"
+                    className="dandelion-button"
                     onClick={() => {
                       navigate("/signin")
                     }}

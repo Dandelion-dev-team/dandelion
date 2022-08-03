@@ -82,10 +82,10 @@ export default function Login(props) {
                         onChange={handlePasswordChange}
                         //value={formik.values.password}
                       />
-                      <div className="submit-btn">
+                      <div className="btn-container">
                         <input
                           type="submit"
-                          className="button"
+                          className="dandelion-button"
                           value="Log In"
                           onClick={onSubmitClick}
                         />
