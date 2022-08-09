@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react"
 import SysSideNav from "../../components/navigation/sysadminSideNav"
+import Header from "../../components/navigation/header"
 import "../../styles/App.scss"
 import TagComponent from "../../components/tables/tagComponent"
 import { createRecord, readRecord, updateRecord } from "../../utils/CRUD"
@@ -75,62 +76,70 @@ export default function TagMaintenance(props) {
   }
   if (logged) {
     return (
-      <div>
-        <SysSideNav />
+      <div className="dandelion">
         <ToastContainer />
-        <div className="tag-maintenance-container">
-          <div className="tag-content">
-            <div className="content-wrapper">
-              <div className="table">
-                <TagComponent parentCallback={handleCallback} />
-              </div>
-              <div className="edit-tag">
-                <div>
-                  <h3>Tag Label: </h3>
-                  <input
-                    type="text"
-                    placeholder="Label"
-                    name="labelBox"
-                    value={tagLabel}
-                    onChange={handleTagChange}
-                  />
+        <Header />
+        <div className="page-container">
+          <SysSideNav />
+          <ToastContainer />
+          <div className="main-content">
+            <div className="content-area">
+                <div className="left-panel">
+                  <div className="panel-body">
+                    <TagComponent parentCallback={handleCallback} />
+                  </div>
                 </div>
+                <div className="right-panel">
+                    <div className="pane-container">
+                      <div className="pane-content">
+                        <div>
+                          <h3>Tag Label: </h3>
+                          <input
+                            type="text"
+                            placeholder="Label"
+                            name="labelBox"
+                            value={tagLabel}
+                            onChange={handleTagChange}
+                          />
+                        </div>
 
-                <div className="textbox">
-                  <h3>Status:</h3>
-                  <input
-                    type="text"
-                    placeholder="Status"
-                    name="statusBox"
-                    value={tagStatus}
-                    onChange={handleTagStatus}
-                  />
-                </div>
+                        <div className="textbox">
+                          <h3>Status:</h3>
+                          <input
+                            type="text"
+                            placeholder="Status"
+                            name="statusBox"
+                            value={tagStatus}
+                            onChange={handleTagStatus}
+                          />
+                        </div>
 
-                {editing ? (
-                  //IF EDITING
-                  <div className="nameBox">
-                    <div className="submit-btn">
-                      <input
-                        type="submit"
-                        className="submitButton"
-                        value="Update"
-                        onClick={onUpdateTag}
-                      ></input>
+                        {editing ? (
+                          //IF EDITING
+                          <div className="nameBox">
+                            <div className="submit-btn">
+                              <input
+                                type="submit"
+                                className="submitButton"
+                                value="Update"
+                                onClick={onUpdateTag}
+                              ></input>
+                            </div>
+                          </div>
+                        ) : (
+                          //IF NOT EDITING
+                          <div className="submit-btn">
+                            <input
+                              type="submit"
+                              className="submitButton"
+                              value="Create"
+                              onClick={onCreateTag}
+                            ></input>
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                ) : (
-                  //IF NOT EDITING
-                  <div className="submit-btn">
-                    <input
-                      type="submit"
-                      className="submitButton"
-                      value="Create"
-                      onClick={onCreateTag}
-                    ></input>
-                  </div>
-                )}
-              </div>
+                </div>
             </div>
           </div>
         </div>

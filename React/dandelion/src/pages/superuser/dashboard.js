@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react"
 import LinkIcon from "@mui/icons-material/Link"
+import Header from "../../components/navigation/header"
 import { ToastContainer, toast } from "react-toastify"
 import { Link, navigate } from "gatsby"
 import Calendar from "react-calendar"
@@ -82,157 +83,159 @@ export default function SuperuserDashboard(props) {
 
   if (typeof window !== `undefined` && logged) {
     return (
-      <div>
-        <SideNav />
-        <ToastContainer />
-        <div className="dandelion">
-        <div className="dashboard-container">
-          <div className="content">
-            <div className="students-pane">
-              <div className="students-wrapper">
-                <h3>Students</h3>
-                <div className="chart">
-                  <Doughnut data={data} options={options} />
+      <div className="dandelion">
+        <Header />
+        <div className="page-container">
+          <SideNav />
+          <ToastContainer />
+            <div className="dashboard-container">
+              <div className="content">
+                <div className="students-pane">
+                  <div className="students-wrapper">
+                    <h3>Students</h3>
+                    <div className="chart">
+                      <Doughnut data={data} options={options} />
+                    </div>
+                    {/* <hr className="linebreak" /> */}
+                    <div className="students-list dandelion-table">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>Student ID</th>
+                            <th>Username</th>
+                          </tr>
+                        </thead>
+                        {school_users.users
+                          ? school_users.users.map(friend => (
+                              <tbody key={friend.user_id}>
+                                <td>{friend.user_id}</td>
+                                <td>{friend.username}</td>
+                              </tbody>
+                            ))
+                          : null}
+                      </table>
+                    </div>
+                  </div>
                 </div>
-                {/* <hr className="linebreak" /> */}
-                <div className="students-list">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>Student ID</th>
-                        <th>Username</th>
-                      </tr>
-                    </thead>
-                    {school_users.users
-                      ? school_users.users.map(friend => (
-                          <tbody key={friend.user_id}>
-                            <td>{friend.user_id}</td>
-                            <td>{friend.username}</td>
-                          </tbody>
-                        ))
-                      : null}
-                  </table>
+                <div className="middle-pane">
+                  <div className="projects-widget">
+                    <div className="title">
+                      <h3>Your Activities</h3>
+                    </div>
+                    <div className="activity-list dandelion-table">
+                      {projectList
+                        ? projectList.map(project => (
+                            <div className="activity">
+                              <div className="img">
+                                <img src={project.image_thumb} />
+                              </div>
+                              <div className="name">
+                                {project.title}
+                              </div>
+                            </div>
+                          ))
+                        : null}
+                    </div>
+                  </div>
+                  <div className="node-widget">
+                    <h3>Invitations</h3>
+                    <div className="invite-list dandelion-table">
+                      {inviteList.data ? (
+                        inviteList.data.length > 0 ? (
+                          inviteList.data.map(invite => (
+                            <InviteCard alert={invite} />
+                          ))
+                        ) : (
+                            ("No pending invitations")
+                        )
+                      ) : null}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-            <div className="middle-pane">
-              <div className="projects-widget">
-                <div className="title">
-                  <h3>Your Activities</h3>
-                </div>
-                <div className="activity-list">
-                  {projectList
-                    ? projectList.map(project => (
-                        <div className="activity">
-                          <div className="img">
-                            <img src={project.image_thumb} />
-                          </div>
-                          <div className="name">
-                            <h3>{project.title}</h3>
-                          </div>
-                        </div>
-                      ))
-                    : null}
-                </div>
-              </div>
-              <div className="node-widget">
-                <h3>Invites</h3>
-                <div className="invite-list">
-                  {inviteList.data ? (
-                    inviteList.data.length > 0 ? (
-                      inviteList.data.map(invite => (
-                        <InviteCard alert={invite} />
-                      ))
-                    ) : (
-                      <h3>No Pending Invites.</h3>
-                    )
-                  ) : null}
-                </div>
-              </div>
-            </div>
-            <div className="help-pane">
-              <h3>Help</h3>
-              <div className="list">
-                <Link
-                  to="/glossary"
-                  className="dandelion-link-item"
-                >
-                  <div className="item-title">
-                    <h3>Glossary</h3>
-                    <LinkIcon className="link-icon" />
-                  </div>
-                </Link>
-                <a
-                  className="dandelion-link-item"
-                  href="https://www.youtube.com/watch?v=X8YSLDsjnGY"
-                  target={"_blank"}
-                >
-                  <div className="item-title">
-                    <h3>How to Add an Activity</h3>
-                    <LinkIcon className="link-icon" />
-                  </div>
-                </a>
-                <a
-                  className="dandelion-link-item"
-                  href="https://www.youtube.com/watch?v=bb_yvVKhvLk"
-                  target={"_blank"}
-                >
-                  <div className="item-title">
-                    <h3>How to Create Users</h3>
-                    <LinkIcon className="link-icon" />
-                  </div>
-                </a>
-                <a
-                  className="dandelion-link-item"
-                  href="https://www.youtube.com/watch?v=kBfT-m71M34"
-                  target={"_blank"}
-                >
-                  <div className="item-title">
-                    <h3>Add Users to Experiment.</h3>
-                    <LinkIcon className="link-icon" />
-                  </div>
-                </a>
-                <a
-                  className="dandelion-link-item"
-                  href="https://www.youtube.com/watch?v=Ni3apsUPlsg&t=1s"
-                  target={"_blank"}
-                >
-                  <div className="item-title">
-                    <h3>Experiment 1: Thigmomorphogenesis</h3>
-                    <LinkIcon className="link-icon" />
-                  </div>
-                </a>
-                <a
-                  className="dandelion-link-item"
-                  href="https://www.youtube.com/watch?v=hls6dXk5p1A"
-                  target={"_blank"}
-                >
-                  <div className="item-title">
-                    <h3>Node configuration</h3>
-                    <LinkIcon className="link-icon" />
-                  </div>
-                </a>
-                <a
-                  className="dandelion-link-item"
-                  href="https://www.youtube.com/watch?v=C3MIP-iOylU"
-                  target={"_blank"}
-                >
-                  <div className="item-title">
-                    <h3>Build a GrowCube - Start to Finish</h3>
-                    <LinkIcon className="link-icon" />
-                  </div>
-                </a>
 
-              </div>
-              {/* <div className="calendar">
-                <div className="superuser-calendar">
-                  <Calendar />
+                <div className="help-pane">
+                  <h3>Help</h3>
+                  <div className="list">
+                    <Link
+                      to="/glossary"
+                      className="dandelion-link-item"
+                    >
+                      <div className="item-title">
+                        Glossary
+                        <LinkIcon className="link-icon" />
+                      </div>
+                    </Link>
+                    <a
+                      className="dandelion-link-item"
+                      href="https://www.youtube.com/watch?v=X8YSLDsjnGY"
+                      target={"_blank"}
+                    >
+                      <div className="item-title">
+                        How to Add an Activity
+                        <LinkIcon className="link-icon" />
+                      </div>
+                    </a>
+                    <a
+                      className="dandelion-link-item"
+                      href="https://www.youtube.com/watch?v=bb_yvVKhvLk"
+                      target={"_blank"}
+                    >
+                      <div className="item-title">
+                        How to Create Users
+                        <LinkIcon className="link-icon" />
+                      </div>
+                    </a>
+                    <a
+                      className="dandelion-link-item"
+                      href="https://www.youtube.com/watch?v=kBfT-m71M34"
+                      target={"_blank"}
+                    >
+                      <div className="item-title">
+                        Add Users to Experiment
+                        <LinkIcon className="link-icon" />
+                      </div>
+                    </a>
+                    <a
+                      className="dandelion-link-item"
+                      href="https://www.youtube.com/watch?v=Ni3apsUPlsg&t=1s"
+                      target={"_blank"}
+                    >
+                      <div className="item-title">
+                        Experiment 1: Thigmomorphogenesis
+                        <LinkIcon className="link-icon" />
+                      </div>
+                    </a>
+                    <a
+                      className="dandelion-link-item"
+                      href="https://www.youtube.com/watch?v=hls6dXk5p1A"
+                      target={"_blank"}
+                    >
+                      <div className="item-title">
+                        Node configuration
+                        <LinkIcon className="link-icon" />
+                      </div>
+                    </a>
+                    <a
+                      className="dandelion-link-item"
+                      href="https://www.youtube.com/watch?v=C3MIP-iOylU"
+                      target={"_blank"}
+                    >
+                      <div className="item-title">
+                        Build a GrowCube - Start to Finish
+                        <LinkIcon className="link-icon" />
+                      </div>
+                    </a>
 
+                  </div>
+                  {/* <div className="calendar">
+                    <div className="superuser-calendar">
+                      <Calendar />
+
+                    </div>
+                  </div> */}
                 </div>
-              </div> */}
+              </div>
             </div>
-          </div>
-        </div>
         </div>
       </div>
     )

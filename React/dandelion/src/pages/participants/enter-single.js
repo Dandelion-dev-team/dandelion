@@ -8,7 +8,6 @@ import "react-toastify/dist/ReactToastify.css"
 import {
   createRecord,
   createRecordNavigate,
-  uploadExperimentImage,
 } from "../../utils/CRUD"
 import EnterObservationModal from "../../components/modals/enterObservationModal"
 

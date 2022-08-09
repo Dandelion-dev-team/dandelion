@@ -14,8 +14,14 @@ export default function TagComponent(props) {
   }
 
   return (
-    <div className="recordTable">
-      <table className="tableList">
+    <div className="school-maintenance dandelion-component scrollable-container">
+      <div className="scrollable-header">
+        <h2>
+          Tags
+        </h2>
+      </div>
+      <div className="dandelion-table scrollable-content">
+        <table className="tableList">
         <thead>
           <tr>
             <th>ID</th>
@@ -34,7 +40,7 @@ export default function TagComponent(props) {
                   <div className="submit-btn">
                     <input
                       type="submit"
-                      className="submitButton"
+                      className="dandelion-button"
                       value="Edit"
                       onClick={() => {
                         editTag(tag)
@@ -45,7 +51,7 @@ export default function TagComponent(props) {
                 <td>
                   <input
                     type="submit"
-                    className="submitButton"
+                    className="dandelion-button"
                     value="Delete"
                     onClick={() => {
                       deleteRecord("/tagreference/" + tag.id)
@@ -56,6 +62,7 @@ export default function TagComponent(props) {
             ))
           : null}
       </table>
+      </div>
     </div>
   )
 }

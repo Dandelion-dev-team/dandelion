@@ -1,72 +1,25 @@
 .school-comp-container {
   width: 93%;
   height: 100%;
-  flex-direction: column;
 
   @include media(">desktop") {
     width: 96.2%;
   }
 
-  .schoolTable {
-    height: 70vh;
-    margin-top: 7.5%;
+  .schoolList {
     overflow-y: scroll;
     overflow-x: hidden;
 
-    .schoolList {
-      margin-left: 2rem;
-      width: 80%;
+    tbody {
+      overflow-y: scroll;
+      height: 90%;
 
-      thead {
-        tr {
-          th {
-            text-align: center;
-          }
-        }
+      td {
+        padding: 0.5rem;
       }
-
-      tbody {
-        overflow-y: scroll;
-        height: 90%;
-        .active {
-          background-color: #f7f8ff;
-        }
-
-        //&:hover {
-        //  background-color: #f7f8ff;
-        //  cursor: pointer;
-        //}
-
-        .username {
-          text-align: center;
-        }
-
-        .btn-container {
-          display: flex;
-          justify-content: center;
-          .edit-btn {
-            display: flex;
-            align-items: center;
-            .editButton {
-              background-color: $accent;
-              color: $primary;
-              font-size: 100%;
-              margin: 13% 0px;
-              width: 7.5vw;
-              height: 50%;
-              border: none;
-              cursor: pointer;
-              border-radius: 10px;
-            }
-            .submitButton:hover {
-              background-color: #d4d926;
-            }
-          }
-        }
-      }
-
     }
-  }
+ }
+
   .schoolTable::-webkit-scrollbar {
     width: 10px;
   }
@@ -78,44 +31,5 @@
   .schoolTable::-webkit-scrollbar-thumb {
     background: #eac2cb;
     border-radius: 10px;
-
-  }
-
-  .btn-row {
-    display: flex;
-    justify-content: space-around;
-    margin-left: auto;
-    .add-btn {
-      width: 40%;
-      .submitButton {
-        background-color: $accent;
-        color: $primary;
-        font-size: 2vw;
-        margin: 1.25rem 0px;
-        padding: 0.625rem;
-        width: 100%;
-        border: none;
-        cursor: pointer;
-        border-radius: 10px;
-      }
-      .submitButton:hover {
-        background-color: #d4d926;
-      }
-
-     #single  {
-        background-color: #8c77ce;
-        color: white;
-      }
-      #single:hover {
-        background-color: #6d4ed2;
-      }
-      #multiple {
-        background-color: #fd0000;
-        color: white;
-      }
-      #multiple:hover {
-        background-color: #db1717;
-      }
-    }
   }
 }

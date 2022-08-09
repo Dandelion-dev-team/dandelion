@@ -1,57 +1,60 @@
-.school-user-container {
-  background: #2e5641;
-  color: $white;
-  position: relative;
-  margin-left: 20%;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  overflow-y: hidden;
-
-  .school-content {
-    background-color: white;
-    justify-content: center;
-    align-items: center;
-    width: 97%;
-    height: 93vh;
-    margin-left: 20px;
-    margin-top: 20px;
-    border-radius: 20px;
-
-    .table-wrapper {
-      display: flex;
-      justify-content: center;
-      height: 100%;
-
-      .table {
-        width: 50%;
-        display: flex;
-        align-items: flex-start;
-        z-index: 7;
-        color: black;
-
-        h3 {
-          color: black;
-        }
-      }
-    }
-
-    .school-pane {
-      width: 50%;
-      background-color: #f7f8ff;
-      align-items: stretch;
-      height: 93vh;
-      border-top-right-radius: 20px;
-      border-bottom-right-radius: 20px;
-      overflow-y: scroll;
-
-      h3, h2, p {
-        color: black;
-      }
-    }
-
-  //   .school-pane::-webkit-scrollbar-thumb {
-  //     background: $accent;
-  // }
-  }
-}
+//.school-user-container {
+//  //background: #2e5641;
+//  //color: $white;
+//  //position: relative;
+//  //margin-left: 20%;
+//  //justify-content: center;
+//  //align-items: center;
+//  //height: 100vh;
+//  //overflow-y: hidden;
+//  flex-grow: 1;
+//  padding: 0 1rem 1rem 1rem;
+//
+//  .school-content {
+//    background-color: white;
+//    //justify-content: center;
+//    //align-items: center;
+//    //width: 97%;
+//    height: 100%;
+//    //margin-left: 20px;
+//    //margin-bottom: 20px;
+//    border-radius: 20px;
+//    display: flex;
+//
+//    //.table-wrapper {
+//    //  display: flex;
+//    //  //justify-content: center;
+//    //  height: 100%;
+//
+//      .table {
+//        width: 50%;
+//        display: flex;
+//        align-items: flex-start;
+//        z-index: 7;
+//        color: black;
+//
+//        h3 {
+//          color: black;
+//        }
+//      }
+//    //}
+//
+//    .school-pane {
+//      width: 50%;
+//      background-color: $dandelion-grey;
+//      //align-items: stretch;
+//      //height: 93vh;
+//      border-top-right-radius: 20px;
+//      border-bottom-right-radius: 20px;
+//      overflow-y: scroll;
+//
+//      h3, h2, p {
+//        color: black;
+//      }
+//    }
+//
+//  //   .school-pane::-webkit-scrollbar-thumb {
+//  //     background: $accent;
+//  // }
+//  }
+//}

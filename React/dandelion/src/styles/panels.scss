@@ -1,0 +1,168 @@
+// Panels
+
+// scrollable container requires that the parent element has the properties:
+//     display: flex
+//     flex_direction: column
+
+.scrollable-modal {
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  padding: 0 2rem;
+}
+
+.scrollable-container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-height: 1%;
+}
+
+.scrollable-header {
+
+}
+
+.scrollable-content {
+  flex-grow: 1;
+  overflow: auto;
+  //padding-left: 2rem;
+}
+
+.scrollable-content::-webkit-scrollbar {
+  display: none;
+}
+.scrollable-content::-webkit-scrollbar-track {
+  background: #ebe7e7;
+  border-radius: 10px;
+}
+
+.scrollable-content::-webkit-scrollbar-thumb {
+  background: #eac2cb;
+  border-radius: 10px;
+}
+
+.scrollable-footer {
+  margin: auto;
+  padding: 1rem 0;
+}
+
+.panel {
+  background: inherit;
+  color: $black;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  height: 100%;
+
+  @include media("<=tablet") {
+    min-height: 1%;
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+}
+
+.panel-title {
+  background-color: $white;
+  overflow-y: auto;
+  margin: 4rem 4rem 0 4rem;
+  padding: 2rem;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-bottom: solid 1px lightgrey;
+
+  @include media("<=tablet") {
+    flex-direction: column;
+    justify-content: space-around;
+    margin: 0 1rem 0 1rem;
+    min-height: 1%;
+  }
+}
+
+.panel-header {
+  padding: 2rem;
+}
+
+.panel-body {
+  height: 100%;
+  overflow-y: auto;
+  display: flex;
+  padding: 2rem;
+  flex-direction: column;
+}
+
+.panel-footer {
+  padding-bottom: 2rem;
+}
+
+.left-panel {
+  flex-direction: column;
+}
+
+.panel-content {
+  background-color: $white;
+  flex: 1;
+  overflow-y: auto;
+  margin: 0 4rem 4rem 4rem;
+  padding: 2rem;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+
+  @include media("<=tablet") {
+    flex-direction: column;
+    justify-content: space-around;
+    margin: 0 1rem 0 1rem;
+    min-height: 1%;
+  }
+}
+
+.panel-column-section {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-evenly;
+
+  .img-container {
+    img {
+      border-radius: 10px;
+      max-height: 12rem;
+    }
+  }
+}
+
+
+  //.purple-btn {
+  //  background-color: #8c77ce;
+  //  color: white;
+  //}
+  //.purple-btn:hover {
+  //  background-color: #6d4ed2;
+  //}
+  //.pink-btn {
+  //  background-color: #eac2cb;
+  //  color: white;
+  //}
+  //.pink-btn:hover {
+  //  background-color: #ff9fb4;
+  //  color: white;
+  //}
+  //.red-btn {
+  //  background-color: #fd0000;
+  //  color: white;
+  //}
+  //.red-btn:hover {
+  //  background-color: #db1717;
+  //}
+  //.green-btn {
+  //  background-color: #37a449;
+  //  color: white;
+  //}
+  //.green-btn:hover {
+  //  background-color: #3a8c14;
+  //}
+  //.green-btn {
+  //  background-color: #37a449;
+  //  color: white;
+  //}
+  //.green-btn:hover {
+  //  background-color: #3a8c14;
+  //}

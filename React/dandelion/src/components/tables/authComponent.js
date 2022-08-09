@@ -14,7 +14,14 @@ export default function AuthComponent(props) {
   }
 
   return (
-    <div className="authTable">
+    <div className="authTable dandelion-component scrollable-container">
+      <div className="scrollable-header">
+        <h2>
+          Authorities
+        </h2>
+        {/*<p>Username</p>*/}
+      </div>
+      <div className="dandelion-table scrollable-content">
       <table className="tableList">
         <thead>
           <tr>
@@ -32,10 +39,10 @@ export default function AuthComponent(props) {
               <td>{auth.id}</td>
               <td>{auth.name}</td>
               <td>
-                <div className="submit-btn">
+                <div className="button-container">
                   <input
                     type="submit"
-                    className="submitButton"
+                    className="dandelion-button"
                     value="Edit"
                     onClick={() => {
                       editAuth(auth)
@@ -46,7 +53,7 @@ export default function AuthComponent(props) {
               <td>
                 <input
                   type="submit"
-                  className="submitButton"
+                  className="dandelion-button"
                   value="Delete"
                   onClick={() => {
                     deleteRecord("/authority/" + auth.id)
@@ -58,6 +65,7 @@ export default function AuthComponent(props) {
           : null}
             </tbody>
       </table>
+      </div>
     </div>
   )
 }

@@ -13,6 +13,7 @@ from app.utils.error_messages import abort_db
 from app.utils.functions import row2dict, jwt_user
 from app.utils.images import image_processing
 from app.utils.uploads import content_folder
+from app.utils.validation import get_required
 
 from app.utils.uploads import get_uploaded_file
 
@@ -30,6 +31,14 @@ def add_school():
     current_user = jwt_user(get_jwt_identity())
     authorised = auth_check(request.path, request.method, current_user)
     data = request.get_json()
+
+    latitude = None
+    longitude = None
+    if (data["latitude"] != ""):
+        latitude = float(data["latitude"])
+    if (data["longitude"] != ""):
+        longitude = float(data["longitude"])
+
     school = School(
         authority_id=data['authority_id'],
         name=data['name'],
@@ -39,10 +48,10 @@ def add_school():
         postcode=data['postcode'],
         telephone=data['telephone'],
         email=data['email'],
-        school_image_link=data['school_image_link'],
+        # school_image_link=data['school_image_link'],
         status=data['status'],
-        latitude=data['latitude'],
-        longitude=data['longitude']
+        latitude=latitude,
+        longitude=longitude
     )
 
     db.session.add(school)
@@ -61,25 +70,25 @@ def add_school():
 
 
 # This route is PUBLIC
+@admin.route('/school/blank', methods=['GET'])
+def getBlankSchool():
+    school = School()
+    school_data = row2dict(school)
+    school_data['image_full'] = os.path.join(content_folder('school', 0, 'image'), 'full.png')
+    school_data['image_thumb'] = os.path.join(content_folder('school', 0, 'image'), 'thumb.png')
+    school_data['_required'] = get_required(school)
+
+    return {'school': school_data}
+
+
+# This route is PUBLIC
 @admin.route('/school/<int:id>', methods=['GET'])
 def getOneSchool(id):
     school = School.query.get_or_404(id)
-
-    school_data = {}
-    school_data['school_id'] = school.id
-    school_data['authority_id'] = school.authority_id
-    school_data['name'] = school.name
-    school_data['status'] = school.status
-    school_data['address_line_1'] = school.address_line_1
-    school_data['address_line_2'] = school.address_line_2
-    school_data['postcode'] = school.postcode
-    school_data['town'] = school.town
-    school_data['telephone'] = school.telephone
-    school_data['email'] = school.email
-    school_data['latitude'] = school.latitude
-    school_data['longitude'] = school.longitude
+    school_data = row2dict(school)
     school_data['image_full'] = os.path.join(content_folder('school', id, 'image'), 'full.png')
     school_data['image_thumb'] = os.path.join(content_folder('school', id, 'image'), 'thumb.png')
+    school_data['_required'] = get_required(school)
 
     return {'school': school_data}
 
@@ -90,6 +99,7 @@ def updateSchool(id):
     current_user = jwt_user(get_jwt_identity())
     authorised = auth_check(request.path, request.method, current_user, id)
     school_to_update = School.query.get_or_404(id)
+    dummy = request
     new_data = request.get_json()
 
     school_to_update.authority_id = new_data["authority_id"]
@@ -100,10 +110,12 @@ def updateSchool(id):
     school_to_update.postcode = new_data["postcode"]
     school_to_update.telephone = new_data["telephone"]
     school_to_update.email = new_data["email"]
-    school_to_update.school_image_link = new_data["school_image_link"]
+    # school_to_update.school_image_link = new_data["school_image_link"]
     school_to_update.status = new_data["status"]
-    school_to_update.latitude = new_data["latitude"]
-    school_to_update.longitude = new_data["longitude"]
+    if (new_data["latitude"] != ""):
+        school_to_update.latitude =  float(new_data["latitude"])
+    if (new_data["longitude"] != ""):
+        school_to_update.longitude = float(new_data["longitude"])
 
     audit_details = prepare_audit_details(inspect(School), school_to_update, delete=False)
 
@@ -113,6 +125,11 @@ def updateSchool(id):
         try:
             db.session.commit()
             audit_update("school", school_to_update.id, audit_details, current_user.id)
+
+            if 'file' in request.files:
+                pic, filename = get_uploaded_file(request)
+                image_processing(pic, 'school', id, filename)
+
             return {"message": message}
 
         except Exception as e:

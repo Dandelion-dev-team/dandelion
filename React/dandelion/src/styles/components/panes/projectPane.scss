@@ -1,31 +1,18 @@
-.project-panel-content {
+.project-details-container {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 90%;
+  height: 100%;
   overflow-y: scroll;
   //overflow-x: hidden;
   justify-content: space-around;
-  margin-top: 5%;
+
   .project-details {
     height: 100%;
     width: 90%;
     display: flex;
     flex-direction: column;
     margin-left: 5%;
-
-    h3 {
-      font-size: 1.2rem;
-    }
-
-    .feat-img {
-      width: 27.5rem;
-      z-index: 4;
-
-      img {
-        border-radius: 10px;
-      }
-    }
 
     .experiment-row {
       height: 90%;
@@ -38,64 +25,10 @@
       .experiments {
         width: 65%;
       }
-
-      .btn-row {
-        display: flex;
-        flex-direction: column;
-        width: 30%;
-        align-items: center;
-        margin-top: auto;
-        justify-content: flex-end;
-
-        .submitButton {
-          background-color: $accent;
-          color: $primary;
-          font-size: 1.2rem;
-          margin: 0.625rem 0px;
-          padding: 0.625rem;
-          width: 100%;
-          border: none;
-          cursor: pointer;
-          border-radius: 10px;
-        }
-        .submitButton:hover {
-          background-color: #d4d926;
-        }
-
-        #inv {
-          background-color: #8c77ce;
-          color: white;
-        }
-        #inv:hover {
-          background-color: #6d4ed2;
-        }
-        #edit {
-          background-color: #eac2cb;
-          color: white;
-        }
-        #edit:hover {
-          background-color: #ff9fb4;
-          color: white;
-        }
-        #comp {
-          background-color: #fd0000;
-          color: white;
-        }
-        #comp:hover {
-          background-color: #db1717;
-        }
-        #exp {
-          background-color: #37a449;
-          color: white;
-        }
-        #exp:hover {
-          background-color: #3a8c14;
-        }
-      }
     }
   }
-
 }
+
 .project-panel-content::-webkit-scrollbar {
   display: none;
 }

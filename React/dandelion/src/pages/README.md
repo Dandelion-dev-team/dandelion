@@ -29,7 +29,7 @@ that relies on a top-level div with the class name `dandelion`.
 | pages/sysadmin/school-maintenance.js                         | N         |
 | pages/sysadmin/quantity-maintenance.js                       | N         |
 | pages/sysadmin/auth-maintenance.js                           | N         |
-| pages/sysadmin/issues-maintenance.js                         | N         |
+| pages/sysadmin/issue-maintenance.js                         | N         |
 | pages/sysadmin/superuser-maintenance.js                      | N         |
 | pages/sysadmin/dashboard.js                                  | N         |
 | pages/sysadmin/sysadmin-dashboard.js                         | N         |

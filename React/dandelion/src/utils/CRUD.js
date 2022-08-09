@@ -12,12 +12,14 @@ function handleErrors(response) {
   }
   return response
 }
-export function createRecord(endpoint, body) {
+
+export function createRecord(endpoint, body, callback=null) {
   const cookies = new Cookies()
-  var dummy = cookies.getAll()
-  for (var c in dummy) {
-    console.log(c.toString());
-  }
+  // var dummy = cookies.getAll()
+  // for (var c in dummy) {
+  //   console.log(c.toString());
+  // }
+  console.log(body)
   fetch(process.env.API_URL + endpoint, {
     method: "POST",
     credentials: "include",
@@ -32,7 +34,10 @@ export function createRecord(endpoint, body) {
     body: body,
   }).then(response => {
     if (response.status >= 200 && response.status <= 299) {
-      window.location.reload(false)
+      if (callback) {
+        response.json().then((data) => {callback(data)})
+      }
+      // window.location.reload(false)
     } else {
       return response.json().then((body) => {
           if ('error' in body)
@@ -46,7 +51,7 @@ export function createRecord(endpoint, body) {
   .catch(error => {
     if (error == 403) {
       console.log(error)
-      user_logout()
+      // user_logout()
     }
     var messageArray = error.toString().split(":")
     toast.error(messageArray[messageArray.length - 1])
@@ -85,7 +90,7 @@ export function createRecordNavigate(endpoint, body) {
   .catch(error => {
     if (error == 403) {
       console.log(error)
-      user_logout()
+      // user_logout()
     }
     var messageArray = error.toString().split(":")
     toast.error(messageArray[messageArray.length - 1])
@@ -122,7 +127,7 @@ export function readRecord(endpoint, setter) {
     .catch(error => {
       if (error != 404) {
         console.log(error)
-        user_logout()
+        // user_logout()
       }
       var messageArray = error.toString().split(":")
       toast.error(messageArray[messageArray.length - 1])
@@ -167,12 +172,11 @@ export function readAdminRecord(endpoint) {
     })
 }
 
-export function uploadExperimentImage(endpoint, image) {
+export function uploadImage(endpoint, image) {
   const cookies = new Cookies()
   const formData = new FormData()
 
   formData.append("file", image)
-  console.log(image)
   return fetch(process.env.API_URL + endpoint, {
     method: "POST",
     credentials: "include",
@@ -220,17 +224,16 @@ export function updateRecord(endpoint, body) {
     }),
     body: body,
   }).then(response => {
-    if (response.status == 200) {
-      window.location.reload(false)
-    }
-    else {
+    if (response.status != 200) {
+    //   window.location.reload(false)
+    // }
+    // else {
         return response.json().then((body) => {
             if ('error' in body)
                 throw new Error(body.error)
             else
                 throw new Error("Could not update record")
         })
-      // toast.error("Failed to update.")
     }
   })
   .catch(error => {

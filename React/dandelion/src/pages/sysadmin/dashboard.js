@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react"
 import "../../styles/App.scss"
 import SideNav from "../../components/navigation/sysadminSideNav"
+import Header from "../../components/navigation/header"
 import { navigate } from "gatsby";
 import { verify_sysadmin_storage } from "../../utils/logins";
 import { ToastContainer, toast } from 'react-toastify';
@@ -17,7 +18,9 @@ export default function SuperuserDashboard(props) {
   }, [])
   if (typeof window !== `undefined` && logged) {
     return (
-      <div>
+      <div className="dandelion">
+        <Header />
+        <div className="page-container">
         <SideNav />
         <ToastContainer />
         <div className="dashboard-container">
@@ -37,6 +40,7 @@ export default function SuperuserDashboard(props) {
             </div>
           </div>
         </div>
+          </div>
       </div>
     )
   } else return null;

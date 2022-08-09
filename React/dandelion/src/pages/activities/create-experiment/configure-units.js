@@ -12,7 +12,7 @@ import "react-toastify/dist/ReactToastify.css"
 import {
   createRecord,
   createRecordNavigate,
-  uploadExperimentImage,
+  uploadImage,
 } from "../../../utils/CRUD"
 
 export default function ConfigureUnits(props) {
@@ -200,7 +200,7 @@ export default function ConfigureUnits(props) {
     })
     createRecordNavigate("/experiment", body).then(response => {
       if (experiment_details.image) {
-        uploadExperimentImage(
+        uploadImage(
           "/experiment/" + response.id + "/uploadImage",
           experiment_details.image
         )

@@ -31,7 +31,7 @@ const Hero = () => {
     return
   } else {
     return (
-      <div className="hero page-container">
+      <div className="hero">
         <CookieConsent
           location="bottom"
           buttonText="I understand"
@@ -60,9 +60,9 @@ const Hero = () => {
             </div>
             <div className="content">
               <div className="content-wrapper">
-                <h3>
+                <h1>
                   <Trans>The Dandelion Schools' Growing Initiative</Trans>
-                </h3>
+                </h1>
                 <p>
                   <Trans>
                     464 schools, 114 Grow Cubes, tonnes of tatties – welcome to

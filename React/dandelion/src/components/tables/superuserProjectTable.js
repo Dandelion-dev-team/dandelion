@@ -20,40 +20,32 @@ export default function ProjectComponent(props) {
   var className = isActive ? "active" : ""
 
   return (
-    <div className="project-table">
+    <div className="project-table dandelion-component scrollable-container">
+      <div className="scrollable-header">
+        <h2>
+          Your activities
+        </h2>
+        <h4>Title</h4>
+      </div>
+      <div className="dandelion-table scrollable-content">
         <table className="projectList">
-          <thead>
-            <tr>
-              <th>Title</th>
-            </tr>
-          </thead>
-
-          {projects
-            ? projects.map(project => (
-                <tbody
-                  key={projects.id}
-                  className={className}
-                  onClick={() => {
-                    editAuth(project)
-                    isActive = true
-                  }}
-                >
-                  <td>{project.title}</td>
-                </tbody>
-              ))
-            : null}
+            <tbody>
+              {projects
+                ? projects.map(project => (
+                    <tr
+                      key={projects.id}
+                      className={className}
+                      onClick={() => {
+                        editAuth(project)
+                        isActive = true
+                      }}
+                    >
+                      <td>{project.title}</td>
+                    </tr>
+                  ))
+                : null}
+            </tbody>
         </table>
-      <div className="add-btn">
-        <button
-          className="submitButton"
-          onClick={() => {
-            if (typeof window !== `undefined`) {
-              navigate("/activities/create-activity/enter-details")
-            }
-          }}
-        >
-          Add Activity
-        </button>
       </div>
     </div>
   )

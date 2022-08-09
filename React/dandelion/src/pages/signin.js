@@ -85,7 +85,7 @@ export default function Login(props) {
                       <div className="btn-container">
                         <input
                           type="submit"
-                          className="dandelion-button"
+                          className="dandelion-button large-button"
                           value="Log In"
                           onClick={onSubmitClick}
                         />

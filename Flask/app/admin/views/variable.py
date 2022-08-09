@@ -1,15 +1,130 @@
 from flask import abort, jsonify, request
 from flask_json import json_response
 from flask_jwt_extended import jwt_required, get_jwt_identity
+from sqlalchemy import inspect
 
 from app.admin import admin
 from app.admin.views.level import create_level
 from app.models import Variable, Response, variable, ResponseVariable, Level
 from app import db
-from app.utils.auditing import audit_create
+from app.utils.auditing import audit_create, prepare_audit_details, audit_update
 from app.utils.authorisation import auth_check
 from app.utils.error_messages import abort_db
 from app.utils.functions import row2dict, jwt_user
+
+
+# This route is PUBLIC
+@admin.route('/variable', methods=['GET'])
+def listVariable():
+    variables = Variable.query.order_by(Variable.name).all()
+
+    data = []
+    for variable in variables:
+        row = row2dict(variable)
+        row['quantity'] = ''
+        row['unit'] = ''
+        if variable.quantity_id:
+            row['quantity'] = variable.quantity.name
+            row['unit'] = variable.quantity.unit
+        row['levels'] = []
+        if len(variable.levels) > 0:
+            row['levels'] = [row2dict(level) for level in sorted(variable.levels, key=lambda x: x.sequence)]
+        data.append(row)
+
+    return {'data': data}
+
+
+# This route is PUBLIC
+@admin.route('/variable/blank', methods=['GET'])
+def get_blank_variable():
+    variable = Variable()
+    variable_data = row2dict(variable)
+    variable_data["levels"] = ["",""]
+
+    return {'variable': variable_data}
+
+
+@admin.route('/variable', methods=['POST'])
+@jwt_required()
+def add_variable():
+    current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
+    data = request.get_json()
+
+    # Sanitise form values
+    if data['quantity_id'] == '':
+        data['quantity_id'] = None
+    if data['is_sensor_quantity'] == '':
+        data['is_sensor_quantity'] = False
+    if data['is_treatment'] == '':
+        data['is_treatment'] = False
+    if data['is_response'] == '':
+        data['is_response'] = False
+
+    variable = Variable(
+        name = data['name'],
+        quantity_id = data['quantity_id'],
+        is_sensor_quantity = data['is_sensor_quantity'],
+        is_treatment = data['is_treatment'],
+        is_response = data['is_response'],
+        procedure = data['procedure'],
+        status = data['status']
+    )
+
+    db.session.add(variable)
+    return_status = 200
+    message = "New variable has been registered"
+
+    try:
+        db.session.commit()
+        audit_create("variable", variable.id, current_user.id)
+        return {"message": message, "id": variable.id}
+
+    except Exception as e:
+        db.session.rollback()
+        abort_db(e)
+
+
+@admin.route('/variable/<int:id>', methods=['PUT'])
+@jwt_required()
+def updateVariable(id):
+    current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user, id)
+    variable_to_update = Variable.query.get_or_404(id)
+    data = request.get_json()
+
+    # Sanitise form values
+    if data['quantity_id'] == '':
+        data['quantity_id'] = None
+    if data['is_sensor_quantity'] == '':
+        data['is_sensor_quantity'] = False
+    if data['is_treatment'] == '':
+        data['is_treatment'] = False
+    if data['is_response'] == '':
+        data['is_response'] = False
+
+    variable_to_update.name = data["name"]
+    variable_to_update.quantity_id = data["quantity_id"]
+    variable_to_update.is_sensor_quantity = data["is_sensor_quantity"]
+    variable_to_update.is_treatment = data["is_treatment"]
+    variable_to_update.is_response = data["is_response"]
+    variable_to_update.procedure = data["procedure"]
+    variable_to_update.status = data["status"]
+
+    audit_details = prepare_audit_details(inspect(Variable), variable_to_update, delete=False)
+
+    message = "Variable has been updated"
+
+    if len(audit_details) > 0:
+        try:
+            db.session.commit()
+            audit_update("school", variable_to_update.id, audit_details, current_user.id)
+
+            return {"message": message}
+
+        except Exception as e:
+            db.session.rollback()
+            abort_db(e)
 
 
 # This route is PUBLIC
@@ -36,7 +151,6 @@ def getFullVariable(id):
             "name": l.name
         } for l in variable.levels], key=lambda l: l["sequence"])
     }
-
 
     return data
 

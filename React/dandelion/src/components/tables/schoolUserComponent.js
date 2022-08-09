@@ -51,12 +51,6 @@ export default function SchoolUserComponent(props) {
       </div>
       <div className="dandelion-table scrollable-content">
         <table className="schoolList">
-          {/*<thead>*/}
-          {/*  <tr>*/}
-          {/*    <th>Username</th>*/}
-          {/*    <th></th>*/}
-          {/*  </tr>*/}
-          {/*</thead>*/}
           <tbody>
             {users
               ? users.users.map(user => (
@@ -67,7 +61,7 @@ export default function SchoolUserComponent(props) {
                     }}
                   >
                     <td>
-                      <div className="username">{user.username}</div>
+                      {user.username}
                     </td>
                     <td>
                       <div className="btn-container">
@@ -88,7 +82,7 @@ export default function SchoolUserComponent(props) {
           </tbody>
         </table>
       </div>
-      <div className="btn-row scrollable-footer">
+      <div className="scrollable-footer">
         <div className="btn-container" id="single">
           <Button className="dandelion-button large-button" onClick={() => setShowTypeModal(true)} centered>
             Add users

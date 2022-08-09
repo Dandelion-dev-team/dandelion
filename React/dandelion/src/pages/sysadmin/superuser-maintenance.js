@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react"
 import SysSideNav from "../../components/navigation/sysadminSideNav"
+import Header from "../../components/navigation/header"
 import "../../styles/App.scss"
 import Select from "react-select"
 import UserComponent from "../../components/tables/superuserComponent"
@@ -118,127 +119,135 @@ export default function SuperuserMaintenance(props) {
   }
 
   return (
-    <div>
-      <SysSideNav />
+    <div className="dandelion">
       <ToastContainer />
-      <div className="superuser-maintenance-container">
-        <div className="superuser-content">
-          <div className="content-wrapper">
-            <div className="table">
-              <UserComponent parentCallback={handleCallback} />
+      <Header />
+      <div className="superuser-maintenance page-container">
+        <SysSideNav />
+        <ToastContainer />
+        <div className="main-content">
+          <div className="content-area">
+            <div className="left-panel">
+              <div className="panel-body">
+                <UserComponent parentCallback={handleCallback} />
+              </div>
             </div>
-            <div className="edit-superuser">
-              <div className="authorityPicker">
-                <h3>School Name: </h3>
-                {editing ? (
-                  <h3>{school_name}</h3>
-                ) : (
-                  <Select
-                    name="authority_id_picker"
-                    className="authority_id_picker"
-                    ref={selectInputRef}
-                    options={schoolList.data}
-                    value={school_selected}
-                    defaultValue={school_selected}
-                    onChange={setDropdown}
-                    getOptionLabel={schoolList => schoolList.name}
-                    getOptionValue={schoolList => schoolList.id} // It should be unique value in the options. E.g. ID
-                  />
-                )}
-              </div>
-              <div className="textbox">
-                <h3>Username:</h3>
-                <input
-                  type="text"
-                  placeholder="Username"
-                  name="usernameBox"
-                  value={entered_username}
-                  onChange={handleNameChange}
-                />
-              </div>
-              <div className="textbox">
-                <h3>New password:</h3>
-                <input
-                  type="text"
-                  placeholder="If required"
-                  name="password"
-                  value={password}
-                  onChange={handlePasswordChange}
-                />
-              </div>
-              {editing ? (
-                //IF EDITING
-                <div className="textbox">
-                  <div className="checkboxDiv">
-                    <h3>Is Sysadmin:</h3>
-                    <div className="checkboxPadding">
-                      <input
-                        type="checkbox"
-                        id="experiment_id"
-                        name="topping"
-                        checked={sys_admin_checkbox}
-                        onChange={onChangeIsSysAdmin}
+            <div className="right-panel">
+              <div className="pane-container">
+                <div className="pane-content">
+                  <div className="authorityPicker">
+                    <h3>School Name: </h3>
+                    {editing ? (
+                      <h3>{school_name}</h3>
+                    ) : (
+                      <Select
+                        name="authority_id_picker"
+                        className="authority_id_picker"
+                        ref={selectInputRef}
+                        options={schoolList.data}
+                        value={school_selected}
+                        defaultValue={school_selected}
+                        onChange={setDropdown}
+                        getOptionLabel={schoolList => schoolList.name}
+                        getOptionValue={schoolList => schoolList.id} // It should be unique value in the options. E.g. ID
                       />
-                    </div>
-                  </div>
-
-                  <div className="textbox">
-                    <h3>Is SuperUser:</h3>
-                    <div className="checkboxPadding">
-                      <input
-                        type="checkbox"
-                        id="experiment_id"
-                        name="topping"
-                        checked={superuser_checkbox}
-                        onChange={onChangeIsSuperuser}
-                      />
-                    </div>
+                    )}
                   </div>
                   <div className="textbox">
-                    <h3>Is active:</h3>
-                    <div className="checkboxPadding">
-                      <input
-                        type="checkbox"
-                        id="experiment_id"
-                        name="topping"
-                        checked={is_active}
-                        onChange={onChangeIsActive}
-                      />
-                    </div>
-                  </div>
-                  <h3>Notes:</h3>
-                  <input
-                    type="text"
-                    placeholder="Notes"
-                    name="usernameBox"
-                    value={notes}
-                    onChange={handleNotesChange}
-                    style={{
-                      width: "300px",
-                      height: "50px",
-                      lineHeight: "10px",
-                    }}
-                  />
-                  <div className="submit-btn">
+                    <h3>Username:</h3>
                     <input
-                      type="submit"
-                      className="submitButton"
-                      value="Update"
-                      onClick={onUpdateUser}
-                    ></input>
+                      type="text"
+                      placeholder="Username"
+                      name="usernameBox"
+                      value={entered_username}
+                      onChange={handleNameChange}
+                    />
                   </div>
+                  <div className="textbox">
+                    <h3>New password:</h3>
+                    <input
+                      type="text"
+                      placeholder="If required"
+                      name="password"
+                      value={password}
+                      onChange={handlePasswordChange}
+                    />
+                  </div>
+                  {editing ? (
+                    //IF EDITING
+                    <div className="textbox">
+                      <div className="checkboxDiv">
+                        <h3>Is Sysadmin:</h3>
+                        <div className="checkboxPadding">
+                          <input
+                            type="checkbox"
+                            id="experiment_id"
+                            name="topping"
+                            checked={sys_admin_checkbox}
+                            onChange={onChangeIsSysAdmin}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="textbox">
+                        <h3>Is SuperUser:</h3>
+                        <div className="checkboxPadding">
+                          <input
+                            type="checkbox"
+                            id="experiment_id"
+                            name="topping"
+                            checked={superuser_checkbox}
+                            onChange={onChangeIsSuperuser}
+                          />
+                        </div>
+                      </div>
+                      <div className="textbox">
+                        <h3>Is active:</h3>
+                        <div className="checkboxPadding">
+                          <input
+                            type="checkbox"
+                            id="experiment_id"
+                            name="topping"
+                            checked={is_active}
+                            onChange={onChangeIsActive}
+                          />
+                        </div>
+                      </div>
+                      <h3>Notes:</h3>
+                      <input
+                        type="text"
+                        placeholder="Notes"
+                        name="usernameBox"
+                        value={notes}
+                        onChange={handleNotesChange}
+                        style={{
+                          width: "300px",
+                          height: "50px",
+                          lineHeight: "10px",
+                        }}
+                      />
+                      <div className="submit-btn">
+                        <input
+                          type="submit"
+                          className="submitButton"
+                          value="Update"
+                          onClick={onUpdateUser}
+                        ></input>
+                      </div>
+                    </div>
+                  ) : (
+                    //IF NOT EDITING
+                    <div className="submit-btn">
+                      <input
+                        type="submit"
+                        className="submitButton"
+                        value="Create"
+                        onClick={onCreateUser}
+                      ></input>
+                    </div>
+                  )}
                 </div>
-              ) : (
-                //IF NOT EDITING
-                <div className="submit-btn">
-                  <input
-                    type="submit"
-                    className="submitButton"
-                    value="Create"
-                    onClick={onCreateUser}
-                  ></input>
-                </div>
-              )}
+              </div>
             </div>
           </div>
         </div>

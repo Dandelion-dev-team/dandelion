@@ -15,8 +15,14 @@ export default function SensorComponent(props) {
   }
 
   return (
-    <div className="recordTable">
-      <table className="tableList">
+    <div className="dandelion-component scrollable-container">
+      <div className="scrollable-header">
+        <h2>
+          Sensors
+        </h2>
+      </div>
+      <div className="dandelion-table scrollable-content">
+          <table className="tableList">
         {sensorList ?
           <div>
             <thead>
@@ -43,7 +49,7 @@ export default function SensorComponent(props) {
                   <div className="submit-btn">
                     <input
                       type="submit"
-                      className="submitButton"
+                      className="dandelion-button"
                       value="Edit"
                       onClick={() => { editSensor(sensor) }}
                     ></input>
@@ -52,7 +58,7 @@ export default function SensorComponent(props) {
                 <td>
                   <input
                     type="submit"
-                    className="submitButton"
+                    className="dandelion-button"
                     value="Delete"
                     onClick={() => { deleteRecord("/sensor/" + sensor.id) }}
                   ></input>
@@ -62,6 +68,7 @@ export default function SensorComponent(props) {
           </div>
           : null}
       </table>
+      </div>
     </div>
   )
 }

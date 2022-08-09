@@ -44,14 +44,14 @@ export default function Dashboard() {
 
   if (logged == true) {
     return (
-      <div>
+      <div className="dandelion">
         <Header />
         <div className="dashboard">
           <ToastContainer />
-          <div className="dash-container">
+          <div className="dash-container page-container">
             <div className="inner-dashboard">
               <div className="content">
-                <h3>Dashboard</h3>
+                <h1>Dashboard</h1>
                 <p>
                   Share the results of your projects and see how others'
                   projects went!

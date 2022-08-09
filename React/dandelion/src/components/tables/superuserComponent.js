@@ -16,8 +16,14 @@ export default function CrudComponent(props) {
   }
 
   return (
-    <div className="authTable">
-      <table className="tableList">
+    <div className="school-maintenance dandelion-component scrollable-container">
+      <div className="scrollable-header">
+        <h2>
+          Superusers
+        </h2>
+      </div>
+      <div className="dandelion-table scrollable-content">
+        <table className="tableList">
         <thead>
           <tr>
             <th>School ID</th>
@@ -40,7 +46,7 @@ export default function CrudComponent(props) {
               <div className="submit-btn">
                 <input
                   type="submit"
-                  className="submitButton"
+                  className="dandelion-button"
                   value="Edit"
                   onClick={() => { editUser(user) }}
                 ></input>
@@ -49,7 +55,7 @@ export default function CrudComponent(props) {
             <td>
               <input
                 type="submit"
-                className="submitButton"
+                className="dandelion-button"
                 value="Delete"
                 onClick={() => { deleteRecord("/users/" + user.id) }}
               ></input>
@@ -59,6 +65,7 @@ export default function CrudComponent(props) {
         : null}
 
       </table>
+      </div>
     </div>
   )
 }

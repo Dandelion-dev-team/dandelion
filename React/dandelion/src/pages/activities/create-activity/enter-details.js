@@ -6,7 +6,7 @@ import CheckIcon from "@mui/icons-material/Check"
 import { verify_superuser_storage } from "../../../utils/logins"
 import {
   createRecordNavigate,
-  uploadExperimentImage,
+  uploadImage,
 } from "../../../utils/CRUD"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
@@ -57,7 +57,7 @@ export default function EnterActivityDetails(props) {
 
     createRecordNavigate("/project", body).then(response => {
       if (image != null) {
-        uploadExperimentImage(
+        uploadImage(
           "/project/" + response.id + "/uploadImage",
           image
         ).then(

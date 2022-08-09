@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react"
 import SysSideNav from "../../components/navigation/sysadminSideNav"
+import Header from "../../components/navigation/header"
 import "../../styles/App.scss"
 import QuantityComponent from "../../components/tables/quantityComponent"
 import { createRecord, updateRecord } from "../../utils/CRUD"
@@ -74,63 +75,75 @@ export default function SuperuserMaintenance(props) {
   if (logged) {
 
     return (
-      <div>
-        <SysSideNav />
+      <div className="dandelion">
         <ToastContainer />
-        <div className="quantity-maintenance-container">
-          <div className="quantity-content">
-            <div className="content-wrapper">
-              <div className="table">
-                <QuantityComponent parentCallback={handleCallback} />
-              </div>
-              <div className="edit-quantity">
-                <div className="textbox">
-                  <h3>Name:</h3>
-                  <input
-                    type="text"
-                    placeholder="Quantity name"
-                    value={entered_name}
-                    onChange={handleNameChange}
-                  />
-                </div>
-                <div className="textbox">
-                  <h3>Unit:</h3>
-                  <input
-                    type="text"
-                    placeholder="Measurement"
-                    name="usernameBox"
-                    value={entered_unit}
-                    onChange={handleUnitChange}
-                  />
-                </div>
-                <div className="textbox">
-                  <h3>Help URL:</h3>
-                  <input
-                    type="text"
-                    placeholder="Help URL"
-                    value={entered_link}
-                    onChange={handleLinkChange}
-                  />
-                </div>
-                {editing ? (
-                  <div className="submit-btn">
-                    <input
-                      type="submit"
-                      className="submitButton"
-                      value="Update"
-                      onClick={onUpdateQuantity}
-                    ></input>
+        <Header />
+        <div className="quantity-maintenance page-container">
+          <SysSideNav />
+          <ToastContainer />
+          <div className="main-content">
+            <div className="content-area">
+              <div className="main-content">
+                <div className="content-area">
+                  <div className="left-panel">
+                    <div className="panel-body">
+                      <QuantityComponent parentCallback={handleCallback} />
+                    </div>
                   </div>
-                ) : (
-                  <div className="submit-btn">
-                    <input
-                      type="submit"
-                      className="submitButton"
-                      value="Create"
-                      onClick={onCreateQuantity}
-                    ></input>
+                  <div className="right-panel">
+                    <div className="pane-container">
+                      <div className="pane-content">
+                        <div className="textbox">
+                          <h3>Name:</h3>
+                          <input
+                            type="text"
+                            placeholder="Quantity name"
+                            value={entered_name}
+                            onChange={handleNameChange}
+                          />
+                        </div>
+                        <div className="textbox">
+                          <h3>Unit:</h3>
+                          <input
+                            type="text"
+                            placeholder="Measurement"
+                            name="usernameBox"
+                            value={entered_unit}
+                            onChange={handleUnitChange}
+                          />
+                        </div>
+                        <div className="textbox">
+                          <h3>Help URL:</h3>
+                          <input
+                            type="text"
+                            placeholder="Help URL"
+                            value={entered_link}
+                            onChange={handleLinkChange}
+                          />
+                        </div>
+                        {editing ? (
+                          <div className="submit-btn">
+                            <input
+                              type="submit"
+                              className="submitButton"
+                              value="Update"
+                              onClick={onUpdateQuantity}
+                            ></input>
+                          </div>
+                        ) : (
+                          <div className="submit-btn">
+                            <input
+                              type="submit"
+                              className="submitButton"
+                              value="Create"
+                              onClick={onCreateQuantity}
+                            ></input>
+                          </div>
+                        )}
+                      </div>
+                    </div>
                   </div>
-                )}
+                </div>
               </div>
             </div>
           </div>

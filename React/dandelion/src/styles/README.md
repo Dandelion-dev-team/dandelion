@@ -13,11 +13,6 @@ be added to `imafakecomponent.scss`. That way, the majority of page elements wil
 follow a consistent style, and it will be clear where the default rule has been
 overridden.
 
-As a transitional measure, the styles defined in `dandelion.scss` are applied to
-elements contained within a DIV with the class name of `dandelion`. Once all 
-pages and components have been modified to conform to the new approach, the 
-reference to the class name `dandelion` can be removed.
-
 ## Gatsby defaults
 
 Gatsby stores site-wide style in `/components/layout.css`. These will be applied by
@@ -52,28 +47,66 @@ components may not be present on all pages.
 
 </pre>
 
-Where the page content is delivered by a custom component, it is the component that 
-provides the `page-container` DIV.
+The `dandelion` DIV uses[flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/) 
+to arrange its contents in the `column` direction. It uses the `space-between` 
+property to space its contents evenly.
 
-The `dandelion` DIV uses the
-[flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/) `space-between` 
-property to space its contents evenly. This works for a single column of content or two.
+### General page layout
 
-## Content panels
-
-A content panel is an area of a page that provides a white background for the page
-content. The panel has rounded corners and black text and is divided into a title
-section and a content section.
+The `page-container` DIV also uses flexbox, but arranges its contents in the `row` 
+direction. The `SideNav` component provides a menu for superuser and sysadmin tasks.
+The purpose of the `main-content` and `content-area` DIVs is to ensure that all pages
+have the same spacing around the actual content.
 
 <pre>
 
-    DIV: [panel, &lt;panel name&gt;]
-      ├── DIV: [panel-title]
-      └── DIV: [panel-content]
-           └── DIV: [inner]
+    DIV: page-container
+     ├── COMPONENT: SideNav
+     └── DIV: main-content
+          └── DIV: content-area
 
 </pre>
 
-The purpose of the `inner` DIV is to allow the `panel-content` DIV to take up constant
-space on the page while the content can be scrolled.
+Within the `content-area`, content is arranged into *panels*. Different pages have
+one, two or three panels each of which has a standard set of layout DIVs. The various
+panels are children of the `content-area` and have the classes `one-panel`, `left-panel`,
+`middle-panel` and `right-panel`.
+
+### Panel structure
+
+Panels may be divided into `panel-header`, `panel-body` and `panel-footer` areas. The 
+header and footer are optional. By using the flexbox `flex-grow` property, the body area
+is forced to take up the full height of the `content-area`.
+
+<pre>
+
+    DIV: content-area
+     ├── DIV: panel-header
+     ├── DIV: panel-body
+     └── DIV: panel-footer
+
+</pre>
+
+
+### Scrollable areas
+
+The site style requires that all content fits within a single viewport window. This 
+means that it is necessary to provide scrolling areas in many different contexts. The
+following structure is used. In the example, the scrolling area is contained within
+a panel.
+
+<pre>
+
+    DIV: one-panel
+     └── DIV: scrollable-container
+          ├── DIV: scrollable-header
+          ├── DIV: scrollable-content
+          └── DIV: scrollable-footer
+
+</pre>
+
+The header area can be used for titles, for example, while the footer is a useful place
+to put buttons.
+
+
 

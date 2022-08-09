@@ -1,19 +1,17 @@
 import React, { useEffect } from 'react'
+import Card from "react-bootstrap/Card"
 
 export default function ExperimentCard(props) {
-    //Tested
 
     return (
-        <div className="experiment-card" onClick={() => {
+        <Card className="experiment-card" onClick={() => {
            props.callback(props.dataProp);
           }}>
-            <div className="card-img">
-                <img src={props.dataProp.experiment_image_link}/>
-            </div>
-            <div className="title-description">
-                <h2>{props.dataProp.title}</h2>
-                <h4>{props.dataProp.description}</h4>
-            </div>
-        </div>
+            <Card.Body>
+                <Card.Img variant="left" src={props.dataProp.image_thumb}/>
+                <Card.Title>{props.dataProp.title}</Card.Title>
+                <Card.Text as="h5">{props.dataProp.description.substring(0, 99)}</Card.Text>
+            </Card.Body>
+        </Card>
     )
 }

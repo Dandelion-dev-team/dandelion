@@ -1,99 +1,64 @@
-.project-table {
-  width: 93%;
-  overflow-x: hidden;
-  height: 80%;
-  display: flex;
-  flex-direction: column;
-  @include media(">desktop") {
-   width: 95%;
-  }
-
-  .projectList {
-    margin-top: 1.5rem;
-    margin-left: 32px;
-    height: 80vh;
-    display: flex;
-    flex-direction: column;
-    overflow-y: scroll;
-    overflow-x: hidden;
-
-    thead {
-      width: 100%;
-      border-bottom: 1px solid hsla(0, 0%, 0%, 0.12);
-
-      tr {
-        width: 100%;
-        th {
-          width: 100%;
-          border-bottom: 0px;
-
-        }
-      }
-    }
-
-    .title {
-      width: 100%;
-      th {
-        width: 100%;
-        border-bottom: 0px;
-      }
-    }
-
-    tbody {
-      border-bottom: 1px solid hsla(0, 0%, 0%, 0.12);
-
-      td{
-        width: 100%;
-                 border-bottom: 0px;
-
-      }
-      width: 100%;
-      .active {
-        background-color: #f7f8ff;
-        td{
-          width: 100%;
-        }
-      }
-
-
-      //&:hover {
-      //  background-color: #f7f8ff;
-      //  cursor: pointer;
-      //}
-    }
-  }
-  .projectList::-webkit-scrollbar {
-    width: 10px;
-  }
-  .projectList::-webkit-scrollbar-track {
-    background: #ebe7e7;
-    border-radius: 10px;
-  }
-   
-  .projectList::-webkit-scrollbar-thumb {
-    background: #eac2cb;
-    border-radius: 10px;
-
-  }
-
-
-  .add-btn {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    .submitButton {
-        background-color: $accent;
-        color: $primary;
-        font-size: 1.6rem;
-        padding: 3%;
-        width: 13rem;
-        border: none;
-        cursor: pointer;
-        border-radius: 10px;
-      }
-      .submitButton:hover {
-        background-color: #d4d926;
-      }
-  }
-}
+//.project-table {
+//  width: 93%;
+//  height: 100%;
+//
+//  @include media(">desktop") {
+//   width: 95%;
+//  }
+//
+//  .projectList {
+//    overflow-y: scroll;
+//    overflow-x: hidden;
+//
+//    .title {
+//      width: 100%;
+//      th {
+//        width: 100%;
+//        border-bottom: 0;
+//      }
+//    }
+//
+//    tbody {
+//      overflow-y: scroll;
+//      height: 90%;
+//
+//      td{
+//          padding: 0.5rem;
+//      }
+//    }
+//  }
+//  .projectList::-webkit-scrollbar {
+//    width: 10px;
+//  }
+//  .projectList::-webkit-scrollbar-track {
+//    background: #ebe7e7;
+//    border-radius: 10px;
+//  }
+//
+//  .projectList::-webkit-scrollbar-thumb {
+//    background: #eac2cb;
+//    border-radius: 10px;
+//
+//  }
+//
+//
+//  .add-btn {
+//    width: 100%;
+//    display: flex;
+//    justify-content: center;
+//    align-items: flex-end;
+//    .submitButton {
+//        background-color: $accent;
+//        color: $primary;
+//        font-size: 1.6rem;
+//        padding: 3%;
+//        width: 13rem;
+//        border: none;
+//        cursor: pointer;
+//        border-radius: 10px;
+//      }
+//      .submitButton:hover {
+//        background-color: #d4d926;
+//      }
+//  }
+//}

@@ -1,57 +1,57 @@
-.experiment-card {
-  width: 100%;
-  background-color: white;
-  margin-top: 20px;
-  border-radius: 20px;
-  color: black;
-  display: flex;
-  border: 1px solid black;
-
-  .card-img {
-    width: 30%;
-    display: flex;
-    img {
-      object-fit: cover;
-      width: 100%;
-      height: 100%;
-      border-top-left-radius: 20px;
-      border-bottom-left-radius: 20px;
-      border-right: 1px solid black;
-    }
-  }
-
-  .title-description {
-    width: 70%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    h2 {
-      color: black;
-      margin-top: 10px;
-      margin-left: 10px;
-      margin-bottom: 0;
-      font-size: 1.25vw;
-    }
-    h4 {
-      margin-top: 10px;
-      color: rgb(110, 110, 110);
-      margin-left: 10px;
-      font-size: 1vw;
-    }
-  }
-
-  .vl {
-    border-left: 3px solid #d3d3d3;
-    height: 50px;
-    margin-top: 50px;
-    margin-left: 20px;
-    margin-right: 20px;
-    border-radius: 3px;
-  }
-
-}
-
-.experiment-card:hover {
-  cursor: pointer;
-  border: 2.4px solid $contrast;
-}
+//.experiment-card {
+//  width: 100%;
+//  background-color: white;
+//  margin-top: 20px;
+//  border-radius: 20px;
+//  color: black;
+//  display: flex;
+//  border: 1px solid black;
+//
+//  .card-img {
+//    width: 30%;
+//    display: flex;
+//    img {
+//      object-fit: cover;
+//      width: 100%;
+//      height: 100%;
+//      border-top-left-radius: 20px;
+//      border-bottom-left-radius: 20px;
+//      border-right: 1px solid black;
+//    }
+//  }
+//
+//  .title-description {
+//    width: 70%;
+//    height: 100%;
+//    display: flex;
+//    flex-direction: column;
+//    h2 {
+//      color: black;
+//      margin-top: 10px;
+//      margin-left: 10px;
+//      margin-bottom: 0;
+//      font-size: 1.25vw;
+//    }
+//    h4 {
+//      margin-top: 10px;
+//      color: rgb(110, 110, 110);
+//      margin-left: 10px;
+//      font-size: 1vw;
+//    }
+//  }
+//
+//  .vl {
+//    border-left: 3px solid #d3d3d3;
+//    height: 50px;
+//    margin-top: 50px;
+//    margin-left: 20px;
+//    margin-right: 20px;
+//    border-radius: 3px;
+//  }
+//
+//}
+//
+//.experiment-card:hover {
+//  cursor: pointer;
+//  border: 2.4px solid $contrast;
+//}

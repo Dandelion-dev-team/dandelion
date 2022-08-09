@@ -15,8 +15,14 @@ export default function QuantityComponent(props) {
   }
 
   return (
-    <div className="recordTable">
-      <table className="tableList">
+    <div className="school-maintenance dandelion-component scrollable-container">
+      <div className="scrollable-header">
+        <h2>
+          Quantities
+        </h2>
+      </div>
+      <div className="dandelion-table scrollable-content">
+          <table className="tableList">
       {quantityList ? 
       <div>
          <thead>
@@ -39,10 +45,10 @@ export default function QuantityComponent(props) {
             <td><a href={quantity.help_url} target="_blank">{quantity.help_url}</a></td>
 
             <td>
-              <div className="submit-btn">
+              <div className="btn-container">
                 <input
                   type="submit"
-                  className=""
+                  className="dandelion-button"
                   value="Edit"
                   onClick={() => { editUser(quantity) }}
                 ></input>
@@ -51,7 +57,7 @@ export default function QuantityComponent(props) {
             <td>
               <input
                 type="submit"
-                className=""
+                className="dandelion-button"
                 value="Delete"
                 onClick={() => { deleteRecord("/quantity/" + quantity.id) }}
               ></input>
@@ -61,6 +67,7 @@ export default function QuantityComponent(props) {
       </div> 
       : null}
       </table>
+      </div>
     </div>
   )
 }

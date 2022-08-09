@@ -1,0 +1,98 @@
+.labelled-field {
+  display: flex;
+  flex-direction: row;
+  margin: 1rem 0.2rem;
+  align-items: baseline;
+  justify-content: space-between;
+
+  .label {
+    margin: 0 2rem 0 0;
+  }
+
+  .item-input {
+    flex: 1;
+
+    input {
+      width: 100%;
+    }
+  }
+}
+
+.label {
+    font-width: bold;
+    font-size: 1.2rem;
+}
+
+.edit-circle {
+  position: absolute;
+  width: 4rem;
+  display: flex;
+  height: 4rem;
+  background-color: $accent;
+  border-radius: 35px;
+  justify-content: center;
+  align-items: center;
+  align-self: end;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+
+  .edit-icon {
+    color: black;
+    width: 70%;
+    height: 70%;
+  }
+}
+.edit-circle:hover{
+  background-color: #d4d926;
+  cursor: pointer;
+}
+
+.thumb {
+  height: 10rem;
+
+  .edit-circle {
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-right: 0.4rem;
+    margin-bottom: 0.4rem;
+  }
+}
+
+.dandelion-image {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: end;
+  position: relative;
+  align-items: center;
+  background-color: white;
+  border-radius: 1.2rem;
+  margin-top: 2rem;
+
+  img {
+    object-fit: fill;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 1.2rem;
+  }
+}
+
+.invalidField {
+  border: 1px solid red;
+}
+
+.invalidFeedback {
+  display: inline-grid;
+}
+
+
+// Overriding react-bootstrap defaults
+
+.col-form-label {
+  font-size: 1.2rem;
+  color:$primary;
+}
+
+.row {
+  align-items: baseline;
+}

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react"
 import "../../styles/App.scss"
 import { deleteRecord, readRecord } from "../../utils/CRUD";
+import {navigate} from "gatsby";
 
-export default function CrudComponent(props) {
+export default function SchoolComponent(props) {
   const [schools, setSchools] = useState(0);
 
   useEffect(() => {
@@ -14,13 +15,21 @@ export default function CrudComponent(props) {
   }
 
   return (
-    <div className="recordTable">
-      <table className="tableList">
+    <div className="school-maintenance dandelion-component scrollable-container">
+      <div className="scrollable-header">
+        <h2>
+          Schools
+        </h2>
+        {/*<p>Username</p>*/}
+      </div>
+      <div className="dandelion-table scrollable-content">
+        <table className="tableList">
         <thead>
           <tr>
             <th>ID</th>
-            <th>Auth ID</th>
             <th>Name</th>
+            <th>Town</th>
+            <th>Authority</th>
             <th>Edit</th>
             <th>Delete</th>
           </tr>
@@ -30,22 +39,23 @@ export default function CrudComponent(props) {
 
           <tbody key={schools.id}>
             <td>{school.id}</td>
-            <td>{school.authority_id}</td>
             <td>{school.name}</td>
+            <td>{school.town}</td>
+            <td>{school.authority}</td>
             <td>
               <div>
                 <input
                   type="submit"
-                  className="submitButton"
+                  className="dandelion-button"
                   value="Edit"
-                  onClick={() => { editSchool(school) }}
+                  onClick={() => { props.editSchool(school.id) }}
                 ></input>
               </div>
             </td>
             <td>
               <input
                 type="submit"
-                className="submitButton"
+                className="dandelion-button"
                 value="Delete"
                 onClick={() => { deleteRecord("/school/" + school.id) }}
               ></input>
@@ -54,6 +64,7 @@ export default function CrudComponent(props) {
         )) : null}
 
       </table>
+      </div>
     </div>
   )
 }

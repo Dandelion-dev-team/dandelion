@@ -6,7 +6,7 @@ import {
   createRecordNavigate,
   readRecord,
   updateRecord,
-  uploadExperimentImage,
+  uploadImage,
 } from "../utils/CRUD"
 import EditIcon from "@mui/icons-material/Edit"
 import Header from "../components/navigation/header"
@@ -90,7 +90,7 @@ export default function ReportIssue(props) {
       createRecord("/issue", body)
     } else {
       createRecordNavigate("/issue", body).then(response =>
-        uploadExperimentImage("/issue/" + response.id + "/uploadImage", image)
+        uploadImage("/issue/" + response.id + "/uploadImage", image)
       )
     }
   }

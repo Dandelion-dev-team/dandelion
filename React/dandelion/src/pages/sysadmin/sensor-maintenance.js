@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react"
 import SysSideNav from "../../components/navigation/sysadminSideNav"
+import Header from "../../components/navigation/header"
 import "../../styles/App.scss"
 import SensorComponent from "../../components/tables/sensorComponent"
 import Select from "react-select"
@@ -102,91 +103,99 @@ export default function SuperuserMaintenance(props) {
   }, [])
   if (logged) {
     return (
-      <div>
-        <SysSideNav />
+      <div className="dandelion">
         <ToastContainer />
-        <div className="sensor-maintenance-container">
-          <div className="sensor-content">
-            <div className="content-wrapper">
-              <div className="table">
-                <SensorComponent parentCallback={handleCallback} />
-              </div>
-              <div className="edit-pane">
-                <div className="textbox">
-                  <h3>Code:</h3>
-                  <input
-                    type="text"
-                    placeholder="Code"
-                    name="usernameBox"
-                    value={entered_code}
-                    onChange={handleCodeChange}
-                  />
-                </div>
-                <div className="textbox">
-                  <h3>Description:</h3>
-                  <textarea
-                    type="text"
-                    placeholder="Code"
-                    name="usernameBox"
-                    value={entered_desc}
-                    onChange={handleDescChange}
-                  />
-                </div>
-                <div className="textbox">
-                  <h3>URL:</h3>
-                  <input
-                    type="text"
-                    placeholder="Code"
-                    name="usernameBox"
-                    value={entered_url}
-                    onChange={handleURLChange}
-                  />
-                </div>
-                <div className="nameBox">
-                  <h3>Datasheet link:</h3>
-                  <input
-                    type="text"
-                    placeholder="Code"
-                    name="usernameBox"
-                    value={entered_datasheet}
-                    onChange={handleDatasheetChange}
-                  />
-                </div>
-                <div className="quantityPicker">
-                  <h3>Quantity:</h3>
-                  <Select
-                    value={selected_quantities}
-                    closeMenuOnSelect={false}
-                    options={quantityList.data}
-                    onChange={handleSelection}
-                    getOptionLabel={quantity => quantity.name}
-                    getOptionValue={quantity => quantity.id} // It should be unique value in the options. E.g. ID
-                    isMulti={true}
-                    placeholder={"Select measurement days."}
-                  />
-                </div>
-                {editing ? (
-                  //IF EDITING SHOW UPDATE BUTTON
-                  <div>
-                    <input
-                      type="submit"
-                      className="createButton"
-                      value="Update"
-                      onClick={onUpdateClick}
-                    ></input>
+        <Header />
+        <div className="sensor-maintenance page-container">
+          <SysSideNav />
+          <ToastContainer />
+          <div className="main-content">
+            <div className="content-area">
+                <div className="left-panel">
+                  <div className="panel-body">
+                    <SensorComponent parentCallback={handleCallback} />
                   </div>
-                ) : (
-                  //IF NOT EDITING SHOW CREATE BUTTON
-                  <div>
-                    <input
-                      type="submit"
-                      className="createButton"
-                      value="Create"
-                      onClick={onCreateClick}
-                    ></input>
+                </div>
+                <div className="right-panel">
+                  <div className="pane-container">
+                    <div className="pane-content">
+                    <div className="textbox">
+                      <h3>Code:</h3>
+                      <input
+                        type="text"
+                        placeholder="Code"
+                        name="usernameBox"
+                        value={entered_code}
+                        onChange={handleCodeChange}
+                      />
+                    </div>
+                    <div className="textbox">
+                      <h3>Description:</h3>
+                      <textarea
+                        type="text"
+                        placeholder="Code"
+                        name="usernameBox"
+                        value={entered_desc}
+                        onChange={handleDescChange}
+                      />
+                    </div>
+                    <div className="textbox">
+                      <h3>URL:</h3>
+                      <input
+                        type="text"
+                        placeholder="Code"
+                        name="usernameBox"
+                        value={entered_url}
+                        onChange={handleURLChange}
+                      />
+                    </div>
+                    <div className="nameBox">
+                      <h3>Datasheet link:</h3>
+                      <input
+                        type="text"
+                        placeholder="Code"
+                        name="usernameBox"
+                        value={entered_datasheet}
+                        onChange={handleDatasheetChange}
+                      />
+                    </div>
+                    <div className="quantityPicker">
+                      <h3>Quantity:</h3>
+                      <Select
+                        value={selected_quantities}
+                        closeMenuOnSelect={false}
+                        options={quantityList.data}
+                        onChange={handleSelection}
+                        getOptionLabel={quantity => quantity.name}
+                        getOptionValue={quantity => quantity.id} // It should be unique value in the options. E.g. ID
+                        isMulti={true}
+                        placeholder={"Select measurement days."}
+                      />
+                    </div>
+                    {editing ? (
+                      //IF EDITING SHOW UPDATE BUTTON
+                      <div>
+                        <input
+                          type="submit"
+                          className="createButton"
+                          value="Update"
+                          onClick={onUpdateClick}
+                        ></input>
+                      </div>
+                    ) : (
+                      //IF NOT EDITING SHOW CREATE BUTTON
+                      <div>
+                        <input
+                          type="submit"
+                          className="createButton"
+                          value="Create"
+                          onClick={onCreateClick}
+                        ></input>
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
+                </div>
+                </div>
             </div>
           </div>
         </div>

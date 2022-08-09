@@ -1,4 +1,5 @@
 from app import db
+from app.models import Authority
 
 
 class School(db.Model):
@@ -24,7 +25,8 @@ class School(db.Model):
     @property
     def summary_columns(self):
         return [("id", "id"),
-                ("authority_id", "authority_id"),
+                ("town", "town"),
+                ("authority", "authority.name"),
                 ("latitude", "latitude"),
                 ("longitude", "longitude"),
                 ("name", "name")]

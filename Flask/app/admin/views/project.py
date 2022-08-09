@@ -1,6 +1,6 @@
 import os
 
-from flask import abort, request
+from flask import abort, request, jsonify
 from flask_json import json_response
 from flask_jwt_extended import jwt_required, get_jwt_identity, verify_jwt_in_request
 from sqlalchemy import inspect, or_
@@ -47,8 +47,8 @@ def allProjects():
 def add_project():
     current_user = jwt_user(get_jwt_identity())
     authorised = auth_check(request.path, request.method, current_user)
-
     data = request.get_json()
+
     project = Project(
         title = data['title'],
         description = data['description'],
@@ -89,22 +89,37 @@ def add_project():
 
 
 # This route is PUBLIC
+@admin.route('/project/blank', methods=['GET'])
+def get_blank_project():
+    project = Project()
+
+    project_data = row2dict(project)
+    project_data['image_full'] = os.path.join(content_folder('project', 0, 'image'), 'full.png')
+    project_data['image_thumb'] = os.path.join(content_folder('project', 0, 'image'), 'thumb.png')
+
+    return {'project': project_data}
+
+
+# This route is PUBLIC
 @admin.route('/project/<int:id>', methods=['GET'])
 def get_one_project(id):
     project = Project.query.get_or_404(id)
-
-    project_data = {}
-    project_data['project_id'] = project.id
-    project_data['title'] = project.title
-    project_data['description'] = project.description
+    project_data = row2dict(project)
     project_data['image_full'] = os.path.join(content_folder('project', id, 'image'), 'full.png')
     project_data['image_thumb'] = os.path.join(content_folder('project', id, 'image'), 'thumb.png')
-    project_data['project_text'] = project.project_text
-    project_data['start_date'] = project.start_date
-    project_data['end_date'] = project.end_date
-    project_data['status'] = project.status
 
-    return {'Project': project_data}
+    # project_data = {}
+    # project_data['project_id'] = project.id
+    # project_data['title'] = project.title
+    # project_data['description'] = project.description
+    # project_data['image_full'] = os.path.join(content_folder('project', id, 'image'), 'full.png')
+    # project_data['image_thumb'] = os.path.join(content_folder('project', id, 'image'), 'thumb.png')
+    # project_data['project_text'] = project.project_text
+    # project_data['start_date'] = project.start_date
+    # project_data['end_date'] = project.end_date
+    # project_data['status'] = project.status
+
+    return {'project': project_data}
 
 @admin.route('/project/<int:id>', methods=['PUT'])
 @jwt_required()

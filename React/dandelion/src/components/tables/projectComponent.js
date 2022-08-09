@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react"
-import { navigate } from "gatsby"
 import "../../styles/App.scss"
 import { readRecord } from "../../utils/CRUD"
-//import { readRecord } from "../utils/CRUD"
 
 export default function ProjectComponent(props) {
   const [projects, setProject] = useState(0)
@@ -48,15 +46,6 @@ export default function ProjectComponent(props) {
             }
         </tbody>
       </table>
-      <div className="add-btn">
-        <button
-          className="submitButton"
-          onClick={() => {
-            if (typeof window !== `undefined`) {
-              navigate("/activities/create-activity/enter-details")
-            }
-          }}>Add Activity</button>
-      </div>
     </div>
   )
 }

@@ -5,7 +5,7 @@ import NodeInfoComponent from "../../components/cards/nodeInfoCard"
 import {
   readRecord,
   updateRecord,
-  uploadExperimentImage,
+  uploadImage,
   readAdminRecord,
 } from "../../utils/CRUD"
 import { verify_superuser_storage } from "../../utils/logins"
@@ -14,6 +14,10 @@ import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import EditIcon from "@mui/icons-material/Edit"
 import RegisterNodeModal from "../../components/modals/registerNodeModal"
+import Header from "../../components/navigation/header";
+import Container from "react-bootstrap/Container"
+import Row from "react-bootstrap/Row"
+import Col from "react-bootstrap/Col"
 
 export default function SuperuserSettings() {
   const [fetchedSchool, setSchool] = useState("")
@@ -54,7 +58,7 @@ export default function SuperuserSettings() {
   }
 
   const handleImageChange = async e => {
-    uploadExperimentImage(
+    uploadImage(
       "/school/" + fetchedSchool.school.school_id + "/uploadImage",
       e.target.files[0]
     ).then(window.location.reload(false))
@@ -91,162 +95,190 @@ export default function SuperuserSettings() {
 
   if (typeof window !== `undefined` && logged) {
     return (
-      <div>
-        <SideNav />
-        {showRegisterModal ? <RegisterNodeModal /> : null}
-        <div className="settings-container">
+      <div className="dandelion">
+        <Header />
+        <div className="page-container">
+          <SideNav />
           <ToastContainer />
-          <div className="title">
-            {fetchedSchool ? <h3>{fetchedSchool.school.name}</h3> : null}
-          </div>
-          <div className="content">
-            <div className="settings-pane">
-              <div className="school-image">
-                {fetchedSchool ? (
-                  <img src={fetchedSchool.school.image_full} />
-                ) : null}
-                <label className="edit-circle">
-                  <input
-                    type="file"
-                    accept=".jpg,.png"
-                    onChange={handleImageChange}
-                    hidden
-                  />
-                  <EditIcon className="edit-icon" />
-                </label>
-              </div>
-              <div className="spacer" />
-              <div className="node-settings">
-                <h3>Node Settings</h3>
-                {school_node ? (
-                  school_node.Node !== null ? (
-                    <h3>Node Registered</h3>
-                  ) : (
-                    <div className="btn-row">
-                      <input
-                        type="submit"
-                        className="update-btn"
-                        value="Register a Node"
-                        onClick={() => {
-                          setRegisterModal(true)
-                        }}
-                      />
+          <div className="main-content">
+            <div className="content-area">
+                <div className="left-panel">
+                  {showRegisterModal ? <RegisterNodeModal /> : null}
+                  {/*<div className="settings-container">*/}
+                  {/*  <div className="title">*/}
+                  {/*    {fetchedSchool ? <h3>{fetchedSchool.school.name}</h3> : null}*/}
+                  {/*  </div>*/}
+                    {/*<div className="content">*/}
+                    {/*  <div className="settings-pane">*/}
+                  <div className="panel-body scrollable-container">
+                    <div className="scrollable-header">
+                      <h2>Your school</h2>
                     </div>
-                  )
-                ) : null}
-              </div>
-            </div>
-            <div className="details-pane">
-              {editing ? (
-                <div className="details">
-                  {fetchedSchool ? (
-                    <h3>Authority ID: {fetchedSchool.school.authority_id}</h3>
-                  ) : null}
-                  <input
-                    className="item-input"
-                    type="text"
-                    value={schoolName}
-                    placeholder="School Name"
-                    name="usernameBox"
-                    onChange={e => {
-                      setSchoolName(e.target.value)
-                    }}
-                  />
-                  <input
-                    className="item-input"
-                    type="text"
-                    value={schoolAddress}
-                    placeholder="School Address"
-                    name="usernameBox"
-                    onChange={e => {
-                      setSchoolAddress(e.target.value)
-                    }}
-                  />
-                  <input
-                    className="item-input"
-                    type="text"
-                    value={schoolTown}
-                    placeholder="Town"
-                    name="usernameBox"
-                    onChange={e => {
-                      setSchoolTown(e.target.value)
-                    }}
-                  />
-                  <input
-                    className="item-input"
-                    type="text"
-                    value={schoolEmail}
-                    placeholder="School Email"
-                    name="usernameBox"
-                    onChange={e => {
-                      setSchoolEmail(e.target.value)
-                    }}
-                  />
-                  <input
-                    className="item-input"
-                    type="text"
-                    value={schoolPhone}
-                    placeholder="School Phone"
-                    name="usernameBox"
-                    onChange={e => {
-                      setSchoolPhone(e.target.value)
-                    }}
-                  />
-                  <div className="btn-update-delete">
-                    <input
-                      type="submit"
-                      className="update-button"
-                      value="Cancel"
-                      onClick={() => {
-                        setEditing(false)
-                      }}
-                    ></input>
-                    <input
-                      type="submit"
-                      className="update-button"
-                      value="Update"
-                      onClick={() => {
-                        updateClicked()
-                      }}
-                    ></input>
+                    <div className="scrollable-content">
+                        {editing ? (
+                          <div className="details">
+                            {fetchedSchool ? (
+                              <h3>Authority ID: {fetchedSchool.school.authority_id}</h3>
+                            ) : null}
+                            <input
+                              className="item-input"
+                              type="text"
+                              value={schoolName}
+                              placeholder="School Name"
+                              name="usernameBox"
+                              onChange={e => {
+                                setSchoolName(e.target.value)
+                              }}
+                            />
+                            <input
+                              className="item-input"
+                              type="text"
+                              value={schoolAddress}
+                              placeholder="School Address"
+                              name="usernameBox"
+                              onChange={e => {
+                                setSchoolAddress(e.target.value)
+                              }}
+                            />
+                            <input
+                              className="item-input"
+                              type="text"
+                              value={schoolTown}
+                              placeholder="Town"
+                              name="usernameBox"
+                              onChange={e => {
+                                setSchoolTown(e.target.value)
+                              }}
+                            />
+                            <input
+                              className="item-input"
+                              type="text"
+                              value={schoolEmail}
+                              placeholder="School Email"
+                              name="usernameBox"
+                              onChange={e => {
+                                setSchoolEmail(e.target.value)
+                              }}
+                            />
+                            <input
+                              className="item-input"
+                              type="text"
+                              value={schoolPhone}
+                              placeholder="School Phone"
+                              name="usernameBox"
+                              onChange={e => {
+                                setSchoolPhone(e.target.value)
+                              }}
+                            />
+                            <div className="btn-container">
+                              <input
+                                type="submit"
+                                className="dandelion-button"
+                                value="Cancel"
+                                onClick={() => {
+                                  setEditing(false)
+                                }}
+                              ></input>
+                              <input
+                                type="submit"
+                                className="dandelion-button"
+                                value="Update"
+                                onClick={() => {
+                                  updateClicked()
+                                }}
+                              ></input>
+                            </div>
+                          </div>
+                        ) : (
+                        fetchedSchool && authority ? (
+                          <Container fluid="sm">
+                                <Row>
+                                  <Col sm={3}><h4>Name:</h4></Col>
+                                  <Col><p>{fetchedSchool.school.name}</p></Col>
+                                </Row>
+                                <Row>
+                                  <Col sm={3}><h4>Authority:</h4></Col>
+                                  <Col><p>{authority.Authority.name}</p></Col>
+                                </Row>
+                                <Row>
+                                  <Col sm={3}><h4>Address 1:</h4></Col>
+                                  <Col><p>{fetchedSchool.school.address_line_1}</p></Col>
+                                </Row>
+                                <Row>
+                                  <Col sm={3}><h4>Address 2:</h4></Col>
+                                  <Col><p>{fetchedSchool.school.address_line_2}</p></Col>
+                                </Row>
+                                <Row>
+                                  <Col sm={3}><h4>Town:</h4></Col>
+                                  <Col><p>{fetchedSchool.school.town}</p></Col>
+                                </Row>
+                                <Row>
+                                  <Col sm={3}><h4>Email:</h4></Col>
+                                  <Col><p>{fetchedSchool.school.email}</p></Col>
+                                </Row>
+                                <Row>
+                                  <Col sm={3}><h4>Phone:</h4></Col>
+                                  <Col><p>{fetchedSchool.school.telephone}</p></Col>
+                                </Row>
+
+                            <div className="btn-container">
+                              <input
+                                type="submit"
+                                className="dandelion-button"
+                                value="Edit"
+                                onClick={() => {
+                                  editClicked()
+                                }}
+                              ></input>
+                            </div>
+                          </Container>
+                          ) : null
+                        )}
+                        <h4>Image:</h4>
+                      <div className="dandelion-image">
+                          {fetchedSchool ? (
+                            <img src={fetchedSchool.school.image_full} />
+                          ) : null}
+                          <label className="edit-circle">
+                            <input
+                              type="file"
+                              accept=".jpg,.png"
+                              onChange={handleImageChange}
+                              hidden
+                            />
+                            <EditIcon className="edit-icon" />
+                          </label>
+                        </div>
+                      </div>
                   </div>
                 </div>
-              ) : (
-                <div className="details">
-                  {fetchedSchool ? (
-                    <h3>Name: {fetchedSchool.school.name}</h3>
-                  ) : null}
 
-                  {authority ? (
-                    <h3>Authority: {authority.Authority.name}</h3>
-                  ) : null}
-                  {fetchedSchool ? (
-                    <h3>Address: {fetchedSchool.school.address_line_1}</h3>
-                  ) : null}
-                  {fetchedSchool ? (
-                    <h3>Town: {fetchedSchool.school.town}</h3>
-                  ) : null}
-                  {fetchedSchool ? (
-                    <h3>Email: {fetchedSchool.school.email}</h3>
-                  ) : null}
-                  {fetchedSchool ? (
-                    <h3>Phone: {fetchedSchool.school.telephone}</h3>
-                  ) : null}
-
-                  <div className="btn-update-delete">
-                    <input
-                      type="submit"
-                      className="update-button"
-                      value="Edit"
-                      onClick={() => {
-                        editClicked()
-                      }}
-                    ></input>
+                <div className="right-panel">
+                  <div className="pane-container">
+                    <div className="pane-content">
+                        <div className="node-settings">
+                          <h2>Node</h2>
+                          {school_node ? (
+                            school_node.Node !== null ? (
+                              <p>Node Registered</p>
+                            ) : (
+                              <div className="btn-row">
+                                <input
+                                  type="submit"
+                                  className="update-btn"
+                                  value="Register a Node"
+                                  onClick={() => {
+                                    setRegisterModal(true)
+                                  }}
+                                />
+                              </div>
+                            )
+                          ) : null}
+                        </div>
+                    </div>
                   </div>
                 </div>
-              )}
             </div>
-            <div className="spacer" />
           </div>
         </div>
       </div>

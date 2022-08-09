@@ -1,7 +1,5 @@
-import { navigate } from "gatsby"
 import React, { useEffect, useState } from "react"
 import { createRecord } from "../../utils/CRUD"
-import CloseIcon from "@mui/icons-material/Close"
 import {Button, Modal} from "react-bootstrap";
 
 export default function AddStudentModal(props) {

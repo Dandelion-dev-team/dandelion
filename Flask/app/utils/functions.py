@@ -15,11 +15,11 @@ def row2dict(row, summary=False):
     d = {}
 
     if summary:
-        for label, prop in summary_columns:
-            d[label] = str(rgetattr(row, prop))
+        d = {label: (str(rgetattr(row, prop)) if rgetattr(row, prop) else '') for (label, prop) in summary_columns}
+    elif len(row.__dict__.keys()) > 1:
+        d = {prop: (str(rgetattr(row, prop)) if rgetattr(row, prop) else '') for prop in row.__dict__}
     else:
-        for prop in row.__dict__:
-            d[prop] = str(rgetattr(row, prop))
+        d = {c.name: '' for c in row.__table__.columns}
 
     return d
 

@@ -1,0 +1,59 @@
+.page-container {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  min-height: 1%;
+  color: $white;
+  background-color: inherit;
+  justify-content: space-evenly;
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+
+  @include media("<=tablet") {
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+    margin-top: 50px;
+  }
+
+  @include media("<=phone") {
+
+  }
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 0 1rem 1rem 1rem;
+
+  .content-area {
+    background-color: white;
+    color: black;
+    height: 100%;
+    border-radius: 20px;
+    display: flex;
+
+    h1, h2, h3, h4 {
+      color: $primary;
+    }
+  }
+
+  .one-panel {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .left-panel {
+    width: 50%;
+    display: flex;
+  }
+
+  .right-panel {
+    width: 50%;
+    background-color: $dandelion-grey;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    //overflow-y: scroll;
+  }
+}

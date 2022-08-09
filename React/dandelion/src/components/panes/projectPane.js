@@ -14,13 +14,18 @@ export default function ProjectPane(props) {
   const [showEditModal, setShowEditModal] = useState(false)
   const [show_no_node, setNoNode] = useState(false);
   //Tested
+
   useEffect(() => {
     //readRecord("/project/" + props.dataProp.Project.project_id + "/experiment", setExperiments)
+    console.log(props.project)
   }, [])
 
-  const cardClickCallback = childData => {
-    navigate("/superuser/user-maintenance", {
-      state: { experiment: childData },
+  const cardClickCallback = (childData) => {
+    navigate("/superuser/experiment-maintenance", {
+      state: {
+        project: props.project,
+        experiment: childData
+      },
     })
   }
 
@@ -32,7 +37,8 @@ export default function ProjectPane(props) {
           "/activities/create-experiment/predefined-experiments",
           {
             state: {
-              project_id: props.project.project_id,
+              project: props.project,
+              title: props.project.title,
               start_date: props.project.start_date,
               end_date: props.project.end_date,
             },
@@ -56,72 +62,84 @@ export default function ProjectPane(props) {
   }
 
   return (
-    <div>
+    <div className="project-details-container">
       {props.project ? (
-        <div className="project-panel-content">
+        <div className="scrollable-container">
           {showDisclaimer ? <InviteModal callback={nextModal} /> : null}
           {showAddModal ? <SchoolModal callback={addSchool} /> : null}
           {/*{showEditModal ? <EditActivityModal project={props.project}/> : null}*/}
           {show_no_node ? <NoNodeModal callback={closeNoNode}/> : null}
-          <div className="project-details">
-            <h3>{props.project.title} </h3>
-            <h3>
+
+          <div className="scrollable-header">
+            <h2>{props.project.title} </h2>
+            <p>
               {new Date(props.project.start_date).toDateString()} -{" "}
               {new Date(props.project.end_date).toDateString()}{" "}
-            </h3>
-            <h3>{props.project.status}</h3>
-            <div className="feat-img">
-              <img src={props.project.image_full} />
-            </div>
-            <div className="experiment-row">
-              <div className="experiments">
-              {props.experiments
-                ? props.experiments.data.map(experiment => (
-                    <ExperimentCard
-                      callback={cardClickCallback}
-                      dataProp={experiment}
-                      id="activity-card"
-                    />
-                  ))
-                : null}
-                </div>
-              
-              <div className="btn-row">
+            </p>
+            <p>Status: {props.project.status}</p>
+
+            <div className="panel-column-section">
+              <div className="img-container">
+                <img src={props.project.image_full} />
+              </div>
+              <div className="panel-button-section">
                 <button
-                  className="submitButton"
-                  id="exp"
+                  className="dandelion-button pink-btn"
                   onClick={() => {
-                    create_experiment_click()
-                  }}
-                >
-                  Create Experiment
-                </button>
-                <button
-                  className="submitButton"
-                  id="edit"
-                  onClick={() => {
-                    setShowEditModal(true)
+                    // setShowEditModal(true)
+                    props.editActivity(props.project.id)
                   }}
                 >
                   Edit Activity
                 </button>
                 <button
-                  className="submitButton"
-                  id="inv"
+                  className="dandelion-button purple-btn"
+                  // id="inv"
                   onClick={() => {
                     setDisclaimer(true)
                   }}
                 >
                   Invite School
                 </button>
-                <button className="submitButton" id="comp">
+                <button className="dandelion-button red-btn">
                   Project Complete
+                </button>
+                <button
+                  className="dandelion-button green-btn"
+                  // id="exp"
+                  onClick={() => {
+                    create_experiment_click()
+                  }}
+                >
+                  Create Experiment
                 </button>
               </div>
             </div>
+            <h4>Experiments</h4>
+          </div>
+          <div className="project-details scrollable-content">
+            {/*<div className="experiment-row">*/}
+            {/*  <div className="experiments">*/}
+
+              {props.experiments
+                ? (props.experiments.data.length)
+                      ? props.experiments.data.map(experiment => (
+                          <ExperimentCard
+                            callback={cardClickCallback}
+                            dataProp={experiment}
+                            id="activity-card"
+                          />
+                        ))
+                      : (
+                <div className="dandelion-hint">
+                    Click the button &#8599; to create a new experiment in this activity
+                </div>
+              ) : null }
+            {/*    </div>*/}
+            {/*</div>*/}
           </div>
         </div>
-      ) : null}
+      ) : null }
 
       <EditActivityModal
           show={showEditModal}

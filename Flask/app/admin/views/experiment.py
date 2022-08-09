@@ -49,6 +49,7 @@ def listExperimentFiltered():
             .query \
             .join (ProjectPartner) \
             .filter(ProjectPartner.is_lead_partner == True) \
+            .filter(Experiment.parent_id == None) \
             .filter(or_(Experiment.status == 'active',
                         ProjectPartner.school_id == current_user.school_id)) \
             .all()
@@ -59,14 +60,25 @@ def listExperimentFiltered():
             .filter(Experiment.status == 'active') \
             .all()
 
-    return json_response(data=(row2dict(x, summary=True) for x in experiment))
+    data = [row for row in (row2dict(x, summary=True) for x in experiment)]
+
+    for row in data:
+        row['image_thumb'] = os.path.join(content_folder('experiment', id, 'image'), 'thumb.png'),
+
+    return {'data': data}
 
 
 # This route is PUBLIC
 @admin.route('/project/<int:id>/experiment', methods=['GET'])
 def listExperimentForProject(id):
     project = Project.query.get_or_404(id)
-    return json_response(data=(row2dict(x, summary=True) for x in project.experiments))
+
+    data = [row for row in (row2dict(x, summary=True) for x in project.experiments)]
+
+    for row in data:
+        row['image_thumb'] = os.path.join(content_folder('experiment', id, 'image'), 'thumb.png'),
+
+    return {'data': data}
 
 
 # This route is PUBLIC
@@ -75,16 +87,19 @@ def get_one_experiment(id):
     experiment = Experiment.query.get_or_404(id)
 
     data = {
-        "experiment_id": experiment.id,
-        "name": experiment.title,
+        "id": experiment.id,
+        "title": experiment.title,
         "code": experiment.code,
         "project_id": experiment.project_id,
         "description": experiment.description,
+        "text": experiment.text,
         "image_full": os.path.join(content_folder('experiment', id, 'image'), 'full.png'),
         "image_thumb": os.path.join(content_folder('experiment', id, 'image'), 'thumb.png'),
         "tutorial": experiment.text,
         "start_date": experiment.start_date,
         "end_date": experiment.end_date,
+        "status": experiment.status,
+        "parent_id": experiment.parent_id,
         "hypotheses": [],
         "treatmentVariables": [],
         "responseVariables": [{
@@ -295,9 +310,12 @@ def updateExperiment(experiment_id):
     experiment_to_update = Experiment.query.get_or_404(experiment_id)
     new_experiment_data = request.get_json()
 
+    experiment_to_update.title = new_experiment_data['title']
+    experiment_to_update.code = new_experiment_data['code']
     experiment_to_update.description = new_experiment_data['description']
-    experiment_to_update.end_date = new_experiment_data['end_date']
     experiment_to_update.text = new_experiment_data['text']
+    experiment_to_update.start_date = new_experiment_data['start_date']
+    experiment_to_update.end_date = new_experiment_data['end_date']
     experiment_to_update.status = new_experiment_data['status']
 
     audit_details = prepare_audit_details(inspect(Experiment), experiment_to_update, delete=False)
