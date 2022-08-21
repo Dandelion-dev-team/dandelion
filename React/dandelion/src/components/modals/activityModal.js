@@ -177,7 +177,7 @@ export default function ActivityModal(props) {
                         >
                           <option value="">Select...</option>
                           <option value="active">Active</option>
-                          <option value="active">Invalid</option>
+                          <option value="invalid">Invalid</option>
                           <option value="private">Private</option>
                         </Form.Select>
                         <Form.Control.Feedback type="invalid">

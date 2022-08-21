@@ -1,37 +1,40 @@
-.friends-container {
-  width: 93%;
-  height: auto;
-  flex-direction: column;
-  .friendsTable {
-    height: 40%;
-    margin-top: 1.5rem;
-    overflow-x: hidden;
-    overflow-y: scroll;
-
-    .friendList {
-      margin-left: 2rem;
-      height: 30%;
-
-      tbody {
-        .active {
-          background-color: #f7f8ff;
-        }
-
-        &:hover {
-          background-color: #f7f8ff;
-          cursor: pointer;
-        }
-      }
-    }
-    .friendList::-webkit-scrollbar {
-      display: none; /* for Chrome, Safari, and Opera */
-      width: 0%;
-    }
-  }
-  .friendsTable::-webkit-scrollbar {
-    display: none; /* for Chrome, Safari, and Opera */
-    width: 0%;
-  }
-  .friends-image {
-  }
+.friendList {
+  font-size: 1.2rem;
 }
+//.friends-container {
+//  width: 93%;
+//  height: auto;
+//  flex-direction: column;
+//  .friendsTable {
+//    height: 40%;
+//    margin-top: 1.5rem;
+//    overflow-x: hidden;
+//    overflow-y: scroll;
+//
+//    .friendList {
+//      margin-left: 2rem;
+//      height: 30%;
+//
+//      tbody {
+//        .active {
+//          background-color: #f7f8ff;
+//        }
+//
+//        &:hover {
+//          background-color: #f7f8ff;
+//          cursor: pointer;
+//        }
+//      }
+//    }
+//    .friendList::-webkit-scrollbar {
+//      display: none; /* for Chrome, Safari, and Opera */
+//      width: 0%;
+//    }
+//  }
+//  .friendsTable::-webkit-scrollbar {
+//    display: none; /* for Chrome, Safari, and Opera */
+//    width: 0%;
+//  }
+//  .friends-image {
+//  }
+//}

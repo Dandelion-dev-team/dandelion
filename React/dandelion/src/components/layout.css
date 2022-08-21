@@ -13,8 +13,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: hsla(0, 0%, 0%, 0.8);
   font-family: "Archivo Narrow", "Helvetica Neue", sans-serif;        /* BD */
-  font-weight: 600;        /* BD */
-  font-size: 1rem;        /* BD */
+  /*font-weight: 600;        !* BD *!*/
+  font-size: 1.2rem;        /* BD */
   word-wrap: break-word;
   font-kerning: normal;
   -moz-font-feature-settings: "kern", "liga", "clig", "calt";

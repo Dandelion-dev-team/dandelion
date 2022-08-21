@@ -33,8 +33,12 @@ export default function VariableMaintenance(props) {
     readRecord("/levelbyvariable/" + childData.id, setLevels)
   }
 
+  const stripDataWrapper = data => {
+    setData(data.data)
+  }
+
   const newVariable = () => {
-    readRecord("/variable/blank", setData);
+    readRecord("/variable/blank", stripDataWrapper);
     setShowVariable(true)
   }
 
@@ -78,6 +82,8 @@ export default function VariableMaintenance(props) {
                     ) : (
                         <div className="dandelion-hint">
                             &larr; Click a variable to see the details or click the button &#8601; to create a new one
+                          <br/><br/>
+                          Note that variables are shared - any variables you create can be used by other people
                         </div>
                     )}
                   </div>

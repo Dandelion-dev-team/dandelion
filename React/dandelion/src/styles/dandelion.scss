@@ -16,11 +16,12 @@
   header {
     position: relative;
   }
+}
 
-
+.dandelion, .dandelion-modal {
   p, ul, ol {
     font-size: 1.4rem;
-    line-height: 1.5rem;
+    line-height: 1.8rem;
     font-weight: 400;
     margin-bottom: 1rem;
 
@@ -40,49 +41,38 @@
     color: $white;
   }
 
+  .subheading {
+    font-size: 2rem;
+    line-height: 2rem;
+  }
+
   h1 {font-size: 4rem;}
   h2 {font-size: 2.4rem;}
   h3 {font-size: 1.8rem;}
-  h4, h5 {font-size: 1.3rem;}
+  h4, h5 {font-size: 1.5rem;}
 
   h4 {
     margin-bottom: 0;
+  }
+
+  p h1, p h2, p h3, p h4 {
+    display: contents;
+    margin: 0;
   }
 
 
   a {
     display: inline-block;
     text-decoration: none;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     color: $black;
 
     &:hover {
       color: $dandelion-green;
     }
   }
-}
-
-.dandelion-hint {
-  font-size: 2rem;
-  color: slategrey;
-  padding: 4rem;
-}
-
-//.dandelion-component {
-//  h2 {
-//    margin: 2rem;
-//  }
-//
-//  p {
-//    margin: 0 2rem;
-//  }
-//}
-
-// Tables
-
-.dandelion-table {
   table {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
 
     thead {
         font-weight: bold;
@@ -94,6 +84,18 @@
     }
   }
 }
+
+.dandelion-hint {
+  font-size: 2rem;
+  color: slategrey;
+  padding: 4rem;
+
+  h1, h2, h3, h4 {
+    display: inline-block;
+    margin: 0;
+  }
+}
+
 
 // HTML variations
 
@@ -118,12 +120,28 @@
   }
 }
 
-@import "pages.scss";     // Page layouts
-@import "buttons.scss";   // Buttons
-@import "forms.scss";     // Form layouts - except sign-in form which is the only actual HTML form. See pages/signin.scss
-@import "panels.scss";    // Content panels and scrollable regions
-@import "modals.scss";    // Modifications to the modal object from react-bootstrap
-@import "cards.scss";     // Modifications to the card object from react-bootstrap
+
+@import "pages";          // Page layouts
+@import "buttons";        // Buttons
+@import "forms";          // Form layouts - except sign-in form which is the only actual HTML form. See pages/signin.scss
+@import "panels";         // Content panels and scrollable regions
+@import "modals";         // Modifications to the modal object from react-bootstrap
+@import "cards";          // Modifications to the card object from react-bootstrap
+@import "growcube";       // Styling of the grid view of the GrowCube
+@import "colour-picker";  // Colour picker styling
+@import "overrides";      // Overriding defaults from third-party libraries - typically react-bootstrap
+@import "alerts";         // All types of alerts (e.g. activity invitations, node issues, etc.)
+
+[data-testid="CheckCircleIcon"] {
+  color: $green;
+  margin-right: 1rem;
+}
+
+[data-testid="ErrorIcon"] {
+  color: $orange;
+  margin-right: 1rem;
+}
+
 
 // Other customisations
 

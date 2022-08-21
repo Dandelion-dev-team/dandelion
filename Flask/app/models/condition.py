@@ -12,8 +12,8 @@ class Condition(db.Model):
     colour = db.Column(db.String(7))
     status = db.Column(db.VARCHAR(20), nullable=False)
 
-    levels = db.relationship("ConditionLevel", backref="condition")
-    units = db.relationship("Unit", backref="condition")
+    levels = db.relationship("ConditionLevel", backref="condition", cascade="all, delete")
+    units = db.relationship("Unit", backref="condition", cascade="all, delete")
 
     @property
     def summary_columns(self):

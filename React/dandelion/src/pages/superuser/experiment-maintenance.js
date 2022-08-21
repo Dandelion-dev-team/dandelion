@@ -1,142 +1,78 @@
 import { navigate } from "gatsby"
-import Img from "gatsby-image"
 import React, { useEffect, useState, Image } from "react"
 import { verify_superuser_storage } from "../../utils/logins"
-import { createRecordNavigate, readRecord } from "../../utils/CRUD"
+import {readRecord } from "../../utils/CRUD"
 import "../../styles/App.scss"
 import SideNav from "../../components/navigation/superUserSideNav"
-import { ToastContainer, toast } from "react-toastify"
+import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import Header from "../../components/navigation/header";
-import Container from "react-bootstrap/Container"
-import Row from "react-bootstrap/Row"
-import Col from 'react-bootstrap/Col';
+import ExperimentStatusPane from "../../components/panes/experimentStatusPane"
 import ExperimentPane from "../../components/panes/experimentPane";
 import ExperimentModal from "../../components/modals/experimentModal";
+import TreatmentModal from "../../components/modals/treatmentModal"
+import ResponseModal from "../../components/modals/responseModal"
+import ParticipantsModal from "../../components/modals/participantsModal"
+import UnitsModal from "../../components/modals/unitsModal"
+import HypothesesModal from "../../components/modals/hypothesesModal"
+import ConditionsModal from "../../components/modals/conditionsModal"
+import StatusModal from "../../components/modals/statusModal"
 
 export default function ExperimentMaintenance(props) {
   //Tested
   const [experiment, setExperiment] = useState(null)
-  const [logged, setLogged] = useState()
-  const [userList, setUsers] = useState([])
-
-  const [addUserList, setAddUsers] = useState([])
-  const [removeUserList, setRemoveUsers] = useState([])
+  const [logged, setLogged] = useState(false)
 
   // Modals
   const [showExperiment, setShowExperiment] = useState(false)
-  const [reload, setReload] = useState(false)
+  const [showTreatment, setShowTreatment] = useState(false)
+  const [showResponse, setShowResponse] = useState(false)
+  const [showHypotheses, setShowHypotheses] = useState(false)
+  const [showConditions, setShowConditions] = useState(false)
+  const [showUnits, setShowUnits] = useState(false)
+  const [showParticipants, setShowParticipants] = useState(false)
+  const [showStatus, setShowStatus] = useState(false)
+
+  const [node, setNode] = useState(false)
+  const [imageToggle, setImageToggle] = useState(false)
+  const [reloadToggle, setReloadToggle] = useState(false)
 
   useEffect(() => {
-    if (verify_superuser_storage() == true) {
+    if (verify_superuser_storage() === true) {
       setLogged(true)
       if (props.location.state) {
         readRecord(
-          "/experiment/" + props.location.state.experiment.id,
+          "/experiment/" + props.location.state.experiment_id,
           setExperiment
-        )
-        let school_id = localStorage.getItem("school_id")
-        readRecord(
-          "/user/byschoolandexperiment/" +
-            school_id +
-            "/" +
-            props.location.state.experiment.id,
-          setUsers
         )
       } else {
         if (typeof window !== `undefined`) {
           navigate("/superuser/activity-maintenance")
         }
       }
+      // ToDo: Allow for more than one node per school
+      let school_id = localStorage.getItem("school_id")
+      readRecord(
+      "/node/byschool/" + school_id,
+      setNode
+      )
     } else {
       navigate("/signin")
     }
-  }, [])
+  }, [reloadToggle])
 
   const updateExperimentCallback = (new_data) => {
     setExperiment(new_data)
   }
 
-  // useEffect(() => {
-  //   if (reload) {
-  //       readRecord(
-  //         "/experiment/" + props.location.state.experiment.id,
-  //         setExperiment
-  //       )
-  //       let school_id = localStorage.getItem("school_id")
-  //       readRecord(
-  //         "/user/byschoolandexperiment/" +
-  //           school_id +
-  //           "/" +
-  //           props.location.state.experiment.id,
-  //         setUsers
-  //       )
-  //     // setReload(false)
-  //   }
-  // }, [reload])
-
-  // const onUpdateClick = () => {
-  //   if (addUserList.length > 0) {
-  //     addUserList.forEach(element => {
-  //       let body = JSON.stringify({
-  //         status: element.status,
-  //       })
-  //       createRecordNavigate(
-  //         "/experiment_participant/" +
-  //           props.location.state.experiment.id +
-  //           "/" +
-  //           element.id,
-  //         body
-  //       )
-  //     })
-  //   }
-  //   window.location.reload(false)
-  // }
-
-  const User = user => {
-    const [checked_value, setCheckedValue] = useState(false)
-    useEffect(() => {
-      if (addUserList.includes(user.user) || user.user.is_participant == true) {
-        setCheckedValue(true)
-      }
-    }, [])
-
-    const checkboxChange = e => {
-      if (checked_value == false) {
-        if (user.user.is_participant == false) {
-          setAddUsers(arr => [...arr, user.user])
-        }
-      } else {
-        if (addUserList.includes(user.user)) {
-          let copy = [...addUserList]
-          copy = copy.filter(item => item !== user.user)
-          setAddUsers(copy)
-        }
-      }
-    }
-
-    return (
-      <Row>
-        <Col sm={1}>
-          <input
-              className="checkmark"
-              type="checkbox"
-              checked={checked_value}
-              onChange={() => {
-                checkboxChange(user)
-              }}
-          />
-        </Col>
-        <Col>
-          <p>{user.user.username}</p>
-        </Col>
-      </Row>
-    )
-  }
-
-  const editExperiment = () => {
-    setShowExperiment(true)
-  }
+  const editExperiment = () => {setShowExperiment(true)}
+  const editTreatment = () => {setShowTreatment(true)}
+  const editResponse = () => {setShowResponse(true)}
+  const editHypotheses = () => {setShowHypotheses(true)}
+  const editConditions = () => {setShowConditions(true)}
+  const editParticipants = () => {setShowParticipants(true)}
+  const editUnits = () => {setShowUnits(true)}
+  const editStatus = () => {setShowStatus(true)}
 
   if (typeof window !== `undefined` && logged && experiment) {
     return (
@@ -150,59 +86,100 @@ export default function ExperimentMaintenance(props) {
               <div className="left-panel">
                 <div className="panel-body">
                     <ExperimentPane
+                      logged={logged}
                       experiment={experiment}
-                      project={props.location.state.project}
                       show_use_option={false}
                       show_edit_options={true}
                       editExperiment={editExperiment}
-                      reload={reload}
-                      setReload={setReload}
+                      editTreatment={editTreatment}
+                      editResponse={editResponse}
+                      editHypotheses={editHypotheses}
+                      editConditions={editConditions}
+                      editParticipants={editParticipants}
+                      editUnits={editUnits}
+                      editStatus={editStatus}
+                      reload={imageToggle}
+                      setReload={setImageToggle}
                     />
                 </div>
               </div>
               <div className="right-panel">
                 <div className="panel-body scrollable-container">
                   <div className="scrollable-header">
-                    <h3>Select users for experiment:</h3>
+                    <h3>Experiment status: {experiment.status}</h3>
                   </div>
                   <div className="scrollable-content">
-                    <div className="user-list">
-                      <Container fluid="sm">
-                        {userList.users
-                          ? userList.users.map(user => <User user={user} />)
-                          : null}
-                      </Container>
-                    </div>
+                    <ExperimentStatusPane
+                        experiment={experiment}
+                        node={node}
+                    />
                   </div>
                   <div className="scrollable-footer">
-                    {addUserList.length > 0 || removeUserList.length > 0 ? (
-                      // <div className="finish-btn">
-                        <input
-                          type="submit"
-                          className="dandelion-button"
-                          value="Save"
-                          // onClick={() => {
-                          //   onUpdateClick()
-                          // }}
-                        ></input>
-                      // </div>
-                    ) : null}
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        {experiment ?
-            <ExperimentModal
-                show={showExperiment}
-                setShow={setShowExperiment}
-                experiment={experiment}
-                setReload={setReload}
-                updateExperiment={updateExperimentCallback}
-            />
-            : null
-        }
+        <ExperimentModal
+            show={showExperiment}
+            setShow={setShowExperiment}
+            experiment={experiment}
+            reload={imageToggle}
+            setReload={setImageToggle}
+            updateExperiment={updateExperimentCallback}
+            project={props.location.state.project}
+        />
+        <TreatmentModal
+            show={showTreatment}
+            setShow={setShowTreatment}
+            experiment={experiment}
+            reload={reloadToggle}
+            setReload={setReloadToggle}
+        />
+        <ResponseModal
+            show={showResponse}
+            setShow={setShowResponse}
+            experiment={experiment}
+            reload={reloadToggle}
+            setReload={setReloadToggle}
+        />
+        <ConditionsModal
+            show={showConditions}
+            setShow={setShowConditions}
+            experiment={experiment}
+            reload={reloadToggle}
+            setReload={setReloadToggle}
+        />
+        <ParticipantsModal
+            show={showParticipants}
+            setShow={setShowParticipants}
+            experiment={experiment}
+            reload={reloadToggle}
+            setReload={setReloadToggle}
+        />
+        <UnitsModal
+            show={showUnits}
+            setShow={setShowUnits}
+            experiment={experiment}
+            reload={reloadToggle}
+            setReload={setReloadToggle}
+            node={node}
+        />
+        <HypothesesModal
+            show={showHypotheses}
+            setShow={setShowHypotheses}
+            experiment={experiment}
+            reload={reloadToggle}
+            setReload={setReloadToggle}
+        />
+        <StatusModal
+            show={showStatus}
+            setShow={setShowStatus}
+            experiment={experiment}
+            reload={reloadToggle}
+            setReload={setReloadToggle}
+        />
       </div>
     )
   } else return null

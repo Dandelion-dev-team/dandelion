@@ -58,7 +58,7 @@ export default function Login(props) {
                 <div className="heading">
                   <div className="headline">
                     <h1>Sign In</h1>
-                    <p>Sign in using the details your school has provided.</p>
+                    <p className="subheading">Sign in using the details your school has provided.</p>
                   </div>
                 </div>
                 <div className="signin-form">

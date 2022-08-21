@@ -13,10 +13,13 @@ from app.utils.error_messages import abort_db
 from app.utils.functions import row2dict, jwt_user
 
 
-# This route is PUBLIC
-@admin.route('/variable', methods=['GET'])
-def listVariable():
-    variables = Variable.query.order_by(Variable.name).all()
+def prepare_list(type = 'all'):
+    if type == 'treatment':
+        variables = Variable.query.filter(Variable.is_treatment == True).order_by(Variable.name).all()
+    elif type == 'response':
+        variables = Variable.query.filter(Variable.is_response == True).order_by(Variable.name).all()
+    else:
+        variables = Variable.query.order_by(Variable.name).all()
 
     data = []
     for variable in variables:
@@ -31,7 +34,29 @@ def listVariable():
             row['levels'] = [row2dict(level) for level in sorted(variable.levels, key=lambda x: x.sequence)]
         data.append(row)
 
-    return {'data': data}
+    return data
+
+
+# This route is PUBLIC
+@admin.route('/variable', methods=['GET'])
+def list_variable():
+    return {'data': prepare_list('all')}
+
+
+@admin.route('/variable/treatment', methods=['GET'])
+@jwt_required()
+def list_treatment_variable():
+    current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
+    return {'data': prepare_list('treatment')}
+
+
+@admin.route('/variable/response', methods=['GET'])
+@jwt_required()
+def list_response_variable():
+    current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
+    return {'data': prepare_list('response')}
 
 
 # This route is PUBLIC
@@ -41,7 +66,7 @@ def get_blank_variable():
     variable_data = row2dict(variable)
     variable_data["levels"] = ["",""]
 
-    return {'variable': variable_data}
+    return {'data': variable_data}
 
 
 @admin.route('/variable', methods=['POST'])

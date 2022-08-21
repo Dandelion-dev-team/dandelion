@@ -4,7 +4,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import inspect
 
 from app.admin import admin
-from app.models import Observation
+from app.models import Observation, ResponseVariable
 from app import db
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update, audit_delete
 from app.utils.authorisation import auth_check
@@ -56,7 +56,13 @@ def addObservation():
     try:
         db.session.commit()
         audit_create("observation", observation.id, current_user.id)
-        return {"message": message, "id": observation.id}
+        return {
+            "message": message,
+            "id": observation.id,
+            "cube_level": data['cube_level'],
+            "grid_row": data['grid_row'],
+            "grid_column": data['grid_column']
+        }
 
     except Exception as e:
         db.session.rollback()
@@ -161,15 +167,39 @@ def getObservationbyuser(user_id):
         observation_data = {}
         observation_data['id'] = observation.id
         observation_data['value'] = observation.value
+        observation_data['display_value'] = ('%f' % observation.value).rstrip('0').rstrip('.')
+        observation_data['units'] = ''
         observation_data['timestamp'] = observation.timestamp
         observation_data['created_by'] = observation.created_by
         observation_data['status'] = observation.status
         observation_data['comment'] = observation.comment
         observation_data['unit_id'] = observation.unit_id
         observation_data['response_variable_id'] = observation.response_variable_id
+
+        if observation.response_variable.variable.levels:
+            for level in observation.response_variable.variable.levels:
+                if observation.value == level.id:
+                    observation_data['display_value'] = level.name
+
+        if observation.response_variable.variable.quantity:
+            observation_data['units'] = observation.response_variable.variable.quantity.unit
+
         output.append(observation_data)
 
-    return jsonify({'users': output})
+    return jsonify({'data': output})
+
+
+@admin.route('/observation/byexperiment/<int:experiment_id>', methods=['GET'])
+def get_observation_by_experiment(experiment_id):
+    observations = Observation.\
+        query.\
+        join(ResponseVariable).\
+        filter(ResponseVariable.experiment_id == experiment_id).\
+        all()
+
+    output = [row2dict(obs) for obs in observations]
+
+    return {'data': output}
 
 
 @admin.route('/observation/delete/<int:observation_id>', methods=['DELETE'])

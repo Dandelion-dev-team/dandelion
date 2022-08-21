@@ -21,6 +21,7 @@ from .views.quantity import *
 from .views.question import *
 from .views.report import *
 from .views.response import *
+from .views.response_variable import *
 from .views.school import *
 from .views.sensor import *
 from .views.sensor_quantity import *

@@ -64,10 +64,11 @@ def experiments_by_participant(user_id):
     for user in participating:
         experiment = Experiment.query.get_or_404(user.experiment_id)
         experiment_data = {}
-        experiment_data['experiment_id'] = experiment.id
+        experiment_data['id'] = experiment.id
         experiment_data['project_id'] = experiment.project_id
         experiment_data['title'] = experiment.title
-        experiment_data['image_thumb'] = os.path.join(content_folder('project', id, 'image'), 'thumb.png')
+        experiment_data['description'] = experiment.description
+        experiment_data['image_thumb'] = os.path.join(content_folder('experiment', id, 'image'), 'thumb.png')
 
         output.append(experiment_data)
 

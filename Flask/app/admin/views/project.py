@@ -3,7 +3,7 @@ import os
 from flask import abort, request, jsonify
 from flask_json import json_response
 from flask_jwt_extended import jwt_required, get_jwt_identity, verify_jwt_in_request
-from sqlalchemy import inspect, or_
+from sqlalchemy import inspect, or_, and_
 from dateutil import parser
 
 from app.admin import admin
@@ -25,8 +25,10 @@ def listProject():
         project = Project. \
             query. \
             join (ProjectPartner). \
-            filter(or_(Project.status == 'active',
-                       ProjectPartner.school_id == current_user.school_id)). \
+            filter(and_(ProjectPartner.school_id == current_user.school_id),
+                   or_(ProjectPartner.is_lead_partner == True,
+                       ProjectPartner.status == 'active'
+                       )). \
             all()
     else:
         project = Project. \
@@ -35,6 +37,7 @@ def listProject():
             all()
 
     return json_response(data=(row2dict(x, summary=True) for x in project))
+
 
 @admin.route('/project/all', methods=['GET'])
 def allProjects():
@@ -104,9 +107,27 @@ def get_blank_project():
 @admin.route('/project/<int:id>', methods=['GET'])
 def get_one_project(id):
     project = Project.query.get_or_404(id)
+    owner = [p.school for p in project.project_partners if p.is_lead_partner][0]
+    project_partner = None
+    if verify_jwt_in_request(optional=True):
+        current_user = jwt_user(get_jwt_identity())
+        project_partner = ProjectPartner.\
+            query.\
+            filter(ProjectPartner.project_id == id).\
+            filter(ProjectPartner.school_id == current_user.school_id).\
+            first()
+
     project_data = row2dict(project)
     project_data['image_full'] = os.path.join(content_folder('project', id, 'image'), 'full.png')
     project_data['image_thumb'] = os.path.join(content_folder('project', id, 'image'), 'thumb.png')
+    project_data['owner'] = owner.name
+    project_data['owner_id'] = owner.id
+    if project_partner:
+        project_data['project_partner_id'] = project_partner.id
+        project_data['project_partner_status'] = project_partner.status
+    else:
+        project_data['project_partner_id'] = None
+        project_data['project_partner_status'] = None
 
     # project_data = {}
     # project_data['project_id'] = project.id
@@ -120,6 +141,7 @@ def get_one_project(id):
     # project_data['status'] = project.status
 
     return {'project': project_data}
+
 
 @admin.route('/project/<int:id>', methods=['PUT'])
 @jwt_required()
@@ -185,3 +207,35 @@ def upload_project_image(id):
     image_processing(pic, 'project', id, filename)
 
     return {"message": "Project image has been uploaded"}
+
+
+# This route is PUBLIC
+@admin.route('/project/byschool/<int:school_id>', methods=['GET'])
+def get_project_by_partner(school_id):
+    projects = Project.\
+        query.\
+        join(ProjectPartner).\
+        filter(ProjectPartner.school_id == school_id).\
+        all()
+
+    output = []
+
+    for project in projects:
+        owner = [p.school for p in project.project_partners if p.is_lead_partner][0]
+        project_partner = ProjectPartner.\
+            query.\
+            filter(and_(ProjectPartner.project_id == project.id),
+                   ProjectPartner.school_id == school_id).\
+            first()
+        project_data = row2dict(project, summary=True)
+        project_data['image_full'] = os.path.join(content_folder('project', 0, 'image'), 'full.png')
+        project_data['image_thumb'] = os.path.join(content_folder('project', 0, 'image'), 'thumb.png')
+        project_data['owner'] = owner.name
+        project_data['owner_id'] = owner.id
+        project_data['project_partner_id'] = project_partner.id
+        project_data['project_partner_status'] = project_partner.status
+        output.append(project_data)
+
+    return jsonify(output)
+
+

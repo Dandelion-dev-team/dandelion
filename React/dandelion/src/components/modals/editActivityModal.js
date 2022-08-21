@@ -16,9 +16,9 @@ export default function EditActivityModal(props) {
     setProjectDescription(props.project.description)
     setStartDate(props.project.start_date)
     setEndDate(props.project.end_date)
-    console.log("RELOAD!")
   }, [props.project])
 
+  // ToDo: remove the page refresh
   const handleImageChange = async e => {
     uploadImage(
       "/project/" + props.project.project_id + "/uploadImage",

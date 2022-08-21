@@ -62,8 +62,9 @@ export default function VariableModal(props) {
   const handleProcedureChange = e => {setDirty(true); setVariable({...variable, procedure: e.target.value})}
   const handleStatusChange = e => {setDirty(true); setVariable({...variable, status: e.target.value})}
   const handleLevelChange = e => {
+    console.log(e.target.dataset.index)
     let newLevels = [...levels]
-    newLevels[e.target.index] = e.target.value
+    newLevels[e.target.dataset.index] = e.target.value
     setLevels(newLevels)
   }
 
@@ -251,7 +252,7 @@ export default function VariableModal(props) {
                                 <Form.Control
                                     type={"text"}
                                     size={"lg"}
-                                    index={0}
+                                    data-index={0}
                                     value={levels[0]}
                                     onChange={handleLevelChange}
                                 />
@@ -266,7 +267,7 @@ export default function VariableModal(props) {
                                 <Form.Control
                                     type={"text"}
                                     size={"lg"}
-                                    index={1}
+                                    data-index={1}
                                     value={levels[1]}
                                     onChange={handleLevelChange}
                                 />
@@ -281,7 +282,7 @@ export default function VariableModal(props) {
                                 <Form.Control
                                     type={"text"}
                                     size={"lg"}
-                                    index={2}
+                                    data-index={2}
                                     value={levels[2]}
                                     onChange={handleLevelChange}
                                 />
@@ -296,7 +297,7 @@ export default function VariableModal(props) {
                                 <Form.Control
                                     type={"text"}
                                     size={"lg"}
-                                    index={3}
+                                    data-index={3}
                                     value={levels[3]}
                                     onChange={handleLevelChange}
                                 />
@@ -311,7 +312,7 @@ export default function VariableModal(props) {
                                 <Form.Control
                                     type={"text"}
                                     size={"lg"}
-                                    index={4}
+                                    data-index={4}
                                     value={levels[4]}
                                     onChange={handleLevelChange}
                                 />
@@ -326,7 +327,7 @@ export default function VariableModal(props) {
                                 <Form.Control
                                     type={"text"}
                                     size={"lg"}
-                                    index={5}
+                                    data-index={5}
                                     value={levels[5]}
                                     onChange={handleLevelChange}
                                 />
@@ -366,7 +367,7 @@ export default function VariableModal(props) {
                                 rows={3}
                                 size={"lg"}
                                 value={variable.procedure}
-                                placeholder={"How the variable is applied and/or measured"}
+                                placeholder={"How the variable is applied or measured"}
                                 required
                                 onChange={handleProcedureChange}
                             />

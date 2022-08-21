@@ -34,15 +34,15 @@ export default function Dashboard() {
     setSysadmin(sysadmin)
 
     let logged = localStorage.getItem("logged")
-    if (logged == "true") {
+    if (logged === "true") {
       setLogged(true)
     }
-    if (logged == "false" || logged == null) {
+    if (logged === "false" || logged == null) {
       navigate("/signin")
     }
   }, [])
 
-  if (logged == true) {
+  if (logged === true) {
     return (
       <div className="dandelion">
         <Header />
@@ -52,7 +52,7 @@ export default function Dashboard() {
             <div className="inner-dashboard">
               <div className="content">
                 <h1>Dashboard</h1>
-                <p>
+                <p className="subheading">
                   Share the results of your projects and see how others'
                   projects went!
                 </p>

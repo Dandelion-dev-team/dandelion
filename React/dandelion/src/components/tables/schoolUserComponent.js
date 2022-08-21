@@ -50,7 +50,8 @@ export default function SchoolUserComponent(props) {
         <p>Username</p>
       </div>
       <div className="dandelion-table scrollable-content">
-        <table className="schoolList">
+        <div className="scrollable-inner">
+          <table className="schoolList">
           <tbody>
             {users
               ? users.users.map(user => (
@@ -81,6 +82,7 @@ export default function SchoolUserComponent(props) {
             }
           </tbody>
         </table>
+        </div>
       </div>
       <div className="scrollable-footer">
         <div className="btn-container" id="single">

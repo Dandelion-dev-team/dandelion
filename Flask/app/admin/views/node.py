@@ -138,7 +138,7 @@ def get_node_by_school(id):
 
     if node:
         node_data = {}
-        node_data['node_id'] = node.id
+        node_data['id'] = node.id
         node_data['school_id'] = node.school_id
         node_data['growcube_code'] = node.growcube_code
         node_data['mac_address'] = node.mac_address
@@ -147,9 +147,9 @@ def get_node_by_school(id):
         node_data['health_status'] = node.health_status
         node_data['status'] = node.status
 
-        return jsonify({'Node': node_data})
+        return jsonify({'data': node_data})
 
-    return jsonify({'Node': None})
+    return jsonify({'data': None})
 
 @admin.route('/node/<int:id>', methods=['PUT'])
 @jwt_required()

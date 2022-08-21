@@ -22,7 +22,8 @@ export default function VariableComponent(props) {
         <p>Name</p>
       </div>
       <div className="dandelion-table scrollable-content">
-        <table>
+        <div className="scrollable-inner">
+          <table>
           <tbody>
             {variables
               ? variables.data.map(variable => (
@@ -41,6 +42,7 @@ export default function VariableComponent(props) {
             }
           </tbody>
         </table>
+        </div>
       </div>
     </div>
   )

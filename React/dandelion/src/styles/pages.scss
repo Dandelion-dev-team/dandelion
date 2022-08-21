@@ -47,13 +47,25 @@
   .left-panel {
     width: 50%;
     display: flex;
+    flex-direction: column;
   }
 
   .right-panel {
     width: 50%;
+    display: flex;
+    flex-direction: column;
     background-color: $dandelion-grey;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
-    //overflow-y: scroll;
+  }
+
+  .middle-panel {
+    display: flex;
+    flex-direction: column;
   }
 }
+
+.dashboard {
+  height: 100%
+}
+

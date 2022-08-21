@@ -1,0 +1,29 @@
+// Overriding react-bootstrap defaults
+
+.form-control, .form-select, .form-control-plaintext {
+  font-size: 1.4rem;
+}
+
+.col-form-label, .form-label {
+  font-size: 1.4rem;
+  color:$primary;
+}
+
+.row {
+  align-items: flex-start;
+}
+
+.form-control-color {
+  padding: 0;
+  font-size: 1.5rem;
+  width: 2.5rem;
+}
+
+.accordion-button {
+  font-size: 1.2rem;
+  font-weight: normal;
+}
+
+[type="date"] {
+  min-width: 12rem;
+}

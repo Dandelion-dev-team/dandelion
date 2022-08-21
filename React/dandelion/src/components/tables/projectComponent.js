@@ -4,13 +4,14 @@ import { readRecord } from "../../utils/CRUD"
 
 export default function ProjectComponent(props) {
   const [projects, setProject] = useState(0)
+
   //TESTED
   useEffect(() => {
     readRecord("/project", setProject)
   }, [])
 
   const editAuth = project => {
-    props.parentCallback(project)
+    props.loadPojectData(project)
   }
 
   var isActive = true

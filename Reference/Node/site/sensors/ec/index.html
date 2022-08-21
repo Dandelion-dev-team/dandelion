@@ -1,0 +1,909 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../img/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.14">
+    
+    
+      
+        <title>Electrical conductivity - Dandelion node reference</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.3de6f41f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.cc9b2e1e.min.css">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../dandelion.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="dandelion" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#electrical-conductivity-sensors" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Dandelion node reference" class="md-header__button md-logo" aria-label="Dandelion node reference" data-md-component="logo">
+      
+  <img src="../../img/favicon.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Dandelion node reference
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Electrical conductivity
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="http://dandelion.scot" class="md-tabs__link">
+        Dandelion
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        Home
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../" class="md-tabs__link md-tabs__link--active">
+        Sensors
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Dandelion node reference" class="md-nav__button md-logo" aria-label="Dandelion node reference" data-md-component="logo">
+      
+  <img src="../../img/favicon.png" alt="logo">
+
+    </a>
+    Dandelion node reference
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          Dandelion
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Dandelion" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Dandelion
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="http://dandelion.scot" class="md-nav__link">
+        None
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Home
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Home" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Home
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../config/" class="md-nav__link">
+        Configuration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../register/" class="md-nav__link">
+        Registration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../install/" class="md-nav__link">
+        Installation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        Sensors
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../downloads/" class="md-nav__link">
+        Downloads
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Sensors
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Sensors" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Sensors
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../top/" class="md-nav__link">
+        Top layer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lower/" class="md-nav__link">
+        Lower layers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../calibration/" class="md-nav__link">
+        Calibration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shtc3/" class="md-nav__link">
+        Temperature/humidity
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bh1750/" class="md-nav__link">
+        Light intensity
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ds18b20/" class="md-nav__link">
+        Substrate temperature
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ph/" class="md-nav__link">
+        pH
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Electrical conductivity
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Electrical conductivity
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installing-the-ec-probe" class="md-nav__link">
+    Installing the EC probe
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sensor-selection" class="md-nav__link">
+    Sensor selection
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#calibration" class="md-nav__link">
+    Calibration
+  </a>
+  
+    <nav class="md-nav" aria-label="Calibration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#equipment" class="md-nav__link">
+    Equipment
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#procedure" class="md-nav__link">
+    Procedure
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#entering-numerical-values" class="md-nav__link">
+    Entering numerical values
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installing-the-ec-probe" class="md-nav__link">
+    Installing the EC probe
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sensor-selection" class="md-nav__link">
+    Sensor selection
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#calibration" class="md-nav__link">
+    Calibration
+  </a>
+  
+    <nav class="md-nav" aria-label="Calibration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#equipment" class="md-nav__link">
+    Equipment
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#procedure" class="md-nav__link">
+    Procedure
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#entering-numerical-values" class="md-nav__link">
+    Entering numerical values
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+
+<h1 id="electrical-conductivity-sensors">Electrical conductivity sensors</h1>
+<p>The electrical conductivity (EC) sensors used in the Dandelion node are supplied by 
+<a href="https://www.dfrobot.com/product-1662.html">DFRobot</a> as a ready-made unit.</p>
+<p><img alt="EC sensor" src="../../img/ec.png#centred" /></p>
+<p>The circuit board produces an oscillating electrical signal which is transmitted from one of 
+the metal contacts on the probe to the other. This provides a measurement of the ability of
+the medium to conduct electricity.</p>
+<p>Pure water is actually a poor conductor of electricity. However, just small amounts of dissolved
+substances can cause a large rise in conductivity. Because of this, EC is a good indicator of
+the amount of nutrient material in a solution. EC is often used to calculate a quantity called
+<em>Total Dissolved Solids</em> (TDS) in hydroponics, and the DFRobot unit we are using is actually 
+sold as a TDS meter.</p>
+<p>The scientific relationship between EC and TDS is quite complex as discussed in this
+<a href="10.1088/1755-1315/118/1/012019">review article</a>. For hydroponics projects, the following 
+simplified relationship is often used:</p>
+<div class="arithmatex">\[
+TDS = 1000 EC / 2
+\]</div>
+<h2 id="installing-the-ec-probe">Installing the EC probe</h2>
+<p>Like the pH sensor, the EC probe is designed for use in liquids. To get a good signal 
+from the GrowCube you will have to ensure a good contact with the nutrient
+solution. This should be possible by creating a small pocket in the growfelt
+using a craft knife or scissors. Alternatively, there is a circular indentation
+in each tray of the GrowCube where liquid can collect and you could place the EC
+probe there.</p>
+<h2 id="sensor-selection">Sensor selection</h2>
+<p>The sensor units in the middle and bottom layers of the GrowCube have a switch that enables
+either the pH sensors or the EC sensors. This is to prevent electronic interference between
+the two devices. Most of the time, the switch will be kept in the position shown below with
+the <strong>O</strong> side depressed. In this position, the EC sensors are enabled.</p>
+<p><a href="../../img/switch.png"><img alt="Sensor selection switch" src="../../img/switch.png#centred" /></a></p>
+<h2 id="calibration">Calibration</h2>
+<p>Your sensors may show some variation in their readings for a range of different reasons. Most 
+of the factors that affect the readings will be fairly constant, and so identifying a set of
+<a href="../calibration/">calibration</a> values should ensure that the readings you take are accurate. 
+Some generic values have been included in the node firmware. They were generated through testing 
+on a similar node, but for best results, you should calibrate yor EC sensors yourself. 
+This section describes the procedure you should follow.</p>
+<h3 id="equipment">Equipment</h3>
+<p>You will need:</p>
+<ul>
+<li>An EC meter like <a href="https://www.manomano.co.uk/p/lcd-cran-tds-ec-mtre-digital-tds-testeur-3-en-1-pour-qualit-de-leau-stylo-testeur-ec---rtroclairage-blanc-52928618">this one</a>
+to provide benchmark measurements. These are available from any hydroponics shop or online for a 
+few pounds.</li>
+<li>A container for your test solution.</li>
+<li>Some table salt or sugar - anything that dissolves easily in water.</li>
+</ul>
+<h3 id="procedure">Procedure</h3>
+<p>The assumed relationship between the sensor readings and the actual EC of the solution is a 
+second-order polynomial (described on the <a href="../calibration/">calibration</a> page). Because
+of this, we need three measurements of different levels of conductivity. The first is easy: we
+just remove the EC probes from the GrowCube, dry them off and take a reading. The next two
+readings require a weakly conductive solution and a strongly conductive solution. We can make
+them up by dissolving a small amount of salt in some water, and then adding a bit more for the
+second reading. The node firmware takes care of the calculations.</p>
+<p>To start the process, press the reset button. When the node reboots and the main menu is
+displayed, choose the <strong>Calibrate EC</strong> option. To move from one menu item to the next, 
+press the control button. To select an item off the menu, hold the control button for at
+least one second while the item is highlighted.</p>
+<p><a href="../../img/calibrate_ec.png"><img alt="EC calibration menu option" src="../../img/calibrate_ec.png#centred" /></a></p>
+<p>After selecting the menu option, a series of prompts on the node guides you through the
+following steps:</p>
+<ol>
+<li>Remove the EC probes from the GrowCube and dry them with an absorbant paper towel</li>
+<li>Wait until a stable reading has been obtained</li>
+<li>Add salt to some water in your container until the EC reading from the meter is between 500
+and 750 &mu;S/cm</li>
+<li>Enter the EC of the test solution in &mu;S/cm (see below)</li>
+<li>Put the EC probes into the solution and take a reading</li>
+<li>Add some more salt to the solution until the meter reads between 1750 and 2000 &mu;S/cm</li>
+<li>Enter the new EC reading in &mu;S/cm (see below)</li>
+<li>Put the EC probes into the solution and take a second reading</li>
+</ol>
+<p>When the calibration procedure is finished, three coefficients are calculated for each layer
+of the GrowCube. These are the values <span class="arithmatex">\(C_2\)</span>, <span class="arithmatex">\(C_1\)</span> and <span class="arithmatex">\(C_0\)</span> in the equation</p>
+<div class="arithmatex">\[
+y = C_2 x^2 + C_1 x + C_0
+\]</div>
+<p>After storing the coefficients for later use, the node restarts.</p>
+<p>If you are interested to know what values have been calculated, you can see them by putting
+the node into <a href="../../config/">configuration mode</a> and calling up the configuration web page.</p>
+<h2 id="entering-numerical-values">Entering numerical values</h2>
+<p>The node only provides limited ways for you to interact with it. Entering numerical values
+is therefore quite a laborious process. When the procedure requires a numerical value, it
+presents you with a series of fields where you can put the individual digits of the number.
+At any one time, one of the digits will be highlighted. This is the <em>selected digit</em>. You
+can move from one digit to the next by pressing the control button. When you get to the last
+digit, pressing the button takes you to the <strong>Save</strong> option. If you press the button again, 
+it will cycle back to the beginning and take you to the first digit again.</p>
+<p><a href="../../img/enter_number.png"><img alt="Entering numerical values" src="../../img/enter_number.png#centred" /></a></p>
+<p>When a digit is highlighted, you can change its value by holding the control button down for
+at least one second. This will display the numbers 0 - 9 along the bottom of the display as
+shown below. Pressing the control button moves from one number to the next. If you press and
+hold the control button for at least one second, you will set the value of the selected digit.</p>
+<p><a href="../../img/digit_selection.png"><img alt="Selecting a digit" src="../../img/digit_selection.png#centred" /></a></p>
+<p>Once the value you want is displayed, move to the <strong>Save</strong> option and press the control button
+holding it down for at least one second. This will record the value you have entered and move
+on to the next step in the procedure.</p>
+<p><strong>NB</strong>: If the value you want to enter has fewer than four digits, make sure that it starts
+in the right position. For example, to enter a three-digit number, leave the first digit of
+the display showing zero. This makes mathematical sense - leading zeroes have no effect on 
+the value of a number.</p>
+<details class="danger">
+<summary>What can go wrong?</summary>
+<ul>
+<li>It is easy to put too much salt into the solution. EC in hydroponics usually ranges
+between 500 and 2000 &mu;S/cm.</li>
+<li>Check that the sensor selection switch is set to enable the EC sensors and not the
+pH sensors</li>
+<li>The node firmware is programmed to wait up to five minutes to let you move the probes 
+from one solution to another. If you take longer than that, it will time out and reboot. 
+Normally, five minutes is much more time than you need, but don't get caught out!</li>
+</ul>
+</details>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../ph/" class="md-footer__link md-footer__link--prev" aria-label="Previous: pH" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              pH
+            </div>
+          </div>
+        </a>
+      
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs"], "search": "../../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c2e1ee47.min.js"></script>
+      
+        <script src="../../static/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

@@ -9,7 +9,11 @@
   border-radius: 10px;
   padding: .2rem 2rem;
 
-  &:hover, &:focus {
+  &:focus {
+    background-color: $accent;
+    color: $primary;
+  }
+  &:hover {
     color: $primary;
     background-color: $yellow;
   }
@@ -29,6 +33,7 @@
 .btn-container {
   display: flex;
   justify-content: center;
+  gap: 2rem;
 }
 
 .large-button {
@@ -47,6 +52,10 @@
   Button {
     width: 14rem;
     color: $white;
+
+      &:hover, &:focus {
+        color: $white;
+      }
   }
 
   .purple-btn {background-color: $purple;}
@@ -60,6 +69,9 @@
   .blue-btn {background-color: $blue;}
   .blue-btn:hover {background-color: $dark-blue;}
   .orange-btn {background-color: $orange;}
-  .orange-btn:hover {background-color: $dark-orange;
-  }
+  .orange-btn:hover {background-color: $dark-orange;}
+  .brown-btn {background-color: $brown;}
+  .brown-btn:hover {background-color: $dark-brown;}
+  .grey-btn {background-color: $grey;}
+  .grey-btn:hover {background-color: $dark-grey;}
 }

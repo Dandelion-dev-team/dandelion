@@ -4,8 +4,9 @@ import Header from "../../components/navigation/header"
 import "../../styles/App.scss"
 import ProjectPane from "../../components/panes/projectPane"
 import ProjectComponent from "../../components/tables/superuserProjectTable"
-import ActivityCreatedModal from "../../components/modals/activityCreatedModal"
 import ActivityModal from "../../components/modals/activityModal"
+import ViewActivityModal from "../../components/modals/viewActivityModal"
+import InvitationModal from "../../components/modals/invitationModal"
 import { navigate } from "gatsby"
 import { verify_superuser_storage } from "../../utils/logins"
 import { readRecord } from "../../utils/CRUD"
@@ -13,56 +14,51 @@ import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 
 export default function ProjectMaintenance(props) {
-  const [editing_project, setEditingProject] = useState("")
-  const [editing_experiments, setExperiments] = useState()
-  const [modal_shown, setModalShown] = useState("")
-  const [logged, setLogged] = useState("")
+    const [editing_project, setEditingProject] = useState("")
+    const [editing_experiments, setExperiments] = useState("")
+    const [logged, setLogged] = useState("")
 
-  const [showActivity, setShowActivity] = useState(false)
-  const [data, setData] = useState(null)
+    const [showActivity, setShowActivity] = useState(false)
+    const [showViewActivity, setShowViewActivity] = useState(false)
+    const [showInvitation, setShowInvitation] = useState(false)
+    const [data, setData] = useState(null)
+    const [reload, setReload] = useState(false)
+    const [reloadList, setReloadList] = useState(false)
 
-  useEffect(() => {
-    if (verify_superuser_storage() == true) {
-      setLogged(true)
-      try {
-        if (props.location.state.show_modal != null) {
-          setModalShown(true)
+    useEffect(() => {
+        if (verify_superuser_storage() == true) {
+            setLogged(true)
+        } else {
+            navigate("/signin")
         }
-      } catch (e) {
-        console.log("Error state not found")
-      }
-    } else {
-      navigate("/signin")
+        if (props.location.state.project_id) {
+            loadProjectData(props.location.state.project_id)
+        }
+    }, [])
+
+    const loadProjectData = project_id => {
+        setReloadList(!reloadList)
+        readRecord("/project/" + project_id, setEditingProject)
+        readRecord("/project/" + project_id + "/experiment", setExperiments)
     }
-  }, [])
 
-  const handleCallback = childData => {
-    readRecord("/project/" + childData.project_id, setEditingProject)
-    readRecord(
-      "/project/" + childData.project_id + "/experiment",
-      setExperiments
-    )
-  }
+    const editActivity = project_id => {
+        readRecord("/project/" + project_id, setData);
+        setShowActivity(true)
+    }
 
-  const editActivity = project_id => {
-    readRecord("/project/" + project_id, setData);
-    setShowActivity(true)
-  }
+    const newActivity = () => {
+        readRecord("/project/blank", setData);
+        setShowActivity(true)
+    }
 
-  const newActivity = () => {
-    readRecord("/project/blank", setData);
-    setShowActivity(true)
-  }
-
-
-  const modalCallback = prop => {
-    setModalShown(false)
-  }
+    const inviteSchools = project_id => {
+        setShowInvitation(true)
+    }
 
   if (typeof window !== `undefined` && logged) {
     return (
       <div className="dandelion">
-        {modal_shown ? <ActivityCreatedModal callback={modalCallback} /> : null}
         <Header />
         <div className="activity-maintenance page-container">
             <SideNav />
@@ -71,7 +67,10 @@ export default function ProjectMaintenance(props) {
               <div className="content-area">
                   <div className="left-panel">
                     <div className="panel-body">
-                        <ProjectComponent parentCallback={handleCallback} />
+                        <ProjectComponent
+                            loadProjectData={loadProjectData}
+                            reload={reloadList}
+                        />
                     </div>
                   <div className="panel-footer">
                     <div className="dandelion-button-group">
@@ -91,10 +90,15 @@ export default function ProjectMaintenance(props) {
                         project={editing_project.project}
                         experiments={editing_experiments}
                         editActivity={editActivity}
+                        viewActivity={setShowViewActivity}
+                        inviteSchools={inviteSchools}
+                        reload={loadProjectData}
                       />
                     ) : (
                           <div className="dandelion-hint">
-                              &larr; Click an activity to see its details or click the button &#8601; to create a new one
+                              An activity is a way of grouping related experiments together.
+                              <br/><br/>
+                              &larr; Click an activity in the list to see its details or click the button &#8601; to create a new one
                           </div>
                       )
                     }
@@ -108,6 +112,26 @@ export default function ProjectMaintenance(props) {
               show={showActivity}
               setShow={setShowActivity}
               project={data.project}
+          />
+          : null}
+        {editing_project && editing_experiments.data ?
+          <ViewActivityModal
+              show={showViewActivity}
+              setShow={setShowViewActivity}
+              project={editing_project.project}
+              experiments={editing_experiments.data.filter(
+                  experiment => experiment.status === 'active'
+                  ).filter(
+                  experiment => editing_project.project.owner_id === experiment.owner_id)}
+          />
+          : null}
+        {editing_project ?
+          <InvitationModal
+              show={showInvitation}
+              setShow={setShowInvitation}
+              project={editing_project.project}
+              reload={reload}
+              setReload={setReload}
           />
           : null}
       </div>

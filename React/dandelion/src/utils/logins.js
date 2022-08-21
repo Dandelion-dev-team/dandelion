@@ -17,7 +17,9 @@ export function user_logout() {
         console.log("user_logout nav to /")
         navigate("/")
         console.log("user_logout reload")
-        window.location.reload(false)
+
+        // Gatsby navigate() doesn't seem to work properly, hence the oldskool method...
+        window.location.assign(window.location.href.replace(window.location.pathname, ""))
     }
 }
 
@@ -110,3 +112,4 @@ export function verify_sysadmin_storage() {
         return false;
     }
 }
+

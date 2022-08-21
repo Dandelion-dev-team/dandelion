@@ -21,8 +21,8 @@ from app.utils.uploads import get_uploaded_file
 # This route is PUBLIC
 @admin.route('/school', methods=['GET'])
 def listSchool():
-    school = School.query.all()
-    return json_response(data=(row2dict(x, summary=True) for x in school))
+    school = School.query.order_by(School.name).all()
+    return {'data': (row2dict(x, summary=True) for x in school)}
 
 
 @admin.route('/school', methods=['POST'])

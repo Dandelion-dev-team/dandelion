@@ -24,13 +24,21 @@ class Experiment(db.Model):
     conditions = db.relationship("Condition", backref="experiment", passive_deletes=True)
     response_variables = db.relationship("ResponseVariable", backref="experiment", passive_deletes=True)
     children = db.relationship("Experiment", backref=backref('parent', remote_side=[id]), passive_deletes=True)
+    participants = db.relationship("ExperimentParticipant", backref="experiment", passive_deletes=True)
 
     @property
     def summary_columns(self):
         return [("id", "id"),
                 ("title", "title"),
+                ("code", "code"),
                 ("description", "description"),
+                ("text", "text"),
+                ("start_date", "start_date"),
+                ("end_date", "end_date"),
+                ("status", "status"),
                 ("parent_id", "parent_id"),
+                ("project_id", "project_id"),
                 ("owner_id", "project_partner.school.id"),
-                ("owner_name", "project_partner.school.name")]
+                ("owner_name", "project_partner.school.name"),
+                ("project_title", "project.title")]
 

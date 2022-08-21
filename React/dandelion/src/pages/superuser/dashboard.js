@@ -30,7 +30,7 @@ export default function SuperuserDashboard(props) {
     if (verify_superuser_storage() == true) {
       setLogged(true)
       let schoolId = localStorage.getItem("school_id")
-      readRecord("/project_partner/byschool/" + schoolId, setProjectList)
+      readRecord("/project/byschool/" + schoolId, setProjectList)
       readRecord("/project_partner/" + schoolId, setInvites)
       readAdminRecord("/user/byschool/" + schoolId).then(response => {
         setSchoolUsers(response)
@@ -59,7 +59,7 @@ export default function SuperuserDashboard(props) {
     labels: ["On a Project", "Unallocated", "Allocated"],
     datasets: [
       {
-        label: "My First Dataset",
+        label: "User accounts",
         data: [other, allocated, active],
         backgroundColor: [
           "rgb(255, 99, 132)",
@@ -139,7 +139,7 @@ export default function SuperuserDashboard(props) {
                   </div>
                   <div className="node-widget">
                     <h3>Invitations</h3>
-                    <div className="invite-list dandelion-table">
+                    <div className="invite-list">
                       {inviteList.data ? (
                         inviteList.data.length > 0 ? (
                           inviteList.data.map(invite => (

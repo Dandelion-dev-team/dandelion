@@ -1,11 +1,11 @@
 from flask import abort, request
 from flask_json import json_response
-from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import get_jwt_identity, jwt_required
 
 from app.admin import admin
 from app.admin.views.condition_level import create_condition_level
 from app.admin.views.unit import create_unit
-from app.models import Condition
+from app.models import Condition, Variable
 from app import db
 from app.utils.authorisation import auth_check
 from app.utils.error_messages import abort_db
@@ -19,8 +19,26 @@ def listCondition():
 	return json_response(data=(row2dict(x) for x in condition))
 
 
-def create_condition(experiment, data, variable_list, user):
+@admin.route('/condition/<int:id>/colour', methods=['PUT'])
+@jwt_required()
+def updateConditionColour(id):
+    current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user, id)
+    condition = Condition.query.get_or_404(id)
+    colour = request.get_json()['colour']
 
+    condition.colour = colour
+
+    try:
+        db.session.commit()
+        return {"msg": "Colour has been updated"}
+
+    except Exception as e:
+        db.session.rollback()
+        abort_db(e)
+
+
+def create_condition(experiment, data, variable_list, user):
 	colour = None
 	if "colour" in data:
 		colour = data["colour"]
@@ -57,3 +75,4 @@ def get_level_from_cache(variable_name, level_name, variable_list):
 				if level.name == level_name:
 					return level
 	return None
+

@@ -169,7 +169,7 @@ def get_users_by_school_and_experiment(school_id, experiment_id):
         user_data['is_participant'] = True if user.experiment_id else False
         output.append(user_data)
 
-    return jsonify({'users': output})  # If I don't use jsonify, I get only the last entry
+    return jsonify({'data': output})  # If I don't use jsonify, I get only the last entry
 
 
 @admin.route('/user/byproject/<int:project_id>', methods=['GET'])

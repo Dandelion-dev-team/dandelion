@@ -63,7 +63,7 @@ const Hero = () => {
                 <h1>
                   <Trans>The Dandelion Schools' Growing Initiative</Trans>
                 </h1>
-                <p>
+                <p className="subheading">
                   <Trans>
                     464 schools, 114 Grow Cubes, tonnes of tatties – welcome to
                     the biggest growing experiment Scotland’s ever seen.

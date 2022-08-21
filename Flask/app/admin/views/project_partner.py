@@ -6,7 +6,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import inspect
 
 from app.admin import admin
-from app.models import ProjectPartner, School, project_partner, Project
+from app.models import ProjectPartner, School, Project
 from app import db
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update, audit_delete
 from app.utils.authorisation import auth_check
@@ -73,6 +73,32 @@ def add_project_partner_by_invite(project_id, school_id):
         abort_db(e)
 
 
+@admin.route('/project_partner/invitation', methods=['POST'])
+@jwt_required()
+def add_project_partners_by_invitation():
+    current_user = jwt_user(get_jwt_identity())
+    authorised = auth_check(request.path, request.method, current_user)
+    data = request.get_json()
+
+    for school_id in data['schools']:
+        project_partner = ProjectPartner(
+            school_id=school_id,
+            project_id=data['project_id'],
+            status="invited"
+        )
+        db.session.add(project_partner)
+
+        try:
+            db.session.commit()
+            audit_create("project_partner", project_partner.id, current_user.id)
+
+        except Exception as e:
+            db.session.rollback()
+            abort_db(e)
+
+    return {"message": "Invitations sent"}
+
+
 # This route is PUBLIC
 @admin.route('/project_partner/<int:school_id>', methods=['GET'])
 def ListAllSchoolInvitations(school_id):
@@ -84,6 +110,7 @@ def ListAllSchoolInvitations(school_id):
                       ProjectPartner.id,
                       ProjectPartner.school_id,
                       ProjectPartner.status,
+                      ProjectPartner.project_id,
                       Project.title,
                       School.name)
 
@@ -93,6 +120,7 @@ def ListAllSchoolInvitations(school_id):
             invited_data = {}
             invited_data['id'] = schools.id
             invited_data['inviting_school_name'] = schools.name
+            invited_data['project_id'] = schools.project_id
             invited_data['project_title'] = schools.title
             output.append(invited_data)
 
@@ -156,30 +184,6 @@ def get_one_project_partner(id):
     return jsonify({'Project': project_partner_data})
 
 
-# This route is PUBLIC
-@admin.route('/project_partner/byschool/<int:school_id>', methods=['GET'])
-def get_project_by_partner(school_id):
-    project_partners = ProjectPartner.query.filter(ProjectPartner.school_id == school_id).all()
-
-    output = []
-
-    for project_partner in project_partners:
-        project_partner_data = {}
-        project = Project.query.get_or_404(project_partner.project_id)
-        project_partner_data['project_id'] = project.id
-        project_partner_data['title'] = project.title
-        project_partner_data['description'] = project.description
-        project_partner_data['image_full'] = os.path.join(content_folder('project', id, 'image'), 'full.png')
-        project_partner_data['image_thumb'] = os.path.join(content_folder('project', id, 'image'), 'thumb.png')
-        project_partner_data['project_text'] = project.project_text
-        project_partner_data['start_date'] = project.start_date
-        project_partner_data['end_date'] = project.end_date
-        project_partner_data['status'] = project.status
-        output.append(project_partner_data)
-
-    return jsonify(output)
-
-
 @admin.route('/project_partner/<int:id>', methods=['PUT'])
 @jwt_required()
 def update_project_partner(id):
@@ -213,26 +217,25 @@ def update_project_partner(id):
 def update_project_partner_status(project_partner_id):
     current_user = jwt_user(get_jwt_identity())
     authorised = auth_check(request.path, request.method, current_user, project_partner_id)
-    project_partner_status_to_update = ProjectPartner.query.get_or_404(project_partner_id)
-    new_data = request.get_json()
+    project_partner = ProjectPartner.query.get_or_404(project_partner_id)
+    data = request.get_json()
 
-    project_partner_status_to_update.status = new_data['status']
-    new_status = project_partner_status_to_update.status
-
-    if new_status == 'accepted' or new_status == 'declined':
-        audit_details = prepare_audit_details(inspect(ProjectPartner), project_partner_status_to_update, delete=False)
-        message = "Project partner status has been updated"
-        #if len(audit_details) > 0:
-        try:
-            db.session.commit()
-            audit_update("project_partner", project_partner_status_to_update.id, audit_details, current_user.id)
-            return {"message": message}
-
-        except Exception as e:
-            db.session.rollback()
-            abort_db(e)
+    if data['accept']:
+        project_partner.status = 'active'
     else:
-        message = "Status value wrong. It should be either 'accepted' or 'declined'"
+        project_partner.status = 'declined'
+
+    audit_details = prepare_audit_details(inspect(ProjectPartner), project_partner, delete=False)
+    message = "Project partner status has been updated"
+
+    try:
+        db.session.commit()
+        audit_update("project_partner", project_partner.id, audit_details, current_user.id)
+        return {"message": message}
+
+    except Exception as e:
+        db.session.rollback()
+        abort_db(e)
 
     return jsonify({message})
 

@@ -24,10 +24,6 @@ export default function ExperimentComponent(props) {
     }
   }, [props.experiments, props.search])
 
-  const cardClickCallback = experiment => {
-    props.parentCallback(experiment)
-  }
-
   var isActive = true
   var className = isActive ? "active" : ""
 
@@ -35,29 +31,10 @@ export default function ExperimentComponent(props) {
     filtered
       .map(experiment => (
           <ExperimentCard
-            callback={cardClickCallback}
-            dataProp={experiment}
+            loadExperiment={props.loadExperiment}
+            experiment={experiment}
             id="activity-card"
           />
-        // <div
-        //   className="preset-card"
-        //   onClick={() => {
-        //     cardClickCallback(experiment)
-        //     isActive = true
-        //   }}
-        // >
-        //   <div className="card-img">
-        //     <img src={experiment.image_thumb} />
-        //   </div>
-        //   <div className="item-details">
-        //     <div className="owner">
-        //       <h2>{experiment.owner_name}</h2>
-        //     </div>
-        //     <div className="title">
-        //       <h2>{experiment.title}</h2>
-        //     </div>
-        //   </div>
-        // </div>
       ))
   ) : (
     <h3>No Experiments Found.</h3>

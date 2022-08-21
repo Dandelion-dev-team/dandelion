@@ -14,7 +14,6 @@ $font: "Open Sans", "Helvetica Neue", sans-serif;
 @import "dandelion";
 
 //Page import files to clean up file structure
-@import "./pages/activities/imports.scss";
 @import "./pages/superuser/imports.scss";
 @import "./pages/sysadmin/imports.scss";
 @import "./pages/participants/imports.scss";
@@ -41,7 +40,6 @@ $font: "Open Sans", "Helvetica Neue", sans-serif;
 @import "./components/hero.scss";
 @import "./components/signin-form.scss";
 @import "./components/tile.scss";
-@import "./components/unitGrid.scss";
 @import "./components/optionsComponent.scss";
 
 html,
@@ -74,23 +72,23 @@ body {
  //  background-color: rebeccapurple;
  //}
 
-.container {
-  width: 1640px;
-  min-width: 1640px;
-  margin: 0 auto;
-  background: #2e5641;
-
-  @include media("<=1560px") {
-    width: 1280px;
-    min-width: 1280px;
-  }
-  @include media("<=desktop") {
-    width: 1080px;
-    min-width: 1080px;
-  }
-
-  @include media("<=phone") {
-    width: 100%;
-    min-width: 100%;
-  }
-}
+//.container {
+//  width: 1640px;
+//  min-width: 1640px;
+//  margin: 0 auto;
+//  background: #2e5641;
+//
+//  @include media("<=1560px") {
+//    width: 1280px;
+//    min-width: 1280px;
+//  }
+//  @include media("<=desktop") {
+//    width: 1080px;
+//    min-width: 1080px;
+//  }
+//
+//  @include media("<=phone") {
+//    width: 100%;
+//    min-width: 100%;
+//  }
+//}

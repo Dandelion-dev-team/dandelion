@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import "../../styles/App.scss"
 import EditIcon from "@mui/icons-material/Edit"
-import {createRecord, updateRecord, uploadImage} from "../../utils/CRUD"
+import {createRecord, readRecord, updateRecord, uploadImage} from "../../utils/CRUD"
 import {Button, Modal} from "react-bootstrap";
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
@@ -14,19 +14,41 @@ export default function ExperimentModal(props) {
   const [imageFile, setImageFile] = useState(null)
   const [dirty, setDirty] = useState(false)
 
+  const restricted = !!props.experiment.parent_id
   const formRef = React.createRef()
+  const col1 = 3;
+  const col2 = 12 - col1;
 
   useEffect(() => {
-    setExperiment(props.experiment)
+    console.log("EXPERIMENT MODAL")
+    console.log(props)
+    props.experiment ?
+        setExperimentDetails(props.experiment) :
+        readRecord("/experiment/blank", setExperimentDetails)
+
     if (formRef.current) {
       formRef.current.reset()
     }
     setValidated(false)
-    setExperimentImage(props.experiment.image_full)
     setImageFile(null)
     setDirty(false)
 
   }, [props.experiment])
+
+  const setExperimentDetails = experiment => {
+    console.log(experiment)
+    if (experiment.data) {
+      let copy = {...experiment.data, project_id: props.project.id}
+      console.log("SETTING BLANK")
+      console.log(copy)
+      setExperiment(copy)
+      setExperimentImage(experiment.data.image_full)
+    }
+    else {
+      setExperiment(experiment)
+      setExperimentImage(experiment.image_full)
+    }
+  }
 
   const handleTitleChange = e => {setDirty(true); setExperiment({...experiment, title: e.target.value})}
   const handleCodeChange = e => {setDirty(true); setExperiment({...experiment, code: e.target.value})}
@@ -34,12 +56,10 @@ export default function ExperimentModal(props) {
   const handleTextChange = e => {setDirty(true); setExperiment({...experiment, text: e.target.value})}
   const handleStartChange = e => {setDirty(true); setExperiment({...experiment, start_date: e.target.value})}
   const handleEndChange = e => {setDirty(true); setExperiment({...experiment, end_date: e.target.value})}
-  const handleStatusChange = e => {setDirty(true); setExperiment({...experiment, status: e.target.value})}
 
   const handleImageChange = e => {
     var file = e.target.files[0];
     var reader = new FileReader();
-    var url = reader.readAsDataURL(file);
 
     setImageFile(file)
 
@@ -48,31 +68,40 @@ export default function ExperimentModal(props) {
     }.bind(e.target);
   }
 
+  const afterUploadCallback = data => {
+    if (props.setReload) {
+      props.setReload(!props.reload)
+    }
+  }
+
   const updateId = data => {
-    setExperiment({...experiment, id: data.id})
+    let copy = {...experiment, id: data.id}
+    setExperiment(copy)
 
     if (imageFile) {
-      uploadImage("/experiment/" + data.id + "/uploadImage", imageFile)
-      props.setReload(true)
+      uploadImage("/experiment/" + data.id + "/uploadImage", imageFile, afterUploadCallback)
     }
+    props.updateExperiment(copy)
   }
 
   const save = e => {
     if (formRef.current.checkValidity())
     {
       let body = JSON.stringify(experiment)
+      console.log("BODY")
+      console.log(body)
 
       if (experiment.id) {
         if (dirty) {
           updateRecord("/experiment/" + experiment.id, body)
         }
         if (imageFile) {
-          uploadImage("/experiment/" + props.experiment.id + "/uploadImage", imageFile)
+          uploadImage("/experiment/" + props.experiment.id + "/uploadImage", imageFile, afterUploadCallback)
         }
+        props.updateExperiment(experiment)
       } else {
         createRecord("/experiment", body, updateId)
       }
-      props.updateExperiment(experiment)
       props.setShow(false)
     }
     setValidated(true);
@@ -86,25 +115,38 @@ export default function ExperimentModal(props) {
         size="lg"
     >
         <Modal.Header closeButton onClick={() => props.setShow(false)}>
-            <Modal.Title><h2>Experiment details</h2></Modal.Title>
+            <Modal.Title>
+              <h2>Experiment details</h2>
+            </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <div className="scrollable-modal">
-            <div className="scrollable-container">
+      {props.experiment && props.project ?
+          <Modal.Body>
+            <div className="scrollable-modal">
+              <div className="scrollable-container">
                 <div className="scrollable-content">
+                  <p>
+                    Activity: <h4>{props.project.title}</h4>
+                    <br/>
+                    (
+                    {new Date(props.project.start_date).toDateString()} -{" "}
+                    {new Date(props.project.end_date).toDateString()}{" "}
+                    )
+                  </p>
                   <Form
                       noValidate
                       ref={formRef}
                       validated={validated}
                   >
                     <Form.Group as={Row} className="mb-3">
-                      <Form.Label column sm={2}>Title</Form.Label>
-                      <Col sm={10}>
+                      <Form.Label column sm={col1}>Title</Form.Label>
+                      <Col sm={col2}>
                         <Form.Control
                             name="title"
                             type="text"
                             value={experiment.title}
                             required
+                            readOnly={restricted}
+                            plaintext={restricted}
                             onChange={handleTitleChange}
                         />
                         <Form.Control.Feedback type="invalid">
@@ -113,13 +155,15 @@ export default function ExperimentModal(props) {
                       </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3">
-                      <Form.Label column sm={2}>Code</Form.Label>
-                      <Col sm={10}>
+                      <Form.Label column sm={col1}>Code</Form.Label>
+                      <Col sm={col2}>
                         <Form.Control
                             name="code"
                             type="text"
                             value={experiment.code}
                             required
+                            readOnly={restricted}
+                            plaintext={restricted}
                             onChange={handleCodeChange}
                         />
                         <Form.Control.Feedback type="invalid">
@@ -128,14 +172,16 @@ export default function ExperimentModal(props) {
                       </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3">
-                      <Form.Label column sm={2}>Description</Form.Label>
-                      <Col sm={10}>
+                      <Form.Label column sm={col1}>Description</Form.Label>
+                      <Col sm={col2}>
                         <Form.Control
                             name="description"
                             as="textarea"
                             rows={3}
                             value={experiment.description}
                             required
+                            readOnly={restricted}
+                            plaintext={restricted}
                             onChange={handleDescChange}
                         />
                         <Form.Control.Feedback type="invalid">
@@ -144,20 +190,22 @@ export default function ExperimentModal(props) {
                       </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3">
-                      <Form.Label column sm={2}>Tutorial text</Form.Label>
-                      <Col sm={10}>
+                      <Form.Label column sm={col1}>Tutorial text</Form.Label>
+                      <Col sm={col2}>
                         <Form.Control
                             name="experiment_text"
                             as="textarea"
                             rows={3}
+                            readOnly={restricted}
+                            plaintext={restricted}
                             value={experiment.text}
                             onChange={handleTextChange}
                         />
                       </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3">
-                      <Form.Label column sm={2}>Start date</Form.Label>
-                      <Col sm={10}>
+                      <Form.Label column sm={col1}>Start date</Form.Label>
+                      <Col sm={col2}>
                         <Form.Control
                             name="start_date"
                             type="date"
@@ -171,8 +219,8 @@ export default function ExperimentModal(props) {
                       </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3">
-                      <Form.Label column sm={2}>End date</Form.Label>
-                      <Col sm={10}>
+                      <Form.Label column sm={col1}>End date</Form.Label>
+                      <Col sm={col2}>
                         <Form.Control
                             name="end_date"
                             type="date"
@@ -186,47 +234,30 @@ export default function ExperimentModal(props) {
                       </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3">
-                      <Form.Label column sm={2}>Status</Form.Label>
-                      <Col sm={10}>
-                        <Form.Select
-                          name="status"
-                          required
-                          value={experiment.status}
-                          onChange={handleStatusChange}
-                        >
-                          <option value="">Select...</option>
-                          <option value="active">Active</option>
-                          <option value="active">Invalid</option>
-                          <option value="private">Private</option>
-                        </Form.Select>
-                        <Form.Control.Feedback type="invalid">
-                          Please set the experiment status (probably 'active')
-                        </Form.Control.Feedback>
-                      </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} className="mb-3">
-                      <Form.Label column sm={2}>Image</Form.Label>
-                      <Col sm={10}>
+                      <Form.Label column sm={col1}>Image</Form.Label>
+                      <Col sm={col2}>
                         <div className="dandelion-image thumb">
-                          <img src={experimentImage} />
+                          <img src={experimentImage}/>
                           <label className="edit-circle">
                             <input
-                              name="image"
-                              type="file"
-                              accept=".jpg,.png"
-                              onChange={handleImageChange}
-                              hidden
+                                name="image"
+                                type="file"
+                                accept=".jpg,.png"
+                                onChange={handleImageChange}
+                                hidden
                             />
-                            <EditIcon className="edit-icon" />
+                            <EditIcon className="edit-icon"/>
                           </label>
                         </div>
                       </Col>
                     </Form.Group>
                   </Form>
                 </div>
+              </div>
             </div>
-          </div>
-        </Modal.Body>
+          </Modal.Body>
+          : null
+      }
         <Modal.Footer>
             <div className="dandelion-button-group">
                 <Button className="dandelion-button" onClick={() => {props.setShow(false)}}>Cancel</Button>

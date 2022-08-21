@@ -14,4 +14,4 @@ class ProjectPartner(db.Model):
 
 
     def __repr__(self):
-        return '{}'.format(self.name)
+        return '{}'.format(self.id)

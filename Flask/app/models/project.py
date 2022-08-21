@@ -14,6 +14,7 @@ class Project(db.Model):
     status = db.Column(db.VARCHAR(20), nullable=False)
 
     experiments = db.relationship("Experiment", backref='project', passive_deletes=True)
+    project_partners = db.relationship("ProjectPartner", backref='project', cascade="all, delete")
 
     @property
     def summary_columns(self):

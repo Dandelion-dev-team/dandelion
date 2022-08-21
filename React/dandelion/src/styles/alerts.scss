@@ -1,0 +1,13 @@
+.alert {
+  border-radius: 1rem;
+  font-size: 1.4rem;
+}
+
+.alert.invitation {
+  background-color: $accent;
+  color: $black;
+}
+.alert.invitation:hover {
+  background-color: $yellow;
+}
+

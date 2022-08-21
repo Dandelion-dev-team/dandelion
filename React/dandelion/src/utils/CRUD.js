@@ -37,7 +37,6 @@ export function createRecord(endpoint, body, callback=null) {
       if (callback) {
         response.json().then((data) => {callback(data)})
       }
-      // window.location.reload(false)
     } else {
       return response.json().then((body) => {
           if ('error' in body)
@@ -172,7 +171,7 @@ export function readAdminRecord(endpoint) {
     })
 }
 
-export function uploadImage(endpoint, image) {
+export function uploadImage(endpoint, image, callback = null) {
   const cookies = new Cookies()
   const formData = new FormData()
 
@@ -188,7 +187,12 @@ export function uploadImage(endpoint, image) {
   })
     .then(response => {
       if (response.status == 200) {
-        return response.json()
+        if (callback) {
+          response.json().then((data) => {callback(data)})
+        }
+        else {
+          return response.json()
+        }
       } else {
         return response.json().then((body) => {
             if ('error' in body)
@@ -209,7 +213,7 @@ export function uploadImage(endpoint, image) {
     })
 }
 
-export function updateRecord(endpoint, body) {
+export function updateRecord(endpoint, body, callback=null) {
   const cookies = new Cookies()
   return fetch(process.env.API_URL + endpoint, {
     method: "PUT",
@@ -224,10 +228,14 @@ export function updateRecord(endpoint, body) {
     }),
     body: body,
   }).then(response => {
-    if (response.status != 200) {
-    //   window.location.reload(false)
-    // }
-    // else {
+    if (response.status >= 200 && response.status <= 299) {
+      if (callback) {
+        response.json().then((data) => {
+          callback(data)
+        })
+      }
+    }
+    else {
         return response.json().then((body) => {
             if ('error' in body)
                 throw new Error(body.error)

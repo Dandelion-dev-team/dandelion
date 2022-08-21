@@ -7,7 +7,7 @@ export default function MapModalCard(props) {
 
   useEffect(() => {
     readRecord(
-      "/project_partner/byschool/" + props.id, setProject
+      "/project/byschool/" + props.id, setProject
     )
   }, [])
   

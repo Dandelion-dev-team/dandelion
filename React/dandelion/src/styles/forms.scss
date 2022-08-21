@@ -85,14 +85,11 @@
   display: inline-grid;
 }
 
-
-// Overriding react-bootstrap defaults
-
-.col-form-label {
-  font-size: 1.2rem;
-  color:$primary;
+.form-check-input:checked {
+    background-color: $dandelion-green;
+    border-color: $dandelion-green;
 }
 
-.row {
-  align-items: baseline;
+.two-rows {
+  height: 6rem;
 }

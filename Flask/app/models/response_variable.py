@@ -16,3 +16,5 @@ class ResponseVariable(db.Model):
     sunday = db.Column(db.Boolean)
     once = db.Column(db.Boolean)
     final = db.Column(db.Boolean)
+
+    observations = db.relationship('Observation', backref='response_variable')

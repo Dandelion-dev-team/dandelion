@@ -17,12 +17,11 @@ export default function FriendsComponent(props) {
     }
   `)
   return (
-    <div className="friends-container">
+    <div>
       <div className="friendsTable">
         <table className="friendList">
           <thead>
             <tr>
-              <th>Student ID</th>
               <th>Username</th>
             </tr>
           </thead>
@@ -30,7 +29,6 @@ export default function FriendsComponent(props) {
           {props.users
             ? props.users.map(friend => (
                 <tbody key={friend.id}>
-                  <td>{friend.id}</td>
                   <td>{friend.username}</td>
                 </tbody>
               ))

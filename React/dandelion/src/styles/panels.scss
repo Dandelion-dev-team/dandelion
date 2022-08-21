@@ -5,10 +5,14 @@
 //     flex_direction: column
 
 .scrollable-modal {
-  height: 70vh;
+  max-height: 50vh;
   display: flex;
   flex-direction: column;
   padding: 0 2rem;
+}
+
+.scrollable-modal .row {
+  margin-right: $scrollbar-size !important;
 }
 
 .scrollable-container {
@@ -19,7 +23,7 @@
 }
 
 .scrollable-header {
-
+  padding-right: 2rem;
 }
 
 .scrollable-content {
@@ -29,7 +33,7 @@
 }
 
 .scrollable-content::-webkit-scrollbar {
-  display: none;
+  width: $scrollbar-size;
 }
 .scrollable-content::-webkit-scrollbar-track {
   background: #ebe7e7;
@@ -43,7 +47,12 @@
 
 .scrollable-footer {
   margin: auto;
-  padding: 1rem 0;
+  padding: 1rem 2rem 1rem 0;
+}
+
+.scrollable-inner {
+//  Content area minus space on the right for a scrollbar
+  margin-right: 2rem;
 }
 
 .panel {
@@ -83,20 +92,21 @@
 }
 
 .panel-body {
-  height: 100%;
+  //height: 100%;
   overflow-y: auto;
   display: flex;
-  padding: 2rem;
+  padding: 2rem 0 2rem 2rem;
   flex-direction: column;
+  flex-grow: 1;
 }
 
 .panel-footer {
   padding-bottom: 2rem;
 }
 
-.left-panel {
-  flex-direction: column;
-}
+//.left-panel {
+//  flex-direction: column;
+//}
 
 .panel-content {
   background-color: $white;
@@ -128,41 +138,3 @@
     }
   }
 }
-
-
-  //.purple-btn {
-  //  background-color: #8c77ce;
-  //  color: white;
-  //}
-  //.purple-btn:hover {
-  //  background-color: #6d4ed2;
-  //}
-  //.pink-btn {
-  //  background-color: #eac2cb;
-  //  color: white;
-  //}
-  //.pink-btn:hover {
-  //  background-color: #ff9fb4;
-  //  color: white;
-  //}
-  //.red-btn {
-  //  background-color: #fd0000;
-  //  color: white;
-  //}
-  //.red-btn:hover {
-  //  background-color: #db1717;
-  //}
-  //.green-btn {
-  //  background-color: #37a449;
-  //  color: white;
-  //}
-  //.green-btn:hover {
-  //  background-color: #3a8c14;
-  //}
-  //.green-btn {
-  //  background-color: #37a449;
-  //  color: white;
-  //}
-  //.green-btn:hover {
-  //  background-color: #3a8c14;
-  //}

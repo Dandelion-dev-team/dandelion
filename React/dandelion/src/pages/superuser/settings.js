@@ -104,17 +104,12 @@ export default function SuperuserSettings() {
             <div className="content-area">
                 <div className="left-panel">
                   {showRegisterModal ? <RegisterNodeModal /> : null}
-                  {/*<div className="settings-container">*/}
-                  {/*  <div className="title">*/}
-                  {/*    {fetchedSchool ? <h3>{fetchedSchool.school.name}</h3> : null}*/}
-                  {/*  </div>*/}
-                    {/*<div className="content">*/}
-                    {/*  <div className="settings-pane">*/}
                   <div className="panel-body scrollable-container">
                     <div className="scrollable-header">
                       <h2>Your school</h2>
                     </div>
                     <div className="scrollable-content">
+                      <div className="scrollable-inner">
                         {editing ? (
                           <div className="details">
                             {fetchedSchool ? (
@@ -235,7 +230,7 @@ export default function SuperuserSettings() {
                           ) : null
                         )}
                         <h4>Image:</h4>
-                      <div className="dandelion-image">
+                        <div className="dandelion-image">
                           {fetchedSchool ? (
                             <img src={fetchedSchool.school.image_full} />
                           ) : null}
@@ -250,6 +245,7 @@ export default function SuperuserSettings() {
                           </label>
                         </div>
                       </div>
+                    </div>
                   </div>
                 </div>
 

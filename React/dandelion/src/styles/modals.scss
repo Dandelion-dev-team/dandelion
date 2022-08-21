@@ -4,13 +4,49 @@
   }
   .modal-title h2 {
     padding-top: 1.5rem;
+    color: $dandelion-green;
   }
   .modal-header {
     align-items: start;
     border-bottom: none;
-    padding: 1rem 1rem 1rem 3rem;
+    padding: 2rem 2rem 1rem 3rem;
   }
   .modal-footer {
     border-top: none;
+  }
+}
+
+.variable-schedule {
+  margin-left: 3rem;
+  & > Form > div {
+    display: inline-block;
+    margin-left: 2rem;
+  }
+  select {
+    display: inline-block;
+  }
+}
+
+.enter-observations {
+  .row > * {
+    width: initial;
+  }
+  .row > div:nth-child(2) {
+    flex-grow: 1;
+  }
+}
+
+.school-list {
+  font-size: 1.4rem;
+
+  .col-form-label, .form-label {
+    font-size: 1.4rem;
+  }
+  .col-sm-1 {
+    margin: auto;
+  }
+
+  .container {
+    margin: 2rem 0;
   }
 }
