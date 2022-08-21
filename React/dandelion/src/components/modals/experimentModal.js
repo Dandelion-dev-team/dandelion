@@ -20,8 +20,6 @@ export default function ExperimentModal(props) {
   const col2 = 12 - col1;
 
   useEffect(() => {
-    console.log("EXPERIMENT MODAL")
-    console.log(props)
     props.experiment ?
         setExperimentDetails(props.experiment) :
         readRecord("/experiment/blank", setExperimentDetails)
@@ -36,11 +34,8 @@ export default function ExperimentModal(props) {
   }, [props.experiment])
 
   const setExperimentDetails = experiment => {
-    console.log(experiment)
     if (experiment.data) {
       let copy = {...experiment.data, project_id: props.project.id}
-      console.log("SETTING BLANK")
-      console.log(copy)
       setExperiment(copy)
       setExperimentImage(experiment.data.image_full)
     }
@@ -60,6 +55,7 @@ export default function ExperimentModal(props) {
   const handleImageChange = e => {
     var file = e.target.files[0];
     var reader = new FileReader();
+    var url = reader.readAsDataURL(file);
 
     setImageFile(file)
 
@@ -88,9 +84,6 @@ export default function ExperimentModal(props) {
     if (formRef.current.checkValidity())
     {
       let body = JSON.stringify(experiment)
-      console.log("BODY")
-      console.log(body)
-
       if (experiment.id) {
         if (dirty) {
           updateRecord("/experiment/" + experiment.id, body)

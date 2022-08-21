@@ -34,7 +34,7 @@ export default function ProjectMaintenance(props) {
         if (props.location.state.project_id) {
             loadProjectData(props.location.state.project_id)
         }
-    }, [])
+    }, [reload])
 
     const loadProjectData = project_id => {
         setReloadList(!reloadList)
@@ -112,6 +112,8 @@ export default function ProjectMaintenance(props) {
               show={showActivity}
               setShow={setShowActivity}
               project={data.project}
+              reload={reload}
+              setReload={setReload}
           />
           : null}
         {editing_project && editing_experiments.data ?

@@ -46,10 +46,9 @@ export default function UnitsModal(props) {
     props.experiment.conditions.forEach((condition) => {
       replicates[condition.code] = 1
     })
+
     props.experiment.conditions.forEach((condition) => {
-      console.log(condition.code)
       condition.units.forEach((unit) => {
-        console.log(unit)
         let level = 0
         if (unit.cube_level === 'middle') {
           level = 1
@@ -66,10 +65,9 @@ export default function UnitsModal(props) {
         }
       })
     })
-    console.log(copy)
     setMatrix(copy)
 
-  }, [])
+  }, [props.experiment])
 
   const setItem = prop => {
     setColourIndex(["#FFFF", "#FFFF", "#FFFF"])
@@ -97,7 +95,6 @@ export default function UnitsModal(props) {
 
   const setGridData = e => {
     if (dragged_item) {
-      console.log("Dragged ", dragged_item)
       let copy = [...matrix]
       if (copy[e.gridLevel][e.gridPosition].code !== "SENSOR") {
         copy[e.gridLevel][e.gridPosition] = {
@@ -135,7 +132,6 @@ export default function UnitsModal(props) {
   }
 
   const save = e => {
-    console.log("SAVE")
     for (let i=0; i<props.experiment.conditions.length; i++) {
       if (conditionColours[i]) {
         updateRecord(

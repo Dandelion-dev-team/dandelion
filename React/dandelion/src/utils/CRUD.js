@@ -186,7 +186,7 @@ export function uploadImage(endpoint, image, callback = null) {
     }),
   })
     .then(response => {
-      if (response.status == 200) {
+      if (response.status === 200) {
         if (callback) {
           response.json().then((data) => {callback(data)})
         }

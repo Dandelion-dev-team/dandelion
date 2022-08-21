@@ -9,7 +9,7 @@ export default function UnitGrid(props) {
   return (
     <div onMouseUp={() => {props.setItemCallback(props)}} className="square" >
       <div className="square-container" style={{backgroundColor:colour}}>
-          {props.gridData.code !== "SENSOR" ? <span>{props.gridData.code}</span> : null}
+          {props.gridData.code !== "SENSOR" ? <span>{props.gridData.code.replace(/_/g,' ')}</span> : null}
       </div>
     </div>
   )

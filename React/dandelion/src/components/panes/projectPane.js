@@ -14,13 +14,18 @@ export default function ProjectPane(props) {
   const [invitation, setInvitation] = useState(false)
   const [viewingExperiment, setViewingExperiment] = useState(undefined)
   const [showViewExperiment, setShowViewExperiment] = useState(false)
+  const [image, setImage] = useState()
 
   useEffect(() => {
-    console.log("Project pane")
-    console.log(props)
+    var timestamp = Date.now()
     setIsProjectOwner(parseInt(props.project.owner_id) === parseInt(localStorage.getItem("school_id")))
     setInvitation(props.project.project_partner_status === 'invited')
   }, [props.project])
+
+  useEffect(() => {
+      var timestamp = Date.now()
+      setImage(props.project.image_full + "?" + timestamp)
+  }, [props.reload])
 
   const goToExperiment = (experiment) => {
     if (parseInt(experiment.owner_id) === parseInt(localStorage.getItem("school_id"))) {
@@ -94,7 +99,7 @@ export default function ProjectPane(props) {
 
             <div className="panel-column-section">
               <div className="img-container">
-                <img src={props.project.image_full} />
+                <img src={image} />
               </div>
               <div className="panel-button-section">
                 {isProjectOwner ?
@@ -110,8 +115,6 @@ export default function ProjectPane(props) {
                   <button
                     className="dandelion-button blue-btn"
                     onClick={() => {
-                      console.log(props.project)
-                      console.log(props.experiments)
                       props.viewActivity(true)
                     }}
                   >

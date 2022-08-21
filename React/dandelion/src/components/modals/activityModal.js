@@ -45,11 +45,17 @@ export default function ActivityModal(props) {
     }.bind(e.target);
   }
 
+  const afterUploadCallback = data => {
+    if (props.setReload) {
+      props.setReload(!props.reload)
+    }
+  }
+
   const updateId = data => {
     setProject({...project, id: data.id})
 
     if (imageFile) {
-      uploadImage("/project/" + data.id + "/uploadImage", imageFile)
+      uploadImage("/project/" + data.id + "/uploadImage", imageFile, afterUploadCallback)
     }
   }
 
@@ -63,7 +69,7 @@ export default function ActivityModal(props) {
           updateRecord("/project/" + project.id, body)
         }
         if (imageFile) {
-          uploadImage("/project/" + props.project.id + "/uploadImage", imageFile)
+          uploadImage("/project/" + props.project.id + "/uploadImage", imageFile, afterUploadCallback)
         }
       } else {
         createRecord("/project", body, updateId)

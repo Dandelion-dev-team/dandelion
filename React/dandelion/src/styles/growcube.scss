@@ -195,6 +195,7 @@
   display: flex;
   aspect-ratio: 1;
   pointer-events: initial;
+  overflow-x: hidden;
 
   .square-container {
     display: flex;
