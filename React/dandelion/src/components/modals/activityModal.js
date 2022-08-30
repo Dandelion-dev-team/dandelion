@@ -15,6 +15,8 @@ export default function ActivityModal(props) {
   const [dirty, setDirty] = useState(false)
 
   const formRef = React.createRef()
+  const col1 = 3;
+  const col2 = 12 - col1;
 
   useEffect(() => {
     setProject(props.project)
@@ -100,8 +102,8 @@ export default function ActivityModal(props) {
                       validated={validated}
                   >
                     <Form.Group as={Row} className="mb-3">
-                      <Form.Label column sm={2}>Title</Form.Label>
-                      <Col sm={10}>
+                      <Form.Label column sm={col1}>Title</Form.Label>
+                      <Col sm={col2}>
                         <Form.Control
                             name="title"
                             type="text"
@@ -115,8 +117,8 @@ export default function ActivityModal(props) {
                       </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3">
-                      <Form.Label column sm={2}>Description</Form.Label>
-                      <Col sm={10}>
+                      <Form.Label column sm={col1}>Description</Form.Label>
+                      <Col sm={col2}>
                         <Form.Control
                             name="description"
                             as="textarea"
@@ -131,8 +133,8 @@ export default function ActivityModal(props) {
                       </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3">
-                      <Form.Label column sm={2}>Tutorial text</Form.Label>
-                      <Col sm={10}>
+                      <Form.Label column sm={col1}>Tutorial text</Form.Label>
+                      <Col sm={col2}>
                         <Form.Control
                             name="project_text"
                             as="textarea"
@@ -143,8 +145,8 @@ export default function ActivityModal(props) {
                       </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3">
-                      <Form.Label column sm={2}>Start date</Form.Label>
-                      <Col sm={10}>
+                      <Form.Label column sm={col1}>Start date</Form.Label>
+                      <Col sm={col2}>
                         <Form.Control
                             name="start_date"
                             type="date"
@@ -158,8 +160,8 @@ export default function ActivityModal(props) {
                       </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3">
-                      <Form.Label column sm={2}>End date</Form.Label>
-                      <Col sm={10}>
+                      <Form.Label column sm={col1}>End date</Form.Label>
+                      <Col sm={col2}>
                         <Form.Control
                             name="end_date"
                             type="date"
@@ -173,8 +175,8 @@ export default function ActivityModal(props) {
                       </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3">
-                      <Form.Label column sm={2}>Status</Form.Label>
-                      <Col sm={10}>
+                      <Form.Label column sm={col1}>Status</Form.Label>
+                      <Col sm={col2}>
                         <Form.Select
                           name="status"
                           required
@@ -192,8 +194,8 @@ export default function ActivityModal(props) {
                       </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3">
-                      <Form.Label column sm={2}>Image</Form.Label>
-                      <Col sm={10}>
+                      <Form.Label column sm={col1}>Image</Form.Label>
+                      <Col sm={col2}>
                         <div className="dandelion-image thumb">
                           <img src={projectImage} />
                           <label className="edit-circle">

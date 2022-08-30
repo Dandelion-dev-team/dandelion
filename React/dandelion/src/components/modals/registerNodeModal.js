@@ -1,79 +1,105 @@
 import { navigate } from "gatsby"
 import React, { useEffect, useState, useRef } from "react"
-import {createRecord, readRecord} from "../../utils/CRUD";
+import {createRecord, readRecord, updateRecord, uploadImage} from "../../utils/CRUD";
+import {Button, Modal} from "react-bootstrap";
+import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 export default function RegisterNodeModal(props) {
-  const [GCCode, setCode] = useState()
-  const [mac_address, setMacAddress] = useState()
+  const [macAddress, setMacAddress] = useState()
+  const [validated, setValidated] = useState(false);
+  const [invalidMac, setInvalidMac] = useState()
 
-  const registerNode = e => {
-    let date = new Date()
-    let useDate =
-    date.getFullYear() +
-    "-" +
-    (date.getMonth() + 1) +
-    "-" +
-    (date.getDay() + 1)
+  const formRef = React.createRef()
+  const col1 = 3;
+  const col2 = 12 - col1;
 
-    let school_id = localStorage.getItem("school_id");
-    let body = JSON.stringify({
-      school_id: school_id,
-      growcube_code: GCCode,
-      mac_address: mac_address,
-      last_communication_date: useDate,
-      next_communication_date: useDate,
-      health_status: "online",
-      status: "active",
-    })
-    createRecord("/node", body)
+  const macCheck = new RegExp("^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})|([0-9a-fA-F]{4}\\.[0-9a-fA-F]{4}\\.[0-9a-fA-F]{4})$");
+
+  const save = e => {
+    if (formRef.current.checkValidity())
+    {
+      console.log("Checking")
+      if(macCheck.test(macAddress)) {
+        console.log("OK")
+        let date = new Date()
+        let useDate =
+        date.getFullYear() +
+        "-" +
+        (date.getMonth() + 1) +
+        "-" +
+        (date.getDay() + 1)
+
+        let school_id = localStorage.getItem("school_id");
+        let body = JSON.stringify({
+          school_id: school_id,
+          growcube_code: null,
+          mac_address: macAddress,
+          last_communication_date: useDate,
+          next_communication_date: useDate,
+          health_status: "online",
+          status: "active",
+        })
+        createRecord("/node", body)
+        props.setShow(false)
+      }
+      else {
+        console.log("Not OK")
+        setInvalidMac(true)
+      }
+    }
+    setValidated(true);
+  }
+
+  const handleMacChange = e => {
+    setMacAddress(e.target.value)
   }
 
   return (
-    <div className="modal-container">
-      <div className="node-inner-panel">
-        <div className="panel-content">
-          <h2>Register A Node</h2>
-
-          <div className="desc-item">
-            <div className="item-title">
-              <h3>Growcube Code:</h3>
+    <Modal
+        show={props.show}
+        dialogClassName="dandelion-modal"
+        centered
+    >
+        <Modal.Header closeButton onClick={() => props.setShow(false)}>
+            <Modal.Title><h2>Register a node</h2></Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>
+            You can find the MAC address for your node by putting it into configuration mode.
+            See <a href="https://dandelion.sruc.ac.uk/reference/register/" target="_blank">the node reference guide</a> for
+            more information.
+          </p>
+          <Form
+              noValidate
+              ref={formRef}
+              isInvalid={invalidMac}
+          >
+            <Form.Group as={Row} className="mb-3">
+              <Form.Label column sm={col1}>Mac Address</Form.Label>
+              <Col sm={col2}>
+                <Form.Control
+                    name="mac"
+                    type="text"
+                    value={macAddress}
+                    required
+                    onChange={handleMacChange}
+                    isInvalid={invalidMac}
+                />
+                <Form.Control.Feedback type="invalid">
+                  Please enter the MAC address in the correct format
+                </Form.Control.Feedback>
+              </Col>
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+            <div className="dandelion-button-group">
+                <Button className="dandelion-button" onClick={() => {props.setShow(false)}}>Cancel</Button>
+                <Button className="dandelion-button" onClick={() => save()}>Save</Button>
             </div>
-            <div className="item-input">
-              <input
-                placeholder="The code associated with your growcube."
-                onChange={e => {
-                  setCode(e.target.value)
-                }}
-                //value={issueSteps}
-              />
-            </div>
-          </div>
-          <div className="desc-item">
-            <div className="item-title">
-              <h3>Mac Address:</h3>
-            </div>
-            <div className="item-input">
-              <input
-                placeholder="The mac address provided with your growcube."
-                onChange={e => {
-                  setMacAddress(e.target.value)
-                }}
-                //value={issueSteps}
-              />
-            </div>
-          </div>
-          <div className="submit-btn">
-            <input
-              type="submit"
-              className="submitButton"
-              value="Register Node"
-              onClick={() => {
-                registerNode()
-              }}
-            ></input>
-          </div>
-        </div>
-      </div>
-    </div>
+        </Modal.Footer>
+    </Modal>
   )
 }

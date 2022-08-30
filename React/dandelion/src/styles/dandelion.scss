@@ -60,12 +60,10 @@
     margin: 0;
   }
 
-
   a {
     display: inline-block;
     text-decoration: none;
     font-size: 1.4rem;
-    color: $black;
 
     &:hover {
       color: $dandelion-green;
@@ -82,6 +80,20 @@
       background-color: #f7f8ff;
       cursor: pointer;
     }
+  }
+}
+
+.dandelion a {
+  color: $black;
+}
+.dandelion-modal a {
+  color: $green;
+  border-radius: 1rem;
+  padding: 0 0.4rem;
+
+  &:hover {
+    color: $dandelion-green;
+    background-color: $accent;
   }
 }
 

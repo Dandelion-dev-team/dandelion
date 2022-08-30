@@ -15,6 +15,7 @@ import "react-toastify/dist/ReactToastify.css"
 import EditIcon from "@mui/icons-material/Edit"
 import RegisterNodeModal from "../../components/modals/registerNodeModal"
 import Header from "../../components/navigation/header";
+import {Button, Modal} from "react-bootstrap";
 import Container from "react-bootstrap/Container"
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
@@ -29,7 +30,7 @@ export default function SuperuserSettings() {
   const [schoolEmail, setSchoolEmail] = useState("")
   const [schoolPhone, setSchoolPhone] = useState("")
 
-  const [showRegisterModal, setRegisterModal] = useState(false)
+  const [showRegisterModal, setShowRegisterModal] = useState(false)
   const [school_node, setSchoolNode] = useState()
   const [authority, setAuthority] = useState()
 
@@ -103,7 +104,6 @@ export default function SuperuserSettings() {
           <div className="main-content">
             <div className="content-area">
                 <div className="left-panel">
-                  {showRegisterModal ? <RegisterNodeModal /> : null}
                   <div className="panel-body scrollable-container">
                     <div className="scrollable-header">
                       <h2>Your school</h2>
@@ -255,16 +255,19 @@ export default function SuperuserSettings() {
                         <div className="node-settings">
                           <h2>Node</h2>
                           {school_node ? (
-                            school_node.Node !== null ? (
-                              <p>Node Registered</p>
+                            school_node.data !== null ? (
+                              <span>
+                                <p>Node Registered</p>
+                                <p>Your MAC address is {school_node.data.mac_address}</p>
+                              </span>
                             ) : (
                               <div className="btn-row">
                                 <input
                                   type="submit"
-                                  className="update-btn"
+                                  className="dandelion-button"
                                   value="Register a Node"
                                   onClick={() => {
-                                    setRegisterModal(true)
+                                    setShowRegisterModal(true)
                                   }}
                                 />
                               </div>
@@ -277,6 +280,13 @@ export default function SuperuserSettings() {
             </div>
           </div>
         </div>
+        {showRegisterModal ?
+            <RegisterNodeModal
+                show={showRegisterModal}
+                setShow={setShowRegisterModal}
+            />
+            : null
+        }
       </div>
     )
   } else {
