@@ -22,8 +22,8 @@ export default function ExperimentDashboard(props) {
       setLogged(true)
       readRecord("/experiment_participant/" + user_id, setExperiments)
     }
-    if (props.location.state.experiment_id) {
-      loadExperiment(props.location.state.experiment_id)
+    if (props.location.state.experiment) {
+      loadExperiment(props.location.state.experiment)
     }
 
 }, []);

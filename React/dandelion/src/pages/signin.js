@@ -36,10 +36,10 @@ export default function Login(props) {
 
   useEffect(() => {
     let logged = localStorage.getItem("logged")
-    if (logged == "true") {
+    if (logged === "true") {
       navigate("/dashboard")
     }
-    if (logged == "false" || logged == null) {
+    if (logged === "false" || logged == null) {
       setRender(true)
     }
   }, [])
@@ -47,11 +47,9 @@ export default function Login(props) {
   if (!isBrowser) {
     return
   } else {
-    if (render == true) {
+    if (render === true) {
       return (
         <div className="dandelion">
-          {showModal ? <PasswordResetModal username={username} password={password}/> : null}
-
           <ToastContainer />
           <Header />
           <div className="signin page-container">
@@ -97,6 +95,11 @@ export default function Login(props) {
                 </div>
             </div>
           <Footer />
+          <PasswordResetModal
+              show={showModal}
+              setShow={setShowModal}
+              username={username}
+              password={password}/>
           </div>
       )
     } else return null

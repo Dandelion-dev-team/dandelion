@@ -3,11 +3,6 @@ import Card from "react-bootstrap/Card"
 
 export default function ExperimentCard(props) {
 
-    useEffect(() =>{
-        console.log("Experiment card")
-        console.log(props)
-    })
-
     const onClickHandler = () => {
         if (props.loadExperiment) {
             props.loadExperiment(props.experiment)
@@ -20,7 +15,10 @@ export default function ExperimentCard(props) {
                 <Card.Body>
                     <Card.Img variant="left" src={props.experiment.image_thumb}/>
                     <Card.Title as="h5">{props.experiment.title}</Card.Title>
-                    <Card.Text as="p">{props.experiment.description.substring(0, 99)}</Card.Text>
+                    <Card.Text as="p">
+                        {props.experiment.description.substring(0, 99)}
+                        {props.experiment.description.length > 100 ? "..." : ""}
+                    </Card.Text>
                 </Card.Body>
                 : null
             }

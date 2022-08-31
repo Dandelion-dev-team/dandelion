@@ -76,8 +76,6 @@ export default function EnterObservations(props) {
         })
       })
 
-      console.log("Expectd observations")
-      console.log(observations)
       setExpectedObservations(observations)
 
       // if (verify_superuser_storage() == true) {
@@ -106,8 +104,6 @@ export default function EnterObservations(props) {
         }
 
         setMatrix(copy)
-        console.log("SETTING MATRIX")
-        console.log(copy)
 
         setLogged(true)
         setShowEntry(false)
@@ -123,9 +119,6 @@ export default function EnterObservations(props) {
       obs =>
         obs.timestamp.substring(0, 10) === e.target.value
     )
-
-    console.log("Stored observations")
-    console.log(storedObservations)
 
     // for each unit
     //   new observations object
@@ -157,9 +150,6 @@ export default function EnterObservations(props) {
         }
       })
     })
-
-    console.log("AFTER UPDATE")
-    console.log(matrix)
   }
 
   const setCubeLevel = prop => {
@@ -204,8 +194,6 @@ export default function EnterObservations(props) {
     setShowEntry(false)
 
     copy[coords.level][coords.position].observations.forEach((obs) => {
-      console.log("CREATING")
-      console.log(obs)
 
       let body = {
         timestamp: observationDate,
@@ -214,7 +202,7 @@ export default function EnterObservations(props) {
         status: 'valid',
         comment: obs.comment,
         unit_id: unit.id,
-        response_variable_id: obs.variable_id,
+        response_variable_id: obs.response_variable_id,
         cube_level: unit.cube_level,
         grid_row: unit.grid_row,
         grid_column: unit.grid_column
@@ -280,7 +268,7 @@ export default function EnterObservations(props) {
                             onClick={() => {
                               navigate("/participants/experiment-dashboard", {
                                 state: {
-                                  experiment_id: props.location.state.experiment.id
+                                  experiment: props.location.state.experiment
                                 }
                               })
                             }}

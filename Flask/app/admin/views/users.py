@@ -201,8 +201,6 @@ def updateUser(id):
     new_data = request.get_json()
 
     user_to_update.username = new_data['username']
-    user_to_update.school_id = new_data['school_id']
-
     user_to_update.status = new_data['status']
     user_to_update.notes = new_data['notes']
 
@@ -223,12 +221,15 @@ def updateUser(id):
 @admin.route('/user/reset/<int:id>', methods=['PUT'])
 @jwt_required()
 def passwordReset(id):
+    """
+    This function resets the password to be the same as the username
+    """
     current_user = jwt_user(get_jwt_identity())
     authorised = auth_check(request.path, request.method, current_user, id)
     user_to_update = User.query.get_or_404(id)
     new_data = request.get_json()
 
-    user_to_update.password = new_data['password']
+    user_to_update.password = user_to_update.username
 
     audit_details = [{
         'column_name': 'password',
@@ -242,25 +243,33 @@ def passwordReset(id):
     return jsonify({"message": message})
 
 
-@admin.route('/user/access/<int:id>', methods=['PUT'])
+@admin.route('/user/access/<string:username>', methods=['PUT'])
 @jwt_required()
-def updatePassword(id):
-    user_to_update = User.query.get_or_404(id)
+def updatePassword(username):
+    """
+    This function sets the password to the new value chosen by the user
+    """
+    user_to_update = User.query.filter(User.username == username).first()
     new_data = request.get_json()
     user_to_update.password = new_data['password']
 
-    audit_details = prepare_audit_details(inspect(User), user_to_update, delete=False)
+    audit_details = [{
+        'column_name': 'password',
+        'old_value': 'hidden'
+    }]
 
     message = "Password updated"
 
     try:
         db.session.commit()
-        audit_update("users", user_to_update.id, audit_details, id)
+        audit_update("users", user_to_update.id, audit_details, user_to_update.id)
         return jsonify({"message": message})
 
     except Exception as e:
         db.session.rollback()
         abort_db(e)
+
+
 
 
 @admin.route('/user/<int:id>', methods=['DELETE'])

@@ -15,6 +15,7 @@ export default function SchoolUserMaintenance(props) {
   const [viewedUser, setViewedUser] = useState("")
   const [logged, setLogged] = useState("")
   const [experiment_list, setExperiments] = useState([])
+  const [reload, setReload] = useState(false)
 
   useEffect(() => {
     if (verify_superuser_storage() == true) {
@@ -25,12 +26,11 @@ export default function SchoolUserMaintenance(props) {
     }
   }, [])
 
-  const handleCallback = childData => {
-    setViewedUser(childData)
-    readRecord("/experiment_participant/" + childData.user_id, setExperiments)
+  const populateUserPane = user => {
+    setViewedUser(user)
+    readRecord("/experiment_participant/" + user.user_id, setExperiments)
   }
 
-  
 
   if (typeof window !== `undefined` && logged) {
     return (
@@ -43,18 +43,27 @@ export default function SchoolUserMaintenance(props) {
             <div className="content-area">
                 <div className="left-panel">
                   <div className="panel-body">
-                    <SchoolUserComponent parentCallback={handleCallback} />
+                    <SchoolUserComponent
+                        populateUserPane={populateUserPane}
+                        reload={reload}
+                        viewedUser={viewedUser}
+                    />
                   </div>
                 </div>
                 <div className="right-panel">
                   {viewedUser ? (
                   <SchoolUserPane
-                    dataProp={viewedUser}
+                    user={viewedUser}
                     experiment_list={experiment_list}
+                    setReload={setReload}
+                    reload={reload}
                   />
                   ) : (
                       <div className="dandelion-hint">
-                          &larr; Click a username to see the details or click the button &#8601; to create one or more new usernames
+                        &larr; Click a username to see the details or click the button &#8601; to create one or more new usernames
+                        <br/><br/>
+                        A new user is prompted to set their own password the first time they log in - you just need
+                        to give them the username and the URL (dandelion.sruc.ac.uk)
                       </div>
                   )}
                 </div>

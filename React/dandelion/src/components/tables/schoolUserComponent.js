@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react"
 import { readRecord } from "../../utils/CRUD"
 import "../../styles/App.scss"
 import AddStudentModal from "../modals/addStudentModal"
-import EditUserModal from "../modals/editUserModal"
 import AddMultipleUsersModal from "../modals/addMultipleUsersModal"
 import AddUserTypeModal from "../modals/addUserTypeModal"
 
@@ -11,23 +10,28 @@ import {Button} from "react-bootstrap"
 export default function SchoolUserComponent(props) {
   const [users, setUsers] = useState()
   const [show_single_modal, setShowSingleModal] = useState(false)
-  const [show_edit_modal, setShowEditModal] = useState(false)
   const [show_multiple_modal, setShowMultipleModal] = useState(false)
   const [show_type_modal, setShowTypeModal] = useState(false)
-  const [editingUser, setEditingUser] = useState()
 
   useEffect(() => {
+      console.log("Reloading list")
     let school_id = localStorage.getItem("school_id")
-    readRecord("/user/byschool/" + school_id, setUsers)
-  }, [])
+    readRecord("/user/byschool/" + school_id, updateDisplayedList)
+  }, [props.reload])
 
-  const editUser = user => {
-    props.parentCallback(user)
-  }
+    const updateDisplayedList = (users) => {
+        setUsers(users)
+        if (props.viewedUser) {
+            users.users.forEach(user => {
+                if (user.user_id === props.viewedUser.user_id) {
+                    props.populateUserPane(user)
+                }
+            })
+        }
+    }
 
-  const onEditClick = e => {
-    setEditingUser(e)
-    setShowEditModal(true)
+  const viewUser = user => {
+    props.populateUserPane(user)
   }
 
   const singleCallback = e => {
@@ -58,23 +62,11 @@ export default function SchoolUserComponent(props) {
                   <tr
                     key={user.id}
                     onClick={() => {
-                      editUser(user)
+                      viewUser(user)
                     }}
                   >
                     <td>
                       {user.username}
-                    </td>
-                    <td>
-                      <div className="btn-container">
-                        <button
-                          onClick={() => {
-                            onEditClick(user)
-                          }}
-                          className="dandelion-button"
-                        >
-                          Edit
-                        </button>
-                      </div>
                     </td>
                   </tr>
                 ))
@@ -92,28 +84,22 @@ export default function SchoolUserComponent(props) {
         </div>
       </div>
 
-    <AddUserTypeModal
-      show={show_type_modal}
-      setShow={setShowTypeModal}
-      singleCallback={singleCallback}
-      multipleCallback={multipleCallback}
-    />
+      <AddUserTypeModal
+        show={show_type_modal}
+        setShow={setShowTypeModal}
+        singleCallback={singleCallback}
+        multipleCallback={multipleCallback}
+      />
 
-    <AddStudentModal
-      show={show_single_modal}
-      setShow={setShowSingleModal}
-    />
+      <AddStudentModal
+        show={show_single_modal}
+        setShow={setShowSingleModal}
+      />
 
-    <AddMultipleUsersModal
-      show={show_multiple_modal}
-      setShow={setShowMultipleModal}
-    />
-
-    <EditUserModal
-        show={show_edit_modal}
-        setShow={setShowEditModal}
-        user={editingUser}
-    />
+      <AddMultipleUsersModal
+        show={show_multiple_modal}
+        setShow={setShowMultipleModal}
+      />
     </div>
   )
 }

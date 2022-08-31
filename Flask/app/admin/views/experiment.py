@@ -722,7 +722,8 @@ def clone_experiment(parent_id):
             experiment_id = experiment.id,
             hypothesis_no = parent_hypothesis.hypothesis_no,
             description = parent_hypothesis.description,
-            text = parent_hypothesis.text
+            text = parent_hypothesis.text,
+            status = 'active'
         )
 
         db.session.add(hypothesis)

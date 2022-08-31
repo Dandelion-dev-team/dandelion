@@ -20,9 +20,7 @@ export default function RegisterNodeModal(props) {
   const save = e => {
     if (formRef.current.checkValidity())
     {
-      console.log("Checking")
       if(macCheck.test(macAddress)) {
-        console.log("OK")
         let date = new Date()
         let useDate =
         date.getFullYear() +
@@ -45,7 +43,6 @@ export default function RegisterNodeModal(props) {
         props.setShow(false)
       }
       else {
-        console.log("Not OK")
         setInvalidMac(true)
       }
     }

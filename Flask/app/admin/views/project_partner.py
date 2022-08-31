@@ -3,7 +3,7 @@ import os
 from flask import abort, request, jsonify
 from flask_json import json_response
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from sqlalchemy import inspect
+from sqlalchemy import inspect, and_
 
 from app.admin import admin
 from app.models import ProjectPartner, School, Project
@@ -102,27 +102,32 @@ def add_project_partners_by_invitation():
 # This route is PUBLIC
 @admin.route('/project_partner/<int:school_id>', methods=['GET'])
 def ListAllSchoolInvitations(school_id):
-    invited_schools = ProjectPartner.query. \
-        join(School). \
-        join(Project). \
-        filter(School.id == school_id). \
-        with_entities(ProjectPartner.project_id,
-                      ProjectPartner.id,
-                      ProjectPartner.school_id,
-                      ProjectPartner.status,
-                      ProjectPartner.project_id,
-                      Project.title,
-                      School.name)
+    invitations = ProjectPartner.query. \
+        filter(and_(ProjectPartner.status == "invited",
+                    ProjectPartner.school_id == school_id)).\
+        all()
 
     output = []
-    for schools in invited_schools:
-        if schools.status == 'invited':
-            invited_data = {}
-            invited_data['id'] = schools.id
-            invited_data['inviting_school_name'] = schools.name
-            invited_data['project_id'] = schools.project_id
-            invited_data['project_title'] = schools.title
-            output.append(invited_data)
+
+    for invitation in invitations:
+        lead_partner = ProjectPartner.query.\
+            join(Project). \
+            filter(Project.id == invitation.project_id).\
+            filter(ProjectPartner.is_lead_partner == True).\
+            join(School). \
+            filter(School.id == ProjectPartner.school_id). \
+            with_entities(ProjectPartner.project_id,
+                          ProjectPartner.project_id,
+                          Project.title,
+                          School.name).\
+            first()
+
+        output.append({
+            'id': invitation.id,
+            'inviting_school_name': lead_partner.name,
+            'project_id': invitation.project_id,
+            'project_title': lead_partner.title
+        })
 
     return jsonify({'data': output})
 
