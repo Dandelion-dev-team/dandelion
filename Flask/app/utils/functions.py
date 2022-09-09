@@ -62,6 +62,7 @@ def is_username_taken(username):
     return db.session.query(db.exists().where(User.username == username)).scalar()
 
 
+# Test:
 def has_observations(experiment):
     if experiment.conditions:
         for c in experiment.conditions:

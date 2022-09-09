@@ -60,18 +60,13 @@ export default function AuthMaintenance(props) {
   }
 
   const onUpdateAuth = e => {
-    if (auth_name && telephone && email) {
-      setAuthName("")
-      setTelephone("")
-      setEmail("")
-      setEditing(false)
+    setAuthName("")
+    setTelephone("")
+    setEmail("")
+    setEditing(false)
 
-      let body = JSON.stringify({id: editing_id, name: auth_name, telephone: telephone, email: email})
-      updateRecord("/authority/" + editing_id, body);
-    }else 
-    {
-      toast.error("More information needed.")
-    }
+    let body = JSON.stringify({id: editing_id, name: auth_name, telephone: telephone, email: email})
+    updateRecord("/authority/" + editing_id, body);
   }
 
   const onCancelAuth = e => {

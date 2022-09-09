@@ -1,6 +1,9 @@
 import json
 from flask_jwt_extended import create_access_token
 
+from app import db
+from app.models import Authority
+
 
 class TestAuthority:
     def test_list_authority(self, client):
@@ -27,21 +30,53 @@ class TestAuthority:
         assert j["Authority"]["name"] == "Dandelion"
 
     def test_update_authority(self, client):
+
+        test2 = Authority(
+            name = 'Auth2',
+            telephone = '1234567890',
+            email = 'someone@somewhere'
+        )
+
         with client:
             access_token = create_access_token('admin')
             headers = {
                 'Authorization': 'Bearer {}'.format(access_token),
                 'Content-Type': 'application/json'
             }
+            db.session.add(test2)
+            db.session.commit()
+
+            expected = "012345678"
             response = client.put('/api/authority/1',
                                    headers=headers,
                                    json={
                                        "name": "Dandelion",
-                                       "telephone": "012345678",
+                                       "telephone": expected,
                                        "email": ""
                                    })
+            response2 = None
+            try:
+                response2 = client.put('/api/authority/' + str(test2.id),
+                                       headers=headers,
+                                       json={
+                                           "name": "",
+                                           "telephone": "",
+                                           "email": ""
+                                       })
+            except:
+                pass
+
         j = json.loads(response.data)
+        j2 = json.loads(response2.data)
+
+        actual = Authority.query.get(1)
+
         assert j["message"] == "Authority has been updated"
+        assert actual.telephone == expected
+
+        actual = Authority.query.get(test2.id)
+
+        assert actual.name != ""
 
 
     def test_add_delete_authority(self, client):

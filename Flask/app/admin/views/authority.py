@@ -68,6 +68,9 @@ def updateAuthority(id):
     authority_to_update = Authority.query.get_or_404(id)
     new_data = request.get_json()
 
+    if new_data['name'] == "":
+        abort(400, "Authority name cannot be null")
+
     authority_to_update.name = new_data["name"]
     authority_to_update.telephone = new_data["telephone"]
     authority_to_update.email = new_data["email"]
