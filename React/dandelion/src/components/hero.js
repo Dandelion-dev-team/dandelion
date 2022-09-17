@@ -77,7 +77,7 @@ const Hero = () => {
                       navigate("/signin")
                     }}
                   >
-                    {t("Log In")}
+                    {t("Sign In")}
                   </button>
                 </div>
               </div>

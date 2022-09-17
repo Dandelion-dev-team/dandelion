@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react"
-import SideNav from "../../components/navigation/sysadminSideNav"
+import SideNav from "../../components/navigation/sideNav"
 import Header from "../../components/navigation/header"
 import "../../styles/App.scss"
 import TagComponent from "../../components/tables/tagComponent"
@@ -9,7 +9,6 @@ import { navigate } from "gatsby"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import Cookies from "universal-cookie"
-// import SideNav from "../../components/navigation/superUserSideNav";
 
 export default function IssueMaintenance(props) {
   const [logged, setLogged] = useState("")

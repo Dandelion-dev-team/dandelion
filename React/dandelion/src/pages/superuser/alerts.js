@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import "../../styles/App.scss"
-import SideNav from "../../components/navigation/superUserSideNav"
+import SideNav from "../../components/navigation/sideNav"
 import Alert from "../../components/cards/alertCard";
 import { readRecord } from "../../utils/CRUD";
 import { verify_superuser_storage } from "../../utils/logins";

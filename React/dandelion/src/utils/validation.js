@@ -1,4 +1,12 @@
 
+export function isSuperuser() {
+    return (localStorage.getItem("is_superuser") === 'true');
+}
+
+export function isSysadmin() {
+    return (localStorage.getItem("is_sysadmin") === 'true');
+}
+
 export function hasObservations(experiment) {
     if (experiment.conditions.length > 0) {
         experiment.condition.forEach((condition) => {

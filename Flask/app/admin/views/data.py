@@ -1,5 +1,6 @@
 import json
 import os
+from datetime import datetime, timedelta
 
 import pandas as pd
 from flask import request, current_app
@@ -89,10 +90,12 @@ def get_data_selection_options(experiment_id):
 
     observations = Observation.query.filter(Observation.response_variable_id.in_(all_response_variable_ids))
     data_count = observations.count()
-    data_min_date = observations.order_by(Observation.timestamp).first().timestamp
-    data_max_date = observations.order_by(Observation.timestamp.desc()).first().timestamp
     chart_types = []
+    data_min_date = datetime.now() + timedelta(days=1)
+    data_max_date = datetime.now() + timedelta(days=1)
     if data_count > 0:
+        data_min_date = observations.order_by(Observation.timestamp).first().timestamp
+        data_max_date = observations.order_by(Observation.timestamp.desc()).first().timestamp
         chart_types.append('line')
         chart_types.append('bar')
         for rv in experiment.response_variables:

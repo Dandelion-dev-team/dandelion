@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react"
 import "../../styles/App.scss"
-import SideNav from "../../components/navigation/superUserSideNav"
+import SideNav from "../../components/navigation/sideNav"
 import { navigate } from "gatsby";
 import { verify_superuser_storage } from "../../utils/logins";
 import { ToastContainer, toast } from 'react-toastify';

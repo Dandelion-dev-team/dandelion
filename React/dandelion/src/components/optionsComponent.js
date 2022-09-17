@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from "react"
-import { navigate } from "gatsby"
 import "../styles/App.scss"
 
 import Accordion from "@mui/material/Accordion"

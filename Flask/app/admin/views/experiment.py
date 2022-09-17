@@ -4,6 +4,7 @@ from dateutil import parser
 from flask import abort, request, jsonify
 from flask_json import json_response
 from flask_jwt_extended import jwt_required, get_jwt_identity, verify_jwt_in_request
+from jwt import ExpiredSignatureError
 from sqlalchemy import and_, inspect, or_, join
 
 from app.admin import admin
@@ -87,8 +88,22 @@ def listExperimentFiltered(project_id):
 @admin.route('/project/<int:id>/experiment', methods=['GET'])
 def listExperimentForProject(id):
     project = Project.query.get_or_404(id)
+    logged_in = False
+    try:
+        verify_jwt_in_request(optional=True)
+        logged_in = True
+    except ExpiredSignatureError:
+        pass
 
-    data = [row for row in (row2dict(x, summary=True) for x in project.experiments)]
+    if logged_in:
+        current_user = jwt_user(get_jwt_identity())
+
+        data = [row for row in (row2dict(x, summary=True) for x in project.experiments
+                                if x.project_partner.id == current_user.school_id
+                                or (x.status == 'active' and x.project_partner.is_lead_partner == True))]
+    else:
+        data = [row for row in (row2dict(x, summary=True) for x in project.experiments
+                                if x.status == 'active' and x.project_partner.is_lead_partner == True)]
 
     for row in data:
         row['image_thumb'] = os.path.join(content_folder('experiment', row['id'], 'image'), 'thumb.png'),

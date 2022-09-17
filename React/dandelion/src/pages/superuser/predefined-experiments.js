@@ -9,7 +9,7 @@ import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import { readAdminRecord, readRecord } from "../../utils/CRUD"
 import Header from "../../components/navigation/header";
-import SideNav from "../../components/navigation/superUserSideNav";
+import SideNav from "../../components/navigation/sideNav";
 import {isProjectOwner} from "../../utils/validation"
 
 export default function PredefinedExperiments(props) {

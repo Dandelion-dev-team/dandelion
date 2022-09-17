@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react"
-import SysSideNav from "../../components/navigation/sysadminSideNav"
+import SideNav from "../../components/navigation/sideNav"
 import Header from "../../components/navigation/header"
 import "../../styles/App.scss"
 import QuantityComponent from "../../components/tables/quantityComponent"
@@ -79,7 +79,7 @@ export default function SuperuserMaintenance(props) {
         <ToastContainer />
         <Header />
         <div className="quantity-maintenance page-container">
-          <SysSideNav />
+          <SideNav />
           <ToastContainer />
           <div className="main-content">
             <div className="content-area">

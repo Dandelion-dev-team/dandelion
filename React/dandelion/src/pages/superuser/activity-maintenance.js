@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react"
-import SideNav from "../../components/navigation/superUserSideNav"
+import SideNav from "../../components/navigation/sideNav"
 import Header from "../../components/navigation/header"
 import "../../styles/App.scss"
 import ProjectPane from "../../components/panes/projectPane"
@@ -28,11 +28,11 @@ export default function ProjectMaintenance(props) {
     useEffect(() => {
         if (verify_superuser_storage() == true) {
             setLogged(true)
+            if (props.location.state.project_id) {
+                loadProjectData(props.location.state.project_id)
+            }
         } else {
             navigate("/signin")
-        }
-        if (props.location.state.project_id) {
-            loadProjectData(props.location.state.project_id)
         }
     }, [reload])
 

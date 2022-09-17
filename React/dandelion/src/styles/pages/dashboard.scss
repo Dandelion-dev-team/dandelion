@@ -1,25 +1,15 @@
 .dashboard {
-  //padding: 48px 0;
-  //background: #2e5641;
-  //position: relative;
-  //color: $white;
-  //height: 1920px;
   display: flex;
-  //justify-content: center;
   align-items: center;
   flex-direction: column;
 
   .dash-container {
-    //display: flex;
     width: 85%;
-    //align-items: center;
-    //justify-content: center;
 
     .inner-dashboard {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      //height: 100%;
 
       @include media("<=phone") {
         justify-content: center;

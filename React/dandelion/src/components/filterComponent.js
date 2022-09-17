@@ -1,13 +1,17 @@
 import React, { useEffect, useState, useRef } from "react"
-import { navigate } from "gatsby"
 import "../styles/App.scss"
 
 import Accordion from "@mui/material/Accordion"
 import AccordionSummary from "@mui/material/AccordionSummary"
 import AccordionDetails from "@mui/material/AccordionDetails"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
-import { readRecord } from "../utils/CRUD"
-import { ToastContainer, toast } from "react-toastify"
+import {createRecord, deleteRecord, readRecord} from "../utils/CRUD"
+import Form from 'react-bootstrap/Form';
+import DropdownTreeSelect from "react-dropdown-tree-select";
+import Col from 'react-bootstrap/Col';
+import ViewActivityModal from "./modals/viewActivityModal"
+import InfoIcon from '@mui/icons-material/Info';
+import ViewExperimentModal from "./modals/viewExperimentModal";
 
 export default function FilterComponent(props) {
   const [tagsList, setTags] = useState([])
@@ -15,12 +19,26 @@ export default function FilterComponent(props) {
   const [projectList, setProjects] = useState([])
   const [experimentList, setExperiments] = useState([])
 
+  // INFORMATION MODALS
+  const [showActivityDetails, setShowActivityDetails] = useState(false)
+  const [showExperimentDetails, setShowExperimentDetails] = useState(false)
+
   //SELECTED DATA
+  const [activitySelected, setActivitySelected] = useState("")
   const [schoolsSelected, setSchoolSelected] = useState([])
-  const [activitiesSelected, setActivitiesSelected] = useState([])
-  const [experimentsDisabled, disableExperiments] = useState(true)
   const [sensorSelected, setSelectedSensor] = useState([])
-  const [experimentSelected, setSelectedExperiments] = useState()
+  const [experimentSelected, setExperimentSelected] = useState("")
+  const [noExperiments, setNoExperiments] = useState(false)
+  const [data_options, setDataOptions] = useState()
+
+  const [chart_types, setChartTypes] = useState([])
+  const [chart_selected, setChart] = useState()
+  const [min_date, setMinDate] = useState("")
+  const [max_date, setMaxDate] = useState("")
+  const [from_selected, setFrom] = useState()
+  const [to_selected, setTo] = useState()
+  const [treatment_selected, setSelectedTreatment] = useState([])
+  const [response_selected, setSelectedResponse] = useState([])
 
   const [sensorList, setSensors] = useState([
     {
@@ -36,15 +54,23 @@ export default function FilterComponent(props) {
     { id: 7, sensor: "Substrate Moisture" },
     { id: 8, sensor: "Substrate Temperature" },
   ])
+
+  let treatmentRef = useRef(null)
+
+  // Column widths
+  const col1 = 5
+  let col2 = 12 - col1
+
   useEffect(() => {
     readRecord("/tagreference", setTags)
-    readRecord("/school", setSchools)
-    readRecord("/project/all", setProjects)
+    readRecord("/school", afterSchoolFetch)
+    readRecord("/project", setProjects)
   }, [])
+
   const Tag = tag => {
     return (
       <div className="tag-item">
-        <h3>{tag.tag_ref.label}</h3>
+        {tag.tag_ref.label}
       </div>
     )
   }
@@ -57,6 +83,29 @@ export default function FilterComponent(props) {
       copy.push(school.school_ref.id)
     }
     setSchoolSelected(copy)
+    if (copy.length > 0) {
+      readRecord("/project/byschoollist/" + copy.join(","), setProjects)
+    }
+    else {
+      readRecord("/project", setProjects)
+    }
+  }
+
+  const toggleAllSchools = () => {
+    if (schoolsSelected.length > 0) {
+      setSchoolSelected([])
+    }
+    else {
+      checkAllSchools(schoolList)
+    }
+  }
+
+  const checkAllSchools = (schools) => {
+    let newSchoolList = []
+    schools.forEach(school =>
+        newSchoolList.push(school.id)
+    )
+    setSchoolSelected(newSchoolList)
   }
 
   const School = school => {
@@ -67,82 +116,66 @@ export default function FilterComponent(props) {
       }
     }, [])
     return (
-      <div className="school-item">
+      <div className="filter-item">
         <input
           type="checkbox"
           id="experiment_id"
-          name="topping"
           checked={checked_value}
           disabled={false}
           onChange={() => {
             onSchoolChange(school)
           }}
         />
-        <h3>{school.school_ref.name}</h3>
+        {school.school_ref.name}
       </div>
     )
   }
 
-  const onProjectChange = project => {
-    let copy = [...activitiesSelected]
-    if (copy.includes(project.project_ref.id)) {
-      copy = copy.filter(item => item !== project.project_ref.id)
-      let experiments_copy = [...experimentList]
-      experiments_copy = experiments_copy.filter(
-        item => item.project_id !== project.project_ref.id
-      )
-      setExperiments(experiments_copy)
-      if (copy.length == 0) {
-        disableExperiments(true)
-      }
-    } else {
-      copy.push(project.project_ref.id)
-      fetch(
-        process.env.API_URL +
-          "/project/" +
-          project.project_ref.id +
-          "/experiment",
-        {
-          method: "GET",
-          headers: new Headers({
-            "Cache-Control": "no-cache, no-store, must-revalidate",
-            Pragma: "no-cache",
-            Expires: 0,
-          }),
-        }
-      )
-        .then(response => response.json())
-        .then(data =>
-          setExperiments(experimentList => [...experimentList, data.data])
-        )
-      disableExperiments(false)
+  const afterExperimentFetch = experiments => {
+    setExperiments(experiments.data)
+    setNoExperiments(experiments.data.length === 0)
+  }
+
+  const afterSchoolFetch = schools => {
+    setSchools(schools.data)
+    checkAllSchools(schools.data)
+  }
+
+  const clear = (full=false) => {
+    if (full) {
+      readRecord("/tagreference", setTags)
+      readRecord("/project", setProjects)
+      readRecord("/school", afterSchoolFetch)
+      setActivitySelected({id: ""})
     }
-    setActivitiesSelected(copy)
+    setSchoolSelected([])
+    setSelectedSensor("")
+    setExperiments([])
+    setExperimentSelected({id: ""})
+    setNoExperiments(false)
+    setChartTypes([])
+    setChart()
+    setMaxDate("")
+    setMinDate("")
+    setDataOptions(undefined)
+    setFrom()
+    setTo()
+    setSelectedTreatment([])
+    setSelectedResponse([])
+    props.clearData()
   }
 
-  const Project = project => {
-    const [checked_value, setCheckedValue] = useState(false)
-    useEffect(() => {
-      if (activitiesSelected.includes(project.project_ref.id)) {
-        setCheckedValue(true)
-      }
-    }, [])
-    return (
-      <div className="project-item">
-        <input
-          type="checkbox"
-          id="experiment_id"
-          name="topping"
-          value="experiment_ID"
-          checked={checked_value}
-          disabled={false}
-          onChange={() => {
-            onProjectChange(project)
-          }}
-        />
-        <h3>{project.project_ref.title}</h3>
-      </div>
-    )
+  const onActivityChange = e => {
+    clear()
+    if (e.target.value !== "") {
+      projectList.data.forEach(project => {
+        if (project.id === parseInt(e.target.value)) {
+          setActivitySelected(project)
+        }
+      })
+      readRecord("/project/" + e.target.value + "/experiment", afterExperimentFetch)
+      readRecord("/schoolbyproject/" + e.target.value, afterSchoolFetch)
+    }
   }
 
   const onSensorChange = sensor => {
@@ -163,7 +196,7 @@ export default function FilterComponent(props) {
       }
     }, [])
     return (
-      <div className="project-item">
+      <div className="filter-item">
         <input
           type="checkbox"
           id="experiment_id"
@@ -175,65 +208,227 @@ export default function FilterComponent(props) {
             onSensorChange(sensor)
           }}
         />
-        <h3>{sensor.sensor_ref.sensor}</h3>
+        {sensor.sensor_ref.sensor}
       </div>
     )
   }
 
-  const onExperimentChange = experiment => {
-    setSelectedExperiments(experiment.experiment_ref)
+  const afterOptionsFetch = options => {
+    setDataOptions(options.data)
+    if (chart_types.length === 0) {
+      options.data.chart_types.forEach(function (element, idx) {
+        setChartTypes(arr => [...arr, { label: element, value: idx }])
+      })
+    }
+    console.log("Min date: ", options.data.data_min_date)
+    console.log("Max date: ", options.data.data_max_date)
+    let minDate = new Date(options.data.data_min_date);
+    setMinDate(minDate.getFullYear() + "-" + (minDate.getMonth() + 1) + "-" + (minDate.getDay() + 1))
+
+    let max_date = new Date(options.data.data_max_data);
+    setMaxDate(max_date.getFullYear() + "-" + (max_date.getMonth() + 1) + "-" + (max_date.getDay() + 1))
   }
 
-  const Experiment = experiment => {
-    const [checked_value, setCheckedValue] = useState(false)
-    useEffect(() => {
-      if (experimentSelected != null) {
-        if (experimentSelected.id == experiment.experiment_ref.id) {
-          setCheckedValue(true)
-        }
+  const onExperimentChange = e => {
+    experimentList.forEach(experiment => {
+      if (experiment.id === parseInt(e.target.value)) {
+        setExperimentSelected(experiment)
       }
-    }, [])
-    return (
-      <div className="project-item">
-        <input
-          type="checkbox"
-          id="experiment_id"
-          name="topping"
-          value="experiment_ID"
-          checked={checked_value}
-          disabled={false}
-          onChange={() => {
-            onExperimentChange(experiment)
-          }}
-        />
-        <h3>{experiment.experiment_ref.title}</h3>
-      </div>
-    )
+    })
+    setChartTypes([])
+    readRecord("/data_options/" + e.target.value, afterOptionsFetch)
   }
+
+  const onChangeTreatment = (currentNode, selectedNodes) => {
+    let copy = []
+    let variables = data_options.treatment_variables
+    if (currentNode._depth === 0) {
+      variables.forEach(treatment => {
+        if (currentNode.label === treatment.label) {
+          treatment.children.forEach(child => {
+            child.checked = true
+          })
+        }
+      })
+    }
+    variables.forEach(treatment => {
+      let treatment_generated = {
+        variable_id: treatment.value,
+        name: treatment.label,
+        levels: [],
+      }
+      treatment.children.forEach(child => {
+        if (
+          child.value === currentNode.value &&
+          child.label === currentNode.label
+        ) {
+          child.checked = child.checked !== true;
+        }
+        if (child.checked === true) {
+          treatment_generated.levels.push(child.value)
+        }
+      })
+      copy.push(treatment_generated)
+    })
+    setSelectedTreatment(copy)
+  }
+
+  const onResponseChange = (variable) => {
+      let copy = [...response_selected];
+      if (copy.includes(variable.response_ref.value)) {
+          copy = (copy.filter(item => item !== variable.response_ref.value))
+      } else {
+          copy.push(variable.response_ref.value)
+      }
+      setSelectedResponse(copy);
+  }
+
+  const ResponseVariable = variable => {
+      const [checked_value, setCheckedValue] = useState(false);
+      useEffect(() => {
+          if (response_selected.includes(variable.response_ref.value)) {
+              setCheckedValue(true);
+          }
+      }, [])
+      return (
+          <div className="filter-item">
+            <input
+                type="checkbox"
+                checked={checked_value}
+                onChange={() => {
+                  onResponseChange(variable)
+                }}/>
+              {variable.response_ref.label}
+          </div>
+      )
+  }
+
+  const afterDataFetch = data => {
+    props.setTable({ data: data.data, chart: chart_selected })
+  }
+
+  const generate = () => {
+    let sensor_id = null
+    // if (sensor_selected) {
+    //   sensor_id = sensor_selected.sensor_quantity_id
+    // }
+    if (
+      from_selected &&
+      to_selected &&
+      chart_selected &&
+      treatment_selected.length > 0
+    ) {
+      let body = JSON.stringify({
+        experiment_id: experimentSelected.id,
+        chart_type: chart_selected.label,
+        first_date: from_selected,
+        last_date: to_selected,
+        schools: [],
+        treatment_variables: treatment_selected,
+        response_variables: response_selected,
+        milestones: true,
+        sensor_quantity: null,
+        average_over_replicates: true,
+      })
+
+      createRecord("/data", body, afterDataFetch)
+    }
+  }
+
+  const dateStringFormat = original => {
+    let dateValue = new Date(original)
+    return dateValue.toLocaleDateString()
+  }
+
   return (
-    <div className="filter-list">
-      <div className="title">
-        <h3>Filters</h3>
+    <div className="panel-body scrollable-container">
+      <div className="scrollable-header">
+        <h3>Select data</h3>
       </div>
+      <div className="scrollable-content">
+    <div className="filter-list">
       <div className="filters">
-        <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
+        {projectList.data ?
+          <Form.Select
+              aria-label = "Activity selection"
+              onChange = {onActivityChange}
+              value={activitySelected.id}
           >
-            Tags
-          </AccordionSummary>
-          <AccordionDetails>
-            <div className="tag-block">
-              {tagsList.data ? (
-                tagsList.data.map(tagItem => <Tag tag_ref={tagItem} />)
-              ) : (
-                <h3>No tags found</h3>
-              )}
+            <option value="">Select an activity...</option>
+            {projectList.data.map((project) =>
+                <option value={project.id}>{project.title}</option>
+            )}
+          </Form.Select>
+
+          : null
+        }
+
+        {activitySelected.id ?
+            <div className="activity-dates">
+              {dateStringFormat(activitySelected.start_date)} - {dateStringFormat(activitySelected.end_date)}
+              &nbsp;
+                <InfoIcon
+                  onClick={() => {
+                      setShowActivityDetails(true);
+                }} />
             </div>
-          </AccordionDetails>
-        </Accordion>
+            : null
+        }
+
+        {experimentList.length ?  //IF SCHOOL SELECTED HAS BEEN SET SHOW FILTER, IF NOT SHOW FULL LIST
+          <Form.Select
+              aria-label = "Experiment selection"
+              value={experimentSelected.id}
+              onChange = {onExperimentChange}
+          >
+            <option>Select an experiment...</option>
+            {experimentList.map((experiment) =>
+                <option
+                    value={experiment.id}
+                >{experiment.title}</option>
+            )}
+          </Form.Select>
+          : null
+        }
+
+        {experimentSelected.id ?
+            <div className="experiment-dates">
+              {dateStringFormat(experimentSelected.start_date)} - {dateStringFormat(experimentSelected.end_date)}
+              &nbsp;
+                <InfoIcon
+                  onClick={() => {
+                      setShowExperimentDetails(true);
+                }} />
+            </div>
+            : null
+        }
+
+        {noExperiments ?
+            <div className="filter-message">
+              No experiments yet!
+            </div>
+            : null
+        }
+
+        {/*<Accordion>*/}
+        {/*  <AccordionSummary*/}
+        {/*    expandIcon={<ExpandMoreIcon />}*/}
+        {/*    aria-controls="panel1a-content"*/}
+        {/*    id="panel1a-header"*/}
+        {/*  >*/}
+        {/*    Tags*/}
+        {/*  </AccordionSummary>*/}
+        {/*  <AccordionDetails>*/}
+        {/*    <div className="tag-block">*/}
+        {/*      {tagsList.data ? (*/}
+        {/*        tagsList.data.map(tagItem => <Tag tag_ref={tagItem} />)*/}
+        {/*      ) : (*/}
+        {/*        <h3>No tags found</h3>*/}
+        {/*      )}*/}
+        {/*    </div>*/}
+        {/*  </AccordionDetails>*/}
+        {/*</Accordion>*/}
+
         <Accordion>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -243,82 +438,168 @@ export default function FilterComponent(props) {
             Schools
           </AccordionSummary>
           <AccordionDetails>
-            <div className="school-block">
-              {schoolList.data ? (
-                schoolList.data.map(schoolItem => (
+            <div className="filter-block">
+              <div className="dandelion-button-group">
+                <button
+                    className="dandelion-button"
+                    onClick={toggleAllSchools}
+                >
+                  Toggle all
+                </button>
+              </div>
+              {schoolList ? (
+                schoolList.map(schoolItem => (
                   <School school_ref={schoolItem} />
                 ))
               ) : (
-                <h3>No schools found</h3>
+                  <span>No schools found</span>
               )}
             </div>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-          >
-            Activities
-          </AccordionSummary>
-          <AccordionDetails>
-            <div className="project-block">
-              {projectList.data ? (
-                schoolsSelected > 0 ? ( //IF SCHOOL SELECTED HAS BEEN SET SHOW FILTER, IF NOT SHOW FULL LIST
-                  projectList.data
-                    .filter(project =>
-                      schoolsSelected.includes(String(project.school_id))
-                    )
-                    .map(filtered => <Project project_ref={filtered} />)
-                ) : (
-                  projectList.data.map(projectItem => (
-                    <Project project_ref={projectItem} />
-                  ))
-                )
-              ) : (
-                <h3>No Activities found</h3>
-              )}
-            </div>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion disabled={experimentsDisabled}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-          >
-            Experiments
-          </AccordionSummary>
-          <AccordionDetails>
-            {experimentList ? ( //IF SCHOOL SELECTED HAS BEEN SET SHOW FILTER, IF NOT SHOW FULL LIST
-              experimentList.map(experimentItem => (
-                <div className="project-block">
-                  {experimentItem.map(experiment => {
-                    return <Experiment experiment_ref={experiment} />
-                  })}
-                </div>
-              ))
-            ) : (
-              <h3>No other data selected.</h3>
-            )}
           </AccordionDetails>
         </Accordion>
       </div>
-      <div className="generate-btn">
-        <input
-          type="submit"
-          className="submitButton"
-          value="Generate"
-          onClick={() => {
-            if (experimentSelected != null) {
-              props.fetchOptions(experimentSelected.id)
-            } else {
-              toast.error("No experiment selected.")
-            }
-          }}
-        ></input>
+
+      {data_options && data_options.data_count === 0 ?
+          <div className="no-data-message">
+            Sorry! There is no data yet for this combination of schools and experiment.
+          </div>
+          : null
+      }
+
+      {chart_types.length > 0 ?
+          <Form.Group as="row">
+            <Col  sm={col1} className="label">
+              Chart type:
+            </Col>
+            <Col>
+              <Form.Select
+                  column sm={col2}
+                  aria-label = "Chart type selection"
+                  value={chart_selected}
+                  onChange = {e => {setChart(e.target.value)}}
+              >
+                <option>...</option>
+                {chart_types.map((chart) =>
+                    <option
+                        value={chart.id}
+                    >{chart.label}</option>
+                )}
+              </Form.Select>
+            </Col>
+          </Form.Group>
+        : null
+      }
+
+      {min_date && data_options.data_count > 0 ?
+          <div className="date-pickers">
+              <Form.Group as="row">
+                <Col sm={col1} className="label">
+                    From:
+                </Col>
+                <Col sm={col2}>
+                    <input
+                      type="date"
+                      name="codeBox"
+                      min={data_options.data_min_date.substring(0,10)}
+                      max={data_options.data_max_date.substring(0,10)}
+                      onChange={e => {
+                        setFrom(e.target.value)
+                      }}
+                    />
+                </Col>
+              </Form.Group>
+              <Form.Group as="row">
+                <Col sm={col1} className="label">
+                    To:
+                </Col>
+                <Col sm={col2}>
+                  <input
+                    type="date"
+                    name="codeBox"
+                    min={from_selected}
+                    max={data_options.data_max_date.substring(0,10)}
+                    onChange={e => {
+                      setTo(e.target.value)
+                    }}
+                  />
+                </Col>
+              </Form.Group>
+          </div>
+          : null
+      }
+
+      {data_options && data_options.data_count > 0 ?
+        <div className="variables">
+          <div className="label">Treatment Variables:</div>
+          <div className="dropdown">
+            <DropdownTreeSelect
+              className="treatment-select"
+              ref={treatmentRef}
+              data={data_options.treatment_variables}
+              onChange={onChangeTreatment}
+              // onAction={onAction}
+              // onNodeToggle={onNodeToggle}
+            />
+          </div>
+          <div className="dropdown">
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+              >
+                Response Variables
+              </AccordionSummary>
+              <AccordionDetails>
+                <div className="filter-block">
+                  {data_options.response_variables.map(response => (
+                    <ResponseVariable response_ref={response}/>
+                  ))}
+                </div>
+                {/*<a target="_blank" href={sensor_selected}>{}</a>*/}
+              </AccordionDetails>
+            </Accordion>
+          </div>
+        </div>
+          : null
+      }
       </div>
     </div>
+    <div className="scrollable-footer">
+      <div className="dandelion-button-group">
+        <button
+          className="dandelion-button"
+          onClick={generate}
+        >
+          Generate
+        </button>
+        <button
+          className="dandelion-button"
+          onClick={() => {clear(true)}}
+        >
+          Clear
+        </button>
+      </div>
+    </div>
+      {showActivityDetails ?
+          <ViewActivityModal
+              show={showActivityDetails}
+              setShow={setShowActivityDetails}
+              project={activitySelected}
+              experiments={experimentList.filter(
+                  experiment => experiment.status === 'active'
+                  )}
+          />
+          : null}
+
+      {showExperimentDetails ?
+          <ViewExperimentModal
+              experiment={experimentSelected}
+              show={showExperimentDetails}
+              setShow={setShowExperimentDetails}
+          />
+          : null
+      }
+  </div>
   )
 }
