@@ -233,8 +233,9 @@ def get_observations(related_experiments, data, ):
             filter(variables[tv['name']].id == tv['variable_id']). \
             filter(or_(len(tv["levels"]) == 0, levels[tv['name']].id.in_(tv['levels'])))
 
+    max_date_plus_one = datetime.strptime(data["last_date"], "%Y-%m-%d") + timedelta(days=1)
     query = query.filter(and_(Observation.timestamp >= data["first_date"],
-                              Observation.timestamp <= data["last_date"]
+                              Observation.timestamp < str(max_date_plus_one.date())
                              ))
 
     columns = [
@@ -254,19 +255,21 @@ def get_observations(related_experiments, data, ):
     observations = query.with_entities(*columns).all()
 
     df = pd.DataFrame([dict(o._mapping) for o in observations])
-    df = df.pivot(index="timestamp", columns=[c.name for c in columns if c.name not in ("timestamp", "value")], values="value")
+    df_columns = [c.name for c in columns if c.name not in ("timestamp", "value")]
+    df = df.pivot(index="timestamp", columns=df_columns, values="value")
 
-    group_columns = []
-    if len(data["schools"]):
-        group_columns.append("school")
-    for tv in data["treatment_variables"]:
-        if len(tv["levels"]):
-            group_columns.append(tv["name"])
-    group_columns.append("response variable")
-    if not data["average_over_replicates"]:
-        group_columns.append(("replicate no"))
+    group_levels = []
+    for i, level in enumerate(df_columns):
+        if level in ['school', 'replicate no']:
+            continue
+        if level == 'response variable':
+            group_levels.append(i)
+            continue
+        for tv in data["treatment_variables"]:
+            if level == tv['name'] and len(tv["levels"]):
+                group_levels.append(i)
 
-    df = df.groupby(group_columns, axis=1).mean()
+    df = df.groupby(level=group_levels, axis=1).mean()
     df = df.round(decimals=2)
 
     return df

@@ -5,7 +5,18 @@ import BarChartIcon from "@mui/icons-material/BarChart"
 import BackupTableIcon from "@mui/icons-material/BackupTable"
 import { readAdminRecord, readRecord } from "../utils/CRUD"
 import { Line, Bar } from "react-chartjs-2"
-import { Chart as ChartJS } from "chart.js/auto"
+import { Chart as ChartJS,
+  TimeScale,
+  LinearScale,
+  CategoryScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend } from "chart.js"
+import 'chartjs-adapter-luxon';
+import DateTime from "luxon";
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 
@@ -16,7 +27,6 @@ import "../styles/App.scss"
 import "ag-grid-community/dist/styles/ag-grid.css"
 import "ag-grid-community/dist/styles/ag-theme-alpine.css"
 import FilterComponent from "../components/filterComponent"
-import OptionsComponent from "../components/optionsComponent"
 
 export default function Data() {
   const [colour_index, setColourIndex] = useState(["#E3C3CA", "#e6e6e6"])
@@ -28,61 +38,113 @@ export default function Data() {
   const [chart_data, setChartData] = useState()
 
   const [chart_type, setChartType] = useState("")
+  const [chartOptions, setChartOptions] = useState({})
 
-  const options = {
-    scales: {
-      y: {
-        beginAtZero: true,
-      },
-    },
-  }
+  ChartJS.register(
+    TimeScale,
+    LinearScale,
+    CategoryScale,
+    PointElement,
+    LineElement,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend
+  );
 
   const getRandomInt = max => {
     return Math.floor(Math.random() * max)
   }
 
   const generateChart = dataset => {
-    let labels = []
-    dataset.index.forEach(date => {
-      let converted_date = new Date(date).toDateString()
-      labels.push(converted_date)
-    })
-
+    // Set up line names and format
     let lines = []
     dataset.columns.forEach((column, column_index) => {
-      let rows = ""
+      let label = ""
       column.forEach(data => {
-        rows = rows + data + " "
+        label = label + data + " "
       })
-      let line_data = []
-      dataset.data.forEach((data_item, index) => {
-        data_item.forEach((item, idx) => {
-          if (idx === column_index) {
-            line_data.push(item)
-          }
-        })
-      })
+
       let r = getRandomInt(255)
       let g = getRandomInt(255)
       let b = getRandomInt(255)
 
       let colour = "rgba(" + r + "," + g + "," + b + ")"
       lines.push({
-        label: rows,
-        data: line_data,
+        label: label,
+        data: [],
         fill: false,
         borderColor: colour,
         backgroundColor: colour,
       })
     })
-    console.log("Labels: ", labels)
-    console.log("Lines: ", lines)
+
+    // Set up line data as x,y pairs
+    dataset.index.forEach((observation_date, date_idx) => {
+      dataset.data[date_idx].forEach((observation, idx) => {
+        lines[idx].data.push({
+          x: new Date(observation_date),
+          y: observation
+        })
+      })
+    })
+
+    setChartOptions({
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+        x: {
+          display: true,
+          type: 'time',
+          time: {
+            unit: "day",
+            isoWeekday: true,
+            tooltipFormat: "EEE, dd MMM yyyy"
+          },
+          ticks: {
+            display: true,
+            font: {
+              size: 18,
+              fontFamily: "Archivo Narrow, sans-serif",
+            },
+            min: new Date(dataset.index[0]),
+            max: new Date(dataset.index[dataset.index.length - 1])
+            // suggestedMin: interval.startAt,
+            // suggestedMax: interval.endAt
+          },
+          title: {
+            display: true,
+            text: 'Observation date',
+            font: {
+              size: 22,
+              fontFamily: "Archivo Narrow, sans-serif",
+            },
+          },
+            legend: {
+              display: true,
+              labels: {
+                  // This more specific font property overrides the global property
+                  font: {
+                      size: 20
+                  },
+                fontSize: 20,
+                color: 'rgb(255, 99, 132)'
+              }
+            }
+        }
+      }
+    })
+
     setChartData({
-      labels: labels,
+      datasets: lines,
+    })
+
+    console.log("Chart data", {
       datasets: lines,
     })
   }
-
+  
   const clearData = () => {
     setColumns(undefined)
     setChartType("")
@@ -107,10 +169,9 @@ export default function Data() {
         if (idx === 0) {
           let date = new Date(dataset.index[index])
           row_data = { ...row_data, Observation: date.toDateString() }
-        } else {
-          let column_name = columns[idx].field
-          row_data = { ...row_data, [column_name]: item }
         }
+        let column_name = columns[idx+1].field
+        row_data = { ...row_data, [column_name]: item }
       })
       column_data.push(row_data)
     })
@@ -175,23 +236,32 @@ export default function Data() {
                               ></AgGridReact>
                           </div>
                           :
-                            <div class="dandelion-hint">
-                              &larr; Choose your data and display options, then click the button &#8601; to generate
-                              the results.
+                            <div className="dandelion-hint">
+                              On this page, you can see the data that has been collected
+                              <br/><br/>
+                              &larr; Choose your data and display options, then click the 'Generate' button &#8601; to
+                              generate the results.
                               <br/><br/>
                               You can start with either schools or activities
                               <br/><br/>
-                              Click the 'clear' button &#8601; to clear your choices and start again
+                              Click the 'Clear' button &#8601; to clear your choices and start again
                             </div>
                         }
                       </div>
                     </Tab>
                     <Tab eventKey="chart" title="Chart">
                       {chart_type === "line" ? (
-                          <Line data={chart_data} options={options} />
+                          <Line data={chart_data} options={chartOptions} />
                         ) : chart_type === "bar" ? (
-                          <Bar data={chart_data} options={options} />
-                        ) : null
+                          <Bar data={chart_data} options={chartOptions} />
+                        )
+                          :
+                          <div className="dandelion-hint">
+                            A data chart will only be shown after you have selected the data you want to
+                            see and the display options.
+                            <br/><br/>
+                            &larr; Make your choices here
+                          </div>
                       }
                     </Tab>
                   </Tabs>

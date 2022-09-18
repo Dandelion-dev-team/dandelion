@@ -8,6 +8,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import {createRecord, deleteRecord, readRecord} from "../utils/CRUD"
 import Form from 'react-bootstrap/Form';
 import DropdownTreeSelect from "react-dropdown-tree-select";
+import "react-dropdown-tree-select/dist/styles.css"
 import Col from 'react-bootstrap/Col';
 import ViewActivityModal from "./modals/viewActivityModal"
 import InfoIcon from '@mui/icons-material/Info';
@@ -220,13 +221,8 @@ export default function FilterComponent(props) {
         setChartTypes(arr => [...arr, { label: element, value: idx }])
       })
     }
-    console.log("Min date: ", options.data.data_min_date)
-    console.log("Max date: ", options.data.data_max_date)
-    let minDate = new Date(options.data.data_min_date);
-    setMinDate(minDate.getFullYear() + "-" + (minDate.getMonth() + 1) + "-" + (minDate.getDay() + 1))
-
-    let max_date = new Date(options.data.data_max_data);
-    setMaxDate(max_date.getFullYear() + "-" + (max_date.getMonth() + 1) + "-" + (max_date.getDay() + 1))
+    setFrom(options.data.data_min_date.substring(0,10))
+    setTo(options.data.data_max_date.substring(0,10))
   }
 
   const onExperimentChange = e => {
@@ -466,31 +462,7 @@ export default function FilterComponent(props) {
           : null
       }
 
-      {chart_types.length > 0 ?
-          <Form.Group as="row">
-            <Col  sm={col1} className="label">
-              Chart type:
-            </Col>
-            <Col>
-              <Form.Select
-                  column sm={col2}
-                  aria-label = "Chart type selection"
-                  value={chart_selected}
-                  onChange = {e => {setChart(e.target.value)}}
-              >
-                <option>...</option>
-                {chart_types.map((chart) =>
-                    <option
-                        value={chart.id}
-                    >{chart.label}</option>
-                )}
-              </Form.Select>
-            </Col>
-          </Form.Group>
-        : null
-      }
-
-      {min_date && data_options.data_count > 0 ?
+      {from_selected && data_options.data_count > 0 ?
           <div className="date-pickers">
               <Form.Group as="row">
                 <Col sm={col1} className="label">
@@ -502,6 +474,7 @@ export default function FilterComponent(props) {
                       name="codeBox"
                       min={data_options.data_min_date.substring(0,10)}
                       max={data_options.data_max_date.substring(0,10)}
+                      value={from_selected}
                       onChange={e => {
                         setFrom(e.target.value)
                       }}
@@ -518,6 +491,7 @@ export default function FilterComponent(props) {
                     name="codeBox"
                     min={from_selected}
                     max={data_options.data_max_date.substring(0,10)}
+                    value={to_selected}
                     onChange={e => {
                       setTo(e.target.value)
                     }}
@@ -533,7 +507,6 @@ export default function FilterComponent(props) {
           <div className="label">Treatment Variables:</div>
           <div className="dropdown">
             <DropdownTreeSelect
-              className="treatment-select"
               ref={treatmentRef}
               data={data_options.treatment_variables}
               onChange={onChangeTreatment}
@@ -563,6 +536,31 @@ export default function FilterComponent(props) {
         </div>
           : null
       }
+
+      {chart_types.length > 0 ?
+          <Form.Group as="row">
+            <Col  sm={col1} className="label">
+              Chart type:
+            </Col>
+            <Col>
+              <Form.Select
+                  column sm={col2}
+                  aria-label = "Chart type selection"
+                  value={chart_selected}
+                  onChange = {e => {setChart(e.target.value)}}
+              >
+                <option>...</option>
+                {chart_types.map((chart) =>
+                    <option
+                        value={chart.id}
+                    >{chart.label}</option>
+                )}
+              </Form.Select>
+            </Col>
+          </Form.Group>
+        : null
+      }
+
       </div>
     </div>
     <div className="scrollable-footer">
