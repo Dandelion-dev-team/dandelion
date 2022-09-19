@@ -105,7 +105,7 @@ export default function Data() {
           ticks: {
             display: true,
             font: {
-              size: 18,
+              size: 16,
               fontFamily: "Archivo Narrow, sans-serif",
             },
             min: new Date(dataset.index[0]),
@@ -121,15 +121,16 @@ export default function Data() {
               fontFamily: "Archivo Narrow, sans-serif",
             },
           },
-            legend: {
-              display: true,
-              labels: {
-                  // This more specific font property overrides the global property
+            plugins: {
+              // This section not yet working
+              legend: {
+                display: true,
+                labels: {
                   font: {
-                      size: 20
+                    size: 20,
                   },
-                fontSize: 20,
-                color: 'rgb(255, 99, 132)'
+                  fontSize: 20,
+                }
               }
             }
         }
@@ -144,7 +145,7 @@ export default function Data() {
       datasets: lines,
     })
   }
-  
+
   const clearData = () => {
     setColumns(undefined)
     setChartType("")

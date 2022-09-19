@@ -2,7 +2,7 @@ import os
 
 from flask import abort, request
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from sqlalchemy import inspect
+from sqlalchemy import inspect, and_
 from app.admin import admin
 from app.models import School, ProjectPartner
 from app import db
@@ -29,7 +29,8 @@ def listSchool():
 def listSchoolByProject(project_id):
     school = School.query.\
         join(ProjectPartner).\
-        filter(ProjectPartner.project_id == project_id).\
+        filter(and_(ProjectPartner.project_id == project_id,
+                    ProjectPartner.status == 'active')).\
         order_by(School.name).all()
     return {'data': (row2dict(x, summary=True) for x in school)}
 
