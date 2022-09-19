@@ -21,27 +21,26 @@ from app.utils.uploads import get_uploaded_file, content_folder
 # This route is PUBLIC
 @admin.route('/project', methods=['GET'])
 def listProject():
-    logged_in = False
-
+    current_user = None
     try:
         verify_jwt_in_request(optional=True)
-        logged_in = True
+        current_user = jwt_user(get_jwt_identity())
     except ExpiredSignatureError:
         pass
 
-    if logged_in:
-        current_user = jwt_user(get_jwt_identity())
-        project = Project. \
+    if current_user:
+        project_query = Project. \
             query. \
             join (ProjectPartner). \
             filter(or_(
-                ProjectPartner.school_id == current_user.school_id,
                 and_(
+                    Project.status == 'active',
                     ProjectPartner.status == 'active',
                     ProjectPartner.is_lead_partner == True
-                )
-            )). \
-            all()
+                ),
+                ProjectPartner.school_id == current_user.school_id
+        ))
+        project = project_query.all()
     else:
         project = Project. \
             query. \

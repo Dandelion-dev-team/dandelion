@@ -3,6 +3,7 @@ import { navigate } from "gatsby"
 import Cookies from 'universal-cookie';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {createRecord} from "./CRUD";
 
 const base64 = require('base-64');
 
@@ -12,14 +13,10 @@ export function user_logout() {
         localStorage.removeItem("is_sysadmin")
         localStorage.removeItem("school_id")
         localStorage.removeItem("user_id")
+        localStorage.clear()
 
         localStorage.setItem("logged", "false"); //set to false rather than NULL as if you check for null it will be set before localstorage.getItem retrieves
-        console.log("user_logout nav to /")
-        navigate("/")
-        console.log("user_logout reload")
-
-        // Gatsby navigate() doesn't seem to work properly, hence the oldskool method...
-        window.location.assign(window.location.href.replace(window.location.pathname, ""))
+        createRecord("/logout", "", () => {navigate("/")})
     }
 }
 
