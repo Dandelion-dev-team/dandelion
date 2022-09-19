@@ -11,7 +11,6 @@ import {arrayRemove} from "../../utils/functions"
 
 export default function InvitationModal(props) {
     const [schoolList, setSchoolList] = useState(undefined)
-    const [schoolSelected, setSelectedSchool] = useState([])
     const [search_value, changeSearch] = useState("")
     const [selectedSchools, setSelectedSchools] = useState([])
 

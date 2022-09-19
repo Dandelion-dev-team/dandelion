@@ -24,7 +24,8 @@ class Project(db.Model):
                 ("project_image_link", "project_image_link"),
                 ("project_text", "project_text"),
                 ("start_date", "start_date"),
-                ("end_date", "end_date")]
+                ("end_date", "end_date"),
+                ("status", "status")]
 
 
     def __repr__(self):

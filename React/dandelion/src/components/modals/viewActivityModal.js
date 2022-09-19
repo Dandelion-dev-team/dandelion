@@ -10,11 +10,16 @@ import ExperimentCard from '../cards/experimentCard'
 
 export default function ViewActivityModal(props) {
   const [project, setProject] = useState({})
+  const [experiments, setExperiments] = useState([])
 
   useEffect(() => {
     setProject(props.project)
-    console.log(props)
   }, [props.project])
+
+  useEffect(() => {
+      console.log(props)
+    setExperiments(props.experiments)
+  }, [props.experiments])
 
   return (
     <Modal
@@ -44,7 +49,7 @@ export default function ViewActivityModal(props) {
                     <h3>Experiments</h3>
                     {props.experiments.map((experiment) => (
                         <ExperimentCard
-                            dataProp={experiment}
+                            experiment={experiment}
                         />
                     ))}
                 </div>

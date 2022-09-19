@@ -53,7 +53,7 @@ export default function Header() {
             </Link>
             {logged ? (
               <Link to="#" onClick={() => user_logout()}>
-                Logout
+                Sign out
               </Link>
             ) : (
               <Link to="/signin">Sign In</Link>

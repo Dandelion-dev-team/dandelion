@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from "react"
 import "../../styles/App.scss"
-import EditIcon from "@mui/icons-material/Edit"
-import {createRecord, updateRecord, uploadImage} from "../../utils/CRUD"
 import {Button, Modal} from "react-bootstrap";
-import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row';
 
 export default function ViewExperimentModal(props) {
 

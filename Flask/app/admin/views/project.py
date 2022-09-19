@@ -3,6 +3,7 @@ import os
 from flask import abort, request, jsonify
 from flask_json import json_response
 from flask_jwt_extended import jwt_required, get_jwt_identity, verify_jwt_in_request
+from jwt import ExpiredSignatureError
 from sqlalchemy import inspect, or_, and_
 from dateutil import parser
 
@@ -20,15 +21,26 @@ from app.utils.uploads import get_uploaded_file, content_folder
 # This route is PUBLIC
 @admin.route('/project', methods=['GET'])
 def listProject():
-    if verify_jwt_in_request(optional=True):
+    logged_in = False
+
+    try:
+        verify_jwt_in_request(optional=True)
+        logged_in = True
+    except ExpiredSignatureError:
+        pass
+
+    if logged_in:
         current_user = jwt_user(get_jwt_identity())
         project = Project. \
             query. \
             join (ProjectPartner). \
-            filter(and_(ProjectPartner.school_id == current_user.school_id),
-                   or_(ProjectPartner.is_lead_partner == True,
-                       ProjectPartner.status == 'active'
-                       )). \
+            filter(or_(
+                ProjectPartner.school_id == current_user.school_id,
+                and_(
+                    ProjectPartner.status == 'active',
+                    ProjectPartner.is_lead_partner == True
+                )
+            )). \
             all()
     else:
         project = Project. \
@@ -212,6 +224,7 @@ def upload_project_image(id):
 # This route is PUBLIC
 @admin.route('/project/byschool/<int:school_id>', methods=['GET'])
 def get_project_by_partner(school_id):
+    # ToDo: check that only active projects are visible to public users
     projects = Project.\
         query.\
         join(ProjectPartner).\
@@ -239,3 +252,27 @@ def get_project_by_partner(school_id):
     return jsonify(output)
 
 
+# This route is PUBLIC
+@admin.route('/project/byschoollist/<int_list:school_ids>', methods=['GET'])
+def get_project_by_partners(school_ids):
+    projects = Project.\
+        query.\
+        filter(Project.status == 'active').\
+        join(ProjectPartner).\
+        filter(ProjectPartner.school_id.in_(school_ids)).\
+        distinct().\
+        all()
+
+    output = []
+
+    for project in projects:
+        owner = [p.school for p in project.project_partners if p.is_lead_partner][0]
+        project_data = row2dict(project, summary=True)
+        project_data['image_full'] = os.path.join(content_folder('project', 0, 'image'), 'full.png')
+        project_data['image_thumb'] = os.path.join(content_folder('project', 0, 'image'), 'thumb.png')
+        project_data['owner'] = owner.name
+        project_data['owner_id'] = owner.id
+        project_data['project_partners'] = [row2dict(pp) for pp in project.project_partners]
+        output.append(project_data)
+
+    return jsonify({'data': output})

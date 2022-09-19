@@ -3,7 +3,7 @@ import React, { useEffect, useState, Image } from "react"
 import { verify_superuser_storage } from "../../utils/logins"
 import {readRecord } from "../../utils/CRUD"
 import "../../styles/App.scss"
-import SideNav from "../../components/navigation/superUserSideNav"
+import SideNav from "../../components/navigation/sideNav"
 import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import Header from "../../components/navigation/header";

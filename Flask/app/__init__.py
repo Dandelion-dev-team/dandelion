@@ -7,6 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_json import FlaskJSON
 import logging
+from app.utils.int_list_converter import IntListConverter
 
 # local imports
 from config import app_config
@@ -21,10 +22,10 @@ def create_app(config_name):
     app.config['CORS_HEADERS'] = 'Content-Type'
     app.config.from_pyfile('config.py')
     db.init_app(app)
-
     migrate = Migrate(app, db)
-
     from app import models
+
+    app.url_map.converters['int_list'] = IntListConverter
 
     if app.config['LOGLEVEL'] == 'DEBUG':
         level = logging.DEBUG

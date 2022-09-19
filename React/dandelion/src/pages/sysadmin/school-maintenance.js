@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import SysSideNav from "../../components/navigation/sysadminSideNav"
+import SideNav from "../../components/navigation/sideNav"
 import Header from "../../components/navigation/header"
 import "../../styles/App.scss"
 import SchoolComponent from "../../components/tables/schoolComponent"
@@ -39,7 +39,7 @@ export default function SchoolMaintenance(props) {
         <ToastContainer />
         <Header />
         <div className="page-container">
-          <SysSideNav />
+          <SideNav />
           <div className="main-content">
             <div className="content-area">
                 <div className="one-panel">

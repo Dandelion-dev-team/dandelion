@@ -1,11 +1,10 @@
 import os
 
 from flask import abort, request
-from flask_json import json_response
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from sqlalchemy import inspect
+from sqlalchemy import inspect, and_
 from app.admin import admin
-from app.models import School
+from app.models import School, ProjectPartner
 from app import db
 from app.utils.auditing import audit_create, audit_update, prepare_audit_details, audit_delete
 from app.utils.authorisation import auth_check
@@ -22,6 +21,17 @@ from app.utils.uploads import get_uploaded_file
 @admin.route('/school', methods=['GET'])
 def listSchool():
     school = School.query.order_by(School.name).all()
+    return {'data': (row2dict(x, summary=True) for x in school)}
+
+
+# This route is PUBLIC
+@admin.route('/schoolbyproject/<int:project_id>', methods=['GET'])
+def listSchoolByProject(project_id):
+    school = School.query.\
+        join(ProjectPartner).\
+        filter(and_(ProjectPartner.project_id == project_id,
+                    ProjectPartner.status == 'active')).\
+        order_by(School.name).all()
     return {'data': (row2dict(x, summary=True) for x in school)}
 
 

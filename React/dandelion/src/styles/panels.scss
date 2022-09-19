@@ -1,5 +1,47 @@
 // Panels
 
+.standalone-panel, .tabbed-panel {
+  display: flex;
+  flex-direction: column;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.tabbed-panel {
+  flex-grow: 1;
+  .mb-3, ul, li {
+    margin-bottom: 0 !important;
+    margin-left: 0;
+  }
+  .nav-tabs .nav-link {
+    background-color: lightgrey;
+    color: slategray;  }
+  .nav-tabs .nav-link.active {
+    background-color: $white;
+    color: $dandelion-green;
+  }
+  .tab-content {
+    flex-grow: 1;
+    background-color: $white;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+  .nav-tabs {
+    border-bottom: none;
+  }
+  .tab-pane {
+    padding: 2rem;
+    height: 100%;
+  }
+}
+
+.dandelion .tabbed-panel ul {
+  margin-bottom: 0;
+}
+
 // scrollable container requires that the parent element has the properties:
 //     display: flex
 //     flex_direction: column
@@ -46,7 +88,7 @@
 }
 
 .scrollable-footer {
-  margin: auto;
+  //margin: auto;
   padding: 1rem 2rem 1rem 0;
 }
 
@@ -103,10 +145,6 @@
 .panel-footer {
   padding-bottom: 2rem;
 }
-
-//.left-panel {
-//  flex-direction: column;
-//}
 
 .panel-content {
   background-color: $white;

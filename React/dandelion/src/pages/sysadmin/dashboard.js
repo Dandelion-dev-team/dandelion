@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react"
 import "../../styles/App.scss"
-import SideNav from "../../components/navigation/sysadminSideNav"
+import SideNav from "../../components/navigation/sideNav"
 import Header from "../../components/navigation/header"
 import { navigate } from "gatsby";
 import { verify_sysadmin_storage } from "../../utils/logins";

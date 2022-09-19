@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react"
-import SysSideNav from "../../components/navigation/sysadminSideNav"
+import SideNav from "../../components/navigation/sideNav"
 import Header from "../../components/navigation/header"
 import "../../styles/App.scss"
 import AuthComponent from "../../components/tables/authComponent"
@@ -82,7 +82,7 @@ export default function AuthMaintenance(props) {
         <ToastContainer />
         <Header />
         <div className="page-container">
-        <SysSideNav />
+        <SideNav />
         <div className="main-content">
           <div className="content-area">
               <div className="left-panel">

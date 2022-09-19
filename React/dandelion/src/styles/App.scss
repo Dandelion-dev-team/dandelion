@@ -20,7 +20,6 @@ $font: "Open Sans", "Helvetica Neue", sans-serif;
 
 
 //Individual Page Imports
-@import "./pages/about.scss";
 @import "./pages/dashboard.scss";
 @import "./pages/data.scss";
 @import "./pages/signin.scss";
@@ -40,7 +39,6 @@ $font: "Open Sans", "Helvetica Neue", sans-serif;
 @import "./components/hero.scss";
 @import "./components/signin-form.scss";
 @import "./components/tile.scss";
-@import "./components/optionsComponent.scss";
 
 html,
 body {

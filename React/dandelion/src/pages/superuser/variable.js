@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react"
 import "../../styles/App.scss"
 import Header from "../../components/navigation/header"
-import SideNav from "../../components/navigation/superUserSideNav"
+import SideNav from "../../components/navigation/sideNav"
 import VariableComponent from "../../components/tables/variableComponent"
 import VariablePane from "../../components/panes/variablePane"
 import { readRecord } from "../../utils/CRUD"

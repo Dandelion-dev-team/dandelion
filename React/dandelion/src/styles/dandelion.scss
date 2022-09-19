@@ -154,6 +154,14 @@
   margin-right: 1rem;
 }
 
+[data-testid="InfoIcon"] {
+  color: $dandelion-green;
+  cursor: pointer;
+  &:hover {
+    color: $contrast;
+  }
+}
+
 
 // Other customisations
 

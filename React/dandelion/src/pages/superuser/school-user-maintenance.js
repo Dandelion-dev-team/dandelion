@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react"
 import "../../styles/App.scss"
 import Header from "../../components/navigation/header"
-import SideNav from "../../components/navigation/superUserSideNav"
+import SideNav from "../../components/navigation/sideNav"
 import SchoolUserComponent from "../../components/tables/schoolUserComponent"
 import SchoolUserPane from "../../components/panes/schoolUserPane"
 import { readRecord } from "../../utils/CRUD"
