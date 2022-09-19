@@ -89,8 +89,8 @@ def login_with_cookies():
     return response
 
 
-@auth.route("/logout_with_cookies", methods=["POST"])
+@auth.route("/logout", methods=["POST"])
 def logout_with_cookies():
-    response = {"msg": "logout successful"}
+    response = make_response({'msg': 'Logged out'})
     unset_jwt_cookies(response)
     return response

@@ -24,8 +24,14 @@ from app.utils.uploads import get_uploaded_file, content_folder
 # This route is PUBLIC
 @admin.route('/experiment', methods=['GET'])
 def listExperiment():
-    if verify_jwt_in_request(optional=True):
+    current_user = None
+    try:
+        verify_jwt_in_request(optional=True)
         current_user = jwt_user(get_jwt_identity())
+    except ExpiredSignatureError:
+        pass
+
+    if current_user:
         experiment = Experiment. \
             query. \
             join (ProjectPartner). \
