@@ -19,6 +19,7 @@ from app.utils.error_messages import abort_db
 from app.utils.functions import row2dict, jwt_user, has_observations
 from app.utils.images import image_processing
 from app.utils.uploads import get_uploaded_file, content_folder
+from app.utils.experiment import getTreatmentVariables, getVariableDict
 
 
 # This route is PUBLIC
@@ -94,16 +95,13 @@ def listExperimentFiltered(project_id):
 @admin.route('/project/<int:id>/experiment', methods=['GET'])
 def listExperimentForProject(id):
     project = Project.query.get_or_404(id)
-    logged_in = False
+    current_user = None
     try:
         verify_jwt_in_request(optional=True)
-        logged_in = True
+        current_user = jwt_user(get_jwt_identity())
     except ExpiredSignatureError:
         pass
-
-    if logged_in:
-        current_user = jwt_user(get_jwt_identity())
-
+    if current_user:
         data = [row for row in (row2dict(x, summary=True) for x in project.experiments
                                 if x.project_partner.id == current_user.school_id
                                 or (x.status == 'active' and x.project_partner.is_lead_partner == True))]
@@ -114,6 +112,10 @@ def listExperimentForProject(id):
     for row in data:
         row['image_thumb'] = os.path.join(content_folder('experiment', row['id'], 'image'), 'thumb.png'),
         row['image_full'] = os.path.join(content_folder('experiment', row['id'], 'image'), 'full.png'),
+        for experiment in project.experiments:
+            if experiment.id == row['id']:
+                row['treatment_variables'] = [getVariableDict(tv) for tv in getTreatmentVariables(experiment)]
+                row['response_variables'] = [getVariableDict(rv.variable) for rv in experiment.response_variables]
 
     return {'data': data}
 

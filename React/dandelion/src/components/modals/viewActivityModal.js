@@ -42,7 +42,7 @@ export default function ViewActivityModal(props) {
             <div className="scrollable-container">
                 <div className="scrollable-content">
                   <h3>Description</h3>
-                  <p>project.description</p>
+                  <p>{project.description}</p>
                   <h3>Tutorial text</h3>
                   <p>{project.project_text}</p>
                   {/*<img src={projectImage} />*/}
