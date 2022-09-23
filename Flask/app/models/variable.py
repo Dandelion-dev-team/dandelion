@@ -23,3 +23,5 @@ class Variable(db.Model):
                 ("name", "name"),
                 ("status", "status")]
 
+    def __repr__(self):
+        return self.name

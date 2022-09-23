@@ -176,6 +176,10 @@ export default function FilterComponent(props) {
       })
       readRecord("/project/" + e.target.value + "/experiment", afterExperimentFetch)
       readRecord("/schoolbyproject/" + e.target.value, afterSchoolFetch)
+      props.setHelpText('experiment')
+    }
+    else {
+      props.setHelpText('welcome')
     }
   }
 
@@ -223,6 +227,7 @@ export default function FilterComponent(props) {
     }
     setFrom(options.data.data_min_date.substring(0,10))
     setTo(options.data.data_max_date.substring(0,10))
+    props.setHelpText('dates')
   }
 
   const onExperimentChange = e => {
@@ -233,6 +238,11 @@ export default function FilterComponent(props) {
     })
     setChartTypes([])
     readRecord("/data_options/" + e.target.value, afterOptionsFetch)
+  }
+
+  const onChangeChart = e => {
+    setChart(e.target.value)
+    props.setHelpText(e.target.value)
   }
 
   const onChangeTreatment = (currentNode, selectedNodes) => {
@@ -267,40 +277,35 @@ export default function FilterComponent(props) {
       copy.push(treatment_generated)
     })
     setSelectedTreatment(copy)
+    props.setHelpText('treatment')
   }
 
-  const onResponseChange = (variable) => {
-      let copy = [...response_selected];
-      if (copy.includes(variable.response_ref.value)) {
-          copy = (copy.filter(item => item !== variable.response_ref.value))
-      } else {
-          copy.push(variable.response_ref.value)
+  const onChangeResponse = (currentNode, selectedNodes) => {
+    let selected_values = []
+    selectedNodes.forEach(node => selected_values.push(node.value))
+
+    let copy = []
+    let variables = data_options.response_variables
+    variables.forEach(response => {
+      if (selected_values.includes(response.value)) {
+        response.checked = true
+        copy.push(response)
       }
-      setSelectedResponse(copy);
-  }
-
-  const ResponseVariable = variable => {
-      const [checked_value, setCheckedValue] = useState(false);
-      useEffect(() => {
-          if (response_selected.includes(variable.response_ref.value)) {
-              setCheckedValue(true);
-          }
-      }, [])
-      return (
-          <div className="filter-item">
-            <input
-                type="checkbox"
-                checked={checked_value}
-                onChange={() => {
-                  onResponseChange(variable)
-                }}/>
-              {variable.response_ref.label}
-          </div>
-      )
+      else {
+        response.checked = false
+      }
+    })
+    setSelectedResponse(copy)
+    props.setHelpText('response')
   }
 
   const afterDataFetch = data => {
-    props.setTable({ data: data.data, chart: chart_selected })
+    props.setTable({
+      data: data.data,
+      y_axes: data.y_axes,
+      treatment: treatment_selected,
+      response: response_selected,
+      chart: chart_selected })
   }
 
   const generate = () => {
@@ -504,35 +509,16 @@ export default function FilterComponent(props) {
 
       {data_options && data_options.data_count > 0 ?
         <div className="variables">
-          <div className="label">Treatment Variables:</div>
-          <div className="dropdown">
-            <DropdownTreeSelect
-              ref={treatmentRef}
-              data={data_options.treatment_variables}
-              onChange={onChangeTreatment}
-              // onAction={onAction}
-              // onNodeToggle={onNodeToggle}
-            />
-          </div>
-          <div className="dropdown">
-            <Accordion>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1a-content"
-                id="panel1a-header"
-              >
-                Response Variables
-              </AccordionSummary>
-              <AccordionDetails>
-                <div className="filter-block">
-                  {data_options.response_variables.map(response => (
-                    <ResponseVariable response_ref={response}/>
-                  ))}
-                </div>
-                {/*<a target="_blank" href={sensor_selected}>{}</a>*/}
-              </AccordionDetails>
-            </Accordion>
-          </div>
+          <div className="label">Treatment Variables</div>
+          <DropdownTreeSelect
+            data={data_options.treatment_variables}
+            onChange={onChangeTreatment}
+          />
+          <div className="label">Response Variables</div>
+          <DropdownTreeSelect
+            data={data_options.response_variables}
+            onChange={onChangeResponse}
+          />
         </div>
           : null
       }
@@ -547,7 +533,7 @@ export default function FilterComponent(props) {
                   column sm={col2}
                   aria-label = "Chart type selection"
                   value={chart_selected}
-                  onChange = {e => {setChart(e.target.value)}}
+                  onChange = {onChangeChart}
               >
                 <option>...</option>
                 {chart_types.map((chart) =>

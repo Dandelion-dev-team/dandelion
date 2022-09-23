@@ -81,6 +81,18 @@
       cursor: pointer;
     }
   }
+
+  table.plain {
+    tr:hover {
+      background-color: $white;
+      cursor: initial;
+    }
+    td {
+      border: none;
+      vertical-align: top;
+    }
+  }
+
 }
 
 .dandelion a {
@@ -121,6 +133,10 @@
 
 .uppercase {
   text-transform: uppercase;
+}
+
+.bold {
+  font-weight: 700;
 }
 
 .bottom-divider {

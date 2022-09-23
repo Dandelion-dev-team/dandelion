@@ -25,6 +25,8 @@ class Project(db.Model):
                 ("project_text", "project_text"),
                 ("start_date", "start_date"),
                 ("end_date", "end_date"),
+                ("owner_id", "project_partner.school.id"),
+                ("owner_name", "project_partner.school.name"),
                 ("status", "status")]
 
 

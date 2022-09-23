@@ -32,6 +32,24 @@ export default function ViewExperimentModal(props) {
                     <img src={props.experiment.image_thumb}/>
                   <h3>Description</h3>
                   <p>{props.experiment.description}</p>
+                    <table className="plain">
+                        <tr>
+                            <td><h3>Treatment variables</h3></td>
+                            <td><h3>Response variables</h3></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {props.experiment.treatment_variables.map(tv =>
+                                    <p> <span className="bold">{tv.name}</span></p>
+                                )}
+                            </td>
+                            <td>
+                                {props.experiment.response_variables.map(rv =>
+                                    <p><span className="bold">{rv.name}</span> ({rv.type})</p>
+                                )}
+                            </td>
+                        </tr>
+                    </table>
                   <h3>Tutorial text</h3>
                   <p>{props.experiment.text}</p>
                 </div>

@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 
 import pandas as pd
 from flask import request, current_app
-from sqlalchemy import or_, and_, inspect
+from sqlalchemy import or_, and_, inspect, func, desc
 from sqlalchemy.orm import aliased
 
 from app import db
@@ -27,7 +27,7 @@ def get_data():
     related_experiments = get_related_experiments(experiment)
     related_experiments = [re for re in related_experiments if re.project_partner_id in project_partner_ids]
 
-    df = get_observations(related_experiments, request_data)
+    df, y_axes = get_observations(related_experiments, request_data)
 
     if request_data["sensor_quantity"]:
         df_sensor = prepare_sensor_df(request_data["first_date"], request_data["last_date"])
@@ -61,7 +61,8 @@ def get_data():
             df[request_data["sensor_quantity"]] = df_sensor.groupby([1 for c in df_sensor.columns], axis=1).mean()
         df = df.dropna(axis=0, how='all')
 
-    return {"data": json.loads(df.to_json(date_format="iso", date_unit="s", orient="split"))}
+    return {"data": json.loads(df.to_json(date_format="iso", date_unit="s", orient="split")),
+            "y_axes": y_axes}
 
 
 @admin.route('/data_options/<int:experiment_id>', methods=['GET'])
@@ -136,17 +137,12 @@ def get_data_selection_options(experiment_id):
             {
                 "value": rv.variable.id,
                 "checked": False,
-                "label": rv.variable.name,
+                "name": rv.variable.name,
+                "label": rv.variable.name + ' (' + "continuous" + ')' if rv.variable.quantity_id
+                    else rv.variable.name + ' (' + "discrete" + ')' if len(rv.variable.levels) > 0
+                    else rv.variable.name + ' (' + "qualitative" + ')',
                 "variable_timing": "once" if rv.once else "final" if rv.final else "repeated",
                 "variable_type": "continuous" if rv.variable.quantity_id else "discrete" if len(rv.variable.levels) > 0 else "qualitative",
-                "children": [
-                    {
-                        "checked": False,
-                        "value": level.id,
-                        "label": level.name,
-                        "level_sequence": level.sequence
-                    } for level in rv.variable.levels
-                ]
             } for rv in experiment.response_variables
         ],
         "sensor_quantities": [
@@ -158,7 +154,6 @@ def get_data_selection_options(experiment_id):
     }
 
     return {"data": data}
-
 
 def get_related_experiments(experiment):
     if experiment.parent_id:
@@ -210,6 +205,11 @@ def get_observations(related_experiments, data, ):
     levels = {}
     condition_levels = {}
 
+    response_variables = Variable.\
+        query.\
+        filter(Variable.id.in_([rv['value'] for rv in data["response_variables"]])).\
+        all()
+
     query = Observation.query. \
         join(Unit). \
         join(Condition). \
@@ -219,7 +219,7 @@ def get_observations(related_experiments, data, ):
         join(School). \
         join(ResponseVariable, ResponseVariable.id == Observation.response_variable_id). \
         join(Variable). \
-        filter(Variable.id.in_(data["response_variables"]))
+        filter(Variable.id.in_([rv['value'] for rv in data["response_variables"]]))
 
     for tv in data["treatment_variables"]:
         variables[tv['name']] = aliased(Variable)
@@ -272,7 +272,29 @@ def get_observations(related_experiments, data, ):
     df = df.groupby(level=group_levels, axis=1).mean()
     df = df.round(decimals=2)
 
-    return df
+    y_axes = []
+
+    for i, levels in enumerate(df.columns):
+        response_variable = [rv for rv in response_variables if rv.name in levels][0]
+        if len(response_variable.levels) > 0:
+            df.iloc[:, i] = df.iloc[:, i].map(round)
+            value_map = {l.sequence: l.name for l in response_variable.levels}
+            df.iloc[:, i] = df.iloc[:, i].map(value_map)
+
+            axis_exists = False
+            for axis in y_axes:
+                if axis['id'] == response_variable.id:
+                    axis_exists = True
+
+            if not axis_exists:
+                y_axes.append({
+                    "id": response_variable.id,
+                    "name": response_variable.name,
+                    "scale": [l.name for l in sorted(response_variable.levels,
+                                                     key = lambda x: -x.sequence)]
+                })
+
+    return df, y_axes
 
 def get_quantity_from_file(node_dir, filename, first_date, last_date, index, quantity):
     df = pd.read_csv(
