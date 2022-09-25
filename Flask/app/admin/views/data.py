@@ -277,7 +277,7 @@ def get_observations(related_experiments, data, ):
     for i, levels in enumerate(df.columns):
         response_variable = [rv for rv in response_variables if rv.name in levels][0]
         if len(response_variable.levels) > 0:
-            df.iloc[:, i] = df.iloc[:, i].map(round)
+            df.iloc[:, i] = df.iloc[:, i].fillna(0).map(round)
             value_map = {l.sequence: l.name for l in response_variable.levels}
             df.iloc[:, i] = df.iloc[:, i].map(value_map)
 
