@@ -30,7 +30,7 @@ def listSchoolByProject(project_id):
     school = School.query.\
         join(ProjectPartner).\
         filter(and_(ProjectPartner.project_id == project_id,
-                    ProjectPartner.status == 'active')).\
+                    ProjectPartner.status.in_(['active', 'accepted']))).\
         order_by(School.name).all()
     return {'data': (row2dict(x, summary=True) for x in school)}
 

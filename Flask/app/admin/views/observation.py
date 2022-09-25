@@ -1,10 +1,10 @@
 from flask import abort, request, jsonify
 from flask_json import json_response
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from sqlalchemy import inspect
+from sqlalchemy import inspect, and_
 
 from app.admin import admin
-from app.models import Observation, ResponseVariable
+from app.models import Observation, ResponseVariable, Level
 from app import db
 from app.utils.auditing import audit_create, prepare_audit_details, audit_update, audit_delete
 from app.utils.authorisation import auth_check
@@ -164,10 +164,17 @@ def getObservationbyuser(user_id):
     output = []
 
     for observation in observations:
+        if len(observation.response_variable.variable.levels) > 0:
+            level = Level.query.filter(and_(Level.sequence == observation.value,
+                                            Level.variable_id == observation.response_variable.variable.id)).first()
+            display_value = level.name
+        else:
+            display_value = ('%f' % observation.value).rstrip('0').rstrip('.')
+
         observation_data = {}
         observation_data['id'] = observation.id
         observation_data['value'] = observation.value
-        observation_data['display_value'] = ('%f' % observation.value).rstrip('0').rstrip('.')
+        observation_data['display_value'] = display_value
         observation_data['units'] = ''
         observation_data['timestamp'] = observation.timestamp
         observation_data['created_by'] = observation.created_by
